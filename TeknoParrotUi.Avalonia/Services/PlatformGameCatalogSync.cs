@@ -36,9 +36,14 @@ public static class PlatformGameCatalogSync
         var ready = executableNames
             .Where(name => !string.IsNullOrWhiteSpace(name))
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var changed = false;
         lock (ReadySync)
+        {
+            changed = !_readyExecutables.SetEquals(ready);
             _readyExecutables = ready;
-        CatalogUpdated?.Invoke(ready.Count);
+        }
+        if (changed)
+            CatalogUpdated?.Invoke(ready.Count);
     }
 
     public static void RequestRefresh()

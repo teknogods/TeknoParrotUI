@@ -37,6 +37,11 @@ namespace InputMethodAudit
                 browser_download_url =
                     "https://example.invalid/pcsx2x6-2.6.1.12345678-android-arm64.apk"
             };
+            var androidDolphin = new GithubAsset
+            {
+                browser_download_url =
+                    "https://example.invalid/teknodolphin-1.0.0.12345678-android-arm64.apk"
+            };
             var androidSpecificOpenParrot = new GithubAsset
             {
                 name = "OpenParrotWin32-1.0.0.773-android.zip",
@@ -192,6 +197,26 @@ namespace InputMethodAudit
                     },
                     "android-arm64"),
                 "Android PCSX2X6 module selection",
+                failures);
+            ExpectSame(
+                androidDolphin,
+                UpdaterCore.PickAssetForPlatform(
+                    new UpdaterComponent
+                    {
+                        name = "TeknoDolphin",
+                        assetNamePrefix = "teknodolphin-",
+                        assetNameMarker = "-android-arm64.apk"
+                    },
+                    new GithubRelease
+                    {
+                        assets = new List<GithubAsset>
+                        {
+                            androidPcsx2x6,
+                            androidDolphin
+                        }
+                    },
+                    "android-arm64"),
+                "Android TeknoDolphin module selection",
                 failures);
             ExpectSame(
                 windowsPcsx2x6,

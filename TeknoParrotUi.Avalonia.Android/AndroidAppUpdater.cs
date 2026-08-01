@@ -29,6 +29,7 @@ internal sealed class AndroidAppUpdater
     private const string ReleaseTag = "TeknoParrotUI-android";
     private const string CompanionPackage = "com.teknoparrot.winlator";
     private const string Pcsx2x6Package = "com.teknogods.tekno2x6";
+    private const string DolphinPackage = "com.teknogods.teknodolphin";
     private readonly Context _context;
     private readonly AndroidRuntimePackageUpdater _runtimeUpdater;
 
@@ -61,6 +62,13 @@ internal sealed class AndroidAppUpdater
                 "pcsx2x6-android",
                 "pcsx2x6-",
                 "pcsx2x6",
+                "ReaverTeknoGods"),
+            CreateApkComponent(
+                "TeknoDolphin",
+                DolphinPackage,
+                "teknodolphin-android",
+                "teknodolphin-",
+                "CrediarDolphin",
                 "ReaverTeknoGods"),
             CreateRuntimeComponent("OpenParrotWin32"),
             CreateRuntimeComponent("OpenParrotx64")

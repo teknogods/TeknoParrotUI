@@ -66,6 +66,11 @@ internal sealed class AndroidPcsx2x6GameSession : IGameSession
             if (!string.IsNullOrWhiteSpace(winlatorOwner))
                 throw new InvalidOperationException(
                     $"{winlatorOwner} already owns the Android game session.");
+            var dolphinOwner =
+                DolphinSessionService.TryGetActiveProfileName(_context);
+            if (!string.IsNullOrWhiteSpace(dolphinOwner))
+                throw new InvalidOperationException(
+                    $"{dolphinOwner} already owns the Android game session.");
 
             Pcsx2x6SessionService.StatusChanged += OnServiceStatusChanged;
             var activeProfile =

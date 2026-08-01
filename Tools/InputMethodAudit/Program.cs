@@ -88,6 +88,8 @@ namespace InputMethodAudit
                 return AndroidControlsCatalogTest.Run();
             if (args.Length > 0 && args[0] == "android-profile-support-test")
                 return AndroidProfileSupportTest.Run();
+            if (args.Length > 0 && args[0] == "dolphin-preset-test")
+                return DolphinPresetTest.Run();
             if (args.Length > 0 && args[0] == "android-shared-runtime-zip-test")
                 return SharedOpenParrotArchiveAdapterTest.Run();
             if (args.Length > 0 && args[0] == "android-fast-io-test")

@@ -47,8 +47,35 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
             Directory.CreateDirectory(Path.Combine(dataDir, folder));
 
         SeedBundledCatalog(dataDir);
-        PlatformGameCatalogSync.RefreshAsync =
-            new AndroidPcsx2x6CatalogSync(this).RefreshAsync;
+        var pcsx2x6Catalog = new AndroidPcsx2x6CatalogSync(this);
+        var dolphinCatalog = new AndroidDolphinCatalogSync(this);
+        PlatformGameCatalogSync.RefreshAsync = async () =>
+        {
+            var ready = new System.Collections.Generic.HashSet<string>(
+                StringComparer.OrdinalIgnoreCase);
+            try
+            {
+                ready.UnionWith(
+                    await pcsx2x6Catalog.QueryAsync().ConfigureAwait(false));
+            }
+            catch (Exception error)
+            {
+                global::Android.Util.Log.Info(
+                    "TeknoParrotCatalog", "Tekno2x6 unavailable: " + error.Message);
+            }
+            try
+            {
+                ready.UnionWith(
+                    await dolphinCatalog.QueryAsync().ConfigureAwait(false));
+            }
+            catch (Exception error)
+            {
+                global::Android.Util.Log.Info(
+                    "TeknoParrotCatalog", "TeknoDolphin unavailable: " + error.Message);
+            }
+            PlatformGameCatalogSync.PublishReadyExecutables(ready);
+            return ready.Count;
+        };
         var appUpdater = new AndroidAppUpdater(this);
         PlatformAppUpdater.AndroidComponentsFactory =
             appUpdater.BuildComponents;
@@ -63,15 +90,23 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
             MainActivity.ConfigurePcsx2x6BiosAsync;
         PlatformPcsx2x6GameImport.AndroidImporter =
             MainActivity.ImportPcsx2x6GameAsync;
+        PlatformDolphinGameImport.AndroidImporter =
+            MainActivity.ImportDolphinGameAsync;
         PlatformDocumentPathResolver.AndroidResolver =
             new AndroidDocumentProviderPathResolver(this).Resolve;
 
         GameSessionFactory.RegisterPlatformFactory(
             (profile, isTest, emuOnly) =>
-                profile.EmulatorType == EmulatorType.pcsx2x6
-                    ? new AndroidPcsx2x6GameSession(this, profile, isTest, emuOnly)
-                    : new AndroidWinlatorGameSession(this, profile, isTest, emuOnly),
-            () => Pcsx2x6SessionService.TryRestoreActiveProfileName(this)
+                profile.EmulatorType switch
+                {
+                    EmulatorType.pcsx2x6 =>
+                        new AndroidPcsx2x6GameSession(this, profile, isTest, emuOnly),
+                    EmulatorType.Dolphin =>
+                        new AndroidDolphinGameSession(this, profile, isTest, emuOnly),
+                    _ => new AndroidWinlatorGameSession(this, profile, isTest, emuOnly)
+                },
+            () => DolphinSessionService.TryRestoreActiveProfileName(this)
+                  ?? Pcsx2x6SessionService.TryRestoreActiveProfileName(this)
                   ?? GameSessionService.TryRestoreActiveProfileName(this));
 
         PlatformControlsEditor.AndroidLauncher = profile =>
@@ -254,9 +289,11 @@ public class MainActivity : AvaloniaMainActivity
 {
     private const int Pcsx2x6BiosRequestCode = 246;
     private const int Pcsx2x6GameImportRequestCode = 247;
+    private const int DolphinGameImportRequestCode = 248;
     private static WeakReference<MainActivity>? _current;
     private TaskCompletionSource<bool>? _biosConfiguration;
     private TaskCompletionSource<bool>? _gameImport;
+    private TaskCompletionSource<bool>? _dolphinGameImport;
 
     protected override void OnCreate(Bundle? savedInstanceState)
     {
@@ -379,6 +416,39 @@ public class MainActivity : AvaloniaMainActivity
         return completion.Task;
     }
 
+    internal static Task<bool> ImportDolphinGameAsync(string fileName)
+    {
+        if (_current == null ||
+            !_current.TryGetTarget(out var activity) ||
+            activity.IsFinishing)
+            throw new InvalidOperationException(
+                "The TeknoParrot Android activity is not available.");
+
+        if (activity._dolphinGameImport is { Task.IsCompleted: false } pending)
+            return pending.Task;
+
+        var completion = new TaskCompletionSource<bool>(
+            TaskCreationOptions.RunContinuationsAsynchronously);
+        activity._dolphinGameImport = completion;
+        try
+        {
+            var intent = new Intent();
+            intent.SetClassName(
+                "com.teknogods.teknodolphin",
+                "org.dolphinemu.dolphinemu.teknoparrot.TeknoParrotGameImportActivity");
+            intent.PutExtra(
+                "com.teknoparrot.dolphin.extra.EXPECTED_FILE",
+                fileName);
+            activity.StartActivityForResult(intent, DolphinGameImportRequestCode);
+        }
+        catch (Exception error)
+        {
+            activity._dolphinGameImport = null;
+            completion.TrySetException(error);
+        }
+        return completion.Task;
+    }
+
 #pragma warning disable CS0672 // Android still dispatches activity results here.
     protected override void OnActivityResult(
         int requestCode,
@@ -399,6 +469,12 @@ public class MainActivity : AvaloniaMainActivity
             _gameImport = null;
             completion?.TrySetResult(resultCode == Result.Ok);
         }
+        else if (requestCode == DolphinGameImportRequestCode)
+        {
+            var completion = _dolphinGameImport;
+            _dolphinGameImport = null;
+            completion?.TrySetResult(resultCode == Result.Ok);
+        }
     }
 
     protected override void OnDestroy()
@@ -411,6 +487,8 @@ public class MainActivity : AvaloniaMainActivity
         _biosConfiguration = null;
         _gameImport?.TrySetCanceled();
         _gameImport = null;
+        _dolphinGameImport?.TrySetCanceled();
+        _dolphinGameImport = null;
         base.OnDestroy();
     }
 }

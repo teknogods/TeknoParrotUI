@@ -4,7 +4,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Android.Content;
-using TeknoParrotUi.Avalonia.Services;
 
 namespace TeknoParrotUi.Avalonia.Android;
 
@@ -33,7 +32,7 @@ internal sealed class AndroidPcsx2x6CatalogSync
     public AndroidPcsx2x6CatalogSync(Context context) =>
         _context = context.ApplicationContext ?? context;
 
-    public async Task<int> RefreshAsync()
+    public async Task<IReadOnlyCollection<string>> QueryAsync()
     {
         var token = Convert.ToHexString(RandomNumberGenerator.GetBytes(32));
         var completion =
@@ -60,12 +59,13 @@ internal sealed class AndroidPcsx2x6CatalogSync
             var gameIds = await completion.Task
                 .WaitAsync(TimeSpan.FromSeconds(5))
                 .ConfigureAwait(false);
-            PlatformGameCatalogSync.PublishReadyExecutables(
-                gameIds.Select(gameId => gameId + ".acgame"));
+            var ready = gameIds
+                .Select(gameId => gameId + ".acgame")
+                .ToArray();
             global::Android.Util.Log.Info(
                 "TeknoParrotPCSX2X6",
-                $"Catalog ready={gameIds.Count}");
-            return gameIds.Count;
+                $"Catalog ready={ready.Length}");
+            return ready;
         }
         finally
         {

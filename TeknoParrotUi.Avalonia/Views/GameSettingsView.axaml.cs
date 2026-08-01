@@ -78,16 +78,20 @@ public partial class GameSettingsView : UserControl
         _gamePathBox = null;
         _gamePath2Box = null;
         if (OperatingSystem.IsAndroid() &&
-            profile.EmulatorType == EmulatorType.pcsx2x6)
+            profile.EmulatorType is EmulatorType.pcsx2x6 or EmulatorType.Dolphin)
         {
-            AddCategoryHeader("PCSX2X6 Arcade Manifest");
+            var isDolphin = profile.EmulatorType == EmulatorType.Dolphin;
+            AddCategoryHeader(isDolphin
+                ? "TeknoDolphin Arcade Image"
+                : "PCSX2X6 Arcade Manifest");
             FieldsPanel.Children.Add(Row(
-                "App-owned game descriptor",
+                isDolphin ? "Companion-owned game image" : "App-owned game descriptor",
                 new TextBox
                 {
-                    Text =
-                        "/storage/emulated/0/Android/data/com.teknogods.tekno2x6/files/" +
-                        "TeknoParrot/games/" + profile.ExecutableName,
+                    Text = isDolphin
+                        ? profile.ExecutableName
+                        : "/storage/emulated/0/Android/data/com.teknogods.tekno2x6/files/" +
+                          "TeknoParrot/games/" + profile.ExecutableName,
                     IsReadOnly = true,
                     HorizontalAlignment = HorizontalAlignment.Stretch
                 }));

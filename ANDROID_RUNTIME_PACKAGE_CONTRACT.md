@@ -25,6 +25,7 @@ differs from `size`, or the downloaded digest differs from `digest`.
 | `TeknoParrotUI-android` | TPUI APK from `teknogods/TeknoParrotUI` | `TeknoParrotUi-*-android-arm64.apk` |
 | `winlator` | Winlator APK from `ReaverTeknoGods/winlator` | `TeknoParrotWinlator-*-android-arm64.apk` |
 | `pcsx2x6-android` | PCSX2X6 APK from `ReaverTeknoGods/pcsx2x6` | `pcsx2x6-*-android-arm64.apk` |
+| `teknodolphin-android` | TeknoDolphin APK from `ReaverTeknoGods/CrediarDolphin` | `teknodolphin-*-android-arm64.apk` |
 | `OpenParrotWin32` | Shared OpenParrot x86 archive | `OpenParrotWin32.zip` |
 | `OpenParrotx64` | Shared OpenParrot x64 archive | `OpenParrotx64.zip` |
 
@@ -105,7 +106,7 @@ extracts only into private staging, swaps only roots owned by that package with
 rollback on failure, and records the installed version in private storage.
 Installation is refused while a game or activation operation is active.
 
-PCSX2X6 and Winlator remain separate APK updates and are never copied into
-another APK. TeknoParrotUI and Winlator use the same production signing
-certificate because their Android bridge is protected by a signature
-permission.
+PCSX2X6, TeknoDolphin, and Winlator remain separate APK updates and are never
+copied into another APK. TeknoParrotUI and its companions use the same
+production signing certificate because their Android bridges are protected by
+a signature permission.

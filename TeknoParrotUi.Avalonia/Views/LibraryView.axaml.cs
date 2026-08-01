@@ -115,12 +115,15 @@ public partial class LibraryView : UserControl
         }
     }
 
-    public void Refresh()
+    public void Refresh() => Refresh(requestPlatformCatalogRefresh: true);
+
+    private void Refresh(bool requestPlatformCatalogRefresh)
     {
-        PlatformGameCatalogSync.RequestRefresh();
+        if (requestPlatformCatalogRefresh)
+            PlatformGameCatalogSync.RequestRefresh();
         GameProfileLoader.LoadProfiles(false);
         // The library lists the user's installed games only (same as the classic UI).
-        // On Android, complete PCSX2X6 sets live in the companion's scoped
+        // On Android, complete PCSX2X6 and TeknoDolphin sets live in the companions' scoped
         // storage. Its authenticated ready-manifest catalog lets those stock
         // profiles appear immediately without requiring a fake executable path
         // or pre-creating mutable user settings.
@@ -137,7 +140,7 @@ public partial class LibraryView : UserControl
             var readyProfiles =
                 GameProfileLoader.GameProfiles
                     .Where(profile =>
-                        profile.EmulatorType == EmulatorType.pcsx2x6 &&
+                        profile.EmulatorType is EmulatorType.pcsx2x6 or EmulatorType.Dolphin &&
                         !string.IsNullOrWhiteSpace(profile.ExecutableName) &&
                         readyExecutables.Contains(profile.ExecutableName) &&
                         !representedExecutables.Contains(profile.ExecutableName))
@@ -167,9 +170,13 @@ public partial class LibraryView : UserControl
     private void OnPlatformCatalogUpdated(int ready) =>
         Dispatcher.UIThread.Post(() =>
         {
-            Refresh();
+            // Publishing a completed companion query must not start another
+            // query. Doing so creates a permanent event/refresh loop and can
+            // expose a transient empty catalog while a game launch validates
+            // its already-imported manifest.
+            Refresh(requestPlatformCatalogRefresh: false);
             StatusText.Text =
-                $"Found {ready} installed PCSX2X6 game{(ready == 1 ? "" : "s")}.";
+                $"Found {ready} installed companion game{(ready == 1 ? "" : "s")}.";
         });
 
     private static string DisplayName(GameProfile p) => p.GameNameInternal ?? p.ProfileName ?? "?";
@@ -352,10 +359,14 @@ public partial class LibraryView : UserControl
         if (p != null)
         {
             var arch = p.Is64Bit ? "x64" : "x86";
-            var emulatorDescription =
-                OperatingSystem.IsAndroid() && p.EmulatorType == EmulatorType.pcsx2x6
-                    ? "PCSX2X6 ARM64"
-                    : $"{p.EmulatorType} ({arch})";
+            var emulatorDescription = OperatingSystem.IsAndroid()
+                ? p.EmulatorType switch
+                {
+                    EmulatorType.pcsx2x6 => "PCSX2X6 ARM64",
+                    EmulatorType.Dolphin => "TeknoDolphin ARM64",
+                    _ => $"{p.EmulatorType} ({arch})"
+                }
+                : $"{p.EmulatorType} ({arch})";
             EmulatorText.Text =
                 $"{Services.Loc.T("LibraryEmulator", "Emulator")}: {emulatorDescription}";
             EmulatorUrls.TryGetValue(p.EmulatorType, out _emulatorUrl);
@@ -479,12 +490,13 @@ public partial class LibraryView : UserControl
         // allowed to stat a Downloads file that the Winlator companion can
         // resolve as D:. The Android backend performs its own canonical path
         // validation before starting the foreground service.
-        var hasImplicitAndroidPcsx2x6Manifest =
+        var hasImplicitAndroidCompanionGame =
             OperatingSystem.IsAndroid() &&
-            p.EmulatorType == EmulatorType.pcsx2x6 &&
             !string.IsNullOrWhiteSpace(p.ExecutableName) &&
-            p.ExecutableName.EndsWith(".acgame", StringComparison.OrdinalIgnoreCase);
-        if ((!hasImplicitAndroidPcsx2x6Manifest && string.IsNullOrWhiteSpace(p.GamePath)) ||
+            (p.EmulatorType == EmulatorType.Dolphin ||
+             p.EmulatorType == EmulatorType.pcsx2x6 &&
+             p.ExecutableName.EndsWith(".acgame", StringComparison.OrdinalIgnoreCase));
+        if ((!hasImplicitAndroidCompanionGame && string.IsNullOrWhiteSpace(p.GamePath)) ||
             (!OperatingSystem.IsAndroid() && !File.Exists(p.GamePath)))
         {
             StatusText.Text = "Game executable path is not set or missing — configure it in Game Settings.";

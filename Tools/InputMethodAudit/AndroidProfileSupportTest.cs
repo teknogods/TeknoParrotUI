@@ -29,10 +29,50 @@ namespace InputMethodAudit
                 "PCSX2X6",
                 new GameProfile { EmulatorType = EmulatorType.pcsx2x6 },
                 expected: true);
+            var supportedDolphinProfiles = new[]
+            {
+                EmulationProfile.MarioKartGP,
+                EmulationProfile.MarioKartGP2,
+                EmulationProfile.FZeroAX,
+                EmulationProfile.VirtuaStriker3,
+                EmulationProfile.VirtuaStriker4
+            };
+            foreach (var emulationProfile in supportedDolphinProfiles)
+            {
+                Check(
+                    "TeknoDolphin " + emulationProfile,
+                    new GameProfile
+                    {
+                        EmulatorType = EmulatorType.Dolphin,
+                        EmulationProfile = emulationProfile
+                    },
+                    expected: true);
+            }
+
+            var rejectedDolphinProfiles = new[]
+            {
+                EmulationProfile.FZeroAXMonster,
+                EmulationProfile.GekitouProYakyuu,
+                EmulationProfile.KeyOfAvalon,
+                EmulationProfile.Tatsunoko,
+                EmulationProfile.TaitoTypeXGeneric
+            };
+            foreach (var emulationProfile in rejectedDolphinProfiles)
+            {
+                Check(
+                    "unsupported TeknoDolphin " + emulationProfile,
+                    new GameProfile
+                    {
+                        EmulatorType = EmulatorType.Dolphin,
+                        EmulationProfile = emulationProfile
+                    },
+                    expected: false);
+            }
 
             foreach (var emulatorType in Enum.GetValues<EmulatorType>())
             {
-                if (emulatorType is EmulatorType.OpenParrot or EmulatorType.pcsx2x6)
+                if (emulatorType is EmulatorType.OpenParrot or EmulatorType.pcsx2x6 or
+                    EmulatorType.Dolphin)
                     continue;
                 Check(
                     emulatorType.ToString(),

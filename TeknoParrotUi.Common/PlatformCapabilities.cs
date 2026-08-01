@@ -5,12 +5,12 @@ namespace TeknoParrotUi.Common
     /// <summary>
     /// Central platform feature policy shared by the UI and launch layer.
     /// Android game execution is available only when its platform head has
-    /// registered the Winlator-backed session factory.
+    /// registered the platform session factory.
     /// </summary>
     public static class PlatformCapabilities
     {
         public const string AndroidLaunchUnavailableMessage =
-            "The Android game-launch backend is unavailable. Install a compatible TeknoParrot Winlator companion and restart TeknoParrot.";
+            "The Android game-launch backend is unavailable. Install the required TeknoParrot companion and restart TeknoParrot.";
 
         public static bool IsAndroidShell => OperatingSystem.IsAndroid();
         public static bool CanLaunchGames =>
@@ -26,12 +26,27 @@ namespace TeknoParrotUi.Common
 
         /// <summary>
         /// The first public Android release installs only the open-source
-        /// Winlator cores and the external PCSX2X6 companion. OpenParrot uses
+        /// Winlator cores plus the external PCSX2X6 and TeknoDolphin companions. OpenParrot uses
         /// the profile's Is64Bit flag to select OpenParrotWin32 or
-        /// OpenParrotx64, so one emulator type intentionally covers both.
+        /// OpenParrotx64, so one emulator type intentionally covers both. TeknoDolphin is
+        /// deliberately limited to the five qualified Triforce profiles below.
         /// </summary>
         public static bool IsAndroidGameProfileSupported(GameProfile profile) =>
             profile != null &&
-            profile.EmulatorType is EmulatorType.OpenParrot or EmulatorType.pcsx2x6;
+            (profile.EmulatorType is EmulatorType.OpenParrot or EmulatorType.pcsx2x6 ||
+             IsAndroidDolphinProfileSupported(profile));
+
+        public static bool IsAndroidDolphinProfileSupported(GameProfile profile)
+        {
+            if (profile?.EmulatorType != EmulatorType.Dolphin)
+                return false;
+
+            return profile.EmulationProfile is
+                EmulationProfile.MarioKartGP or
+                EmulationProfile.MarioKartGP2 or
+                EmulationProfile.FZeroAX or
+                EmulationProfile.VirtuaStriker3 or
+                EmulationProfile.VirtuaStriker4;
+        }
     }
 }

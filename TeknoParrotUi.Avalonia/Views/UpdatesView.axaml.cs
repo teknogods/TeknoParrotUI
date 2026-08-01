@@ -247,6 +247,10 @@ public partial class UpdatesView : UserControl
         {
             required.Add("Tekno2x6");
         }
+        else if (profile.EmulatorType == EmulatorType.Dolphin)
+        {
+            required.Add("TeknoDolphin");
+        }
         else
         {
             required.Add("TeknoParrot Winlator");

@@ -63,11 +63,11 @@ namespace TeknoParrotUi.Common.GameLaunch
                 // Dolphin.exe -b -n 0000000100000002
                 parameters.Add("-b");
                 parameters.Add("-n 0000000100000002");
-                ConfigureDolphinIni(true);
+                ConfigureDolphinIni(profile.EmulationProfile);
             }
             else
             {
-                ConfigureDolphinIni(false);
+                ConfigureDolphinIni(profile.EmulationProfile);
 
                 if (Lazydata.ParrotData.HideDolphinGUI)
                 {
@@ -86,159 +86,218 @@ namespace TeknoParrotUi.Common.GameLaunch
                 parameters.Add("\"Dolphin.Display.Fullscreen=True\"");
             }
 
-            return new ProcessStartInfo(@".\CrediarDolphin\Dolphin.exe", string.Join(" ", parameters))
+            var executableName = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                ? "Dolphin.exe"
+                : "dolphin-emu";
+            return new ProcessStartInfo(
+                Path.Combine(".", "CrediarDolphin", executableName),
+                string.Join(" ", parameters))
             {
                 UseShellExecute = false,
                 WorkingDirectory = Path.Combine(Directory.GetCurrentDirectory(), "CrediarDolphin")
             };
         }
 
-        private static void ConfigureDolphinIni(bool isTatsuvscap)
+        private static void ConfigureDolphinIni(EmulationProfile emulationProfile)
         {
-            string configPath = Path.Combine(".", "CrediarDolphin", "User", "Config", "Dolphin.ini");
+            var isRva = emulationProfile == EmulationProfile.Tatsunoko;
+            var configDirectory = Path.Combine(".", "CrediarDolphin", "User", "Config");
 
             try
             {
-                Directory.CreateDirectory(Path.GetDirectoryName(configPath));
+                Directory.CreateDirectory(configDirectory);
 
-                var lines = new List<string>();
-                bool coreSection = false;
-                bool foundCore = false;
-
-                var coreSettings = new Dictionary<string, string>
+                var backend = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                    ? "D3D"
+                    : "Vulkan";
+                var dolphinSettings = new Dictionary<string, Dictionary<string, string>>
                 {
-                    {"SIDevice0", "11"},
-                    {"SIDevice1", "6"},
-                    {"SIDevice2", "0"},
-                    {"SIDevice3", "0"},
-                    {"SerialPort1", isTatsuvscap ? "255" : "6"},
-                    {"SlotA", "14"},
-                    {"SlotB", "14"},
-                    {"MEM1Size", "0x04000000"},
-                    {"MEM2Size", "0x08000000"},
-                    {"RAMOverrideEnable", isTatsuvscap ? "True" : "False"}
+                    ["Core"] = new Dictionary<string, string>
+                    {
+                        ["SIDevice0"] = "11",
+                        ["SIDevice1"] = "6",
+                        ["SIDevice2"] = "0",
+                        ["SIDevice3"] = "0",
+                        ["SelectedLanguage"] = "0",
+                        ["SerialPort1"] = isRva ? "255" : "6",
+                        // Wii Arcade (RVA) was value 14 in 1.0.0.6. Current Dolphin
+                        // assigns 14 to Ethernet IPC and Wii Arcade to 15.
+                        ["SlotA"] = "15",
+                        ["SlotB"] = "15",
+                        ["MEM1Size"] = "0x04000000",
+                        ["MEM2Size"] = "0x08000000",
+                        ["RAMOverrideEnable"] = isRva ? "True" : "False",
+                        ["SkipIPL"] = "True",
+                        ["GFXBackend"] = backend,
+                        ["CPUThread"] = "True"
+                    },
+                    ["Display"] = new Dictionary<string, string>
+                    {
+                        ["DisableScreenSaver"] = "True"
+                    },
+                    ["DSP"] = new Dictionary<string, string>
+                    {
+                        ["DSPThread"] = "True"
+                    },
+                    ["General"] = new Dictionary<string, string>
+                    {
+                        ["HotkeysRequireFocus"] = "True"
+                    },
+                    ["Interface"] = new Dictionary<string, string>
+                    {
+                        ["ConfirmStop"] = "False",
+                        ["OnScreenDisplayMessages"] = "False",
+                        ["ShowActiveTitle"] = "True",
+                        ["UseBuiltinTitleDatabase"] = "True",
+                        ["UsePanicHandlers"] = "False"
+                    },
+                    ["NetPlay"] = new Dictionary<string, string>
+                    {
+                        ["TraversalChoice"] = "direct"
+                    },
+                    ["Analytics"] = new Dictionary<string, string>
+                    {
+                        ["Enabled"] = "False",
+                        ["PermissionAsked"] = "True"
+                    }
                 };
 
-                var processedSettings = new HashSet<string>();
-                bool foundAnalytics = false;
-                bool inAnalyticsSection = false;
-                bool analyticsEnabledSet = false;
-                bool permissionAskedSet = false;
-
-                if (File.Exists(configPath))
+                var gfxSettings = new Dictionary<string, Dictionary<string, string>>
                 {
-                    var existingLines = File.ReadAllLines(configPath);
-
-                    for (int i = 0; i < existingLines.Length; i++)
+                    ["Enhancements"] = new Dictionary<string, string>
                     {
-                        string line = existingLines[i];
-                        string trimmedLine = line.Trim();
-
-                        if (trimmedLine == "[Core]")
-                        {
-                            coreSection = true;
-                            foundCore = true;
-                            lines.Add(line);
-                            continue;
-                        }
-
-                        if (trimmedLine.StartsWith("[") && trimmedLine.EndsWith("]"))
-                        {
-                            if (coreSection)
-                            {
-                                foreach (var setting in coreSettings)
-                                {
-                                    if (!processedSettings.Contains(setting.Key))
-                                        lines.Add($"{setting.Key} = {setting.Value}");
-                                }
-                            }
-
-                            coreSection = false;
-
-                            inAnalyticsSection = trimmedLine == "[Analytics]";
-                            if (inAnalyticsSection)
-                                foundAnalytics = true;
-
-                            lines.Add(line);
-                            continue;
-                        }
-
-                        if (coreSection && trimmedLine.Contains("="))
-                        {
-                            string key = trimmedLine.Split('=')[0].Trim();
-                            if (coreSettings.ContainsKey(key))
-                            {
-                                lines.Add($"{key} = {coreSettings[key]}");
-                                processedSettings.Add(key);
-                                continue;
-                            }
-                        }
-
-                        if (inAnalyticsSection)
-                        {
-                            if (trimmedLine.StartsWith("ID"))
-                                continue; // Skip the ID line
-
-                            if (trimmedLine.StartsWith("Enabled"))
-                            {
-                                lines.Add("Enabled = False");
-                                analyticsEnabledSet = true;
-                                continue;
-                            }
-
-                            if (trimmedLine.StartsWith("PermissionAsked"))
-                            {
-                                lines.Add("PermissionAsked = True");
-                                permissionAskedSet = true;
-                                continue;
-                            }
-                        }
-
-                        lines.Add(line);
-                    }
-
-                    if (coreSection)
+                        ["DisableCopyFilter"] = "True",
+                        ["ForceTrueColor"] = "True",
+                        ["HDROutput"] = "False"
+                    },
+                    ["Hacks"] = new Dictionary<string, string>
                     {
-                        foreach (var setting in coreSettings)
-                        {
-                            if (!processedSettings.Contains(setting.Key))
-                                lines.Add($"{setting.Key} = {setting.Value}");
-                        }
+                        ["BBoxEnable"] = "False",
+                        ["DeferEFBCopies"] = "True",
+                        ["EFBEmulateFormatChanges"] = "False",
+                        ["EFBScaledCopy"] = "True",
+                        ["EFBToTextureEnable"] = "True",
+                        ["SkipDuplicateXFBs"] = "True",
+                        ["XFBToTextureEnable"] = "True"
+                    },
+                    ["Hardware"] = new Dictionary<string, string>
+                    {
+                        ["VSync"] = "True"
+                    },
+                    ["Settings"] = new Dictionary<string, string>
+                    {
+                        ["AspectRatio"] = "2",
+                        ["BackendMultithreading"] = "True",
+                        ["DumpBaseTextures"] = "True",
+                        ["DumpMipTextures"] = "True",
+                        ["FastDepthCalc"] = "True",
+                        ["FrameDumpsResolutionType"] = "1",
+                        ["InternalResolution"] = "4",
+                        ["SaveTextureCacheToState"] = "True",
+                        ["ShowSpeedColors"] = "True",
+                        ["WaitForShadersBeforeStarting"] = "True"
                     }
-                }
+                };
 
-                if (!foundCore)
-                {
-                    lines.Add("[Core]");
-                    foreach (var setting in coreSettings)
-                        lines.Add($"{setting.Key} = {setting.Value}");
-                }
-
-                if (!foundAnalytics)
-                {
-                    lines.Add("");
-                    lines.Add("[Analytics]");
-                    lines.Add("Enabled = False");
-                    lines.Add("PermissionAsked = True");
-                }
-                else
-                {
-                    // Add missing keys to existing [Analytics] section
-                    int insertIndex = lines.FindIndex(l => l.Trim() == "[Analytics]") + 1;
-
-                    if (!analyticsEnabledSet)
-                        lines.Insert(insertIndex++, "Enabled = False");
-
-                    if (!permissionAskedSet)
-                        lines.Insert(insertIndex, "PermissionAsked = True");
-                }
-
-                File.WriteAllLines(configPath, lines);
+                UpdateDolphinIni(
+                    Path.Combine(configDirectory, "Dolphin.ini"),
+                    dolphinSettings,
+                    removeAnalyticsId: true);
+                UpdateDolphinIni(
+                    Path.Combine(configDirectory, "GFX.ini"),
+                    gfxSettings,
+                    removeAnalyticsId: false);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error updating Dolphin config: {ex.Message}");
             }
+        }
+
+        private static void UpdateDolphinIni(
+            string path,
+            Dictionary<string, Dictionary<string, string>> settings,
+            bool removeAnalyticsId)
+        {
+            settings = settings.ToDictionary(
+                section => section.Key,
+                section => new Dictionary<string, string>(
+                    section.Value,
+                    StringComparer.OrdinalIgnoreCase),
+                StringComparer.OrdinalIgnoreCase);
+            var lines = File.Exists(path)
+                ? File.ReadAllLines(path).ToList()
+                : new List<string>();
+            var output = new List<string>();
+            var seenSections = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var writtenKeys = new Dictionary<string, HashSet<string>>(StringComparer.OrdinalIgnoreCase);
+            string currentSection = null;
+
+            foreach (var section in settings)
+                writtenKeys[section.Key] = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            Action appendMissingForCurrentSection = () =>
+            {
+                if (currentSection == null || !settings.TryGetValue(currentSection, out var sectionSettings))
+                    return;
+
+                foreach (var setting in sectionSettings)
+                {
+                    if (!writtenKeys[currentSection].Contains(setting.Key))
+                        output.Add($"{setting.Key} = {setting.Value}");
+                }
+            };
+
+            foreach (var line in lines)
+            {
+                var trimmed = line.Trim();
+                if (trimmed.StartsWith("[") && trimmed.EndsWith("]"))
+                {
+                    appendMissingForCurrentSection();
+                    currentSection = trimmed.Substring(1, trimmed.Length - 2).Trim();
+                    seenSections.Add(currentSection);
+                    output.Add(line);
+                    continue;
+                }
+
+                var equals = trimmed.IndexOf('=');
+                if (currentSection != null && equals > 0)
+                {
+                    var key = trimmed.Substring(0, equals).Trim();
+                    if (removeAnalyticsId &&
+                        currentSection.Equals("Analytics", StringComparison.OrdinalIgnoreCase) &&
+                        key.Equals("ID", StringComparison.OrdinalIgnoreCase))
+                    {
+                        continue;
+                    }
+
+                    if (settings.TryGetValue(currentSection, out var sectionSettings) &&
+                        sectionSettings.TryGetValue(key, out var value))
+                    {
+                        output.Add($"{key} = {value}");
+                        writtenKeys[currentSection].Add(key);
+                        continue;
+                    }
+                }
+
+                output.Add(line);
+            }
+
+            appendMissingForCurrentSection();
+
+            foreach (var section in settings)
+            {
+                if (seenSections.Contains(section.Key))
+                    continue;
+
+                if (output.Count > 0 && !string.IsNullOrWhiteSpace(output[output.Count - 1]))
+                    output.Add(string.Empty);
+                output.Add($"[{section.Key}]");
+                foreach (var setting in section.Value)
+                    output.Add($"{setting.Key} = {setting.Value}");
+            }
+
+            File.WriteAllLines(path, output);
         }
 
         // ---------- Play! ----------

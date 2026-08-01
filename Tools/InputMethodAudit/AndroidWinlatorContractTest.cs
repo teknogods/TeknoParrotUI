@@ -506,6 +506,22 @@ namespace InputMethodAudit
                     repositoryRoot,
                     "TeknoParrotUi.Avalonia.Android",
                     "MainActivity.cs"));
+                var androidPcsx2CatalogSource = File.ReadAllText(Path.Combine(
+                    repositoryRoot,
+                    "TeknoParrotUi.Avalonia.Android",
+                    "AndroidPcsx2x6CatalogSync.cs"));
+                var androidDolphinCatalogSource = File.ReadAllText(Path.Combine(
+                    repositoryRoot,
+                    "TeknoParrotUi.Avalonia.Android",
+                    "AndroidDolphinCatalogSync.cs"));
+                var platformCatalogSource = File.ReadAllText(Path.Combine(
+                    repositoryRoot,
+                    "TeknoParrotUi.Avalonia",
+                    "Services", "PlatformGameCatalogSync.cs"));
+                var libraryCatalogSource = File.ReadAllText(Path.Combine(
+                    repositoryRoot,
+                    "TeknoParrotUi.Avalonia",
+                    "Views", "LibraryView.axaml.cs"));
                 var mainViewSource = File.ReadAllText(Path.Combine(
                     repositoryRoot,
                     "TeknoParrotUi.Avalonia",
@@ -662,6 +678,34 @@ namespace InputMethodAudit
                     androidBiosBridgeSource,
                     "RandomNumberGenerator.GetBytes(32)",
                     "authenticated PCSX2X6 BIOS readiness query");
+                RequireContains(
+                    androidPcsx2CatalogSource,
+                    "Task<IReadOnlyCollection<string>> QueryAsync()",
+                    "non-publishing Tekno2x6 catalog query");
+                RequireContains(
+                    androidMainActivitySource,
+                    "await pcsx2x6Catalog.QueryAsync().ConfigureAwait(false)",
+                    "single-owner companion catalog publication");
+                RequireDoesNotContain(
+                    androidMainActivitySource,
+                    "PublishReadyExecutables([])",
+                    "transient empty catalog publication before a companion query");
+                RequireContains(
+                    androidDolphinCatalogSource,
+                    "PackageManager?.GetPackageInfo(",
+                    "absent TeknoDolphin package preflight");
+                RequireContains(
+                    libraryCatalogSource,
+                    "Refresh(requestPlatformCatalogRefresh: false);",
+                    "non-recursive catalog update refresh");
+                RequireContains(
+                    platformCatalogSource,
+                    "changed = !_readyExecutables.SetEquals(ready);",
+                    "idempotent companion catalog publication");
+                RequireContains(
+                    platformCatalogSource,
+                    "if (changed)\n            CatalogUpdated?.Invoke(ready.Count);",
+                    "catalog event change guard");
                 RequireContains(
                     androidMainActivitySource,
                     "com.armsx2.TeknoParrotBiosImportActivity",

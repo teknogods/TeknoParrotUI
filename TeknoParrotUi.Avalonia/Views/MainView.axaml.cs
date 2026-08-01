@@ -105,10 +105,13 @@ public partial class MainView : UserControl
         {
             if (OperatingSystem.IsAndroid())
             {
-                if (profile.EmulatorType == EmulatorType.pcsx2x6)
+                if (profile.EmulatorType is EmulatorType.pcsx2x6 or EmulatorType.Dolphin)
                 {
+                    var companionName = profile.EmulatorType == EmulatorType.Dolphin
+                        ? "TeknoDolphin"
+                        : "PCSX2X6";
                     StatusBar.Text =
-                        "PCSX2X6 uses the TeknoParrot arcade overlay in game; " +
+                        $"{companionName} uses the TeknoParrot arcade overlay in game; " +
                         "connected Android controllers are detected automatically.";
                     return;
                 }
@@ -357,6 +360,54 @@ public partial class MainView : UserControl
                 StatusBar.Text =
                     "Game launch stopped because a required Android component is missing.";
                 return false;
+            }
+
+            if (profile.EmulatorType == EmulatorType.Dolphin)
+            {
+                var gameName = profile.ExecutableName?.Trim() ?? string.Empty;
+                if (string.IsNullOrWhiteSpace(gameName))
+                {
+                    StatusBar.Text =
+                        "This TeknoDolphin profile does not declare an Android game image.";
+                    return false;
+                }
+                StatusBar.Text = "Checking TeknoDolphin game files...";
+                await PlatformGameCatalogSync.RefreshNowAsync();
+                if (PlatformGameCatalogSync.ReadyExecutables.Contains(
+                        gameName,
+                        StringComparer.OrdinalIgnoreCase))
+                    return true;
+
+                if (!PlatformDolphinGameImport.IsAvailable)
+                {
+                    StatusBar.Text =
+                        "TeknoDolphin game import is unavailable. Update TeknoParrotUI and TeknoDolphin.";
+                    return false;
+                }
+                var import = await ShowDecisionAsync(
+                    "TeknoDolphin game image required",
+                    $"{profile.GameNameInternal ?? profile.ProfileName} is not installed in " +
+                    $"TeknoDolphin yet.\n\nSelect {gameName}. Android grants access only " +
+                    "to the file you select; TeknoDolphin copies it into private storage.",
+                    "Select Game Image",
+                    "Cancel");
+                if (!import || !await PlatformDolphinGameImport.ImportAsync(gameName))
+                {
+                    StatusBar.Text =
+                        "TeknoDolphin game import was cancelled or rejected.";
+                    return false;
+                }
+                StatusBar.Text = "Validating imported TeknoDolphin game...";
+                await PlatformGameCatalogSync.RefreshNowAsync();
+                if (!PlatformGameCatalogSync.ReadyExecutables.Contains(
+                        gameName,
+                        StringComparer.OrdinalIgnoreCase))
+                {
+                    StatusBar.Text =
+                        "The imported TeknoDolphin game image is unavailable.";
+                    return false;
+                }
+                return true;
             }
 
             if (profile.EmulatorType != EmulatorType.pcsx2x6)
