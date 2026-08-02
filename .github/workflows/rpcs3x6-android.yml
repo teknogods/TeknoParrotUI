@@ -179,6 +179,9 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
+          # Only RPCS3 is checked out in this reusable job, so gh cannot infer
+          # the caller repository from the current directory.
+          GH_REPO: ${{ github.repository }}
           VERSION_NAME: ${{ steps.version.outputs.version_name }}
         run: |
           set -euo pipefail
