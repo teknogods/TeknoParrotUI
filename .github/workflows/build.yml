@@ -205,12 +205,12 @@ jobs:
         shell: pwsh
         run: |
           $base = (Get-Content version.txt -Raw).Trim()
-          # Keep Android updates above the legacy raw-run-number series even
-          # when the workflow file or its run counter is recreated.
-          $versionCode = 1000000 + [int]'${{ github.run_number }}'
+          # Keep Android updates above both the legacy raw-run-number series
+          # and the existing 1,000,000-based release packages.
+          $versionCode = 2000000 + [int]'${{ github.run_number }}'
           # The display/assembly revision must remain within UInt16. Keep it
           # independently monotonic above the legacy 2.0.0.91 packages.
-          $displayRevision = 10000 + [int]'${{ github.run_number }}'
+          $displayRevision = 20000 + [int]'${{ github.run_number }}'
           $full = "$base.$displayRevision"
           dotnet build TeknoParrotUi.Avalonia.Android/TeknoParrotUi.Avalonia.Android.csproj `
             -c Release -f net10.0-android -r android-arm64 `
@@ -305,10 +305,10 @@ jobs:
           $base = (Get-Content version.txt -Raw).Trim()
           # Android refuses an otherwise valid signed update when its numeric
           # versionCode falls below an APK from an earlier workflow series.
-          $versionCode = 1000000 + [int]'${{ github.run_number }}'
+          $versionCode = 2000000 + [int]'${{ github.run_number }}'
           # Do not reuse the seven-digit versionCode as a .NET assembly
           # revision: each assembly version component is limited to UInt16.
-          $displayRevision = 10000 + [int]'${{ github.run_number }}'
+          $displayRevision = 20000 + [int]'${{ github.run_number }}'
           $full = "$base.$displayRevision"
           $keystore = (Resolve-Path private-input/teknoparrot-release.keystore).Path
           dotnet build `
