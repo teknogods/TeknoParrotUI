@@ -35,6 +35,13 @@ namespace TeknoParrotUi.Common
         {
             if (profile == null)
                 return false;
+#if TP_ANDROID_PRIVATE_CORES
+            // Explicit local qualification builds may expose private-core
+            // profiles on the owner's device. Normal public APKs never define
+            // this symbol and cannot discover or launch those profiles.
+            if (profile.EmulatorType == EmulatorType.TeknoParrot)
+                return true;
+#endif
             return profile.EmulatorType is EmulatorType.OpenParrot or EmulatorType.pcsx2x6 ||
                 IsAndroidRpcs3ProfileSupported(profile) ||
                 IsAndroidDolphinProfileSupported(profile);

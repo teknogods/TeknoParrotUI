@@ -18,6 +18,12 @@
     <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
   </PropertyGroup>
 
+  <!-- Local private-core qualification only. Public Android workflows never
+       set this property and retain the open-source runtime catalog policy. -->
+  <PropertyGroup Condition="'$(TeknoParrotPrivateAndroidTests)' == 'true'">
+    <DefineConstants>$(DefineConstants);TP_ANDROID_PRIVATE_CORES</DefineConstants>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <OutputPath>..\bin\Debug\</OutputPath>
   </PropertyGroup>
