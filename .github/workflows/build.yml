@@ -24,6 +24,9 @@ permissions:
 
 jobs:
   build-windows:
+    # Manual Android release runs are intentionally Android-only. Desktop
+    # packages are produced on the project's own Windows/Linux build machine.
+    if: github.event_name != 'workflow_dispatch' || !inputs.build_android_release
     runs-on: windows-latest
 
     steps:
@@ -97,6 +100,7 @@ jobs:
           retention-days: 14
 
   build-linux:
+    if: github.event_name != 'workflow_dispatch' || !inputs.build_android_release
     runs-on: ubuntu-latest
 
     steps:
