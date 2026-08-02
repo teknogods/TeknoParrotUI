@@ -1,0 +1,16 @@
+LIBRARY iDmacDrv32
+EXPORTS
+    iDmacDrvOpen @1
+    iDmacDrvClose @2
+    iDmacDrvDmaRead @3
+    iDmacDrvDmaWrite @4
+    iDmacDrvRegisterRead @5
+    iDmacDrvRegisterWrite @6
+    iDmacDrvRegisterBufferRead @7
+    iDmacDrvRegisterBufferWrite @8
+    iDmacDrvMemoryRead @9
+    iDmacDrvMemoryWrite @10
+    iDmacDrvMemoryBufferRead @11
+    iDmacDrvMemoryBufferWrite @12
+    iDmacDrvMemoryReadExt @13
+    iDmacDrvMemoryWriteExt @14
