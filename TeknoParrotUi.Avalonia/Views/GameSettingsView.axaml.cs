@@ -527,30 +527,39 @@ public partial class GameSettingsView : UserControl
             var top = TopLevel.GetTopLevel(this);
             if (top == null) return;
 
-            // Filter to the exact executable(s) the profile expects (classic behaviour);
-            // profiles separate alternatives with '|' or ';'
-            var filters = new List<FilePickerFileType>();
-            if (!OperatingSystem.IsAndroid() &&
-                !string.IsNullOrEmpty(executableName))
-            {
-                var names = executableName.Split('|', ';')
-                    .Select(n => n.Trim())
-                    .Where(n => n.Length > 0)
-                    .ToArray();
-                if (names.Length > 0)
-                    filters.Add(new FilePickerFileType($"{Services.Loc.T("GameSettingsGameExecutableFilter", "Game executable")} ({string.Join(", ", names)})")
-                    {
-                        Patterns = names
-                    });
-            }
-            filters.Add(new FilePickerFileType(Services.Loc.T("GameSettingsAllFiles", "All Files")) { Patterns = new[] { "*.*" } });
-
-            var files = await top.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
+            var pickerOptions = new FilePickerOpenOptions
             {
                 Title = $"{Services.Loc.T("GameSettingsSelectGameExecutable", "Select Game Executable")} — {label}",
-                AllowMultiple = false,
-                FileTypeFilter = filters
-            });
+                AllowMultiple = false
+            };
+
+            if (!OperatingSystem.IsAndroid())
+            {
+                // Filter to the exact executable(s) the profile expects (classic behaviour);
+                // profiles separate alternatives with '|' or ';'. Android deliberately has
+                // no filter: SAF providers expose game files under inconsistent MIME types,
+                // and omitting FileTypeFilter makes the platform request */*.
+                var filters = new List<FilePickerFileType>();
+                if (!string.IsNullOrEmpty(executableName))
+                {
+                    var names = executableName.Split('|', ';')
+                        .Select(n => n.Trim())
+                        .Where(n => n.Length > 0)
+                        .ToArray();
+                    if (names.Length > 0)
+                        filters.Add(new FilePickerFileType($"{Services.Loc.T("GameSettingsGameExecutableFilter", "Game executable")} ({string.Join(", ", names)})")
+                        {
+                            Patterns = names
+                        });
+                }
+                filters.Add(new FilePickerFileType(Services.Loc.T("GameSettingsAllFiles", "All Files"))
+                {
+                    Patterns = new[] { "*.*" }
+                });
+                pickerOptions.FileTypeFilter = filters;
+            }
+
+            var files = await top.StorageProvider.OpenFilePickerAsync(pickerOptions);
             if (files.Count > 0)
             {
                 var selectedPath = files[0].TryGetLocalPath();

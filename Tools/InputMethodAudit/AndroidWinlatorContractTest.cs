@@ -538,6 +538,10 @@ namespace InputMethodAudit
                     repositoryRoot,
                     "TeknoParrotUi.Avalonia",
                     "Views", "MainView.axaml.cs"));
+                var gameSettingsViewSource = File.ReadAllText(Path.Combine(
+                    repositoryRoot,
+                    "TeknoParrotUi.Avalonia",
+                    "Views", "GameSettingsView.axaml.cs"));
                 var updatesViewSource = File.ReadAllText(Path.Combine(
                     repositoryRoot,
                     "TeknoParrotUi.Avalonia",
@@ -596,6 +600,22 @@ namespace InputMethodAudit
                     mainViewSource,
                     "EnsureAndroidLaunchReadyAsync(profile)",
                     "Android launch readiness preflight");
+                RequireContains(
+                    gameSettingsViewSource,
+                    "if (!OperatingSystem.IsAndroid())",
+                    "unfiltered Android game file picker");
+                RequireContains(
+                    gameSettingsViewSource,
+                    "pickerOptions.FileTypeFilter = filters;",
+                    "desktop-only game file picker filters");
+                if (gameSettingsViewSource.Contains(
+                        "FileTypeFilter = filters\n            });",
+                        StringComparison.Ordinal) ||
+                    gameSettingsViewSource.Contains(
+                        "FileTypeFilter = filters\r\n            });",
+                        StringComparison.Ordinal))
+                    throw new InvalidOperationException(
+                        "Android game selection still uses the desktop file-type filter initializer.");
                 RequireContains(
                     inputControlsViewSource,
                     "if (inputEventListener != null) {\n" +
