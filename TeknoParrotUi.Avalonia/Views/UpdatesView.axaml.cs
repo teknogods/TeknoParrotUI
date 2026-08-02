@@ -251,6 +251,11 @@ public partial class UpdatesView : UserControl
         {
             required.Add("TeknoDolphin");
         }
+        else if (profile.EmulatorType == EmulatorType.RPCS3 &&
+                 PlatformCapabilities.IsAndroidRpcs3ProfileSupported(profile))
+        {
+            required.Add("RPCS3X6");
+        }
         else
         {
             required.Add("TeknoParrot Winlator");

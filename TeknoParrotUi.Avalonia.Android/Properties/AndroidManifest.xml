@@ -15,6 +15,7 @@
     <package android:name="com.teknoparrot.winlator" />
     <package android:name="com.teknogods.tekno2x6" />
     <package android:name="com.teknogods.teknodolphin" />
+    <package android:name="com.teknogods.rpcs3x6" />
   </queries>
   <!-- The private data directory can contain account state, user profiles, and
        the authenticated game-session restart record. Preserve it across APK
@@ -48,6 +49,12 @@
              android:foregroundServiceType="specialUse">
       <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="Maintains the authenticated TeknoDolphin arcade session while the TeknoParrot UI is recreated or backgrounded." />
+    </service>
+    <service android:name="com.teknoparrot.session.Rpcs3x6SessionService"
+             android:exported="false"
+             android:foregroundServiceType="specialUse">
+      <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Maintains the authenticated RPCS3X6 arcade session while the TeknoParrot UI is recreated or backgrounded." />
     </service>
   </application>
 </manifest>

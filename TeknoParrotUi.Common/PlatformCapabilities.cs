@@ -26,15 +26,43 @@ namespace TeknoParrotUi.Common
 
         /// <summary>
         /// The first public Android release installs only the open-source
-        /// Winlator cores plus the external PCSX2X6 and TeknoDolphin companions. OpenParrot uses
+        /// Winlator cores plus the external PCSX2X6, TeknoDolphin, and RPCS3X6 companions. OpenParrot uses
         /// the profile's Is64Bit flag to select OpenParrotWin32 or
         /// OpenParrotx64, so one emulator type intentionally covers both. TeknoDolphin is
         /// deliberately limited to the five qualified Triforce profiles below.
         /// </summary>
-        public static bool IsAndroidGameProfileSupported(GameProfile profile) =>
-            profile != null &&
-            (profile.EmulatorType is EmulatorType.OpenParrot or EmulatorType.pcsx2x6 ||
-             IsAndroidDolphinProfileSupported(profile));
+        public static bool IsAndroidGameProfileSupported(GameProfile profile)
+        {
+            if (profile == null)
+                return false;
+            return profile.EmulatorType is EmulatorType.OpenParrot or EmulatorType.pcsx2x6 ||
+                IsAndroidRpcs3ProfileSupported(profile) ||
+                IsAndroidDolphinProfileSupported(profile);
+        }
+
+        /// <summary>
+        /// RPCS3X6 supports only the qualified System 357/369 arcade roots.
+        /// Profile names are used because every dump has the same SCEEXE000
+        /// title id and must remain isolated in companion-owned storage.
+        /// </summary>
+        public static bool IsAndroidRpcs3ProfileSupported(GameProfile profile)
+        {
+            if (profile?.EmulatorType != EmulatorType.RPCS3)
+                return false;
+
+            return profile.ProfileName is
+                "DarkEscape4D" or
+                "DSPS" or
+                "dbzenkai" or
+                "RazingStorm" or
+                "AKB48" or
+                "taikogreen" or
+                "taikoyellow" or
+                "Tekken6" or
+                "Tekken6BR" or
+                "ttt2" or
+                "ttt2u";
+        }
 
         public static bool IsAndroidDolphinProfileSupported(GameProfile profile)
         {

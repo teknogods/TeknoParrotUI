@@ -60,6 +60,7 @@ internal sealed class AndroidDolphinGameSession : IGameSession
                     "This TeknoDolphin profile has no separate Android test image.");
 
             var otherOwner =
+                Rpcs3x6SessionService.TryGetActiveProfileName(_context) ??
                 Pcsx2x6SessionService.TryGetActiveProfileName(_context) ??
                 GameSessionService.TryGetActiveProfileName(_context);
             if (!string.IsNullOrWhiteSpace(otherOwner))

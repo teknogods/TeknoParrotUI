@@ -78,18 +78,23 @@ public partial class GameSettingsView : UserControl
         _gamePathBox = null;
         _gamePath2Box = null;
         if (OperatingSystem.IsAndroid() &&
-            profile.EmulatorType is EmulatorType.pcsx2x6 or EmulatorType.Dolphin)
+            (profile.EmulatorType is EmulatorType.pcsx2x6 or EmulatorType.Dolphin ||
+             PlatformCapabilities.IsAndroidRpcs3ProfileSupported(profile)))
         {
             var isDolphin = profile.EmulatorType == EmulatorType.Dolphin;
-            AddCategoryHeader(isDolphin
-                ? "TeknoDolphin Arcade Image"
-                : "PCSX2X6 Arcade Manifest");
+            var isRpcs3x6 = profile.EmulatorType == EmulatorType.RPCS3;
+            AddCategoryHeader(isDolphin ? "TeknoDolphin Arcade Image" :
+                isRpcs3x6 ? "RPCS3X6 Isolated Arcade Root" : "PCSX2X6 Arcade Manifest");
             FieldsPanel.Children.Add(Row(
-                isDolphin ? "Companion-owned game image" : "App-owned game descriptor",
+                isDolphin ? "Companion-owned game image" :
+                    isRpcs3x6 ? "Companion-owned virtual disk" : "App-owned game descriptor",
                 new TextBox
                 {
                     Text = isDolphin
                         ? profile.ExecutableName
+                        : isRpcs3x6
+                        ? "/storage/emulated/0/Android/data/com.teknogods.rpcs3x6/files/" +
+                          "TeknoParrot/arcade/" + profile.ProfileName
                         : "/storage/emulated/0/Android/data/com.teknogods.tekno2x6/files/" +
                           "TeknoParrot/games/" + profile.ExecutableName,
                     IsReadOnly = true,

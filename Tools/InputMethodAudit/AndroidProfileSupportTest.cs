@@ -29,6 +29,21 @@ namespace InputMethodAudit
                 "PCSX2X6",
                 new GameProfile { EmulatorType = EmulatorType.pcsx2x6 },
                 expected: true);
+            foreach (var profileName in new[]
+                     {
+                         "DarkEscape4D", "DSPS", "dbzenkai", "RazingStorm", "AKB48",
+                         "taikogreen", "taikoyellow", "Tekken6", "Tekken6BR", "ttt2", "ttt2u"
+                     })
+            {
+                Check(
+                    "RPCS3X6 " + profileName,
+                    new GameProfile { EmulatorType = EmulatorType.RPCS3, ProfileName = profileName },
+                    expected: true);
+            }
+            Check(
+                "unsupported RPCS3 profile",
+                new GameProfile { EmulatorType = EmulatorType.RPCS3, ProfileName = "SonicTheHedgehog" },
+                expected: false);
             var supportedDolphinProfiles = new[]
             {
                 EmulationProfile.MarioKartGP,
@@ -72,7 +87,7 @@ namespace InputMethodAudit
             foreach (var emulatorType in Enum.GetValues<EmulatorType>())
             {
                 if (emulatorType is EmulatorType.OpenParrot or EmulatorType.pcsx2x6 or
-                    EmulatorType.Dolphin)
+                    EmulatorType.Dolphin or EmulatorType.RPCS3)
                     continue;
                 Check(
                     emulatorType.ToString(),

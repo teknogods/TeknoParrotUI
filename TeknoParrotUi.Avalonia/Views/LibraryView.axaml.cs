@@ -137,15 +137,27 @@ public partial class LibraryView : UserControl
                 .Select(profile => profile.ExecutableName)
                 .Where(name => !string.IsNullOrWhiteSpace(name))
                 .ToHashSet(StringComparer.OrdinalIgnoreCase);
+            var representedProfileNames = profiles
+                .Select(profile => profile.ProfileName)
+                .Where(name => !string.IsNullOrWhiteSpace(name))
+                .ToHashSet(StringComparer.OrdinalIgnoreCase);
+            var readyProfileNames = PlatformGameCatalogSync.ReadyProfileNames
+                .ToHashSet(StringComparer.OrdinalIgnoreCase);
             var readyProfiles =
                 GameProfileLoader.GameProfiles
                     .Where(profile =>
-                        profile.EmulatorType is EmulatorType.pcsx2x6 or EmulatorType.Dolphin &&
-                        !string.IsNullOrWhiteSpace(profile.ExecutableName) &&
-                        readyExecutables.Contains(profile.ExecutableName) &&
-                        !representedExecutables.Contains(profile.ExecutableName))
+                        (profile.EmulatorType is EmulatorType.pcsx2x6 or EmulatorType.Dolphin &&
+                         !string.IsNullOrWhiteSpace(profile.ExecutableName) &&
+                         readyExecutables.Contains(profile.ExecutableName) &&
+                         !representedExecutables.Contains(profile.ExecutableName)) ||
+                        (profile.EmulatorType == EmulatorType.RPCS3 &&
+                         !string.IsNullOrWhiteSpace(profile.ProfileName) &&
+                         readyProfileNames.Contains(profile.ProfileName) &&
+                         !representedProfileNames.Contains(profile.ProfileName)))
                     .GroupBy(
-                        profile => profile.ExecutableName,
+                        profile => profile.EmulatorType == EmulatorType.RPCS3
+                            ? "RPCS3:" + profile.ProfileName
+                            : profile.ExecutableName,
                         StringComparer.OrdinalIgnoreCase)
                     .Select(group => group
                         .OrderBy(
@@ -364,6 +376,7 @@ public partial class LibraryView : UserControl
                 {
                     EmulatorType.pcsx2x6 => "PCSX2X6 ARM64",
                     EmulatorType.Dolphin => "TeknoDolphin ARM64",
+                    EmulatorType.RPCS3 when PlatformCapabilities.IsAndroidRpcs3ProfileSupported(p) => "RPCS3X6 ARM64",
                     _ => $"{p.EmulatorType} ({arch})"
                 }
                 : $"{p.EmulatorType} ({arch})";
@@ -494,6 +507,7 @@ public partial class LibraryView : UserControl
             OperatingSystem.IsAndroid() &&
             !string.IsNullOrWhiteSpace(p.ExecutableName) &&
             (p.EmulatorType == EmulatorType.Dolphin ||
+             p.EmulatorType == EmulatorType.RPCS3 && PlatformCapabilities.IsAndroidRpcs3ProfileSupported(p) ||
              p.EmulatorType == EmulatorType.pcsx2x6 &&
              p.ExecutableName.EndsWith(".acgame", StringComparison.OrdinalIgnoreCase));
         if ((!hasImplicitAndroidCompanionGame && string.IsNullOrWhiteSpace(p.GamePath)) ||

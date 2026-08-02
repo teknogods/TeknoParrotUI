@@ -62,6 +62,11 @@ internal sealed class AndroidPcsx2x6GameSession : IGameSession
                 throw new NotSupportedException(
                     "This PCSX2X6 profile has no Android test-mode manifest.");
 
+            var rpcs3x6Owner = Rpcs3x6SessionService.TryGetActiveProfileName(_context);
+            if (!string.IsNullOrWhiteSpace(rpcs3x6Owner))
+                throw new InvalidOperationException(
+                    $"{rpcs3x6Owner} already owns the Android game session.");
+
             var winlatorOwner = GameSessionService.TryGetActiveProfileName(_context);
             if (!string.IsNullOrWhiteSpace(winlatorOwner))
                 throw new InvalidOperationException(

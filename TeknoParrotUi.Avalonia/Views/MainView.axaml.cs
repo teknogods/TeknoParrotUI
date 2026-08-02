@@ -105,11 +105,15 @@ public partial class MainView : UserControl
         {
             if (OperatingSystem.IsAndroid())
             {
-                if (profile.EmulatorType is EmulatorType.pcsx2x6 or EmulatorType.Dolphin)
+                if (profile.EmulatorType is EmulatorType.pcsx2x6 or EmulatorType.Dolphin ||
+                    PlatformCapabilities.IsAndroidRpcs3ProfileSupported(profile))
                 {
-                    var companionName = profile.EmulatorType == EmulatorType.Dolphin
-                        ? "TeknoDolphin"
-                        : "PCSX2X6";
+                    var companionName = profile.EmulatorType switch
+                    {
+                        EmulatorType.Dolphin => "TeknoDolphin",
+                        EmulatorType.RPCS3 => "RPCS3X6",
+                        _ => "PCSX2X6"
+                    };
                     StatusBar.Text =
                         $"{companionName} uses the TeknoParrot arcade overlay in game; " +
                         "connected Android controllers are detected automatically.";
@@ -174,6 +178,18 @@ public partial class MainView : UserControl
                 StatusBar.Text =
                     $"Added {profile.GameNameInternal ?? profile.ProfileName} — " +
                     "select its System 246/256 game folder when first launched";
+                _library.SelectProfile(profile);
+                ShowLibrary();
+                return;
+            }
+
+            if (OperatingSystem.IsAndroid() &&
+                profile.EmulatorType == EmulatorType.RPCS3 &&
+                PlatformCapabilities.IsAndroidRpcs3ProfileSupported(profile))
+            {
+                StatusBar.Text =
+                    $"Added {profile.GameNameInternal ?? profile.ProfileName} — " +
+                    "select the parent rpcs3 arcade folder when first launched";
                 _library.SelectProfile(profile);
                 ShowLibrary();
                 return;
@@ -405,6 +421,55 @@ public partial class MainView : UserControl
                 {
                     StatusBar.Text =
                         "The imported TeknoDolphin game image is unavailable.";
+                    return false;
+                }
+                return true;
+            }
+
+            if (profile.EmulatorType == EmulatorType.RPCS3 &&
+                PlatformCapabilities.IsAndroidRpcs3ProfileSupported(profile))
+            {
+                var profileName = profile.ProfileName?.Trim() ?? string.Empty;
+                StatusBar.Text = "Checking RPCS3X6 arcade root...";
+                await PlatformGameCatalogSync.RefreshNowAsync();
+                if (!PlatformGameCatalogSync.ReadyProfileNames.Contains(
+                        profileName, StringComparer.OrdinalIgnoreCase))
+                {
+                    if (!PlatformRpcs3x6GameImport.IsAvailable)
+                    {
+                        StatusBar.Text = "RPCS3X6 arcade import is unavailable. Update TeknoParrotUI and RPCS3X6.";
+                        return false;
+                    }
+                    var import = await ShowDecisionAsync(
+                        "RPCS3X6 arcade games required",
+                        "Select the rpcs3 folder that contains the supported System 357/369 game folders. " +
+                        "RPCS3X6 copies each game into its own isolated virtual disk because all of them use SCEEXE000.",
+                        "Select rpcs3 Folder", "Cancel");
+                    if (!import || !await PlatformRpcs3x6GameImport.ImportAsync())
+                    {
+                        StatusBar.Text = "RPCS3X6 arcade import was cancelled or found no supported games.";
+                        return false;
+                    }
+                    StatusBar.Text = "Validating imported RPCS3X6 arcade games...";
+                    await PlatformGameCatalogSync.RefreshNowAsync();
+                    if (!PlatformGameCatalogSync.ReadyProfileNames.Contains(
+                            profileName, StringComparer.OrdinalIgnoreCase))
+                    {
+                        StatusBar.Text = "This RPCS3X6 arcade root was not found in the selected folder.";
+                        return false;
+                    }
+                }
+
+                if (!PlatformRpcs3x6Firmware.IsAvailable ||
+                    !await PlatformRpcs3x6Firmware.IsConfiguredAsync())
+                {
+                    var setup = await ShowDecisionAsync(
+                        "RPCS3 firmware required",
+                        "RPCS3X6 needs an installed PS3 system firmware before an arcade game can start.",
+                        "Open RPCS3X6 Setup", "Cancel");
+                    if (setup && PlatformRpcs3x6Firmware.IsAvailable)
+                        await PlatformRpcs3x6Firmware.ConfigureAsync();
+                    StatusBar.Text = "Install the PS3 firmware in RPCS3X6, then return and launch the game again.";
                     return false;
                 }
                 return true;

@@ -1,0 +1,177 @@
+name: RPCS3X6 Android
+
+on:
+  workflow_dispatch:
+    inputs:
+      rpcs3_ref:
+        description: RPCS3 branch, tag, or commit to build
+        required: true
+        default: master
+        type: string
+      publish_release:
+        description: Publish the verified APK to the rolling RPCS3X6 Android release
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rpcs3x6-android-release
+  cancel-in-progress: false
+
+env:
+  ANDROID_API_LEVEL: "35"
+  ANDROID_BUILD_TOOLS_VERSION: "35.0.0"
+  ANDROID_NDK_VERSION: "28.2.13676358"
+  ANDROID_CMAKE_VERSION: "3.31.6"
+  CMAKE_BUILD_PARALLEL_LEVEL: "2"
+  KEYSTORE_ALIAS: ${{ secrets.ANDROID_SIGNING_KEY_ALIAS }}
+  KEYSTORE_KEY_PASSWORD: ${{ secrets.ANDROID_SIGNING_KEY_PASSWORD }}
+  KEYSTORE_STORE_PASSWORD: ${{ secrets.ANDROID_SIGNING_STORE_PASSWORD }}
+  EXPECTED_CERT_SHA256: "c6d8de6b3b0847465e315b7efbe93fd58e940b7cf727b45322704c80e68ec8f1"
+
+jobs:
+  build:
+    name: Build, sign, and verify arm64 APK
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+
+    steps:
+      - name: Check out RPCS3X6 source and submodules
+        uses: actions/checkout@v4
+        with:
+          repository: ReaverTeknoGods/rpcs3
+          ref: ${{ inputs.rpcs3_ref }}
+          submodules: recursive
+          fetch-depth: 0
+          path: rpcs3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle cache
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install pinned Android toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          yes | sdkmanager --licenses >/dev/null 2>&1 || true
+          sdkmanager \
+            "platforms;android-${ANDROID_API_LEVEL}" \
+            "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" \
+            "cmake;${ANDROID_CMAKE_VERSION}" \
+            "ndk;${ANDROID_NDK_VERSION}"
+
+      - name: Derive version
+        id: version
+        shell: bash
+        run: |
+          set -euo pipefail
+          version_name="0.0.${GITHUB_RUN_NUMBER}.${GITHUB_RUN_ATTEMPT}"
+          version_code=$((GITHUB_RUN_NUMBER * 100 + GITHUB_RUN_ATTEMPT))
+          rpcs3_sha="$(git -C rpcs3 rev-parse HEAD)"
+          echo "version_name=$version_name" >> "$GITHUB_OUTPUT"
+          echo "version_code=$version_code" >> "$GITHUB_OUTPUT"
+          echo "rpcs3_sha=$rpcs3_sha" >> "$GITHUB_OUTPUT"
+
+      - name: Materialize shared production signing key
+        shell: bash
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_SIGNING_KEYSTORE_BASE64 }}
+        run: |
+          set -euo pipefail
+          [[ -n "$KEYSTORE_BASE64" && -n "$KEYSTORE_ALIAS" && -n "$KEYSTORE_KEY_PASSWORD" && -n "$KEYSTORE_STORE_PASSWORD" ]] || {
+            echo "The four shared ANDROID_SIGNING_* secrets are required" >&2
+            exit 1
+          }
+          keystore="$RUNNER_TEMP/rpcs3x6-release.jks"
+          printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$keystore"
+          [[ -s "$keystore" ]]
+          echo "KEYSTORE_PATH=$keystore" >> "$GITHUB_ENV"
+
+      - name: Build signed RPCS3X6 release
+        working-directory: rpcs3/android
+        shell: bash
+        env:
+          RPCS3X6_VERSION_NAME: ${{ steps.version.outputs.version_name }}
+          RPCS3X6_VERSION_CODE: ${{ steps.version.outputs.version_code }}
+        run: |
+          set -euo pipefail
+          chmod +x ./gradlew
+          ./gradlew --no-daemon --stacktrace :app:assembleRelease
+
+      - name: Verify and package APK
+        id: package
+        shell: bash
+        env:
+          VERSION_NAME: ${{ steps.version.outputs.version_name }}
+          RPCS3_SHA: ${{ steps.version.outputs.rpcs3_sha }}
+          REQUIRE_RELEASE_APK: "1"
+          REQUIRE_PRODUCTION_SIGNATURE: "1"
+        run: |
+          set -euo pipefail
+          source_apk="rpcs3/android/app/build/outputs/apk/release/rpcs3x6-release.apk"
+          versioned_asset="rpcs3x6-${VERSION_NAME}-android-arm64.apk"
+          rolling_asset="rpcs3x6-android-arm64.apk"
+          [[ -s "$source_apk" ]]
+          mkdir -p dist
+          cp "$source_apk" "dist/$versioned_asset"
+          cp "$source_apk" "dist/$rolling_asset"
+          bash rpcs3/android/scripts/verify-apk.sh "dist/$versioned_asset" "$VERSION_NAME"
+          (
+            cd dist
+            sha256sum "$versioned_asset" > "$versioned_asset.sha256"
+            sha256sum "$rolling_asset" > "$rolling_asset.sha256"
+          )
+          {
+            echo "package=com.teknogods.rpcs3x6"
+            echo "version=$VERSION_NAME"
+            echo "abi=arm64-v8a"
+            echo "rpcs3_commit=$RPCS3_SHA"
+            echo "workflow_commit=$GITHUB_SHA"
+            echo "certificate_sha256=$EXPECTED_CERT_SHA256"
+          } > "dist/$versioned_asset.metadata.txt"
+          cp "dist/$versioned_asset.metadata.txt" "dist/$rolling_asset.metadata.txt"
+          echo "versioned_asset=$versioned_asset" >> "$GITHUB_OUTPUT"
+
+      - name: Upload verified Android artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rpcs3x6-${{ steps.version.outputs.version_name }}-android-arm64
+          path: |
+            dist/rpcs3x6-${{ steps.version.outputs.version_name }}-android-arm64.apk
+            dist/rpcs3x6-${{ steps.version.outputs.version_name }}-android-arm64.apk.sha256
+            dist/rpcs3x6-${{ steps.version.outputs.version_name }}-android-arm64.apk.metadata.txt
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+
+      - name: Publish rolling RPCS3X6 Android release
+        if: inputs.publish_release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION_NAME: ${{ steps.version.outputs.version_name }}
+        run: |
+          set -euo pipefail
+          rolling_tag="rpcs3x6-android"
+          if ! gh release view "$rolling_tag" >/dev/null 2>&1; then
+            gh release create "$rolling_tag" --target "$GITHUB_SHA" \
+              --title "$VERSION_NAME" \
+              --notes "Rolling production-signed arm64-v8a TeknoParrotUI companion build."
+          else
+            gh release edit "$rolling_tag" --title "$VERSION_NAME"
+          fi
+          gh release upload "$rolling_tag" --clobber \
+            dist/rpcs3x6-android-arm64.apk \
+            dist/rpcs3x6-android-arm64.apk.sha256 \
+            dist/rpcs3x6-android-arm64.apk.metadata.txt

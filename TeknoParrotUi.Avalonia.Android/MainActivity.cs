@@ -49,9 +49,12 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
         SeedBundledCatalog(dataDir);
         var pcsx2x6Catalog = new AndroidPcsx2x6CatalogSync(this);
         var dolphinCatalog = new AndroidDolphinCatalogSync(this);
+        var rpcs3x6Catalog = new AndroidRpcs3x6CatalogSync(this);
         PlatformGameCatalogSync.RefreshAsync = async () =>
         {
             var ready = new System.Collections.Generic.HashSet<string>(
+                StringComparer.OrdinalIgnoreCase);
+            var readyProfiles = new System.Collections.Generic.HashSet<string>(
                 StringComparer.OrdinalIgnoreCase);
             try
             {
@@ -73,8 +76,18 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
                 global::Android.Util.Log.Info(
                     "TeknoParrotCatalog", "TeknoDolphin unavailable: " + error.Message);
             }
-            PlatformGameCatalogSync.PublishReadyExecutables(ready);
-            return ready.Count;
+            try
+            {
+                var rpcs3Games = await rpcs3x6Catalog.QueryAsync().ConfigureAwait(false);
+                readyProfiles.UnionWith(rpcs3Games.Keys);
+            }
+            catch (Exception error)
+            {
+                global::Android.Util.Log.Info(
+                    "TeknoParrotCatalog", "RPCS3X6 unavailable: " + error.Message);
+            }
+            PlatformGameCatalogSync.PublishReadyGames(ready, readyProfiles);
+            return ready.Count + readyProfiles.Count;
         };
         var appUpdater = new AndroidAppUpdater(this);
         PlatformAppUpdater.AndroidComponentsFactory =
@@ -92,6 +105,11 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
             MainActivity.ImportPcsx2x6GameAsync;
         PlatformDolphinGameImport.AndroidImporter =
             MainActivity.ImportDolphinGameAsync;
+        PlatformRpcs3x6GameImport.AndroidImporter =
+            MainActivity.ImportRpcs3x6GamesAsync;
+        var rpcs3x6Firmware = new AndroidRpcs3x6Firmware(this);
+        PlatformRpcs3x6Firmware.AndroidReadinessCheck = rpcs3x6Firmware.IsConfiguredAsync;
+        PlatformRpcs3x6Firmware.AndroidConfigurator = MainActivity.OpenRpcs3x6SetupAsync;
         PlatformDocumentPathResolver.AndroidResolver =
             new AndroidDocumentProviderPathResolver(this).Resolve;
 
@@ -103,9 +121,12 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
                         new AndroidPcsx2x6GameSession(this, profile, isTest, emuOnly),
                     EmulatorType.Dolphin =>
                         new AndroidDolphinGameSession(this, profile, isTest, emuOnly),
+                    EmulatorType.RPCS3 when PlatformCapabilities.IsAndroidRpcs3ProfileSupported(profile) =>
+                        new AndroidRpcs3x6GameSession(this, profile, isTest, emuOnly),
                     _ => new AndroidWinlatorGameSession(this, profile, isTest, emuOnly)
                 },
-            () => DolphinSessionService.TryRestoreActiveProfileName(this)
+            () => Rpcs3x6SessionService.TryRestoreActiveProfileName(this)
+                  ?? DolphinSessionService.TryRestoreActiveProfileName(this)
                   ?? Pcsx2x6SessionService.TryRestoreActiveProfileName(this)
                   ?? GameSessionService.TryRestoreActiveProfileName(this));
 
@@ -290,10 +311,12 @@ public class MainActivity : AvaloniaMainActivity
     private const int Pcsx2x6BiosRequestCode = 246;
     private const int Pcsx2x6GameImportRequestCode = 247;
     private const int DolphinGameImportRequestCode = 248;
+    private const int Rpcs3x6GameImportRequestCode = 249;
     private static WeakReference<MainActivity>? _current;
     private TaskCompletionSource<bool>? _biosConfiguration;
     private TaskCompletionSource<bool>? _gameImport;
     private TaskCompletionSource<bool>? _dolphinGameImport;
+    private TaskCompletionSource<bool>? _rpcs3x6GameImport;
 
     protected override void OnCreate(Bundle? savedInstanceState)
     {
@@ -449,6 +472,38 @@ public class MainActivity : AvaloniaMainActivity
         return completion.Task;
     }
 
+    internal static Task<bool> ImportRpcs3x6GamesAsync()
+    {
+        if (_current == null || !_current.TryGetTarget(out var activity) || activity.IsFinishing)
+            throw new InvalidOperationException("The TeknoParrot Android activity is not available.");
+        if (activity._rpcs3x6GameImport is { Task.IsCompleted: false } pending)
+            return pending.Task;
+        var completion = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        activity._rpcs3x6GameImport = completion;
+        try
+        {
+            var intent = new Intent("com.teknoparrot.rpcs3x6.action.IMPORT_ARCADE_ROOT");
+            intent.SetClassName("com.teknogods.rpcs3x6", "net.rpcs3.TeknoParrotArcadeImportActivity");
+            activity.StartActivityForResult(intent, Rpcs3x6GameImportRequestCode);
+        }
+        catch (Exception error)
+        {
+            activity._rpcs3x6GameImport = null;
+            completion.TrySetException(error);
+        }
+        return completion.Task;
+    }
+
+    internal static Task<bool> OpenRpcs3x6SetupAsync()
+    {
+        if (_current == null || !_current.TryGetTarget(out var activity) || activity.IsFinishing)
+            throw new InvalidOperationException("The TeknoParrot Android activity is not available.");
+        var intent = new Intent("com.teknoparrot.rpcs3x6.action.SETUP");
+        intent.SetClassName("com.teknogods.rpcs3x6", "net.rpcs3.MainActivity");
+        activity.StartActivity(intent);
+        return Task.FromResult(true);
+    }
+
 #pragma warning disable CS0672 // Android still dispatches activity results here.
     protected override void OnActivityResult(
         int requestCode,
@@ -475,6 +530,12 @@ public class MainActivity : AvaloniaMainActivity
             _dolphinGameImport = null;
             completion?.TrySetResult(resultCode == Result.Ok);
         }
+        else if (requestCode == Rpcs3x6GameImportRequestCode)
+        {
+            var completion = _rpcs3x6GameImport;
+            _rpcs3x6GameImport = null;
+            completion?.TrySetResult(resultCode == Result.Ok);
+        }
     }
 
     protected override void OnDestroy()
@@ -489,6 +550,8 @@ public class MainActivity : AvaloniaMainActivity
         _gameImport = null;
         _dolphinGameImport?.TrySetCanceled();
         _dolphinGameImport = null;
+        _rpcs3x6GameImport?.TrySetCanceled();
+        _rpcs3x6GameImport = null;
         base.OnDestroy();
     }
 }

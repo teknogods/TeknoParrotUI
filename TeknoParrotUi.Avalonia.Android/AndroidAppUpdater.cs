@@ -30,6 +30,7 @@ internal sealed class AndroidAppUpdater
     private const string CompanionPackage = "com.teknoparrot.winlator";
     private const string Pcsx2x6Package = "com.teknogods.tekno2x6";
     private const string DolphinPackage = "com.teknogods.teknodolphin";
+    private const string Rpcs3x6Package = "com.teknogods.rpcs3x6";
     private readonly Context _context;
     private readonly AndroidRuntimePackageUpdater _runtimeUpdater;
 
@@ -70,6 +71,13 @@ internal sealed class AndroidAppUpdater
                 "teknodolphin-",
                 "CrediarDolphin",
                 "ReaverTeknoGods"),
+            CreateApkComponent(
+                "RPCS3X6",
+                Rpcs3x6Package,
+                "rpcs3x6-android",
+                "rpcs3x6-",
+                "TeknoParrotUI",
+                "teknogods"),
             CreateRuntimeComponent("OpenParrotWin32"),
             CreateRuntimeComponent("OpenParrotx64")
         };

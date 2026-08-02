@@ -54,6 +54,11 @@ internal sealed class AndroidWinlatorGameSession : IGameSession
         GameSessionLogArchive.BeginRun(_profile);
         try
         {
+            var rpcs3x6Owner =
+                Rpcs3x6SessionService.TryGetActiveProfileName(_context);
+            if (!string.IsNullOrWhiteSpace(rpcs3x6Owner))
+                throw new InvalidOperationException(
+                    $"{rpcs3x6Owner} already owns the Android game session.");
             var pcsx2x6Owner =
                 Pcsx2x6SessionService.TryGetActiveProfileName(_context);
             if (!string.IsNullOrWhiteSpace(pcsx2x6Owner))

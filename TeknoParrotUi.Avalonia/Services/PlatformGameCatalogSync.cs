@@ -17,6 +17,8 @@ public static class PlatformGameCatalogSync
     private static readonly object ReadySync = new();
     private static HashSet<string> _readyExecutables =
         new(StringComparer.OrdinalIgnoreCase);
+    private static HashSet<string> _readyProfileNames =
+        new(StringComparer.OrdinalIgnoreCase);
 
     public static Func<Task<int>>? RefreshAsync { private get; set; }
 
@@ -31,19 +33,38 @@ public static class PlatformGameCatalogSync
         }
     }
 
+    public static IReadOnlyCollection<string> ReadyProfileNames
+    {
+        get
+        {
+            lock (ReadySync)
+                return _readyProfileNames.ToArray();
+        }
+    }
+
     public static void PublishReadyExecutables(IEnumerable<string> executableNames)
+        => PublishReadyGames(executableNames, Array.Empty<string>());
+
+    public static void PublishReadyGames(
+        IEnumerable<string> executableNames,
+        IEnumerable<string> profileNames)
     {
         var ready = executableNames
+            .Where(name => !string.IsNullOrWhiteSpace(name))
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+        var readyProfiles = profileNames
             .Where(name => !string.IsNullOrWhiteSpace(name))
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
         var changed = false;
         lock (ReadySync)
         {
-            changed = !_readyExecutables.SetEquals(ready);
+            changed = !_readyExecutables.SetEquals(ready) ||
+                !_readyProfileNames.SetEquals(readyProfiles);
             _readyExecutables = ready;
+            _readyProfileNames = readyProfiles;
         }
         if (changed)
-            CatalogUpdated?.Invoke(ready.Count);
+            CatalogUpdated?.Invoke(ready.Count + readyProfiles.Count);
     }
 
     public static void RequestRefresh()
@@ -82,7 +103,7 @@ public static class PlatformGameCatalogSync
             // when a companion is absent or not responding. Clear stale
             // app-scoped results: an uninstall/reinstall creates an empty
             // companion store even while this TPUI process stays alive.
-            PublishReadyExecutables(Array.Empty<string>());
+            PublishReadyGames(Array.Empty<string>(), Array.Empty<string>());
             return 0;
         }
         finally
