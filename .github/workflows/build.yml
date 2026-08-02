@@ -24,6 +24,7 @@ permissions:
 
 jobs:
   build-windows:
+    if: github.event_name != 'workflow_dispatch'
     runs-on: windows-latest
 
     steps:
@@ -97,6 +98,7 @@ jobs:
           retention-days: 14
 
   build-linux:
+    if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
@@ -166,6 +168,7 @@ jobs:
           retention-days: 14
 
   build-android:
+    if: github.event_name != 'workflow_dispatch' || !inputs.build_android_release
     runs-on: ubuntu-latest
 
     steps:
