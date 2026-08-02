@@ -1128,6 +1128,10 @@ namespace InputMethodAudit
                     "\"winlator\",\n                \"ReaverTeknoGods\"",
                     "standalone Winlator updater repository");
                 RequireContains(
+                    androidUpdaterSource,
+                    "\"rpcs3x6-android\",\n                \"rpcs3x6-\",\n                \"rpcs3\",\n                \"ReaverTeknoGods\"",
+                    "standalone RPCS3X6 updater repository");
+                RequireContains(
                     buildWorkflowSource,
                     "\"dist/TeknoParrotUi-$full-android-arm64.apk\"",
                     "versioned Android UI release asset name");

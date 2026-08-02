@@ -76,8 +76,8 @@ internal sealed class AndroidAppUpdater
                 Rpcs3x6Package,
                 "rpcs3x6-android",
                 "rpcs3x6-",
-                "TeknoParrotUI",
-                "teknogods"),
+                "rpcs3",
+                "ReaverTeknoGods"),
             CreateRuntimeComponent("OpenParrotWin32"),
             CreateRuntimeComponent("OpenParrotx64")
         };
