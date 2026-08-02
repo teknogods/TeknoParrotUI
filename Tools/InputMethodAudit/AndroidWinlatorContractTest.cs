@@ -700,11 +700,13 @@ namespace InputMethodAudit
                     "non-recursive catalog update refresh");
                 RequireContains(
                     platformCatalogSource,
-                    "changed = !_readyExecutables.SetEquals(ready);",
-                    "idempotent companion catalog publication");
+                    "changed = !_readyExecutables.SetEquals(ready) ||\n" +
+                    "                !_readyProfileNames.SetEquals(readyProfiles);",
+                    "idempotent executable and profile catalog publication");
                 RequireContains(
                     platformCatalogSource,
-                    "if (changed)\n            CatalogUpdated?.Invoke(ready.Count);",
+                    "if (changed)\n" +
+                    "            CatalogUpdated?.Invoke(ready.Count + readyProfiles.Count);",
                     "catalog event change guard");
                 RequireContains(
                     androidMainActivitySource,
