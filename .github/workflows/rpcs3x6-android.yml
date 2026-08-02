@@ -1,6 +1,14 @@
 name: RPCS3X6 Android
 
 on:
+  workflow_call:
+    inputs:
+      rpcs3_ref:
+        required: true
+        type: string
+      publish_release:
+        required: true
+        type: boolean
   workflow_dispatch:
     inputs:
       rpcs3_ref:

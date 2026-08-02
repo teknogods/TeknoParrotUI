@@ -24,7 +24,6 @@ permissions:
 
 jobs:
   build-windows:
-    if: github.event_name != 'workflow_dispatch'
     runs-on: windows-latest
 
     steps:
@@ -98,7 +97,6 @@ jobs:
           retention-days: 14
 
   build-linux:
-    if: github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
@@ -168,7 +166,6 @@ jobs:
           retention-days: 14
 
   build-android:
-    if: github.event_name != 'workflow_dispatch' || !inputs.build_android_release
     runs-on: ubuntu-latest
 
     steps:
@@ -344,6 +341,21 @@ jobs:
           name: TeknoParrotUi-android-arm64-release
           path: dist/TeknoParrotUi-*-android-arm64.apk
           retention-days: 14
+
+  # Reuses the same protected Android signing inputs as TPUI while checking out
+  # the RPCS3X6 source separately. Desktop TPUI builds remain on their original
+  # source and never consume or package the Android companion.
+  build-rpcs3x6-android:
+    if: >-
+      github.event_name == 'workflow_dispatch' &&
+      inputs.build_android_release
+    uses: ./.github/workflows/rpcs3x6-android.yml
+    with:
+      rpcs3_ref: codex/rpcs3x6-android
+      publish_release: true
+    secrets: inherit
+    permissions:
+      contents: write
 
   # Publishes both platform zips to a single rolling pre-release, tagged
   # "TeknoParrotUI-net8" - a channel entirely separate from the official
