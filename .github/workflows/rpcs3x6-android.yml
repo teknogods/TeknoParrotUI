@@ -64,6 +64,17 @@ jobs:
 
       - name: Set up Gradle cache
         uses: gradle/actions/setup-gradle@v4
+        with:
+          # RPCS3 recursively checks out an unused SDL sample wrapper whose
+          # historical jar is not in Gradle's checksum catalog. Verify only
+          # the wrapper this Android build executes in the next step.
+          validate-wrappers: false
+
+      - name: Verify RPCS3X6 Gradle wrapper
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "e996d452d2645e70c01c11143ca2d3742734a28da2bf61f25c82bdc288c9e637  rpcs3/android/gradle/wrapper/gradle-wrapper.jar" | sha256sum --check --strict
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
