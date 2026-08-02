@@ -872,6 +872,31 @@ namespace InputMethodAudit
                         "/storage/emulated/0/Download/TeknoParrotGames/Test/game.exe",
                         "/storage/emulated/0/Download"),
                     "legacy Downloads game library mapped to D");
+                Equal(
+                    @"H:\MachStorm\ACE7_WIN_10.exe",
+                    AndroidWinlatorGamePath.ToDosPath(
+                        "/storage/1234-ABCD/TeknoParrotGames/MachStorm/ACE7_WIN_10.exe",
+                        "/storage/emulated/0/Download"),
+                    "restricted removable-card game library mapped to H");
+                Equal(
+                    @"H:\MachStorm\ACE7_WIN_10.exe",
+                    AndroidWinlatorGamePath.ToDosPath(
+                        @"H:\MachStorm\ACE7_WIN_10.exe",
+                        "/storage/emulated/0/Download"),
+                    "canonical removable-card DOS path accepted");
+                False(ManagedAndroidGameImporter.IsWinlatorSharedGamePath(
+                    "/storage/1234-ABCD/Arcade/MachStorm/ACE7_WIN_10.exe"),
+                    "removable-card root outside TeknoParrotGames rejected");
+                True(AndroidProfileConfig.IsBooleanEnabled(
+                        "[General]\nReverse Y Axis=1\n",
+                        "General",
+                        "Reverse Y Axis"),
+                    "Android forwarded profile boolean enabled");
+                False(AndroidProfileConfig.IsBooleanEnabled(
+                        "[Other]\nReverse Y Axis=1\n[General]\nReverse Y Axis=0\n",
+                        "General",
+                        "Reverse Y Axis"),
+                    "Android forwarded profile boolean is section-aware");
                 False(ManagedAndroidGameImporter.IsWinlatorDownloadPath(
                     "/storage/emulated/0/Documents/Test/game.exe"),
                     "non-Download path rejected");
@@ -1798,6 +1823,16 @@ namespace InputMethodAudit
                 "/storage/1234-ABCD/Arcade/game.exe",
                 removablePath,
                 "Android removable-storage document path");
+
+            True(AndroidDocumentPathResolver.TryResolve(
+                    "content://com.android.externalstorage.documents/tree/" +
+                    "1234-ABCD%3ATeknoParrotGames",
+                    out var removableTreePath),
+                "Android removable-storage tree URI resolves");
+            Equal(
+                "/storage/1234-ABCD/TeknoParrotGames",
+                removableTreePath,
+                "Android removable-storage tree path");
 
             True(AndroidDocumentPathResolver.TryResolve(
                     "content://vendor.documents/root/storage/emulated/0/" +

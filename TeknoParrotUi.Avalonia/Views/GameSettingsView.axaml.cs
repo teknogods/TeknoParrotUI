@@ -575,7 +575,8 @@ public partial class GameSettingsView : UserControl
                                 owner,
                                 "Choose a protected game location",
                                 "For safety, Winlator can launch games only from Android " +
-                                "Downloads or /storage/emulated/0/TeknoParrotGames. " +
+                                "Downloads, /storage/emulated/0/TeknoParrotGames, or a " +
+                                "TeknoParrotGames folder on a removable SD card. " +
                                 "Move the game folder there and select it again.");
                         }
                     }

@@ -48,6 +48,7 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
         private readonly object _sync = new object();
         private readonly Dictionary<uint, DeviceState> _devices = new Dictionary<uint, DeviceState>();
         private readonly bool _latchTestSwitch;
+        private readonly bool _reverseYAxis;
         private bool _testSwitchLatched;
         private int _wmmtGear = 1;
         private bool _wmmtShiftDownWasPressed;
@@ -60,9 +61,12 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
         private bool _battleGearKeySensorOff = true;
         private bool _battleGearKeyWasPressed;
 
-        public WinlatorForwardedInputSource(bool latchTestSwitch = false)
+        public WinlatorForwardedInputSource(
+            bool latchTestSwitch = false,
+            bool reverseYAxis = false)
         {
             _latchTestSwitch = latchTestSwitch;
+            _reverseYAxis = reverseYAxis;
         }
 
         public ForwardedInputApplyResult ApplyFrame(ReadOnlySpan<byte> packet)
@@ -631,7 +635,10 @@ namespace TeknoParrotUi.Common.InputListening.Forwarded
                 (brake * 128 / short.MaxValue);
             InputCode.AnalogBytes[2] = (byte)Math.Clamp(throttle, 0, byte.MaxValue);
             InputCode.AnalogBytes[4] = AxisToByte(axes[0]);
-            InputCode.AnalogBytes[6] = AxisToByte(axes[1]);
+            var aimY = AxisToByte(axes[1]);
+            InputCode.AnalogBytes[6] = _reverseYAxis
+                ? (byte)(byte.MaxValue - aimY)
+                : aimY;
         }
 
         private static byte AxisToByte(short value) =>

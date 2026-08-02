@@ -95,10 +95,16 @@ public sealed class InputCaptureService : IDisposable
             }
         }
 
-        if (DetectThumb(ns.Gamepad.LeftThumbX, os.Gamepad.LeftThumbX, XiGamepad.LeftThumbDeadZone, index, prefix, isLeft: true, isY: false)) return;
-        if (DetectThumb(ns.Gamepad.RightThumbX, os.Gamepad.RightThumbX, XiGamepad.RightThumbDeadZone, index, prefix, isLeft: false, isY: false)) return;
-        if (DetectThumb(ns.Gamepad.LeftThumbY, os.Gamepad.LeftThumbY, XiGamepad.LeftThumbDeadZone, index, prefix, isLeft: true, isY: true)) return;
-        if (DetectThumb(ns.Gamepad.RightThumbY, os.Gamepad.RightThumbY, XiGamepad.RightThumbDeadZone, index, prefix, isLeft: false, isY: true)) return;
+        if (GamepadAxisCapture.TrySelectDominantThumb(
+                ns.Gamepad,
+                os.Gamepad,
+                index,
+                out var thumbBinding,
+                out var thumbName))
+        {
+            Raise(prefix + thumbName, thumbBinding);
+            return;
+        }
 
         if (ns.Gamepad.LeftTrigger != os.Gamepad.LeftTrigger && ns.Gamepad.LeftTrigger > 30)
         {
@@ -109,25 +115,6 @@ public sealed class InputCaptureService : IDisposable
         {
             Raise(prefix + "RightTrigger", new XInputButton { IsRightTrigger = true, XInputIndex = index });
         }
-    }
-
-    private bool DetectThumb(short value, short old, short deadZone, int index, string prefix, bool isLeft, bool isY)
-    {
-        if (value == old || Math.Abs((int)value) <= deadZone)
-            return false;
-
-        var button = new XInputButton { IsButton = false, XInputIndex = index, IsAxisMinus = value < 0 };
-        if (isY)
-        {
-            if (isLeft) button.IsLeftThumbY = true; else button.IsRightThumbY = true;
-        }
-        else
-        {
-            if (isLeft) button.IsLeftThumbX = true; else button.IsRightThumbX = true;
-        }
-        var name = prefix + (isLeft ? "LeftThumb" : "RightThumb") + (isY ? "Y" : "X") + (value < 0 ? "-" : "+");
-        Raise(name, button);
-        return true;
     }
 
     private void Raise(string name, XInputButton? xi)

@@ -7,6 +7,7 @@ using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.Android;
 using TeknoParrotUi.Common.GameLaunch;
 using TeknoParrotUi.Common.InputListening.Forwarded;
+using TeknoParrotUi.Common.InputListening.Gamepad;
 using TeknoParrotUi.Common.Jvs;
 
 namespace InputMethodAudit
@@ -73,6 +74,7 @@ namespace InputMethodAudit
                 ValidateSegaRingDrivingForwarding();
                 ValidateSegaRingGunForwarding();
                 ValidateMachStormForwarding();
+                ValidateDominantAxisCapture();
                 ValidateSequenceWrap(packet);
                 ValidateChunkedStream();
                 ValidateCancelledAsyncStream();
@@ -833,6 +835,48 @@ namespace InputMethodAudit
             Equal(byte.MaxValue, InputCode.AnalogBytes[4], "MachStorm aim-X channel");
             Equal((byte)0, InputCode.AnalogBytes[6], "MachStorm aim-Y channel");
             source.ReleaseAll();
+
+            var reversedSource = new WinlatorForwardedInputSource(reverseYAxis: true);
+            var reversedLength = ForwardedInputProtocol.WriteAxisFrame(
+                frame, 1, 1, 9028, 0, 1, short.MinValue, 0);
+            Equal(ForwardedInputApplyResult.Applied,
+                reversedSource.ApplyFrame(frame[..reversedLength]),
+                "MachStorm reversed Y source");
+            reversedSource.PublishControlsToJvsInputCode(
+                AndroidLaunchRecipe.InputProtocolJvsMachStorm);
+            Equal(byte.MaxValue, InputCode.AnalogBytes[6],
+                "MachStorm reversed aim-Y channel");
+            reversedSource.ReleaseAll();
+        }
+
+        private static void ValidateDominantAxisCapture()
+        {
+            var previous = new XiGamepad();
+            var verticalMovement = new XiGamepad
+            {
+                LeftThumbX = 9_000,
+                LeftThumbY = 24_000
+            };
+            True(GamepadAxisCapture.TrySelectDominantThumb(
+                    verticalMovement, previous, 2, out var vertical, out var verticalName),
+                "dominant vertical stick capture");
+            True(vertical?.IsLeftThumbY == true && vertical.IsLeftThumbX == false,
+                "vertical movement is not stolen by horizontal axis noise");
+            Equal("LeftThumbY+", verticalName, "vertical capture name");
+            Equal(2, vertical!.XInputIndex, "vertical capture device index");
+
+            var horizontalMovement = new XiGamepad
+            {
+                RightThumbX = -25_000,
+                RightThumbY = -9_000
+            };
+            True(GamepadAxisCapture.TrySelectDominantThumb(
+                    horizontalMovement, previous, 1, out var horizontal, out var horizontalName),
+                "dominant horizontal stick capture");
+            True(horizontal?.IsRightThumbX == true && horizontal.IsRightThumbY == false,
+                "strongest horizontal movement remains selectable");
+            True(horizontal!.IsAxisMinus, "negative horizontal direction retained");
+            Equal("RightThumbX-", horizontalName, "horizontal capture name");
         }
 
         private static void ValidateSegaRingDrivingForwarding()

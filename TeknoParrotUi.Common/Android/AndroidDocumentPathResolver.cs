@@ -33,7 +33,13 @@ namespace TeknoParrotUi.Common.Android
             if (string.Equals(uri.Host, ExternalStorageAuthority,
                     StringComparison.OrdinalIgnoreCase))
             {
-                const string marker = "/document/";
+                const string documentMarker = "/document/";
+                const string treeMarker = "/tree/";
+                var marker = unescapedPath.Contains(
+                    documentMarker,
+                    StringComparison.OrdinalIgnoreCase)
+                    ? documentMarker
+                    : treeMarker;
                 var markerIndex = unescapedPath.IndexOf(
                     marker,
                     StringComparison.OrdinalIgnoreCase);

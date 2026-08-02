@@ -219,6 +219,18 @@ namespace InputMethodAudit
                     @"G:\DirectGame\game.exe")
                     throw new InvalidOperationException(
                         "The restricted G: game-library path was not preserved.");
+                using var removableGameEnvelope = JsonDocument.Parse(
+                    WinlatorSessionContract.CreateActivityLaunch(
+                        request with
+                        {
+                            Executable = @"H:\MachStorm\ACE7_WIN_10.exe",
+                            WorkingDirectory = @"H:\MachStorm",
+                            LibraryDirectory = null
+                        }));
+                if (removableGameEnvelope.RootElement.GetProperty("executable").GetString() !=
+                    @"H:\MachStorm\ACE7_WIN_10.exe")
+                    throw new InvalidOperationException(
+                        "The restricted H: removable game-library path was not preserved.");
                 RequireRejected(
                     () => WinlatorSessionContract.CreateActivityLaunch(
                         request with
@@ -640,8 +652,8 @@ namespace InputMethodAudit
                     "disabled Android setup-wizard account action");
                 RequireContains(
                     activityContractSource,
-                    "\"(?i)^[CDEG]:",
-                    "restricted shared G drive Activity validation");
+                    "\"(?i)^[CDEGH]:",
+                    "restricted shared G/H drive Activity validation");
                 RequireContains(
                     winlatorAppUtilsSource,
                     "\"TeknoParrotGames\").getPath()",
@@ -660,8 +672,16 @@ namespace InputMethodAudit
                     "shared game-library directory preparation");
                 RequireContains(
                     diagnosticBackendSource,
-                    "container.setDrives(Container.TEKNOPARROT_MANAGED_DRIVES);",
-                    "existing managed-container G drive migration");
+                    "container.setDrives(buildManagedDrives(context));",
+                    "existing managed-container G/H drive migration");
+                RequireContains(
+                    diagnosticBackendSource,
+                    "context.getExternalFilesDirs(null)",
+                    "removable-storage volume discovery");
+                RequireContains(
+                    diagnosticBackendSource,
+                    "drives + \"H:\" + gamesDirectory.getPath()",
+                    "restricted removable-card TeknoParrotGames mapping");
                 RequireContains(
                     diagnosticBackendSource,
                     "ensureSharedGamesDirectory();",

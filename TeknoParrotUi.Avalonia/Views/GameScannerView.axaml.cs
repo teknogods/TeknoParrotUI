@@ -449,26 +449,9 @@ public partial class GameScannerView : UserControl
         var value = item.Path?.OriginalString;
         if (string.IsNullOrWhiteSpace(value))
             return null;
-        foreach (var marker in new[] { "/document/", "/tree/" })
-        {
-            var markerIndex = value.LastIndexOf(marker, StringComparison.OrdinalIgnoreCase);
-            if (markerIndex < 0)
-                continue;
-            var encodedId = value[(markerIndex + marker.Length)..];
-            var slash = encodedId.IndexOf('/');
-            if (slash >= 0)
-                encodedId = encodedId[..slash];
-            var documentId = Uri.UnescapeDataString(encodedId);
-            const string primaryPrefix = "primary:";
-            if (documentId.StartsWith(primaryPrefix, StringComparison.OrdinalIgnoreCase))
-            {
-                var relative = documentId[primaryPrefix.Length..].Replace('\\', '/').TrimStart('/');
-                return string.IsNullOrEmpty(relative)
-                    ? "/storage/emulated/0"
-                    : "/storage/emulated/0/" + relative;
-            }
-        }
-        return null;
+        return Services.PlatformDocumentPathResolver.TryResolve(value, out var resolved)
+            ? resolved.TrimEnd('/')
+            : null;
     }
 
     private static string? CombineAndroidPath(string? root, string relative)

@@ -302,7 +302,11 @@ public sealed class GameSessionService : Service
         var counters = new SessionCounters();
         var clientTasks = new List<Task>();
         var inputSource = new WinlatorForwardedInputSource(
-            RequiresLatchedTestSwitch(record.InputProtocol));
+            RequiresLatchedTestSwitch(record.InputProtocol),
+            reverseYAxis: AndroidProfileConfig.IsBooleanEnabled(
+                record.ProfileConfigIni,
+                "General",
+                "Reverse Y Axis"));
 
         void PublishTerminalStatus(string status)
         {
