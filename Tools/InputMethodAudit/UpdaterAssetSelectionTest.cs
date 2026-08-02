@@ -260,6 +260,67 @@ namespace InputMethodAudit
                 failures);
             if (UpdaterCore.GetVersionNumber("2.6.1.12345678") != 12345678)
                 failures.Add("Numeric PCSX2X6 module version was not update-comparable.");
+            if (UpdaterCore.CompareVersions("0.0.116.35", "0.0.117.1") >= 0)
+                failures.Add(
+                    "RPCS3X6 build rollover was compared by revision only.");
+            if (UpdaterCore.CompareVersions(
+                    "1.0.0.85633782",
+                    "1.0.0.85633783") >= 0)
+                failures.Add(
+                    "Large Android companion revision was not update-comparable.");
+
+            var rpcs3x6 = new UpdaterComponent
+            {
+                name = "RPCS3X6",
+                assetNamePrefix = "rpcs3x6-",
+                assetNameMarker = "-android-arm64.apk",
+                deliveryKind = UpdaterDeliveryKind.AndroidApk
+            };
+            var rpcs3x6Version = UpdaterCore.GetReleaseVersion(
+                rpcs3x6,
+                new GithubRelease
+                {
+                    name = "RPCS3X6 Android 0.0.116.35",
+                    assets = new List<GithubAsset>
+                    {
+                        new GithubAsset
+                        {
+                            name = "rpcs3x6-0.0.116.35-android-arm64.apk"
+                        }
+                    }
+                });
+            if (rpcs3x6Version != "0.0.116.35")
+                failures.Add(
+                    "RPCS3X6 Android release title was not resolved from its APK filename.");
+
+            var androidUiVersion = UpdaterCore.GetReleaseVersion(
+                new UpdaterComponent
+                {
+                    name = "TeknoParrotUI",
+                    assetNamePrefix = "TeknoParrotUi-",
+                    assetNameMarker = "-android-arm64.apk",
+                    deliveryKind = UpdaterDeliveryKind.AndroidApk
+                },
+                new GithubRelease
+                {
+                    name = "2.0.0.10113",
+                    assets = new List<GithubAsset>
+                    {
+                        new GithubAsset
+                        {
+                            name = "TeknoParrotUi-2.0.0.20113-android-arm64.apk"
+                        }
+                    }
+                });
+            if (androidUiVersion != "2.0.0.20113")
+                failures.Add(
+                    "Android UI version did not follow the selected APK filename.");
+
+            var legacyRuntimeVersion = UpdaterCore.GetReleaseVersion(
+                new UpdaterComponent { name = "OpenParrotx64" },
+                new GithubRelease { name = "OpenParrotx64_1.0.0.783" });
+            if (legacyRuntimeVersion != "1.0.0.783")
+                failures.Add("Legacy underscore-prefixed release version changed.");
 
             var androidRuntime = new UpdaterComponent
             {

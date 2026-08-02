@@ -268,6 +268,91 @@ namespace TeknoParrotUi.Common.Updater
             return ver;
         }
 
+        public static int CompareVersions(string left, string right)
+        {
+            if (TryParseFourPartVersion(left, out var leftParts) &&
+                TryParseFourPartVersion(right, out var rightParts))
+            {
+                for (var index = 0; index < leftParts.Length; index++)
+                {
+                    var comparison = leftParts[index].CompareTo(rightParts[index]);
+                    if (comparison != 0)
+                        return comparison;
+                }
+
+                return 0;
+            }
+
+            // Preserve the historical final-component comparison for unusual
+            // legacy release strings that are not strict four-part versions.
+            return GetVersionNumber(left).CompareTo(GetVersionNumber(right));
+        }
+
+        private static bool TryParseFourPartVersion(
+            string version,
+            out long[] parts)
+        {
+            parts = Array.Empty<long>();
+            var split = version?.Split('.');
+            if (split?.Length != 4)
+                return false;
+
+            var parsed = new long[4];
+            for (var index = 0; index < split.Length; index++)
+            {
+                if (!long.TryParse(split[index], out parsed[index]) ||
+                    parsed[index] < 0)
+                    return false;
+            }
+
+            parts = parsed;
+            return true;
+        }
+
+        public static string GetReleaseVersion(
+            UpdaterComponent component,
+            GithubRelease release)
+        {
+            var onlineVersion = release?.name ?? string.Empty;
+
+            // Historical runtime releases use names such as
+            // OpenParrotx64_1.0.0.783. Only strip that exact prefix: a display
+            // title such as "RPCS3X6 Android 0.0.116.35" also contains the
+            // component name, but has no underscore to split on.
+            var legacyPrefix = component?.name + "_";
+            if (!string.IsNullOrEmpty(component?.name) &&
+                onlineVersion.StartsWith(
+                    legacyPrefix,
+                    StringComparison.OrdinalIgnoreCase))
+                onlineVersion = onlineVersion.Substring(legacyPrefix.Length);
+
+            // Android release titles are presentation metadata and may include
+            // a product label or lag behind the package version. The selected
+            // APK filename is deterministic and is the same package the
+            // installer will consume, so derive the displayed/comparable
+            // version from it.
+            if (component?.deliveryKind == UpdaterDeliveryKind.AndroidApk)
+            {
+                var asset = PickAssetForPlatform(component, release, "android");
+                var fileName = GetAssetFileName(asset);
+                var prefix = component.assetNamePrefix ?? string.Empty;
+                var marker = component.assetNameMarker ?? string.Empty;
+                if (!string.IsNullOrEmpty(fileName) &&
+                    (!string.IsNullOrEmpty(prefix) ||
+                     !string.IsNullOrEmpty(marker)) &&
+                    fileName.StartsWith(prefix, StringComparison.OrdinalIgnoreCase) &&
+                    fileName.EndsWith(marker, StringComparison.OrdinalIgnoreCase) &&
+                    fileName.Length > prefix.Length + marker.Length)
+                {
+                    return fileName.Substring(
+                        prefix.Length,
+                        fileName.Length - prefix.Length - marker.Length);
+                }
+            }
+
+            return onlineVersion;
+        }
+
         public static async Task<UpdateCheckResult> CheckComponent(UpdaterComponent component)
         {
             var result = new UpdateCheckResult { Component = component, LocalVersion = component.localVersion };
@@ -280,10 +365,7 @@ namespace TeknoParrotUi.Common.Updater
                     return result;
                 }
 
-                var onlineVersion = release.name;
-                // fix for weird things like OpenParrotx64_1.0.0.30
-                if (onlineVersion.Contains(component.name))
-                    onlineVersion = onlineVersion.Split('_')[1];
+                var onlineVersion = GetReleaseVersion(component, release);
 
                 result.Release = release;
                 result.OnlineVersion = onlineVersion;
@@ -293,7 +375,9 @@ namespace TeknoParrotUi.Common.Updater
                 else if (result.LocalVersion == "unknown")
                     result.NeedsUpdate = result.LocalVersion != onlineVersion;
                 else
-                    result.NeedsUpdate = GetVersionNumber(result.LocalVersion) < GetVersionNumber(onlineVersion);
+                    result.NeedsUpdate = CompareVersions(
+                        result.LocalVersion,
+                        onlineVersion) < 0;
             }
             catch (Exception ex)
             {
