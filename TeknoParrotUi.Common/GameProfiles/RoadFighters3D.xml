@@ -5,8 +5,8 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<EmulationProfile>KonamiAcio</EmulationProfile>
-	<GameProfileRevision>14</GameProfileRevision>
+	<EmulationProfile>KonamiAcioRacing</EmulationProfile>
+	<GameProfileRevision>15</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>jgt.dll</ExecutableName>
 	<EmulatorType>TeknoMacaw</EmulatorType>

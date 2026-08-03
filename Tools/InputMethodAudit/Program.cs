@@ -62,6 +62,8 @@ namespace InputMethodAudit
                 return UpdaterAssetSelectionTest.Run();
             if (args.Length > 0 && args[0] == "launch-environment-test")
                 return LaunchEnvironmentIsolationTest.Run();
+            if (args.Length > 0 && args[0] == "highscore-url-test")
+                return HighScoreUrlResolverTest.Run();
             if (args.Length > 0 && args[0] == "profile-path-test")
                 return ProfilePathResolverTest.Run();
             if (args.Length > 0 && args[0] == "tpo-contract-test")

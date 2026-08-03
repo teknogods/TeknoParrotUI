@@ -147,6 +147,7 @@ namespace TeknoParrotUi.Common
         CrossbeatsRev,
         Outrun2SPXElf2,
         KonamiAcio,
+        KonamiAcioRacing,
         cxbxr,
         pcsx2x6
     }

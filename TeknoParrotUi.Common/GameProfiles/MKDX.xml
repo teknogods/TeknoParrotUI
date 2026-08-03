@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoMkdx</EmulationProfile>
-	<GameProfileRevision>33</GameProfileRevision>
+	<GameProfileRevision>34</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<RequiresAdmin>false</RequiresAdmin>
@@ -106,19 +106,13 @@
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
 			<FieldName>ServerAddress</FieldName>
-			<FieldValue>104.244.72.41</FieldValue>
+			<FieldValue>185.218.89.67</FieldValue>
 			<FieldType>Text</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
 			<FieldName>ServerPort</FieldName>
 			<FieldValue>49200</FieldValue>
-			<FieldType>Text</FieldType>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Network</CategoryName>
-			<FieldName>AmAuthPort</FieldName>
-			<FieldValue>49199</FieldValue>
 			<FieldType>Text</FieldType>
 		</FieldInformation>
 		<FieldInformation>

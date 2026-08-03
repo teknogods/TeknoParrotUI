@@ -129,7 +129,8 @@ namespace TeknoParrotUi.Common.GameLaunch
                 case EmulationProfile.pcsx2x6: return new Pcsx2x6Pipe();
                 case EmulationProfile.RPCS3: return new RPCS3Pipe();
                 case EmulationProfile.LadyLuck: return new LadyLuckPipe();
-                case EmulationProfile.KonamiAcio: return new AcioPipe();
+                case EmulationProfile.KonamiAcio:
+                case EmulationProfile.KonamiAcioRacing: return new AcioPipe();
                 case EmulationProfile.cxbxr: return new CxbxPipe();
                 default: return null;
             }

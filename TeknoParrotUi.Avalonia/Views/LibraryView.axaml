@@ -49,6 +49,8 @@
                             <TextBlock Name="GamePathText" Opacity="0.6" FontSize="10" TextWrapping="Wrap" />
                         </StackPanel>
                     </Border>
+                    <Button Name="BtnHighScores" Content="High Scores" HorizontalAlignment="Stretch"
+                            IsVisible="False" Click="BtnHighScores_Click" />
                     <Button Name="BtnVerify" Content="Verify Files" HorizontalAlignment="Stretch" Click="BtnVerify_Click" />
                     <Button Name="BtnRemoveGame" Content="Remove Game" HorizontalAlignment="Stretch" Click="BtnRemoveGame_Click" />
                     <TextBlock Name="StatusText" Opacity="0.7" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0" />

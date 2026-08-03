@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>DeadHeatRiders</EmulationProfile>
-	<GameProfileRevision>9</GameProfileRevision>
+	<GameProfileRevision>10</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>a.elf</ExecutableName>
@@ -56,6 +56,68 @@
 			<FieldMin>1</FieldMin>
 			<FieldMax>255</FieldMax>
 			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable Submission</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable GUI</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable Capture</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>Enable YouTube Upload</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>YouTube Upload Customization</FieldName>
+			<FieldValue>Confirm Before Upload</FieldValue>
+			<FieldType>DropdownIndex</FieldType>
+			<FieldOptions>
+				<string>Confirm Before Upload</string>
+				<string>Always Upload</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>YouTube Upload Browser</FieldName>
+			<FieldValue>Chrome</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Chrome</string>
+				<string>Firefox</string>
+				<string>Edge</string>
+				<string>Opera</string>
+				<string>Brave</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Score</CategoryName>
+			<FieldName>YouTube Upload Privacy</FieldName>
+			<FieldValue>Public</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Public</string>
+				<string>Unlisted</string>
+				<string>Private</string>
+			</FieldOptions>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>

@@ -158,7 +158,7 @@ namespace TeknoParrotUi.Common.InputListening
                 case EmulationProfile.NamcoWmmt6RR:
                 case EmulationProfile.PlayInput:
                 case EmulationProfile.Outrun2SPXElf2:
-                case EmulationProfile.KonamiAcio:
+                case EmulationProfile.KonamiAcioRacing:
                 case EmulationProfile.pcsx2x6:
                     _wheelByte = 0; _gasByte = 2; _brakeByte = 4;
                     break;

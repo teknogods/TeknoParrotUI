@@ -99,8 +99,31 @@ namespace InputMethodAudit
             Check(InputCode.AnalogBytes[0] > 0x00, $"Cxbx gas byte 0 ramped up (0x{InputCode.AnalogBytes[0]:X2})", ref failures);
             Check(InputCode.AnalogBytes[6] > 0x00, $"Cxbx brake byte 6 ramped up (0x{InputCode.AnalogBytes[6]:X2})", ref failures);
 
+            // Road Fighters 3D / Thrill Drive 4 now use the dedicated
+            // KonamiAcioRacing layout: Analog0=wheel, Analog2=gas, Analog4=brake.
+            InputCode.AnalogBytes[0] = 0x80;
+            InputCode.AnalogBytes[2] = 0x00;
+            InputCode.AnalogBytes[4] = 0x00;
+            var konamiRacingEngine = new KeyboardAxisEngine();
+            konamiRacingEngine.Initialize(new GameProfile
+            {
+                EmulationProfile = EmulationProfile.KonamiAcioRacing,
+                ConfigValues = new System.Collections.Generic.List<FieldInformation>
+                {
+                    new FieldInformation { FieldName = "Use Keyboard/Button For Axis", FieldValue = "1" }
+                }
+            });
+            Check(konamiRacingEngine.HandleButton(wheelRight, true), "Konami racing wheel row consumed", ref failures);
+            Check(konamiRacingEngine.HandleButton(gas, true), "Konami racing gas row consumed", ref failures);
+            Check(konamiRacingEngine.HandleButton(brake, true), "Konami racing brake row consumed", ref failures);
+            for (int i = 0; i < 5; i++)
+                konamiRacingEngine.Tick();
+            Check(InputCode.AnalogBytes[0] > 0x80, $"Konami racing wheel byte 0 ramped right (0x{InputCode.AnalogBytes[0]:X2})", ref failures);
+            Check(InputCode.AnalogBytes[2] > 0x00, $"Konami racing gas byte 2 ramped up (0x{InputCode.AnalogBytes[2]:X2})", ref failures);
+            Check(InputCode.AnalogBytes[4] > 0x00, $"Konami racing brake byte 4 ramped up (0x{InputCode.AnalogBytes[4]:X2})", ref failures);
+
             Console.WriteLine(failures == 0
-                ? "\nKeyboard-axis engine (Sega Rally 3 + Cxbx driving layouts): ALL CHECKS PASSED"
+                ? "\nKeyboard-axis engine (Sega Rally 3 + Cxbx + Konami racing layouts): ALL CHECKS PASSED"
                 : $"\nKeyboard-axis engine: {failures} FAILURE(S)");
             return failures == 0 ? 0 : 1;
         }

@@ -10,12 +10,28 @@ namespace InputMethodAudit
     {
         private const string ProbeVariable = "TP_LOGTOFILE";
         private const string OpenSslProbeVariable = "OPENSSL_ia32cap";
+        private static readonly string[] OptionalLaunchVariables =
+        {
+            "TP_DIRECTHOOK",
+            "TP_REMOTETHREAD",
+            "tp_msysType",
+            "TP_ETH",
+            "TP_MSAA",
+            "TP_NUSOUND",
+            "TEA_DIR"
+        };
 
         public static int Run()
         {
             var originalEnvironment = Environment.GetEnvironmentVariable(ProbeVariable);
             var originalOpenSslEnvironment =
                 Environment.GetEnvironmentVariable(OpenSslProbeVariable);
+            var originalOptionalEnvironment = new Dictionary<string, string>();
+            foreach (var variable in OptionalLaunchVariables)
+            {
+                originalOptionalEnvironment[variable] =
+                    Environment.GetEnvironmentVariable(variable);
+            }
             var originalParrotData = Lazydata.ParrotData;
             var failures = new List<string>();
 
@@ -23,6 +39,8 @@ namespace InputMethodAudit
             {
                 Environment.SetEnvironmentVariable(ProbeVariable, "parent-value");
                 Environment.SetEnvironmentVariable(OpenSslProbeVariable, "parent-cpu-value");
+                foreach (var variable in OptionalLaunchVariables)
+                    Environment.SetEnvironmentVariable(variable, "stale-parent-value");
                 Lazydata.ParrotData = new ParrotData
                 {
                     Elfldr2LogToFile = true,
@@ -77,9 +95,23 @@ namespace InputMethodAudit
                     "parent OpenSSL CPU mask",
                     failures);
 
+                Lazydata.ParrotData = new ParrotData();
+                var cleanStartInfo = GameLaunchArguments.BuildProcessStartInfo(
+                    new GameProfile
+                    {
+                        EmulatorType = EmulatorType.ElfLdr2,
+                        ConfigValues = new List<FieldInformation>()
+                    },
+                    game,
+                    isTest: false,
+                    loader,
+                    "TeknoParrot64");
+                foreach (var variable in OptionalLaunchVariables)
+                    ExpectMissing(cleanStartInfo, variable, failures);
+
                 if (failures.Count == 0)
                 {
-                    Console.WriteLine("Launch environment isolation: PASS (7/7)");
+                    Console.WriteLine("Launch environment isolation: PASS (14/14)");
                     return 0;
                 }
             }
@@ -89,6 +121,8 @@ namespace InputMethodAudit
                 Environment.SetEnvironmentVariable(
                     OpenSslProbeVariable,
                     originalOpenSslEnvironment);
+                foreach (var entry in originalOptionalEnvironment)
+                    Environment.SetEnvironmentVariable(entry.Key, entry.Value);
                 Lazydata.ParrotData = originalParrotData;
             }
 
@@ -106,6 +140,19 @@ namespace InputMethodAudit
         {
             if (!string.Equals(expected, actual, StringComparison.Ordinal))
                 failures.Add($"{scenario}: expected '{expected}', got '{actual ?? "<null>"}'.");
+        }
+
+        private static void ExpectMissing(
+            System.Diagnostics.ProcessStartInfo startInfo,
+            string variable,
+            ICollection<string> failures)
+        {
+            if (startInfo.EnvironmentVariables.ContainsKey(variable))
+            {
+                failures.Add(
+                    $"stale child variable {variable}: expected it to be removed, got " +
+                    $"'{startInfo.EnvironmentVariables[variable]}'.");
+            }
         }
     }
 }

@@ -87,6 +87,7 @@ public partial class LibraryView : UserControl
         BtnTestMode.Content = Services.Loc.T("LibraryTestMenu", "Test Menu");
         BtnGameSettings.Content = Services.Loc.T("LibraryGameSettings", "GAME SETTINGS");
         BtnControls.Content = Services.Loc.T("LibraryControllerSetup", "CONTROLLER SETUP");
+        BtnHighScores.Content = Services.Loc.T("LibraryHighScores", "HIGH SCORES");
         BtnVerify.Content = Services.Loc.T("LibraryVerifyGame", "VERIFY");
         BtnAddGame.Content = Services.Loc.T("AddGame", "Add Game");
         BtnScanner.Content = Services.Loc.T("MainRomScanner", "Game Scanner");
@@ -355,6 +356,9 @@ public partial class LibraryView : UserControl
         GameGenre.Text = p?.GameGenreInternal ?? "";
         GamePathText.Text = p?.GamePath ?? "";
         BtnTestMode.IsVisible = p?.HasSeparateTestMode ?? false;
+        BtnHighScores.IsVisible = HighScoreUrlResolver.Resolve(
+            p?.ProfileName,
+            Lazydata.ParrotData.Language) != null;
 
         // Emulator line with homepage link (same as the classic library)
         if (p != null)
@@ -405,6 +409,22 @@ public partial class LibraryView : UserControl
     {
         if (_emulatorUrl != null)
             await Services.ExternalUrlLauncher.OpenAsync(this, _emulatorUrl);
+    }
+
+    private async void BtnHighScores_Click(
+        object? sender,
+        global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        var url = HighScoreUrlResolver.Resolve(
+            Selected?.ProfileName,
+            Lazydata.ParrotData.Language);
+        if (url == null)
+            return;
+
+        if (!await Services.ExternalUrlLauncher.OpenAsync(this, url.AbsoluteUri))
+            StatusText.Text = Services.Loc.T(
+                "LibraryHighScoresOpenFailed",
+                "Could not open the high-score page.");
     }
 
     private async void LoadIcon(GameProfile? p)
