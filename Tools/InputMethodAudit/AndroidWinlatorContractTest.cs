@@ -539,6 +539,10 @@ namespace InputMethodAudit
                     repositoryRoot,
                     "TeknoParrotUi.Avalonia.Android",
                     "AndroidDolphinCatalogSync.cs"));
+                var androidDolphinSessionSource = File.ReadAllText(Path.Combine(
+                    repositoryRoot,
+                    "TeknoParrotUi.Avalonia.Android",
+                    "AndroidDolphinGameSession.cs"));
                 var platformCatalogSource = File.ReadAllText(Path.Combine(
                     repositoryRoot,
                     "TeknoParrotUi.Avalonia",
@@ -613,6 +617,34 @@ namespace InputMethodAudit
                     mainViewSource,
                     "EnsureAndroidLaunchReadyAsync(profile)",
                     "Android launch readiness preflight");
+                RequireContains(
+                    mainViewSource,
+                    "persistent read access only to the file you select; it plays directly",
+                    "TeknoDolphin persisted document permission disclosure");
+                RequireContains(
+                    mainViewSource,
+                    "from the selected storage without copying the image.",
+                    "TeknoDolphin direct-storage launch disclosure");
+                RequireDoesNotContain(
+                    mainViewSource,
+                    "TeknoDolphin copies it into private storage.",
+                    "obsolete TeknoDolphin private-copy workflow");
+                RequireContains(
+                    gameSettingsViewSource,
+                    "Selected-storage game image",
+                    "TeknoDolphin selected-storage settings label");
+                RequireContains(
+                    gameSettingsViewSource,
+                    "Select or Change Game Image (Internal / SD)",
+                    "TeknoDolphin existing-install storage relink action");
+                RequireContains(
+                    gameSettingsViewSource,
+                    "PlatformDolphinGameImport.ImportAsync(",
+                    "TeknoDolphin settings storage selector");
+                RequireContains(
+                    androidDolphinSessionSource,
+                    "storage=persisted Android document or legacy companion copy",
+                    "TeknoDolphin persisted-document session diagnostic");
                 RequireContains(
                     gameSettingsViewSource,
                     "if (!OperatingSystem.IsAndroid())",

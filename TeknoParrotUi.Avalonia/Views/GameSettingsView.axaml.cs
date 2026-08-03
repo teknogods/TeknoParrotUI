@@ -84,7 +84,7 @@ public partial class GameSettingsView : UserControl
             AddCategoryHeader(isDolphin ? "TeknoDolphin Arcade Image" :
                 "PCSX2X6 Arcade Manifest");
             FieldsPanel.Children.Add(Row(
-                isDolphin ? "Companion-owned game image" :
+                isDolphin ? "Selected-storage game image" :
                     "App-owned game descriptor",
                 new TextBox
                 {
@@ -95,6 +95,60 @@ public partial class GameSettingsView : UserControl
                     IsReadOnly = true,
                     HorizontalAlignment = HorizontalAlignment.Stretch
                 }));
+            if (isDolphin)
+            {
+                var selectDolphinImage = new Button
+                {
+                    Content = "Select or Change Game Image (Internal / SD)",
+                    MinHeight = OperatingSystem.IsAndroid() ? 48 : 0,
+                    HorizontalAlignment = HorizontalAlignment.Stretch
+                };
+                selectDolphinImage.Click += async (_, _) =>
+                {
+                    var top = TopLevel.GetTopLevel(this);
+                    if (top is not Window owner)
+                        return;
+                    if (!Services.PlatformDolphinGameImport.IsAvailable)
+                    {
+                        await Services.Dialogs.InfoAsync(
+                            owner,
+                            "TeknoDolphin unavailable",
+                            "Update TeknoParrotUI and TeknoDolphin before selecting a game image.");
+                        return;
+                    }
+
+                    selectDolphinImage.IsEnabled = false;
+                    try
+                    {
+                        var selected = await Services.PlatformDolphinGameImport.ImportAsync(
+                            profile.ExecutableName ?? string.Empty);
+                        if (selected)
+                            await Services.PlatformGameCatalogSync.RefreshNowAsync();
+                        var ready = selected &&
+                            Services.PlatformGameCatalogSync.ReadyExecutables.Contains(
+                                profile.ExecutableName ?? string.Empty,
+                                StringComparer.OrdinalIgnoreCase);
+                        await Services.Dialogs.InfoAsync(
+                            owner,
+                            ready ? "TeknoDolphin image ready" : "TeknoDolphin image unavailable",
+                            ready
+                                ? "TeknoDolphin retained read access and will play the image directly from the selected storage."
+                                : "Selection was cancelled, rejected, or the storage provider did not grant persistent read access.");
+                    }
+                    catch (Exception error)
+                    {
+                        await Services.Dialogs.InfoAsync(
+                            owner,
+                            "TeknoDolphin image unavailable",
+                            "TeknoDolphin could not select the game image: " + error.Message);
+                    }
+                    finally
+                    {
+                        selectDolphinImage.IsEnabled = true;
+                    }
+                };
+                FieldsPanel.Children.Add(selectDolphinImage);
+            }
         }
         else
         {

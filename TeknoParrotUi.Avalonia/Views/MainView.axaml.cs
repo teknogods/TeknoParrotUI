@@ -391,25 +391,26 @@ public partial class MainView : UserControl
                 }
                 var import = await ShowDecisionAsync(
                     "TeknoDolphin game image required",
-                    $"{profile.GameNameInternal ?? profile.ProfileName} is not installed in " +
-                    $"TeknoDolphin yet.\n\nSelect {gameName}. Android grants access only " +
-                    "to the file you select; TeknoDolphin copies it into private storage.",
+                    $"{profile.GameNameInternal ?? profile.ProfileName} is not linked in " +
+                    $"TeknoDolphin yet.\n\nSelect {gameName}. Android grants TeknoDolphin " +
+                    "persistent read access only to the file you select; it plays directly " +
+                    "from the selected storage without copying the image.",
                     "Select Game Image",
                     "Cancel");
                 if (!import || !await PlatformDolphinGameImport.ImportAsync(gameName))
                 {
                     StatusBar.Text =
-                        "TeknoDolphin game import was cancelled or rejected.";
+                        "TeknoDolphin game selection was cancelled, rejected, or could not retain read access.";
                     return false;
                 }
-                StatusBar.Text = "Validating imported TeknoDolphin game...";
+                StatusBar.Text = "Validating selected TeknoDolphin game...";
                 await PlatformGameCatalogSync.RefreshNowAsync();
                 if (!PlatformGameCatalogSync.ReadyExecutables.Contains(
                         gameName,
                         StringComparer.OrdinalIgnoreCase))
                 {
                     StatusBar.Text =
-                        "The imported TeknoDolphin game image is unavailable.";
+                        "The selected TeknoDolphin game image is unavailable.";
                     return false;
                 }
                 return true;

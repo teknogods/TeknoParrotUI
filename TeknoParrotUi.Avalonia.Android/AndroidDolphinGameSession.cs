@@ -81,9 +81,10 @@ internal sealed class AndroidDolphinGameSession : IGameSession
                 return true;
             }
 
-            var gamePath = ResolveGamePath(_profile);
+            var gameIdentity = ResolveGamePath(_profile);
             OutputReceived?.Invoke(
-                $"[AndroidSession] TeknoDolphin game={gamePath}; " +
+                $"[AndroidSession] TeknoDolphin image={Path.GetFileName(gameIdentity)}; " +
+                "storage=persisted Android document or legacy companion copy; " +
                 "input=TeknoParrot JVS page and arcade overlay");
             StateChanged?.Invoke("Starting TeknoDolphin arcade session");
             _context.StartForegroundService(
@@ -91,7 +92,7 @@ internal sealed class AndroidDolphinGameSession : IGameSession
                     _context,
                     _profile.ProfileName ?? _profile.GameNameInternal ?? "TeknoDolphin",
                     _profile.EmulationProfile.ToString(),
-                    gamePath));
+                    gameIdentity));
             return true;
         }
         catch (Exception error)

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 namespace TeknoParrotUi.Avalonia.Services;
 
 /// <summary>
-/// Optional platform hook for discovering installed games which live in a
-/// companion application's private storage.
+/// Optional platform hook for discovering installed games which are managed by
+/// a companion application, including persisted user-selected documents.
 /// </summary>
 public static class PlatformGameCatalogSync
 {
