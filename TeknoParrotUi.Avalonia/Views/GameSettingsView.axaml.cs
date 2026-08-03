@@ -557,14 +557,28 @@ public partial class GameSettingsView : UserControl
             var files = await top.StorageProvider.OpenFilePickerAsync(pickerOptions);
             if (files.Count > 0)
             {
-                var selectedPath = files[0].TryGetLocalPath();
-                if (string.IsNullOrWhiteSpace(selectedPath) &&
-                    OperatingSystem.IsAndroid())
+                string? selectedPath;
+                if (OperatingSystem.IsAndroid())
                 {
-                    Services.PlatformDocumentPathResolver.TryResolve(
-                        files[0].Path.ToString(),
-                        out selectedPath);
+                    // Android storage providers may expose a transient cache path
+                    // through TryGetLocalPath(). Resolve the original SAF URI first
+                    // so selecting an RPCS3X6 EBOOT under shared app storage cannot
+                    // be replaced by an unusable private path and clear the field.
+                    if (!Services.PlatformDocumentPathResolver.TryResolve(
+                            files[0].Path.ToString(),
+                            out selectedPath))
+                    {
+                        var localPath = files[0].TryGetLocalPath();
+                        selectedPath =
+                            AndroidDocumentPathResolver.TryNormalizeSharedPath(
+                                localPath ?? string.Empty,
+                                out var normalizedLocalPath)
+                                ? normalizedLocalPath
+                                : null;
+                    }
                 }
+                else
+                    selectedPath = files[0].TryGetLocalPath();
                 if (!string.IsNullOrWhiteSpace(selectedPath))
                 {
                     if (OperatingSystem.IsAndroid() &&

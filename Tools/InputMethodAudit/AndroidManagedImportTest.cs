@@ -1831,6 +1831,38 @@ namespace InputMethodAudit
 
             True(AndroidDocumentPathResolver.TryResolve(
                     "content://com.android.externalstorage.documents/document/" +
+                    "primary%3AAndroid%2Fdata%2Fcom.teknogods.rpcs3x6%2Ffiles%2F" +
+                    "TeknoParrot%2Farcade%2FRazingStorm%2Fdev_hdd0%2Fgame%2F" +
+                    "SCEEXE000%2FUSRDIR%2FEBOOT.BIN",
+                    out var razingStormEboot),
+                "Android RPCS3X6 EBOOT document URI resolves");
+            Equal(
+                "/storage/emulated/0/Android/data/com.teknogods.rpcs3x6/files/" +
+                "TeknoParrot/arcade/RazingStorm/dev_hdd0/game/SCEEXE000/" +
+                "USRDIR/EBOOT.BIN",
+                razingStormEboot,
+                "Android Razing Storm EBOOT document path");
+
+            True(AndroidDocumentPathResolver.TryResolve(
+                    "content://com.teknogods.rpcs3x6.documents/document/" +
+                    "root%2FTeknoParrot%2Farcade%2FRazingStorm%2Fdev_hdd0%2F" +
+                    "game%2FSCEEXE000%2FUSRDIR%2FEBOOT.BIN",
+                    out var rpcs3x6ProviderEboot),
+                "RPCS3X6 provider EBOOT document URI resolves");
+            Equal(
+                "/storage/emulated/0/Android/data/com.teknogods.rpcs3x6/files/" +
+                "TeknoParrot/arcade/RazingStorm/dev_hdd0/game/SCEEXE000/" +
+                "USRDIR/EBOOT.BIN",
+                rpcs3x6ProviderEboot,
+                "RPCS3X6 provider Razing Storm EBOOT path");
+            False(AndroidDocumentPathResolver.TryResolve(
+                    "content://com.teknogods.rpcs3x6.documents/document/" +
+                    "root%2F..%2Foutside%2FEBOOT.BIN",
+                    out _),
+                "RPCS3X6 provider traversal is rejected");
+
+            True(AndroidDocumentPathResolver.TryResolve(
+                    "content://com.android.externalstorage.documents/document/" +
                     "1234-ABCD%3AArcade%2Fgame.exe",
                     out var removablePath),
                 "Android removable-storage document URI resolves");

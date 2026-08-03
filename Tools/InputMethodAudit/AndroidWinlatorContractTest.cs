@@ -650,6 +650,16 @@ namespace InputMethodAudit
                     "!AndroidRpcs3x6GamePath.IsConfigured(selectedPath)",
                     "RPCS3X6 EBOOT picker validation");
                 RequireContains(
+                    gameSettingsViewSource,
+                    "PlatformDocumentPathResolver.TryResolve(\n" +
+                    "                            files[0].Path.ToString()",
+                    "Android picker resolves the original SAF URI before transient local paths");
+                RequireContains(
+                    gameSettingsViewSource,
+                    "AndroidDocumentPathResolver.TryNormalizeSharedPath(\n" +
+                    "                                localPath ?? string.Empty",
+                    "Android picker rejects private cache-path fallbacks");
+                RequireContains(
                     androidRpcs3SessionSource,
                     "var gamePath = _profile.GamePath?.Trim()",
                     "RPCS3X6 saved EBOOT session path");
