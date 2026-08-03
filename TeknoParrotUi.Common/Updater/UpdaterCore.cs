@@ -64,13 +64,12 @@ namespace TeknoParrotUi.Common.Updater
 
         /// <summary>
         /// Overrides the release tag/lookup key used by <see cref="UpdaterCore.GetRelease"/>
-        /// (both the teknoparrot.com server cache key and the GitHub "releases/tags/&lt;tag&gt;"
-        /// lookup), which otherwise default to <see cref="name"/>. Used to give the
+        /// for the teknoparrot.com platform channel, which otherwise defaults to
+        /// <see cref="name"/>. Used to give the
         /// net8-migration branch's TeknoParrotUI build its own rolling release/tag
         /// ("TeknoParrotUI-net8") completely separate from the official release's
-        /// "TeknoParrotUI" tag - the two channels never see or overwrite each other,
-        /// and a lookup for a tag the teknoparrot.com server doesn't know about just
-        /// falls through to the GitHub API (see GetRelease), which is what we want.
+        /// "TeknoParrotUI" tag. The website must expose this key in the Windows and
+        /// Linux channels; clients never fall back to the GitHub API.
         /// </summary>
         public string releaseTag { get; set; }
 
@@ -180,8 +179,8 @@ namespace TeknoParrotUi.Common.Updater
     }
 
     /// <summary>
-    /// Checks and installs component updates. Uses the teknoparrot.com update cache
-    /// (single request, no GitHub rate limit) and falls back to the GitHub API.
+    /// Checks and installs component updates using the platform-specific
+    /// teknoparrot.com update channel. Clients never query the GitHub API directly.
     /// </summary>
     public class UpdaterCore
     {
@@ -208,7 +207,10 @@ namespace TeknoParrotUi.Common.Updater
                 ? "/android"
                 : OperatingSystem.IsLinux()
                     ? "/linux"
-                    : string.Empty;
+                    : OperatingSystem.IsWindows()
+                        ? "/windows"
+                        : throw new PlatformNotSupportedException(
+                            "No TeknoParrot update channel exists for this platform.");
             var response = await client.GetAsync(
                 $"{UpdateServerBase}{platformPath}/components");
             response.EnsureSuccessStatusCode();
@@ -238,26 +240,23 @@ namespace TeknoParrotUi.Common.Updater
             // entry/tag of the same component name.
             var lookupKey = !string.IsNullOrEmpty(component.releaseTag) ? component.releaseTag : component.name;
 
+            Dictionary<string, GithubRelease> serverUpdates;
             try
             {
-                var serverUpdates = await GetServerUpdates();
-                if (serverUpdates.TryGetValue(lookupKey, out var cached) && cached != null)
-                    return cached;
+                serverUpdates = await GetServerUpdates();
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Update server unavailable ({ex.Message}), falling back to GitHub API");
+                throw new Exception(
+                    $"The TeknoParrot update service is unavailable for {lookupKey}: {ex.Message}",
+                    ex);
             }
 
-            using var client = CreateClient();
-            var reponame = !string.IsNullOrEmpty(component.reponame) ? component.reponame : component.name;
-            var owner = !string.IsNullOrEmpty(component.userName) ? component.userName : "teknogods";
-            var url = $"https://api.github.com/repos/{owner}/{reponame}/releases/tags/{lookupKey}";
-            var response = await client.GetAsync(url);
-            if (!response.IsSuccessStatusCode)
-                throw new Exception($"GitHub API returned {(int)response.StatusCode} for {lookupKey}");
-            var body = await response.Content.ReadAsStringAsync();
-            return JObject.Parse(body).ToObject<GithubRelease>();
+            if (serverUpdates.TryGetValue(lookupKey, out var cached) && cached != null)
+                return cached;
+
+            throw new Exception(
+                $"The TeknoParrot update service did not provide {lookupKey}.");
         }
 
         public static int GetVersionNumber(string version)
