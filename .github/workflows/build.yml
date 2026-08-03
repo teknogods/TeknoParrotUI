@@ -454,8 +454,9 @@ jobs:
         id: ver
         run: |
           BASE=$(cat version.txt | tr -d '[:space:]')
-          VERSION_CODE=$((1000000 + ${{ github.run_number }}))
-          DISPLAY_REVISION=$((10000 + ${{ github.run_number }}))
+          # Keep release metadata identical to the signed APK version derived
+          # in build-android-release above.
+          DISPLAY_REVISION=$((20000 + ${{ github.run_number }}))
           echo "full_version=${BASE}.${DISPLAY_REVISION}" >> "$GITHUB_OUTPUT"
 
       - uses: actions/download-artifact@v4
