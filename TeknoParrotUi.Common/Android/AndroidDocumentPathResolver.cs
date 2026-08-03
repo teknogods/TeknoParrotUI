@@ -13,6 +13,10 @@ namespace TeknoParrotUi.Common.Android
     {
         private const string ExternalStorageAuthority =
             "com.android.externalstorage.documents";
+        private const string Rpcs3x6Authority =
+            "com.teknogods.rpcs3x6.documents";
+        private const string Rpcs3x6SharedRoot =
+            "/storage/emulated/0/Android/data/com.teknogods.rpcs3x6/files";
 
         public static bool TryResolve(string value, out string path)
         {
@@ -30,6 +34,35 @@ namespace TeknoParrotUi.Common.Android
 
             var unescapedPath = Uri.UnescapeDataString(uri.AbsolutePath)
                 .Replace('\\', '/');
+            if (string.Equals(uri.Host, Rpcs3x6Authority,
+                    StringComparison.OrdinalIgnoreCase))
+            {
+                const string documentMarker = "/document/";
+                var markerIndex = unescapedPath.IndexOf(
+                    documentMarker,
+                    StringComparison.OrdinalIgnoreCase);
+                if (markerIndex >= 0)
+                {
+                    var documentId =
+                        unescapedPath[(markerIndex + documentMarker.Length)..];
+                    if (string.Equals(documentId, "root",
+                            StringComparison.OrdinalIgnoreCase))
+                    {
+                        path = Rpcs3x6SharedRoot;
+                        return true;
+                    }
+
+                    const string rootPrefix = "root/";
+                    if (documentId.StartsWith(rootPrefix,
+                            StringComparison.OrdinalIgnoreCase) &&
+                        TryCombine(
+                            Rpcs3x6SharedRoot,
+                            documentId[rootPrefix.Length..],
+                            out path))
+                        return true;
+                }
+            }
+
             if (string.Equals(uri.Host, ExternalStorageAuthority,
                     StringComparison.OrdinalIgnoreCase))
             {
