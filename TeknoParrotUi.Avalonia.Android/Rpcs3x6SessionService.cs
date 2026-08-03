@@ -8,6 +8,7 @@ using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.OS;
+using TeknoParrotUi.Common.Android;
 
 namespace TeknoParrotUi.Avalonia.Android;
 
@@ -197,9 +198,7 @@ public sealed class Rpcs3x6SessionService : Service
         record != null &&
         record.ProfileName.Length is > 0 and <= 256 &&
         record.GameId.Length <= 128 &&
-        record.GamePath.StartsWith(
-            "/storage/emulated/0/Android/data/com.teknogods.rpcs3x6/files/TeknoParrot/arcade/",
-            StringComparison.Ordinal) &&
+        AndroidRpcs3x6GamePath.IsConfigured(record.GamePath) &&
         record.Token.Length is >= 32 and <= 128 &&
         record.Token.AsSpan().IndexOfAnyExcept(
             "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_") < 0;

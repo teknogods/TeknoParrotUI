@@ -78,23 +78,18 @@ public partial class GameSettingsView : UserControl
         _gamePathBox = null;
         _gamePath2Box = null;
         if (OperatingSystem.IsAndroid() &&
-            (profile.EmulatorType is EmulatorType.pcsx2x6 or EmulatorType.Dolphin ||
-             PlatformCapabilities.IsAndroidRpcs3ProfileSupported(profile)))
+            profile.EmulatorType is EmulatorType.pcsx2x6 or EmulatorType.Dolphin)
         {
             var isDolphin = profile.EmulatorType == EmulatorType.Dolphin;
-            var isRpcs3x6 = profile.EmulatorType == EmulatorType.RPCS3;
             AddCategoryHeader(isDolphin ? "TeknoDolphin Arcade Image" :
-                isRpcs3x6 ? "RPCS3X6 Isolated Arcade Root" : "PCSX2X6 Arcade Manifest");
+                "PCSX2X6 Arcade Manifest");
             FieldsPanel.Children.Add(Row(
                 isDolphin ? "Companion-owned game image" :
-                    isRpcs3x6 ? "Companion-owned virtual disk" : "App-owned game descriptor",
+                    "App-owned game descriptor",
                 new TextBox
                 {
                     Text = isDolphin
                         ? profile.ExecutableName
-                        : isRpcs3x6
-                        ? "/storage/emulated/0/Android/data/com.teknogods.rpcs3x6/files/" +
-                          "TeknoParrot/arcade/" + profile.ProfileName
                         : "/storage/emulated/0/Android/data/com.teknogods.tekno2x6/files/" +
                           "TeknoParrot/games/" + profile.ExecutableName,
                     IsReadOnly = true,
@@ -587,6 +582,19 @@ public partial class GameSettingsView : UserControl
                                 "Downloads, /storage/emulated/0/TeknoParrotGames, or a " +
                                 "TeknoParrotGames folder on a removable SD card. " +
                                 "Move the game folder there and select it again.");
+                        }
+                    }
+                    else if (OperatingSystem.IsAndroid() &&
+                             _profile?.EmulatorType == EmulatorType.RPCS3 &&
+                             !AndroidRpcs3x6GamePath.IsConfigured(selectedPath))
+                    {
+                        if (top is Window owner)
+                        {
+                            await Services.Dialogs.InfoAsync(
+                                owner,
+                                "Choose this game's EBOOT.BIN",
+                                "Select the EBOOT.BIN inside this exact game layout: " +
+                                "dev_hdd0/game/SCEEXE000/USRDIR/EBOOT.BIN.");
                         }
                     }
                     else

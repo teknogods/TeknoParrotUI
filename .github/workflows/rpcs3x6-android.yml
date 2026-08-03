@@ -126,7 +126,9 @@ jobs:
         run: |
           set -euo pipefail
           chmod +x ./gradlew
-          ./gradlew --no-daemon --stacktrace :app:assembleRelease
+          ./gradlew --no-daemon --stacktrace \
+            :app:testReleaseUnitTest \
+            :app:assembleRelease
 
       - name: Verify and package APK
         id: package

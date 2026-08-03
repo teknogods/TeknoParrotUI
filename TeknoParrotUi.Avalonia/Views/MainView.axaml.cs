@@ -11,6 +11,7 @@ using Avalonia.Threading;
 using Avalonia.VisualTree;
 using TeknoParrotUi.Avalonia.Services;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Common.Android;
 using TeknoParrotUi.Common.GameLaunch;
 
 namespace TeknoParrotUi.Avalonia.Views;
@@ -178,18 +179,6 @@ public partial class MainView : UserControl
                 StatusBar.Text =
                     $"Added {profile.GameNameInternal ?? profile.ProfileName} — " +
                     "select its System 246/256 game folder when first launched";
-                _library.SelectProfile(profile);
-                ShowLibrary();
-                return;
-            }
-
-            if (OperatingSystem.IsAndroid() &&
-                profile.EmulatorType == EmulatorType.RPCS3 &&
-                PlatformCapabilities.IsAndroidRpcs3ProfileSupported(profile))
-            {
-                StatusBar.Text =
-                    $"Added {profile.GameNameInternal ?? profile.ProfileName} — " +
-                    "select the parent rpcs3 arcade folder when first launched";
                 _library.SelectProfile(profile);
                 ShowLibrary();
                 return;
@@ -429,47 +418,32 @@ public partial class MainView : UserControl
             if (profile.EmulatorType == EmulatorType.RPCS3 &&
                 PlatformCapabilities.IsAndroidRpcs3ProfileSupported(profile))
             {
-                var profileName = profile.ProfileName?.Trim() ?? string.Empty;
-                StatusBar.Text = "Checking RPCS3X6 arcade root...";
-                await PlatformGameCatalogSync.RefreshNowAsync();
-                if (!PlatformGameCatalogSync.ReadyProfileNames.Contains(
-                        profileName, StringComparer.OrdinalIgnoreCase))
+                if (!AndroidRpcs3x6GamePath.IsConfigured(profile.GamePath))
                 {
-                    if (!PlatformRpcs3x6GameImport.IsAvailable)
+                    var configureGame = await ShowDecisionAsync(
+                        "RPCS3X6 EBOOT.BIN required",
+                        $"Select this game's EBOOT.BIN in Game Settings before launching " +
+                        $"{profile.GameNameInternal ?? profile.ProfileName}.",
+                        "Open Game Settings", "Cancel");
+                    if (configureGame)
                     {
-                        StatusBar.Text = "RPCS3X6 arcade import is unavailable. Update TeknoParrotUI and RPCS3X6.";
-                        return false;
+                        _gameSettings.LoadProfile(profile);
+                        Show(_gameSettings, "Game Settings");
                     }
-                    var import = await ShowDecisionAsync(
-                        "RPCS3X6 arcade games required",
-                        "Select the rpcs3 folder that contains the supported System 357/369 game folders. " +
-                        "RPCS3X6 copies each game into its own isolated virtual disk because all of them use SCEEXE000.",
-                        "Select rpcs3 Folder", "Cancel");
-                    if (!import || !await PlatformRpcs3x6GameImport.ImportAsync())
-                    {
-                        StatusBar.Text = "RPCS3X6 arcade import was cancelled or found no supported games.";
-                        return false;
-                    }
-                    StatusBar.Text = "Validating imported RPCS3X6 arcade games...";
-                    await PlatformGameCatalogSync.RefreshNowAsync();
-                    if (!PlatformGameCatalogSync.ReadyProfileNames.Contains(
-                            profileName, StringComparer.OrdinalIgnoreCase))
-                    {
-                        StatusBar.Text = "This RPCS3X6 arcade root was not found in the selected folder.";
-                        return false;
-                    }
+                    StatusBar.Text = "Select this RPCS3 game's EBOOT.BIN before launching.";
+                    return false;
                 }
 
                 if (!PlatformRpcs3x6Firmware.IsAvailable ||
                     !await PlatformRpcs3x6Firmware.IsConfiguredAsync())
                 {
                     var setup = await ShowDecisionAsync(
-                        "RPCS3 firmware required",
-                        "RPCS3X6 needs an installed PS3 system firmware before an arcade game can start.",
+                        "RPCS3X6 setup required",
+                        "RPCS3X6 needs PS3 system firmware and Android file access before an arcade game can start.",
                         "Open RPCS3X6 Setup", "Cancel");
                     if (setup && PlatformRpcs3x6Firmware.IsAvailable)
                         await PlatformRpcs3x6Firmware.ConfigureAsync();
-                    StatusBar.Text = "Install the PS3 firmware in RPCS3X6, then return and launch the game again.";
+                    StatusBar.Text = "Finish RPCS3X6 firmware and file-access setup, then launch the game again.";
                     return false;
                 }
                 return true;

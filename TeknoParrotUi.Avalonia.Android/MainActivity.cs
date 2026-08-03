@@ -49,12 +49,9 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
         SeedBundledCatalog(dataDir);
         var pcsx2x6Catalog = new AndroidPcsx2x6CatalogSync(this);
         var dolphinCatalog = new AndroidDolphinCatalogSync(this);
-        var rpcs3x6Catalog = new AndroidRpcs3x6CatalogSync(this);
         PlatformGameCatalogSync.RefreshAsync = async () =>
         {
             var ready = new System.Collections.Generic.HashSet<string>(
-                StringComparer.OrdinalIgnoreCase);
-            var readyProfiles = new System.Collections.Generic.HashSet<string>(
                 StringComparer.OrdinalIgnoreCase);
             try
             {
@@ -76,18 +73,8 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
                 global::Android.Util.Log.Info(
                     "TeknoParrotCatalog", "TeknoDolphin unavailable: " + error.Message);
             }
-            try
-            {
-                var rpcs3Games = await rpcs3x6Catalog.QueryAsync().ConfigureAwait(false);
-                readyProfiles.UnionWith(rpcs3Games.Keys);
-            }
-            catch (Exception error)
-            {
-                global::Android.Util.Log.Info(
-                    "TeknoParrotCatalog", "RPCS3X6 unavailable: " + error.Message);
-            }
-            PlatformGameCatalogSync.PublishReadyGames(ready, readyProfiles);
-            return ready.Count + readyProfiles.Count;
+            PlatformGameCatalogSync.PublishReadyExecutables(ready);
+            return ready.Count;
         };
         var appUpdater = new AndroidAppUpdater(this);
         PlatformAppUpdater.AndroidComponentsFactory =
@@ -105,8 +92,6 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
             MainActivity.ImportPcsx2x6GameAsync;
         PlatformDolphinGameImport.AndroidImporter =
             MainActivity.ImportDolphinGameAsync;
-        PlatformRpcs3x6GameImport.AndroidImporter =
-            MainActivity.ImportRpcs3x6GamesAsync;
         var rpcs3x6Firmware = new AndroidRpcs3x6Firmware(this);
         PlatformRpcs3x6Firmware.AndroidReadinessCheck = rpcs3x6Firmware.IsConfiguredAsync;
         PlatformRpcs3x6Firmware.AndroidConfigurator = MainActivity.OpenRpcs3x6SetupAsync;

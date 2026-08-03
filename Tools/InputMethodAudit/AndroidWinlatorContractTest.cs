@@ -518,6 +518,19 @@ namespace InputMethodAudit
                     repositoryRoot,
                     "TeknoParrotUi.Avalonia.Android",
                     "MainActivity.cs"));
+                var libraryViewCodeBehindSource = File.ReadAllText(Path.Combine(
+                    repositoryRoot,
+                    "TeknoParrotUi.Avalonia",
+                    "Views",
+                    "LibraryView.axaml.cs"));
+                var androidRpcs3SessionSource = File.ReadAllText(Path.Combine(
+                    repositoryRoot,
+                    "TeknoParrotUi.Avalonia.Android",
+                    "AndroidRpcs3x6GameSession.cs"));
+                var rpcs3SessionServiceSource = File.ReadAllText(Path.Combine(
+                    repositoryRoot,
+                    "TeknoParrotUi.Avalonia.Android",
+                    "Rpcs3x6SessionService.cs"));
                 var androidPcsx2CatalogSource = File.ReadAllText(Path.Combine(
                     repositoryRoot,
                     "TeknoParrotUi.Avalonia.Android",
@@ -608,6 +621,42 @@ namespace InputMethodAudit
                     gameSettingsViewSource,
                     "pickerOptions.FileTypeFilter = filters;",
                     "desktop-only game file picker filters");
+                RequireDoesNotContain(
+                    gameSettingsViewSource,
+                    "Companion-owned virtual disk",
+                    "RPCS3X6 virtual-disk settings UI");
+                RequireDoesNotContain(
+                    mainViewSource,
+                    "Select rpcs3 Folder",
+                    "RPCS3X6 parent-folder import prompt");
+                RequireDoesNotContain(
+                    androidMainActivitySource,
+                    "new AndroidRpcs3x6CatalogSync",
+                    "RPCS3X6 private arcade catalog registration");
+                RequireDoesNotContain(
+                    androidMainActivitySource,
+                    "PlatformRpcs3x6GameImport.AndroidImporter",
+                    "RPCS3X6 private arcade importer registration");
+                RequireDoesNotContain(
+                    libraryViewCodeBehindSource,
+                    "profile.EmulatorType == EmulatorType.RPCS3",
+                    "RPCS3X6 private arcade catalog library entries");
+                RequireContains(
+                    mainViewSource,
+                    "AndroidRpcs3x6GamePath.IsConfigured(profile.GamePath)",
+                    "per-profile RPCS3X6 EBOOT launch gate");
+                RequireContains(
+                    gameSettingsViewSource,
+                    "!AndroidRpcs3x6GamePath.IsConfigured(selectedPath)",
+                    "RPCS3X6 EBOOT picker validation");
+                RequireContains(
+                    androidRpcs3SessionSource,
+                    "var gamePath = _profile.GamePath?.Trim()",
+                    "RPCS3X6 saved EBOOT session path");
+                RequireContains(
+                    rpcs3SessionServiceSource,
+                    "AndroidRpcs3x6GamePath.IsConfigured(record.GamePath)",
+                    "RPCS3X6 EBOOT session-envelope validation");
                 if (gameSettingsViewSource.Contains(
                         "FileTypeFilter = filters\n            });",
                         StringComparison.Ordinal) ||

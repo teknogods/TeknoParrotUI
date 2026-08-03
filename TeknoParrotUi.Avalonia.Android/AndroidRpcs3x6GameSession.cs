@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using Android.Content;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Common.Android;
 using TeknoParrotUi.Common.GameLaunch;
 
 namespace TeknoParrotUi.Avalonia.Android;
@@ -46,8 +47,10 @@ internal sealed class AndroidRpcs3x6GameSession : IGameSession
                 GameSessionService.TryGetActiveProfileName(_context);
             if (!string.IsNullOrWhiteSpace(otherOwner))
                 throw new InvalidOperationException($"{otherOwner} already owns the Android game session.");
-            if (!AndroidRpcs3x6CatalogSync.TryGetGamePath(_profile.ProfileName, out var gamePath))
-                throw new InvalidOperationException("The RPCS3X6 arcade root is not imported.");
+            var gamePath = _profile.GamePath?.Trim() ?? string.Empty;
+            if (!AndroidRpcs3x6GamePath.IsConfigured(gamePath))
+                throw new InvalidOperationException(
+                    "Select this RPCS3 game's EBOOT.BIN in Game Settings.");
 
             Rpcs3x6SessionService.StatusChanged += OnStatus;
             var active = Rpcs3x6SessionService.TryGetActiveProfileName(_context);
@@ -59,7 +62,7 @@ internal sealed class AndroidRpcs3x6GameSession : IGameSession
                 OnStatus(Rpcs3x6SessionService.CurrentStatus);
                 return true;
             }
-            OutputReceived?.Invoke($"[AndroidSession] RPCS3X6 root={gamePath}; input=profile-specific USIO arcade overlay");
+            OutputReceived?.Invoke($"[AndroidSession] RPCS3X6 EBOOT={gamePath}; input=profile-specific USIO arcade overlay");
             StateChanged?.Invoke("Starting RPCS3X6 arcade session");
             _context.StartForegroundService(Rpcs3x6SessionService.CreateStartIntent(
                 _context, _profile.ProfileName ?? _profile.GameNameInternal ?? "RPCS3X6",

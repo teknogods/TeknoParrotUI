@@ -124,9 +124,10 @@ public partial class LibraryView : UserControl
         GameProfileLoader.LoadProfiles(false);
         // The library lists the user's installed games only (same as the classic UI).
         // On Android, complete PCSX2X6 and TeknoDolphin sets live in the companions' scoped
-        // storage. Its authenticated ready-manifest catalog lets those stock
+        // storage. Their authenticated ready-manifest catalogs let those stock
         // profiles appear immediately without requiring a fake executable path
-        // or pre-creating mutable user settings.
+        // or pre-creating mutable user settings. RPCS3X6 profiles use the normal
+        // Add Game flow because each user selects that game's EBOOT.BIN directly.
         var profiles = GameProfileLoader.UserProfiles.ToList();
         if (OperatingSystem.IsAndroid())
         {
@@ -137,27 +138,15 @@ public partial class LibraryView : UserControl
                 .Select(profile => profile.ExecutableName)
                 .Where(name => !string.IsNullOrWhiteSpace(name))
                 .ToHashSet(StringComparer.OrdinalIgnoreCase);
-            var representedProfileNames = profiles
-                .Select(profile => profile.ProfileName)
-                .Where(name => !string.IsNullOrWhiteSpace(name))
-                .ToHashSet(StringComparer.OrdinalIgnoreCase);
-            var readyProfileNames = PlatformGameCatalogSync.ReadyProfileNames
-                .ToHashSet(StringComparer.OrdinalIgnoreCase);
             var readyProfiles =
                 GameProfileLoader.GameProfiles
                     .Where(profile =>
-                        (profile.EmulatorType is EmulatorType.pcsx2x6 or EmulatorType.Dolphin &&
-                         !string.IsNullOrWhiteSpace(profile.ExecutableName) &&
-                         readyExecutables.Contains(profile.ExecutableName) &&
-                         !representedExecutables.Contains(profile.ExecutableName)) ||
-                        (profile.EmulatorType == EmulatorType.RPCS3 &&
-                         !string.IsNullOrWhiteSpace(profile.ProfileName) &&
-                         readyProfileNames.Contains(profile.ProfileName) &&
-                         !representedProfileNames.Contains(profile.ProfileName)))
+                        profile.EmulatorType is EmulatorType.pcsx2x6 or EmulatorType.Dolphin &&
+                        !string.IsNullOrWhiteSpace(profile.ExecutableName) &&
+                        readyExecutables.Contains(profile.ExecutableName) &&
+                        !representedExecutables.Contains(profile.ExecutableName))
                     .GroupBy(
-                        profile => profile.EmulatorType == EmulatorType.RPCS3
-                            ? "RPCS3:" + profile.ProfileName
-                            : profile.ExecutableName,
+                        profile => profile.ExecutableName,
                         StringComparer.OrdinalIgnoreCase)
                     .Select(group => group
                         .OrderBy(

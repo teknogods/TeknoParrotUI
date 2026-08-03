@@ -903,6 +903,21 @@ namespace InputMethodAudit
                 False(ManagedAndroidGameImporter.IsWinlatorSharedGamePath(
                     "/storage/emulated/0/TeknoParrotGamesBackup/Test/game.exe"),
                     "shared game library prefix collision rejected");
+                True(AndroidRpcs3x6GamePath.IsConfigured(
+                        "/storage/emulated/0/arcade/rpcs3/DSPS/" +
+                        "dev_hdd0/game/SCEEXE000/USRDIR/EBOOT.BIN"),
+                    "direct RPCS3X6 EBOOT path accepted");
+                True(AndroidRpcs3x6GamePath.IsConfigured(
+                        "/storage/1234-ABCD/arcade/rpcs3/DSPS/" +
+                        "dev_hdd0/game/SCEEXE000/USRDIR/eboot.bin"),
+                    "removable-storage RPCS3X6 EBOOT path accepted");
+                False(AndroidRpcs3x6GamePath.IsConfigured(
+                        "/storage/emulated/0/arcade/rpcs3/DSPS"),
+                    "RPCS3X6 folder path rejected");
+                False(AndroidRpcs3x6GamePath.IsConfigured(
+                        "/storage/emulated/0/arcade/rpcs3/DSPS/" +
+                        "dev_hdd0/game/OTHER/USRDIR/EBOOT.BIN"),
+                    "unrelated RPCS3 title path rejected");
                 False(ManagedAndroidGameImporter.IsWinlatorDownloadPath(
                     "/storage/emulated/0/Download/../Documents/game.exe"),
                     "traversal rejected");
