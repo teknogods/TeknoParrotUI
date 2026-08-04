@@ -53,7 +53,10 @@ jobs:
           repository: ReaverTeknoGods/rpcs3
           ref: ${{ inputs.rpcs3_ref }}
           submodules: recursive
-          fetch-depth: 0
+          # The companion build consumes only the selected RPCS3 tree. Fetching
+          # its complete history made Android-only releases spend minutes in
+          # checkout before compilation even began.
+          fetch-depth: 1
           path: rpcs3
 
       - name: Set up JDK 17
