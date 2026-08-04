@@ -911,6 +911,11 @@ namespace InputMethodAudit
                         "/storage/1234-ABCD/arcade/rpcs3/DSPS/" +
                         "dev_hdd0/game/SCEEXE000/USRDIR/eboot.bin"),
                     "removable-storage RPCS3X6 EBOOT path accepted");
+                True(AndroidRpcs3x6GamePath.IsConfigured(
+                        "/storage/emulated/0/Download/" +
+                        new string('x', 220) + "/ttt2u/" +
+                        "dev_hdd0/game/SCEEXE000/USRDIR/EBOOT.BIN"),
+                    "long shared-storage RPCS3X6 EBOOT path accepted");
                 False(AndroidRpcs3x6GamePath.IsConfigured(
                         "/storage/emulated/0/arcade/rpcs3/DSPS"),
                     "RPCS3X6 folder path rejected");
@@ -1855,6 +1860,30 @@ namespace InputMethodAudit
                 "USRDIR/EBOOT.BIN",
                 rpcs3x6ProviderEboot,
                 "RPCS3X6 provider Razing Storm EBOOT path");
+            True(AndroidDocumentPathResolver.TryResolve(
+                    "content://com.teknogods.rpcs3x6.documents/document/" +
+                    "root%252FTeknoParrot%252Farcade%252Fttt2u%252Fdev_hdd0%252F" +
+                    "game%252FSCEEXE000%252FUSRDIR%252FEBOOT.BIN",
+                    out var doubleEscapedEboot),
+                "double-escaped RPCS3X6 EBOOT document URI resolves");
+            Equal(
+                "/storage/emulated/0/Android/data/com.teknogods.rpcs3x6/files/" +
+                "TeknoParrot/arcade/ttt2u/dev_hdd0/game/SCEEXE000/" +
+                "USRDIR/EBOOT.BIN",
+                doubleEscapedEboot,
+                "double-escaped TTT2U EBOOT document path");
+            True(AndroidDocumentPathResolver.TryResolve(
+                    "content://com.android.providers.downloads.documents/document/" +
+                    "raw%3A%2Fstorage%2Femulated%2F0%2FDownload%2FRPCS3%2F" +
+                    "RazingStorm%2Fdev_hdd0%2Fgame%2FSCEEXE000%2FUSRDIR%2F" +
+                    "EBOOT.BIN",
+                    out var rawDownloadsEboot),
+                "Downloads raw EBOOT document URI resolves");
+            Equal(
+                "/storage/emulated/0/Download/RPCS3/RazingStorm/dev_hdd0/" +
+                "game/SCEEXE000/USRDIR/EBOOT.BIN",
+                rawDownloadsEboot,
+                "Downloads raw Razing Storm EBOOT path");
             False(AndroidDocumentPathResolver.TryResolve(
                     "content://com.teknogods.rpcs3x6.documents/document/" +
                     "root%2F..%2Foutside%2FEBOOT.BIN",

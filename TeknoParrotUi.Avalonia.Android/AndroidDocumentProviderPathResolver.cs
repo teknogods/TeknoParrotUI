@@ -1,6 +1,7 @@
 using System;
 using Android.Content;
 using Android.Provider;
+using Android.Util;
 using AndroidUri = Android.Net.Uri;
 
 namespace TeknoParrotUi.Avalonia.Android;
@@ -33,6 +34,17 @@ internal sealed class AndroidDocumentProviderPathResolver
         var direct = QueryDataColumn(uri);
         if (!string.IsNullOrWhiteSpace(direct))
             return direct;
+
+        // A URI returned by ACTION_OPEN_DOCUMENT carries an exact read grant,
+        // but modern Downloads/Media providers intentionally hide the legacy
+        // _data column and this app does not request broad storage access.
+        // Follow the granted descriptor instead: local SAF providers expose
+        // the backing FUSE path through /proc/self/fd, while cloud/streaming
+        // providers resolve to a pipe or anonymous descriptor and are safely
+        // rejected below.
+        var descriptorPath = ResolveGrantedDescriptorPath(uri);
+        if (!string.IsNullOrWhiteSpace(descriptorPath))
+            return descriptorPath;
 
         var authority = uri.Authority ?? string.Empty;
         if (!string.Equals(authority, DownloadsAuthority,
@@ -98,6 +110,57 @@ internal sealed class AndroidDocumentProviderPathResolver
         }
 
         return null;
+    }
+
+    private string? ResolveGrantedDescriptorPath(AndroidUri uri)
+    {
+        try
+        {
+            using var descriptor = _context.ContentResolver?.OpenFileDescriptor(uri, "r");
+            if (descriptor == null)
+                return null;
+            var kernelPath = Android.Systems.Os.Readlink(
+                "/proc/self/fd/" + descriptor.Fd);
+            var path = NormalizeKernelStoragePath(kernelPath);
+            if (!string.IsNullOrWhiteSpace(path))
+                Log.Info("TeknoParrotDocument", "Resolved granted document descriptor");
+            return path;
+        }
+        catch (Exception error)
+        {
+            Log.Debug("TeknoParrotDocument",
+                "Granted descriptor did not expose a local path: " +
+                error.GetType().Name);
+            return null;
+        }
+    }
+
+    internal static string? NormalizeKernelStoragePath(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return null;
+        var path = value.Replace('\\', '/');
+        foreach (var mapping in new[]
+                 {
+                     (Prefix: "/mnt/user/0/primary", Root: "/storage/emulated/0"),
+                     (Prefix: "/mnt/runtime/default/emulated/0", Root: "/storage/emulated/0"),
+                     (Prefix: "/mnt/runtime/read/emulated/0", Root: "/storage/emulated/0"),
+                     (Prefix: "/mnt/runtime/write/emulated/0", Root: "/storage/emulated/0"),
+                     (Prefix: "/mnt/runtime/full/emulated/0", Root: "/storage/emulated/0"),
+                     (Prefix: "/mnt/media_rw", Root: "/storage")
+                 })
+        {
+            if (path.Equals(mapping.Prefix, StringComparison.OrdinalIgnoreCase))
+                return mapping.Root;
+            if (path.StartsWith(mapping.Prefix + "/",
+                    StringComparison.OrdinalIgnoreCase))
+                return mapping.Root + path[mapping.Prefix.Length..];
+        }
+
+        return path.StartsWith("/storage/", StringComparison.OrdinalIgnoreCase) ||
+               path.StartsWith("/sdcard/", StringComparison.OrdinalIgnoreCase)
+            ? path
+            : null;
     }
 
     private string? QueryRelativeMediaPath(AndroidUri uri, long id)

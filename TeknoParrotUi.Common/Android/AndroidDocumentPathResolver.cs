@@ -32,12 +32,25 @@ namespace TeknoParrotUi.Common.Android
                     StringComparison.OrdinalIgnoreCase))
                 return false;
 
-            var unescapedPath = Uri.UnescapeDataString(uri.AbsolutePath)
+            var unescapedPath = DecodeDocumentPath(uri.AbsolutePath)
                 .Replace('\\', '/');
+            const string documentMarker = "/document/";
+            var universalDocumentIndex = unescapedPath.IndexOf(
+                documentMarker,
+                StringComparison.OrdinalIgnoreCase);
+            if (universalDocumentIndex >= 0)
+            {
+                var universalDocumentId = unescapedPath[
+                    (universalDocumentIndex + documentMarker.Length)..];
+                if (universalDocumentId.StartsWith(
+                        "raw:",
+                        StringComparison.OrdinalIgnoreCase) &&
+                    TryNormalizeSharedPath(universalDocumentId[4..], out path))
+                    return true;
+            }
             if (string.Equals(uri.Host, Rpcs3x6Authority,
                     StringComparison.OrdinalIgnoreCase))
             {
-                const string documentMarker = "/document/";
                 var markerIndex = unescapedPath.IndexOf(
                     documentMarker,
                     StringComparison.OrdinalIgnoreCase);
@@ -66,7 +79,6 @@ namespace TeknoParrotUi.Common.Android
             if (string.Equals(uri.Host, ExternalStorageAuthority,
                     StringComparison.OrdinalIgnoreCase))
             {
-                const string documentMarker = "/document/";
                 const string treeMarker = "/tree/";
                 var marker = unescapedPath.Contains(
                     documentMarker,
@@ -95,6 +107,23 @@ namespace TeknoParrotUi.Common.Android
                    TryNormalizeSharedPath(
                        unescapedPath[storageIndex..],
                        out path);
+        }
+
+        private static string DecodeDocumentPath(string value)
+        {
+            // Avalonia and some vendor pickers preserve a second escaping
+            // layer when an encoded document ID itself contains '/'. Decode
+            // only a small bounded number of times and retain segment safety
+            // checks before the result can become a filesystem path.
+            var decoded = value;
+            for (var attempt = 0; attempt < 3; attempt++)
+            {
+                var next = Uri.UnescapeDataString(decoded);
+                if (string.Equals(next, decoded, StringComparison.Ordinal))
+                    break;
+                decoded = next;
+            }
+            return decoded;
         }
 
         private static bool TryResolveDocumentId(
