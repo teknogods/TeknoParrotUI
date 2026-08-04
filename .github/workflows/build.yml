@@ -352,7 +352,8 @@ jobs:
   build-rpcs3x6-android:
     if: >-
       github.event_name == 'workflow_dispatch' &&
-      inputs.build_android_release
+      inputs.build_android_release &&
+      inputs.publish_android_release
     uses: ./.github/workflows/rpcs3x6-android.yml
     with:
       rpcs3_ref: codex/rpcs3x6-android
