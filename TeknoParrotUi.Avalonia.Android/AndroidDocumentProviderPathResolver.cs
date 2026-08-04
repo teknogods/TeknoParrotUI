@@ -124,6 +124,10 @@ internal sealed class AndroidDocumentProviderPathResolver
             var path = NormalizeKernelStoragePath(kernelPath);
             if (!string.IsNullOrWhiteSpace(path))
                 Log.Info("TeknoParrotDocument", "Resolved granted document descriptor");
+            else
+                Log.Debug("TeknoParrotDocument",
+                    "Rejected granted document descriptor mount: " +
+                    DescribeKernelMount(kernelPath));
             return path;
         }
         catch (Exception error)
@@ -135,11 +139,47 @@ internal sealed class AndroidDocumentProviderPathResolver
         }
     }
 
+    private static string DescribeKernelMount(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return "empty";
+        var segments = value.Replace('\\', '/')
+            .Split('/', StringSplitOptions.RemoveEmptyEntries);
+        if (segments.Length == 0)
+            return "root";
+        var count = string.Equals(segments[0], "mnt",
+            StringComparison.OrdinalIgnoreCase)
+            ? Math.Min(5, segments.Length)
+            : 1;
+        return "/" + string.Join('/', segments[..count]);
+    }
+
     internal static string? NormalizeKernelStoragePath(string? value)
     {
         if (string.IsNullOrWhiteSpace(value))
             return null;
         var path = value.Replace('\\', '/');
+
+        // Scoped-storage providers expose the same emulated volume through
+        // different per-process mount namespaces across Android vendors and
+        // releases (for example /mnt/user/0/emulated/0 and
+        // /mnt/pass_through/0/emulated/0). The selected descriptor is already
+        // protected by an exact SAF grant, so canonicalize any emulated-primary
+        // mount below /mnt to the public path consumed by RPCS3X6.
+        if (path.StartsWith("/mnt/", StringComparison.OrdinalIgnoreCase))
+        {
+            const string emulatedPrimary = "/emulated/0";
+            var emulatedIndex = path.IndexOf(
+                emulatedPrimary,
+                StringComparison.OrdinalIgnoreCase);
+            if (emulatedIndex >= 0)
+            {
+                var suffixIndex = emulatedIndex + emulatedPrimary.Length;
+                if (suffixIndex == path.Length || path[suffixIndex] == '/')
+                    return "/storage/emulated/0" + path[suffixIndex..];
+            }
+        }
+
         foreach (var mapping in new[]
                  {
                      (Prefix: "/mnt/user/0/primary", Root: "/storage/emulated/0"),
