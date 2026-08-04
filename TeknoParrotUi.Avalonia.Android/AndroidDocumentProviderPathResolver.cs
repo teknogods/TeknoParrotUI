@@ -119,7 +119,7 @@ internal sealed class AndroidDocumentProviderPathResolver
             using var descriptor = _context.ContentResolver?.OpenFileDescriptor(uri, "r");
             if (descriptor == null)
                 return null;
-            var kernelPath = Android.Systems.Os.Readlink(
+            var kernelPath = global::Android.Systems.Os.Readlink(
                 "/proc/self/fd/" + descriptor.Fd);
             var path = NormalizeKernelStoragePath(kernelPath);
             if (!string.IsNullOrWhiteSpace(path))
