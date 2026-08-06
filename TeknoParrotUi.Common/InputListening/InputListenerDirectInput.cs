@@ -451,7 +451,8 @@ namespace TeknoParrotUi.Common.InputListening
                 HandlebarAnalogByteValue = 6;
             }
 
-            if (_gameProfile.EmulationProfile == EmulationProfile.Harley)
+            if (_gameProfile.EmulationProfile == EmulationProfile.Harley ||
+                _gameProfile.EmulationProfile == EmulationProfile.cxbxr)
             {
                 InputCode.AnalogBytes[2] = 0x80;
                 WheelAnalogByteValue = 2;
