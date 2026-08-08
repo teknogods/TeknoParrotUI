@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using SharpDX.XInput;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Common.InputListening;
 
 namespace TeknoParrotUi.Helpers
 {
@@ -67,6 +68,17 @@ namespace TeknoParrotUi.Helpers
         /// <param name="index">XInput index.</param>
         private void SetTextBoxText(State newState, State oldState, int index)
         {
+            // An XInput slot not in SunshinePlayerInput's mapping must be a real, physically
+            // connected controller (a streamed player's slot always gets announced via
+            // teknoparrot_pipe's GamepadSlot message the moment it's allocated) - so treat an
+            // unmapped index as the host's own local controller for filtering purposes.
+            int owningPlayer = SunshinePlayerInput.PlayerForXInputIndex(index);
+            if (owningPlayer == 0)
+                owningPlayer = ActiveCaptureSource.Host;
+
+            if (!ActiveCaptureSource.IsAllowed(owningPlayer))
+                return;
+
             Application.Current.Dispatcher.BeginInvoke(
                 DispatcherPriority.Background,
                 new Action(() =>

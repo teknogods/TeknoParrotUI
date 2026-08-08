@@ -73,10 +73,14 @@ namespace TeknoParrotUi.UserControls
             // mode the game's Input API actually triggers.
             SunshinePlayerInput.InputReceived += OnSunshineInputReceived;
             SunshinePlayerInput.Start();
+            PopulateActiveCaptureSourceSelector();
             Unloaded += (s, e) =>
             {
                 SunshinePlayerInput.InputReceived -= OnSunshineInputReceived;
                 SunshinePlayerInput.Stop();
+                // Don't leave a restriction active for the next screen that opens - "Any" is
+                // the safe, unsurprising default to return to once this screen closes.
+                ActiveCaptureSource.AllowedPlayer = ActiveCaptureSource.Any;
             };
         }
 
@@ -97,7 +101,59 @@ namespace TeknoParrotUi.UserControls
                     if (box.Tag is JoystickButtons t)
                         PopulateDeviceComboBox(box, t);
                 }
+
+                PopulateActiveCaptureSourceSelector();
             }));
+        }
+
+        /// <summary>
+        /// Fills the "who can currently set inputs" dropdown with Any, Host, and every
+        /// currently-connected streamed player - re-populated whenever the roster changes, so
+        /// a player who leaves mid-setup doesn't stay selectable, and one who joins does.
+        /// Preserves the current selection across a refresh where possible, so a mid-session
+        /// roster change doesn't silently reset the host's restriction back to "Any".
+        /// </summary>
+        private void PopulateActiveCaptureSourceSelector()
+        {
+            if (ActiveCaptureSourceSelector == null)
+                return;
+
+            int previouslySelected = ActiveCaptureSource.AllowedPlayer;
+
+            ActiveCaptureSourceSelector.Items.Clear();
+            ActiveCaptureSourceSelector.Items.Add(new ComboBoxItem { Content = "Any", Tag = ActiveCaptureSource.Any });
+            ActiveCaptureSourceSelector.Items.Add(new ComboBoxItem { Content = "Host", Tag = ActiveCaptureSource.Host });
+
+            foreach (var player in SunshinePlayerInput.GetConnectedPlayers())
+            {
+                ActiveCaptureSourceSelector.Items.Add(new ComboBoxItem
+                {
+                    Content = SunshinePlayerInput.DisplayNameForPlayer(player),
+                    Tag = player
+                });
+            }
+
+            foreach (ComboBoxItem item in ActiveCaptureSourceSelector.Items)
+            {
+                if ((int)item.Tag == previouslySelected)
+                {
+                    ActiveCaptureSourceSelector.SelectedItem = item;
+                    return;
+                }
+            }
+
+            // The previously-selected player is no longer connected (e.g. they disconnected
+            // mid-setup) - fall back to Any rather than silently keeping a restriction pointed
+            // at someone who can't provide input anymore.
+            ActiveCaptureSourceSelector.SelectedIndex = 0;
+        }
+
+        private void ActiveCaptureSourceSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ActiveCaptureSourceSelector.SelectedItem is ComboBoxItem item && item.Tag is int player)
+            {
+                ActiveCaptureSource.AllowedPlayer = player;
+            }
         }
 
         public void LoadNewSettings(GameProfile gameProfile, ListBoxItem comboItem)
@@ -108,6 +164,15 @@ namespace TeknoParrotUi.UserControls
             _RelativeAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Relative Input" && x.FieldValue == "1");
             _BG4ProMode = gameProfile.ConfigValues.Any(x => x.FieldName == "Professional Edition Enable" && x.FieldValue == "1");
             _isRemoteLocalPlayMode = gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue == "1");
+
+            // Only meaningful (and only shown) for games that actually have Remote Local Play -
+            // for anything else there's only ever one input source anyway, so the restriction
+            // dropdown would just be clutter.
+            ActiveCaptureSourceRow.Visibility = _isRemoteLocalPlayMode ? Visibility.Visible : Visibility.Collapsed;
+            if (!_isRemoteLocalPlayMode)
+            {
+                ActiveCaptureSource.AllowedPlayer = ActiveCaptureSource.Any;
+            }
 
             string UseDPadForGUN1Stick_String = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "GUN1StickAxisInputStyle")?.FieldValue;
             if (UseDPadForGUN1Stick_String == "UseDPadForGUN1Stick")

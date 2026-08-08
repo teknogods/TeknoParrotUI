@@ -4952,6 +4952,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Accept Input From.
+        /// </summary>
+        public static string MultiGameButtonConfigInputSource {
+            get {
+                return ResourceManager.GetString("MultiGameButtonConfigInputSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select All.
         /// </summary>
         public static string MultiGameButtonConfigSelectAll {

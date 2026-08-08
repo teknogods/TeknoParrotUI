@@ -19,7 +19,8 @@ namespace TeknoParrotUi.Common.InputListening
         MouseButtonDown,
         MouseButtonUp,
         MouseWheel,
-        AbsPosition
+        AbsPosition,
+        GamepadSlot
     }
 
     public class SunshineInputEventArgs : EventArgs
@@ -42,6 +43,10 @@ namespace TeknoParrotUi.Common.InputListening
 
         /// <summary>Only valid for Roster.</summary>
         public bool Connected { get; set; }
+
+        /// <summary>The real Windows XInput user index (0-3) ViGEmBus assigned this player's
+        /// virtual controller. Only valid for GamepadSlot.</summary>
+        public int XInputIndex { get; set; }
     }
 
     /// <summary>
@@ -63,6 +68,7 @@ namespace TeknoParrotUi.Common.InputListening
     ///   0x04 MouseButton  [type][player][down][button]           4 bytes
     ///   0x05 MouseWheel   [type][player][delta0..3]              6 bytes
     ///   0x06 AbsPosition  [type][player][x0..3][y0..3]           10 bytes
+    ///   0x07 GamepadSlot  [type][player][xinputIndex]            3 bytes
     /// </summary>
     public static class SunshinePlayerInput
     {
@@ -85,6 +91,17 @@ namespace TeknoParrotUi.Common.InputListening
         private static readonly object RosterLock = new object();
 
         /// <summary>
+        /// Which player owns each real Windows XInput user index (0-3), as reported by
+        /// Sunshine's teknoparrot_pipe::send_gamepad_slot(). XInput slots are handed out by
+        /// Windows/ViGEmBus in allocation order, not tied to a specific player by design, so
+        /// this mapping is the only reliable way to know "index 1 is currently Player 3's
+        /// controller" - it can change across sessions/reconnects as controllers are
+        /// (re)allocated, so always look it up fresh rather than assuming it's stable.
+        /// </summary>
+        private static readonly Dictionary<int, int> PlayerByXInputIndex = new Dictionary<int, int>();
+        private static readonly object GamepadSlotLock = new object();
+
+        /// <summary>
         /// Raised on a background thread whenever a player-tagged event arrives. Subscribers
         /// must marshal to the UI thread themselves if needed.
         /// </summary>
@@ -100,6 +117,19 @@ namespace TeknoParrotUi.Common.InputListening
         /// Display label shown in the TeknoParrotUI binding UI for a given player slot.
         /// </summary>
         public static string DisplayNameForPlayer(int player) => $"Streaming Device Player {player}";
+
+        /// <summary>
+        /// Which player currently owns the given real Windows XInput user index (0-3), or 0
+        /// if unknown/unassigned. See <see cref="PlayerByXInputIndex"/> for why this has to be
+        /// looked up live rather than assumed.
+        /// </summary>
+        public static int PlayerForXInputIndex(int xinputIndex)
+        {
+            lock (GamepadSlotLock)
+            {
+                return PlayerByXInputIndex.TryGetValue(xinputIndex, out var player) ? player : 0;
+            }
+        }
 
         /// <summary>
         /// The reverse of <see cref="DisplayNameForPlayer"/>, used by device-picker dropdowns
@@ -170,7 +200,7 @@ namespace TeknoParrotUi.Common.InputListening
             lock (Lock)
             {
                 _refCount++;
-
+                System.Diagnostics.Trace.WriteLine($"[SunshineDebug] SunshinePlayerInput.Start() called, refCount now {_refCount}, thread already running: {_running}");
                 if (_running)
                 {
                     return;
@@ -199,6 +229,8 @@ namespace TeknoParrotUi.Common.InputListening
                     _refCount--;
                 }
 
+                System.Diagnostics.Trace.WriteLine($"[SunshineDebug] SunshinePlayerInput.Stop() called, refCount now {_refCount} (thread intentionally kept alive regardless - see comment on Start())");
+
                 // Deliberately NOT stopping the background thread here, even at refCount 0.
                 // This class is called from several independent, short-lived UI screens (the
                 // config binding screen, its raw-input listener, the in-game listener), each
@@ -224,6 +256,8 @@ namespace TeknoParrotUi.Common.InputListening
                         // Retry quietly rather than surfacing an error.
                         pipe.Connect(1000);
 
+                        System.Diagnostics.Trace.WriteLine("[SunshineDebug] Connected to Sunshine's TeknoParrot pipe.");
+
                         while (_running && pipe.IsConnected)
                         {
                             if (!TryReadMessage(pipe))
@@ -231,20 +265,28 @@ namespace TeknoParrotUi.Common.InputListening
                                 break;
                             }
                         }
+
+                        System.Diagnostics.Trace.WriteLine("[SunshineDebug] Disconnected from Sunshine's TeknoParrot pipe (pipe.IsConnected=" + pipe.IsConnected + ", _running=" + _running + ").");
                     }
                 }
                 catch (Exception ex)
                 {
                     // Pipe not available / connection dropped. Fall through and retry below.
-                    //System.Diagnostics.Trace.WriteLine($"[SunshineDebug] Pipe connect/read failed: {ex.GetType().Name}: {ex.Message}");
+                    System.Diagnostics.Trace.WriteLine($"[SunshineDebug] Pipe connect/read failed: {ex.GetType().Name}: {ex.Message}");
                 }
                 finally
                 {
                     // Roster state is only known while actually connected; don't show stale
-                    // "connected" players once we've lost the pipe.
+                    // "connected" players once we've lost the pipe. Same for gamepad slot
+                    // ownership - a reconnect means Sunshine will resend fresh GamepadSlot
+                    // messages as controllers re-arrive, so don't trust the old mapping either.
                     lock (RosterLock)
                     {
                         ConnectedPlayers.Clear();
+                    }
+                    lock (GamepadSlotLock)
+                    {
+                        PlayerByXInputIndex.Clear();
                     }
                 }
 
@@ -352,12 +394,14 @@ namespace TeknoParrotUi.Common.InputListening
                     var rest = ReadExact(pipe, 9);
                     if (rest == null)
                     {
+                        System.Diagnostics.Trace.WriteLine("[SunshineDebug] AbsPosition: ReadExact returned null - pipe closed mid-message");
                         return false;
                     }
 
                     int px = rest[0];
                     int vx = BitConverter.ToInt32(rest, 1);
                     int vy = BitConverter.ToInt32(rest, 5);
+                    System.Diagnostics.Trace.WriteLine($"[SunshineDebug] AbsPosition received: player={px} x={vx} y={vy}");
 
                     Raise(new SunshineInputEventArgs
                     {
@@ -365,6 +409,27 @@ namespace TeknoParrotUi.Common.InputListening
                         EventType = SunshineInputEventType.AbsPosition,
                         DeltaX = BitConverter.ToInt32(rest, 1),
                         DeltaY = BitConverter.ToInt32(rest, 5)
+                    });
+                    return true;
+                }
+                case 0x07: // GamepadSlot: player, xinputIndex
+                {
+                    var rest = ReadExact(pipe, 2);
+                    if (rest == null) return false;
+
+                    int player = rest[0];
+                    int xinputIndex = rest[1];
+
+                    lock (GamepadSlotLock)
+                    {
+                        PlayerByXInputIndex[xinputIndex] = player;
+                    }
+
+                    Raise(new SunshineInputEventArgs
+                    {
+                        Player = player,
+                        EventType = SunshineInputEventType.GamepadSlot,
+                        XInputIndex = xinputIndex
                     });
                     return true;
                 }

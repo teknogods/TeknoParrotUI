@@ -10,6 +10,7 @@ using TeknoParrotUi.Views;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace TeknoParrotUi.UserControls
 {
@@ -41,6 +42,16 @@ namespace TeknoParrotUi.UserControls
             _contentControl = contentControl;
             _library = library;
 
+            // Wire up conditional field visibility (e.g. P2/P3/P4 Trackball Sensitivity
+            // fields only showing when "Remote Local Play" is enabled). Any field with
+            // VisibleWhenField/VisibleWhenValue set in the profile XML is handled here.
+            foreach (var field in gameProfile.ConfigValues)
+            {
+                field.PropertyChanged -= ConfigValue_PropertyChanged;
+                field.PropertyChanged += ConfigValue_PropertyChanged;
+            }
+            UpdateConditionalVisibility();
+
             // Ensure MergedInput is available in the Input API dropdown
             var inputApiField = gameProfile.ConfigValues.Find(cv => cv.FieldName == "Input API");
             if (inputApiField?.FieldOptions != null && !inputApiField.FieldOptions.Contains("MergedInput"))
@@ -71,6 +82,41 @@ namespace TeknoParrotUi.UserControls
             {
                 GameExecutable2Text.Visibility = Visibility.Collapsed;
                 GamePathBox2.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void ConfigValue_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            // Only react to the underlying value changing, not to IsVisible flips we
+            // trigger ourselves (avoids re-entrant recursion).
+            if (e.PropertyName == nameof(FieldInformation.FieldValue))
+            {
+                UpdateConditionalVisibility();
+            }
+        }
+
+        private void UpdateConditionalVisibility()
+        {
+            if (_gameProfile?.ConfigValues == null) return;
+
+            foreach (var field in _gameProfile.ConfigValues)
+            {
+                if (string.IsNullOrEmpty(field.VisibleWhenField))
+                {
+                    // No dependency declared: always visible.
+                    field.IsVisible = true;
+                    continue;
+                }
+
+                var controller = _gameProfile.ConfigValues.Find(f => f.FieldName == field.VisibleWhenField);
+                if (controller == null)
+                {
+                    // Referenced field doesn't exist in this profile; fail open.
+                    field.IsVisible = true;
+                    continue;
+                }
+
+                field.IsVisible = string.Equals(controller.FieldValue, field.VisibleWhenValue, StringComparison.OrdinalIgnoreCase);
             }
         }
 

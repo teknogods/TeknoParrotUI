@@ -246,6 +246,15 @@ namespace TeknoParrotUi.Helpers
 
             if (msg == WM_INPUT)
             {
+                // Real WM_INPUT events are always the host's own local devices - Sunshine
+                // player events arrive separately, via OnSunshineInputReceived. So this is
+                // exactly the check needed to respect a host-only or "specific player only"
+                // restriction here.
+                if (!ActiveCaptureSource.IsAllowed(ActiveCaptureSource.Host))
+                {
+                    return IntPtr.Zero;
+                }
+
                 var data = RawInputData.FromHandle(lParam);
 
                 // See InputListenerRawInput.WndProcReceived for why anonymous (no real device)
@@ -287,6 +296,9 @@ namespace TeknoParrotUi.Helpers
         private void OnSunshineInputReceived(object sender, SunshineInputEventArgs e)
         {
             if (e.Player < SunshinePlayerInput.MinPlayer || e.Player > SunshinePlayerInput.MaxPlayer)
+                return;
+
+            if (!ActiveCaptureSource.IsAllowed(e.Player))
                 return;
 
             string devicePath = SunshinePlayerInput.DevicePathForPlayer(e.Player);

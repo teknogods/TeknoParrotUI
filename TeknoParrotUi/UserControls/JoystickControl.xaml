@@ -75,11 +75,28 @@
             <ColumnDefinition Width="4*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="8*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="640*" />
             <RowDefinition Height="6*" />
             <RowDefinition Height="60" />
         </Grid.RowDefinitions>
+        <StackPanel
+            x:Name="ActiveCaptureSourceRow"
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Orientation="Horizontal"
+            Margin="10,10,10,0"
+            Visibility="Collapsed">
+            <TextBlock
+                Text="{x:Static p:Resources.MultiGameButtonConfigInputSource}"
+                VerticalAlignment="Center"
+                Margin="0,0,10,0" />
+            <ComboBox
+                x:Name="ActiveCaptureSourceSelector"
+                Width="170"
+                SelectionChanged="ActiveCaptureSourceSelector_SelectionChanged" />
+        </StackPanel>
         <ScrollViewer
             Grid.Row="1"
             Grid.Column="1"

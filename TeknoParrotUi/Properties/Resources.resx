@@ -2442,6 +2442,9 @@ Please install!</value>
   <data name="MultiGameButtonConfigSearchGames" xml:space="preserve">
     <value>Search Games</value>
   </data>
+  <data name="MultiGameButtonConfigInputSource" xml:space="preserve">
+    <value>Accept Input From</value>
+  </data>
   <data name="MultiGameButtonConfigSelectGames" xml:space="preserve">
     <value>Select Games</value>
   </data>

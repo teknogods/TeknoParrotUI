@@ -20,6 +20,7 @@
         <system:Double x:Key="fieldHeight">28</system:Double>
         <viewModels:GameSettingsVisibilityConverter x:Key="gameSettingsVisibilityConverter" />
         <converters:StringToBoolConverter x:Key="stringToBoolConverter" />
+        <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
          <converters:VirtualKeyToHexConverter x:Key="virtualKeyToHexConverter" />
         <Style x:Key="hintIcon" TargetType="materialDesign:PackIcon">
             <Setter Property="Visibility" Value="Visible" />
@@ -154,7 +155,7 @@
             <ItemsControl Name="GameSettingsList">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <UniformGrid Columns="2">
+                        <UniformGrid Columns="2" Visibility="{Binding IsVisible, Converter={StaticResource boolToVisibilityConverter}}">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Height="{StaticResource fieldHeight}" Padding="2,4,2,2">
                                     <TextBlock.Text>

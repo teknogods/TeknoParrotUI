@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -48,6 +48,12 @@
 			<Hint>Raises the shadow texture resolution from 1024 to 4096. Might cause instability due to the need to use our own custom memory pool.</Hint>
 		</FieldInformation>
 		<FieldInformation>
+			<CategoryName>Streaming</CategoryName>
+			<FieldName>Remote Local Play</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
 			<CategoryName>Controls</CategoryName>
 			<FieldName>Trackball Sensitivity X</FieldName>
 			<FieldValue>100</FieldValue>
@@ -66,6 +72,78 @@
 			<FieldMax>200</FieldMax>
 			<FieldOptions></FieldOptions>
 			<Hint>Scales the trackballs Y input. Percent, so 100 = 100%, 25 = 25%</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>P2 Trackball Sensitivity X</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Scales the trackballs X input. Percent, so 100 = 100%, 25 = 25%</Hint>
+			<VisibleWhenField>Remote Local Play</VisibleWhenField>
+			<VisibleWhenValue>1</VisibleWhenValue>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>P2 Trackball Sensitivity Y</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Scales the trackballs Y input. Percent, so 100 = 100%, 25 = 25%</Hint>
+			<VisibleWhenField>Remote Local Play</VisibleWhenField>
+			<VisibleWhenValue>1</VisibleWhenValue>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>P3 Trackball Sensitivity X</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Scales the trackballs X input. Percent, so 100 = 100%, 25 = 25%</Hint>
+			<VisibleWhenField>Remote Local Play</VisibleWhenField>
+			<VisibleWhenValue>1</VisibleWhenValue>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>P3 Trackball Sensitivity Y</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Scales the trackballs Y input. Percent, so 100 = 100%, 25 = 25%</Hint>
+			<VisibleWhenField>Remote Local Play</VisibleWhenField>
+			<VisibleWhenValue>1</VisibleWhenValue>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>P4 Trackball Sensitivity X</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Scales the trackballs X input. Percent, so 100 = 100%, 25 = 25%</Hint>
+			<VisibleWhenField>Remote Local Play</VisibleWhenField>
+			<VisibleWhenValue>1</VisibleWhenValue>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>P4 Trackball Sensitivity Y</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Scales the trackballs Y input. Percent, so 100 = 100%, 25 = 25%</Hint>
+			<VisibleWhenField>Remote Local Play</VisibleWhenField>
+			<VisibleWhenValue>1</VisibleWhenValue>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -143,12 +221,6 @@
 			<FieldValue></FieldValue>
 			<FieldType>Text</FieldType>
 			<Hint>The chosen postgres password</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>Remote Local Play</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
