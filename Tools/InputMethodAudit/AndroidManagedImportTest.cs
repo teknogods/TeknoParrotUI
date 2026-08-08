@@ -1301,15 +1301,30 @@ namespace InputMethodAudit
             True(source.Contains(
                     "touchpadView.setDirectTouchMode(true);", StringComparison.Ordinal) &&
                 source.Contains(
-                    "\"shared-jvs-dual-io\".equals(", StringComparison.Ordinal) &&
+                    "private boolean usesPreparedSharedJvsDualIo()",
+                    StringComparison.Ordinal) &&
                 source.Contains(
-                    "\"gaia-attack4-media\".equals(", StringComparison.Ordinal) &&
+                    "\"shared-jvs-dual-io\".equals(preset)",
+                    StringComparison.Ordinal) &&
                 source.Contains(
-                    "\"music-gungun-native-fullscreen\".equals(",
+                    "\"gaia-attack4-media\".equals(preset)",
+                    StringComparison.Ordinal) &&
+                source.Contains(
+                    "\"music-gungun-native-fullscreen\".equals(preset)",
                     StringComparison.Ordinal) &&
                 source.Contains(
                     "\"direct-touch-jvs\".equals(", StringComparison.Ordinal),
-                "Wonderland and Shining enable title-scoped absolute press-and-drag cabinet touch");
+                "composite shared-JVS presets preserve absolute cabinet touch");
+            True(source.Contains(
+                    "boolean isSharedJvsDualIo = usesPreparedSharedJvsDualIo();",
+                    StringComparison.Ordinal) &&
+                source.Contains(
+                    "if (isInitialDTheArcade || isEadpDualIo || isSharedJvsDualIo)",
+                    StringComparison.Ordinal) &&
+                source.Contains(
+                    "pipe --name TeknoParrot_JVS",
+                    StringComparison.Ordinal),
+                "Gaia Attack 4 and Music Gun Gun retain their secondary JVS helper");
             True(source.Contains(
                     "boolean useNativeGuestFullscreen =", StringComparison.Ordinal) &&
                 source.Contains(
