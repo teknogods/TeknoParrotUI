@@ -667,8 +667,8 @@ namespace InputMethodAudit
                     "SharedOpenParrotArchiveAdapter.cs"));
                 var buildWorkflowSource = File.ReadAllText(Path.Combine(
                     repositoryRoot, ".github", "workflows", "build.yml"));
-                var winlatorWorkflowSource = File.ReadAllText(Path.Combine(
-                    winlatorRoot, ".github", "workflows", "build-android.yml"));
+                var winlatorPackageSource = File.ReadAllText(Path.Combine(
+                    winlatorRoot, "TEKNOPARROT_PACKAGE.md"));
                 var androidUiPackageGateSource = File.ReadAllText(Path.Combine(
                     repositoryRoot, "Tools", "Test-AndroidUiPackage.ps1"));
                 var winlatorGradleSource = File.ReadAllText(Path.Combine(
@@ -1329,17 +1329,17 @@ namespace InputMethodAudit
                     "ANDROID_WINLATOR_SOURCE",
                     "obsolete coupled Winlator source input");
                 RequireContains(
-                    winlatorWorkflowSource,
-                    "tag=winlator",
-                    "standalone Winlator rolling release");
+                    winlatorPackageSource,
+                    "Rolling release tag: `winlator`",
+                    "BuilderBill Winlator rolling release contract");
                 RequireContains(
-                    winlatorWorkflowSource,
-                    "TeknoParrotWinlator-${version}-android-arm64.apk",
-                    "standalone Winlator versioned asset");
+                    winlatorPackageSource,
+                    "TeknoParrotWinlator-<four-part-version>-android-arm64.apk",
+                    "BuilderBill Winlator versioned asset contract");
                 RequireContains(
-                    winlatorWorkflowSource,
-                    "version_code=\"$(date -u +%s)\"",
-                    "Winlator monotonic release version code");
+                    winlatorPackageSource,
+                    "BuilderBill requires production signing and publishes the verified APK",
+                    "BuilderBill signed Winlator publication contract");
                 RequireContains(
                     androidUiPackageGateSource,
                     "TeknoParrotUI APK contains forbidden emulator/core payloads",
