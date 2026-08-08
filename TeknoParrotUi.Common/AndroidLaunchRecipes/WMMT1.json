@@ -12,7 +12,7 @@
   "libraryDirectory": "cxbxr-export",
   "inputProtocol": "shared-cxbxr-wmmt",
   "controlsProfileId": 9012,
-  "frameRateLimit": 0,
+  "frameRateLimit": 60,
   "resolutionWidth": 1280,
   "resolutionHeight": 720,
   "displayMode": "aspect-fit",

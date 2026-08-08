@@ -749,54 +749,54 @@ int wmain(int argc, wchar_t** argv)
             prelaunch_command_line = build_direct_prelaunch_command_line(
                 prelaunch_executable,
                 prelaunch_arguments);
-            prelaunch_working_length = GetEnvironmentVariableW(
-                L"TP_PRELAUNCH_WORKING_DIRECTORY",
-                NULL,
-                0);
-            if (prelaunch_working_length > 1)
-            {
-                if (prelaunch_working_length > 32767)
-                {
-                    result = ERROR_ENVVAR_NOT_FOUND;
-                    goto cleanup;
-                }
-                prelaunch_working_directory = (wchar_t*)calloc(
-                    prelaunch_working_length,
-                    sizeof(wchar_t));
-                if (prelaunch_working_directory == NULL)
-                {
-                    result = ERROR_NOT_ENOUGH_MEMORY;
-                    goto cleanup;
-                }
-                if (GetEnvironmentVariableW(
-                        L"TP_PRELAUNCH_WORKING_DIRECTORY",
-                        prelaunch_working_directory,
-                        prelaunch_working_length) == 0)
-                {
-                    result = (int)GetLastError();
-                    goto cleanup;
-                }
-                attributes = GetFileAttributesW(prelaunch_working_directory);
-                if (attributes == INVALID_FILE_ATTRIBUTES ||
-                    !(attributes & FILE_ATTRIBUTE_DIRECTORY))
-                {
-                    result = ERROR_PATH_NOT_FOUND;
-                    goto cleanup;
-                }
-                prelaunch_current_directory = prelaunch_working_directory;
-            }
-            if (environment_flag_enabled(L"TP_PRELAUNCH_HIDE_WINDOW"))
-            {
-                startup_info.dwFlags |= STARTF_USESHOWWINDOW;
-                startup_info.wShowWindow = SW_HIDE;
-                prelaunch_creation_flags |= CREATE_NO_WINDOW;
-            }
         }
         else
         {
             prelaunch_application = argv[2];
             prelaunch_command_line = build_prelaunch_command_line(
                 argv[2], argv[3], prelaunch_executable);
+        }
+        prelaunch_working_length = GetEnvironmentVariableW(
+            L"TP_PRELAUNCH_WORKING_DIRECTORY",
+            NULL,
+            0);
+        if (prelaunch_working_length > 1)
+        {
+            if (prelaunch_working_length > 32767)
+            {
+                result = ERROR_ENVVAR_NOT_FOUND;
+                goto cleanup;
+            }
+            prelaunch_working_directory = (wchar_t*)calloc(
+                prelaunch_working_length,
+                sizeof(wchar_t));
+            if (prelaunch_working_directory == NULL)
+            {
+                result = ERROR_NOT_ENOUGH_MEMORY;
+                goto cleanup;
+            }
+            if (GetEnvironmentVariableW(
+                    L"TP_PRELAUNCH_WORKING_DIRECTORY",
+                    prelaunch_working_directory,
+                    prelaunch_working_length) == 0)
+            {
+                result = (int)GetLastError();
+                goto cleanup;
+            }
+            attributes = GetFileAttributesW(prelaunch_working_directory);
+            if (attributes == INVALID_FILE_ATTRIBUTES ||
+                !(attributes & FILE_ATTRIBUTE_DIRECTORY))
+            {
+                result = ERROR_PATH_NOT_FOUND;
+                goto cleanup;
+            }
+            prelaunch_current_directory = prelaunch_working_directory;
+        }
+        if (environment_flag_enabled(L"TP_PRELAUNCH_HIDE_WINDOW"))
+        {
+            startup_info.dwFlags |= STARTF_USESHOWWINDOW;
+            startup_info.wShowWindow = SW_HIDE;
+            prelaunch_creation_flags |= CREATE_NO_WINDOW;
         }
         if (prelaunch_command_line == NULL)
         {

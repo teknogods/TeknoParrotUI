@@ -25,8 +25,8 @@ namespace TeknoParrotUi.Common
         public static bool CanManageDesktopComponents => !IsAndroidShell;
 
         /// <summary>
-        /// The first public Android release installs only the open-source
-        /// Winlator cores plus the external PCSX2X6, TeknoDolphin, and RPCS3X6 companions. OpenParrot uses
+        /// Android installs the open-source Winlator cores, CXBXR, plus the
+        /// external PCSX2X6, TeknoDolphin, and RPCS3X6 companions. OpenParrot uses
         /// the profile's Is64Bit flag to select OpenParrotWin32 or
         /// OpenParrotx64, so one emulator type intentionally covers both. TeknoDolphin is
         /// deliberately limited to the five qualified Triforce profiles below.
@@ -42,7 +42,10 @@ namespace TeknoParrotUi.Common
             if (profile.EmulatorType == EmulatorType.TeknoParrot)
                 return true;
 #endif
-            return profile.EmulatorType is EmulatorType.OpenParrot or EmulatorType.pcsx2x6 ||
+            return profile.EmulatorType is
+                    EmulatorType.OpenParrot or
+                    EmulatorType.cxbxr or
+                    EmulatorType.pcsx2x6 ||
                 IsAndroidRpcs3ProfileSupported(profile) ||
                 IsAndroidDolphinProfileSupported(profile);
         }

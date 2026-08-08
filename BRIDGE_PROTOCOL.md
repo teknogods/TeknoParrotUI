@@ -155,8 +155,11 @@ session token. Capabilities advertise this boundary with `ScopedWindowsPath`.
 The managed TeknoParrot container assigns `D:` to Android Downloads, keeps
 `E:` inside Winlator's private application storage, and assigns `G:` only to
 `/storage/emulated/0/TeknoParrotGames`. Ordinary Winlator containers do not
-receive `G:` automatically, and TPUI rejects shared-storage game paths outside
-Downloads and that dedicated library.
+receive `G:` automatically. When the Android game-settings picker selects an
+executable elsewhere in normal shared storage, TPUI maps only that executable's
+containing folder to a transient `I:` drive for the lifetime of that prepared
+game session. The mount is never written to `container.json`; storage roots and
+protected `Android/data` or `Android/obb` paths remain rejected.
 
 For prepared games, the per-profile diagnostic Boolean controls the entire
 logging chain rather than Winlator's global preferences. Performance mode

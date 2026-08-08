@@ -51,23 +51,36 @@ namespace InputMethodAudit
                 True(recipes.Single(recipe => recipe.ProfileName == "PuzzleBobble")
                     .PerformanceModeDefault, "Puzzle Bobble performance mode default");
 
+                var battleGear4 = recipes.Single(
+                    recipe => recipe.ProfileName == "BattleGear4");
+                Equal(AndroidLaunchRecipe.CompatibilityPresetBattleGear4Original,
+                    battleGear4.CompatibilityPreset,
+                    "original Battle Gear 4 Box64/x87 compatibility preset");
+
+                var justiceLeague = recipes.Single(
+                    recipe => recipe.ProfileName == "JusticeLeague");
+                Equal(AndroidLaunchRecipe.CompatibilityPresetJusticeLeagueWow64Transition,
+                    justiceLeague.CompatibilityPreset,
+                    "Justice League prefix-local WOW64 transition recovery preset");
+
                 var wonderland = recipes.Single(recipe => recipe.ProfileName == "WonderlandWars");
                 Equal(AndroidLaunchRecipe.InputProtocolSharedWonderlandWars,
                     wonderland.InputProtocol, "Wonderland Wars shared input protocol");
                 Equal(AndroidLaunchRecipe.CompatibilityPresetSharedJvsDualIo,
                     wonderland.CompatibilityPreset, "Wonderland Wars dual I/O preset");
-                foreach (var profileName in new[]
-                         {
-                             "HauntedMuseum",
-                             "GaiaAttack4"
-                         })
-                {
-                    var taitoGun = recipes.Single(recipe => recipe.ProfileName == profileName);
-                    Equal(AndroidLaunchRecipe.InputProtocolSharedTaitoGun,
-                        taitoGun.InputProtocol, profileName + " shared gun protocol");
-                    Equal(AndroidLaunchRecipe.CompatibilityPresetSharedJvsDualIo,
-                        taitoGun.CompatibilityPreset, profileName + " dual I/O preset");
-                }
+                var hauntedMuseum = recipes.Single(
+                    recipe => recipe.ProfileName == "HauntedMuseum");
+                Equal(AndroidLaunchRecipe.InputProtocolSharedTaitoGun,
+                    hauntedMuseum.InputProtocol, "HauntedMuseum shared gun protocol");
+                Equal(AndroidLaunchRecipe.CompatibilityPresetSharedJvsDualIo,
+                    hauntedMuseum.CompatibilityPreset, "HauntedMuseum dual I/O preset");
+                var gaiaAttack4 = recipes.Single(
+                    recipe => recipe.ProfileName == "GaiaAttack4");
+                Equal(AndroidLaunchRecipe.InputProtocolSharedTaitoGun,
+                    gaiaAttack4.InputProtocol, "GaiaAttack4 shared gun protocol");
+                Equal(AndroidLaunchRecipe.CompatibilityPresetGaiaAttack4Media,
+                    gaiaAttack4.CompatibilityPreset,
+                    "GaiaAttack4 dual I/O plus mixed-codec media preset");
                 var musicGunGun2 = recipes.Single(
                     recipe => recipe.ProfileName == "MusicGunGun2");
                 Equal(AndroidLaunchRecipe.InputProtocolSharedTaitoGunMusic,
@@ -75,10 +88,14 @@ namespace InputMethodAudit
                     "Music Gun Gun 2 decision-preserving shared gun protocol");
                 Equal(9074, musicGunGun2.ControlsProfileId,
                     "Music Gun Gun 2 dedicated controls profile");
-                Equal(AndroidLaunchRecipe.CompatibilityPresetSharedJvsDualIo,
+                Equal(1360, musicGunGun2.ResolutionWidth,
+                    "Music Gun Gun 2 native D3D9 enumeration width");
+                Equal(768, musicGunGun2.ResolutionHeight,
+                    "Music Gun Gun 2 native D3D9 enumeration height");
+                Equal(AndroidLaunchRecipe.CompatibilityPresetMusicGunGunNativeFullscreen,
                     musicGunGun2.CompatibilityPreset,
-                    "Music Gun Gun 2 dual I/O preset");
-                var hauntedMuseum = recipes.Single(
+                    "Music Gun Gun 2 native-fullscreen dual I/O preset");
+                hauntedMuseum = recipes.Single(
                     recipe => recipe.ProfileName == "HauntedMuseum");
                 Equal(9061, hauntedMuseum.ControlsProfileId,
                     "Haunted Museum trigger-only controls profile");
@@ -758,6 +775,9 @@ namespace InputMethodAudit
                     "Vampire Savior isolated legacy runtime directory");
                 var battleGear4Tuned = recipes.Single(recipe =>
                     recipe.ProfileName == "BattleGear4Tuned");
+                Equal(AndroidLaunchRecipe.CompatibilityPresetNone,
+                    battleGear4Tuned.CompatibilityPreset,
+                    "Battle Gear 4 Tuned does not inherit the original BG4 preset");
                 Equal(@".\OpenParrotWin32\OpenParrot",
                     battleGear4Tuned.Arguments[0],
                     "Battle Gear 4 Tuned public OpenParrot core");
@@ -884,9 +904,17 @@ namespace InputMethodAudit
                         @"H:\MachStorm\ACE7_WIN_10.exe",
                         "/storage/emulated/0/Download"),
                     "canonical removable-card DOS path accepted");
-                False(ManagedAndroidGameImporter.IsWinlatorSharedGamePath(
+                True(ManagedAndroidGameImporter.IsWinlatorSharedGamePath(
                     "/storage/1234-ABCD/Arcade/MachStorm/ACE7_WIN_10.exe"),
-                    "removable-card root outside TeknoParrotGames rejected");
+                    "arbitrary removable-card game folder accepted as a scoped drive");
+                var removableScoped = AndroidWinlatorGamePath.Resolve(
+                    "/storage/1234-ABCD/Arcade/MachStorm/ACE7_WIN_10.exe",
+                    "/storage/emulated/0/Download");
+                Equal(@"I:\ACE7_WIN_10.exe", removableScoped.DosPath,
+                    "arbitrary removable-card executable mapped to scoped I drive");
+                Equal("/storage/1234-ABCD/Arcade/MachStorm",
+                    removableScoped.ScopedGameDirectory,
+                    "only the selected removable-card executable directory is exposed");
                 True(AndroidProfileConfig.IsBooleanEnabled(
                         "[General]\nReverse Y Axis=1\n",
                         "General",
@@ -897,12 +925,40 @@ namespace InputMethodAudit
                         "General",
                         "Reverse Y Axis"),
                     "Android forwarded profile boolean is section-aware");
-                False(ManagedAndroidGameImporter.IsWinlatorDownloadPath(
+                True(ManagedAndroidGameImporter.IsWinlatorDownloadPath(
                     "/storage/emulated/0/Documents/Test/game.exe"),
-                    "non-Download path rejected");
-                False(ManagedAndroidGameImporter.IsWinlatorSharedGamePath(
+                    "non-Download shared-storage path accepted through a scoped drive");
+                True(ManagedAndroidGameImporter.IsWinlatorSharedGamePath(
                     "/storage/emulated/0/TeknoParrotGamesBackup/Test/game.exe"),
-                    "shared game library prefix collision rejected");
+                    "arbitrary primary-storage game folder accepted as a scoped drive");
+                var primaryScoped = AndroidWinlatorGamePath.Resolve(
+                    "/storage/emulated/0/Arcade/Fighters/game.exe",
+                    "/storage/emulated/0/Download");
+                Equal(@"I:\game.exe", primaryScoped.DosPath,
+                    "arbitrary primary-storage executable mapped to scoped I drive");
+                Equal("/storage/emulated/0/Arcade/Fighters",
+                    primaryScoped.ScopedGameDirectory,
+                    "only the selected primary-storage executable directory is exposed");
+                Throws<InvalidOperationException>(
+                    () => AndroidWinlatorGamePath.Resolve(
+                        "/storage/emulated/0/Android/data/example/game.exe",
+                        "/storage/emulated/0/Download"),
+                    "protected Android application storage rejected");
+                Throws<InvalidOperationException>(
+                    () => AndroidWinlatorGamePath.Resolve(
+                        "/storage/emulated/0/Android/game.exe",
+                        "/storage/emulated/0/Download"),
+                    "shared Android root rejected because it contains protected storage");
+                Throws<InvalidOperationException>(
+                    () => AndroidWinlatorGamePath.Resolve(
+                        "/storage/1234-ABCD/Android/obb/example/game.exe",
+                        "/storage/emulated/0/Download"),
+                    "protected removable-card Android application storage rejected");
+                Throws<InvalidOperationException>(
+                    () => AndroidWinlatorGamePath.Resolve(
+                        "/storage/emulated/0/game.exe",
+                        "/storage/emulated/0/Download"),
+                    "primary storage root is never exposed as a scoped drive");
                 True(AndroidRpcs3x6GamePath.IsConfigured(
                         "/storage/emulated/0/arcade/rpcs3/DSPS/" +
                         "dev_hdd0/game/SCEEXE000/USRDIR/EBOOT.BIN"),
@@ -1015,6 +1071,11 @@ namespace InputMethodAudit
                 "app", "app", "src", "main", "java", "com", "winlator",
                 "XServerDisplayActivity.java");
             var source = File.ReadAllText(activityPath);
+            var wineGStreamerPatchPath = Path.Combine(
+                winlatorRoot,
+                "app", "app", "src", "main", "java", "com", "winlator", "core",
+                "WineGStreamerOutputFormatPatch.java");
+            var wineGStreamerPatchSource = File.ReadAllText(wineGStreamerPatchPath);
             var gameSessionServicePath = Path.Combine(
                 repositoryRoot, "TeknoParrotUi.Avalonia.Android", "GameSessionService.cs");
             var gameSessionServiceSource = File.ReadAllText(gameSessionServicePath);
@@ -1086,6 +1147,62 @@ namespace InputMethodAudit
                     "!COMPATIBILITY_PRESET_SHARED_JVS_DUAL_IO.equals(value)",
                     StringComparison.Ordinal),
                 "shared-state plus JVS preset accepted by the Activity contract");
+            True(activityContractSource.Contains(
+                    "COMPATIBILITY_PRESET_GAIA_ATTACK4_MEDIA = \"gaia-attack4-media\"",
+                    StringComparison.Ordinal) &&
+                activityContractSource.Contains(
+                    "!COMPATIBILITY_PRESET_GAIA_ATTACK4_MEDIA.equals(value)",
+                    StringComparison.Ordinal),
+                "Gaia Attack 4 media preset accepted by the Activity contract");
+            True(activityContractSource.Contains(
+                    "COMPATIBILITY_PRESET_KOF_XII_WINE_GSTREAMER =",
+                    StringComparison.Ordinal) &&
+                activityContractSource.Contains(
+                    "\"kof-xii-wine-gstreamer\"",
+                    StringComparison.Ordinal) &&
+                activityContractSource.Contains(
+                    "!COMPATIBILITY_PRESET_KOF_XII_WINE_GSTREAMER.equals(value)",
+                    StringComparison.Ordinal),
+                "KOF XII guarded Wine-GStreamer preset accepted by the Activity contract");
+            True(source.Contains(
+                    "!ensurePreparedWineGStreamerOutputFormat()",
+                    StringComparison.Ordinal) &&
+                source.Contains(
+                    "\"kof-xii-wine-gstreamer\".equals(",
+                    StringComparison.Ordinal) &&
+                source.Contains(
+                    "drive_c/windows/syswow64/winegstreamer.dll",
+                    StringComparison.Ordinal) &&
+                wineGStreamerPatchSource.Contains(
+                    "f35d717eaf5340260107dc38211a192c9fbf87fde53abc82e1ea2c123b4e8cf3",
+                    StringComparison.Ordinal) &&
+                wineGStreamerPatchSource.Contains(
+                    "7, 13, 8, 12, 11, 14, 9",
+                    StringComparison.Ordinal) &&
+                wineGStreamerPatchSource.Contains(
+                    "writeAt(prefixDll, FORMAT_ORDER_OFFSET, ORIGINAL_FORMAT_ORDER)",
+                    StringComparison.Ordinal),
+                "KOF XII Wine-GStreamer patch is exact-build, prefix-local, and restorable");
+            True(activityContractSource.Contains(
+                    "COMPATIBILITY_PRESET_MUSIC_GUNGUN_NATIVE_FULLSCREEN =",
+                    StringComparison.Ordinal) &&
+                activityContractSource.Contains(
+                    "\"music-gungun-native-fullscreen\"",
+                    StringComparison.Ordinal) &&
+                activityContractSource.Contains(
+                    "!COMPATIBILITY_PRESET_MUSIC_GUNGUN_NATIVE_FULLSCREEN.equals(value)",
+                    StringComparison.Ordinal),
+                "Music Gun Gun native-fullscreen preset accepted by the Activity contract");
+            True(activityContractSource.Contains(
+                    "COMPATIBILITY_PRESET_BATTLE_GEAR_4_ORIGINAL =",
+                    StringComparison.Ordinal) &&
+                activityContractSource.Contains(
+                    "\"battle-gear-4-original\"",
+                    StringComparison.Ordinal) &&
+                activityContractSource.Contains(
+                    "!COMPATIBILITY_PRESET_BATTLE_GEAR_4_ORIGINAL.equals(value)",
+                    StringComparison.Ordinal),
+                "original Battle Gear 4 preset accepted by the Activity contract");
             True(activityContractSource.Contains(
                     "COMPATIBILITY_PRESET_DIRECT_TOUCH_JVS = \"direct-touch-jvs\"",
                     StringComparison.Ordinal) &&
@@ -1186,8 +1303,25 @@ namespace InputMethodAudit
                 source.Contains(
                     "\"shared-jvs-dual-io\".equals(", StringComparison.Ordinal) &&
                 source.Contains(
+                    "\"gaia-attack4-media\".equals(", StringComparison.Ordinal) &&
+                source.Contains(
+                    "\"music-gungun-native-fullscreen\".equals(",
+                    StringComparison.Ordinal) &&
+                source.Contains(
                     "\"direct-touch-jvs\".equals(", StringComparison.Ordinal),
                 "Wonderland and Shining enable title-scoped absolute press-and-drag cabinet touch");
+            True(source.Contains(
+                    "boolean useNativeGuestFullscreen =", StringComparison.Ordinal) &&
+                source.Contains(
+                    "useNativeGuestFullscreen) ? \"0\" : \"1\";",
+                    StringComparison.Ordinal),
+                "Music Gun Gun and En-Eins request native guest fullscreen without transforming the Android surface");
+            True(source.Contains(
+                    "\"battle-gear-4-original\".equals(\n" +
+                    "                preparedWindowsLaunch.compatibilityPreset))\n" +
+                    "            return Box64Preset.PERFORMANCE;",
+                    StringComparison.Ordinal),
+                "original Battle Gear 4 keeps the required Box64 performance preset with diagnostics enabled");
             var setupStart = source.IndexOf(
                 "private void setupXEnvironment()", StringComparison.Ordinal);
             var displayCall = source.IndexOf(
@@ -1436,6 +1570,16 @@ namespace InputMethodAudit
                     "envVars.put(\"TP_BOX64_WINEGSTREAMER_FIX\", \"1\")",
                     StringComparison.Ordinal),
                 "64-bit media preset uses the isolated Wine-GStreamer Box64 runtime");
+            True(workarounds.Contains(
+                    "compatibilityPreset.equals(\"gaia-attack4-media\")",
+                    StringComparison.Ordinal) &&
+                workarounds.Contains(
+                    "Gaia Attack 4 mixes WMV3 and Indeo 5 AVI files",
+                    StringComparison.Ordinal) &&
+                workarounds.Contains(
+                    "applyWineGStreamerWorkaround();",
+                    StringComparison.Ordinal),
+                "Gaia Attack 4 routes mixed WMV3 and Indeo 5 movies through Wine-GStreamer");
             True(workarounds.Contains(
                     "compatibilityPreset.equals(\"dirty-driving-fullscreen\")",
                     StringComparison.Ordinal) &&
@@ -1828,6 +1972,20 @@ namespace InputMethodAudit
                 "/storage/emulated/0/Download/TeknoParrotGames/SR3/Rally.exe",
                 primaryPath,
                 "Android primary-storage document path");
+
+            True(AndroidDocumentPathResolver.TryResolve(
+                    "content://com.android.externalstorage.documents/document/" +
+                    "primary%3AArcade%2FFighters%2Fgame.exe",
+                    out var arbitraryPrimaryPath),
+                "Android arbitrary primary-storage game URI resolves");
+            var arbitraryPrimaryLocation = AndroidWinlatorGamePath.Resolve(
+                arbitraryPrimaryPath,
+                "/storage/emulated/0/Download");
+            Equal(@"I:\game.exe", arbitraryPrimaryLocation.DosPath,
+                "Android Browse selection maps to the exact-folder I drive");
+            Equal("/storage/emulated/0/Arcade/Fighters",
+                arbitraryPrimaryLocation.ScopedGameDirectory,
+                "Android Browse selection preserves the chosen executable folder");
 
             True(AndroidDocumentPathResolver.TryResolve(
                     "content://com.android.externalstorage.documents/document/" +

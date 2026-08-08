@@ -84,10 +84,41 @@ namespace InputMethodAudit
                     throw new InvalidOperationException(striveRecipeError);
                 if (!striveRecipe.HandlesProfileArguments("-language=ja", "") ||
                     striveRecipe.HandlesProfileArguments("-language=en", "") ||
+                    striveRecipe.CompatibilityPreset !=
+                        AndroidLaunchRecipe.CompatibilityPresetGgsApm3LoaderSafe ||
                     !striveRecipe.Resolve("D:\\Games\\GGST-Win64-Shipping.exe")
                         .Arguments.Contains("-language=ja"))
                     throw new InvalidOperationException(
-                        "Guilty Gear Strive profile arguments were not converted safely.");
+                        "Guilty Gear Strive arguments or loader-lock preset were not converted safely.");
+
+                if (!AndroidLaunchRecipeCatalog.TryGetValidated(
+                        "BlazBlueCrossTagBattle", out var bbtagRecipe,
+                        out var bbtagRecipeError, recipeDirectory))
+                    throw new InvalidOperationException(bbtagRecipeError);
+                if (bbtagRecipe.CompatibilityPreset !=
+                    AndroidLaunchRecipe.CompatibilityPresetBbtagApm3LoaderSafe)
+                    throw new InvalidOperationException(
+                        "BlazBlue Cross Tag Battle lost its loader-lock-safe APM3 preset.");
+
+                if (!AndroidLaunchRecipeCatalog.TryGetValidated(
+                        "OtoshuDX", out var otoshuRecipe,
+                        out var otoshuRecipeError, recipeDirectory))
+                    throw new InvalidOperationException(otoshuRecipeError);
+                if (otoshuRecipe.CompatibilityPreset !=
+                    AndroidLaunchRecipe.CompatibilityPresetOtoshuApm3LoaderSafe)
+                    throw new InvalidOperationException(
+                        "Otoshu DX lost its loader-lock-safe APM3 preset.");
+
+                if (!AndroidLaunchRecipeCatalog.TryGetValidated(
+                        "FNFDrift", out var fnfDriftRecipe,
+                        out var fnfDriftRecipeError, recipeDirectory))
+                    throw new InvalidOperationException(fnfDriftRecipeError);
+                if (fnfDriftRecipe.CompatibilityPreset !=
+                    AndroidLaunchRecipe.CompatibilityPresetFnfDriftWow64Transition ||
+                    !fnfDriftRecipe.Import.ExecutableCandidates.Any(
+                        value => value.Equals("sdaemon.exe", StringComparison.OrdinalIgnoreCase)))
+                    throw new InvalidOperationException(
+                        "Fast & Furious: Drift lost its exact WOW64 transition recovery scope.");
 
                 var managedEnvironment = WinlatorSessionContract.ParseManagedEnvironment(
                     """
@@ -231,6 +262,45 @@ namespace InputMethodAudit
                     @"H:\MachStorm\ACE7_WIN_10.exe")
                     throw new InvalidOperationException(
                         "The restricted H: removable game-library path was not preserved.");
+                if (envelope.RootElement.TryGetProperty(
+                        "scopedGameDirectory", out _))
+                    throw new InvalidOperationException(
+                        "Fixed-drive launches changed the protocol-v13 envelope schema.");
+                var scopedRequest = request with
+                {
+                    Arguments = new[] { @"I:\game.exe" },
+                    ScopedGameDirectory = "/storage/emulated/0/Arcade/Fighters"
+                };
+                using var scopedGameEnvelope = JsonDocument.Parse(
+                    WinlatorSessionContract.CreateActivityLaunch(
+                        scopedRequest,
+                        includeScopedGameDirectory: true));
+                if (scopedGameEnvelope.RootElement
+                        .GetProperty("scopedGameDirectory").GetString() !=
+                    "/storage/emulated/0/Arcade/Fighters" ||
+                    scopedGameEnvelope.RootElement.GetProperty("arguments")[0]
+                        .GetString() != @"I:\game.exe")
+                    throw new InvalidOperationException(
+                        "The exact-folder scoped I: launch was not serialized losslessly.");
+                RequireRejected(
+                    () => WinlatorSessionContract.CreateActivityLaunch(scopedRequest),
+                    "scoped folder sent to an older companion schema");
+                RequireRejected(
+                    () => WinlatorSessionContract.CreateActivityLaunch(
+                        scopedRequest with
+                        {
+                            ScopedGameDirectory = "/storage/emulated/0"
+                        },
+                        includeScopedGameDirectory: true),
+                    "entire primary storage exposed as a scoped game drive");
+                RequireRejected(
+                    () => WinlatorSessionContract.CreateActivityLaunch(
+                        scopedRequest with
+                        {
+                            ScopedGameDirectory = "/storage/emulated/0/Android"
+                        },
+                        includeScopedGameDirectory: true),
+                    "shared Android root exposed as a scoped game drive");
                 RequireRejected(
                     () => WinlatorSessionContract.CreateActivityLaunch(
                         request with
@@ -488,6 +558,10 @@ namespace InputMethodAudit
                     "app", "app", "src", "main", "java", "com", "winlator",
                     "XServerDisplayActivity.java");
                 var displayActivitySource = File.ReadAllText(displayActivityPath);
+                var winHandlerSource = File.ReadAllText(Path.Combine(
+                    winlatorRoot,
+                    "app", "app", "src", "main", "java", "com", "winlator",
+                    "winhandler", "WinHandler.java"));
                 var inputControlsManagerSource = File.ReadAllText(Path.Combine(
                     winlatorRoot,
                     "app", "app", "src", "main", "java", "com", "winlator",
@@ -496,6 +570,10 @@ namespace InputMethodAudit
                     winlatorRoot,
                     "app", "app", "src", "main", "java", "com", "winlator",
                     "widget", "InputControlsView.java"));
+                var winlatorLogViewSource = File.ReadAllText(Path.Combine(
+                    winlatorRoot,
+                    "app", "app", "src", "main", "java", "com", "winlator",
+                    "widget", "LogView.java"));
                 var windowsPathBootstrapPath = Path.Combine(
                     repositoryRoot,
                     "Tools", "ProtonPipeHelper", "windows_path_bootstrap.c");
@@ -535,6 +613,10 @@ namespace InputMethodAudit
                     repositoryRoot,
                     "TeknoParrotUi.Avalonia.Android",
                     "AndroidPcsx2x6CatalogSync.cs"));
+                var androidPcsx2SessionSource = File.ReadAllText(Path.Combine(
+                    repositoryRoot,
+                    "TeknoParrotUi.Avalonia.Android",
+                    "Pcsx2x6SessionService.cs"));
                 var androidDolphinCatalogSource = File.ReadAllText(Path.Combine(
                     repositoryRoot,
                     "TeknoParrotUi.Avalonia.Android",
@@ -559,6 +641,10 @@ namespace InputMethodAudit
                     repositoryRoot,
                     "TeknoParrotUi.Avalonia",
                     "Views", "GameSettingsView.axaml.cs"));
+                var platformGameExecutablePickerSource = File.ReadAllText(Path.Combine(
+                    repositoryRoot,
+                    "TeknoParrotUi.Avalonia",
+                    "Services", "PlatformGameExecutablePicker.cs"));
                 var updatesViewSource = File.ReadAllText(Path.Combine(
                     repositoryRoot,
                     "TeknoParrotUi.Avalonia",
@@ -603,6 +689,10 @@ namespace InputMethodAudit
                     winlatorRoot,
                     "app", "app", "src", "main", "java", "com", "winlator",
                     "core", "WineUtils.java"));
+                var winlatorWorkaroundsSource = File.ReadAllText(Path.Combine(
+                    winlatorRoot,
+                    "app", "app", "src", "main", "java", "com", "winlator",
+                    "core", "Win32AppWorkarounds.java"));
                 var bridgeServicePath = Path.Combine(
                     winlatorRoot,
                     "app", "teknoparrot-bridge", "src", "main", "java",
@@ -684,13 +774,50 @@ namespace InputMethodAudit
                 RequireContains(
                     gameSettingsViewSource,
                     "PlatformDocumentPathResolver.TryResolve(\n" +
-                    "                            files[0].Path.ToString()",
+                    "                        selectedDocument",
                     "Android picker resolves the original SAF URI before transient local paths");
                 RequireContains(
                     gameSettingsViewSource,
                     "AndroidDocumentPathResolver.TryNormalizeSharedPath(\n" +
-                    "                                localPath ?? string.Empty",
+                    "                            localPath ?? string.Empty",
                     "Android picker rejects private cache-path fallbacks");
+                RequireContains(
+                    gameSettingsViewSource,
+                    "containing folder to Winlator",
+                    "Android picker explains exact-folder Winlator exposure");
+                RequireContains(
+                    gameSettingsViewSource,
+                    "(_profile?.EmulatorType is EmulatorType.OpenParrot or EmulatorType.TeknoParrot)",
+                    "Android picker validates both OpenParrot and TeknoParrot Winlator paths");
+                RequireContains(
+                    gameSettingsViewSource,
+                    "Services.PlatformGameExecutablePicker\n" +
+                    "                    .PickAsync(pickerTitle)",
+                    "Android game settings use the native shared-storage picker");
+                RequireContains(
+                    gameSettingsViewSource,
+                    "box.Text = selectedPath;",
+                    "Android picker writes the resolved executable path into the field");
+                RequireContains(
+                    platformGameExecutablePickerSource,
+                    "Func<string, Task<string?>>? AndroidPicker",
+                    "platform picker keeps Android implementation out of shared UI code");
+                RequireContains(
+                    androidMainActivitySource,
+                    "new Intent(Intent.ActionOpenDocument)",
+                    "Android executable picker opens a native document request");
+                RequireContains(
+                    androidMainActivitySource,
+                    "DocumentsContract.ExtraInitialUri",
+                    "Android executable picker controls its initial location");
+                RequireContains(
+                    androidMainActivitySource,
+                    "content://com.android.externalstorage.documents/root/primary",
+                    "Android executable picker starts at primary shared-storage root");
+                RequireContains(
+                    androidMainActivitySource,
+                    "data?.Data?.ToString()",
+                    "Android executable picker returns the selected SAF document URI");
                 RequireContains(
                     androidRpcs3SessionSource,
                     "var gamePath = _profile.GamePath?.Trim()",
@@ -766,6 +893,18 @@ namespace InputMethodAudit
                     "\"(?i)^[CDEGH]:",
                     "restricted shared G/H drive Activity validation");
                 RequireContains(
+                    activityContractSource,
+                    "SCOPED_GAME_DIRECTORY",
+                    "optional exact-folder Activity launch field");
+                RequireContains(
+                    activityContractSource,
+                    "usesScopedGameDrive != !scopedGameDirectory.isEmpty()",
+                    "scoped game folder and I drive are bound together");
+                RequireContains(
+                    activityContractSource,
+                    "lower.matches(\"^/storage/[^/]+/android$\")",
+                    "scoped game contract rejects the shared Android root");
+                RequireContains(
                     winlatorAppUtilsSource,
                     "\"TeknoParrotGames\").getPath()",
                     "dedicated shared game-library directory");
@@ -778,9 +917,81 @@ namespace InputMethodAudit
                     "DEFAULT_DRIVES + \"G:\" + AppUtils.TEKNOPARROT_GAMES_DIRECTORY",
                     "restricted G drive mapping");
                 RequireContains(
+                    winlatorContainerSource,
+                    "public void setTransientDrive(String letter, String path)",
+                    "launch-lifetime exact-folder drive mapping");
+                RequireContains(
+                    winlatorContainerSource,
+                    "data.put(\"drives\", drives);",
+                    "transient exact-folder drive excluded from container persistence");
+                RequireContains(
+                    displayActivitySource,
+                    "applyPreparedScopedGameDirectory()",
+                    "prepared Activity attaches the exact selected game folder");
+                RequireContains(
+                    displayActivitySource,
+                    "container.clearTransientDrives();",
+                    "prepared Activity clears the transient drive on teardown");
+                RequireContains(
+                    displayActivitySource,
+                    "lower.matches(\"^/storage/[^/]+/android$\")",
+                    "prepared Activity rejects the canonical shared Android root");
+                RequireContains(
+                    winlatorLogViewSource,
+                    "MAX_VISIBLE_LINES = 4096",
+                    "debug log view has a bounded line count");
+                RequireContains(
+                    winlatorLogViewSource,
+                    "lines.subList(0, TRIM_VISIBLE_LINES).clear()",
+                    "debug log view evicts old diagnostic lines");
+                RequireContains(
+                    winlatorLogViewSource,
+                    "if (refreshPending) return;",
+                    "debug log view coalesces high-volume UI refreshes");
+                RequireContains(
                     winlatorWineUtilsSource,
                     "path.equals(AppUtils.TEKNOPARROT_GAMES_DIRECTORY)",
                     "shared game-library directory preparation");
+                RequireContains(
+                    winlatorWorkaroundsSource,
+                    "compatibilityPreset.equals(\"kof-mira-builtin-wined3d\")",
+                    "KOF MIRA renderer override is title scoped");
+                RequireContains(
+                    winlatorWorkaroundsSource,
+                    "envVars.put(\"WINEDLLOVERRIDES\", \"d3d8,d3d9,ddraw=b\")",
+                    "KOF MIRA local WineD3D wrappers are bypassed without file mutation");
+                RequireContains(
+                    displayActivitySource,
+                    "\"ggs-apm3-loader-safe\".equals(",
+                    "Guilty Gear Strive loader-lock workaround is title scoped");
+                RequireContains(
+                    displayActivitySource,
+                    "\"bbtag-apm3-loader-safe\".equals(",
+                    "BlazBlue Cross Tag Battle loader-lock workaround is title scoped");
+                RequireContains(
+                    displayActivitySource,
+                    "\"otoshu-apm3-loader-safe\".equals(",
+                    "Otoshu DX loader-lock workaround is title scoped");
+                RequireContains(
+                    displayActivitySource,
+                    "\"fnf-drift-wow64-transition\".equals(",
+                    "Fast & Furious: Drift WOW64 transition recovery is preset scoped");
+                RequireContains(
+                    displayActivitySource,
+                    "isFnfDriftWow64TransitionPreparedLaunch()",
+                    "Fast & Furious: Drift WOW64 transition recovery gate");
+                RequireContains(
+                    displayActivitySource,
+                    ".endsWith(\"\\\\sdaemon.exe\")",
+                    "Fast & Furious: Drift WOW64 transition recovery executable scope");
+                RequireContains(
+                    displayActivitySource,
+                    "is64BitApm ? 0x13f60L : 0x11640L",
+                    "Guilty Gear APM user DllMain patches are build-specific");
+                RequireContains(
+                    displayActivitySource,
+                    "String apmFileName = is64BitApm ? \"apm.dll\" : \"apm_x86.dll\";",
+                    "Guilty Gear APM staging preserves each canonical DLL name");
                 RequireContains(
                     diagnosticBackendSource,
                     "container.setDrives(buildManagedDrives(context));",
@@ -798,6 +1009,10 @@ namespace InputMethodAudit
                     "ensureSharedGamesDirectory();",
                     "shared game-library readiness gate");
                 RequireContains(
+                    diagnosticBackendSource,
+                    "new File(gamesDirectory, \".nomedia\")",
+                    "shared game-library media-index suppression");
+                RequireContains(
                     updatesViewSource,
                     "FindMissingLaunchComponentsAsync",
                     "profile-scoped Android component check");
@@ -813,6 +1028,14 @@ namespace InputMethodAudit
                     androidPcsx2CatalogSource,
                     "Task<IReadOnlyCollection<string>> QueryAsync()",
                     "non-publishing Tekno2x6 catalog query");
+                RequireContains(
+                    androidPcsx2SessionSource,
+                    "StopHealthMonitor();\n                _record = requested;",
+                    "explicit Tekno2x6 relaunch supersedes stale session ownership");
+                RequireDoesNotContain(
+                    androidPcsx2SessionSource,
+                    "already owns the PCSX2X6 session",
+                    "stale Tekno2x6 session record relaunch rejection");
                 RequireContains(
                     androidMainActivitySource,
                     "await pcsx2x6Catalog.QueryAsync().ConfigureAwait(false)",
@@ -899,6 +1122,23 @@ namespace InputMethodAudit
                     displayActivitySource,
                     "envVars.remove(\"TP_CENTER_WINDOW\")",
                     "center-window non-centered cleanup");
+                RequireContains(
+                    displayActivitySource,
+                    "\"taiko-custom-resolution\".equals(\n                        " +
+                    "preparedWindowsLaunch.compatibilityPreset)",
+                    "Taiko AMAuth companion scope");
+                RequireContains(
+                    displayActivitySource,
+                    "amcusDirectory + \"\\\\AMAuthd.exe\"",
+                    "Taiko AMAuth companion executable");
+                RequireContains(
+                    displayActivitySource,
+                    "envVars.put(\"TP_PRELAUNCH_WORKING_DIRECTORY\", amcusDirectory)",
+                    "Taiko AMAuth companion working directory");
+                RequireContains(
+                    displayActivitySource,
+                    "envVars.remove(\"TP_PRELAUNCH_DIRECT\")",
+                    "Taiko AMAuth OpenParrot-loader routing");
                 RequireContains(
                     displayActivitySource,
                     "preparedWindowsLaunch.controlsProfileId == 9008",
@@ -1022,7 +1262,7 @@ namespace InputMethodAudit
                     "CXBXR WMMT title-scoped gamepad-enumeration completion");
                 RequireContains(
                     displayActivitySource,
-                    "appendPreparedCxbxrDebugMode(bootstrapCommand)",
+                    "appendPreparedCxbxrDebugMode(command)",
                     "CXBXR bootstrap kernel-log argument");
                 RequireContains(
                     displayActivitySource,
@@ -1150,12 +1390,24 @@ namespace InputMethodAudit
                     "Android x64 OpenParrot runtime update component");
                 RequireContains(
                     androidUpdaterSource,
-                    "assetNameExact = packageId + \".zip\"",
+                    "\"cxbxr\",",
+                    "Android CXBXR runtime update component");
+                RequireContains(
+                    androidUpdaterSource,
+                    "archiveIsInstallEnvelope: true",
+                    "Android CXBXR packaged-envelope delivery");
+                RequireContains(
+                    androidUpdaterSource,
+                    "packageId + \".zip\"",
                     "shared OpenParrot release asset selection");
                 RequireDoesNotContain(
                     androidUpdaterSource,
-                    "\"-android.zip\"",
-                    "obsolete Android-only OpenParrot archive");
+                    "OpenParrotWin32-android.zip",
+                    "obsolete Android-only x86 OpenParrot archive");
+                RequireDoesNotContain(
+                    androidUpdaterSource,
+                    "OpenParrotx64-android.zip",
+                    "obsolete Android-only x64 OpenParrot archive");
                 RequireContains(
                     androidRuntimeUpdaterSource,
                     "TryParseSha256(asset.digest",
@@ -1168,6 +1420,10 @@ namespace InputMethodAudit
                     androidRuntimeUpdaterSource,
                     "SharedOpenParrotArchiveAdapter.CreateInstallEnvelope",
                     "local shared-archive Winlator adaptation");
+                RequireContains(
+                    androidRuntimeUpdaterSource,
+                    "update.Component.runtimeArchiveIsInstallEnvelope",
+                    "pre-enveloped Android runtime delivery");
                 RequireContains(
                     sharedRuntimeAdapterSource,
                     "\"payload/\" + contract.RuntimeRoot + \"/\" + file.Name",
@@ -1287,6 +1543,10 @@ namespace InputMethodAudit
                     "TP_PRELAUNCH_ARGUMENTS",
                     "direct prelaunch helper argument forwarding");
                 RequireContains(
+                    windowsPathBootstrapSource,
+                    "prelaunch_current_directory = prelaunch_working_directory",
+                    "loader-wrapped prelaunch working-directory support");
+                RequireContains(
                     displayActivitySource,
                     "envVars.put(\"TP_HIDE_LAUNCH_CONSOLE\", \"1\")",
                     "production launch-console hiding");
@@ -1310,6 +1570,35 @@ namespace InputMethodAudit
                     bridgeServiceSource,
                     "android.os.Process.killProcess(android.os.Process.myPid())",
                     "complete managed Wine graphics-memory reclamation");
+                RequireContains(
+                    displayActivitySource,
+                    "monitorPreparedGameStartup();",
+                    "prepared OpenParrot launch watchdog startup");
+                RequireContains(
+                    displayActivitySource,
+                    "!winHandler.isInitialized()",
+                    "WinHandler handshake gate before launch recovery");
+                RequireContains(
+                    displayActivitySource,
+                    "hasPreparedBootstrapLoaderOrGameProcess()",
+                    "bootstrap, loader, and game duplicate-launch guard");
+                RequireContains(
+                    displayActivitySource,
+                    "winHandler.exec(retryCommand);",
+                    "one-shot immutable bootstrap recovery");
+                RequireContains(
+                    displayActivitySource,
+                    "else if (isPreparedBridge64Bit() ||\n" +
+                    "                    isBattleFantasiaPreparedLaunch() ||",
+                    "Battle Fantasia parked-entrypoint startup recovery");
+                RequireContains(
+                    winHandlerSource,
+                    "protected volatile boolean initReceived = false;",
+                    "cross-thread WinHandler handshake visibility");
+                RequireContains(
+                    winHandlerSource,
+                    "public boolean isInitialized()",
+                    "WinHandler handshake observation API");
 
                 var gameSessionServicePath = Path.Combine(
                     repositoryRoot,
@@ -1328,6 +1617,14 @@ namespace InputMethodAudit
                     "PublishTerminalStatus(\n" +
                     "                            $\"state=ended;detail=Winlator game closed",
                     "clean remote-exit terminal status");
+                RequireContains(
+                    gameSessionServiceSource,
+                    "The installed Winlator companion is older than this game profile.",
+                    "actionable Winlator compatibility-preset skew message");
+                RequireContains(
+                    gameSessionServiceSource,
+                    "Open Updates and install the latest Winlator package, then retry.",
+                    "Winlator package-skew recovery direction");
 
                 var androidGameSessionPath = Path.Combine(
                     repositoryRoot,

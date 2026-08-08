@@ -3,28 +3,44 @@ using System.Linq;
 
 namespace TeknoParrotUi.Common.Android
 {
+    public sealed record AndroidWinlatorGameLocation(
+        string DosPath,
+        string ScopedGameDirectory)
+    {
+        public bool UsesScopedGameDirectory =>
+            !string.IsNullOrWhiteSpace(ScopedGameDirectory);
+    }
+
     /// <summary>
-    /// Maps only the shared Android directories intentionally exposed to the
-    /// managed Winlator container. E: remains companion-private runtime
-    /// storage and must never be used as an alias for all shared storage. A
-    /// removable card is exposed only through its TeknoParrotGames folder on
-    /// H:, never through the card root.
+    /// Maps shared Android game paths into the managed Winlator container.
+    /// Known library roots retain their fixed D/G/H mappings; an executable
+    /// elsewhere on shared storage receives a launch-lifetime I: mapping for
+    /// only its containing folder. E: remains companion-private runtime
+    /// storage and no Android storage root is exposed to Wine.
     /// </summary>
     public static class AndroidWinlatorGamePath
     {
         public const string SharedGamesRoot = "/storage/emulated/0/TeknoParrotGames";
         public const string SharedGamesRootAlias = "/sdcard/TeknoParrotGames";
+        public const string ScopedGameDrive = "I";
 
         public static string ToDosPath(string source, string downloadsDirectory)
+            => Resolve(source, downloadsDirectory).DosPath;
+
+        public static AndroidWinlatorGameLocation Resolve(
+            string source,
+            string downloadsDirectory)
         {
             if (string.IsNullOrWhiteSpace(source))
                 throw new InvalidOperationException("Set the game executable path first.");
 
             var value = source.Trim();
             if (LooksLikeDosPath(value))
-                return ValidateDosGamePath(value);
+                return new AndroidWinlatorGameLocation(
+                    ValidateDosGamePath(value),
+                    string.Empty);
 
-            var normalized = value.Replace('\\', '/').TrimEnd('/');
+            var normalized = NormalizeAndroidPath(value);
             var roots = new[]
             {
                 (Path: NormalizeRoot(downloadsDirectory), Drive: "D"),
@@ -42,16 +58,22 @@ namespace TeknoParrotUi.Common.Android
 
                 var relative = normalized[(root.Path.Length + 1)..];
                 var segments = ValidateSegments(relative, "The selected Android game path");
-                return root.Drive + @":\" + string.Join("\\", segments);
+                return new AndroidWinlatorGameLocation(
+                    root.Drive + @":\" + string.Join("\\", segments),
+                    string.Empty);
             }
 
             if (TryMapRemovableGamesPath(normalized, out var removablePath))
-                return removablePath;
+                return new AndroidWinlatorGameLocation(
+                    removablePath,
+                    string.Empty);
+
+            if (TryMapScopedGamePath(normalized, out var scopedLocation))
+                return scopedLocation;
 
             throw new InvalidOperationException(
-                "Choose a game inside Android Downloads or " +
-                SharedGamesRoot +
-                ", or inside a TeknoParrotGames folder on a removable SD card.");
+                "Choose a game executable inside a local shared-storage folder. " +
+                "TeknoParrot exposes only that executable's containing folder to Winlator.");
         }
 
         public static bool IsAllowedSharedPath(string source, string downloadsDirectory)
@@ -110,6 +132,62 @@ namespace TeknoParrotUi.Common.Android
             return true;
         }
 
+        private static bool TryMapScopedGamePath(
+            string normalized,
+            out AndroidWinlatorGameLocation location)
+        {
+            location = new AndroidWinlatorGameLocation(string.Empty, string.Empty);
+            const string primaryRoot = "/storage/emulated/0";
+            string volumeRoot;
+            if (normalized.StartsWith(primaryRoot + "/", StringComparison.Ordinal))
+            {
+                volumeRoot = primaryRoot;
+                if (normalized.StartsWith(
+                        primaryRoot + "/Android/data/",
+                        StringComparison.OrdinalIgnoreCase) ||
+                    normalized.StartsWith(
+                        primaryRoot + "/Android/obb/",
+                        StringComparison.OrdinalIgnoreCase))
+                    return false;
+            }
+            else
+            {
+                const string storagePrefix = "/storage/";
+                if (!normalized.StartsWith(storagePrefix, StringComparison.Ordinal))
+                    return false;
+                var volumeEnd = normalized.IndexOf('/', storagePrefix.Length);
+                if (volumeEnd < 0)
+                    return false;
+                var volume = normalized[storagePrefix.Length..volumeEnd];
+                if (!IsSafeRemovableVolume(volume))
+                    return false;
+                volumeRoot = normalized[..volumeEnd];
+            }
+
+            var separator = normalized.LastIndexOf('/');
+            if (separator <= volumeRoot.Length)
+                return false;
+            var directory = normalized[..separator];
+            var relativeDirectory = directory[(volumeRoot.Length + 1)..];
+            if (relativeDirectory.Equals("Android", StringComparison.OrdinalIgnoreCase) ||
+                relativeDirectory.Equals("Android/data", StringComparison.OrdinalIgnoreCase) ||
+                relativeDirectory.StartsWith("Android/data/", StringComparison.OrdinalIgnoreCase) ||
+                relativeDirectory.Equals("Android/obb", StringComparison.OrdinalIgnoreCase) ||
+                relativeDirectory.StartsWith("Android/obb/", StringComparison.OrdinalIgnoreCase))
+                return false;
+            var fileName = normalized[(separator + 1)..];
+            _ = ValidateSegments(
+                relativeDirectory,
+                "The selected Android game folder");
+            var fileSegments = ValidateSegments(
+                fileName,
+                "The selected Android game executable");
+            location = new AndroidWinlatorGameLocation(
+                ScopedGameDrive + @":\" + fileSegments[0],
+                directory);
+            return true;
+        }
+
         private static bool IsSafeRemovableVolume(string volume) =>
             volume.Length > 0 &&
             !volume.Equals("emulated", StringComparison.OrdinalIgnoreCase) &&
@@ -133,6 +211,17 @@ namespace TeknoParrotUi.Common.Android
         private static string NormalizeRoot(string root) =>
             string.IsNullOrWhiteSpace(root)
                 ? string.Empty
-                : root.Replace('\\', '/').TrimEnd('/');
+                : NormalizeAndroidPath(root);
+
+        private static string NormalizeAndroidPath(string value)
+        {
+            var normalized = value.Replace('\\', '/').TrimEnd('/');
+            if (normalized.Equals("/sdcard", StringComparison.OrdinalIgnoreCase))
+                return "/storage/emulated/0";
+            const string sdcardPrefix = "/sdcard/";
+            return normalized.StartsWith(sdcardPrefix, StringComparison.OrdinalIgnoreCase)
+                ? "/storage/emulated/0/" + normalized[sdcardPrefix.Length..]
+                : normalized;
+        }
     }
 }

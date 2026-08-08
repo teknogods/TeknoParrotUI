@@ -15,6 +15,7 @@
   "frameRateLimit": 60,
   "performanceModeDefault": true,
   "profileCustomArguments": "-language=ja",
+  "compatibilityPreset": "ggs-apm3-loader-safe",
   "arguments": [".\\OpenParrotWin64\\OpenParrot64", "{GameExecutable}", "-language=ja"],
   "import": {
     "folderNameHints": ["Guilty Gear Strive", "GGS"],

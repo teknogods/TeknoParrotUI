@@ -209,8 +209,8 @@ namespace TeknoParrotUi.Common.Android
                 "/storage/emulated/0/Download");
         }
 
-        // Retain the public entry point used by older tooling while applying
-        // the same restricted Downloads-or-Games-library policy.
+        // Retain the public entry point used by older tooling. The path mapper
+        // now returns a fixed D/G/H mapping or an exact-folder scoped I drive.
         public static bool IsWinlatorDownloadPath(string path) =>
             IsWinlatorSharedGamePath(path);
 

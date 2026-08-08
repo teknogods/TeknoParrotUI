@@ -10,7 +10,7 @@
   "loaderExecutable": "ElfLdr2\\elfloader.exe",
   "workingDirectory": ".",
   "libraryDirectory": "ElfLdr2",
-  "inputProtocol": "shared-wartran",
+  "inputProtocol": "shared-angry-birds",
   "controlsProfileId": 9067,
   "frameRateLimit": 60,
   "displayMode": "centered",

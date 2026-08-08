@@ -13,6 +13,7 @@
   "inputProtocol": "jvs-battle-gear",
   "controlsProfileId": 9008,
   "frameRateLimit": 60,
+  "compatibilityPreset": "battle-gear-4-original",
   "arguments": [
     ".\\OpenParrotWin32\\OpenParrot",
     "{GameExecutable}"

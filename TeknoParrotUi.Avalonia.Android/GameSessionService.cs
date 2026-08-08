@@ -52,6 +52,8 @@ public sealed class GameSessionService : Service
     public const string DebugLoggingEnabledExtra = "com.teknoparrot.ui.extra.DEBUG_LOGGING_ENABLED";
     public const string CompatibilityPresetExtra = "com.teknoparrot.ui.extra.COMPATIBILITY_PRESET";
     public const string ProfileConfigIniExtra = "com.teknoparrot.ui.extra.PROFILE_CONFIG_INI";
+    public const string ScopedGameDirectoryExtra =
+        "com.teknoparrot.ui.extra.SCOPED_GAME_DIRECTORY";
     public const string LaunchErrorExtra = "com.teknoparrot.ui.extra.LAUNCH_ERROR";
 
     private const string NotificationChannelId = "teknoparrot_game_session";
@@ -211,7 +213,8 @@ public sealed class GameSessionService : Service
         string? displayMode = null,
         bool debugLoggingEnabled = true,
         string? compatibilityPreset = null,
-        string? profileConfigIni = null)
+        string? profileConfigIni = null,
+        string? scopedGameDirectory = null)
     {
         var intent = new Intent(context, typeof(GameSessionService));
         intent.SetAction(StartAction);
@@ -230,6 +233,7 @@ public sealed class GameSessionService : Service
         intent.PutExtra(DebugLoggingEnabledExtra, debugLoggingEnabled);
         intent.PutExtra(CompatibilityPresetExtra, compatibilityPreset);
         intent.PutExtra(ProfileConfigIniExtra, profileConfigIni);
+        intent.PutExtra(ScopedGameDirectoryExtra, scopedGameDirectory);
         return intent;
     }
 
@@ -348,9 +352,16 @@ public sealed class GameSessionService : Service
                     $"Winlator bridge protocol v{serviceProtocolVersion} is unsupported; " +
                     $"expected v{WinlatorSessionContract.MinimumCompatibleServiceProtocolVersion}-" +
                     $"v{WinlatorSessionContract.ServiceProtocolVersion}.");
-            _ = WinlatorSessionContract.ParseCapabilities(
+            var capabilities = WinlatorSessionContract.ParseCapabilities(
                 service.GetCapabilities(serviceProtocolVersion),
                 serviceProtocolVersion);
+            var usesScopedGameDirectory =
+                !string.IsNullOrWhiteSpace(record.ScopedGameDirectory);
+            if (usesScopedGameDirectory &&
+                !capabilities.Features.HasFlag(
+                    WinlatorBridgeFeatures.ScopedGameDirectory))
+                throw new InvalidOperationException(
+                    "Update the Winlator companion before launching a game from this folder.");
 
             if (restoring)
             {
@@ -431,7 +442,10 @@ public sealed class GameSessionService : Service
             {
                 var request = CreateLaunchRequest(record);
                 var launchStatus = service.LaunchPreparedActivity(
-                    WinlatorSessionContract.CreateActivityLaunch(request, serviceProtocolVersion));
+                    WinlatorSessionContract.CreateActivityLaunch(
+                        request,
+                        serviceProtocolVersion,
+                        includeScopedGameDirectory: usesScopedGameDirectory));
                 WinlatorSessionContract.ValidateActivityLaunchStatus(launchStatus, request);
                 record.Launched = true;
                 SaveRecord(record);
@@ -594,7 +608,7 @@ public sealed class GameSessionService : Service
         {
             stopRemote = !restoring || _explicitStopRequested;
             clearRecord |= stopRemote;
-            failureNotification = Sanitize(error.Message);
+            failureNotification = DescribeLaunchFailure(error.Message);
             PublishTerminalStatus(
                 "state=fault;error=" + failureNotification + $";inputFrames={counters.Frames}");
         }
@@ -1305,7 +1319,8 @@ public sealed class GameSessionService : Service
             record.DebugLoggingEnabled,
             record.CompatibilityPreset,
             record.DisplayMode,
-            record.ProfileConfigIni);
+            record.ProfileConfigIni,
+            record.ScopedGameDirectory);
 
     private static bool IsRemoteReady(string? status) =>
         status?.StartsWith("state=ready;", StringComparison.Ordinal) == true;
@@ -1426,6 +1441,8 @@ public sealed class GameSessionService : Service
         var debugLoggingEnabled = intent.GetBooleanExtra(DebugLoggingEnabledExtra, true);
         var compatibilityPreset = intent.GetStringExtra(CompatibilityPresetExtra)?.Trim() ?? string.Empty;
         var profileConfigIni = intent.GetStringExtra(ProfileConfigIniExtra);
+        var scopedGameDirectory = intent.GetStringExtra(ScopedGameDirectoryExtra)?.Trim() ??
+            string.Empty;
         var arguments = string.IsNullOrEmpty(argumentsJson)
             ? Array.Empty<string>()
             : JsonSerializer.Deserialize<string[]>(argumentsJson) ?? Array.Empty<string>();
@@ -1440,6 +1457,8 @@ public sealed class GameSessionService : Service
         ValidateResolution(resolutionWidth, resolutionHeight);
         ValidateDisplayMode(displayMode);
         ValidateCompatibilityPreset(compatibilityPreset);
+        if (scopedGameDirectory.Length > 0)
+            WinlatorSessionContract.ValidateScopedGameDirectory(scopedGameDirectory);
 
         // Reuse the bridge contract's strict DOS-path and argument validation
         // before any persistent state or cross-package call is made.
@@ -1459,8 +1478,11 @@ public sealed class GameSessionService : Service
             debugLoggingEnabled,
             compatibilityPreset,
             displayMode,
-            profileConfigIni ?? string.Empty);
-        _ = WinlatorSessionContract.CreateActivityLaunch(validationRequest);
+            profileConfigIni ?? string.Empty,
+            scopedGameDirectory);
+        _ = WinlatorSessionContract.CreateActivityLaunch(
+            validationRequest,
+            includeScopedGameDirectory: scopedGameDirectory.Length > 0);
 
         return new SessionRecord
         {
@@ -1481,7 +1503,8 @@ public sealed class GameSessionService : Service
             DisplayMode = displayMode,
             DebugLoggingEnabled = debugLoggingEnabled,
             CompatibilityPreset = compatibilityPreset,
-            ProfileConfigIni = profileConfigIni!
+            ProfileConfigIni = profileConfigIni!,
+            ScopedGameDirectory = scopedGameDirectory
         };
     }
 
@@ -1609,6 +1632,9 @@ public sealed class GameSessionService : Service
             ValidateDisplayMode(record.DisplayMode);
             ValidateCompatibilityPreset(record.CompatibilityPreset);
             WinlatorSessionContract.ValidateProfileConfigIni(record.ProfileConfigIni);
+            if (!string.IsNullOrEmpty(record.ScopedGameDirectory))
+                WinlatorSessionContract.ValidateScopedGameDirectory(
+                    record.ScopedGameDirectory);
             return Convert.FromHexString(record.TokenHex).Length == 32 &&
                    record.ControlsProfileId is > 0 and <= 1_000_000 &&
                    record.FrameRateLimit is >= 0 and <= 1_000 &&
@@ -1793,6 +1819,23 @@ public sealed class GameSessionService : Service
         return sanitized.Length <= 512 ? sanitized : sanitized[..509] + "...";
     }
 
+    private static string DescribeLaunchFailure(string? message)
+    {
+        var sanitized = Sanitize(message);
+        if (sanitized.Contains(
+                "Activity compatibility preset is unsupported",
+                StringComparison.OrdinalIgnoreCase) ||
+            sanitized.Contains(
+                "Winlator compatibility preset is unsupported",
+                StringComparison.OrdinalIgnoreCase))
+        {
+            return "The installed Winlator companion is older than this game profile. " +
+                   "Open Updates and install the latest Winlator package, then retry.";
+        }
+
+        return sanitized;
+    }
+
     private sealed class SessionRecord
     {
         public string SessionId { get; set; } = string.Empty;
@@ -1813,6 +1856,7 @@ public sealed class GameSessionService : Service
         public bool DebugLoggingEnabled { get; set; } = true;
         public string CompatibilityPreset { get; set; } = string.Empty;
         public string ProfileConfigIni { get; set; } = string.Empty;
+        public string ScopedGameDirectory { get; set; } = string.Empty;
         public bool Prepared { get; set; }
         public bool Launched { get; set; }
     }

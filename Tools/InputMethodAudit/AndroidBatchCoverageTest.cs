@@ -165,7 +165,7 @@ namespace InputMethodAudit
             while (directory != null)
             {
                 if (Directory.Exists(Path.Combine(directory, "TeknoParrotUi.Common")) &&
-                    Directory.Exists(Path.Combine(directory, "WinlatorFork")))
+                    File.Exists(Path.Combine(directory, "TeknoParrotUI.sln")))
                     return directory;
                 directory = Path.GetDirectoryName(directory);
             }

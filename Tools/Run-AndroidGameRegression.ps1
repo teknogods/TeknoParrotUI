@@ -492,7 +492,11 @@ Invoke-Adb -Arguments @('shell', 'am', 'force-stop', 'com.teknoparrot.winlator')
 $hierarchy = Open-TeknoParrotLibrary
 $searchBox = $hierarchy.SelectSingleNode(
     '//node[@class="TextBox" and @content-desc="Search games..."]')
-for ($navigationAttempt = 1; $null -eq $searchBox -and $navigationAttempt -le 4; $navigationAttempt++) {
+$addGameHeader = $hierarchy.SelectSingleNode(
+    '//node[@class="TextBlock" and @text="Add Game"]')
+for ($navigationAttempt = 1;
+    ($null -eq $searchBox -or $null -ne $addGameHeader) -and $navigationAttempt -le 4;
+    $navigationAttempt++) {
     $backButton = $hierarchy.SelectSingleNode('//node[@class="Button" and @text="Back" and @enabled="true"]')
     if ($null -ne $backButton) {
         Invoke-TapNode $backButton
@@ -504,9 +508,11 @@ for ($navigationAttempt = 1; $null -eq $searchBox -and $navigationAttempt -le 4;
     $hierarchy = Get-Hierarchy "library-$navigationAttempt"
     $searchBox = $hierarchy.SelectSingleNode(
         '//node[@class="TextBox" and @content-desc="Search games..."]')
+    $addGameHeader = $hierarchy.SelectSingleNode(
+        '//node[@class="TextBlock" and @text="Add Game"]')
 }
 
-if ($null -eq $searchBox) {
+if ($null -eq $searchBox -or $null -ne $addGameHeader) {
     throw 'TeknoParrot could not navigate back to the library without restarting the UI process.'
 }
 Invoke-TapNode $searchBox
@@ -515,6 +521,11 @@ $deleteKeys = @('shell', 'input', 'keyevent') + @(1..100 | ForEach-Object { '67'
 Invoke-Adb -Arguments $deleteKeys | Out-Null
 $encodedSearch = ConvertTo-AdbInputText $SearchText
 Invoke-Adb -Arguments @('shell', 'input', 'text', $encodedSearch) | Out-Null
+# Samsung's IME can expose the composed text through accessibility before
+# Avalonia receives a TextChanged notification. A reversible trailing-space
+# edit commits the composition and refreshes the filtered game collection.
+Invoke-Adb -Arguments @('shell', 'input', 'keyevent', '62') | Out-Null
+Invoke-Adb -Arguments @('shell', 'input', 'keyevent', '67') | Out-Null
 Invoke-Adb -Arguments @('shell', 'input', 'keyevent', '4') | Out-Null
 Start-Sleep -Seconds 3
 

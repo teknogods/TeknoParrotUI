@@ -106,7 +106,18 @@ namespace TeknoParrotUi.Common.Android
                     BuildRawThrillsGun(buttons, axes, pointers, report, true);
                     return;
                 case AndroidLaunchRecipe.InputProtocolSharedWartran:
-                    BuildWartran(buttons, axes, pointers, report);
+                    BuildWartran(
+                        buttons, axes, pointers, report,
+                        pointerPressesButton1: true);
+                    return;
+                case AndroidLaunchRecipe.InputProtocolSharedAngryBirds:
+                    // Angry Birds uses P1 Button1 for the physical ball-tray
+                    // switch. Touch is only the slingshot position; treating a
+                    // screen press as a Wartran trigger would dispense a ball
+                    // every time the player aimed.
+                    BuildWartran(
+                        buttons, axes, pointers, report,
+                        pointerPressesButton1: false);
                     return;
                 case AndroidLaunchRecipe.InputProtocolSharedDeadHeat:
                     BuildDeadHeat(buttons, axes, report);
@@ -140,8 +151,14 @@ namespace TeknoParrotUi.Common.Android
                     return;
                 case AndroidLaunchRecipe.InputProtocolSharedTaitoGun:
                 case AndroidLaunchRecipe.InputProtocolSharedTaitoGunMusic:
+                    BuildTaitoGun(buttons, pointers, report, mirrorPrimaryPointerToP2: false);
+                    return;
                 case AndroidLaunchRecipe.InputProtocolSharedTaitoGunHauntedMuseum2:
-                    BuildTaitoGun(buttons, pointers, report);
+                    // Fright Fear Land requires both guns to be calibrated on
+                    // its first boot. Android exposes one touchscreen pointer,
+                    // so mirror it to the idle P2 gun and let the mandatory P2
+                    // calibration complete without requiring a second device.
+                    BuildTaitoGun(buttons, pointers, report, mirrorPrimaryPointerToP2: true);
                     return;
                 case AndroidLaunchRecipe.InputProtocolSharedGha:
                     BuildGha(buttons, axes, report);
@@ -552,12 +569,17 @@ namespace TeknoParrotUi.Common.Android
         private static void BuildTaitoGun(
             ReadOnlySpan<uint> buttons,
             ReadOnlySpan<ForwardedPointerState> pointers,
-            Span<byte> report)
+            Span<byte> report,
+            bool mirrorPrimaryPointerToP2)
         {
+            var player2Pointer = pointers[1];
+            if (mirrorPrimaryPointerToP2 && IsDefaultPointer(player2Pointer))
+                player2Pointer = pointers[0];
+
             var control = 0;
             if (PointerPressed(pointers[0]) ||
                 Pressed(buttons[0], ForwardedInputButton.Button1)) control |= 0x01;
-            if (PointerPressed(pointers[1]) ||
+            if (PointerPressed(player2Pointer) ||
                 Pressed(buttons[1], ForwardedInputButton.Button3)) control |= 0x04;
             if (Pressed(buttons[2], ForwardedInputButton.Button1)) control |= 0x40;
             if (Pressed(buttons[3], ForwardedInputButton.Button1)) control |= 0x80;
@@ -565,7 +587,10 @@ namespace TeknoParrotUi.Common.Android
             if (Pressed(buttons[0], ForwardedInputButton.Button6)) control |= 0x20;
             WriteInt32(report, 8, control);
             for (var player = 0; player < WinlatorForwardedInputSource.MaximumPlayers; player++)
-                WritePointer(report, 12 + player * 8, 16 + player * 8, pointers[player]);
+            {
+                var pointer = player == 1 ? player2Pointer : pointers[player];
+                WritePointer(report, 12 + player * 8, 16 + player * 8, pointer);
+            }
         }
 
         private static void BuildGha(
@@ -602,6 +627,10 @@ namespace TeknoParrotUi.Common.Android
             report[xOffset] = isDefault ? (byte)127 : PointerToByte(pointer.X);
             report[yOffset] = isDefault ? (byte)127 : PointerToByte(pointer.Y);
         }
+
+        private static bool IsDefaultPointer(ForwardedPointerState pointer) =>
+            pointer.X == 0 && pointer.Y == 0 &&
+            pointer.Pressure == 0 && pointer.Buttons == 0;
 
         private static bool PointerPressed(ForwardedPointerState pointer) =>
             pointer.Pressure != 0 || (pointer.Buttons & 1u) != 0;
@@ -836,7 +865,8 @@ namespace TeknoParrotUi.Common.Android
             ReadOnlySpan<uint> buttons,
             ReadOnlySpan<short> axes,
             ReadOnlySpan<ForwardedPointerState> pointers,
-            Span<byte> report)
+            Span<byte> report,
+            bool pointerPressesButton1)
         {
             var control = 0;
             if (Pressed(buttons[0], ForwardedInputButton.Test)) control |= 0x000001;
@@ -850,7 +880,7 @@ namespace TeknoParrotUi.Common.Android
             {
                 var shift = player == 0 ? 6 : 11 + (player - 1) * 5;
                 if (Pressed(buttons[player], ForwardedInputButton.Start)) control |= 1 << shift;
-                if (PointerPressed(pointers[player]) ||
+                if ((pointerPressesButton1 && PointerPressed(pointers[player])) ||
                     Pressed(buttons[player], ForwardedInputButton.Button1)) control |= 1 << (shift + 1);
                 if (Pressed(buttons[player], ForwardedInputButton.Button2)) control |= 1 << (shift + 2);
                 if (Pressed(buttons[player], ForwardedInputButton.Button3)) control |= 1 << (shift + 3);

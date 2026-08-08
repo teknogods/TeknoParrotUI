@@ -119,16 +119,32 @@ internal sealed class AndroidRuntimePackageUpdater
             throw new InvalidDataException(
                 $"The downloaded {packageId} archive failed SHA256 verification.");
 
-        var installEnvelopePath = Path.Combine(
-            updateDir,
-            packageId + ".install.zip");
-        var installEnvelopeDigest =
-            SharedOpenParrotArchiveAdapter.CreateInstallEnvelope(
-                archivePath,
-                installEnvelopePath,
-                packageId,
-                update.OnlineVersion,
-                cancellationToken);
+        string installEnvelopePath;
+        byte[] installEnvelopeDigest;
+        if (update.Component.runtimeArchiveIsInstallEnvelope)
+        {
+            // CXBXR carries multiple runtime roots plus BIOS, media-board, and
+            // title-specific support files, so its Android asset is published
+            // in the bridge's package envelope rather than flattened into the
+            // desktop archive shape. The authoritative outer release digest
+            // was verified above; Winlator verifies the envelope identity and
+            // every manifest-listed payload before atomically replacing roots.
+            installEnvelopePath = archivePath;
+            installEnvelopeDigest = actualDigest;
+        }
+        else
+        {
+            installEnvelopePath = Path.Combine(
+                updateDir,
+                packageId + ".install.zip");
+            installEnvelopeDigest =
+                SharedOpenParrotArchiveAdapter.CreateInstallEnvelope(
+                    archivePath,
+                    installEnvelopePath,
+                    packageId,
+                    update.OnlineVersion,
+                    cancellationToken);
+        }
         progress.Report(95);
 
         using var descriptor = ParcelFileDescriptor.Open(

@@ -616,6 +616,89 @@ namespace InputMethodAudit
                 AndroidLaunchRecipe.InputProtocolJvsBattleGear);
             True(InputCode.PlayerDigitalButtons[0].Right == true,
                 "Battle Gear key ejects on second press using the active-low sensor");
+
+            releaseLength = ForwardedInputProtocol.WriteButtonFrame(
+                frame, sequence++, sequence, 9008, 0, ForwardedInputButton.Right, false);
+            Equal(ForwardedInputApplyResult.Applied, source.ApplyFrame(frame[..releaseLength]),
+                "Battle Gear second key release");
+
+            foreach (var (axis, value) in new[]
+                     {
+                         (Axis: (ushort)0, Value: (short)0),
+                         (Axis: (ushort)5, Value: short.MaxValue),
+                         (Axis: (ushort)4, Value: (short)16384)
+                     })
+            {
+                var length = ForwardedInputProtocol.WriteAxisFrame(
+                    frame, sequence++, sequence, 9008, 0, axis, value, 0);
+                Equal(ForwardedInputApplyResult.Applied, source.ApplyFrame(frame[..length]),
+                    "Battle Gear forwarded axis " + axis);
+            }
+
+            byte sharedWheel = 0;
+            JvsHelper.ConfigureExternalState(
+                (offset, value) =>
+                {
+                    if (offset == 4)
+                        sharedWheel = value;
+                },
+                () => sharedWheel = 0);
+            try
+            {
+                source.PublishControlsToJvsInputCode(
+                    AndroidLaunchRecipe.InputProtocolJvsBattleGear);
+                Equal((byte)127, InputCode.AnalogBytes[20],
+                    "Battle Gear centered wheel channel");
+                Equal((byte)127, sharedWheel,
+                    "Battle Gear centered shared wheel byte");
+                Equal(byte.MaxValue, InputCode.AnalogBytes[6],
+                    "Battle Gear fully pressed accelerator channel");
+                Equal((byte)127, InputCode.AnalogBytes[8],
+                    "Battle Gear half-pressed brake channel");
+
+                foreach (var axis in new ushort[] { 5, 4 })
+                {
+                    var length = ForwardedInputProtocol.WriteAxisFrame(
+                        frame, sequence++, sequence, 9008, 0, axis, 0, 0);
+                    Equal(ForwardedInputApplyResult.Applied, source.ApplyFrame(frame[..length]),
+                        "Battle Gear released pedal axis " + axis);
+                }
+                source.PublishControlsToJvsInputCode(
+                    AndroidLaunchRecipe.InputProtocolJvsBattleGear);
+                Equal((byte)0, InputCode.AnalogBytes[6],
+                    "Battle Gear released accelerator channel");
+                Equal((byte)0, InputCode.AnalogBytes[8],
+                    "Battle Gear released brake channel");
+
+                var startLength = ForwardedInputProtocol.WriteButtonFrame(
+                    frame, sequence++, sequence, 9008, 0,
+                    ForwardedInputButton.Start, true);
+                Equal(ForwardedInputApplyResult.Applied,
+                    source.ApplyFrame(frame[..startLength]),
+                    "Battle Gear Start press");
+                source.PublishControlsToJvsInputCode(
+                    AndroidLaunchRecipe.InputProtocolJvsBattleGear);
+                True(InputCode.PlayerDigitalButtons[0].Start == true,
+                    "Battle Gear Start reaches the JVS switch state");
+
+                startLength = ForwardedInputProtocol.WriteButtonFrame(
+                    frame, sequence++, sequence, 9008, 0,
+                    ForwardedInputButton.Start, false);
+                Equal(ForwardedInputApplyResult.Applied,
+                    source.ApplyFrame(frame[..startLength]),
+                    "Battle Gear Start release");
+                source.PublishControlsToJvsInputCode(
+                    AndroidLaunchRecipe.InputProtocolJvsBattleGear);
+                True(InputCode.PlayerDigitalButtons[0].Start == false,
+                    "Battle Gear Start releases from the JVS switch state");
+            }
+            finally
+            {
+                JvsHelper.ConfigureExternalState(null, null);
+                source.ReleaseAll();
+                source.PublishControlsToJvsInputCode(
+                    AndroidLaunchRecipe.InputProtocolJvsBattleGear);
+            }
         }
 
         private static void ValidateWmmtForwarding()

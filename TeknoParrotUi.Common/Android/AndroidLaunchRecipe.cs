@@ -51,6 +51,7 @@ namespace TeknoParrotUi.Common.Android
         public const string InputProtocolSharedRawThrillsGoGoStrike =
             "shared-raw-thrills-gogo-strike";
         public const string InputProtocolSharedWartran = "shared-wartran";
+        public const string InputProtocolSharedAngryBirds = "shared-angry-birds";
         public const string InputProtocolSharedDeadHeat = "shared-dead-heat";
         public const string InputProtocolSharedFrenzyExpress = "shared-frenzy-express";
         public const string InputProtocolSharedGrid = "shared-grid";
@@ -79,10 +80,22 @@ namespace TeknoParrotUi.Common.Android
         public const string CompatibilityPresetNone = "";
         public const string CompatibilityPresetMediaWmv = "media-wmv";
         public const string CompatibilityPresetWineGStreamer = "wine-gstreamer";
+        public const string CompatibilityPresetKofXiiWineGStreamer =
+            "kof-xii-wine-gstreamer";
+        public const string CompatibilityPresetKofMiraBuiltinWineD3D =
+            "kof-mira-builtin-wined3d";
         public const string CompatibilityPresetTaitoLegacySCard = "taito-legacy-scard";
         public const string CompatibilityPresetDirtyDrivingFullscreen = "dirty-driving-fullscreen";
         public const string CompatibilityPresetEnEinsNativeFullscreen =
             "en-eins-native-fullscreen";
+        public const string CompatibilityPresetMusicGunGunNativeFullscreen =
+            "music-gungun-native-fullscreen";
+        public const string CompatibilityPresetBattleGear4Original =
+            "battle-gear-4-original";
+        public const string CompatibilityPresetJusticeLeagueWow64Transition =
+            "justice-league-wow64-transition";
+        public const string CompatibilityPresetFnfDriftWow64Transition =
+            "fnf-drift-wow64-transition";
         public const string CompatibilityPresetWmmtTerminal = "wmmt-terminal";
         public const string CompatibilityPresetWmmtNoTerminal = "wmmt-no-terminal";
         public const string CompatibilityPresetWmmt3YaCard = "wmmt3-yacard";
@@ -94,6 +107,12 @@ namespace TeknoParrotUi.Common.Android
         public const string CompatibilityPresetWackyRacesNetwork = "wacky-races-network";
         public const string CompatibilityPresetPostStartRemoteThread =
             "post-start-remote-thread";
+        public const string CompatibilityPresetGgsApm3LoaderSafe =
+            "ggs-apm3-loader-safe";
+        public const string CompatibilityPresetBbtagApm3LoaderSafe =
+            "bbtag-apm3-loader-safe";
+        public const string CompatibilityPresetOtoshuApm3LoaderSafe =
+            "otoshu-apm3-loader-safe";
         public const string CompatibilityPresetParkedEntrypoint = "parked-entrypoint";
         public const string CompatibilityPresetWineD3dRemoteThread =
             "wined3d-remote-thread";
@@ -112,6 +131,8 @@ namespace TeknoParrotUi.Common.Android
         public const string CompatibilityPresetEadpDualIo = "eadp-dual-io";
         public const string CompatibilityPresetSharedJvsDualIo =
             "shared-jvs-dual-io";
+        public const string CompatibilityPresetGaiaAttack4Media =
+            "gaia-attack4-media";
         public const string CompatibilityPresetDirectTouchJvs =
             "direct-touch-jvs";
         public const string CompatibilityPresetBox64Interpreter =
@@ -458,6 +479,7 @@ namespace TeknoParrotUi.Common.Android
             value == InputProtocolSharedRawThrillsGun ||
             value == InputProtocolSharedRawThrillsGoGoStrike ||
             value == InputProtocolSharedWartran ||
+            value == InputProtocolSharedAngryBirds ||
             value == InputProtocolSharedDeadHeat ||
             value == InputProtocolSharedFrenzyExpress ||
             value == InputProtocolSharedGrid ||
@@ -497,9 +519,15 @@ namespace TeknoParrotUi.Common.Android
             value == CompatibilityPresetNone ||
             value == CompatibilityPresetMediaWmv ||
             value == CompatibilityPresetWineGStreamer ||
+            value == CompatibilityPresetKofXiiWineGStreamer ||
+            value == CompatibilityPresetKofMiraBuiltinWineD3D ||
             value == CompatibilityPresetTaitoLegacySCard ||
             value == CompatibilityPresetDirtyDrivingFullscreen ||
             value == CompatibilityPresetEnEinsNativeFullscreen ||
+            value == CompatibilityPresetMusicGunGunNativeFullscreen ||
+            value == CompatibilityPresetBattleGear4Original ||
+            value == CompatibilityPresetJusticeLeagueWow64Transition ||
+            value == CompatibilityPresetFnfDriftWow64Transition ||
             value == CompatibilityPresetWmmtTerminal ||
             value == CompatibilityPresetWmmtNoTerminal ||
             value == CompatibilityPresetWmmt3YaCard ||
@@ -508,6 +536,9 @@ namespace TeknoParrotUi.Common.Android
             value == CompatibilityPresetCxbxrChihiroType3 ||
             value == CompatibilityPresetWackyRacesNetwork ||
             value == CompatibilityPresetPostStartRemoteThread ||
+            value == CompatibilityPresetGgsApm3LoaderSafe ||
+            value == CompatibilityPresetBbtagApm3LoaderSafe ||
+            value == CompatibilityPresetOtoshuApm3LoaderSafe ||
             value == CompatibilityPresetParkedEntrypoint ||
             value == CompatibilityPresetWineD3dRemoteThread ||
             value == CompatibilityPresetWineD3dParkedEntrypoint ||
@@ -523,6 +554,7 @@ namespace TeknoParrotUi.Common.Android
             value == CompatibilityPresetXactLocalRegister ||
             value == CompatibilityPresetEadpDualIo ||
             value == CompatibilityPresetSharedJvsDualIo ||
+            value == CompatibilityPresetGaiaAttack4Media ||
             value == CompatibilityPresetDirectTouchJvs ||
             value == CompatibilityPresetBox64Interpreter ||
             value == CompatibilityPresetPortraitWindowCounterClockwise;

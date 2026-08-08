@@ -122,6 +122,7 @@ internal sealed class AndroidWinlatorGameSession : IGameSession
             OutputReceived?.Invoke(
                 $"[AndroidSession] Winlator container {plan.ContainerId}; " +
                 $"game={plan.GameExecutable}; runtime={plan.LibraryDirectory}; " +
+                $"scopedGameFolder={(string.IsNullOrEmpty(plan.ScopedGameDirectory) ? "fixed-drive" : "selected-folder")}; " +
                 $"input={plan.InputProtocol}/layout-{plan.ControlsProfileId}; " +
                 $"display={plan.DisplayMode}@{plan.ResolutionWidth}x{plan.ResolutionHeight}; " +
                 $"fps={(plan.FrameRateLimit > 0 ? plan.FrameRateLimit.ToString() : "unlimited")}; " +
@@ -264,6 +265,7 @@ internal sealed record AndroidWinlatorLaunchPlan(
     IReadOnlyList<string> Arguments,
     string LibraryDirectory,
     string GameExecutable,
+    string ScopedGameDirectory,
     string InputProtocol,
     int ControlsProfileId,
     int FrameRateLimit,
@@ -310,9 +312,10 @@ internal sealed record AndroidWinlatorLaunchPlan(
             throw new NotSupportedException(
                 "This profile's current arguments do not match its validated Android conversion.");
 
-        var gameExecutable = AndroidWinlatorGamePath.ToDosPath(
+        var gameLocation = AndroidWinlatorGamePath.Resolve(
             profile.GamePath,
             downloadsDirectory);
+        var gameExecutable = gameLocation.DosPath;
         var resolved = recipe.Resolve(gameExecutable);
         var displayMode = profile.AndroidDisplayMode switch
         {
@@ -329,6 +332,7 @@ internal sealed record AndroidWinlatorLaunchPlan(
             resolved.Arguments,
             resolved.LibraryDirectory,
             gameExecutable,
+            gameLocation.ScopedGameDirectory,
             resolved.InputProtocol,
             resolved.ControlsProfileId,
             resolved.FrameRateLimit,
@@ -356,7 +360,9 @@ internal sealed record AndroidWinlatorLaunchPlan(
             result.DebugLoggingEnabled,
             result.CompatibilityPreset,
             result.DisplayMode,
-            result.ProfileConfigIni));
+            result.ProfileConfigIni,
+            result.ScopedGameDirectory),
+            includeScopedGameDirectory: result.ScopedGameDirectory.Length > 0);
         return result;
     }
 

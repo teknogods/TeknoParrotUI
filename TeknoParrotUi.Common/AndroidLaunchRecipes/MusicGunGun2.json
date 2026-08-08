@@ -13,7 +13,9 @@
   "inputProtocol": "shared-taito-gun-music",
   "controlsProfileId": 9074,
   "frameRateLimit": 60,
-  "compatibilityPreset": "shared-jvs-dual-io",
+  "resolutionWidth": 1360,
+  "resolutionHeight": 768,
+  "compatibilityPreset": "music-gungun-native-fullscreen",
   "performanceModeDefault": true,
   "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],
   "import": {

@@ -13,7 +13,7 @@
   "inputProtocol": "shared-taito-gun",
   "controlsProfileId": 9073,
   "frameRateLimit": 60,
-  "compatibilityPreset": "shared-jvs-dual-io",
+  "compatibilityPreset": "gaia-attack4-media",
   "performanceModeDefault": true,
   "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],
   "import": {

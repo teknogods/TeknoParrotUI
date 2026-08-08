@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Provider;
 using Android.Runtime;
 using Avalonia;
 using Avalonia.Android;
@@ -14,6 +15,7 @@ using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.Android;
 using TeknoParrotUi.Common.GameLaunch;
 using Bundle = Android.OS.Bundle;
+using AndroidUri = Android.Net.Uri;
 
 namespace TeknoParrotUi.Avalonia.Android;
 
@@ -97,6 +99,8 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
         PlatformRpcs3x6Firmware.AndroidConfigurator = MainActivity.OpenRpcs3x6SetupAsync;
         PlatformDocumentPathResolver.AndroidResolver =
             new AndroidDocumentProviderPathResolver(this).Resolve;
+        PlatformGameExecutablePicker.AndroidPicker =
+            MainActivity.PickGameExecutableAsync;
 
         GameSessionFactory.RegisterPlatformFactory(
             (profile, isTest, emuOnly) =>
@@ -297,11 +301,15 @@ public class MainActivity : AvaloniaMainActivity
     private const int Pcsx2x6GameImportRequestCode = 247;
     private const int DolphinGameImportRequestCode = 248;
     private const int Rpcs3x6GameImportRequestCode = 249;
+    private const int GameExecutablePickerRequestCode = 0x5450;
+    private const string PrimaryStorageRootUri =
+        "content://com.android.externalstorage.documents/root/primary";
     private static WeakReference<MainActivity>? _current;
     private TaskCompletionSource<bool>? _biosConfiguration;
     private TaskCompletionSource<bool>? _gameImport;
     private TaskCompletionSource<bool>? _dolphinGameImport;
     private TaskCompletionSource<bool>? _rpcs3x6GameImport;
+    private TaskCompletionSource<string?>? _gameExecutablePicker;
 
     protected override void OnCreate(Bundle? savedInstanceState)
     {
@@ -380,6 +388,53 @@ public class MainActivity : AvaloniaMainActivity
         catch (Exception error)
         {
             activity._biosConfiguration = null;
+            completion.TrySetException(error);
+        }
+
+        return completion.Task;
+    }
+
+    internal static Task<string?> PickGameExecutableAsync(string title)
+    {
+        if (_current == null ||
+            !_current.TryGetTarget(out var activity) ||
+            activity.IsFinishing)
+        {
+            throw new InvalidOperationException(
+                "The TeknoParrot Android activity is not available.");
+        }
+
+        if (activity._gameExecutablePicker is { Task.IsCompleted: false } pending)
+            return pending.Task;
+
+        var completion = new TaskCompletionSource<string?>(
+            TaskCreationOptions.RunContinuationsAsynchronously);
+        activity._gameExecutablePicker = completion;
+        try
+        {
+            // Avalonia's generic picker inherits Android DocumentsUI's last
+            // location, which can make a previously selected TeknoParrotGames
+            // folder look like a hard navigation root. Start a fresh native
+            // document request at Internal storage instead. This is only an
+            // initial location: the DocumentsUI root drawer remains available
+            // for Downloads and readable removable storage.
+            var intent = new Intent(Intent.ActionOpenDocument)
+                .AddCategory(Intent.CategoryOpenable)
+                .SetType("*/*")
+                .PutExtra(Intent.ExtraTitle, title)
+                .PutExtra(
+                    DocumentsContract.ExtraInitialUri,
+                    AndroidUri.Parse(PrimaryStorageRootUri))
+                .AddFlags(
+                    ActivityFlags.GrantReadUriPermission |
+                    ActivityFlags.GrantPersistableUriPermission);
+            activity.StartActivityForResult(
+                intent,
+                GameExecutablePickerRequestCode);
+        }
+        catch (Exception error)
+        {
+            activity._gameExecutablePicker = null;
             completion.TrySetException(error);
         }
 
@@ -521,6 +576,15 @@ public class MainActivity : AvaloniaMainActivity
             _rpcs3x6GameImport = null;
             completion?.TrySetResult(resultCode == Result.Ok);
         }
+        else if (requestCode == GameExecutablePickerRequestCode)
+        {
+            var completion = _gameExecutablePicker;
+            _gameExecutablePicker = null;
+            completion?.TrySetResult(
+                resultCode == Result.Ok
+                    ? data?.Data?.ToString()
+                    : null);
+        }
     }
 
     protected override void OnDestroy()
@@ -537,6 +601,8 @@ public class MainActivity : AvaloniaMainActivity
         _dolphinGameImport = null;
         _rpcs3x6GameImport?.TrySetCanceled();
         _rpcs3x6GameImport = null;
+        _gameExecutablePicker?.TrySetCanceled();
+        _gameExecutablePicker = null;
         base.OnDestroy();
     }
 }

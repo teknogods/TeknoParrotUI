@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 
 namespace TeknoParrotUi.AndroidBridge;
@@ -19,7 +20,8 @@ internal enum WinlatorBridgeFeatures
     ManagedEnvironment = 1 << 9,
     ProductionPipeBridge = 1 << 11,
     PreparedDisplayPolicy = 1 << 12,
-    PreparedProfileConfig = 1 << 13
+    PreparedProfileConfig = 1 << 13,
+    ScopedGameDirectory = 1 << 14
 }
 
 internal sealed record WinlatorCapabilities(
@@ -56,7 +58,8 @@ internal sealed record WinlatorActivityLaunchRequest(
     bool DebugLoggingEnabled = true,
     string CompatibilityPreset = "",
     string DisplayMode = WinlatorSessionContract.DisplayModeCentered,
-    string ProfileConfigIni = "");
+    string ProfileConfigIni = "",
+    string ScopedGameDirectory = "");
 
 internal sealed record WinlatorManagedEnvironment(
     int SchemaVersion,
@@ -87,10 +90,22 @@ internal static class WinlatorSessionContract
     public const string WindowsExecutableLaunchKind = "windows-executable";
     public const string CompatibilityPresetMediaWmv = "media-wmv";
     public const string CompatibilityPresetWineGStreamer = "wine-gstreamer";
+    public const string CompatibilityPresetKofXiiWineGStreamer =
+        "kof-xii-wine-gstreamer";
+    public const string CompatibilityPresetKofMiraBuiltinWineD3D =
+        "kof-mira-builtin-wined3d";
     public const string CompatibilityPresetTaitoLegacySCard = "taito-legacy-scard";
     public const string CompatibilityPresetDirtyDrivingFullscreen = "dirty-driving-fullscreen";
     public const string CompatibilityPresetEnEinsNativeFullscreen =
         "en-eins-native-fullscreen";
+    public const string CompatibilityPresetMusicGunGunNativeFullscreen =
+        "music-gungun-native-fullscreen";
+    public const string CompatibilityPresetBattleGear4Original =
+        "battle-gear-4-original";
+    public const string CompatibilityPresetJusticeLeagueWow64Transition =
+        "justice-league-wow64-transition";
+    public const string CompatibilityPresetFnfDriftWow64Transition =
+        "fnf-drift-wow64-transition";
     public const string CompatibilityPresetWmmtTerminal = "wmmt-terminal";
     public const string CompatibilityPresetWmmtNoTerminal = "wmmt-no-terminal";
     public const string CompatibilityPresetWmmt3YaCard = "wmmt3-yacard";
@@ -102,6 +117,12 @@ internal static class WinlatorSessionContract
     public const string CompatibilityPresetWackyRacesNetwork = "wacky-races-network";
     public const string CompatibilityPresetPostStartRemoteThread =
         "post-start-remote-thread";
+    public const string CompatibilityPresetGgsApm3LoaderSafe =
+        "ggs-apm3-loader-safe";
+    public const string CompatibilityPresetBbtagApm3LoaderSafe =
+        "bbtag-apm3-loader-safe";
+    public const string CompatibilityPresetOtoshuApm3LoaderSafe =
+        "otoshu-apm3-loader-safe";
     public const string CompatibilityPresetInitialD8 = "initial-d8";
     public const string CompatibilityPresetInitialDTheArcade = "initial-d-the-arcade";
     public const string CompatibilityPresetChaseHq2 = "chase-hq2";
@@ -114,6 +135,7 @@ internal static class WinlatorSessionContract
     public const string CompatibilityPresetXactLocalRegister = "xact-local-register";
     public const string CompatibilityPresetEadpDualIo = "eadp-dual-io";
     public const string CompatibilityPresetSharedJvsDualIo = "shared-jvs-dual-io";
+    public const string CompatibilityPresetGaiaAttack4Media = "gaia-attack4-media";
     public const string CompatibilityPresetDirectTouchJvs = "direct-touch-jvs";
     public const string CompatibilityPresetBox64Interpreter = "box64-interpreter";
     public const string CompatibilityPresetPortraitWindowCounterClockwise =
@@ -358,7 +380,8 @@ internal static class WinlatorSessionContract
 
     public static byte[] CreateActivityLaunch(
         WinlatorActivityLaunchRequest request,
-        int protocolVersion = ServiceProtocolVersion)
+        int protocolVersion = ServiceProtocolVersion,
+        bool includeScopedGameDirectory = false)
     {
         ArgumentNullException.ThrowIfNull(request);
         ValidateCompatibleServiceProtocolVersion(protocolVersion);
@@ -376,9 +399,10 @@ internal static class WinlatorSessionContract
                 request.Arguments is { Count: > 0 } || request.ControlsProfileId != 0 ||
                 request.FrameRateLimit != 0 || request.ResolutionWidth != 0 ||
                 request.ResolutionHeight != 0 || !request.DebugLoggingEnabled ||
-                !string.IsNullOrEmpty(request.CompatibilityPreset) ||
-                request.DisplayMode != DisplayModeCentered ||
-                !string.IsNullOrEmpty(request.ProfileConfigIni))
+                 !string.IsNullOrEmpty(request.CompatibilityPreset) ||
+                 request.DisplayMode != DisplayModeCentered ||
+                 !string.IsNullOrEmpty(request.ProfileConfigIni) ||
+                 !string.IsNullOrEmpty(request.ScopedGameDirectory))
                 throw new ArgumentException(
                     "The diagnostic Activity launch cannot carry executable settings.", nameof(request));
             envelope = JsonSerializer.SerializeToUtf8Bytes(new
@@ -414,13 +438,53 @@ internal static class WinlatorSessionContract
             ValidateResolution(request.ResolutionWidth, request.ResolutionHeight);
             ValidateCompatibilityPreset(request.CompatibilityPreset);
             ValidateDisplayMode(request.DisplayMode);
+            if (!string.IsNullOrEmpty(request.ScopedGameDirectory))
+            {
+                if (!includeScopedGameDirectory || protocolVersion < 13)
+                    throw new InvalidOperationException(
+                        "The installed Winlator companion cannot expose a selected game folder.");
+                ValidateScopedGameDirectory(request.ScopedGameDirectory);
+                if (!arguments.Any(argument =>
+                        argument.StartsWith("I:\\", StringComparison.OrdinalIgnoreCase)))
+                    throw new ArgumentException(
+                        "A scoped Android game folder requires an I: game argument.",
+                        nameof(request));
+            }
+            else if (arguments.Any(argument =>
+                         argument.StartsWith("I:\\", StringComparison.OrdinalIgnoreCase)))
+            {
+                throw new ArgumentException(
+                    "An I: game argument requires a scoped Android game folder.",
+                    nameof(request));
+            }
             if (protocolVersion < 13 && !string.IsNullOrEmpty(request.ProfileConfigIni))
                 throw new InvalidOperationException(
                     "The installed Winlator companion cannot receive complete game-profile configuration.");
             if (protocolVersion >= 13)
             {
                 ValidateProfileConfigIni(request.ProfileConfigIni);
-                envelope = JsonSerializer.SerializeToUtf8Bytes(new
+                envelope = includeScopedGameDirectory
+                    ? JsonSerializer.SerializeToUtf8Bytes(new
+                    {
+                        protocolVersion,
+                        sessionId = request.SessionId.ToString("N"),
+                        containerId = request.ContainerId,
+                        launchKind = request.LaunchKind,
+                        executable = request.Executable,
+                        workingDirectory = request.WorkingDirectory,
+                        arguments,
+                        libraryDirectory = request.LibraryDirectory,
+                        controlsProfileId = request.ControlsProfileId,
+                        frameRateLimit = request.FrameRateLimit,
+                        resolutionWidth = request.ResolutionWidth,
+                        resolutionHeight = request.ResolutionHeight,
+                        debugLoggingEnabled = request.DebugLoggingEnabled,
+                        compatibilityPreset = request.CompatibilityPreset,
+                        displayMode = request.DisplayMode,
+                        profileConfigIni = request.ProfileConfigIni,
+                        scopedGameDirectory = request.ScopedGameDirectory
+                    })
+                    : JsonSerializer.SerializeToUtf8Bytes(new
                 {
                     protocolVersion,
                     sessionId = request.SessionId.ToString("N"),
@@ -569,6 +633,63 @@ internal static class WinlatorSessionContract
         }
     }
 
+    public static void ValidateScopedGameDirectory(string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value) || value.Length > 1024 ||
+            value.Contains('\\') || value.Contains('"') || value.EndsWith('/'))
+            throw new ArgumentException(
+                "A canonical Android shared-storage game folder is required.",
+                nameof(value));
+
+        var normalized = value!;
+        var isPrimary = normalized.StartsWith(
+            "/storage/emulated/0/", StringComparison.Ordinal);
+        var isRemovable = false;
+        const string storagePrefix = "/storage/";
+        if (!isPrimary && normalized.StartsWith(storagePrefix, StringComparison.Ordinal))
+        {
+            var volumeEnd = normalized.IndexOf('/', storagePrefix.Length);
+            if (volumeEnd > storagePrefix.Length)
+            {
+                var volume = normalized[storagePrefix.Length..volumeEnd];
+                isRemovable = !volume.Equals("emulated", StringComparison.OrdinalIgnoreCase) &&
+                    !volume.Equals("self", StringComparison.OrdinalIgnoreCase) &&
+                    volume.All(character =>
+                        char.IsLetterOrDigit(character) || character is '-' or '_');
+            }
+        }
+        if (!isPrimary && !isRemovable)
+            throw new ArgumentException(
+                "The scoped game folder must be on Android shared storage.",
+                nameof(value));
+        var lower = normalized.ToLowerInvariant();
+        var isProtectedPrimary =
+            lower.Equals("/storage/emulated/0/android", StringComparison.Ordinal) ||
+            lower.Equals("/storage/emulated/0/android/data", StringComparison.Ordinal) ||
+            lower.StartsWith("/storage/emulated/0/android/data/", StringComparison.Ordinal) ||
+            lower.Equals("/storage/emulated/0/android/obb", StringComparison.Ordinal) ||
+            lower.StartsWith("/storage/emulated/0/android/obb/", StringComparison.Ordinal);
+        var relativeToVolume = normalized[(normalized.IndexOf('/', storagePrefix.Length) + 1)..];
+        var isProtectedRemovable =
+            relativeToVolume.Equals("Android", StringComparison.OrdinalIgnoreCase) ||
+            relativeToVolume.Equals("Android/data", StringComparison.OrdinalIgnoreCase) ||
+            relativeToVolume.StartsWith("Android/data/", StringComparison.OrdinalIgnoreCase) ||
+            relativeToVolume.Equals("Android/obb", StringComparison.OrdinalIgnoreCase) ||
+            relativeToVolume.StartsWith("Android/obb/", StringComparison.OrdinalIgnoreCase);
+        if (isProtectedPrimary || isProtectedRemovable)
+            throw new ArgumentException(
+                "Protected Android application storage cannot be exposed as a game folder.",
+                nameof(value));
+
+        foreach (var segment in normalized.Split('/', StringSplitOptions.RemoveEmptyEntries))
+        {
+            if (segment is "." or ".." || segment.Any(character => character < 0x20))
+                throw new ArgumentException(
+                    "The scoped game folder contains an invalid path segment.",
+                    nameof(value));
+        }
+    }
+
     private static void ValidateDisplayMode(string? value)
     {
         if (value != DisplayModeCentered &&
@@ -581,8 +702,14 @@ internal static class WinlatorSessionContract
     {
         if (value is not ("" or CompatibilityPresetMediaWmv or
             CompatibilityPresetWineGStreamer or
+            CompatibilityPresetKofXiiWineGStreamer or
+            CompatibilityPresetKofMiraBuiltinWineD3D or
             CompatibilityPresetTaitoLegacySCard or CompatibilityPresetDirtyDrivingFullscreen or
             CompatibilityPresetEnEinsNativeFullscreen or
+            CompatibilityPresetMusicGunGunNativeFullscreen or
+            CompatibilityPresetBattleGear4Original or
+            CompatibilityPresetJusticeLeagueWow64Transition or
+            CompatibilityPresetFnfDriftWow64Transition or
             CompatibilityPresetWmmtTerminal or CompatibilityPresetWmmtNoTerminal or
             CompatibilityPresetWmmt3YaCard or
             CompatibilityPresetCxbxrWmmtYaCard or
@@ -590,6 +717,9 @@ internal static class WinlatorSessionContract
             CompatibilityPresetCxbxrChihiroType3 or
             CompatibilityPresetWackyRacesNetwork or
             CompatibilityPresetPostStartRemoteThread or
+            CompatibilityPresetGgsApm3LoaderSafe or
+            CompatibilityPresetBbtagApm3LoaderSafe or
+            CompatibilityPresetOtoshuApm3LoaderSafe or
             CompatibilityPresetInitialD8 or
             CompatibilityPresetInitialDTheArcade or
             CompatibilityPresetChaseHq2 or CompatibilityPresetStarWars or
@@ -600,6 +730,7 @@ internal static class WinlatorSessionContract
             CompatibilityPresetBuiltinDdraw or
             CompatibilityPresetXactLocalRegister or CompatibilityPresetEadpDualIo or
             CompatibilityPresetSharedJvsDualIo or
+            CompatibilityPresetGaiaAttack4Media or
             CompatibilityPresetDirectTouchJvs or
             CompatibilityPresetBox64Interpreter or
             CompatibilityPresetPortraitWindowCounterClockwise or

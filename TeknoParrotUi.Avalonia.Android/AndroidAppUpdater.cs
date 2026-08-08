@@ -79,7 +79,12 @@ internal sealed class AndroidAppUpdater
                 "rpcs3",
                 "ReaverTeknoGods"),
             CreateRuntimeComponent("OpenParrotWin32"),
-            CreateRuntimeComponent("OpenParrotx64")
+            CreateRuntimeComponent("OpenParrotx64"),
+            CreateRuntimeComponent(
+                "cxbxr",
+                assetNamePrefix: "cxbxr_",
+                assetNameMarker: "-android.zip",
+                archiveIsInstallEnvelope: true)
         };
     }
 
@@ -272,20 +277,29 @@ internal sealed class AndroidAppUpdater
         };
     }
 
-    private UpdaterComponent CreateRuntimeComponent(string packageId)
+    private UpdaterComponent CreateRuntimeComponent(
+        string packageId,
+        string? assetNamePrefix = null,
+        string? assetNameMarker = null,
+        bool archiveIsInstallEnvelope = false)
     {
         return new UpdaterComponent
         {
             name = packageId,
-            reponame = "OpenParrot",
+            reponame = archiveIsInstallEnvelope ? "TeknoParrot" : "OpenParrot",
             userName = "teknogods",
             releaseTag = packageId,
             // This is the same flat OpenParrot archive consumed by Windows and
             // Linux. TPUI creates Winlator's installation envelope locally
             // after verifying the authoritative release digest.
-            assetNameExact = packageId + ".zip",
+            assetNameExact = archiveIsInstallEnvelope
+                ? null
+                : packageId + ".zip",
+            assetNamePrefix = assetNamePrefix,
+            assetNameMarker = assetNameMarker,
             deliveryKind = UpdaterDeliveryKind.AndroidRuntimeArchive,
             runtimePackageId = packageId,
+            runtimeArchiveIsInstallEnvelope = archiveIsInstallEnvelope,
             _localVersion = _runtimeUpdater.ReadInstalledVersion(packageId)
         };
     }

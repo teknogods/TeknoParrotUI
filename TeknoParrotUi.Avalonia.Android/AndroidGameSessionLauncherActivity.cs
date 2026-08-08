@@ -49,7 +49,8 @@ public sealed class AndroidGameSessionLauncherActivity : Activity
             plan.DisplayMode,
             plan.DebugLoggingEnabled,
             plan.CompatibilityPreset,
-            plan.ProfileConfigIni);
+            plan.ProfileConfigIni,
+            plan.ScopedGameDirectory);
 
     internal static Intent CreateIntent(
         Context context,
@@ -67,7 +68,8 @@ public sealed class AndroidGameSessionLauncherActivity : Activity
         string? displayMode = null,
         bool debugLoggingEnabled = true,
         string? compatibilityPreset = null,
-        string? profileConfigIni = null)
+        string? profileConfigIni = null,
+        string? scopedGameDirectory = null)
     {
         var intent = new Intent(context, typeof(AndroidGameSessionLauncherActivity));
         // The Activity finishes itself immediately after the permission result
@@ -90,6 +92,7 @@ public sealed class AndroidGameSessionLauncherActivity : Activity
         intent.PutExtra(GameSessionService.DebugLoggingEnabledExtra, debugLoggingEnabled);
         intent.PutExtra(GameSessionService.CompatibilityPresetExtra, compatibilityPreset);
         intent.PutExtra(GameSessionService.ProfileConfigIniExtra, profileConfigIni);
+        intent.PutExtra(GameSessionService.ScopedGameDirectoryExtra, scopedGameDirectory);
         return intent;
     }
 
@@ -203,6 +206,8 @@ public sealed class AndroidGameSessionLauncherActivity : Activity
                 GameSessionService.CompatibilityPresetExtra);
             var profileConfigIni = Intent?.GetStringExtra(
                 GameSessionService.ProfileConfigIniExtra);
+            var scopedGameDirectory = Intent?.GetStringExtra(
+                GameSessionService.ScopedGameDirectoryExtra);
             var arguments = string.IsNullOrEmpty(argumentsJson)
                 ? Array.Empty<string>()
                 : JsonSerializer.Deserialize<string[]>(argumentsJson) ?? Array.Empty<string>();
@@ -222,7 +227,8 @@ public sealed class AndroidGameSessionLauncherActivity : Activity
                 displayMode,
                 debugLoggingEnabled,
                 compatibilityPreset,
-                profileConfigIni);
+                profileConfigIni,
+                scopedGameDirectory);
             if (!string.IsNullOrWhiteSpace(launchError))
                 serviceIntent.PutExtra(GameSessionService.LaunchErrorExtra, launchError);
             StartForegroundService(serviceIntent);

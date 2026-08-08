@@ -13,7 +13,7 @@
   "inputProtocol": "jvs",
   "controlsProfileId": 9021,
   "frameRateLimit": 60,
-  "compatibilityPreset": "media-wmv",
+  "compatibilityPreset": "kof-xii-wine-gstreamer",
   "performanceModeDefault": true,
   "arguments": [
     ".\\OpenParrotWin32\\OpenParrot",

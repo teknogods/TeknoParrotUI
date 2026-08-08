@@ -40,8 +40,16 @@ if (Test-Path -LiteralPath $output) {
     throw "Refusing to replace an existing runtime package: $output"
 }
 
+$stageManifestPath = [IO.Path]::GetFullPath(
+    (Join-Path $source 'manifest.json'))
 $files = @(
     Get-ChildItem -LiteralPath $source -File -Recurse |
+        Where-Object {
+            -not [string]::Equals(
+                [IO.Path]::GetFullPath($_.FullName),
+                $stageManifestPath,
+                [StringComparison]::OrdinalIgnoreCase)
+        } |
         Sort-Object FullName)
 if ($files.Count -eq 0) {
     throw 'The runtime package source contains no files.'

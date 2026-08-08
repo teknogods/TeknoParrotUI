@@ -11,6 +11,7 @@
   "workingDirectory": ".",
   "libraryDirectory": "OpenParrotWin32",
   "inputProtocol": "shared-justice-league",
+  "compatibilityPreset": "justice-league-wow64-transition",
   "controlsProfileId": 9024,
   "frameRateLimit": 60,
   "performanceModeDefault": true,

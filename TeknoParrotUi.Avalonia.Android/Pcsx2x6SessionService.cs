@@ -118,14 +118,15 @@ public sealed class Pcsx2x6SessionService : Service
             if (string.Equals(intent?.Action, StartAction, StringComparison.Ordinal))
             {
                 var requested = CreateRecord(intent!);
-                if (saved != null &&
-                    !string.Equals(saved.Token, requested.Token, StringComparison.Ordinal))
-                {
-                    throw new InvalidOperationException(
-                        $"{saved.ProfileName} already owns the PCSX2X6 session.");
-                }
-
-                _record = saved ?? requested;
+                // A user can leave the emulator through Home/Recents, have the
+                // companion reclaimed, or lose TPUI while the foreground
+                // record still exists. Every deliberate Start action carries
+                // a fresh authenticated token and must be allowed to take over
+                // that stale record. The companion's singleTop activity will
+                // stop/restart a genuinely live VM before accepting the new
+                // game, while callbacks from the superseded token are ignored.
+                StopHealthMonitor();
+                _record = requested;
                 SaveRecord(_record);
                 PublishStatus("state=starting;detail=opening PCSX2X6");
                 LaunchCompanion(_record);

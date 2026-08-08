@@ -13,6 +13,7 @@
   "inputProtocol": "jvs",
   "controlsProfileId": 9002,
   "frameRateLimit": 60,
+  "compatibilityPreset": "kof-mira-builtin-wined3d",
   "performanceModeDefault": true,
   "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],
   "import": {

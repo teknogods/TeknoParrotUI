@@ -12,6 +12,7 @@
   "libraryDirectory": "OpenParrotWin32",
   "inputProtocol": "shared-raw-thrills",
   "controlsProfileId": 9017,
+  "compatibilityPreset": "fnf-drift-wow64-transition",
   "frameRateLimit": 60,
   "performanceModeDefault": true,
   "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],

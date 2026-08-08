@@ -14,42 +14,43 @@ namespace InputMethodAudit
             string Profile,
             string Executable,
             string RuntimeDirectory,
-            string InputProtocol);
+            string InputProtocol,
+            int FrameRateLimit);
 
         private static readonly ExpectedTitle[] ExpectedTitles =
         {
             new("hod33", "HOTD3", "hod3xb.xbe", "cxbxr-export",
-                AndroidLaunchRecipe.InputProtocolSharedCxbxrGun),
+                AndroidLaunchRecipe.InputProtocolSharedCxbxrGun, 0),
             new("mt1e", "WMMT1", "V307.xbe", "cxbxr-export",
-                AndroidLaunchRecipe.InputProtocolSharedCxbxrWmmt),
+                AndroidLaunchRecipe.InputProtocolSharedCxbxrWmmt, 60),
             new("mt1j", "WMMT1J", "V307.xbe", "cxbxr-japan",
-                AndroidLaunchRecipe.InputProtocolSharedCxbxrWmmt),
+                AndroidLaunchRecipe.InputProtocolSharedCxbxrWmmt, 60),
             new("mt2e", "WMMT2", "V322.xbe", "cxbxr-export",
-                AndroidLaunchRecipe.InputProtocolSharedCxbxrWmmt),
+                AndroidLaunchRecipe.InputProtocolSharedCxbxrWmmt, 60),
             new("mt2j", "WMMT2j", "V322.xbe", "cxbxr-japan",
-                AndroidLaunchRecipe.InputProtocolSharedCxbxrWmmt),
+                AndroidLaunchRecipe.InputProtocolSharedCxbxrWmmt, 60),
             new("ollie", "OllieKing", "OllieKing.xbe", "cxbxr-export",
-                AndroidLaunchRecipe.InputProtocolSharedCxbxrOllie),
+                AndroidLaunchRecipe.InputProtocolSharedCxbxrOllie, 60),
             new("or2", "or2", "outrun2.xbe", "cxbxr-export",
-                AndroidLaunchRecipe.InputProtocolSharedCxbxrOutrun),
+                AndroidLaunchRecipe.InputProtocolSharedCxbxrOutrun, 60),
             new("or2b", "or2b", "outrun2.xbe", "cxbxr-export",
-                AndroidLaunchRecipe.InputProtocolSharedCxbxrOutrun),
+                AndroidLaunchRecipe.InputProtocolSharedCxbxrOutrun, 60),
             new("or2sp", "or2sp", "outrun2.xbe", "cxbxr-export",
-                AndroidLaunchRecipe.InputProtocolSharedCxbxrOutrun),
+                AndroidLaunchRecipe.InputProtocolSharedCxbxrOutrun, 60),
             new("vc3", "vc3", "vc3.xbe", "cxbxr-export",
-                AndroidLaunchRecipe.InputProtocolSharedCxbxrGun),
+                AndroidLaunchRecipe.InputProtocolSharedCxbxrGun, 0),
             new("Gundam Battle Operating Simulator", "GBOS", "gs.xbe", "cxbxr-japan",
-                AndroidLaunchRecipe.InputProtocolSharedCxbxrGundam),
+                AndroidLaunchRecipe.InputProtocolSharedCxbxrGundam, 0),
             new("taxi", "CTHR", "ctx_ac[r].xbe", "cxbxr-export",
-                AndroidLaunchRecipe.InputProtocolSharedCxbxrDriving),
+                AndroidLaunchRecipe.InputProtocolSharedCxbxrDriving, 60),
             new("Sega Golf Club Network Pro Tour 2005 (Rev C)", "SGC05",
                 "golf.xbe", "cxbxr-japan",
-                AndroidLaunchRecipe.InputProtocolSharedCxbxrGolf),
+                AndroidLaunchRecipe.InputProtocolSharedCxbxrGolf, 0),
             new("Sega Golf Club Next Tours 2006 (Rev.A)", "SGC06",
                 "golf.xbe", "cxbxr-japan",
-                AndroidLaunchRecipe.InputProtocolSharedCxbxrGolf),
+                AndroidLaunchRecipe.InputProtocolSharedCxbxrGolf, 0),
             new("gs", "GhostSquad", "vsg.xbe", "cxbxr-export",
-                AndroidLaunchRecipe.InputProtocolSharedCxbxrGun)
+                AndroidLaunchRecipe.InputProtocolSharedCxbxrGun, 0)
         };
 
         private static readonly string[] DeferredTitleFolders =
@@ -156,10 +157,11 @@ namespace InputMethodAudit
                             StringComparison.Ordinal) ||
                         !string.Equals(
                             recipe.InputProtocol, expected.InputProtocol,
-                            StringComparison.Ordinal))
+                            StringComparison.Ordinal) ||
+                        recipe.FrameRateLimit != expected.FrameRateLimit)
                         throw new InvalidOperationException(
                             $"CXBXR profile '{expected.Profile}' changed its region runtime " +
-                            "or shared-page protocol.");
+                            "shared-page protocol, or frame-rate policy.");
                     var expectsCardService = string.Equals(
                         expected.InputProtocol,
                         AndroidLaunchRecipe.InputProtocolSharedCxbxrWmmt,
@@ -263,7 +265,7 @@ namespace InputMethodAudit
             while (directory != null)
             {
                 if (Directory.Exists(Path.Combine(directory, "TeknoParrotUi.Common")) &&
-                    Directory.Exists(Path.Combine(directory, "WinlatorFork")))
+                    File.Exists(Path.Combine(directory, "TeknoParrotUI.sln")))
                     return directory;
                 directory = Path.GetDirectoryName(directory);
             }

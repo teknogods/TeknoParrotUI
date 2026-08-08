@@ -29,6 +29,10 @@ namespace InputMethodAudit
                 "PCSX2X6",
                 new GameProfile { EmulatorType = EmulatorType.pcsx2x6 },
                 expected: true);
+            Check(
+                "CXBXR",
+                new GameProfile { EmulatorType = EmulatorType.cxbxr },
+                expected: true);
             foreach (var profileName in new[]
                      {
                          "DarkEscape4D", "DSPS", "dbzenkai", "RazingStorm", "AKB48",
@@ -86,7 +90,8 @@ namespace InputMethodAudit
 
             foreach (var emulatorType in Enum.GetValues<EmulatorType>())
             {
-                if (emulatorType is EmulatorType.OpenParrot or EmulatorType.pcsx2x6 or
+                if (emulatorType is EmulatorType.OpenParrot or EmulatorType.cxbxr or
+                    EmulatorType.pcsx2x6 or
                     EmulatorType.Dolphin or EmulatorType.RPCS3)
                     continue;
                 Check(

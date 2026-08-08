@@ -212,7 +212,9 @@ namespace InputMethodAudit
                 ["RawThrillsGUN"] = Set(
                     AndroidLaunchRecipe.InputProtocolSharedRawThrillsGun,
                     AndroidLaunchRecipe.InputProtocolSharedRawThrillsGoGoStrike),
-                ["WartranTroopers"] = Set(AndroidLaunchRecipe.InputProtocolSharedWartran),
+                ["WartranTroopers"] = Set(
+                    AndroidLaunchRecipe.InputProtocolSharedWartran,
+                    AndroidLaunchRecipe.InputProtocolSharedAngryBirds),
                 ["DeadHeat"] = Set(AndroidLaunchRecipe.InputProtocolSharedDeadHeat),
                 ["SegaJvs"] = Set(AndroidLaunchRecipe.InputProtocolJvs),
                 ["SegaInitialD"] = Set(AndroidLaunchRecipe.InputProtocolJvsInitialD),
@@ -816,7 +818,7 @@ namespace InputMethodAudit
             while (directory != null)
             {
                 if (Directory.Exists(Path.Combine(directory, "TeknoParrotUi.Common")) &&
-                    Directory.Exists(Path.Combine(directory, "WinlatorFork")))
+                    File.Exists(Path.Combine(directory, "TeknoParrotUI.sln")))
                     return directory;
                 directory = Path.GetDirectoryName(directory);
             }

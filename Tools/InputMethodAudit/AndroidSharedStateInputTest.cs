@@ -159,8 +159,12 @@ namespace InputMethodAudit
                     "Music Gun Gun 2 touch trigger");
                 Build(AndroidLaunchRecipe.InputProtocolSharedTaitoGunHauntedMuseum2,
                     buttons, axes, pointers, report);
-                Equal(0x01, ReadInt32(report, 8),
-                    "Haunted Museum II touch trigger");
+                Equal(0x05, ReadInt32(report, 8),
+                    "Haunted Museum II mirrored P1/P2 touch triggers");
+                Equal(report[12], report[20],
+                    "Haunted Museum II mirrored P2 gun X");
+                Equal(report[16], report[24],
+                    "Haunted Museum II mirrored P2 gun Y");
 
                 Array.Clear(buttons, 0, buttons.Length);
                 pointers[0] = new ForwardedPointerState(
@@ -212,6 +216,24 @@ namespace InputMethodAudit
                     "Wartran start, touch trigger, and option");
                 Equal(255, report[12], "Wartran P1 X");
                 Equal(127, report[13], "Wartran P1 Y");
+
+                Array.Clear(buttons, 0, buttons.Length);
+                Array.Clear(axes, 0, axes.Length);
+                pointers[0] = new ForwardedPointerState(
+                    11, 16_384, 49_152, ushort.MaxValue, 1, 1);
+                Build(AndroidLaunchRecipe.InputProtocolSharedAngryBirds,
+                    buttons, axes, pointers, report);
+                Equal(0, ReadInt32(report, 8),
+                    "Angry Birds touch moves slingshot without pressing ball tray");
+                Equal(63, report[12], "Angry Birds slingshot X");
+                Equal(191, report[13], "Angry Birds slingshot Y");
+
+                buttons[0] = Mask(ForwardedInputButton.Button1) |
+                             Mask(ForwardedInputButton.Button2);
+                Build(AndroidLaunchRecipe.InputProtocolSharedAngryBirds,
+                    buttons, axes, pointers, report);
+                Equal(0x180, ReadInt32(report, 8),
+                    "Angry Birds ball-tray and plunger cabinet switches");
 
                 Array.Clear(buttons, 0, buttons.Length);
                 Array.Clear(axes, 0, axes.Length);

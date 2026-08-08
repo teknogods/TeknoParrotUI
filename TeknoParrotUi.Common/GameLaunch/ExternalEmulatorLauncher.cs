@@ -37,6 +37,40 @@ namespace TeknoParrotUi.Common.GameLaunch
                    profile.ConfigValues.Any(x => x.FieldName == "DisplayMode" && x.FieldValue == "Windowed");
         }
 
+        public static string[] GetDolphinFirmwarePaths()
+        {
+            var dolphinDirectory = Path.GetFullPath(
+                Path.Combine(Directory.GetCurrentDirectory(), "CrediarDolphin"));
+            return new[]
+            {
+                Path.Combine(dolphinDirectory, "User", "Triforce", "segaboot.gcm"),
+                Path.Combine(dolphinDirectory, "Sys", "Triforce", "segaboot.gcm")
+            };
+        }
+
+        public static bool TryResolveDolphinFirmware(out string firmwarePath)
+        {
+            foreach (var path in GetDolphinFirmwarePaths())
+            {
+                if (!File.Exists(path))
+                    continue;
+                firmwarePath = path;
+                return true;
+            }
+
+            firmwarePath = string.Empty;
+            return false;
+        }
+
+        public static string GetMissingDolphinFirmwareMessage()
+        {
+            var paths = GetDolphinFirmwarePaths();
+            return "CrediarDolphin is missing segaboot.gcm, which is required for " +
+                   "Triforce test and service menus. Restore or update CrediarDolphin, " +
+                   "or place the firmware in either location:\n\n" +
+                   paths[0] + "\n" + paths[1] + "\n\nThe game was not launched.";
+        }
+
         public static ProcessStartInfo Build(GameProfile profile, string gameLocation, Action<string> log)
         {
             bool windowed = IsWindowed(profile);

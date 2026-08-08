@@ -61,6 +61,13 @@ namespace TeknoParrotUi.Common.Updater
         public UpdaterDeliveryKind deliveryKind { get; set; }
         public string packageIdentity { get; set; }
         public string runtimePackageId { get; set; }
+        /// <summary>
+        /// True when the published Android runtime asset already contains the
+        /// signed bridge installation envelope (manifest plus payload roots).
+        /// Shared flat desktop archives leave this false and are adapted in
+        /// TPUI's private cache after their release digest is verified.
+        /// </summary>
+        public bool runtimeArchiveIsInstallEnvelope { get; set; }
 
         /// <summary>
         /// Overrides the release tag/lookup key used by <see cref="UpdaterCore.GetRelease"/>
