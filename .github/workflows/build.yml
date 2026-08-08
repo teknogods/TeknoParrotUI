@@ -1,10 +1,10 @@
 name: Build
 
 on:
-  push:
-    branches: [ master, net8-migration ]
-  pull_request:
-    branches: [ master, net8-migration ]
+  # Production packages are built by the TeknoGods build server. Keep this
+  # workflow only as an explicitly requested recovery/diagnostic path so a
+  # normal push or pull request cannot consume GitHub-hosted runners or publish
+  # a duplicate release.
   workflow_dispatch:
     inputs:
       build_android_release:
