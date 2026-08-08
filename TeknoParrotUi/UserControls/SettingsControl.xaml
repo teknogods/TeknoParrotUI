@@ -168,11 +168,9 @@
             VerticalAlignment="Center"
             Content="{x:Static p:Resources.SettingsScoreSubmissionID}"
             FontSize="15" />
-                        <TextBox
+                        <PasswordBox
             Grid.Column="2"
             x:Name="textBoxScoreSubmissionID"
-            Text=""
-            TextAlignment="Left"
             ToolTip="{x:Static p:Resources.SettingsScoreSubmissionIDTooltip}" />
                     </Grid>
                     <Grid Margin="0,5">

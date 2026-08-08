@@ -12,6 +12,7 @@ namespace TeknoParrotUi.Common
         DropdownIndex = 5,
         KeyCapture = 6,
         MonitorSelection = 7,
+        Password = 8,
     }
     public class FieldInformation
     {

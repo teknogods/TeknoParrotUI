@@ -12,6 +12,7 @@ using System.Windows.Threading;
 using System.Xml;
 using System.Xml.Serialization;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Common.InputListening;
 using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
 using TeknoParrotUi.Properties;
@@ -27,6 +28,7 @@ namespace TeknoParrotUi.UserControls
         private InputApi _currentInputApi = InputApi.MergedInput;
         private List<GameViewModel> _filteredGames = new List<GameViewModel>();
         private List<JoystickButtons> _commonButtons = new List<JoystickButtons>();
+        private readonly List<ComboBox> _deviceComboBoxes = new List<ComboBox>();
         private bool _isLoading = true;
 
         private JoystickControlDirectInput _joystickControlDirectInput;
@@ -84,7 +86,15 @@ namespace TeknoParrotUi.UserControls
 
             _contentControl = contentControl;
             _library = library;
-            
+
+            SunshinePlayerInput.InputReceived += OnSunshineInputReceived;
+            SunshinePlayerInput.Start();
+            Unloaded += (s, e) =>
+            {
+                SunshinePlayerInput.InputReceived -= OnSunshineInputReceived;
+                SunshinePlayerInput.Stop();
+            };
+
             // Ensure profiles are loaded
             if (GameProfileLoader.UserProfiles == null)
                 GameProfileLoader.LoadProfiles(true); // true = only load user profiles
@@ -896,7 +906,8 @@ namespace TeknoParrotUi.UserControls
         {
             return mapping == InputMapping.P1LightGun || mapping == InputMapping.P2LightGun ||
                    mapping == InputMapping.P3LightGun || mapping == InputMapping.P4LightGun ||
-                   mapping == InputMapping.P1Trackball || mapping == InputMapping.P2Trackball;
+                   mapping == InputMapping.P1Trackball || mapping == InputMapping.P2Trackball ||
+                   mapping == InputMapping.P3Trackball || mapping == InputMapping.P4Trackball;
         }
 
         private void ConfigTextBox_Loaded(object sender, RoutedEventArgs e)
@@ -921,8 +932,26 @@ namespace TeknoParrotUi.UserControls
                 return;
             }
 
+            PopulateDeviceComboBox(comboBox, button);
+
+            if (!_deviceComboBoxes.Contains(comboBox))
+            {
+                _deviceComboBoxes.Add(comboBox);
+                comboBox.Unloaded += (s, e2) => _deviceComboBoxes.Remove(comboBox);
+            }
+        }
+
+        /// <summary>
+        /// Populates a lightgun/trackball movement-source dropdown: real RawInput mice plus any
+        /// currently-connected Sunshine streaming players, preserving the current selection.
+        /// Shared by the initial per-row Loaded handler and the live roster-refresh handler.
+        /// </summary>
+        private void PopulateDeviceComboBox(ComboBox comboBox, JoystickButtons button)
+        {
             // Keep these strings hardcoded since they get saved to configuration (same as JoystickControl)
-            var deviceList = new List<string> { "None", "Windows Mouse Cursor", "Unknown Device" };
+            var deviceList = new List<string> { "None", "Windows Mouse Cursor" };
+            foreach (var player in SunshinePlayerInput.GetConnectedPlayers())
+                deviceList.Add(SunshinePlayerInput.DisplayNameForPlayer(player));
             if (_joystickControlRawInput == null)
                 _joystickControlRawInput = new JoystickControlRawInput();
             deviceList.AddRange(_joystickControlRawInput.GetMouseDeviceList());
@@ -938,6 +967,26 @@ namespace TeknoParrotUi.UserControls
             comboBox.SelectionChanged += DeviceComboBox_SelectionChanged;
 
             comboBox.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Live-refreshes every currently-visible device dropdown when a Sunshine client
+        /// connects or disconnects, so newly-attached streaming players show up (or
+        /// disconnected ones disappear) without needing to leave and re-open this screen.
+        /// </summary>
+        private void OnSunshineInputReceived(object sender, SunshineInputEventArgs e)
+        {
+            if (e.EventType != SunshineInputEventType.Roster)
+                return;
+
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                foreach (var box in _deviceComboBoxes.ToList())
+                {
+                    if (box.Tag is JoystickButtons t)
+                        PopulateDeviceComboBox(box, t);
+                }
+            }));
         }
 
         private void DeviceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -964,6 +1013,10 @@ namespace TeknoParrotUi.UserControls
             else if (selectedDeviceName == "Unknown Device")
             {
                 path = "null";
+            }
+            else if (SunshinePlayerInput.TryParsePlayerFromDisplayName(selectedDeviceName, out int sunshinePlayer))
+            {
+                path = SunshinePlayerInput.DevicePathForPlayer(sunshinePlayer);
             }
             else if (selectedDevice == null)
             {

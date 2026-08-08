@@ -203,7 +203,56 @@ namespace TeknoParrotUi.Common
                     }
                     else
                     {
-                        other.FileName = isThereOther;
+                        // Revision changed (e.g. this game's control-scheme template was updated
+                        // upstream). Re-map the user's saved bindings, config values, and game
+                        // paths onto the current template's button/field structure instead of
+                        // discarding them - "other" (the fresh template) may have added/removed
+                        // controls since the user's profile was created, so we keep its shape but
+                        // carry over every value the user actually configured, matched by name.
+                        for (int i = 0; i < other.JoystickButtons.Count; i++)
+                        {
+                            var button = gameProfile.JoystickButtons.FirstOrDefault(x => x.ButtonName == other.JoystickButtons[i].ButtonName);
+
+                            if (button != null)
+                            {
+                                other.JoystickButtons[i].DirectInputButton = button.DirectInputButton;
+                                other.JoystickButtons[i].XInputButton = button.XInputButton;
+                                other.JoystickButtons[i].RawInputButton = button.RawInputButton;
+                                other.JoystickButtons[i].BindNameDi = button.BindNameDi;
+                                other.JoystickButtons[i].BindNameXi = button.BindNameXi;
+                                other.JoystickButtons[i].BindNameRi = button.BindNameRi;
+                                other.JoystickButtons[i].BindName = button.BindName;
+
+                                // Clear DolphinBar binds without DevicePath (same fixup as the GameProfiles merge above)
+                                if (other.JoystickButtons[i].BindNameRi != null && other.JoystickButtons[i].BindNameRi.Contains("DolphinBar") && string.IsNullOrWhiteSpace(other.JoystickButtons[i].RawInputButton?.DevicePath))
+                                {
+                                    other.JoystickButtons[i].RawInputButton = new RawInputButton
+                                    {
+                                        DevicePath = "",
+                                        DeviceType = RawDeviceType.None,
+                                        MouseButton = RawMouseButton.None,
+                                        KeyboardKey = Keys.None
+                                    };
+                                    other.JoystickButtons[i].BindNameRi = "";
+                                }
+                            }
+                        }
+
+                        for (int i = 0; i < other.ConfigValues.Count; i++)
+                        {
+                            for (int j = 0; j < gameProfile.ConfigValues.Count; j++)
+                            {
+                                if (other.ConfigValues[i].FieldName == gameProfile.ConfigValues[j].FieldName)
+                                {
+                                    other.ConfigValues[i].FieldValue = gameProfile.ConfigValues[j].FieldValue;
+                                }
+                            }
+                        }
+
+                        other.GamePath = gameProfile.GamePath;
+                        other.GamePath2 = gameProfile.GamePath2;
+
+                        other.FileName = file;
                         other.ProfileName = Path.GetFileNameWithoutExtension(file);
                         other.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
                         other.GameInfo = JoystickHelper.DeSerializeMetadata(file);
@@ -220,6 +269,11 @@ namespace TeknoParrotUi.Common
                         {
                             other.GameNameInternal = Path.GetFileNameWithoutExtension(file) + " (Metadata Missing)";
                         }
+
+                        // Persist the re-mapped profile under the current revision so this merge
+                        // doesn't need to re-run (and re-log a "woah automapper" surprise) next launch.
+                        JoystickHelper.SerializeGameProfile(other);
+
                         lock (userprofileList)
                         {
                             userprofileList.Add(other);

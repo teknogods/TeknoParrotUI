@@ -466,6 +466,7 @@
       <DependentUpon>About.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\StringToBoolConverter.cs" />
+    <Compile Include="Converters\PasswordBoxHelper.cs" />
     <Compile Include="Views\GameRunning.xaml.cs">
       <DependentUpon>GameRunning.xaml</DependentUpon>
     </Compile>

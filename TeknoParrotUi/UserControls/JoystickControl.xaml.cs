@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Common.InputListening;
 using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Views;
 using Keys = System.Windows.Forms.Keys;
@@ -29,6 +30,7 @@ namespace TeknoParrotUi.UserControls
         private bool _BG4ProMode;
         private bool _isKeyboardorButtonAxis;
         private bool _RelativeAxis;
+        private bool _isRemoteLocalPlayMode;
         private bool _UseDPadForGUN1Stick;
         private bool _UseDPadForGUN2Stick;
         private bool _UseAnalogAxisToAimGUN1;
@@ -38,6 +40,7 @@ namespace TeknoParrotUi.UserControls
         private InputApi _inputApi = InputApi.DirectInput;
         private bool _mergedIncludesRawInput;
         private bool _mergedIncludesRawInputTrackball;
+        private readonly List<ComboBox> _deviceComboBoxes = new List<ComboBox>();
 
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -64,6 +67,37 @@ namespace TeknoParrotUi.UserControls
             InitializeComponent();
             _library = library;
             _contentControl = contentControl;
+
+            // Started here (not just inside JoystickControlRawInput.Listen()) so the device
+            // picker dropdown has live streaming-player data regardless of which RawInput listen
+            // mode the game's Input API actually triggers.
+            SunshinePlayerInput.InputReceived += OnSunshineInputReceived;
+            SunshinePlayerInput.Start();
+            Unloaded += (s, e) =>
+            {
+                SunshinePlayerInput.InputReceived -= OnSunshineInputReceived;
+                SunshinePlayerInput.Stop();
+            };
+        }
+
+        /// <summary>
+        /// Live-refreshes every currently-visible device dropdown when a Sunshine client
+        /// connects or disconnects, so newly-attached streaming players show up (or
+        /// disconnected ones disappear) without needing to leave and re-open this screen.
+        /// </summary>
+        private void OnSunshineInputReceived(object sender, SunshineInputEventArgs e)
+        {
+            if (e.EventType != SunshineInputEventType.Roster)
+                return;
+
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                foreach (var box in _deviceComboBoxes.ToList())
+                {
+                    if (box.Tag is JoystickButtons t)
+                        PopulateDeviceComboBox(box, t);
+                }
+            }));
         }
 
         public void LoadNewSettings(GameProfile gameProfile, ListBoxItem comboItem)
@@ -73,6 +107,7 @@ namespace TeknoParrotUi.UserControls
             _isKeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
             _RelativeAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Relative Input" && x.FieldValue == "1");
             _BG4ProMode = gameProfile.ConfigValues.Any(x => x.FieldName == "Professional Edition Enable" && x.FieldValue == "1");
+            _isRemoteLocalPlayMode = gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue == "1");
 
             string UseDPadForGUN1Stick_String = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "GUN1StickAxisInputStyle")?.FieldValue;
             if (UseDPadForGUN1Stick_String == "UseDPadForGUN1Stick")
@@ -360,7 +395,7 @@ namespace TeknoParrotUi.UserControls
                         txt.Visibility = Visibility.Collapsed;
                     else if (t.InputMapping == InputMapping.P1LightGun || t.InputMapping == InputMapping.P2LightGun || t.InputMapping == InputMapping.P3LightGun || t.InputMapping == InputMapping.P4LightGun)
                         txt.Visibility = Visibility.Collapsed;
-                    else if (t.InputMapping == InputMapping.P1Trackball || t.InputMapping == InputMapping.P2Trackball)
+                    else if (t.InputMapping == InputMapping.P1Trackball || t.InputMapping == InputMapping.P2Trackball || t.InputMapping == InputMapping.P3Trackball || t.InputMapping == InputMapping.P4Trackball)
                         txt.Visibility = Visibility.Collapsed;
                     else if (_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && _inputApi != InputApi.MergedInput && t.HideWithKeyboardForAxis)
                         txt.Visibility = Visibility.Collapsed;
@@ -414,6 +449,10 @@ namespace TeknoParrotUi.UserControls
                         hideRow = true;
                     else if (!_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && _inputApi != InputApi.MergedInput && t2.HideWithoutKeyboardForAxis)
                         hideRow = true;
+                    else if (_isRemoteLocalPlayMode && t2.HideWithRemoteLocalPlayMode)
+                        hideRow = true;
+                    else if (!_isRemoteLocalPlayMode && t2.HideWithoutRemoteLocalPlayMode)
+                        hideRow = true;
                     else if (_RelativeAxis && _inputApi != InputApi.RawInput && t2.HideWithRelativeAxis)
                         hideRow = true;
                     else if (!_RelativeAxis && _inputApi != InputApi.RawInput && t2.HideWithoutRelativeAxis)
@@ -452,27 +491,15 @@ namespace TeknoParrotUi.UserControls
 
                     var t3 = txt.Tag as JoystickButtons;
 
-                    if ((t3.InputMapping == InputMapping.P1LightGun || t3.InputMapping == InputMapping.P2LightGun || t3.InputMapping == InputMapping.P3LightGun || t3.InputMapping == InputMapping.P4LightGun || t3.InputMapping == InputMapping.P1Trackball || t3.InputMapping == InputMapping.P2Trackball) && (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball || (_inputApi == InputApi.MergedInput && (_mergedIncludesRawInput || _mergedIncludesRawInputTrackball))))
+                    if ((t3.InputMapping == InputMapping.P1LightGun || t3.InputMapping == InputMapping.P2LightGun || t3.InputMapping == InputMapping.P3LightGun || t3.InputMapping == InputMapping.P4LightGun || t3.InputMapping == InputMapping.P1Trackball || t3.InputMapping == InputMapping.P2Trackball || t3.InputMapping == InputMapping.P3Trackball || t3.InputMapping == InputMapping.P4Trackball) && (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball || (_inputApi == InputApi.MergedInput && (_mergedIncludesRawInput || _mergedIncludesRawInputTrackball))))
                     {
-                        var deviceList = new List<string>() { "None", "Windows Mouse Cursor", "Unknown Device" };
-                        deviceList.AddRange(_joystickControlRawInput.GetMouseDeviceList());
+                        PopulateDeviceComboBox(txt, t3);
 
-                        // Add current selection even though it isnt currently available
-                        if (t3.BindNameRi != null && !deviceList.Contains(t3.BindNameRi))
-                            deviceList.Add(t3.BindNameRi);
-
-                        // Temporary remove event to prevent triggering it
-                        txt.SelectionChanged -= ComboBox_SelectionChanged;
-                        txt.ItemsSource = deviceList;
-
-                        if (t3.BindNameRi == null)
-                            txt.SelectedItem = "None";
-                        else
-                            txt.SelectedItem = t3.BindNameRi;
-
-                        txt.Visibility = Visibility.Visible;
-                        // Restore event
-                        txt.SelectionChanged += ComboBox_SelectionChanged;
+                        if (!_deviceComboBoxes.Contains(txt))
+                        {
+                            _deviceComboBoxes.Add(txt);
+                            txt.Unloaded += (s, e) => _deviceComboBoxes.Remove(txt);
+                        }
                     }
                     else
                     {
@@ -482,6 +509,36 @@ namespace TeknoParrotUi.UserControls
                 default:
                     break;
             }
+        }
+
+        /// <summary>
+        /// Populates a lightgun/trackball movement-source dropdown: real RawInput mice plus any
+        /// currently-connected Sunshine streaming players, preserving the current selection.
+        /// Shared by the initial per-row Loaded handler and the live roster-refresh handler.
+        /// </summary>
+        private void PopulateDeviceComboBox(ComboBox txt, JoystickButtons t3)
+        {
+            var deviceList = new List<string>() { "None", "Windows Mouse Cursor" };
+            foreach (var player in SunshinePlayerInput.GetConnectedPlayers())
+                deviceList.Add(SunshinePlayerInput.DisplayNameForPlayer(player));
+            deviceList.AddRange(_joystickControlRawInput.GetMouseDeviceList());
+
+            // Add current selection even though it isnt currently available
+            if (t3.BindNameRi != null && !deviceList.Contains(t3.BindNameRi))
+                deviceList.Add(t3.BindNameRi);
+
+            // Temporary remove event to prevent triggering it
+            txt.SelectionChanged -= ComboBox_SelectionChanged;
+            txt.ItemsSource = deviceList;
+
+            if (t3.BindNameRi == null)
+                txt.SelectedItem = "None";
+            else
+                txt.SelectedItem = t3.BindNameRi;
+
+            txt.Visibility = Visibility.Visible;
+            // Restore event
+            txt.SelectionChanged += ComboBox_SelectionChanged;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -507,6 +564,11 @@ namespace TeknoParrotUi.UserControls
             else if (selectedDeviceName == "Unknown Device")
             {
                 path = "null";
+                type = RawDeviceType.Mouse;
+            }
+            else if (SunshinePlayerInput.TryParsePlayerFromDisplayName(selectedDeviceName, out int sunshinePlayer))
+            {
+                path = SunshinePlayerInput.DevicePathForPlayer(sunshinePlayer);
                 type = RawDeviceType.Mouse;
             }
             else if (selectedDevice == null)

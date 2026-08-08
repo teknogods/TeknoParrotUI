@@ -29,11 +29,23 @@ namespace TeknoParrotUi.Common.InputListening
 
         private static short _currentDeltaX;
         private static short _currentDeltaY;
+        private static short _currentDeltaX2;
+        private static short _currentDeltaY2;
+        private static short _currentDeltaX3;
+        private static short _currentDeltaY3;
+        private static short _currentDeltaX4;
+        private static short _currentDeltaY4;
         private readonly object _stateLock = new object();
         private const int MaxShortValue = 32767;
         private const int MinShortValue = -32768;
         private MemoryMappedFile _mmf;
         private MemoryMappedViewAccessor _accessor;
+        private MemoryMappedFile _mmf2;
+        private MemoryMappedViewAccessor _accessor2;
+        private MemoryMappedFile _mmf3;
+        private MemoryMappedViewAccessor _accessor3;
+        private MemoryMappedFile _mmf4;
+        private MemoryMappedViewAccessor _accessor4;
 
         [StructLayout(LayoutKind.Sequential)]
         private struct RECT
@@ -78,6 +90,32 @@ namespace TeknoParrotUi.Common.InputListening
             _accessor.Write(0, 0); // deltaX
             _accessor.Write(4, 0); // deltaY
             _accessor.Write(8, 0); // reset flag
+
+            // Local Online Mode only: P2/P3/P4 each get their own independent region, same
+            // layout as above, so the game side can read all four independently and decide
+            // which one applies based on its own current-player state. Cheap to always create
+            // regardless of whether Remote Local Play is actually on for this game - unused
+            // memory-mapped files cost nothing at runtime if nothing ever reads/writes them.
+            _mmf2 = MemoryMappedFile.CreateOrOpen("RawInputTrackballSharedMemory2", 12);
+            _accessor2 = _mmf2.CreateViewAccessor();
+            _accessor2.Write(0, 0);
+            _accessor2.Write(4, 0);
+            _accessor2.Write(8, 0);
+
+            _mmf3 = MemoryMappedFile.CreateOrOpen("RawInputTrackballSharedMemory3", 12);
+            _accessor3 = _mmf3.CreateViewAccessor();
+            _accessor3.Write(0, 0);
+            _accessor3.Write(4, 0);
+            _accessor3.Write(8, 0);
+
+            _mmf4 = MemoryMappedFile.CreateOrOpen("RawInputTrackballSharedMemory4", 12);
+            _accessor4 = _mmf4.CreateViewAccessor();
+            _accessor4.Write(0, 0);
+            _accessor4.Write(4, 0);
+            _accessor4.Write(8, 0);
+
+            SunshinePlayerInput.InputReceived += OnSunshineInputReceived;
+            SunshinePlayerInput.Start();
         }
 
         private bool isHookableWindow(string windowTitle)
@@ -208,6 +246,14 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 var data = RawInputData.FromHandle(lParam);
 
+                // See InputListenerRawInput.WndProcReceived for why anonymous (no real device)
+                // events are dropped: they're an echo of Sunshine's own synthetic injection, and
+                // we already get that same press properly tagged via the pipe.
+                if (data == null || data.Device == null)
+                {
+                    return;
+                }
+
                 string path = "null";
 
                 if (data != null && data.Device != null && data.Device.DevicePath != null)
@@ -227,48 +273,29 @@ namespace TeknoParrotUi.Common.InputListening
 
                                 // Multiple buttons can be pressed/released in single event so check them all
                                 if (flags.HasFlag(RawMouseButtonFlags.LeftButtonDown) || flags.HasFlag(RawMouseButtonFlags.LeftButtonUp))
-                                {
-                                    foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.LeftButton))
-                                        HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.LeftButtonDown));
-                                }
+                                    ProcessMouseButton(path, RawMouseButton.LeftButton, flags.HasFlag(RawMouseButtonFlags.LeftButtonDown));
 
                                 if (flags.HasFlag(RawMouseButtonFlags.RightButtonDown) || flags.HasFlag(RawMouseButtonFlags.RightButtonUp))
-                                {
-                                    foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.RightButton))
-                                        HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.RightButtonDown));
-                                }
+                                    ProcessMouseButton(path, RawMouseButton.RightButton, flags.HasFlag(RawMouseButtonFlags.RightButtonDown));
 
                                 if (flags.HasFlag(RawMouseButtonFlags.MiddleButtonDown) || flags.HasFlag(RawMouseButtonFlags.MiddleButtonUp))
-                                {
-                                    foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.MiddleButton))
-                                        HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.MiddleButtonDown));
-                                }
+                                    ProcessMouseButton(path, RawMouseButton.MiddleButton, flags.HasFlag(RawMouseButtonFlags.MiddleButtonDown));
 
                                 if (flags.HasFlag(RawMouseButtonFlags.Button4Down) || flags.HasFlag(RawMouseButtonFlags.Button4Up))
-                                {
-                                    foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.Button4))
-                                        HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.Button4Down));
-                                }
+                                    ProcessMouseButton(path, RawMouseButton.Button4, flags.HasFlag(RawMouseButtonFlags.Button4Down));
 
                                 if (flags.HasFlag(RawMouseButtonFlags.Button5Down) || flags.HasFlag(RawMouseButtonFlags.Button5Up))
-                                {
-                                    foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.Button5))
-                                        HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.Button5Down));
-                                }
+                                    ProcessMouseButton(path, RawMouseButton.Button5, flags.HasFlag(RawMouseButtonFlags.Button5Down));
                             }
 
                             if (mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveRelative))
                             {
-                                foreach (var trackball in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1Trackball || btn.InputMapping == InputMapping.P2Trackball)))
-                                {
-                                    HandleRawInputTrackball(trackball, mouse.Mouse.LastX, mouse.Mouse.LastY);
-                                }
+                                ProcessTrackballMove(path, mouse.Mouse.LastX, mouse.Mouse.LastY);
                             }
 
                             break;
                         case RawInputKeyboardData keyboard:
-                            foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Keyboard && btn.RawInputButton.KeyboardKey == (Keys)keyboard.Keyboard.VirutalKey))
-                                HandleRawInputButton(jsButton, !keyboard.Keyboard.Flags.HasFlag(RawKeyboardFlags.Up));
+                            ProcessKeyboardKey(path, (Keys)keyboard.Keyboard.VirutalKey, !keyboard.Keyboard.Flags.HasFlag(RawKeyboardFlags.Up));
                             break;
                     }
                 }
@@ -279,8 +306,108 @@ namespace TeknoParrotUi.Common.InputListening
             }
         }
 
+        /// <summary>
+        /// Handles a player-tagged event forwarded from Sunshine over the identity-bridge pipe.
+        /// Fires on a background thread, so this only feeds the same matching/dispatch path real
+        /// RawInput events use, keyed by the synthetic "SUNSHINE#PLAYERn" device path.
+        /// </summary>
+        private void OnSunshineInputReceived(object sender, SunshineInputEventArgs e)
+        {
+            if (e.Player < SunshinePlayerInput.MinPlayer || e.Player > SunshinePlayerInput.MaxPlayer)
+            {
+                return;
+            }
+
+            // _joystickButtons is only populated once ListenRawInputTrackball() actually runs.
+            // When the game's Input API is plain RawInput (not RawInputTrackball), this class is
+            // constructed and stays subscribed to the Sunshine pipe, but its own listen method is
+            // never called - only InputListenerRawInput's does. See the matching guard in
+            // InputListenerRawInput.OnSunshineInputReceived for why this must not be skipped.
+            if (_joystickButtons == null)
+            {
+                return;
+            }
+
+            string path = SunshinePlayerInput.DevicePathForPlayer(e.Player);
+
+            try
+            {
+                switch (e.EventType)
+                {
+                    case SunshineInputEventType.KeyDown:
+                        ProcessKeyboardKey(path, (Keys)e.KeyCode, true);
+                        break;
+                    case SunshineInputEventType.KeyUp:
+                        ProcessKeyboardKey(path, (Keys)e.KeyCode, false);
+                        break;
+                    case SunshineInputEventType.MouseButtonDown:
+                        ProcessMouseButton(path, SunshinePlayerInput.MapMouseButton(e.MouseButton), true);
+                        break;
+                    case SunshineInputEventType.MouseButtonUp:
+                        ProcessMouseButton(path, SunshinePlayerInput.MapMouseButton(e.MouseButton), false);
+                        break;
+                    case SunshineInputEventType.MouseMove:
+                        ProcessTrackballMove(path, e.DeltaX, e.DeltaY);
+                        break;
+                }
+            }
+            catch
+            {
+                // do nothing essentially
+            }
+        }
+
+        /// <summary>
+        /// Matches and dispatches a mouse button state change for the given device path. Shared
+        /// by real WM_INPUT events and Sunshine pipe events.
+        /// </summary>
+        private void ProcessMouseButton(string path, RawMouseButton button, bool pressed)
+        {
+            foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == button))
+                HandleRawInputButton(jsButton, pressed);
+        }
+
+        /// <summary>
+        /// Matches and dispatches a keyboard key state change for the given device path. Shared
+        /// by real WM_INPUT events and Sunshine pipe events.
+        /// </summary>
+        private void ProcessKeyboardKey(string path, Keys key, bool pressed)
+        {
+            foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Keyboard && btn.RawInputButton.KeyboardKey == key))
+                HandleRawInputButton(jsButton, pressed);
+        }
+
+        /// <summary>
+        /// Matches and dispatches a relative trackball delta for the given device path. Shared by
+        /// real WM_INPUT events and Sunshine pipe events.
+        /// </summary>
+        private void ProcessTrackballMove(string path, int deltaX, int deltaY)
+        {
+            bool isRemoteLocalPlayMode = _gameProfile != null && _gameProfile.ConfigValues != null &&
+                _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue == "1");
+
+            foreach (var trackball in _joystickButtons.Where(btn =>
+                btn.RawInputButton.DevicePath == path &&
+                btn.RawInputButton.DeviceType == RawDeviceType.Mouse &&
+                (btn.InputMapping == InputMapping.P1Trackball || btn.InputMapping == InputMapping.P2Trackball || btn.InputMapping == InputMapping.P3Trackball || btn.InputMapping == InputMapping.P4Trackball) &&
+                !(isRemoteLocalPlayMode && btn.HideWithRemoteLocalPlayMode) &&
+                !(!isRemoteLocalPlayMode && btn.HideWithoutRemoteLocalPlayMode)))
+            {
+                HandleRawInputTrackball(trackball, deltaX, deltaY);
+            }
+        }
+
         private void HandleRawInputButton(JoystickButtons joystickButton, bool pressed)
         {
+            bool isRemoteLocalPlayMode = _gameProfile != null && _gameProfile.ConfigValues != null &&
+                _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue == "1");
+
+            if ((isRemoteLocalPlayMode && joystickButton.HideWithRemoteLocalPlayMode) ||
+                (!isRemoteLocalPlayMode && joystickButton.HideWithoutRemoteLocalPlayMode))
+            {
+                return;
+            }
+
             switch (joystickButton.InputMapping)
             {
                 case InputMapping.Test:
@@ -371,6 +498,87 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.P2ButtonRight:
                     InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Right : Direction.HorizontalCenter);
+                    break;
+                case InputMapping.Stream2P1ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[0].Start = pressed;
+                    break;
+                case InputMapping.Stream2P2Button1:
+                    InputCode.StreamingPlayerDigitalButtons[1].Button1 = pressed;
+                    break;
+                case InputMapping.Stream2P2Button2:
+                    InputCode.StreamingPlayerDigitalButtons[1].Button2 = pressed;
+                    break;
+                case InputMapping.Stream2P1Button1:
+                    InputCode.StreamingPlayerDigitalButtons[0].Button1 = pressed;
+                    break;
+                case InputMapping.Stream2P1Button2:
+                    InputCode.StreamingPlayerDigitalButtons[0].Button2 = pressed;
+                    break;
+                case InputMapping.Stream2P1Button3:
+                    InputCode.StreamingPlayerDigitalButtons[0].Button3 = pressed;
+                    break;
+                case InputMapping.Stream2P1Button4:
+                    InputCode.StreamingPlayerDigitalButtons[0].Button4 = pressed;
+                    break;
+                case InputMapping.Stream2P1Button6:
+                    InputCode.StreamingPlayerDigitalButtons[0].Button6 = pressed;
+                    break;
+                case InputMapping.Stream2P2ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[1].Start = pressed;
+                    break;
+                case InputMapping.Stream3P1ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[2].Start = pressed;
+                    break;
+                case InputMapping.Stream3P2Button1:
+                    InputCode.StreamingPlayerDigitalButtons[3].Button1 = pressed;
+                    break;
+                case InputMapping.Stream3P2Button2:
+                    InputCode.StreamingPlayerDigitalButtons[3].Button2 = pressed;
+                    break;
+                case InputMapping.Stream3P1Button1:
+                    InputCode.StreamingPlayerDigitalButtons[2].Button1 = pressed;
+                    break;
+                case InputMapping.Stream3P1Button2:
+                    InputCode.StreamingPlayerDigitalButtons[2].Button2 = pressed;
+                    break;
+                case InputMapping.Stream3P1Button3:
+                    InputCode.StreamingPlayerDigitalButtons[2].Button3 = pressed;
+                    break;
+                case InputMapping.Stream3P1Button4:
+                    InputCode.StreamingPlayerDigitalButtons[2].Button4 = pressed;
+                    break;
+                case InputMapping.Stream3P1Button6:
+                    InputCode.StreamingPlayerDigitalButtons[2].Button6 = pressed;
+                    break;
+                case InputMapping.Stream3P2ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[3].Start = pressed;
+                    break;
+                case InputMapping.Stream4P1ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[4].Start = pressed;
+                    break;
+                case InputMapping.Stream4P2Button1:
+                    InputCode.StreamingPlayerDigitalButtons[5].Button1 = pressed;
+                    break;
+                case InputMapping.Stream4P2Button2:
+                    InputCode.StreamingPlayerDigitalButtons[5].Button2 = pressed;
+                    break;
+                case InputMapping.Stream4P1Button1:
+                    InputCode.StreamingPlayerDigitalButtons[4].Button1 = pressed;
+                    break;
+                case InputMapping.Stream4P1Button2:
+                    InputCode.StreamingPlayerDigitalButtons[4].Button2 = pressed;
+                    break;
+                case InputMapping.Stream4P1Button3:
+                    InputCode.StreamingPlayerDigitalButtons[4].Button3 = pressed;
+                    break;
+                case InputMapping.Stream4P1Button4:
+                    InputCode.StreamingPlayerDigitalButtons[4].Button4 = pressed;
+                    break;
+                case InputMapping.Stream4P1Button6:
+                    InputCode.StreamingPlayerDigitalButtons[4].Button6 = pressed;
+                    break;
+                case InputMapping.Stream4P2ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[5].Start = pressed;
                     break;
                 // Jvs Board 2
                 case InputMapping.JvsTwoService1:
@@ -534,29 +742,59 @@ namespace TeknoParrotUi.Common.InputListening
 
         private void HandleRawInputTrackball(JoystickButtons joystickButton, int deltaX, int deltaY)
         {
+            int signedDeltaX = _invertX ? -deltaX : deltaX;
+            int signedDeltaY = _invertY ? -deltaY : deltaY;
+
             lock (_stateLock)
             {
-                int signedDeltaX = _invertX ? -deltaX : deltaX;
-                int signedDeltaY = _invertY ? -deltaY : deltaY;
-                int resetFlag = _accessor.ReadInt32(8);
-
-                if (resetFlag == 1)
+                // Local Online Mode only: route each player's trackball to its own independent
+                // buffer, so the game can tell them apart and apply only whichever one is
+                // currently active. Outside this mode, every trackball binding - P1, P2, or
+                // anything else - always goes to the single original buffer, exactly matching
+                // behavior from before this feature existed.
+                if (_gameProfile != null && _gameProfile.ConfigValues != null && _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue == "1"))
                 {
-                    //Trace.WriteLine("Reset flag set, resetting deltas.");
-                    // Game has read the accumulated delta, so we can reset and start over
-                    // Note: we do also clear the delta from memory if the game does it, to get rid of leftover deltas
-                    // Although we could also just read the reset flag on the game to see if there has been an update.
-                    _currentDeltaX = 0;
-                    _currentDeltaY = 0;
-                    _accessor.Write(8, 0);
+                    switch (joystickButton.InputMapping)
+                    {
+                        case InputMapping.P2Trackball:
+                            WriteTrackballDelta(_accessor2, ref _currentDeltaX2, ref _currentDeltaY2, signedDeltaX, signedDeltaY);
+                            return;
+                        case InputMapping.P3Trackball:
+                            WriteTrackballDelta(_accessor3, ref _currentDeltaX3, ref _currentDeltaY3, signedDeltaX, signedDeltaY);
+                            return;
+                        case InputMapping.P4Trackball:
+                            WriteTrackballDelta(_accessor4, ref _currentDeltaX4, ref _currentDeltaY4, signedDeltaX, signedDeltaY);
+                            return;
+                        // P1Trackball (and anything unexpected) falls through to the original
+                        // buffer below, same as always.
+                    }
                 }
 
-                _currentDeltaX += (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaX));
-                _currentDeltaY += (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaY));
-                //Trace.WriteLine($"DeltaX: {_currentDeltaX}, DeltaY: {_currentDeltaY}");
-                _accessor.Write(0, _currentDeltaX);
-                _accessor.Write(4, _currentDeltaY);
+                WriteTrackballDelta(_accessor, ref _currentDeltaX, ref _currentDeltaY, signedDeltaX, signedDeltaY);
             }
+        }
+
+        /// <summary>
+        /// Accumulates a delta into the given buffer's state and writes it out. Shared by all
+        /// four (P1-P4) trackball targets - identical logic, just pointed at different backing
+        /// state, to avoid quadruplicating this by hand.
+        /// </summary>
+        private static void WriteTrackballDelta(MemoryMappedViewAccessor accessor, ref short currentDeltaX, ref short currentDeltaY, int signedDeltaX, int signedDeltaY)
+        {
+            int resetFlag = accessor.ReadInt32(8);
+
+            if (resetFlag == 1)
+            {
+                // Game has read the accumulated delta, so we can reset and start over.
+                currentDeltaX = 0;
+                currentDeltaY = 0;
+                accessor.Write(8, 0);
+            }
+
+            currentDeltaX += (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaX));
+            currentDeltaY += (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaY));
+            accessor.Write(0, currentDeltaX);
+            accessor.Write(4, currentDeltaY);
         }
     }
 }

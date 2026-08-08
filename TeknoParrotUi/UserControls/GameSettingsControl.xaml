@@ -191,6 +191,23 @@
                                                 </Setter>
                                             </DataTrigger>
 
+                                            <DataTrigger Binding="{Binding FieldType}" Value="Password">
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <PasswordBox
+                                            Height="{StaticResource fieldHeight}"
+                                            Margin="0,0,0,5"
+                                            Foreground="{DynamicResource MaterialDesignBody}"
+                                            Tag="SettingsTxt"
+                                            converters:PasswordBoxHelper.BoundPassword="{Binding FieldValue, Mode=TwoWay}">
+                                                            <PasswordBox.ToolTip>
+                                                                <ToolTip Style="{StaticResource teknoHint}" />
+                                                            </PasswordBox.ToolTip>
+                                                        </PasswordBox>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+
                                             <DataTrigger Binding="{Binding FieldType}" Value="Bool">
                                                 <Setter Property="Content">
                                                     <Setter.Value>

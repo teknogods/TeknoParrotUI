@@ -233,6 +233,8 @@ namespace TeknoParrotUi.Common
         FnfGearChangeDown,
         P1Trackball,
         P2Trackball,
+        P3Trackball,
+        P4Trackball,
         Analog0Positive,
         Analog0Negative,
         Analog2Positive,
@@ -259,7 +261,34 @@ namespace TeknoParrotUi.Common
         Card4,
         TPSystem1,
         TPSystem2,
-        TPSystem3
+        TPSystem3,
+        Stream2P1ButtonStart,
+        Stream2P2Button1,
+        Stream2P2Button2,
+        Stream2P1Button1,
+        Stream2P1Button2,
+        Stream2P1Button3,
+        Stream2P1Button4,
+        Stream2P1Button6,
+        Stream2P2ButtonStart,
+        Stream3P1ButtonStart,
+        Stream3P2Button1,
+        Stream3P2Button2,
+        Stream3P1Button1,
+        Stream3P1Button2,
+        Stream3P1Button3,
+        Stream3P1Button4,
+        Stream3P1Button6,
+        Stream3P2ButtonStart,
+        Stream4P1ButtonStart,
+        Stream4P2Button1,
+        Stream4P2Button2,
+        Stream4P1Button1,
+        Stream4P1Button2,
+        Stream4P1Button3,
+        Stream4P1Button4,
+        Stream4P1Button6,
+        Stream4P2ButtonStart
     }
 
     public enum RotaryInputMode
@@ -319,6 +348,8 @@ namespace TeknoParrotUi.Common
         public bool HideWithRawInputTrackball { get; set; }
         public bool HideWithKeyboardForAxis { get; set; }
         public bool HideWithoutKeyboardForAxis { get; set; }
+        public bool HideWithRemoteLocalPlayMode { get; set; }
+        public bool HideWithoutRemoteLocalPlayMode { get; set; }
         public bool HideWithRelativeAxis { get; set; }
         public bool HideWithoutRelativeAxis { get; set; }
         public string Hint { get; set; }

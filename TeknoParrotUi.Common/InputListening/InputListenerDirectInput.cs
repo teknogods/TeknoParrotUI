@@ -1710,6 +1710,15 @@ namespace TeknoParrotUi.Common.InputListening
 
         private void HandleDirectInput(JoystickButtons joystickButtons, JoystickUpdate state)
         {
+            bool isRemoteLocalPlayMode = _gameProfile != null && _gameProfile.ConfigValues != null &&
+                _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue == "1");
+
+            if ((isRemoteLocalPlayMode && joystickButtons.HideWithRemoteLocalPlayMode) ||
+                (!isRemoteLocalPlayMode && joystickButtons.HideWithoutRemoteLocalPlayMode))
+            {
+                return;
+            }
+
             var button = joystickButtons.DirectInputButton;
             switch (joystickButtons.InputMapping)
             {
@@ -2000,6 +2009,87 @@ namespace TeknoParrotUi.Common.InputListening
                         DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[1], button, state, Direction.Right);
                     else
                         InputCode.PlayerDigitalButtons[1].Right = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream2P1ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[0].Start = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream2P2Button1:
+                    InputCode.StreamingPlayerDigitalButtons[1].Button1 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream2P2Button2:
+                    InputCode.StreamingPlayerDigitalButtons[1].Button2 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream2P1Button1:
+                    InputCode.StreamingPlayerDigitalButtons[0].Button1 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream2P1Button2:
+                    InputCode.StreamingPlayerDigitalButtons[0].Button2 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream2P1Button3:
+                    InputCode.StreamingPlayerDigitalButtons[0].Button3 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream2P1Button4:
+                    InputCode.StreamingPlayerDigitalButtons[0].Button4 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream2P1Button6:
+                    InputCode.StreamingPlayerDigitalButtons[0].Button6 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream2P2ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[1].Start = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream3P1ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[2].Start = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream3P2Button1:
+                    InputCode.StreamingPlayerDigitalButtons[3].Button1 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream3P2Button2:
+                    InputCode.StreamingPlayerDigitalButtons[3].Button2 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream3P1Button1:
+                    InputCode.StreamingPlayerDigitalButtons[2].Button1 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream3P1Button2:
+                    InputCode.StreamingPlayerDigitalButtons[2].Button2 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream3P1Button3:
+                    InputCode.StreamingPlayerDigitalButtons[2].Button3 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream3P1Button4:
+                    InputCode.StreamingPlayerDigitalButtons[2].Button4 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream3P1Button6:
+                    InputCode.StreamingPlayerDigitalButtons[2].Button6 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream3P2ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[3].Start = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream4P1ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[4].Start = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream4P2Button1:
+                    InputCode.StreamingPlayerDigitalButtons[5].Button1 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream4P2Button2:
+                    InputCode.StreamingPlayerDigitalButtons[5].Button2 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream4P1Button1:
+                    InputCode.StreamingPlayerDigitalButtons[4].Button1 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream4P1Button2:
+                    InputCode.StreamingPlayerDigitalButtons[4].Button2 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream4P1Button3:
+                    InputCode.StreamingPlayerDigitalButtons[4].Button3 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream4P1Button4:
+                    InputCode.StreamingPlayerDigitalButtons[4].Button4 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream4P1Button6:
+                    InputCode.StreamingPlayerDigitalButtons[4].Button6 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream4P2ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[5].Start = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.P2RelativeUp:
                     DigitalHelper.GetRelativeDirectionPressDirectInput(InputCode.PlayerDigitalButtons[1], button, state, Direction.RelativeUp);

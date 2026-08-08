@@ -41,7 +41,7 @@ namespace TeknoParrotUi.UserControls
             ChkFullAxisBrake.IsChecked = Lazydata.ParrotData.FullAxisBrake;
             ChkReverseAxisGas.IsChecked = Lazydata.ParrotData.ReverseAxisGas;
             ChkReverseAxisBrake.IsChecked = Lazydata.ParrotData.ReverseAxisBrake;
-            textBoxScoreSubmissionID.Text = Lazydata.ParrotData.ScoreSubmissionID;
+            textBoxScoreSubmissionID.Password = Lazydata.ParrotData.ScoreSubmissionID;
             ChkHideVanguardWarning.IsChecked = Lazydata.ParrotData.HideVanguardWarning;
             ChkUiElf2LogToFile.IsChecked = Lazydata.ParrotData.Elfldr2LogToFile;
             ChkHideDolphinGUI.IsChecked = Lazydata.ParrotData.HideDolphinGUI;
@@ -160,7 +160,7 @@ namespace TeknoParrotUi.UserControls
 
                 Lazydata.ParrotData.ExitGameKey = $"0x{keyExitGameKey.VirtualKey:X}";
                 Lazydata.ParrotData.PauseGameKey = $"0x{keyPauseGameKey.VirtualKey:X}";
-                Lazydata.ParrotData.ScoreSubmissionID = textBoxScoreSubmissionID.Text;
+                Lazydata.ParrotData.ScoreSubmissionID = textBoxScoreSubmissionID.Password;
                 //Lazydata.ParrotData.ScoreCollapseGUIKey = textBoxScoreCollapseKey.Text;
                 Lazydata.ParrotData.ScoreCollapseGUIKey = $"0x{keyCaptureScoreCollapseKey.VirtualKey:X}";
                 Lazydata.ParrotData.SaveLastPlayed = ChkSaveLastPlayed.IsChecked.Value;

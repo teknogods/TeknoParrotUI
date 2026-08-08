@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Threading;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Common.InputListening;
 using Keys = System.Windows.Forms.Keys;
 
 namespace TeknoParrotUi.Helpers
@@ -43,6 +44,9 @@ namespace TeknoParrotUi.Helpers
             _keyboardRegistered = registerKeyboard;
             if (registerKeyboard)
                 RawInputDevice.RegisterDevice(HidUsageAndPage.Keyboard, RawInputDeviceFlags.InputSink, hWnd);
+
+            SunshinePlayerInput.InputReceived += OnSunshineInputReceived;
+            SunshinePlayerInput.Start();
 
             // Create a list of devices that have the same name.
             // These will be checked in GetFancyName() and get a unique CRC added.
@@ -244,6 +248,14 @@ namespace TeknoParrotUi.Helpers
             {
                 var data = RawInputData.FromHandle(lParam);
 
+                // See InputListenerRawInput.WndProcReceived for why anonymous (no real device)
+                // events are dropped: they're an echo of Sunshine's own synthetic injection,
+                // and we already get that same press properly tagged via the pipe.
+                if (data == null || data.Device == null)
+                {
+                    return IntPtr.Zero;
+                }
+
                 switch (data)
                 {
                     case RawInputMouseData mouse:
@@ -266,16 +278,118 @@ namespace TeknoParrotUi.Helpers
         }
 
         /// <summary>
-        /// Sets text box text and tag.
+        /// Handles a player-tagged event forwarded from Sunshine while the config UI is
+        /// listening for a button binding. Mirrors WndProcHook's capture logic, but builds a
+        /// synthetic RawInputButton keyed by the player's device path instead of a real one.
+        /// Fires on a background thread, so UI access goes through the dispatcher exactly like
+        /// SetTextBoxText already does.
         /// </summary>
-        /// <param name="key"></param>
+        private void OnSunshineInputReceived(object sender, SunshineInputEventArgs e)
+        {
+            if (e.Player < SunshinePlayerInput.MinPlayer || e.Player > SunshinePlayerInput.MaxPlayer)
+                return;
+
+            string devicePath = SunshinePlayerInput.DevicePathForPlayer(e.Player);
+            string deviceLabel = SunshinePlayerInput.DisplayNameForPlayer(e.Player);
+
+            try
+            {
+                switch (e.EventType)
+                {
+                    case SunshineInputEventType.MouseButtonDown:
+                    {
+                        var button = SunshinePlayerInput.MapMouseButton(e.MouseButton);
+                        if (button == RawMouseButton.None)
+                            return;
+
+                        var riButton = new RawInputButton
+                        {
+                            DevicePath = devicePath,
+                            DeviceType = RawDeviceType.Mouse,
+                            MouseButton = button,
+                            KeyboardKey = Keys.None
+                        };
+
+                        SetTextBoxText(String.Format("{0} {1}", deviceLabel, button), riButton);
+                        break;
+                    }
+                    case SunshineInputEventType.KeyDown:
+                    {
+                        var key = (Keys)e.KeyCode;
+
+                        var riButton = new RawInputButton
+                        {
+                            DevicePath = devicePath,
+                            DeviceType = RawDeviceType.Keyboard,
+                            MouseButton = RawMouseButton.None,
+                            KeyboardKey = key
+                        };
+
+                        SetTextBoxText(String.Format("{0} {1}", deviceLabel, key), riButton, allowSave: key != Keys.Escape);
+                        break;
+                    }
+                    // MouseButtonUp/KeyUp/MouseMove/Roster aren't used for binding capture - only
+                    // "down" edges are bindable, matching how real device capture behaves.
+                }
+            }
+            catch
+            {
+                // do nothing essentially
+            }
+        }
+
+        /// <summary>
+        /// Sets text box text and tag from a real WM_INPUT capture.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="data"></param>
         private void SetTextBoxText(string text, RawInputData data)
+        {
+            string path = "null";
+
+            if (data != null && data.Device != null && data.Device.DevicePath != null)
+            {
+                path = data.Device.DevicePath;
+            }
+
+            var button = new RawInputButton
+            {
+                DevicePath = path,
+                DeviceType = RawDeviceType.None,
+                MouseButton = RawMouseButton.None,
+                KeyboardKey = Keys.None
+            };
+
+            bool save = true;
+
+            if (data is RawInputMouseData mouse)
+            {
+                button.MouseButton = GetButtonFromFlags(mouse.Mouse.Buttons);
+                button.DeviceType = RawDeviceType.Mouse;
+            }
+            else if (data is RawInputKeyboardData kb)
+            {
+                button.KeyboardKey = (Keys)kb.Keyboard.VirutalKey;
+                button.DeviceType = RawDeviceType.Keyboard;
+
+                if (button.KeyboardKey == Keys.Escape)
+                    save = false;
+            }
+
+            SetTextBoxText(text, button, save);
+        }
+
+        /// <summary>
+        /// Sets text box text and tag from an already-built RawInputButton, real or synthetic.
+        /// This is the single place binding capture actually commits to the focused textbox, so
+        /// both real RawInput devices and Sunshine's synthetic per-player devices go through it.
+        /// </summary>
+        private void SetTextBoxText(string text, RawInputButton button, bool allowSave = true)
         {
             Application.Current.Dispatcher.BeginInvoke(
                 DispatcherPriority.Background,
                 new Action(() =>
                 {
-                    bool save = true;
                     var txt = GetActiveTextBox();
 
                     if (txt == null)
@@ -284,39 +398,7 @@ namespace TeknoParrotUi.Helpers
                     // Ignore first
                     if (txt == _lastActiveTextBox)
                     {
-                        string path = "null";
-
-                        if (data != null && data.Device != null && data.Device.DevicePath != null)
-                        {
-                            path = data.Device.DevicePath;
-                        }
-
-                        var button = new RawInputButton
-                        {
-                            DevicePath = path,
-                            DeviceType = RawDeviceType.None,
-                            MouseButton = RawMouseButton.None,
-                            KeyboardKey = Keys.None
-                        };
-
-                        if (data is RawInputMouseData)
-                        {
-                            RawInputMouseData mouse = data as RawInputMouseData;
-                            button.MouseButton = GetButtonFromFlags(mouse.Mouse.Buttons);
-                            button.DeviceType = RawDeviceType.Mouse;
-                        }
-                        else if (data is RawInputKeyboardData)
-                        {
-                            RawInputKeyboardData kb = data as RawInputKeyboardData;
-                            button.KeyboardKey = (Keys)kb.Keyboard.VirutalKey;
-                            button.DeviceType = RawDeviceType.Keyboard;
-
-                            if (button.KeyboardKey == Keys.Escape)
-                                save = false;
-                        }
-
-                        // Save?
-                        if (save)
+                        if (allowSave)
                         {
                             txt.ToolTip = text;
                             txt.Text = text;
@@ -331,7 +413,7 @@ namespace TeknoParrotUi.Helpers
                             txt.ToolTip = "";
                             txt.Text = "";
                         }
-                        
+
                         // Unfocus textbox
                         Keyboard.ClearFocus();
                         FocusManager.SetFocusedElement(Application.Current.Windows[0], null);
@@ -373,6 +455,9 @@ namespace TeknoParrotUi.Helpers
                 RawInputDevice.UnregisterDevice(HidUsageAndPage.Keyboard);
             _keyboardRegistered = false;
             _source?.RemoveHook(WndProcHook);
+
+            SunshinePlayerInput.InputReceived -= OnSunshineInputReceived;
+            SunshinePlayerInput.Stop();
         }
     }
 }

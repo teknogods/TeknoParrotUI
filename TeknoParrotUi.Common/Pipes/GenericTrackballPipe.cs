@@ -63,8 +63,29 @@ namespace TeknoParrotUi.Common.Pipes
 			if (InputCode.PlayerDigitalButtons[0].Right.HasValue && InputCode.PlayerDigitalButtons[0].Right.Value)
 				Control |= 0x8000;
 
-			JvsHelper.StateView.Write(8, Control);
-			JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);
+            // Remote Local Play P2
+            //START P1
+            if (InputCode.StreamingPlayerDigitalButtons[0].Start.HasValue && InputCode.StreamingPlayerDigitalButtons[0].Start.Value)
+                Control2 |= 0x0010;
+            // TRIGGER P1
+            if (InputCode.StreamingPlayerDigitalButtons[0].Button1.HasValue && InputCode.StreamingPlayerDigitalButtons[0].Button1.Value)
+                Control2 |= 0x0020;
+            // GRENADE P1
+            if (InputCode.StreamingPlayerDigitalButtons[0].Button2.HasValue && InputCode.StreamingPlayerDigitalButtons[0].Button2.Value)
+                Control2 |= 0x0040;
+            // RELOAD P1
+            if (InputCode.StreamingPlayerDigitalButtons[0].Button3.HasValue && InputCode.StreamingPlayerDigitalButtons[0].Button3.Value)
+                Control2 |= 0x0080;
+            // START P2
+            if (InputCode.StreamingPlayerDigitalButtons[1].Start.HasValue && InputCode.StreamingPlayerDigitalButtons[1].Start.Value)
+                Control2 |= 0x0100;
+            // TRIGGER P2
+            if (InputCode.StreamingPlayerDigitalButtons[1].Button1.HasValue && InputCode.StreamingPlayerDigitalButtons[1].Button1.Value)
+                Control2 |= 0x0200;
+
+            JvsHelper.StateView.Write(8, Control);
+            JvsHelper.StateView.Write(24, Control2); // Remote local Play P2 
+            JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);
 			JvsHelper.StateView.Write(13, InputCode.AnalogBytes[1]);
 			JvsHelper.StateView.Write(16, InputCode.AnalogBytes[2]);
 			JvsHelper.StateView.Write(17, InputCode.AnalogBytes[3]);

@@ -175,6 +175,9 @@ namespace TeknoParrotUi.Common.InputListening
         public InputListenerRawInput()
         {
             _hookedWindows = File.Exists("HookedWindows.txt") ? File.ReadAllLines("HookedWindows.txt").ToList() : new List<string>();
+
+            SunshinePlayerInput.InputReceived += OnSunshineInputReceived;
+            SunshinePlayerInput.Start();
         }
 
         private bool isHookableWindow(string windowTitle)
@@ -729,6 +732,18 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 var data = RawInputData.FromHandle(lParam);
 
+                // Events with no real backing device (data.Device == null) are almost always an
+                // echo of a SendInput()-based synthetic injection - such as Sunshine's own
+                // keyboard/mouse forwarding - reflected back through Windows RawInput with no
+                // identity attached. We already receive that same event properly tagged with a
+                // player index via the Sunshine pipe (see OnSunshineInputReceived), so processing
+                // this anonymous copy too would double-dispatch it and race with the tagged
+                // version for config-binding capture. Drop it.
+                if (data == null || data.Device == null)
+                {
+                    return;
+                }
+
                 string path = "null";
 
                 if (data != null && data.Device != null && data.Device.DevicePath != null)
@@ -746,42 +761,25 @@ namespace TeknoParrotUi.Common.InputListening
 
                             // Multiple buttons can be pressed/released in single event so check them all
                             if (flags.HasFlag(RawMouseButtonFlags.LeftButtonDown) || flags.HasFlag(RawMouseButtonFlags.LeftButtonUp))
-                            {
-                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.LeftButton))
-                                    HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.LeftButtonDown));
-                            }
+                                ProcessMouseButton(path, RawMouseButton.LeftButton, flags.HasFlag(RawMouseButtonFlags.LeftButtonDown));
 
                             if (flags.HasFlag(RawMouseButtonFlags.RightButtonDown) || flags.HasFlag(RawMouseButtonFlags.RightButtonUp))
-                            {
-                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.RightButton))
-                                    HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.RightButtonDown));
-                            }
+                                ProcessMouseButton(path, RawMouseButton.RightButton, flags.HasFlag(RawMouseButtonFlags.RightButtonDown));
 
                             if (flags.HasFlag(RawMouseButtonFlags.MiddleButtonDown) || flags.HasFlag(RawMouseButtonFlags.MiddleButtonUp))
-                            {
-                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.MiddleButton))
-                                    HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.MiddleButtonDown));
-                            }
+                                ProcessMouseButton(path, RawMouseButton.MiddleButton, flags.HasFlag(RawMouseButtonFlags.MiddleButtonDown));
 
                             if (flags.HasFlag(RawMouseButtonFlags.Button4Down) || flags.HasFlag(RawMouseButtonFlags.Button4Up))
-                            {
-                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.Button4))
-                                    HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.Button4Down));
-                            }
+                                ProcessMouseButton(path, RawMouseButton.Button4, flags.HasFlag(RawMouseButtonFlags.Button4Down));
 
                             if (flags.HasFlag(RawMouseButtonFlags.Button5Down) || flags.HasFlag(RawMouseButtonFlags.Button5Up))
-                            {
-                                foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == RawMouseButton.Button5))
-                                    HandleRawInputButton(jsButton, flags.HasFlag(RawMouseButtonFlags.Button5Down));
-                            }
+                                ProcessMouseButton(path, RawMouseButton.Button5, flags.HasFlag(RawMouseButtonFlags.Button5Down));
                         }
 
                         // Handle position
                         if (mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveAbsolute))
                         {
-                            // Lightgun
-                            foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun || btn.InputMapping == InputMapping.P3LightGun || btn.InputMapping == InputMapping.P4LightGun)))
-                                HandleRawInputGun(gun, mouse.Mouse.LastX, mouse.Mouse.LastY, true);
+                            ProcessAbsolutePosition(path, mouse.Mouse.LastX, mouse.Mouse.LastY);
                         }
                         else if (mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveRelative))
                         {
@@ -790,48 +788,150 @@ namespace TeknoParrotUi.Common.InputListening
                                 HandleRawInputGun(gun, Cursor.Position.X, Cursor.Position.Y, false);
 
                             // Other relative movement mouse like device
-                            foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun || btn.InputMapping == InputMapping.P3LightGun || btn.InputMapping == InputMapping.P4LightGun)))
-                            {
-                                byte player = 0;
-
-                                if (gun.InputMapping == InputMapping.P1LightGun)
-                                    player = 0;
-                                else if (gun.InputMapping == InputMapping.P2LightGun)
-                                    player = 1;
-                                else if (gun.InputMapping == InputMapping.P3LightGun)
-                                    player = 2;
-                                else if (gun.InputMapping == InputMapping.P4LightGun)
-                                    player = 3;
-
-                                if (_isPlay)
-                                {
-                                    int scaledDeltaX = (int)(mouse.Mouse.LastX * _dpiScaleX);
-                                    int scaledDeltaY = (int)(mouse.Mouse.LastY * _dpiScaleY);
-                                    _lastPosX[player] = Math.Min(Math.Max(_lastPosX[player] + scaledDeltaX, _windowLocationX), _windowLocationX + _windowWidth);
-                                    _lastPosY[player] = Math.Min(Math.Max(_lastPosY[player] + scaledDeltaY, _windowLocationY), _windowLocationY + _windowHeight);
-                                }
-                                else
-                                {
-                                    _lastPosX[player] = Math.Min(Math.Max(_lastPosX[player] + mouse.Mouse.LastX, _windowLocationX), _windowLocationX + _windowWidth);
-                                    _lastPosY[player] = Math.Min(Math.Max(_lastPosY[player] + mouse.Mouse.LastY, _windowLocationY), _windowLocationY + _windowHeight);
-                                }
-                                HandleRawInputGun(gun, _lastPosX[player], _lastPosY[player], false);
-                            }
+                            ProcessMouseMoveRelative(path, mouse.Mouse.LastX, mouse.Mouse.LastY);
                         }
 
                         break;
                     case RawInputKeyboardData keyboard:
-                        if ((Keys)keyboard.Keyboard.VirutalKey == Keys.ControlKey && !keyboard.Keyboard.Flags.HasFlag(RawKeyboardFlags.Up))
-                            dontClip = true;
-                        else
-                            dontClip = false;
-
-                        foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Keyboard && btn.RawInputButton.KeyboardKey == (Keys)keyboard.Keyboard.VirutalKey))
-                            HandleRawInputButton(jsButton, !keyboard.Keyboard.Flags.HasFlag(RawKeyboardFlags.Up));
-
+                        ProcessKeyboardKey(path, (Keys)keyboard.Keyboard.VirutalKey, !keyboard.Keyboard.Flags.HasFlag(RawKeyboardFlags.Up));
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Handles a player-tagged event forwarded from Sunshine over the identity-bridge pipe.
+        /// Fires on a background thread (see SunshinePlayerInput), so this must not touch UI
+        /// elements directly - it only feeds the same matching/dispatch path real RawInput
+        /// events use, keyed by the synthetic "SUNSHINE#PLAYERn" device path instead of a real
+        /// hDevice-derived path.
+        /// </summary>
+        private void OnSunshineInputReceived(object sender, SunshineInputEventArgs e)
+        {
+            if (e.Player < SunshinePlayerInput.MinPlayer || e.Player > SunshinePlayerInput.MaxPlayer)
+            {
+                return;
+            }
+
+            // _joystickButtons is only populated once ListenRawInput() actually runs. When the
+            // game's Input API is RawInputTrackball (not RawInput/MergedInput+RawInput), this
+            // class is constructed and stays subscribed to the Sunshine pipe, but its own
+            // ListenRawInput() is never called - only InputListenerRawInputTrackball's listen
+            // method runs. Without this guard, every Sunshine event during such a session threw
+            // an unhandled ArgumentNullException (LINQ .Where() on a null source) that unwound
+            // all the way back through the shared pipe-reading loop and killed the connection.
+            if (_joystickButtons == null)
+            {
+                return;
+            }
+
+            string path = SunshinePlayerInput.DevicePathForPlayer(e.Player);
+
+            try
+            {
+                switch (e.EventType)
+                {
+                    case SunshineInputEventType.KeyDown:
+                        ProcessKeyboardKey(path, (Keys)e.KeyCode, true);
+                        break;
+                    case SunshineInputEventType.KeyUp:
+                        ProcessKeyboardKey(path, (Keys)e.KeyCode, false);
+                        break;
+                    case SunshineInputEventType.MouseButtonDown:
+                        ProcessMouseButton(path, SunshinePlayerInput.MapMouseButton(e.MouseButton), true);
+                        break;
+                    case SunshineInputEventType.MouseButtonUp:
+                        ProcessMouseButton(path, SunshinePlayerInput.MapMouseButton(e.MouseButton), false);
+                        break;
+                    case SunshineInputEventType.MouseMove:
+                        ProcessMouseMoveRelative(path, e.DeltaX, e.DeltaY);
+                        break;
+                    case SunshineInputEventType.AbsPosition:
+                        ProcessAbsolutePosition(path, e.DeltaX, e.DeltaY);
+                        break;
+                    // Roster events don't need dispatch handling here; they only matter to the
+                    // config-binding UI (see JoystickControlRawInput), so no case is needed.
+                }
+            }
+            catch
+            {
+                // do nothing essentially
+            }
+        }
+
+        /// <summary>
+        /// Matches and dispatches a mouse button state change for the given device path.
+        /// Shared by real WM_INPUT events and Sunshine pipe events.
+        /// </summary>
+        private void ProcessMouseButton(string path, RawMouseButton button, bool pressed)
+        {
+            foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && btn.RawInputButton.MouseButton == button))
+                HandleRawInputButton(jsButton, pressed);
+        }
+
+        /// <summary>
+        /// Matches and dispatches a keyboard key state change for the given device path.
+        /// Shared by real WM_INPUT events and Sunshine pipe events.
+        /// </summary>
+        private void ProcessKeyboardKey(string path, Keys key, bool pressed)
+        {
+            dontClip = key == Keys.ControlKey && pressed;
+
+            foreach (var jsButton in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Keyboard && btn.RawInputButton.KeyboardKey == key))
+                HandleRawInputButton(jsButton, pressed);
+        }
+
+        /// <summary>
+        /// Matches and dispatches a relative mouse-move delta for a lightgun binding on the
+        /// given device path (per-player position accumulation). Shared by real WM_INPUT events
+        /// and Sunshine pipe events.
+        /// </summary>
+        private void ProcessMouseMoveRelative(string path, int deltaX, int deltaY)
+        {
+            var matches = _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun || btn.InputMapping == InputMapping.P3LightGun || btn.InputMapping == InputMapping.P4LightGun)).ToList();
+
+            foreach (var gun in matches)
+            {
+                byte player = 0;
+
+                if (gun.InputMapping == InputMapping.P1LightGun)
+                    player = 0;
+                else if (gun.InputMapping == InputMapping.P2LightGun)
+                    player = 1;
+                else if (gun.InputMapping == InputMapping.P3LightGun)
+                    player = 2;
+                else if (gun.InputMapping == InputMapping.P4LightGun)
+                    player = 3;
+
+                if (_isPlay)
+                {
+                    int scaledDeltaX = (int)(deltaX * _dpiScaleX);
+                    int scaledDeltaY = (int)(deltaY * _dpiScaleY);
+                    _lastPosX[player] = Math.Min(Math.Max(_lastPosX[player] + scaledDeltaX, _windowLocationX), _windowLocationX + _windowWidth);
+                    _lastPosY[player] = Math.Min(Math.Max(_lastPosY[player] + scaledDeltaY, _windowLocationY), _windowLocationY + _windowHeight);
+                }
+                else
+                {
+                    _lastPosX[player] = Math.Min(Math.Max(_lastPosX[player] + deltaX, _windowLocationX), _windowLocationX + _windowWidth);
+                    _lastPosY[player] = Math.Min(Math.Max(_lastPosY[player] + deltaY, _windowLocationY), _windowLocationY + _windowHeight);
+                }
+                HandleRawInputGun(gun, _lastPosX[player], _lastPosY[player], false);
+            }
+        }
+
+        /// <summary>
+        /// Matches and dispatches an absolute pointer position for a lightgun binding on the
+        /// given device path. Shared by real WM_INPUT events (an absolute HID device such as a
+        /// touchscreen or AimTrak) and Sunshine pipe events (a client reporting a touch/cursor
+        /// position, e.g. "Native Touch" mode, rather than relative deltas). Not applicable to
+        /// trackball games - a trackball has no absolute position.
+        /// </summary>
+        private void ProcessAbsolutePosition(string path, int x, int y)
+        {
+            var matches = _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun || btn.InputMapping == InputMapping.P3LightGun || btn.InputMapping == InputMapping.P4LightGun)).ToList();
+
+            foreach (var gun in matches)
+                HandleRawInputGun(gun, x, y, true);
         }
 
         bool testToggleState = false;
@@ -841,6 +941,15 @@ namespace TeknoParrotUi.Common.InputListening
         {
             // Ignore when alt+tabbed
             if (!_windowFocus && pressed)
+            {
+                return;
+            }
+
+            bool isRemoteLocalPlayMode = _gameProfile != null && _gameProfile.ConfigValues != null &&
+                _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue == "1");
+
+            if ((isRemoteLocalPlayMode && joystickButton.HideWithRemoteLocalPlayMode) ||
+                (!isRemoteLocalPlayMode && joystickButton.HideWithoutRemoteLocalPlayMode))
             {
                 return;
             }
@@ -1046,6 +1155,87 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.P2ButtonRight:
                     InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Right : Direction.HorizontalCenter);
+                    break;
+                case InputMapping.Stream2P1ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[0].Start = pressed;
+                    break;
+                case InputMapping.Stream2P2Button1:
+                    InputCode.StreamingPlayerDigitalButtons[1].Button1 = pressed;
+                    break;
+                case InputMapping.Stream2P2Button2:
+                    InputCode.StreamingPlayerDigitalButtons[1].Button2 = pressed;
+                    break;
+                case InputMapping.Stream2P1Button1:
+                    InputCode.StreamingPlayerDigitalButtons[0].Button1 = pressed;
+                    break;
+                case InputMapping.Stream2P1Button2:
+                    InputCode.StreamingPlayerDigitalButtons[0].Button2 = pressed;
+                    break;
+                case InputMapping.Stream2P1Button3:
+                    InputCode.StreamingPlayerDigitalButtons[0].Button3 = pressed;
+                    break;
+                case InputMapping.Stream2P1Button4:
+                    InputCode.StreamingPlayerDigitalButtons[0].Button4 = pressed;
+                    break;
+                case InputMapping.Stream2P1Button6:
+                    InputCode.StreamingPlayerDigitalButtons[0].Button6 = pressed;
+                    break;
+                case InputMapping.Stream2P2ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[1].Start = pressed;
+                    break;
+                case InputMapping.Stream3P1ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[2].Start = pressed;
+                    break;
+                case InputMapping.Stream3P2Button1:
+                    InputCode.StreamingPlayerDigitalButtons[3].Button1 = pressed;
+                    break;
+                case InputMapping.Stream3P2Button2:
+                    InputCode.StreamingPlayerDigitalButtons[3].Button2 = pressed;
+                    break;
+                case InputMapping.Stream3P1Button1:
+                    InputCode.StreamingPlayerDigitalButtons[2].Button1 = pressed;
+                    break;
+                case InputMapping.Stream3P1Button2:
+                    InputCode.StreamingPlayerDigitalButtons[2].Button2 = pressed;
+                    break;
+                case InputMapping.Stream3P1Button3:
+                    InputCode.StreamingPlayerDigitalButtons[2].Button3 = pressed;
+                    break;
+                case InputMapping.Stream3P1Button4:
+                    InputCode.StreamingPlayerDigitalButtons[2].Button4 = pressed;
+                    break;
+                case InputMapping.Stream3P1Button6:
+                    InputCode.StreamingPlayerDigitalButtons[2].Button6 = pressed;
+                    break;
+                case InputMapping.Stream3P2ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[3].Start = pressed;
+                    break;
+                case InputMapping.Stream4P1ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[4].Start = pressed;
+                    break;
+                case InputMapping.Stream4P2Button1:
+                    InputCode.StreamingPlayerDigitalButtons[5].Button1 = pressed;
+                    break;
+                case InputMapping.Stream4P2Button2:
+                    InputCode.StreamingPlayerDigitalButtons[5].Button2 = pressed;
+                    break;
+                case InputMapping.Stream4P1Button1:
+                    InputCode.StreamingPlayerDigitalButtons[4].Button1 = pressed;
+                    break;
+                case InputMapping.Stream4P1Button2:
+                    InputCode.StreamingPlayerDigitalButtons[4].Button2 = pressed;
+                    break;
+                case InputMapping.Stream4P1Button3:
+                    InputCode.StreamingPlayerDigitalButtons[4].Button3 = pressed;
+                    break;
+                case InputMapping.Stream4P1Button4:
+                    InputCode.StreamingPlayerDigitalButtons[4].Button4 = pressed;
+                    break;
+                case InputMapping.Stream4P1Button6:
+                    InputCode.StreamingPlayerDigitalButtons[4].Button6 = pressed;
+                    break;
+                case InputMapping.Stream4P2ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[5].Start = pressed;
                     break;
                 // Jvs Board 2
                 case InputMapping.JvsTwoService1:
@@ -1645,6 +1835,9 @@ namespace TeknoParrotUi.Common.InputListening
 
         public void Dispose()
         {
+            SunshinePlayerInput.InputReceived -= OnSunshineInputReceived;
+            SunshinePlayerInput.Stop();
+
             _canvasInfoAccessor?.Dispose();
             _canvasInfoMMF?.Dispose();
         }
