@@ -200,7 +200,7 @@ namespace TeknoParrotUi.Common.InputListening
             lock (Lock)
             {
                 _refCount++;
-                System.Diagnostics.Trace.WriteLine($"[SunshineDebug] SunshinePlayerInput.Start() called, refCount now {_refCount}, thread already running: {_running}");
+                System.Diagnostics.Debug.WriteLine($"[SunshineDebug] SunshinePlayerInput.Start() called, refCount now {_refCount}, thread already running: {_running}");
                 if (_running)
                 {
                     return;
@@ -229,7 +229,7 @@ namespace TeknoParrotUi.Common.InputListening
                     _refCount--;
                 }
 
-                System.Diagnostics.Trace.WriteLine($"[SunshineDebug] SunshinePlayerInput.Stop() called, refCount now {_refCount} (thread intentionally kept alive regardless - see comment on Start())");
+                System.Diagnostics.Debug.WriteLine($"[SunshineDebug] SunshinePlayerInput.Stop() called, refCount now {_refCount} (thread intentionally kept alive regardless - see comment on Start())");
 
                 // Deliberately NOT stopping the background thread here, even at refCount 0.
                 // This class is called from several independent, short-lived UI screens (the
@@ -256,7 +256,7 @@ namespace TeknoParrotUi.Common.InputListening
                         // Retry quietly rather than surfacing an error.
                         pipe.Connect(1000);
 
-                        System.Diagnostics.Trace.WriteLine("[SunshineDebug] Connected to Sunshine's TeknoParrot pipe.");
+                        System.Diagnostics.Debug.WriteLine("[SunshineDebug] Connected to Sunshine's TeknoParrot pipe.");
 
                         while (_running && pipe.IsConnected)
                         {
@@ -266,13 +266,13 @@ namespace TeknoParrotUi.Common.InputListening
                             }
                         }
 
-                        System.Diagnostics.Trace.WriteLine("[SunshineDebug] Disconnected from Sunshine's TeknoParrot pipe (pipe.IsConnected=" + pipe.IsConnected + ", _running=" + _running + ").");
+                        System.Diagnostics.Debug.WriteLine("[SunshineDebug] Disconnected from Sunshine's TeknoParrot pipe (pipe.IsConnected=" + pipe.IsConnected + ", _running=" + _running + ").");
                     }
                 }
                 catch (Exception ex)
                 {
                     // Pipe not available / connection dropped. Fall through and retry below.
-                    System.Diagnostics.Trace.WriteLine($"[SunshineDebug] Pipe connect/read failed: {ex.GetType().Name}: {ex.Message}");
+                    System.Diagnostics.Debug.WriteLine($"[SunshineDebug] Pipe connect/read failed: {ex.GetType().Name}: {ex.Message}");
                 }
                 finally
                 {
@@ -394,14 +394,14 @@ namespace TeknoParrotUi.Common.InputListening
                     var rest = ReadExact(pipe, 9);
                     if (rest == null)
                     {
-                        System.Diagnostics.Trace.WriteLine("[SunshineDebug] AbsPosition: ReadExact returned null - pipe closed mid-message");
+                        System.Diagnostics.Debug.WriteLine("[SunshineDebug] AbsPosition: ReadExact returned null - pipe closed mid-message");
                         return false;
                     }
 
                     int px = rest[0];
                     int vx = BitConverter.ToInt32(rest, 1);
                     int vy = BitConverter.ToInt32(rest, 5);
-                    System.Diagnostics.Trace.WriteLine($"[SunshineDebug] AbsPosition received: player={px} x={vx} y={vy}");
+                    System.Diagnostics.Debug.WriteLine($"[SunshineDebug] AbsPosition received: player={px} x={vx} y={vy}");
 
                     Raise(new SunshineInputEventArgs
                     {
