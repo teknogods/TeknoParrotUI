@@ -12,7 +12,7 @@ namespace TeknoParrotUi.Common.Pipes
         private Thread pipe;
 
         public bool Running;
-        public int Control = 0x00, Control2 = 0x00, Control3 = 0x00, Control4 = 0x00;
+        public int Control = 0x00, Control2 = 0x00, Control3 = 0x00, Control4 = 0x00, ControlHost = 0x00;
         public byte SleepTime = 15;
 
         public virtual void Start()
@@ -43,6 +43,7 @@ namespace TeknoParrotUi.Common.Pipes
                 Control2 = 0x00;
                 Control3 = 0x00;
                 Control4 = 0x00;
+                ControlHost = 0x00;
                 Transmit();
                 Thread.Sleep(SleepTime);
             }

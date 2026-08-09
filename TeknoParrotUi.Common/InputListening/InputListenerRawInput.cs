@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -946,10 +946,13 @@ namespace TeknoParrotUi.Common.InputListening
             }
 
             bool isRemoteLocalPlayMode = _gameProfile != null && _gameProfile.ConfigValues != null &&
-                _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue == "1");
+                _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue != "Off");
+            bool isRemoteLocalPlayHostMode = _gameProfile != null && _gameProfile.ConfigValues != null &&
+                _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue == "Host Only");
 
             if ((isRemoteLocalPlayMode && joystickButton.HideWithRemoteLocalPlayMode) ||
-                (!isRemoteLocalPlayMode && joystickButton.HideWithoutRemoteLocalPlayMode))
+                (!isRemoteLocalPlayMode && joystickButton.HideWithoutRemoteLocalPlayMode) ||
+                (!isRemoteLocalPlayHostMode && joystickButton.HideWithoutRemoteLocalPlayHost))
             {
                 return;
             }
@@ -1155,6 +1158,9 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.P2ButtonRight:
                     InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Right : Direction.HorizontalCenter);
+                    break;
+                case InputMapping.StreamHostP1ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[6].Start = pressed;
                     break;
                 case InputMapping.Stream2P1ButtonStart:
                     InputCode.StreamingPlayerDigitalButtons[0].Start = pressed;

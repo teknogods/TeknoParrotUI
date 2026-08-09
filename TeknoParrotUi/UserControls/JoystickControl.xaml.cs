@@ -31,6 +31,7 @@ namespace TeknoParrotUi.UserControls
         private bool _isKeyboardorButtonAxis;
         private bool _RelativeAxis;
         private bool _isRemoteLocalPlayMode;
+        private bool _isRemoteLocalPlayHostMode;
         private bool _UseDPadForGUN1Stick;
         private bool _UseDPadForGUN2Stick;
         private bool _UseAnalogAxisToAimGUN1;
@@ -163,7 +164,8 @@ namespace TeknoParrotUi.UserControls
             _isKeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
             _RelativeAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Relative Input" && x.FieldValue == "1");
             _BG4ProMode = gameProfile.ConfigValues.Any(x => x.FieldName == "Professional Edition Enable" && x.FieldValue == "1");
-            _isRemoteLocalPlayMode = gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue == "1");
+            _isRemoteLocalPlayMode = gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue != "Off");
+            _isRemoteLocalPlayHostMode = gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue == "Host Only");
 
             // Only meaningful (and only shown) for games that actually have Remote Local Play -
             // for anything else there's only ever one input source anyway, so the restriction
@@ -460,7 +462,7 @@ namespace TeknoParrotUi.UserControls
                         txt.Visibility = Visibility.Collapsed;
                     else if (t.InputMapping == InputMapping.P1LightGun || t.InputMapping == InputMapping.P2LightGun || t.InputMapping == InputMapping.P3LightGun || t.InputMapping == InputMapping.P4LightGun)
                         txt.Visibility = Visibility.Collapsed;
-                    else if (t.InputMapping == InputMapping.P1Trackball || t.InputMapping == InputMapping.P2Trackball || t.InputMapping == InputMapping.P3Trackball || t.InputMapping == InputMapping.P4Trackball)
+                    else if (t.InputMapping == InputMapping.P1Trackball || t.InputMapping == InputMapping.P2Trackball || t.InputMapping == InputMapping.P3Trackball || t.InputMapping == InputMapping.P4Trackball || t.InputMapping == InputMapping.HostTrackball)
                         txt.Visibility = Visibility.Collapsed;
                     else if (_isKeyboardorButtonAxis && _inputApi != InputApi.XInput && _inputApi != InputApi.MergedInput && t.HideWithKeyboardForAxis)
                         txt.Visibility = Visibility.Collapsed;
@@ -518,6 +520,8 @@ namespace TeknoParrotUi.UserControls
                         hideRow = true;
                     else if (!_isRemoteLocalPlayMode && t2.HideWithoutRemoteLocalPlayMode)
                         hideRow = true;
+                    else if (!_isRemoteLocalPlayHostMode && t2.HideWithoutRemoteLocalPlayHost)
+                        hideRow = true;
                     else if (_RelativeAxis && _inputApi != InputApi.RawInput && t2.HideWithRelativeAxis)
                         hideRow = true;
                     else if (!_RelativeAxis && _inputApi != InputApi.RawInput && t2.HideWithoutRelativeAxis)
@@ -556,7 +560,7 @@ namespace TeknoParrotUi.UserControls
 
                     var t3 = txt.Tag as JoystickButtons;
 
-                    if ((t3.InputMapping == InputMapping.P1LightGun || t3.InputMapping == InputMapping.P2LightGun || t3.InputMapping == InputMapping.P3LightGun || t3.InputMapping == InputMapping.P4LightGun || t3.InputMapping == InputMapping.P1Trackball || t3.InputMapping == InputMapping.P2Trackball || t3.InputMapping == InputMapping.P3Trackball || t3.InputMapping == InputMapping.P4Trackball) && (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball || (_inputApi == InputApi.MergedInput && (_mergedIncludesRawInput || _mergedIncludesRawInputTrackball))))
+                    if ((t3.InputMapping == InputMapping.P1LightGun || t3.InputMapping == InputMapping.P2LightGun || t3.InputMapping == InputMapping.P3LightGun || t3.InputMapping == InputMapping.P4LightGun || t3.InputMapping == InputMapping.P1Trackball || t3.InputMapping == InputMapping.P2Trackball || t3.InputMapping == InputMapping.P3Trackball || t3.InputMapping == InputMapping.P4Trackball || t3.InputMapping == InputMapping.HostTrackball) && (_inputApi == InputApi.RawInput || _inputApi == InputApi.RawInputTrackball || (_inputApi == InputApi.MergedInput && (_mergedIncludesRawInput || _mergedIncludesRawInputTrackball))))
                     {
                         PopulateDeviceComboBox(txt, t3);
 

@@ -116,7 +116,15 @@ namespace TeknoParrotUi.UserControls
                     continue;
                 }
 
-                field.IsVisible = string.Equals(controller.FieldValue, field.VisibleWhenValue, StringComparison.OrdinalIgnoreCase);
+                // VisibleWhenValue may list more than one acceptable value, comma-separated
+                // (e.g. "On,Host Only"), so a field can stay visible for multiple states of
+                // its controller - not just a single exact match.
+                var acceptedValues = (field.VisibleWhenValue ?? string.Empty)
+                    .Split(',')
+                    .Select(v => v.Trim());
+
+                field.IsVisible = acceptedValues.Any(v =>
+                    string.Equals(controller.FieldValue, v, StringComparison.OrdinalIgnoreCase));
             }
         }
 

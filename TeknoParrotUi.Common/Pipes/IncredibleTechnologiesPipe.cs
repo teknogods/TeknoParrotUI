@@ -101,10 +101,16 @@ namespace TeknoParrotUi.Common.Pipes
             if (InputCode.StreamingPlayerDigitalButtons[5].Start.HasValue && InputCode.StreamingPlayerDigitalButtons[5].Start.Value)
                 Control4 |= 0x0800;
 
-            JvsHelper.StateView.Write(8, Control); 
+            //Host
+            if (InputCode.StreamingPlayerDigitalButtons[6].Start.HasValue && InputCode.StreamingPlayerDigitalButtons[6].Start.Value)
+                ControlHost |= 0x0010;
+
+            JvsHelper.StateView.Write(8, Control); // Normal Inputs
             JvsHelper.StateView.Write(24, Control2); // P2  
             JvsHelper.StateView.Write(40, Control3); // P3
             JvsHelper.StateView.Write(56, Control4); // P4
+            JvsHelper.StateView.Write(4, ControlHost); // Host
+
 
             JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);
             JvsHelper.StateView.Write(13, InputCode.AnalogBytes[1]);

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -35,6 +35,8 @@ namespace TeknoParrotUi.Common.InputListening
         private static short _currentDeltaY3;
         private static short _currentDeltaX4;
         private static short _currentDeltaY4;
+        private static short _currentDeltaXHost;
+        private static short _currentDeltaYHost;
         private readonly object _stateLock = new object();
         private const int MaxShortValue = 32767;
         private const int MinShortValue = -32768;
@@ -46,6 +48,8 @@ namespace TeknoParrotUi.Common.InputListening
         private MemoryMappedViewAccessor _accessor3;
         private MemoryMappedFile _mmf4;
         private MemoryMappedViewAccessor _accessor4;
+        private MemoryMappedFile _mmfHost;
+        private MemoryMappedViewAccessor _accessorHost;
 
         [StructLayout(LayoutKind.Sequential)]
         private struct RECT
@@ -113,6 +117,12 @@ namespace TeknoParrotUi.Common.InputListening
             _accessor4.Write(0, 0);
             _accessor4.Write(4, 0);
             _accessor4.Write(8, 0);
+
+            _mmfHost = MemoryMappedFile.CreateOrOpen("RawInputTrackballSharedMemoryHost", 12);
+            _accessorHost = _mmfHost.CreateViewAccessor();
+            _accessorHost.Write(0, 0);
+            _accessorHost.Write(4, 0);
+            _accessorHost.Write(8, 0);
 
             SunshinePlayerInput.InputReceived += OnSunshineInputReceived;
             SunshinePlayerInput.Start();
@@ -384,14 +394,17 @@ namespace TeknoParrotUi.Common.InputListening
         private void ProcessTrackballMove(string path, int deltaX, int deltaY)
         {
             bool isRemoteLocalPlayMode = _gameProfile != null && _gameProfile.ConfigValues != null &&
-                _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue == "1");
+                _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue != "Off");
+            bool isRemoteLocalPlayHostMode = _gameProfile != null && _gameProfile.ConfigValues != null &&
+                _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue == "Host Only");
 
             foreach (var trackball in _joystickButtons.Where(btn =>
                 btn.RawInputButton.DevicePath == path &&
                 btn.RawInputButton.DeviceType == RawDeviceType.Mouse &&
-                (btn.InputMapping == InputMapping.P1Trackball || btn.InputMapping == InputMapping.P2Trackball || btn.InputMapping == InputMapping.P3Trackball || btn.InputMapping == InputMapping.P4Trackball) &&
+                (btn.InputMapping == InputMapping.P1Trackball || btn.InputMapping == InputMapping.P2Trackball || btn.InputMapping == InputMapping.P3Trackball || btn.InputMapping == InputMapping.P4Trackball || btn.InputMapping == InputMapping.HostTrackball) &&
                 !(isRemoteLocalPlayMode && btn.HideWithRemoteLocalPlayMode) &&
-                !(!isRemoteLocalPlayMode && btn.HideWithoutRemoteLocalPlayMode)))
+                !(!isRemoteLocalPlayMode && btn.HideWithoutRemoteLocalPlayMode) &&
+                !(!isRemoteLocalPlayHostMode && btn.HideWithoutRemoteLocalPlayHost)))
             {
                 HandleRawInputTrackball(trackball, deltaX, deltaY);
             }
@@ -400,10 +413,13 @@ namespace TeknoParrotUi.Common.InputListening
         private void HandleRawInputButton(JoystickButtons joystickButton, bool pressed)
         {
             bool isRemoteLocalPlayMode = _gameProfile != null && _gameProfile.ConfigValues != null &&
-                _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue == "1");
+                _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue != "Off");
+            bool isRemoteLocalPlayHostMode = _gameProfile != null && _gameProfile.ConfigValues != null &&
+                _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue == "Host Only");
 
             if ((isRemoteLocalPlayMode && joystickButton.HideWithRemoteLocalPlayMode) ||
-                (!isRemoteLocalPlayMode && joystickButton.HideWithoutRemoteLocalPlayMode))
+                (!isRemoteLocalPlayMode && joystickButton.HideWithoutRemoteLocalPlayMode) ||
+                (!isRemoteLocalPlayHostMode && joystickButton.HideWithoutRemoteLocalPlayHost))
             {
                 return;
             }
@@ -498,6 +514,9 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.P2ButtonRight:
                     InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Right : Direction.HorizontalCenter);
+                    break;
+                case InputMapping.StreamHostP1ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[6].Start = pressed;
                     break;
                 case InputMapping.Stream2P1ButtonStart:
                     InputCode.StreamingPlayerDigitalButtons[0].Start = pressed;
@@ -752,10 +771,13 @@ namespace TeknoParrotUi.Common.InputListening
                 // currently active. Outside this mode, every trackball binding - P1, P2, or
                 // anything else - always goes to the single original buffer, exactly matching
                 // behavior from before this feature existed.
-                if (_gameProfile != null && _gameProfile.ConfigValues != null && _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue == "1"))
+                if (_gameProfile != null && _gameProfile.ConfigValues != null && _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue != "Off"))
                 {
                     switch (joystickButton.InputMapping)
                     {
+                        case InputMapping.HostTrackball:
+                            WriteTrackballDelta(_accessorHost, ref _currentDeltaXHost, ref _currentDeltaYHost, signedDeltaX, signedDeltaY);
+                            return;
                         case InputMapping.P2Trackball:
                             WriteTrackballDelta(_accessor2, ref _currentDeltaX2, ref _currentDeltaY2, signedDeltaX, signedDeltaY);
                             return;

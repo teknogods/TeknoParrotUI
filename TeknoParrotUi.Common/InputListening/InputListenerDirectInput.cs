@@ -1711,10 +1711,13 @@ namespace TeknoParrotUi.Common.InputListening
         private void HandleDirectInput(JoystickButtons joystickButtons, JoystickUpdate state)
         {
             bool isRemoteLocalPlayMode = _gameProfile != null && _gameProfile.ConfigValues != null &&
-                _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue == "1");
+                _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue != "Off");
+            bool isRemoteLocalPlayHostMode = _gameProfile != null && _gameProfile.ConfigValues != null &&
+                _gameProfile.ConfigValues.Any(x => x.FieldName == "Remote Local Play" && x.FieldValue == "Host Only");
 
             if ((isRemoteLocalPlayMode && joystickButtons.HideWithRemoteLocalPlayMode) ||
-                (!isRemoteLocalPlayMode && joystickButtons.HideWithoutRemoteLocalPlayMode))
+                (!isRemoteLocalPlayMode && joystickButtons.HideWithoutRemoteLocalPlayMode) ||
+                (!isRemoteLocalPlayHostMode && joystickButtons.HideWithoutRemoteLocalPlayHost))
             {
                 return;
             }
@@ -2009,6 +2012,9 @@ namespace TeknoParrotUi.Common.InputListening
                         DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[1], button, state, Direction.Right);
                     else
                         InputCode.PlayerDigitalButtons[1].Right = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.StreamHostP1ButtonStart:
+                    InputCode.StreamingPlayerDigitalButtons[6].Start = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.Stream2P1ButtonStart:
                     InputCode.StreamingPlayerDigitalButtons[0].Start = DigitalHelper.GetButtonPressDirectInput(button, state);

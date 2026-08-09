@@ -675,8 +675,10 @@ namespace TeknoParrotUi.Common
             new PlayerButtons(),
         };
 
-        public static PlayerButtons[] StreamingPlayerDigitalButtons = new PlayerButtons[6]
+        public static PlayerButtons[] StreamingPlayerDigitalButtons = new PlayerButtons[8]
 {
+            new PlayerButtons(),
+            new PlayerButtons(),
             new PlayerButtons(),
             new PlayerButtons(),
             new PlayerButtons(),

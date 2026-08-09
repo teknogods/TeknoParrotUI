@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>8</GameProfileRevision>
+	<GameProfileRevision>9</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>false</DevOnly>
@@ -50,8 +50,13 @@
 		<FieldInformation>
 			<CategoryName>Streaming</CategoryName>
 			<FieldName>Remote Local Play</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
+			<FieldValue>Off</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Off</string>
+				<string>On</string>
+				<string>Host Only</string>
+			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Controls</CategoryName>
@@ -83,7 +88,7 @@
 			<FieldOptions></FieldOptions>
 			<Hint>Scales the trackballs X input. Percent, so 100 = 100%, 25 = 25%</Hint>
 			<VisibleWhenField>Remote Local Play</VisibleWhenField>
-			<VisibleWhenValue>1</VisibleWhenValue>
+			<VisibleWhenValue>On,Host Only</VisibleWhenValue>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Controls</CategoryName>
@@ -95,7 +100,7 @@
 			<FieldOptions></FieldOptions>
 			<Hint>Scales the trackballs Y input. Percent, so 100 = 100%, 25 = 25%</Hint>
 			<VisibleWhenField>Remote Local Play</VisibleWhenField>
-			<VisibleWhenValue>1</VisibleWhenValue>
+			<VisibleWhenValue>On,Host Only</VisibleWhenValue>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Controls</CategoryName>
@@ -107,7 +112,7 @@
 			<FieldOptions></FieldOptions>
 			<Hint>Scales the trackballs X input. Percent, so 100 = 100%, 25 = 25%</Hint>
 			<VisibleWhenField>Remote Local Play</VisibleWhenField>
-			<VisibleWhenValue>1</VisibleWhenValue>
+			<VisibleWhenValue>On,Host Only</VisibleWhenValue>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Controls</CategoryName>
@@ -119,7 +124,7 @@
 			<FieldOptions></FieldOptions>
 			<Hint>Scales the trackballs Y input. Percent, so 100 = 100%, 25 = 25%</Hint>
 			<VisibleWhenField>Remote Local Play</VisibleWhenField>
-			<VisibleWhenValue>1</VisibleWhenValue>
+			<VisibleWhenValue>On,Host Only</VisibleWhenValue>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Controls</CategoryName>
@@ -131,7 +136,7 @@
 			<FieldOptions></FieldOptions>
 			<Hint>Scales the trackballs X input. Percent, so 100 = 100%, 25 = 25%</Hint>
 			<VisibleWhenField>Remote Local Play</VisibleWhenField>
-			<VisibleWhenValue>1</VisibleWhenValue>
+			<VisibleWhenValue>On,Host Only</VisibleWhenValue>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Controls</CategoryName>
@@ -143,7 +148,7 @@
 			<FieldOptions></FieldOptions>
 			<Hint>Scales the trackballs Y input. Percent, so 100 = 100%, 25 = 25%</Hint>
 			<VisibleWhenField>Remote Local Play</VisibleWhenField>
-			<VisibleWhenValue>1</VisibleWhenValue>
+			<VisibleWhenValue>On,Host Only</VisibleWhenValue>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -205,7 +210,7 @@
 			<CategoryName>Postgres</CategoryName>
 			<FieldName>Pass</FieldName>
 			<FieldValue></FieldValue>
-			<FieldType>Text</FieldType>
+			<FieldType>Password</FieldType>
 			<Hint>The chosen postgres password</Hint>
 		</FieldInformation>
 		<FieldInformation>
@@ -377,6 +382,11 @@
 			<HideWithoutRemoteLocalPlayMode>true</HideWithoutRemoteLocalPlayMode>
 		</JoystickButtons>
 		<JoystickButtons>
+			<ButtonName>Host Start</ButtonName>
+			<InputMapping>StreamHostP1ButtonStart</InputMapping>
+			<HideWithoutRemoteLocalPlayHost>true</HideWithoutRemoteLocalPlayHost>
+		</JoystickButtons>
+		<JoystickButtons>
 			<ButtonName>TrackBall</ButtonName>
 			<InputMapping>P1Trackball</InputMapping>
 			<HideWithDirectInput>true</HideWithDirectInput>
@@ -402,6 +412,13 @@
 			<HideWithDirectInput>true</HideWithDirectInput>
 			<HideWithXInput>true</HideWithXInput>
 			<HideWithoutRemoteLocalPlayMode>true</HideWithoutRemoteLocalPlayMode>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Host TrackBall</ButtonName>
+			<InputMapping>HostTrackball</InputMapping>
+			<HideWithDirectInput>true</HideWithDirectInput>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutRemoteLocalPlayHost>true</HideWithoutRemoteLocalPlayHost>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>
