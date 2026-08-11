@@ -133,6 +133,8 @@ namespace TeknoParrotUi.Common.Android
             "shared-jvs-dual-io";
         public const string CompatibilityPresetGaiaAttack4Media =
             "gaia-attack4-media";
+        public const string CompatibilityPresetHauntedMuseum2Media =
+            "haunted-museum2-media";
         public const string CompatibilityPresetDirectTouchJvs =
             "direct-touch-jvs";
         public const string CompatibilityPresetBox64Interpreter =
@@ -555,6 +557,7 @@ namespace TeknoParrotUi.Common.Android
             value == CompatibilityPresetEadpDualIo ||
             value == CompatibilityPresetSharedJvsDualIo ||
             value == CompatibilityPresetGaiaAttack4Media ||
+            value == CompatibilityPresetHauntedMuseum2Media ||
             value == CompatibilityPresetDirectTouchJvs ||
             value == CompatibilityPresetBox64Interpreter ||
             value == CompatibilityPresetPortraitWindowCounterClockwise;

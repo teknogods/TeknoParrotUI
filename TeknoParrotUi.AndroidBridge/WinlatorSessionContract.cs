@@ -136,6 +136,8 @@ internal static class WinlatorSessionContract
     public const string CompatibilityPresetEadpDualIo = "eadp-dual-io";
     public const string CompatibilityPresetSharedJvsDualIo = "shared-jvs-dual-io";
     public const string CompatibilityPresetGaiaAttack4Media = "gaia-attack4-media";
+    public const string CompatibilityPresetHauntedMuseum2Media =
+        "haunted-museum2-media";
     public const string CompatibilityPresetDirectTouchJvs = "direct-touch-jvs";
     public const string CompatibilityPresetBox64Interpreter = "box64-interpreter";
     public const string CompatibilityPresetPortraitWindowCounterClockwise =
@@ -731,6 +733,7 @@ internal static class WinlatorSessionContract
             CompatibilityPresetXactLocalRegister or CompatibilityPresetEadpDualIo or
             CompatibilityPresetSharedJvsDualIo or
             CompatibilityPresetGaiaAttack4Media or
+            CompatibilityPresetHauntedMuseum2Media or
             CompatibilityPresetDirectTouchJvs or
             CompatibilityPresetBox64Interpreter or
             CompatibilityPresetPortraitWindowCounterClockwise or

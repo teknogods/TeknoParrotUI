@@ -106,9 +106,9 @@ namespace InputMethodAudit
                     "Haunted Museum II action-aware shared gun protocol");
                 Equal(9060, hauntedMuseum2.ControlsProfileId,
                     "Haunted Museum II trigger/action controls profile");
-                Equal(AndroidLaunchRecipe.CompatibilityPresetSharedJvsDualIo,
+                Equal(AndroidLaunchRecipe.CompatibilityPresetHauntedMuseum2Media,
                     hauntedMuseum2.CompatibilityPreset,
-                    "Haunted Museum II dual I/O preset");
+                    "Haunted Museum II dual I/O plus Indeo 5 media preset");
                 var wonderlandFolder = "/storage/emulated/0/Download/TeknoParrotGames/wonderlandwars";
                 var wonderlandFound = ManagedAndroidGameImporter.Scan(
                     new[] { Folder("wonderlandwars", wonderlandFolder, "carol_nu.exe") },
@@ -1155,6 +1155,16 @@ namespace InputMethodAudit
                     StringComparison.Ordinal),
                 "Gaia Attack 4 media preset accepted by the Activity contract");
             True(activityContractSource.Contains(
+                    "COMPATIBILITY_PRESET_HAUNTED_MUSEUM2_MEDIA =",
+                    StringComparison.Ordinal) &&
+                activityContractSource.Contains(
+                    "\"haunted-museum2-media\"",
+                    StringComparison.Ordinal) &&
+                activityContractSource.Contains(
+                    "!COMPATIBILITY_PRESET_HAUNTED_MUSEUM2_MEDIA.equals(value)",
+                    StringComparison.Ordinal),
+                "Haunted Museum II dual-I/O media preset accepted by the Activity contract");
+            True(activityContractSource.Contains(
                     "COMPATIBILITY_PRESET_KOF_XII_WINE_GSTREAMER =",
                     StringComparison.Ordinal) &&
                 activityContractSource.Contains(
@@ -1308,6 +1318,9 @@ namespace InputMethodAudit
                     StringComparison.Ordinal) &&
                 source.Contains(
                     "\"gaia-attack4-media\".equals(preset)",
+                    StringComparison.Ordinal) &&
+                source.Contains(
+                    "\"haunted-museum2-media\".equals(preset)",
                     StringComparison.Ordinal) &&
                 source.Contains(
                     "\"music-gungun-native-fullscreen\".equals(preset)",
@@ -1565,6 +1578,21 @@ namespace InputMethodAudit
                 "app", "app", "src", "main", "java", "com", "winlator",
                 "core", "Win32AppWorkarounds.java");
             var workarounds = File.ReadAllText(workaroundPath);
+            var guestLauncherPath = Path.Combine(
+                winlatorRoot,
+                "app", "app", "src", "main", "java", "com", "winlator",
+                "xenvironment", "components", "GuestProgramLauncherComponent.java");
+            var guestLauncher = File.ReadAllText(guestLauncherPath);
+            True(guestLauncher.Contains(
+                    "String box64Name = usesWineGStreamerBox64() ? WINE_GSTREAMER_BOX64_NAME : \"box64\";",
+                    StringComparison.Ordinal) &&
+                guestLauncher.Contains(
+                    "Prepared the media-only Box64 Wine-GStreamer executable.",
+                    StringComparison.Ordinal) &&
+                guestLauncher.Contains(
+                    "ensureWineGStreamerPluginMirror(rootFS);",
+                    StringComparison.Ordinal),
+                "Wine-GStreamer uses a validated media-only Box64 copy and mirrored native plugins");
             True(workarounds.Contains(
                     "compatibilityPreset.equals(\"media-wmv\")",
                     StringComparison.Ordinal) &&
@@ -1584,7 +1612,7 @@ namespace InputMethodAudit
                 workarounds.Contains(
                     "envVars.put(\"TP_BOX64_WINEGSTREAMER_FIX\", \"1\")",
                     StringComparison.Ordinal),
-                "64-bit media preset uses the isolated Wine-GStreamer Box64 runtime");
+                "media preset uses the selected Box64 Wine-GStreamer bridge");
             True(workarounds.Contains(
                     "compatibilityPreset.equals(\"gaia-attack4-media\")",
                     StringComparison.Ordinal) &&
@@ -1594,7 +1622,40 @@ namespace InputMethodAudit
                 workarounds.Contains(
                     "applyWineGStreamerWorkaround();",
                     StringComparison.Ordinal),
-                "Gaia Attack 4 routes mixed WMV3 and Indeo 5 movies through Wine-GStreamer");
+                "Gaia Attack 4 keeps WMV on Wine-GStreamer while adding scoped Indeo decoding");
+            True(workarounds.Contains(
+                    "compatibilityPreset.equals(\"haunted-museum2-media\")",
+                    StringComparison.Ordinal) &&
+                workarounds.Contains(
+                    "Haunted Museum II does not build a DirectShow graph",
+                    StringComparison.Ordinal) &&
+                workarounds.Contains(
+                    "ir50_32=n;winegstreamer=d",
+                    StringComparison.Ordinal),
+                "Haunted Museum II uses its native title-local Indeo codec without Wine-GStreamer");
+            True(source.Contains(
+                    "createGaiaFfdshowWinePreflight(",
+                    StringComparison.Ordinal) &&
+                source.Contains(
+                    "teknoparrot/ffdshow-x86",
+                    StringComparison.Ordinal) &&
+                source.Contains(
+                    "C:\\\\teknoparrot-service\\\\ffdshow-x86\\\\ff_vfw.dll",
+                    StringComparison.Ordinal) &&
+                source.Contains(
+                    "\"Software\\\\GNU\\\\ffdshow_vfw\", \"iv50\", 1);",
+                    StringComparison.Ordinal),
+                "Gaia preflight stages ffdshow's x86 VfW driver with only Indeo 5 enabled");
+            True(source.Contains(
+                    "configureHauntedMuseumIndeoDriver()",
+                    StringComparison.Ordinal) &&
+                source.Contains(
+                    "equalsIgnoreCase(\"ir50_32.dll\")",
+                    StringComparison.Ordinal) &&
+                source.Contains(
+                    "setVfwIndeo5Driver(",
+                    StringComparison.Ordinal),
+                "Haunted Museum II selects the proper-dump Indeo codec beside its executable");
             True(workarounds.Contains(
                     "compatibilityPreset.equals(\"dirty-driving-fullscreen\")",
                     StringComparison.Ordinal) &&
@@ -1626,12 +1687,18 @@ namespace InputMethodAudit
                     "createLocalXactWinePreflight(",
                     StringComparison.Ordinal) &&
                 source.Contains(
-                    "wine C:\\\\windows\\\\syswow64\\\\regsvr32.exe /s ",
+                    "gti-preflight.cmd",
+                    StringComparison.Ordinal) &&
+                source.Contains(
+                    "C:\\\\windows\\\\syswow64\\\\regsvr32.exe /u /s ",
+                    StringComparison.Ordinal) &&
+                source.Contains(
+                    "C:\\\\windows\\\\syswow64\\\\regsvr32.exe /s ",
                     StringComparison.Ordinal) &&
                 source.Contains(
                     "C:\\\\teknoparrot-service\\\\",
                     StringComparison.Ordinal),
-                "GTI Club installs and registers its exact local 32-bit XACT COM server");
+                "GTI Club removes stale filters and registers its exact local 32-bit XACT COM server");
             True(source.Contains(
                     "boolean multithreadedAlsaClients = preparedWindowsLaunch == null ||",
                     StringComparison.Ordinal) &&

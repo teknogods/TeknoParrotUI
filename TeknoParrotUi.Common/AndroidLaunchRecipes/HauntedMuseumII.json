@@ -13,7 +13,7 @@
   "inputProtocol": "shared-taito-gun-haunted-museum2",
   "controlsProfileId": 9060,
   "frameRateLimit": 60,
-  "compatibilityPreset": "shared-jvs-dual-io",
+  "compatibilityPreset": "haunted-museum2-media",
   "performanceModeDefault": true,
   "arguments": [".\\OpenParrotWin32\\OpenParrot", "{GameExecutable}"],
   "import": {
