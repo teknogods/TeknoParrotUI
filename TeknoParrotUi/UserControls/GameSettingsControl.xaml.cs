@@ -62,7 +62,11 @@ namespace TeknoParrotUi.UserControls
                 if (!string.IsNullOrEmpty(_gameProfile.ExecutableName2))
                     exeName = $" ({_gameProfile.ExecutableName2})".Replace(";", Properties.Resources.GameSettingsExecutableOr);
 
-                GameExecutable2Text.Text = $"{Properties.Resources.GameSettingsSecondGameExecutableLabel}{exeName}:";
+                var secondPathLabel = _gameProfile.EmulatorType == EmulatorType.TeknoVegas ||
+                                      _gameProfile.EmulatorType == EmulatorType.TeknoViper
+                    ? "Game CHD"
+                    : Properties.Resources.GameSettingsSecondGameExecutableLabel;
+                GameExecutable2Text.Text = $"{secondPathLabel}{exeName}:";
 
                 GameExecutable2Text.Visibility = Visibility.Visible;
                 GamePathBox2.Visibility = Visibility.Visible;

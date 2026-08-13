@@ -1,0 +1,11 @@
+{
+  "game_name": "Jurassic Park III (UBC)",
+  "game_genre": "Shooter",
+  "icon_name": "jpark3u.png",
+  "platform": "Konami Viper",
+  "release_year": "2001",
+  "nvidia": "OK", "nvidia_issues": null,
+  "amd": "OK", "amd_issues": null,
+  "intel": "OK", "intel_issues": null,
+  "general_issues": "User-supplied MAME ROM/CHD required. Emulation is under active development."
+}

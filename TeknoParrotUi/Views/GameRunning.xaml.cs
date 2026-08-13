@@ -98,7 +98,11 @@ namespace TeknoParrotUi.Views
             {
                 _gameLocation2 = "";
             }
-            _twoExes = gameProfile.HasTwoExecutables;
+            // Viper/Vegas use the second path as CHD launch data, not as a
+            // second process for TPUI to start.
+            _twoExes = gameProfile.HasTwoExecutables &&
+                       gameProfile.EmulatorType != EmulatorType.TeknoVegas &&
+                       gameProfile.EmulatorType != EmulatorType.TeknoViper;
             _secondExeFirst = gameProfile.LaunchSecondExecutableFirst;
             _secondExeArguments = gameProfile.SecondExecutableArguments;
             _launchMinimized = gameProfile.LaunchMinimized;
@@ -706,6 +710,12 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.pcsx2x6:
                     _controlSender ??= new Pcsx2x6Pipe();
                     break;
+                case EmulationProfile.TeknoVegas:
+                    _controlSender = new TeknoVegasPipe();
+                    break;
+                case EmulationProfile.TeknoViper:
+                    _controlSender = new TeknoViperPipe();
+                    break;
                 case EmulationProfile.RPCS3:
                     _controlSender ??= new RPCS3Pipe();
                     break;
@@ -759,7 +769,11 @@ namespace TeknoParrotUi.Views
                 InputCode.ButtonMode != EmulationProfile.Theatrhythm &&
                 InputCode.ButtonMode != EmulationProfile.FastIo &&
                 InputCode.ButtonMode != EmulationProfile.GunslingerStratos3 &&
-                _gameProfile.EmulatorType != EmulatorType.Dolphin && _gameProfile.EmulatorType != EmulatorType.Play && _gameProfile.EmulatorType != EmulatorType.RPCS3)
+                _gameProfile.EmulatorType != EmulatorType.Dolphin &&
+                _gameProfile.EmulatorType != EmulatorType.Play &&
+                _gameProfile.EmulatorType != EmulatorType.RPCS3 &&
+                _gameProfile.EmulatorType != EmulatorType.TeknoVegas &&
+                _gameProfile.EmulatorType != EmulatorType.TeknoViper)
             {
                 //bool DualJvsEmulation = _gameProfile.ConfigValues.Any(x => x.FieldName == "DualJvsEmulation" && x.FieldValue == "1");
 

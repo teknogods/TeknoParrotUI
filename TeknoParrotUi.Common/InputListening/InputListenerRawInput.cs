@@ -33,6 +33,8 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _isPrimevalHunt;
         private bool _isGunslinger;
         private bool _isPlay;
+        private bool _isTeknoVegas;
+        private bool _isTeknoViper;
         private bool _isPCSX2;
         private bool _swapdisplay;
         private bool _onedisplay;
@@ -159,19 +161,6 @@ namespace TeknoParrotUi.Common.InputListening
         private const int LOGPIXELSX = 88;
         private const int LOGPIXELSY = 90;
 
-        private void UpdateDpiScaling()
-        {
-            IntPtr desktop = GetDC(IntPtr.Zero);
-            if (desktop != IntPtr.Zero)
-            {
-                int dpiX = GetDeviceCaps(desktop, LOGPIXELSX);
-                int dpiY = GetDeviceCaps(desktop, LOGPIXELSY);
-                _dpiScaleX = dpiX / 96.0;
-                _dpiScaleY = dpiY / 96.0;
-                ReleaseDC(IntPtr.Zero, desktop);
-            }
-        }
-
         public InputListenerRawInput()
         {
             _hookedWindows = File.Exists("HookedWindows.txt") ? File.ReadAllLines("HookedWindows.txt").ToList() : new List<string>();
@@ -184,6 +173,11 @@ namespace TeknoParrotUi.Common.InputListening
                 // PCSX2 bases the name on the acgame file, and everyone has a different game name in there it seems
                 // so let's just prefix it, and then check for the prefix i think?
                 if (_isPCSX2 && windowTitle.StartsWith("PCSX2 on TP:"))
+                {
+                    return true;
+                }
+
+                if (_isTeknoViper && windowTitle.StartsWith("TeknoViper - ", StringComparison.Ordinal))
                 {
                     return true;
                 }
@@ -225,6 +219,8 @@ namespace TeknoParrotUi.Common.InputListening
             _isPrimevalHunt = gameProfile.EmulationProfile == EmulationProfile.PrimevalHunt;
             _isGunslinger = gameProfile.EmulationProfile == EmulationProfile.GunslingerStratos3;
             _isPlay = gameProfile.EmulationProfile == EmulationProfile.PlayInput;
+            _isTeknoVegas = gameProfile.EmulationProfile == EmulationProfile.TeknoVegas;
+            _isTeknoViper = gameProfile.EmulationProfile == EmulationProfile.TeknoViper;
             _isPCSX2 = gameProfile.EmulationProfile == EmulationProfile.pcsx2x6;
             _16bit = gameProfile.Use16BitAnalog;
             _gameProfile = gameProfile;
@@ -326,15 +322,29 @@ namespace TeknoParrotUi.Common.InputListening
             // for use with Play
             bool hasCanvasInfo = false;
 
-            // We wait for the Play emu to create the memory mapped file
-            // because at that point we know the main window has opened and we're probably ready
-            if (_isPlay)
+            // These emulators publish their exact screen-space content viewport.
+            // This keeps absolute and relative gun input aligned with letterboxed output.
+            if (_isPlay || _isTeknoVegas || _isTeknoViper)
             {
+                string canvasName = "TeknoparrotCanvas";
+                if (_isPlay)
+                {
+                    canvasName = "PlayCanvasInfo";
+                }
+                else if (_isTeknoVegas)
+                {
+                    canvasName = "TeknoVegasCanvasInfo";
+                }
+                else if (_isTeknoViper)
+                {
+                    canvasName = "TeknoViperCanvasInfo";
+                }
+
                 while (!KillMe && _canvasInfoMMF == null)
                 {
                     try
                     {
-                        _canvasInfoMMF = MemoryMappedFile.OpenExisting("PlayCanvasInfo");
+                        _canvasInfoMMF = MemoryMappedFile.OpenExisting(canvasName);
                         _canvasInfoAccessor = _canvasInfoMMF.CreateViewAccessor();
                     }
                     catch
@@ -374,7 +384,8 @@ namespace TeknoParrotUi.Common.InputListening
                     // Only update when we are on the foreground
                     if (_windowHandle == GetForegroundWindow())
                     {
-                        if (_isPlay && _canvasInfoAccessor != null)
+                        if ((_isPlay || _isTeknoVegas || _isTeknoViper) &&
+                            _canvasInfoAccessor != null)
                         {
                             try
                             {
@@ -803,7 +814,7 @@ namespace TeknoParrotUi.Common.InputListening
                                 else if (gun.InputMapping == InputMapping.P4LightGun)
                                     player = 3;
 
-                                if (_isPlay)
+                                if (_isPlay || _isTeknoVegas || _isTeknoViper)
                                 {
                                     int scaledDeltaX = (int)(mouse.Mouse.LastX * _dpiScaleX);
                                     int scaledDeltaY = (int)(mouse.Mouse.LastY * _dpiScaleY);
@@ -1396,7 +1407,7 @@ namespace TeknoParrotUi.Common.InputListening
             float factorY = 0.0f;
 
             // Windowed
-            if (_windowed || _isPlay)
+            if (_windowed || _isPlay || _isTeknoVegas || _isTeknoViper)
             {
                 // Translate absolute units to pixels
                 if (moveAbsolute)

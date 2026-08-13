@@ -480,6 +480,20 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     info.UseShellExecute = false;
                     info.WorkingDirectory = Path.Combine(Directory.GetCurrentDirectory(), "pcsx2x6") ?? throw new InvalidOperationException();
                 }
+                else if (_gameProfile.EmulatorType == EmulatorType.TeknoVegas ||
+                         _gameProfile.EmulatorType == EmulatorType.TeknoViper)
+                {
+                    info = TeknoViperVegasLauncher.Build(
+                        _gameProfile,
+                        _gameLocation,
+                        message =>
+                        {
+                            Trace.WriteLine(message);
+                            textBoxConsole.Dispatcher.Invoke(
+                                () => textBoxConsole.AppendText(message + Environment.NewLine),
+                                DispatcherPriority.Background);
+                        });
+                }
                 else if (_gameProfile.EmulatorType == EmulatorType.RPCS3)
                 {
                     // Configure RPCS3 before launching

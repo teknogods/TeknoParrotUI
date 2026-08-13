@@ -55,6 +55,12 @@ namespace TeknoParrotUi.Views
             { EmulatorType.pcsx2x6,          "https://ps2homebrew-arcade.github.io/pcsx2x6/" },
         };
 
+        private static readonly Dictionary<EmulatorType, string> _emulatorPlaceholderIcons = new Dictionary<EmulatorType, string>
+        {
+            { EmulatorType.TeknoVegas, "TeknoVegas.png" },
+            { EmulatorType.TeknoViper, "TeknoViper.png" },
+        };
+
         public Library(ContentControl contentControl)
         {
             InitializeComponent();
@@ -133,7 +139,7 @@ namespace TeknoParrotUi.Views
             return false;
         }
 
-        public static void UpdateIcon(string iconName, ref Image gameIcon)
+        private static bool TryUpdateIcon(string iconName, ref Image gameIcon)
         {
             var iconPath = Path.Combine("Icons", iconName);
             bool success = Lazydata.ParrotData.DownloadIcons ? DownloadFile(
@@ -145,18 +151,33 @@ namespace TeknoParrotUi.Views
                 try
                 {
                     gameIcon.Source = LoadImage(iconPath);
+                    return true;
                 }
                 catch
                 {
-                    //delete icon since it's probably corrupted, then load default icon
+                    // Delete the icon since it's probably corrupted, then try the fallback.
                     if (File.Exists(iconPath)) File.Delete(iconPath);
-                    gameIcon.Source = defaultIcon;
                 }
             }
-            else
+
+            return false;
+        }
+
+        public static void UpdateIcon(string iconName, EmulatorType emulatorType, ref Image gameIcon)
+        {
+            if (TryUpdateIcon(iconName, ref gameIcon))
             {
-                gameIcon.Source = defaultIcon;
+                return;
             }
+
+            if (_emulatorPlaceholderIcons.TryGetValue(emulatorType, out string placeholderIcon) &&
+                !string.Equals(iconName, placeholderIcon, StringComparison.OrdinalIgnoreCase) &&
+                TryUpdateIcon(placeholderIcon, ref gameIcon))
+            {
+                return;
+            }
+
+            gameIcon.Source = defaultIcon;
         }
 
         /// <summary>
@@ -178,7 +199,7 @@ namespace TeknoParrotUi.Views
 
             var modifyItem = (ListBoxItem)((ListBox)sender).SelectedItem;
             var profile = _gameNames[gameList.SelectedIndex];
-            UpdateIcon(profile.IconName.Split('/')[1], ref gameIcon);
+            UpdateIcon(profile.IconName.Split('/')[1], profile.EmulatorType, ref gameIcon);
 
             _gameSettings.LoadNewSettings(profile, modifyItem, _contentControl, this);
             Joystick.LoadNewSettings(profile, modifyItem);
@@ -489,6 +510,14 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulatorType.pcsx2x6:
                     loaderExe = ".\\pcsx2x6\\pcsx2-qtx64.exe";
+                    break;
+                case EmulatorType.TeknoVegas:
+                    loaderExe = ".\\TeknoVegas\\TeknoVegas.exe";
+                    break;
+                case EmulatorType.TeknoViper:
+                    loaderExe = File.Exists(".\\TeknoViper\\TeknoViper.exe")
+                        ? ".\\TeknoViper\\TeknoViper.exe"
+                        : ".\\TeknoViper\\viperwin.exe";
                     break;
                 default:
                     loaderDll = (is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");

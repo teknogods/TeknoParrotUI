@@ -135,7 +135,7 @@ namespace TeknoParrotUi.Views
             var gameItem = (ListBoxItem)stockGameList.SelectedValue;
             _selected = (GameProfile)gameItem.Tag;
             //_selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
-            Library.UpdateIcon(_selected.IconName.Split('/')[1], ref gameIcon);
+            Library.UpdateIcon(_selected.IconName.Split('/')[1], _selected.EmulatorType, ref gameIcon);
 
             var added = ((ListBoxItem)stockGameList.SelectedItem).Content.ToString().Contains(TeknoParrotUi.Properties.Resources.AddGameAddedSuffix);
             AddButton.IsEnabled = !added;

@@ -418,6 +418,7 @@
       <DependentUpon>AccountPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GameRunningCode\ProcessManagement\GameProcessManager.cs" />
+    <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoViperVegasLauncher.cs" />
     <Compile Include="Views\GameRunningCode\ControlHandlers\GunControlHandler.cs" />
     <Compile Include="Views\GameRunningCode\ControlHandlers\OlympicControlHandler.cs" />
     <Compile Include="Views\GameRunningCode\EmulatorHelpers\SegaToolsHelper.cs" />

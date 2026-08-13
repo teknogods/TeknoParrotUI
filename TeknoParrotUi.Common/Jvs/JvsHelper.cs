@@ -17,6 +17,16 @@ namespace TeknoParrotUi.Common.Jvs
             StateView = StateSection.CreateViewAccessor();
         }
 
+        public static void ResetState()
+        {
+            StateView.WriteArray(0, new byte[64], 0, 64);
+        }
+
+        public static void WriteStateByte(long offset, byte value)
+        {
+            StateView.Write(offset, value);
+        }
+
         /// <summary>
         /// Calculates gas position.
         /// </summary>
