@@ -7,7 +7,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TeknoVegas</EmulationProfile>
-	<GameProfileRevision>9</GameProfileRevision>
+	<GameProfileRevision>10</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoVegas</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -143,13 +143,6 @@
 			<FieldName>Mute Audio</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>Storage</CategoryName>
-			<FieldName>CHD Root</FieldName>
-			<FieldValue></FieldValue>
-			<FieldType>Text</FieldType>
-			<Hint>Folder containing &lt;romname&gt;\&lt;diskname&gt;.chd, or a full .chd path.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Storage</CategoryName>
