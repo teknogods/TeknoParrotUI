@@ -189,7 +189,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var startInfo = new ProcessStartInfo(executable, string.Join(" ", parameters))
             {
                 UseShellExecute = false,
-                WorkingDirectory = workDir
+                WorkingDirectory = workDir,
+                RedirectStandardError = true
             };
             // Somehow RTSS's vulkan layer crashes immediately when Vegas starts so
             // disabling it for TeknoVegas seems to work around it
@@ -333,7 +334,11 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             return new ProcessStartInfo(executable, string.Join(" ", parameters))
             {
                 UseShellExecute = false,
-                WorkingDirectory = workDir
+                WorkingDirectory = workDir,
+                // Fatal startup detail is emitted on stderr. GameProcessManager
+                // drains it asynchronously and includes it in TPUI's exit-code
+                // dialog instead of letting a release build disappear silently.
+                RedirectStandardError = true
             };
         }
     }

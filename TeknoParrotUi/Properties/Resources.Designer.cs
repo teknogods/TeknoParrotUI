@@ -2514,6 +2514,90 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}
+        ///
+        ///Details:
+        ///{1}.
+        /// </summary>
+        public static string GameErrorViperVegasDetails {
+            get {
+                return ResourceManager.GetString("GameErrorViperVegasDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TeknoViper/TeknoVegas could not initialize its window or presentation system..
+        /// </summary>
+        public static string GameErrorViperVegasHostInitialization {
+            get {
+                return ResourceManager.GetString("GameErrorViperVegasHostInitialization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TeknoViper/TeknoVegas received an invalid launch configuration..
+        /// </summary>
+        public static string GameErrorViperVegasInvalidConfiguration {
+            get {
+                return ResourceManager.GetString("GameErrorViperVegasInvalidConfiguration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TeknoViper/TeknoVegas could not authorize this launch..
+        /// </summary>
+        public static string GameErrorViperVegasLicense {
+            get {
+                return ResourceManager.GetString("GameErrorViperVegasLicense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TeknoViper/TeknoVegas could not load the required ROM or disk media..
+        /// </summary>
+        public static string GameErrorViperVegasMedia {
+            get {
+                return ResourceManager.GetString("GameErrorViperVegasMedia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TeknoViper/TeknoVegas could not initialize cabinet networking..
+        /// </summary>
+        public static string GameErrorViperVegasNetwork {
+            get {
+                return ResourceManager.GetString("GameErrorViperVegasNetwork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TeknoViper/TeknoVegas could not load the configured save or NVRAM data..
+        /// </summary>
+        public static string GameErrorViperVegasState {
+            get {
+                return ResourceManager.GetString("GameErrorViperVegasState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TeknoViper/TeknoVegas exited unexpectedly..
+        /// </summary>
+        public static string GameErrorViperVegasUnexpected {
+            get {
+                return ResourceManager.GetString("GameErrorViperVegasUnexpected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This game is unknown or is not enabled in this TeknoViper/TeknoVegas build..
+        /// </summary>
+        public static string GameErrorViperVegasUnsupportedGame {
+            get {
+                return ResourceManager.GetString("GameErrorViperVegasUnsupportedGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Game List.
         /// </summary>
         public static string GameList {

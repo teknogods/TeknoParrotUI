@@ -2720,4 +2720,34 @@ Now closing...</value>
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>Save info to text file</value>
   </data>
+  <data name="GameErrorViperVegasInvalidConfiguration" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas received an invalid launch configuration.</value>
+  </data>
+  <data name="GameErrorViperVegasUnsupportedGame" xml:space="preserve">
+    <value>This game is unknown or is not enabled in this TeknoViper/TeknoVegas build.</value>
+  </data>
+  <data name="GameErrorViperVegasLicense" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas could not authorize this launch.</value>
+  </data>
+  <data name="GameErrorViperVegasMedia" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas could not load the required ROM or disk media.</value>
+  </data>
+  <data name="GameErrorViperVegasState" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas could not load the configured save or NVRAM data.</value>
+  </data>
+  <data name="GameErrorViperVegasNetwork" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas could not initialize cabinet networking.</value>
+  </data>
+  <data name="GameErrorViperVegasHostInitialization" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas could not initialize its window or presentation system.</value>
+  </data>
+  <data name="GameErrorViperVegasUnexpected" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas exited unexpectedly.</value>
+  </data>
+  <data name="GameErrorViperVegasDetails" xml:space="preserve">
+    <value>{0}
+
+Details:
+{1}</value>
+  </data>
 </root>

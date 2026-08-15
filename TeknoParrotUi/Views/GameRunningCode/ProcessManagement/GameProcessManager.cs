@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web.UI.WebControls;
@@ -959,6 +960,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 {
                     StartInfo = info
                 };
+                var emulatorDiagnostics = new StringBuilder();
+                var emulatorDiagnosticsSync = new object();
 
                 cmdProcess.OutputDataReceived += (sender, e) =>
                 {
@@ -978,9 +981,44 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     Console.WriteLine(e.Data);
                 };
 
+                cmdProcess.ErrorDataReceived += (sender, e) =>
+                {
+                    if (string.IsNullOrEmpty(e.Data)) return;
+                    try
+                    {
+                        textBoxConsole.Dispatcher.Invoke(
+                            () => textBoxConsole.AppendText("\n" + e.Data),
+                            DispatcherPriority.Background);
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Ignoring textBoxConsoleDispatcher exception.");
+                    }
+
+                    Trace.WriteLine(e.Data);
+                    Console.Error.WriteLine(e.Data);
+                    if (_gameProfile.EmulatorType == EmulatorType.TeknoVegas ||
+                        _gameProfile.EmulatorType == EmulatorType.TeknoViper)
+                    {
+                        lock (emulatorDiagnosticsSync)
+                        {
+                            emulatorDiagnostics.AppendLine(e.Data);
+                            const int maximumDiagnosticCharacters = 8192;
+                            if (emulatorDiagnostics.Length > maximumDiagnosticCharacters)
+                            {
+                                emulatorDiagnostics.Remove(
+                                    0,
+                                    emulatorDiagnostics.Length - maximumDiagnosticCharacters);
+                            }
+                        }
+                    }
+                };
+
                 cmdProcess.EnableRaisingEvents = true;
 
                 cmdProcess.Start();
+                if (info.RedirectStandardError)
+                    cmdProcess.BeginErrorReadLine();
                 if (Lazydata.ParrotData.SilentMode &&
                     _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
                     _gameProfile.EmulatorType != EmulatorType.N2 &&
@@ -1026,6 +1064,11 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
                     Thread.Sleep(500);
                 }
+
+                // The process has exited, but asynchronous stdout/stderr event
+                // handlers may still have queued lines. This overload waits for
+                // those handlers so the error dialog receives the complete tail.
+                cmdProcess.WaitForExit();
 
                 // cxbxr re-launches itself - monitor the child process until it's truly gone
                 if (_gameProfile.EmulatorType == EmulatorType.cxbxr)
@@ -1082,8 +1125,16 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 #endif
 
                 Analytics.DisableSending();
-                if (_gameProfile.EmulatorType != EmulatorType.cxbxr)
-                    GameErrorMessage.ShowGameError(cmdProcess.ExitCode);
+                if (_gameProfile.EmulatorType != EmulatorType.cxbxr && !_forceQuit)
+                {
+                    string diagnosticText;
+                    lock (emulatorDiagnosticsSync)
+                        diagnosticText = emulatorDiagnostics.ToString().Trim();
+                    GameErrorMessage.ShowGameError(
+                        cmdProcess.ExitCode,
+                        _gameProfile.EmulatorType,
+                        diagnosticText);
+                }
 
                 _gameRunning.TerminateThreads();
 

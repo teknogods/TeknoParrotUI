@@ -1,12 +1,85 @@
+using System;
 using System.Diagnostics;
 using System.Windows;
+using TeknoParrotUi.Common;
 
 namespace TeknoParrotUi.Helpers
 {
     public static class GameErrorMessage
     {
+        private const int ViperVegasInvalidConfiguration = 0x05650001;
+        private const int ViperVegasUnsupportedGame = 0x05650002;
+        private const int ViperVegasLicense = 0x05650003;
+        private const int ViperVegasMedia = 0x05650004;
+        private const int ViperVegasState = 0x05650005;
+        private const int ViperVegasNetwork = 0x05650006;
+        private const int ViperVegasHostInitialization = 0x05650007;
+        private const int ViperVegasUnexpected = 0x05650008;
+
         public static void ShowGameError(int errorCode)
         {
+            ShowGameError(errorCode, null, null);
+        }
+
+        public static void ShowGameError(
+            int errorCode,
+            EmulatorType? emulatorType,
+            string diagnostics)
+        {
+            var viperVegas = emulatorType == EmulatorType.TeknoViper ||
+                             emulatorType == EmulatorType.TeknoVegas;
+            if (viperVegas && errorCode != 0)
+            {
+                string resourceName;
+                switch (errorCode)
+                {
+                    case ViperVegasInvalidConfiguration:
+                        resourceName = "GameErrorViperVegasInvalidConfiguration";
+                        break;
+                    case ViperVegasUnsupportedGame:
+                        resourceName = "GameErrorViperVegasUnsupportedGame";
+                        break;
+                    case ViperVegasLicense:
+                        resourceName = "GameErrorViperVegasLicense";
+                        break;
+                    case ViperVegasMedia:
+                        resourceName = "GameErrorViperVegasMedia";
+                        break;
+                    case ViperVegasState:
+                        resourceName = "GameErrorViperVegasState";
+                        break;
+                    case ViperVegasNetwork:
+                        resourceName = "GameErrorViperVegasNetwork";
+                        break;
+                    case ViperVegasHostInitialization:
+                        resourceName = "GameErrorViperVegasHostInitialization";
+                        break;
+                    case ViperVegasUnexpected:
+                    default:
+                        resourceName = "GameErrorViperVegasUnexpected";
+                        break;
+                }
+
+                var summary = Properties.Resources.ResourceManager.GetString(resourceName);
+                if (string.IsNullOrWhiteSpace(summary))
+                    summary = "The emulator could not start or exited unexpectedly.";
+                if (!string.IsNullOrWhiteSpace(diagnostics))
+                {
+                    var format = Properties.Resources.ResourceManager.GetString(
+                        "GameErrorViperVegasDetails");
+                    summary = string.IsNullOrWhiteSpace(format)
+                        ? summary + Environment.NewLine + Environment.NewLine + diagnostics
+                        : string.Format(format, summary, diagnostics);
+                }
+                else
+                {
+                    summary += Environment.NewLine + Environment.NewLine +
+                               string.Format("Exit code: 0x{0:X8}", errorCode);
+                }
+                MessageBox.Show(summary);
+                return;
+            }
+
             switch (errorCode)
             {
                 case 1337:
