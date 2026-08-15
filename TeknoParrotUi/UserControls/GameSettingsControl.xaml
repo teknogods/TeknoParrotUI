@@ -191,6 +191,26 @@
                                                 </Setter>
                                             </DataTrigger>
 
+                                            <DataTrigger Binding="{Binding FieldType}" Value="Numeric">
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <materialDesign:NumericUpDown
+                                            Height="{StaticResource fieldHeight}"
+                                            Margin="0,0,0,5"
+                                            Foreground="{DynamicResource MaterialDesignBody}"
+                                            HorizontalContentAlignment="Left"
+                                            Maximum="{Binding FieldMax}"
+                                            Minimum="{Binding FieldMin}"
+                                            Value="{Binding FieldValue, Mode=TwoWay}"
+                                            ValueStep="1">
+                                                            <materialDesign:NumericUpDown.ToolTip>
+                                                                <ToolTip Style="{StaticResource teknoHint}" />
+                                                            </materialDesign:NumericUpDown.ToolTip>
+                                                        </materialDesign:NumericUpDown>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+
                                             <DataTrigger Binding="{Binding FieldType}" Value="Bool">
                                                 <Setter Property="Content">
                                                     <Setter.Value>

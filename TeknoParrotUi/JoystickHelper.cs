@@ -13,6 +13,8 @@ namespace TeknoParrotUi.Common
 {
     public class JoystickHelper
     {
+        private const string ShowDevOnlyProfilesEnvironmentVariable = "TPUI_SHOW_DEVONLY_PROFILES";
+        private static readonly bool showDevOnlyProfiles = IsEnvironmentFlagEnabled(ShowDevOnlyProfilesEnvironmentVariable);
         private static readonly XmlSerializer gameProfileSerializer = new XmlSerializer(typeof(GameProfile));
         private static readonly XmlSerializer gameSetupSerializer = new XmlSerializer(typeof(GameSetup));
         private static readonly XmlReaderSettings readerSettings = new XmlReaderSettings
@@ -23,6 +25,13 @@ namespace TeknoParrotUi.Common
             ValidationType = ValidationType.None
         };
         private static readonly JsonSerializer jsonSerializer = new JsonSerializer();
+
+        private static bool IsEnvironmentFlagEnabled(string variableName)
+        {
+            var value = Environment.GetEnvironmentVariable(variableName);
+            return value == "1" || bool.TryParse(value, out var enabled) && enabled;
+        }
+
         /// <summary>
         /// Serializes Lazydata.ParrotData to a ParrotData.xml file.
         /// </summary>
@@ -90,7 +99,7 @@ namespace TeknoParrotUi.Common
                     profile = (GameSetup)gameSetupSerializer.Deserialize(reader);
                 }
 #if !DEBUG
-                if (profile.DevOnly)
+                if (profile.DevOnly && !showDevOnlyProfiles)
                 {
                     Debug.WriteLine($"Skipping loading dev profile {fileName}");
                     return null;
@@ -120,7 +129,7 @@ namespace TeknoParrotUi.Common
                     profile = (GameProfile)gameProfileSerializer.Deserialize(reader);
                 }
 #if !DEBUG
-                if (profile.DevOnly)
+                if (profile.DevOnly && !showDevOnlyProfiles)
                 {
                     Debug.WriteLine($"Skipping loading dev profile {fileName}");
                     return null;

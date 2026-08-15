@@ -157,6 +157,24 @@ namespace ParrotPatcher
                     folderOverride = "pcsx2x6",
                     excludedFiles = new List<string> { "TeknoParrot/*" }     
                 },
+                new UpdaterComponent
+                {
+                    name = "TeknoViper",
+                    location = Path.Combine("TeknoViper", "TeknoViper.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "TeknoViper"
+                },
+                new UpdaterComponent
+                {
+                    name = "TeknoVegas",
+                    location = Path.Combine("TeknoVegas", "TeknoVegas.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "TeknoVegas"
+                },
             };
         }
     }

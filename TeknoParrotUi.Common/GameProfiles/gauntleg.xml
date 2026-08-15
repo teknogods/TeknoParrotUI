@@ -7,7 +7,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TeknoVegas</EmulationProfile>
-	<GameProfileRevision>10</GameProfileRevision>
+	<GameProfileRevision>11</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoVegas</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -15,7 +15,7 @@
 	<ExecutableName2>*.chd</ExecutableName2>
 	<HasTwoExecutables>true</HasTwoExecutables>
 	<Patreon>true</Patreon>
-	<DevOnly>true</DevOnly>
+	<DevOnly>false</DevOnly>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -197,6 +197,7 @@
 			<FieldName>Dump Textures</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
+			<Hint>Save every texture the game loads into the texture dump root folder, for editing and reapplying via texture-packs</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Textures</CategoryName>
@@ -224,7 +225,7 @@
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
 			<FieldName>Network Port</FieldName>
-			<FieldValue>0</FieldValue>
+			<FieldValue>29971</FieldValue>
 			<FieldType>Numeric</FieldType>
 			<FieldMin>0</FieldMin>
 			<FieldMax>65535</FieldMax>
@@ -240,7 +241,7 @@
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
 			<FieldName>Network Diagnostics</FieldName>
-			<FieldValue>1</FieldValue>
+			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 			<Hint>Print live peer counts and a final per-peer wire report to the run log.</Hint>
 		</FieldInformation>

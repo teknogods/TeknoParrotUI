@@ -301,6 +301,28 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 parameters.Add("--gpu-high-performance");
             }
 
+            if (int.TryParse(Setting("Network Port", "0"), out var networkPort) &&
+                networkPort > 0 && networkPort <= 65535)
+            {
+                var cabinet = Setting("Cabinet Id", "1");
+                if (!int.TryParse(cabinet, out var cabinetId) || cabinetId < 1 || cabinetId > 8)
+                    cabinetId = 1;
+
+                parameters.Add("--network-port");
+                parameters.Add(networkPort.ToString());
+                parameters.Add("--network-node");
+                parameters.Add(cabinetId.ToString());
+
+                var networkInterface = Setting("Network Interface", "auto").Trim();
+                if (!string.IsNullOrWhiteSpace(networkInterface))
+                {
+                    parameters.Add("--network-interface");
+                    parameters.Add(Quote(networkInterface));
+                }
+                if (Enabled("Network Diagnostics", true))
+                    parameters.Add("--network-diagnostics");
+            }
+
             if (!File.Exists(executable))
                 log?.Invoke($"TeknoViper executable was not found at {preferredExecutable} or {legacyExecutable}");
             if (!Directory.Exists(romRoot))
