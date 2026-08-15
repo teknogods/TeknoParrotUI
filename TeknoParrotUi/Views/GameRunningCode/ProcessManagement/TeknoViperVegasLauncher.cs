@@ -1,14 +1,24 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using TeknoParrotUi.Common;
 
 namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 {
     internal static class TeknoViperVegasLauncher
     {
+        private const int ErrorFileNotFound = 2;
+        private const int ErrorPathNotFound = 3;
+        private const int ErrorNotSupported = 50;
+        private const int ErrorInvalidName = 123;
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+        private static extern bool DeleteFile(string fileName);
+
         public static ProcessStartInfo Build(GameProfile profile, string gameLocation, Action<string> log)
         {
             switch (profile.EmulatorType)
@@ -186,6 +196,12 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             if (!File.Exists(diskPath))
                 log?.Invoke($"TeknoVegas CHD was not found at {diskPath}. Select it as the second game file in Game Settings.");
 
+            var romFilePath = Path.IsPathRooted(romPath)
+                ? romPath
+                : Path.GetFullPath(Path.Combine(workDir, romPath));
+            UnblockFile(romFilePath, log);
+            UnblockFile(diskPath, log);
+
             var startInfo = new ProcessStartInfo(executable, string.Join(" ", parameters))
             {
                 UseShellExecute = false,
@@ -331,6 +347,32 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             if (!Directory.Exists(chdRoot))
                 log?.Invoke($"TeknoViper CHD root was not found at {chdRoot}");
 
+            // Viper loads the selected set and its shared system archive. Avoid
+            // scanning a complete MAME collection on every launch.
+            if (!string.IsNullOrWhiteSpace(selectedRom) &&
+                selectedRom.EndsWith(".zip", StringComparison.OrdinalIgnoreCase))
+            {
+                UnblockFile(ResolveUiPath(selectedRom, workDir), log);
+            }
+            else
+            {
+                UnblockFile(Path.Combine(romRoot, gameId + ".zip"), log);
+            }
+            UnblockFile(Path.Combine(romRoot, "kviper.zip"), log);
+            if (!string.IsNullOrWhiteSpace(selectedChd) &&
+                selectedChd.EndsWith(".chd", StringComparison.OrdinalIgnoreCase))
+            {
+                UnblockFile(ResolveUiPath(selectedChd, workDir), log);
+            }
+            else
+            {
+                UnblockFilesInDirectory(
+                    Path.Combine(chdRoot, gameId),
+                    "*.chd",
+                    SearchOption.AllDirectories,
+                    log);
+            }
+
             return new ProcessStartInfo(executable, string.Join(" ", parameters))
             {
                 UseShellExecute = false,
@@ -340,6 +382,63 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 // dialog instead of letting a release build disappear silently.
                 RedirectStandardError = true
             };
+        }
+
+        private static void UnblockFilesInDirectory(
+            string directory,
+            string searchPattern,
+            SearchOption searchOption,
+            Action<string> log)
+        {
+            if (string.IsNullOrWhiteSpace(directory) || !Directory.Exists(directory))
+                return;
+
+            try
+            {
+                foreach (var path in Directory.EnumerateFiles(directory, searchPattern, searchOption))
+                    UnblockFile(path, log);
+            }
+            catch (Exception ex) when (ex is IOException ||
+                                       ex is UnauthorizedAccessException ||
+                                       ex is ArgumentException)
+            {
+                log?.Invoke($"Could not scan launch media in {directory} for Internet zone metadata: {ex.Message}");
+            }
+        }
+
+        private static void UnblockFile(string path, Action<string> log)
+        {
+            if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
+                return;
+
+            try
+            {
+                // .NET Framework's File.Delete rejects alternate-data-stream
+                // paths, so call Win32 directly to remove the Mark of the Web.
+                if (DeleteFile(path + ":Zone.Identifier"))
+                    return;
+
+                var error = Marshal.GetLastWin32Error();
+                // A missing stream means the file is already unblocked. File
+                // systems without alternate streams cannot contain this mark.
+                if (error == ErrorFileNotFound ||
+                    error == ErrorPathNotFound ||
+                    error == ErrorNotSupported ||
+                    error == ErrorInvalidName)
+                    return;
+
+                throw new Win32Exception(error);
+            }
+            catch (Exception ex) when (ex is IOException ||
+                                       ex is UnauthorizedAccessException ||
+                                       ex is NotSupportedException ||
+                                       ex is Win32Exception ||
+                                       ex is ArgumentException)
+            {
+                // Unblocking is best-effort; a read-only/network ROM should not
+                // prevent the emulator from attempting to launch it.
+                log?.Invoke($"Could not remove Internet zone metadata from {path}: {ex.Message}");
+            }
         }
     }
 }
