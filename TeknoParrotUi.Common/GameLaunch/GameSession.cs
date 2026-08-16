@@ -60,7 +60,11 @@ namespace TeknoParrotUi.Common.GameLaunch
             _emuOnly = emuOnly;
             _gameLocation = SafeFullPath(profile.GamePath);
             _gameLocation2 = SafeFullPath(profile.GamePath2);
-            _twoExes = profile.HasTwoExecutables;
+            // TeknoVegas reuses TPUI's second-file picker for the CHD. It is
+            // launch data passed to the emulator, not an auxiliary process.
+            _twoExes = profile.HasTwoExecutables &&
+                       profile.EmulatorType != EmulatorType.TeknoVegas &&
+                       profile.EmulatorType != EmulatorType.TeknoViper;
             _secondExeFirst = profile.LaunchSecondExecutableFirst;
             _secondExeArguments = profile.SecondExecutableArguments;
 

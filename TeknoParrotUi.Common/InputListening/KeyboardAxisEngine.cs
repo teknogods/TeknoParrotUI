@@ -80,6 +80,32 @@ namespace TeknoParrotUi.Common.InputListening
             // Byte layout per game (classic table, P1/P2)
             switch (profile.EmulationProfile)
             {
+                case EmulationProfile.TeknoViper:
+                    _wheelByte = 0; _gasByte = 2; _brakeByte = 4;
+                    break;
+                case EmulationProfile.TeknoVegas:
+                    switch (profile.ProfileName)
+                    {
+                        case "roadburn":
+                            _wheelByte = 2; _gasByte = 0;
+                            break;
+                        case "sf2049":
+                        case "sf2049se":
+                        case "sf2049te":
+                            _wheelByte = 14; _gasByte = 4; _brakeByte = 12;
+                            break;
+                        case "sfrush":
+                        case "sfrushrk":
+                            _wheelByte = 14; _gasByte = 8; _brakeByte = 10;
+                            break;
+                        case "vaportrx":
+                            _wheelByte = 4;
+                            break;
+                        default:
+                            _wheelByte = 0; _gasByte = 2; _brakeByte = 4;
+                            break;
+                    }
+                    break;
                 case EmulationProfile.TokyoCop:
                     _wheelByte = 0; _gasByte = 2; _brakeByte = 4;
                     break;

@@ -127,6 +127,8 @@ namespace TeknoParrotUi.Common.GameLaunch
                 case EmulationProfile.System147: return new System147();
                 case EmulationProfile.PlayInput: return new PlayPipe();
                 case EmulationProfile.pcsx2x6: return new Pcsx2x6Pipe();
+                case EmulationProfile.TeknoVegas: return new TeknoVegasPipe();
+                case EmulationProfile.TeknoViper: return new TeknoViperPipe();
                 case EmulationProfile.RPCS3: return new RPCS3Pipe();
                 case EmulationProfile.LadyLuck: return new LadyLuckPipe();
                 case EmulationProfile.KonamiAcio:

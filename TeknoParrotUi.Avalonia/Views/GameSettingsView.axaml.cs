@@ -164,8 +164,12 @@ public partial class GameSettingsView : UserControl
             if (profile.HasTwoExecutables)
                 _gamePath2Box = AddPathRow(
                     BuildExecutableLabel(
-                        "GameSettingsSecondGameExecutableLabel",
-                        "Second Game Executable",
+                        profile.EmulatorType == EmulatorType.TeknoVegas
+                            ? "GameSettingsTeknoVegasChdLabel"
+                            : "GameSettingsSecondGameExecutableLabel",
+                        profile.EmulatorType == EmulatorType.TeknoVegas
+                            ? "Game CHD"
+                            : "Second Game Executable",
                         profile.ExecutableName2),
                     profile.GamePath2,
                     profile.ExecutableName2);
@@ -576,11 +580,9 @@ public partial class GameSettingsView : UserControl
             var top = TopLevel.GetTopLevel(this);
             if (top == null) return;
 
-            var pickerTitle =
-                $"{Services.Loc.T("GameSettingsSelectGameExecutable", "Select Game Executable")} — {label}";
             var pickerOptions = new FilePickerOpenOptions
             {
-                Title = pickerTitle,
+                Title = $"{Services.Loc.T("GameSettingsSelectGameExecutable", "Select Game Executable")} — {label}",
                 AllowMultiple = false
             };
 
@@ -610,96 +612,81 @@ public partial class GameSettingsView : UserControl
                 pickerOptions.FileTypeFilter = filters;
             }
 
-            string? selectedDocument = null;
-            string? localPath = null;
-            if (OperatingSystem.IsAndroid() &&
-                Services.PlatformGameExecutablePicker.IsAvailable)
+            var files = await top.StorageProvider.OpenFilePickerAsync(pickerOptions);
+            if (files.Count > 0)
             {
-                selectedDocument = await Services.PlatformGameExecutablePicker
-                    .PickAsync(pickerTitle);
-                if (selectedDocument == null)
-                    return;
-            }
-            else
-            {
-                var files = await top.StorageProvider.OpenFilePickerAsync(pickerOptions);
-                if (files.Count == 0)
-                    return;
-                selectedDocument = files[0].Path.ToString();
-                localPath = files[0].TryGetLocalPath();
-            }
-
-            string? selectedPath;
-            if (OperatingSystem.IsAndroid())
-            {
-                // Android storage providers may expose a transient cache path
-                // through TryGetLocalPath(). Resolve the original SAF URI first
-                // so selecting a shared game cannot be replaced by an unusable
-                // private path and clear the field.
-                if (!Services.PlatformDocumentPathResolver.TryResolve(
-                        selectedDocument,
-                        out selectedPath))
+                string? selectedPath;
+                if (OperatingSystem.IsAndroid())
                 {
-                    selectedPath =
-                        AndroidDocumentPathResolver.TryNormalizeSharedPath(
-                            localPath ?? string.Empty,
-                            out var normalizedLocalPath)
-                            ? normalizedLocalPath
-                            : null;
-                }
-            }
-            else
-                selectedPath = localPath;
-            if (!string.IsNullOrWhiteSpace(selectedPath))
-            {
-                if (OperatingSystem.IsAndroid() &&
-                    (_profile?.EmulatorType is EmulatorType.OpenParrot or EmulatorType.TeknoParrot) &&
-                    !AndroidWinlatorGamePath.IsAllowedSharedPath(
-                        selectedPath,
-                        "/storage/emulated/0/Download"))
-                {
-                    if (top is Window owner)
+                    // Android storage providers may expose a transient cache path
+                    // through TryGetLocalPath(). Resolve the original SAF URI first
+                    // so selecting an RPCS3X6 EBOOT under shared app storage cannot
+                    // be replaced by an unusable private path and clear the field.
+                    if (!Services.PlatformDocumentPathResolver.TryResolve(
+                            files[0].Path.ToString(),
+                            out selectedPath))
                     {
-                        await Services.Dialogs.InfoAsync(
-                            owner,
-                            "Choose a local game folder",
-                            "Android did not expose this as a readable shared-storage path. " +
-                            "Choose the executable inside a normal folder in Internal storage " +
-                            "or on a readable SD card, not from cloud storage or protected " +
-                            "Android/data. TeknoParrot exposes only the selected executable's " +
-                            "containing folder to Winlator.");
-                    }
-                }
-                else if (OperatingSystem.IsAndroid() &&
-                         _profile?.EmulatorType == EmulatorType.RPCS3 &&
-                         !AndroidRpcs3x6GamePath.IsConfigured(selectedPath))
-                {
-                    if (top is Window owner)
-                    {
-                        await Services.Dialogs.InfoAsync(
-                            owner,
-                            "Choose this game's EBOOT.BIN",
-                            "Select the EBOOT.BIN inside this exact game layout: " +
-                            "dev_hdd0/game/SCEEXE000/USRDIR/EBOOT.BIN.");
+                        var localPath = files[0].TryGetLocalPath();
+                        selectedPath =
+                            AndroidDocumentPathResolver.TryNormalizeSharedPath(
+                                localPath ?? string.Empty,
+                                out var normalizedLocalPath)
+                                ? normalizedLocalPath
+                                : null;
                     }
                 }
                 else
+                    selectedPath = files[0].TryGetLocalPath();
+                if (!string.IsNullOrWhiteSpace(selectedPath))
                 {
-                    box.Text = selectedPath;
+                    if (OperatingSystem.IsAndroid() &&
+                        _profile?.EmulatorType == EmulatorType.OpenParrot &&
+                        !AndroidWinlatorGamePath.IsAllowedSharedPath(
+                            selectedPath,
+                            "/storage/emulated/0/Download"))
+                    {
+                        if (top is Window owner)
+                        {
+                            await Services.Dialogs.InfoAsync(
+                                owner,
+                                "Choose a protected game location",
+                                "For safety, Winlator can launch games only from Android " +
+                                "Downloads, /storage/emulated/0/TeknoParrotGames, or a " +
+                                "TeknoParrotGames folder on a removable SD card. " +
+                                "Move the game folder there and select it again.");
+                        }
+                    }
+                    else if (OperatingSystem.IsAndroid() &&
+                             _profile?.EmulatorType == EmulatorType.RPCS3 &&
+                             !AndroidRpcs3x6GamePath.IsConfigured(selectedPath))
+                    {
+                        if (top is Window owner)
+                        {
+                            await Services.Dialogs.InfoAsync(
+                                owner,
+                                "Choose this game's EBOOT.BIN",
+                                "Select the EBOOT.BIN inside this exact game layout: " +
+                                "dev_hdd0/game/SCEEXE000/USRDIR/EBOOT.BIN.");
+                        }
+                    }
+                    else
+                    {
+                        box.Text = selectedPath;
+                    }
                 }
-            }
-            else if (OperatingSystem.IsAndroid() && top is Window owner)
-            {
-                await Services.Dialogs.InfoAsync(
-                    owner,
-                    Services.Loc.T(
-                        "GameSettingsExecutablePathUnavailableTitle",
-                        "Game executable path unavailable"),
-                    Services.Loc.T(
-                        "GameSettingsExecutablePathUnavailable",
-                        "Android did not expose a usable shared-storage path for this file. " +
-                        "Choose the executable from Internal storage or Downloads, not from " +
-                        "a cloud, recent-files, or protected application provider."));
+                else if (OperatingSystem.IsAndroid() && top is Window owner)
+                {
+                    await Services.Dialogs.InfoAsync(
+                        owner,
+                        Services.Loc.T(
+                            "GameSettingsExecutablePathUnavailableTitle",
+                            "Game executable path unavailable"),
+                        Services.Loc.T(
+                            "GameSettingsExecutablePathUnavailable",
+                            "Android did not expose a usable shared-storage path for this file. " +
+                            "Choose the executable from Internal storage or Downloads, not from " +
+                            "a cloud, recent-files, or protected application provider."));
+                }
             }
         };
         var pathEditor = new Grid

@@ -155,18 +155,6 @@ public partial class MainView : UserControl
                 !await EnsureAndroidLaunchReadyAsync(profile))
                 return;
 
-            if (!OperatingSystem.IsAndroid() &&
-                profile.EmulatorType == EmulatorType.Dolphin &&
-                !ExternalEmulatorLauncher.TryResolveDolphinFirmware(out _))
-            {
-                const string title = "CrediarDolphin firmware missing";
-                var message = ExternalEmulatorLauncher.GetMissingDolphinFirmwareMessage();
-                StatusBar.Text = "CrediarDolphin firmware is missing; launch cancelled.";
-                if (TopLevel.GetTopLevel(this) is Window owner)
-                    await Dialogs.InfoAsync(owner, title, message);
-                return;
-            }
-
             // Persisted "last played" (classic behavior) - the Troubleshooting
             // report uses it when no run happened in this session yet.
             if (Lazydata.ParrotData.SaveLastPlayed)

@@ -148,7 +148,7 @@ public partial class GameScannerView : UserControl
                     message => Log(message));
                 Log(
                     $"Scan complete — {_managedFound.Count} launchable game(s) found " +
-                    $"from {recipes.Length} supported Android recipe(s).");
+                    $"from {recipes.Length} supported OpenParrot/PCSX2X6 recipe(s).");
                 BtnAddAll.IsEnabled = _managedFound.Count > 0;
                 return;
             }

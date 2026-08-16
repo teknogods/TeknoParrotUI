@@ -33,6 +33,10 @@ namespace TeknoParrotUi.Common
         // Cxbx-Reloaded (Xbox)
         cxbxr,
         // PCSX2 Fork (System 246 / 256)
-        pcsx2x6
+        pcsx2x6,
+        // Midway/Atari Vegas, Denver, Seattle, Flagstaff and Phoenix
+        TeknoVegas,
+        // Konami Viper
+        TeknoViper
     }
 }

@@ -168,6 +168,8 @@ namespace TeknoParrotUi.Common.Updater
             new UpdaterComponent { name = "RPCS3", location = Path.Combine("RPCS3", "rpcs3.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "RPCS3" },
             new UpdaterComponent { name = "cxbxr", location = Path.Combine("cxbxr", "cxbxr-ldr.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "cxbxr", assetNamePrefix = "cxbxr_" },
             new UpdaterComponent { name = "pcsx2x6", location = Path.Combine("pcsx2x6", "pcsx2-qtx64.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "pcsx2x6", assetNamePrefix = "pcsx2x6_" },
+            new UpdaterComponent { name = "TeknoViper", location = Path.Combine("TeknoViper", "TeknoViper.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoViper" },
+            new UpdaterComponent { name = "TeknoVegas", location = Path.Combine("TeknoVegas", "TeknoVegas.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoVegas" },
             });
 
             return components;
