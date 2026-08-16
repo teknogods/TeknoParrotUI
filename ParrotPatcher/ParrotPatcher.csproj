@@ -22,6 +22,18 @@
     <OutputPath>..\bin\x86\Release\</OutputPath>
   </PropertyGroup>
 
+  <!--
+    Release publishes must not load Avalonia from the installation's libs folder:
+    those are the files this process is responsible for replacing. Bundle the
+    patcher's managed and native dependencies into its apphost instead. The app
+    remains framework-dependent, so this does not include another copy of .NET.
+  -->
+  <PropertyGroup Condition="'$(RuntimeIdentifier)' != ''">
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <SelfContained>false</SelfContained>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="12.0.5" />
     <PackageReference Include="Avalonia.Desktop" Version="12.0.5" />

@@ -96,7 +96,7 @@ public partial class MainWindow : Window
                 if (_completedUpdateArchives.Count > 0)
                     SaveUpdateInfo(_completedUpdateArchives.ToArray());
                 else
-                    LogMessage("No matching updates were found in the cache.");
+                    LogMessage("No updates were applied successfully. Cached update files were kept for retrying.");
             }
             else
             {
@@ -122,7 +122,7 @@ public partial class MainWindow : Window
             }
             catch (Exception ex)
             {
-                LogMessage($"Failed to extract ZIP {zipPath}! Delete this from the cache folder in your TeknoParrot UI folder! Error: {ex.Message}");
+                LogMessage($"Failed to apply ZIP {zipPath}. It was kept in the cache so the update can be retried. Error: {ex.Message}");
             }
         }
     }
@@ -216,7 +216,9 @@ public partial class MainWindow : Window
         }
         catch (UnauthorizedAccessException)
         {
-            File.Move(dest, dest + ".bak");
+            // A previous update may have left a .bak behind. Replacing it is
+            // safe: it is only the superseded copy of this same destination.
+            File.Move(dest, dest + ".bak", true);
         }
         catch (IOException)
         {

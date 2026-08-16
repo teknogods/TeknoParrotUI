@@ -3,7 +3,8 @@
     Builds a distributable release of TeknoParrotUI (.NET 8, Avalonia).
 .DESCRIPTION
     Publishes TeknoParrotUi (Avalonia, win-x64, framework-dependent) and
-    ParrotPatcher into a single output folder.
+    a single-file ParrotPatcher into one output folder. The patcher's Avalonia
+    dependencies are bundled so it never loads DLLs that it needs to replace.
     Users need the .NET 8 Desktop Runtime installed.
 .PARAMETER OutputDir
     Destination folder. Default: .\publish\TeknoParrotUi
@@ -30,8 +31,8 @@ dotnet publish (Join-Path $PSScriptRoot 'ParrotPatcher\ParrotPatcher.csproj') -c
 if ($LASTEXITCODE -ne 0) { throw "ParrotPatcher publish failed" }
 
 # ---------------------------------------------------------------------------
-# Move dependency assemblies into libs\ so the root folder stays clean.
-# The deps.json files are rewritten so the .NET host resolves them from there.
+# Move TeknoParrotUI dependency assemblies into libs\ so the root stays clean.
+# ParrotPatcher is a single-file app and has no loose dependency assemblies.
 # ---------------------------------------------------------------------------
 Write-Host "Moving dependencies into libs\..." -ForegroundColor Cyan
 $libsDir = Join-Path $OutputDir 'libs'
@@ -40,7 +41,7 @@ New-Item -ItemType Directory -Force $libsDir | Out-Null
 # Files that must stay at the root (apphosts + their host config files)
 $keepAtRoot = @(
     'TeknoParrotUi.exe', 'TeknoParrotUi.dll', 'TeknoParrotUi.runtimeconfig.json',
-    'ParrotPatcher.exe', 'ParrotPatcher.dll', 'ParrotPatcher.runtimeconfig.json'
+    'ParrotPatcher.exe'
 )
 
 $moved = @()
@@ -59,9 +60,9 @@ foreach ($dir in Get-ChildItem $OutputDir -Directory) {
     }
 }
 
-# Remove the deps.json manifests: without them the host probes the app folder
-# and the in-app LibsResolver handles everything that lives in libs\.
-Remove-Item (Join-Path $libsDir 'TeknoParrotUi.deps.json'), (Join-Path $libsDir 'ParrotPatcher.deps.json') -ErrorAction SilentlyContinue
+# Without its deps manifest the UI host probes the app folder and its in-app
+# LibsResolver handles everything that lives in libs\.
+Remove-Item (Join-Path $libsDir 'TeknoParrotUi.deps.json') -ErrorAction SilentlyContinue
 
 # No debug symbols in the distributable (the native Skia PDBs alone are 100 MB)
 Get-ChildItem $OutputDir -Recurse -Filter '*.pdb' | Remove-Item -Force
