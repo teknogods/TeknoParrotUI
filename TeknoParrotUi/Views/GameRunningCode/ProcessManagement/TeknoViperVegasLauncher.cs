@@ -314,6 +314,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 parameters.Add("--high-priority");
                 parameters.Add("--gpu-high-performance");
             }
+            if (Enabled("Use Bezel"))
+                parameters.Add("--bezels");
 
             if (int.TryParse(Setting("Network Port", "0"), out var networkPort) &&
                 networkPort > 0 && networkPort <= 65535)
