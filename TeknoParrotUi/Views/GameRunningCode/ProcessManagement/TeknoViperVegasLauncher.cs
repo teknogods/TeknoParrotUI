@@ -208,9 +208,6 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 WorkingDirectory = workDir,
                 RedirectStandardError = true
             };
-            // Somehow RTSS's vulkan layer crashes immediately when Vegas starts so
-            // disabling it for TeknoVegas seems to work around it
-            startInfo.EnvironmentVariables["DISABLE_RTSS_LAYER"] = "1";
             return startInfo;
         }
 
