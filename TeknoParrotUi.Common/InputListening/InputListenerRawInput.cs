@@ -1412,8 +1412,21 @@ namespace TeknoParrotUi.Common.InputListening
                 // Translate absolute units to pixels
                 if (moveAbsolute)
                 {
-                    inputX = (int)((float)inputX / (float)0xFFFF * SystemParameters.PrimaryScreenWidth);
-                    inputY = (int)((float)inputY / (float)0xFFFF * SystemParameters.PrimaryScreenHeight);
+                    if ((_isPlay || _isTeknoVegas || _isTeknoViper) &&
+                        canvasInfo.windowWidth > 0 && canvasInfo.windowHeight > 0)
+                    {
+                        // Canvas publishers use physical pixels. Map normalized RawInput
+                        // coordinates into that same space without DPI-sensitive WPF metrics.
+                        inputX = canvasInfo.windowLocationX +
+                            (int)((long)inputX * canvasInfo.windowWidth / 0xFFFF);
+                        inputY = canvasInfo.windowLocationY +
+                            (int)((long)inputY * canvasInfo.windowHeight / 0xFFFF);
+                    }
+                    else
+                    {
+                        inputX = (int)((float)inputX / (float)0xFFFF * SystemParameters.PrimaryScreenWidth);
+                        inputY = (int)((float)inputY / (float)0xFFFF * SystemParameters.PrimaryScreenHeight);
+                    }
                 }
 
                 // X
