@@ -317,6 +317,35 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             if (Enabled("Use Bezel"))
                 parameters.Add("--bezels");
 
+            var texturePackRoot = ResolveUiPath(
+               Setting("Texture Pack Root"), Path.Combine(workDir, "texture-packs"));
+            if (Enabled("Load Texture Packs", true))
+            {
+                parameters.Add("--texture-pack");
+                parameters.Add(Quote(texturePackRoot));
+                if (!int.TryParse(Setting("Texture VRAM Budget MB", "1024"), out var textureBudget) ||
+                    textureBudget < 0 || textureBudget > 16384)
+                    textureBudget = 1024;
+                parameters.Add("--texture-budget-mb");
+                parameters.Add(textureBudget.ToString());
+                var anisotropy = Setting("HD Texture Anisotropy", "4");
+                if (anisotropy != "1" && anisotropy != "2" &&
+                    anisotropy != "4" && anisotropy != "8")
+                    anisotropy = "4";
+                parameters.Add("--texture-anisotropy");
+                parameters.Add(anisotropy);
+                if (Enabled("Texture Hot Reload"))
+                    parameters.Add("--texture-hot-reload");
+            }
+            if (Enabled("Dump Textures"))
+            {
+                var textureDumpRoot = ResolveUiPath(
+                    Setting("Texture Dump Root"), Path.Combine(workDir, "texture-dumps"));
+                Directory.CreateDirectory(textureDumpRoot);
+                parameters.Add("--texture-dump");
+                parameters.Add(Quote(textureDumpRoot));
+            }
+
             if (int.TryParse(Setting("Network Port", "0"), out var networkPort) &&
                 networkPort > 0 && networkPort <= 65535)
             {

@@ -2711,6 +2711,9 @@ Now closing...</value>
   <data name="LibraryGenreTriforce" xml:space="preserve">
     <value>Triforce</value>
   </data>
+  <data name="LibraryGenreKonamiViper" xml:space="preserve">
+    <value>Konami Viper</value>
+  </data>
   <data name="Troubleshooting" xml:space="preserve">
     <value>Troubleshooting</value>
   </data>

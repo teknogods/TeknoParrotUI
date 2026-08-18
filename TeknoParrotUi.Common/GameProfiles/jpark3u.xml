@@ -7,7 +7,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TeknoViper</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoViper</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -103,6 +103,32 @@
 			<FieldName>Prefer High Performance</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Textures</CategoryName>
+			<FieldName>Load Texture Packs</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Will replace textures during runtime with custom ones you supplied. Can be expensive to enable CPU wise.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Textures</CategoryName>
+			<FieldName>Texture Pack Root</FieldName>
+			<FieldValue>.\TeknoViper\texture-packs</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Textures</CategoryName>
+			<FieldName>Dump Textures</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Save every texture the game loads into the texture dump root folder, for editing and reapplying via texture-packs</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Textures</CategoryName>
+			<FieldName>Texture Dump Root</FieldName>
+			<FieldValue>.\TeknoViper\texture-dumps</FieldValue>
+			<FieldType>Text</FieldType>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
