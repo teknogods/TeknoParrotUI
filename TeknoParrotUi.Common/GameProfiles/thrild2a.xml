@@ -8,7 +8,7 @@
 	<ExtraParameters />
 	<TestMenuExtraParameters />
 	<EmulationProfile>TeknoViper</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoViper</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -94,6 +94,13 @@
 				<string>linear</string>
 				<string>bicubic</string>
 			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>Use Bezel</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Put either thrild2a.png or default.png into the bezels folder in the TeknoViper folder. Only enabled in fullscreen mode.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Audio</CategoryName>
