@@ -260,19 +260,16 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
             var selectedChd = profile.GamePath2;
             var configuredChdRoot = Setting("CHD Root");
-            string chdRoot;
-            if (!string.IsNullOrWhiteSpace(configuredChdRoot))
+            string diskPath = null;
+            string chdRoot = null;
+            if (!string.IsNullOrWhiteSpace(selectedChd) &&
+                selectedChd.EndsWith(".chd", StringComparison.OrdinalIgnoreCase))
+            {
+                diskPath = ResolveUiPath(selectedChd, workDir);
+            }
+            else if (!string.IsNullOrWhiteSpace(configuredChdRoot))
             {
                 chdRoot = ResolveUiPath(configuredChdRoot, workDir);
-            }
-            else if (!string.IsNullOrWhiteSpace(selectedChd) &&
-                     selectedChd.EndsWith(".chd", StringComparison.OrdinalIgnoreCase))
-            {
-                var chdPath = ResolveUiPath(selectedChd, workDir);
-                var setDirectory = Path.GetDirectoryName(chdPath);
-                chdRoot = setDirectory == null
-                    ? workDir
-                    : (Directory.GetParent(setDirectory)?.FullName ?? setDirectory);
             }
             else
             {
@@ -290,7 +287,6 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             {
                 "--game", gameId,
                 "--rom-root", Quote(romRoot),
-                "--chd-root", Quote(chdRoot),
                 "--state-dir", Quote(stateRoot),
                 "--shader-cache-dir", Quote(shaderRoot),
                 "--vulkan",
@@ -302,6 +298,17 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 "--saturation", Setting("Display Saturation", "1.0"),
                 "--contrast", Setting("Display Contrast", "1.0"),
             };
+
+            if (diskPath != null)
+            {
+                parameters.Add("--disk");
+                parameters.Add(Quote(diskPath));
+            }
+            else
+            {
+                parameters.Add("--chd-root");
+                parameters.Add(Quote(chdRoot));
+            }
 
             if (Setting("DisplayMode", "Fullscreen") == "Fullscreen")
                 parameters.Add("--fullscreen");
@@ -382,7 +389,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 log?.Invoke($"TeknoViper executable was not found at {preferredExecutable} or {legacyExecutable}");
             if (!Directory.Exists(romRoot))
                 log?.Invoke($"TeknoViper ROM root was not found at {romRoot}");
-            if (!Directory.Exists(chdRoot))
+            if (diskPath != null && !File.Exists(diskPath))
+                log?.Invoke($"TeknoViper CHD was not found at {diskPath}");
+            else if (diskPath == null && !Directory.Exists(chdRoot))
                 log?.Invoke($"TeknoViper CHD root was not found at {chdRoot}");
 
             // Viper loads the selected set and its shared system archive. Avoid
@@ -397,10 +406,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 UnblockFile(Path.Combine(romRoot, gameId + ".zip"), log);
             }
             UnblockFile(Path.Combine(romRoot, "kviper.zip"), log);
-            if (!string.IsNullOrWhiteSpace(selectedChd) &&
-                selectedChd.EndsWith(".chd", StringComparison.OrdinalIgnoreCase))
+            if (diskPath != null)
             {
-                UnblockFile(ResolveUiPath(selectedChd, workDir), log);
+                UnblockFile(diskPath, log);
             }
             else
             {
