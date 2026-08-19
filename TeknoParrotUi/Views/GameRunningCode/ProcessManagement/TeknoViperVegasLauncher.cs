@@ -346,7 +346,13 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 parameters.Add(Quote(textureDumpRoot));
             }
 
-            if (int.TryParse(Setting("Network Port", "0"), out var networkPort) &&
+            // TeknoViper consumes TPOnline's inherited environment handoff
+            // directly. Its peer transport is mutually exclusive with the
+            // local UDP multicast transport configured by --network-port.
+            var tpOnline = !string.IsNullOrWhiteSpace(
+                Environment.GetEnvironmentVariable("TP_TPONLINE2"));
+            if (!tpOnline &&
+                int.TryParse(Setting("Network Port", "0"), out var networkPort) &&
                 networkPort > 0 && networkPort <= 65535)
             {
                 var cabinet = Setting("Cabinet Id", "1");
@@ -366,6 +372,10 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 }
                 if (Enabled("Network Diagnostics", true))
                     parameters.Add("--network-diagnostics");
+            }
+            else if (tpOnline && Enabled("Network Diagnostics", true))
+            {
+                parameters.Add("--network-diagnostics");
             }
 
             if (!File.Exists(executable))
