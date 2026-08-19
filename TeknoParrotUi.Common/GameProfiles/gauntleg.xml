@@ -7,7 +7,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TeknoVegas</EmulationProfile>
-	<GameProfileRevision>11</GameProfileRevision>
+	<GameProfileRevision>12</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoVegas</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -137,6 +137,13 @@
 				<string>3</string>
 				<string>4</string>
 			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>Use Bezel</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Put either gauntleg.png or default.png into the bezels folder in the TeknoViper folder. Only enabled in fullscreen mode.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Audio</CategoryName>

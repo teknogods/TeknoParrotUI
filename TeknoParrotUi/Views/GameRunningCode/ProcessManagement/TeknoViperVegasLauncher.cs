@@ -133,6 +133,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 parameters.Add("--fullscreen");
             if (Enabled("Mute Audio"))
                 parameters.Add("--mute");
+            if (Enabled("Use Bezel"))
+                parameters.Add("--bezels");
             if (Enabled("Crosshairs"))
             {
                 parameters.Add("--crosshairs");
