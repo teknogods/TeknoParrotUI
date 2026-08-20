@@ -135,6 +135,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 parameters.Add("--mute");
             if (Enabled("Use Bezel"))
                 parameters.Add("--bezels");
+            if (Enabled("Show Performance Overlay"))
+                parameters.Add("--statistics");
             if (Enabled("Crosshairs"))
             {
                 parameters.Add("--crosshairs");
@@ -325,6 +327,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             }
             if (Enabled("Use Bezel"))
                 parameters.Add("--bezels");
+            if (!Enabled("Hide Crosshairs after Inactivity"))
+                parameters.Add("--no-crosshair-autohide");
 
             var texturePackRoot = ResolveUiPath(
                Setting("Texture Pack Root"), Path.Combine(workDir, "texture-packs"));
