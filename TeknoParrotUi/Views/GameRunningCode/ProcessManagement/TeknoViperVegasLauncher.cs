@@ -135,6 +135,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 parameters.Add("--mute");
             if (Enabled("Use Bezel"))
                 parameters.Add("--bezels");
+            if (Setting("CRT Shader", "None") == "Lottes")
+                parameters.Add("--crt-shader lottes");
             if (Enabled("Show Performance Overlay"))
                 parameters.Add("--statistics");
             if (Enabled("Crosshairs"))
@@ -300,7 +302,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 "--sharpen", Setting("Presentation Sharpening", "0.15"),
                 "--gamma", Setting("Display Gamma", "1.0"),
                 "--saturation", Setting("Display Saturation", "1.0"),
-                "--contrast", Setting("Display Contrast", "1.0"),
+                "--contrast", Setting("Display Contrast", "1.0")
             };
 
             if (diskPath != null)
@@ -327,6 +329,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             }
             if (Enabled("Use Bezel"))
                 parameters.Add("--bezels");
+            if (Setting("CRT Shader", "None") == "Lottes")
+                parameters.Add("--crt-shader lottes");
+
             if (!Enabled("Hide Crosshairs after Inactivity"))
                 parameters.Add("--no-crosshair-autohide");
 
