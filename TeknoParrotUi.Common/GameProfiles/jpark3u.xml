@@ -7,7 +7,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TeknoViper</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>7</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoViper</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -84,6 +84,13 @@
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
 			<Hint>Draw P1/P2 sights using crosshairs\P1.png and P2.png, with built-in sights as fallback. Disable for an external light-gun overlay.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>Hide Crosshairs after Inactivity</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>If enabled, will automatically hide eaach players crosshair after 5 seconds of inactivity. Ideal to hide P2 if you're playing alone.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Video</CategoryName>
