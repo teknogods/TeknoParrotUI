@@ -778,10 +778,6 @@
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dependencies\" />
-    <None Include="Dependencies\Sunshine\**\*.*" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent />
@@ -791,7 +787,6 @@
   </PropertyGroup>
   <Target Name="AfterBuild">
     <ItemGroup>
-      <SunshineFiles Include="$(ProjectDir)Dependencies\Sunshine\**\*.*" />
       <MoveToLibFolder Include="$(OutputPath)System*.dll" Condition="Exists('$(OutputPath)')" />
       <MoveToLibFolder Include="$(OutputPath)Microsoft*.dll" Condition="Exists('$(OutputPath)')" />
       <MoveToLibFolder Include="$(OutputPath)netstandard.dll" Condition="Exists('$(OutputPath)netstandard.dll')" />
@@ -801,11 +796,6 @@
       <MoveToLibFolder Include="$(OutputPath)TeknoParrotUi.Common*" Condition="Exists('$(OutputPath)')" />
       <MoveToCefSharpFolder Include="$(OutputPath)CefSharp*.dll" Condition="Exists('$(OutputPath)')" />
     </ItemGroup>
-    <Copy
-      SourceFiles="@(SunshineFiles)"
-      DestinationFiles="@(SunshineFiles->'$(OutputPath)Sunshine\%(RecursiveDir)%(Filename)%(Extension)')"
-      SkipUnchangedFiles="true"
-      Condition="'@(SunshineFiles)' != ''" />
     <Copy SourceFiles="..\packages\CefSharp.Common.136.1.40\lib\net462\CefSharp.Core.dll" DestinationFolder="$(OutputPath)$(CefSharpTargetDir)" SkipUnchangedFiles="true" />
     <Move SourceFiles="@(MoveToLibFolder)" DestinationFolder="$(OutputPath)libs" OverwriteReadOnlyFiles="true" />
     <Move SourceFiles="@(MoveToCefSharpFolder)" DestinationFolder="$(OutputPath)$(CefSharpTargetDir)" OverwriteReadOnlyFiles="true" />
