@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+
+<head>
+  <!-- TEMPLATE_HEADER - Used by Every UI Page -->
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sunshine</title>
+<link rel="icon" type="image/x-icon" href="./images/sunshine.ico">
+<link href="./assets/css/sunshine.css" rel="stylesheet" />
+
+  <script type="module" crossorigin src="./assets/pin-x-UAuHKo.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/createLucideIcon-Dqb7x8z_.js">
+  <link rel="modulepreload" crossorigin href="./assets/Notification-Cji9SyhI.js">
+  <link rel="modulepreload" crossorigin href="./assets/Navbar-15iOpcEq.js">
+  <link rel="modulepreload" crossorigin href="./assets/fetch_utils-B6IQizCo.js">
+  <link rel="modulepreload" crossorigin href="./assets/monitor-B_fKYoXp.js">
+  <link rel="stylesheet" crossorigin href="./assets/createLucideIcon-BL5QWnkG.css">
+  <link rel="stylesheet" crossorigin href="./assets/Notification-CVXXWQML.css">
+  <link rel="stylesheet" crossorigin href="./assets/Navbar-vHSgVmbh.css">
+</head>
+
+<body id="app" v-cloak>
+  <Navbar></Navbar>
+  <div id="content" class="container">
+    <h1 class="my-4 text-center">{{ $t('pin.pin_pairing') }}</h1>
+    <form class="form d-flex flex-column align-items-center" id="form" @submit.prevent="registerDevice">
+      <div class="card flex-column d-flex p-4 mb-4">
+        <div class="input-group mt-2">
+          <span class="input-group-text">
+            <hash :size="18" class="icon"></hash>
+          </span>
+          <input type="text" pattern="\d*" :placeholder="`${$t('navbar.pin')}`" autofocus id="pin-input" class="form-control" required />
+        </div>
+        <div class="input-group my-4">
+          <span class="input-group-text">
+            <monitor :size="18" class="icon"></monitor>
+          </span>
+          <input type="text" :placeholder="`${$t('pin.device_name')}`" id="name-input" class="form-control" required />
+        </div>
+        <button class="btn btn-primary">
+          <forward :size="18" class="icon"></forward>
+          {{ $t('pin.send') }}
+        </button>
+      </div>
+      <div class="alert alert-warning">
+        <b>{{ $t('_common.warning') }}</b> {{ $t('pin.warning_msg') }}
+      </div>
+      <div id="status"></div>
+    </form>
+  </div>
+</body>
+
