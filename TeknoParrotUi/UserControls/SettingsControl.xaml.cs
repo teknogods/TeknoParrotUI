@@ -1,4 +1,5 @@
 ﻿using MaterialDesignColors;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,9 +8,9 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Microsoft.Win32;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Helpers;
+using TeknoParrotUi.Views;
 
 namespace TeknoParrotUi.UserControls
 {
@@ -265,6 +266,11 @@ namespace TeknoParrotUi.UserControls
         private void BtnMultiGameButtonConfig_Click(object sender, RoutedEventArgs e)
         {
             _contentControl.Content = new MultiGameButtonConfig(_contentControl, _library);
+        }
+
+        private void BtnSunshineHost_Click(object sender, RoutedEventArgs e)
+        {
+            _contentControl.Content = new SunshineManagement();
         }
 
         private void BtnBrowseDatXml_Click(object sender, RoutedEventArgs e)

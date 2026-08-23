@@ -137,13 +137,23 @@
                         HorizontalAlignment="Left"
                         Content="{x:Static p:Resources.SettingsAdvancedControls}"
                         FontSize="20" />
-                    <Button
-                        x:Name="BtnMultiGameButtonConfig"
+
+                    <WrapPanel
                         Margin="0,5,0,0"
-                        HorizontalAlignment="Left"
-                        Click="BtnMultiGameButtonConfig_Click"
-                        Content="{x:Static p:Resources.SettingsMultiGameButtonConfig}" />
-                    <TextBlock><Run Text=" " /><Run Text=" " /><Run Text=" " /></TextBlock>
+                        HorizontalAlignment="Left">
+
+                        <Button
+                            x:Name="BtnMultiGameButtonConfig"
+                            Margin="0,0,8,0"
+                            Click="BtnMultiGameButtonConfig_Click"
+                            Content="{x:Static p:Resources.SettingsMultiGameButtonConfig}" />
+                        <Button
+                            x:Name="BtnSunshineHost"
+                            Click="BtnSunshineHost_Click"
+                            Content="Sunshine Host" />
+                    </WrapPanel>
+                    <TextBlock><Run Text=" " /><Run Text=" " /><Run Text=" " />
+                    </TextBlock>
                 </StackPanel>
                 <StackPanel MinWidth="500" MaxWidth="900" Width="Auto" Margin="2,2,2,2">
                     <StackPanel.Resources>
