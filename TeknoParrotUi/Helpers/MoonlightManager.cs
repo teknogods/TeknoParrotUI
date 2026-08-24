@@ -81,8 +81,8 @@ namespace TeknoParrotUi.Helpers
                 WindowStyle = ProcessWindowStyle.Hidden
             };
 
-            // Custom Moonlight build: use the normal pair command/backend but skip
-            // CliPair.qml so TeknoParrot owns the pairing UI.
+            // Custom Moonlight build: run the normal pairing backend without
+            // loading the Moonlight pairing QML window. TeknoParrot owns the UI.
             startInfo.EnvironmentVariables["TEKNOPARROT_HEADLESS_PAIR"] = "1";
 
             using (var pairProcess = Process.Start(startInfo))
@@ -168,14 +168,19 @@ namespace TeknoParrotUi.Helpers
             }
         }
 
-        public static async Task<IReadOnlyList<string>> ListAppsAsync(string host)
+        public static Task<IReadOnlyList<string>> ListAppsAsync(string host)
+        {
+            return ListAppsAsync(host, TimeSpan.FromSeconds(45));
+        }
+
+        public static async Task<IReadOnlyList<string>> ListAppsAsync(string host, TimeSpan timeout)
         {
             if (string.IsNullOrWhiteSpace(host))
                 throw new ArgumentException("Host is required.", nameof(host));
 
             var result = await RunCommandAsync(
                 $"list {Quote(host)}",
-                TimeSpan.FromSeconds(45)
+                timeout
             );
 
             if (result.ExitCode != 0)

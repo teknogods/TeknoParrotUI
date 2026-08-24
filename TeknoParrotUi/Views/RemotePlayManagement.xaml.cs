@@ -20,7 +20,10 @@ namespace TeknoParrotUi.Views
         private bool _refreshInProgress;
         private bool _updatingConnectionMode;
         private bool _moonlightActionInProgress;
+        private bool _moonlightStatusCheckInProgress;
         private bool _moonlightReady;
+        private DateTime _lastMoonlightStatusCheck = DateTime.MinValue;
+        private static readonly TimeSpan MoonlightStatusCheckInterval = TimeSpan.FromSeconds(4);
 
         public RemotePlayManagement()
         {
@@ -51,10 +54,16 @@ namespace TeknoParrotUi.Views
 
         private async void StatusTimer_Tick(object sender, EventArgs e)
         {
-            if (_actionInProgress || _refreshInProgress)
-                return;
+            if (!_actionInProgress && !_refreshInProgress)
+                await RefreshAllAsync(true);
 
-            await RefreshAllAsync(true);
+            if (!_moonlightActionInProgress &&
+                !_moonlightStatusCheckInProgress &&
+                DateTime.UtcNow - _lastMoonlightStatusCheck >= MoonlightStatusCheckInterval)
+            {
+                _lastMoonlightStatusCheck = DateTime.UtcNow;
+                await RefreshMoonlightHostStatusAsync();
+            }
         }
 
         private async Task RefreshAllAsync(bool refreshClients = true)
@@ -401,8 +410,18 @@ namespace TeknoParrotUi.Views
             }
             catch (Exception ex)
             {
-                PairingStatusText.Text = "Pairing failed.";
-                ShowError(ex, "Sunshine");
+                if (string.Equals(
+                        ex.Message,
+                        "Sunshine rejected the pairing request.",
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    PairingStatusText.Text = "This Moonlight client is already paired.";
+                }
+                else
+                {
+                    PairingStatusText.Text = "Pairing failed.";
+                    ShowError(ex, "Sunshine");
+                }
             }
             finally
             {
@@ -648,6 +667,102 @@ namespace TeknoParrotUi.Views
             }
         }
 
+        private static bool IsMoonlightNotPairedError(Exception ex)
+        {
+            var message = ex?.Message ?? string.Empty;
+
+            return message.IndexOf("has not been paired", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   message.IndexOf("not paired", StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        private static bool IsMoonlightHostUnavailableError(Exception ex)
+        {
+            var message = ex?.Message ?? string.Empty;
+
+            return message.IndexOf("failed to connect", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   message.IndexOf("timed out", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   message.IndexOf("timeout", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   message.IndexOf("connection refused", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   message.IndexOf("actively refused", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                   message.IndexOf("unreachable", StringComparison.OrdinalIgnoreCase) >= 0;
+        }
+
+        private void ShowMoonlightNotPairedState()
+        {
+            MoonlightAppsListBox.ItemsSource = null;
+            MoonlightGeneratedPinText.Text = "----";
+            MoonlightPairStatusText.Text =
+                "This host is not paired. Generate a new PIN to pair again.";
+            MoonlightConnectionStatusText.Text = "Not Paired";
+            UpdateMoonlightOperationalControls();
+        }
+
+        private void ShowMoonlightHostUnavailableState()
+        {
+            MoonlightAppsListBox.ItemsSource = null;
+            MoonlightConnectionStatusText.Text = "Host Offline / Sunshine Unavailable";
+            UpdateMoonlightOperationalControls();
+        }
+
+        private void ApplyMoonlightApps(string host, System.Collections.Generic.IReadOnlyList<string> apps)
+        {
+            MoonlightAppsListBox.ItemsSource = apps
+                .Select(app => string.Equals(app, "Desktop", StringComparison.OrdinalIgnoreCase)
+                    ? "Desktop - TeknoParrot"
+                    : app)
+                .ToList();
+
+            MoonlightConnectionStatusText.Text =
+                apps.Count == 0
+                    ? $"Connected to {host}, but no applications were returned."
+                    : $"Connected to {host}.";
+
+            UpdateMoonlightOperationalControls();
+        }
+
+        private async Task RefreshMoonlightHostStatusAsync()
+        {
+            if (_moonlightStatusCheckInProgress ||
+                _moonlightActionInProgress ||
+                !_moonlightReady ||
+                !MoonlightManager.IsInstalled())
+            {
+                return;
+            }
+
+            var host = (MoonlightHostTextBox.Text ?? string.Empty).Trim();
+            if (string.IsNullOrWhiteSpace(host))
+                return;
+
+            _moonlightStatusCheckInProgress = true;
+
+            try
+            {
+                var apps = await MoonlightManager.ListAppsAsync(
+                    host,
+                    TimeSpan.FromSeconds(6));
+
+                ApplyMoonlightApps(host, apps);
+            }
+            catch (Exception ex) when (IsMoonlightNotPairedError(ex))
+            {
+                ShowMoonlightNotPairedState();
+            }
+            catch (Exception ex) when (IsMoonlightHostUnavailableError(ex))
+            {
+                ShowMoonlightHostUnavailableState();
+            }
+            catch
+            {
+                // Background status checks are intentionally silent. Manual actions
+                // will still surface unexpected errors to the user.
+            }
+            finally
+            {
+                _moonlightStatusCheckInProgress = false;
+            }
+        }
+
         private async void BtnMoonlightPair_Click(object sender, RoutedEventArgs e)
         {
             if (_moonlightActionInProgress)
@@ -672,18 +787,14 @@ namespace TeknoParrotUi.Views
                     );
 
                 MoonlightPairStatusText.Text = "Paired successfully.";
+                MoonlightConnectionStatusText.Text = $"Paired with {host}.";
+                _lastMoonlightStatusCheck = DateTime.MinValue;
 
-                var apps = await MoonlightManager.ListAppsAsync(host);
-                MoonlightAppsListBox.ItemsSource = apps
-                    .Select(app => string.Equals(app, "Desktop", StringComparison.OrdinalIgnoreCase)
-                        ? "Desktop - TeknoParrot"
-                        : app)
-                    .ToList();
-
-                MoonlightConnectionStatusText.Text =
-                    apps.Count == 0
-                        ? $"Paired with {host}, but no applications were returned."
-                        : $"Connected to {host}.";
+                // Do not immediately run the normal 45-second app-list command here.
+                // Moonlight may still be finishing its pairing shutdown/persistence work.
+                // The lightweight background status poll will pick up the paired host
+                // and populate Applications on the next check.
+                await Task.Delay(750);
             }
             catch (Exception ex)
             {
@@ -705,21 +816,18 @@ namespace TeknoParrotUi.Views
             {
                 var host = GetMoonlightHost();
 
-                _moonlightActionInProgress = true;
                 SetMoonlightBusy(true);
 
                 var apps = await MoonlightManager.ListAppsAsync(host);
-
-                MoonlightAppsListBox.ItemsSource = apps
-                    .Select(app => string.Equals(app, "Desktop", StringComparison.OrdinalIgnoreCase)
-                        ? "Desktop - TeknoParrot"
-                        : app)
-                    .ToList();
-
-                MoonlightConnectionStatusText.Text =
-                    apps.Count == 0
-                        ? $"Connected to {host}, but no applications were returned."
-                        : $"Connected to {host}.";
+                ApplyMoonlightApps(host, apps);
+            }
+            catch (Exception ex) when (IsMoonlightNotPairedError(ex))
+            {
+                ShowMoonlightNotPairedState();
+            }
+            catch (Exception ex) when (IsMoonlightHostUnavailableError(ex))
+            {
+                ShowMoonlightHostUnavailableState();
             }
             catch (Exception ex)
             {
@@ -728,7 +836,6 @@ namespace TeknoParrotUi.Views
             }
             finally
             {
-                _moonlightActionInProgress = false;
                 SetMoonlightBusy(false);
             }
         }
@@ -741,6 +848,9 @@ namespace TeknoParrotUi.Views
         private void MoonlightHostTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             var host = (MoonlightHostTextBox.Text ?? string.Empty).Trim();
+
+            MoonlightAppsListBox.ItemsSource = null;
+            _lastMoonlightStatusCheck = DateTime.MinValue;
 
             MoonlightConnectionStatusText.Text = string.IsNullOrWhiteSpace(host)
                 ? "Enter a host address to begin."
