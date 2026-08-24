@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<UserControl x:Class="TeknoParrotUi.Views.RemotePlayManagement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="680"
+             d:DesignWidth="900"
+             Background="{DynamicResource MaterialDesignPaper}"
+             FontFamily="pack://application:,,,/Resources/#Inter"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <Style x:Key="SectionCardStyle"
+               TargetType="Border">
+            <Setter Property="Background"
+                    Value="{DynamicResource MaterialDesignCardBackground}" />
+            <Setter Property="CornerRadius"
+                    Value="8" />
+            <Setter Property="Padding"
+                    Value="14" />
+            <Setter Property="Margin"
+                    Value="0,0,10,10" />
+            <Setter Property="BorderBrush"
+                    Value="{DynamicResource MaterialDesignDivider}" />
+            <Setter Property="BorderThickness"
+                    Value="1" />
+        </Style>
+
+        <Style x:Key="SectionTitleStyle"
+               TargetType="TextBlock">
+            <Setter Property="FontSize"
+                    Value="18" />
+            <Setter Property="FontWeight"
+                    Value="SemiBold" />
+            <Setter Property="Margin"
+                    Value="0,0,0,8" />
+        </Style>
+
+        <Style x:Key="MutedTextStyle"
+               TargetType="TextBlock">
+            <Setter Property="Foreground"
+                    Value="{DynamicResource MaterialDesignBodyLight}" />
+            <Setter Property="TextWrapping"
+                    Value="Wrap" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="14,8,14,10">
+        <TabControl>
+
+            <!-- ========================================================= -->
+            <!-- Sunshine tab                                               -->
+            <!-- ========================================================= -->
+            <TabItem Header="Sunshine">
+                <Grid Margin="0,8,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0"
+                          Margin="0,0,10,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="WeatherSunny"
+                                                         Width="24"
+                                                         Height="24"
+                                                         Margin="0,0,8,0"
+                                                         Foreground="{DynamicResource MaterialDesignBody}" />
+                                <TextBlock Text="Sunshine Host"
+                                           FontSize="20"
+                                           FontWeight="Bold"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
+
+                            <TextBlock Text="Manage Sunshine, host connectivity, pairing, and connected clients."
+                                       Margin="32,2,0,0"
+                                       Style="{StaticResource MutedTextStyle}" />
+                        </StackPanel>
+
+                        <Border Grid.Column="1"
+                                Padding="12,6"
+                                CornerRadius="14"
+                                BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                BorderThickness="1"
+                                VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <Ellipse x:Name="SunshineStatusIndicator"
+                                         Width="9"
+                                         Height="9"
+                                         Fill="#8A8A8A"
+                                         Margin="0,0,7,0"
+                                         VerticalAlignment="Center" />
+
+                                <TextBlock x:Name="SunshineHeaderStatusText"
+                                           Text="Checking..."
+                                           VerticalAlignment="Center"
+                                           FontWeight="SemiBold" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                    <ScrollViewer Grid.Row="1"
+                                  VerticalScrollBarVisibility="Auto"
+                                  HorizontalScrollBarVisibility="Disabled">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <!-- Sunshine process -->
+                            <Border Grid.Column="0"
+                                    Grid.Row="0"
+                                    Style="{StaticResource SectionCardStyle}">
+                                <StackPanel>
+                                    <TextBlock Text="Sunshine"
+                                               Style="{StaticResource SectionTitleStyle}" />
+
+                                    <Grid Margin="0,0,0,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <materialDesign:PackIcon Kind="Server"
+                                                                 Width="34"
+                                                                 Height="34"
+                                                                 Margin="0,0,12,0"
+                                                                 Foreground="{DynamicResource MaterialDesignBodyLight}" />
+
+                                        <StackPanel Grid.Column="1"
+                                                    VerticalAlignment="Center">
+                                            <TextBlock x:Name="SunshineStatusText"
+                                                       Text="Checking..."
+                                                       FontWeight="SemiBold" />
+
+                                            <TextBlock x:Name="SunshineStatusDetail"
+                                                       Text="Checking Sunshine installation."
+                                                       Style="{StaticResource MutedTextStyle}" />
+
+                                            <TextBlock x:Name="ManagedApiDetailText"
+                                                       Text="Managed API disconnected"
+                                                       Margin="0,3,0,0"
+                                                       Style="{StaticResource MutedTextStyle}" />
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="BtnStartSunshine"
+                                                Content="Start"
+                                                Margin="0,0,8,0"
+                                                MinWidth="92"
+                                                Click="BtnStartSunshine_Click"
+                                                Style="{StaticResource MaterialDesignOutlinedButton}" />
+
+                                        <Button x:Name="BtnStopSunshine"
+                                                Content="Stop"
+                                                Margin="0,0,8,0"
+                                                MinWidth="92"
+                                                Click="BtnStopSunshine_Click"
+                                                Style="{StaticResource MaterialDesignOutlinedButton}" />
+
+                                        <Button x:Name="BtnRestartSunshine"
+                                                Content="Restart"
+                                                MinWidth="92"
+                                                Click="BtnRestartSunshine_Click"
+                                                Style="{StaticResource MaterialDesignOutlinedButton}" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Host connection -->
+                            <Border Grid.Column="1"
+                                    Grid.Row="0"
+                                    Style="{StaticResource SectionCardStyle}">
+                                <StackPanel>
+                                    <TextBlock Text="Host Connection"
+                                               Style="{StaticResource SectionTitleStyle}" />
+
+                                    <StackPanel Orientation="Horizontal"
+                                                Margin="0,0,0,8">
+                                        <RadioButton x:Name="RadioConnectionOpen"
+                                                     Content="Open"
+                                                     GroupName="SunshineConnectionMode"
+                                                     Margin="0,0,18,0"
+                                                     Checked="ConnectionMode_Checked" />
+
+                                        <RadioButton x:Name="RadioConnectionClosed"
+                                                     Content="Closed"
+                                                     GroupName="SunshineConnectionMode"
+                                                     Checked="ConnectionMode_Checked" />
+                                    </StackPanel>
+
+                                    <Grid Margin="0,0,0,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="125" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <TextBlock Grid.Row="0"
+                                                   Text="Effective state"
+                                                   Style="{StaticResource MutedTextStyle}" />
+                                        <TextBlock x:Name="ConnectionStateText"
+                                                   Grid.Row="0"
+                                                   Grid.Column="1"
+                                                   Text="—"
+                                                   FontWeight="SemiBold" />
+
+                                        <TextBlock Grid.Row="1"
+                                                   Text="Active streams"
+                                                   Style="{StaticResource MutedTextStyle}" />
+                                        <TextBlock x:Name="ActiveSessionsText"
+                                                   Grid.Row="1"
+                                                   Grid.Column="1"
+                                                   Text="—" />
+
+                                        <TextBlock Grid.Row="2"
+                                                   Text="Paired clients"
+                                                   Style="{StaticResource MutedTextStyle}" />
+                                        <TextBlock x:Name="PairedClientsText"
+                                                   Grid.Row="2"
+                                                   Grid.Column="1"
+                                                   Text="—" />
+                                    </Grid>
+
+                                    <TextBlock x:Name="ConnectionModeDetailText"
+                                               Text="Managed by TeknoParrot while the UI is running."
+                                               Style="{StaticResource MutedTextStyle}" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Pairing -->
+                            <Border Grid.Column="0"
+                                    Grid.Row="1"
+                                    Style="{StaticResource SectionCardStyle}">
+                                <StackPanel>
+                                    <TextBlock Text="Client Pairing"
+                                               Style="{StaticResource SectionTitleStyle}" />
+
+                                    <TextBlock x:Name="PairingStatusText"
+                                               Text="Waiting on pairing requests"
+                                               Margin="0,0,0,8"
+                                               Style="{StaticResource MutedTextStyle}" />
+
+                                    <Grid Margin="0,0,0,8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="12" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock Text="Pairing PIN"
+                                                       FontWeight="SemiBold"
+                                                       Margin="0,0,0,4" />
+                                            <TextBox x:Name="PairingPinTextBox"
+                                                     HorizontalContentAlignment="Center"
+                                                     MaxLength="4" />
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="2">
+                                            <TextBlock Text="Connection Name"
+                                                       FontWeight="SemiBold"
+                                                       Margin="0,0,0,4" />
+                                            <TextBox x:Name="PairingNameTextBox"
+                                                     HorizontalContentAlignment="Center" />
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <Button x:Name="BtnPairClient"
+                                            Content="Pair Client"
+                                            HorizontalAlignment="Left"
+                                            MinWidth="110"
+                                            Click="BtnPairClient_Click"
+                                            Style="{StaticResource MaterialDesignOutlinedButton}" />
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Connected/paired clients -->
+                            <Border Grid.Column="1"
+                                    Grid.Row="1"
+                                    Style="{StaticResource SectionCardStyle}">
+                                <StackPanel>
+                                    <TextBlock Text="Moonlight Clients"
+                                               Style="{StaticResource SectionTitleStyle}" />
+
+                                    <TextBlock x:Name="ClientListStatusText"
+                                               Text="Waiting for Sunshine..."
+                                               Margin="0,0,0,8"
+                                               Style="{StaticResource MutedTextStyle}" />
+
+                                    <ListBox x:Name="ClientsListBox"
+                                             MinHeight="68"
+                                             MaxHeight="145"
+                                             Margin="0,0,0,10"
+                                             DisplayMemberPath="DisplayName"
+                                             SelectionChanged="ClientsListBox_SelectionChanged" />
+
+                                    <WrapPanel>
+                                        <Button x:Name="BtnRefreshClients"
+                                                Content="Refresh"
+                                                Margin="0,0,8,8"
+                                                MinWidth="92"
+                                                Click="BtnRefreshClients_Click"
+                                                Style="{StaticResource MaterialDesignOutlinedButton}" />
+
+                                        <Button x:Name="BtnDisconnectAll"
+                                                Content="Disconnect All"
+                                                Margin="0,0,8,8"
+                                                MinWidth="120"
+                                                Click="BtnDisconnectAll_Click"
+                                                Style="{StaticResource MaterialDesignOutlinedButton}" />
+
+                                        <Button x:Name="BtnUnpairClient"
+                                                Content="Unpair Selected"
+                                                Margin="0,0,8,8"
+                                                MinWidth="125"
+                                                Click="BtnUnpairClient_Click"
+                                                Style="{StaticResource MaterialDesignOutlinedButton}" />
+                                    </WrapPanel>
+                                </StackPanel>
+                            </Border>
+
+                            <!-- Full Sunshine configuration -->
+                            <Border Grid.ColumnSpan="2"
+                                    Grid.Row="2"
+                                    Margin="0,0,10,10"
+                                    Background="{DynamicResource MaterialDesignCardBackground}"
+                                    BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                    BorderThickness="1"
+                                    CornerRadius="8"
+                                    Padding="14">
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <materialDesign:PackIcon Kind="Web"
+                                                             Width="32"
+                                                             Height="32"
+                                                             Margin="0,0,14,0"
+                                                             Foreground="{DynamicResource MaterialDesignBodyLight}" />
+
+                                    <StackPanel Grid.Column="1"
+                                                VerticalAlignment="Center">
+                                        <TextBlock Text="Sunshine Web UI"
+                                                   FontSize="18"
+                                                   FontWeight="SemiBold" />
+
+                                        <TextBlock Text="Open Sunshine's normal web interface for full configuration."
+                                                   Style="{StaticResource MutedTextStyle}" />
+                                    </StackPanel>
+
+                                    <Button x:Name="BtnOpenSunshineWebUi"
+                                            Grid.Column="2"
+                                            Content="Open Web UI"
+                                            MinWidth="120"
+                                            VerticalAlignment="Center"
+                                            Click="BtnOpenSunshineWebUi_Click"
+                                            Style="{StaticResource MaterialDesignOutlinedButton}" />
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+
+            <!-- ========================================================= -->
+            <!-- Moonlight tab                                              -->
+            <!-- ========================================================= -->
+            <TabItem Header="Moonlight">
+                <Grid Margin="0,8,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0"
+                          Margin="0,0,10,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="WeatherNight"
+                                                         Width="24"
+                                                         Height="24"
+                                                         Margin="0,0,8,0"
+                                                         Foreground="{DynamicResource MaterialDesignBody}" />
+                                <TextBlock Text="Moonlight Client"
+                                           FontSize="20"
+                                           FontWeight="Bold"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
+
+                            <TextBlock Text="Manage Moonlight pairing, applications, and remote streaming."
+                                       Margin="32,2,0,0"
+                                       Style="{StaticResource MutedTextStyle}" />
+                        </StackPanel>
+                    </Grid>
+
+                    <ScrollViewer Grid.Row="1"
+                                  VerticalScrollBarVisibility="Auto"
+                                  HorizontalScrollBarVisibility="Disabled">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <!-- Moonlight process/readiness -->
+                        <Border Grid.Column="0"
+                                Grid.Row="0"
+                                Style="{StaticResource SectionCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Moonlight"
+                                           Style="{StaticResource SectionTitleStyle}" />
+
+                                <Grid Margin="0,0,0,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <materialDesign:PackIcon Kind="Monitor"
+                                                             Width="34"
+                                                             Height="34"
+                                                             Margin="0,0,12,0"
+                                                             Foreground="{DynamicResource MaterialDesignBodyLight}" />
+
+                                    <StackPanel Grid.Column="1"
+                                                VerticalAlignment="Center">
+                                        <TextBlock x:Name="MoonlightInstallStatusText"
+                                                   Text="Checking..."
+                                                   FontWeight="SemiBold" />
+
+                                        <TextBlock x:Name="MoonlightStatusDetailText"
+                                                   Text="Checking Moonlight installation."
+                                                   Style="{StaticResource MutedTextStyle}" />
+
+                                        <TextBlock x:Name="MoonlightPathText"
+                                                   Margin="0,3,0,0"
+                                                   Visibility="Collapsed"
+                                                   Style="{StaticResource MutedTextStyle}" />
+                                    </StackPanel>
+                                </Grid>
+
+                                <StackPanel Orientation="Horizontal">
+                                    <Button x:Name="BtnStartMoonlight"
+                                            Content="Start"
+                                            Margin="0,0,8,0"
+                                            MinWidth="92"
+                                            Click="BtnStartMoonlight_Click"
+                                            Style="{StaticResource MaterialDesignOutlinedButton}" />
+
+                                    <Button x:Name="BtnStopMoonlight"
+                                            Content="Stop"
+                                            Margin="0,0,8,0"
+                                            MinWidth="92"
+                                            Click="BtnStopMoonlight_Click"
+                                            Style="{StaticResource MaterialDesignOutlinedButton}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Client connection -->
+                        <Border Grid.Column="1"
+                                Grid.Row="0"
+                                Style="{StaticResource SectionCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Host Connection"
+                                           Style="{StaticResource SectionTitleStyle}" />
+
+                                <TextBlock Text="Host IP or name"
+                                           FontWeight="SemiBold"
+                                           Margin="0,0,0,4" />
+
+                                <TextBox x:Name="MoonlightHostTextBox"
+                                         Margin="0,0,0,8"
+                                         TextChanged="MoonlightHostTextBox_TextChanged" />
+
+                                <TextBlock x:Name="MoonlightConnectionStatusText"
+                                           Text="Enter a host address to begin."
+                                           Style="{StaticResource MutedTextStyle}" />
+                            </StackPanel>
+                        </Border>
+                        <!-- Host pairing -->
+                        <Border Grid.Column="0"
+                                Grid.Row="1"
+                                Style="{StaticResource SectionCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Host Pairing"
+                                           Style="{StaticResource SectionTitleStyle}" />
+
+                                <TextBlock x:Name="MoonlightPairStatusText"
+                                           Text="Start pairing to generate a PIN, then enter that PIN on the Sunshine host."
+                                           Margin="0,0,0,8"
+                                           Style="{StaticResource MutedTextStyle}" />
+
+                                <TextBlock Text="Pairing PIN"
+                                           FontWeight="SemiBold"
+                                           Margin="0,0,0,4" />
+
+                                <Border BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                        BorderThickness="1"
+                                        CornerRadius="4"
+                                        Padding="12,8"
+                                        Margin="0,0,0,8">
+                                    <TextBlock x:Name="MoonlightGeneratedPinText"
+                                               Text="----"
+                                               FontSize="24"
+                                               FontWeight="SemiBold"
+                                               HorizontalAlignment="Center" />
+                                </Border>
+
+                                <Button x:Name="BtnMoonlightPair"
+                                        Content="Generate PIN For Host"
+                                        HorizontalAlignment="Left"
+                                        MinWidth="110"
+                                        Click="BtnMoonlightPair_Click"
+                                        Style="{StaticResource MaterialDesignOutlinedButton}" />
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Apps/stream -->
+                        <Border Grid.Column="1"
+                                Grid.Row="1"
+                                Style="{StaticResource SectionCardStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Applications"
+                                           Style="{StaticResource SectionTitleStyle}" />
+
+                                <TextBlock Text="Streamable apps exposed by the selected Sunshine host."
+                                           Margin="0,0,0,8"
+                                           Style="{StaticResource MutedTextStyle}" />
+
+                                <Button x:Name="BtnMoonlightRefreshApps"
+                                        Content="Refresh Apps"
+                                        HorizontalAlignment="Left"
+                                        MinWidth="110"
+                                        Margin="0,0,0,10"
+                                        Click="BtnMoonlightRefreshApps_Click"
+                                        Style="{StaticResource MaterialDesignOutlinedButton}" />
+
+                                <ListBox x:Name="MoonlightAppsListBox"
+                                         MinHeight="100"
+                                         MaxHeight="190"
+                                         Margin="0,0,0,10"
+                                         SelectionChanged="MoonlightAppsListBox_SelectionChanged" />
+
+                                <WrapPanel>
+                                    <Button x:Name="BtnMoonlightStartStream"
+                                            Content="Access Stream"
+                                            MinWidth="110"
+                                            Margin="0,0,8,8"
+                                            Click="BtnMoonlightStartStream_Click"
+                                            Style="{StaticResource MaterialDesignOutlinedButton}" />
+
+                                    <Button x:Name="BtnMoonlightQuitStream"
+                                            Content="Quit Stream"
+                                            MinWidth="110"
+                                            Margin="0,0,8,8"
+                                            Click="BtnMoonlightQuitStream_Click"
+                                            Style="{StaticResource MaterialDesignOutlinedButton}" />
+                                </WrapPanel>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Advanced/manual Moonlight UI -->
+                        <Border Grid.ColumnSpan="2"
+                                Grid.Row="2"
+                                Margin="0,0,10,10"
+                                Background="{DynamicResource MaterialDesignCardBackground}"
+                                BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="14">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <materialDesign:PackIcon Kind="OpenInNew"
+                                                         Width="28"
+                                                         Height="28"
+                                                         Margin="0,0,12,0"
+                                                         Foreground="{DynamicResource MaterialDesignBodyLight}" />
+
+                                <StackPanel Grid.Column="1"
+                                            VerticalAlignment="Center">
+                                    <TextBlock Text="Moonlight UI"
+                                               FontSize="18"
+                                               FontWeight="SemiBold" />
+
+                                    <TextBlock Text="Open the normal Moonlight interface only for manual setup or troubleshooting."
+                                               Style="{StaticResource MutedTextStyle}" />
+                                </StackPanel>
+
+                                <Button x:Name="BtnOpenMoonlight"
+                                        Grid.Column="2"
+                                        Content="Open Moonlight UI"
+                                        MinWidth="140"
+                                        VerticalAlignment="Center"
+                                        Click="BtnOpenMoonlight_Click"
+                                        Style="{StaticResource MaterialDesignOutlinedButton}" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

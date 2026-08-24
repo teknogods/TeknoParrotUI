@@ -268,9 +268,9 @@ namespace TeknoParrotUi.UserControls
             _contentControl.Content = new MultiGameButtonConfig(_contentControl, _library);
         }
 
-        private void BtnSunshineHost_Click(object sender, RoutedEventArgs e)
+        private void BtnRemotePlay_Click(object sender, RoutedEventArgs e)
         {
-            _contentControl.Content = new SunshineManagement();
+            _contentControl.Content = new RemotePlayManagement();
         }
 
         private void BtnBrowseDatXml_Click(object sender, RoutedEventArgs e)
