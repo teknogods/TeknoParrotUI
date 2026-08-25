@@ -148,9 +148,9 @@
                             Click="BtnMultiGameButtonConfig_Click"
                             Content="{x:Static p:Resources.SettingsMultiGameButtonConfig}" />
                         <Button
-                            x:Name="BtnSunshineHost"
-                            Click="BtnSunshineHost_Click"
-                            Content="Sunshine Host" />
+                            x:Name="BtnRemotePlay"
+                            Click="BtnRemotePlay_Click"
+                            Content="Remote Play" />
                     </WrapPanel>
                     <TextBlock><Run Text=" " /><Run Text=" " /><Run Text=" " />
                     </TextBlock>

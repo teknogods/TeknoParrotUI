@@ -317,6 +317,7 @@
     <Compile Include="Helpers\PEPatcher.cs" />
     <Compile Include="Helpers\ReadyCheck.cs" />
     <Compile Include="Helpers\SunshineManager.cs" />
+    <Compile Include="Helpers\MoonlightManager.cs" />
     <Compile Include="Helpers\TPOConfig.cs" />
     <Compile Include="Helpers\WindowSizeHelper.cs" />
     <Compile Include="Helpers\WPFFolderBrowserInterop\comguids.cs" />
@@ -498,8 +499,8 @@
     <Compile Include="Views\Troubleshooting.xaml.cs">
       <DependentUpon>Troubleshooting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SunshineManagement.xaml.cs">
-      <DependentUpon>SunshineManagement.xaml</DependentUpon>
+    <Compile Include="Views\RemotePlayManagement.xaml.cs">
+      <DependentUpon>RemotePlayManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UpdaterDialog.xaml.cs">
       <DependentUpon>UpdaterDialog.xaml</DependentUpon>
@@ -635,7 +636,7 @@
     <Page Include="Views\Troubleshooting.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SunshineManagement.xaml">
+    <Page Include="Views\RemotePlayManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
