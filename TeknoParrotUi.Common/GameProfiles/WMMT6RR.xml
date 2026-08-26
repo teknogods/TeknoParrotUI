@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoWmmt6RR</EmulationProfile>
-	<GameProfileRevision>13</GameProfileRevision>
+	<GameProfileRevision>14</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<TestExecIs64Bit>false</TestExecIs64Bit>
@@ -185,6 +185,19 @@
 			<FieldName>Resolution Height</FieldName>
 			<FieldValue>768</FieldValue>
 			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Graphics</CategoryName>
+			<FieldName>MSAA Level</FieldName>
+			<FieldValue>0x</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>0x</string>
+				<string>2x</string>
+				<string>4x</string>
+				<string>8x</string>
+			</FieldOptions>
+			<Hint>Enables MSAA (multisample anti-aliasing).</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
