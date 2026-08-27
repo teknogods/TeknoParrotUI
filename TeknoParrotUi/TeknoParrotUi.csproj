@@ -757,6 +757,7 @@
   <ItemGroup>
     <Resource Include="Resources\minimize.png" />
     <Resource Include="Resources\exit.png" />
+    <Resource Include="Resources\rod.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
