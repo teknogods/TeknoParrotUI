@@ -58,25 +58,6 @@ namespace TeknoParrotUi.Views
                     var valueAsString = Encoding.ASCII.GetString(data); // GatewayServer
                     patreonKey.Text = valueAsString;
                     key.Close();
-                    _cmdStartInfo.FileName = ".\\TeknoParrot\\BudgieLoader.exe";
-                    _cmdStartInfo.RedirectStandardOutput = true;
-                    _cmdStartInfo.RedirectStandardInput = true;
-                    _cmdStartInfo.UseShellExecute = false;
-                    _cmdStartInfo.CreateNoWindow = true;
-                    _cmdStartInfo.Arguments = "-deactivate";
-                    _cmdProcess.StartInfo = _cmdStartInfo;
-                    _cmdProcess.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
-                    {
-                        // Prepend line numbers to each line of the output.
-                        if (!string.IsNullOrEmpty(e.Data))
-                        {
-                            Application.Current.Dispatcher.BeginInvoke(
-                                DispatcherPriority.Background,
-                                new Action(() => { listBoxConsole.Items.Add(e.Data); }));
-                            Console.WriteLine(e.Data);
-                        }
-                    });
-                    _cmdProcess.EnableRaisingEvents = true;
                 }
                 else
                 {
@@ -174,21 +155,22 @@ namespace TeknoParrotUi.Views
             listBoxConsole.Items.Clear();
 
             buttonDereg.Visibility = Visibility.Hidden;
-
-            _cmdProcess.Start();
-            _cmdProcess.BeginOutputReadLine();
-            _cmdProcess.WaitForExit();
-            var key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot", true);
-            if (key == null)
+            try
             {
-                Debug.WriteLine("Deregistered without deleting registry key");
+                BudgieDeactivation.Deactivate(".\\TeknoParrot\\BudgieLoader.exe", line =>
+                {
+                    Application.Current.Dispatcher.BeginInvoke(
+                        DispatcherPriority.Background,
+                        new Action(() => listBoxConsole.Items.Add(line)));
+                });
+                buttonRegister.Visibility = Visibility.Visible;
+                InitializeMe();
             }
-            else
+            catch (Exception error)
             {
-                key.DeleteValue("PatreonSerialKey");
+                buttonDereg.Visibility = Visibility.Visible;
+                MessageBoxHelper.WarningOK(error.Message);
             }
-            buttonRegister.Visibility = Visibility.Visible;
-            InitializeMe();
         }
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

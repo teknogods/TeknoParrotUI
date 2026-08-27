@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using TeknoParrotUi.Common;
 using MaterialDesignThemes.Wpf;
 using System.ComponentModel;
+using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Properties;
 
 namespace TeknoParrotUi.Views
@@ -394,44 +395,7 @@ namespace TeknoParrotUi.Views
 
         private void DeregisterCurrentKey(Action<string> outputCallback)
         {
-            var process = new Process();
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = ".\\TeknoParrot\\BudgieLoader.exe",
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true,
-                Arguments = "-deactivate"
-            };
-
-            process.StartInfo = startInfo;
-            process.OutputDataReceived += (s, e) =>
-            {
-                if (!string.IsNullOrEmpty(e.Data))
-                {
-                    outputCallback(e.Data);
-                }
-            };
-            process.ErrorDataReceived += (s, e) =>
-            {
-                if (!string.IsNullOrEmpty(e.Data))
-                {
-                    outputCallback($"Error: {e.Data}");
-                }
-            };
-
-            process.Start();
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-            process.WaitForExit();
-
-            var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\TeknoGods\TeknoParrot", true);
-            if (key != null)
-            {
-                key.DeleteValue("PatreonSerialKey", false);
-                key.Close();
-            }
+            BudgieDeactivation.Deactivate(".\\TeknoParrot\\BudgieLoader.exe", outputCallback);
         }
 
         private void RegisterNewKey(string serialKey, Action<string> outputCallback)

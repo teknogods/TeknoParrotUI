@@ -308,6 +308,7 @@
     <Compile Include="Converters\VirtualKeyToHex.cs" />
     <Compile Include="GameProfileLoader.cs" />
     <Compile Include="Helpers\DatXmlParser.cs" />
+    <Compile Include="Helpers\BudgieDeactivation.cs" />
     <Compile Include="Helpers\DllArchitectureChecker.cs" />
     <Compile Include="Helpers\GameErrorMessage.cs" />
     <Compile Include="Helpers\GenreTranslationHelper.cs" />
