@@ -2725,4 +2725,89 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>حفظ المعلومات في ملف نصي</value>
   </data>
+  <data name="AnnouncementTitle" xml:space="preserve">
+    <value>أخبار TeknoParrot</value>
+  </data>
+  <data name="AnnouncementSubscribe" xml:space="preserve">
+    <value>اشترك</value>
+  </data>
+  <data name="AnnouncementClose" xml:space="preserve">
+    <value>إغلاق</value>
+  </data>
+  <data name="AnnouncementLoadError" xml:space="preserve">
+    <value>تعذّر تحميل هذه الصفحة هنا. افتحها في المتصفح أو أغلق هذه النشرة لمتابعة استخدام TeknoParrot.</value>
+  </data>
+  <data name="AnnouncementOpenError" xml:space="preserve">
+    <value>تعذّر فتح المتصفح: {0}</value>
+  </data>
+  <data name="AnnouncementNetwork" xml:space="preserve">
+    <value>TEKNOPARROT / الأخبار</value>
+  </data>
+  <data name="AnnouncementOpenBrowser" xml:space="preserve">
+    <value>فتح في المتصفح</value>
+  </data>
+  <data name="AnnouncementLoading" xml:space="preserve">
+    <value>جارٍ تحميل آخر نشرة</value>
+  </data>
+  <data name="AnnouncementLoadingHint" xml:space="preserve">
+    <value>جارٍ الاتصال بموجز الأخبار...</value>
+  </data>
+  <data name="AnnouncementLoadErrorTitle" xml:space="preserve">
+    <value>افتح هذا الخبر في متصفحك.</value>
+  </data>
+  <data name="AnnouncementRetry" xml:space="preserve">
+    <value>إعادة المحاولة</value>
+  </data>
+  <data name="AnnouncementSupportTitle" xml:space="preserve">
+    <value>ساهم في استمرار ألعاب الأركيد.</value>
+  </data>
+  <data name="AnnouncementSupportDescription" xml:space="preserve">
+    <value>يساعد اشتراكك في إضافة المزيد من الألعاب إلى TeknoParrot.</value>
+  </data>
+  <data name="AnnouncementCloseHint" xml:space="preserve">
+    <value>أغلق هذه النشرة لمتابعة استخدام TeknoParrot.</value>
+  </data>
+  <data name="AnnouncementMaximize" xml:space="preserve">
+    <value>تكبير / استعادة</value>
+  </data>
+  <data name="LocalActivationRemovalTitle" xml:space="preserve">
+    <value>إزالة مفتاح الاشتراك المحلي؟</value>
+  </data>
+  <data name="LocalActivationRemovalPrompt" xml:space="preserve">
+    <value>{0}
+
+إذا لم يكن هذا مفتاحك أو انتهت صلاحيته، فهل تريد حذفه من هذا الجهاز؟
+
+ستتم إزالة المفتاح المحفوظ على هذا الكمبيوتر فقط. لن يؤدي ذلك إلى تحرير أي تفعيل على الخادم أو إعادة تعيين فترة الانتظار البالغة 30 يومًا.</value>
+  </data>
+  <data name="LocalActivationRemoved" xml:space="preserve">
+    <value>تمت إزالة مفتاح الاشتراك المحلي. اختر مفتاحك الصالح أو أدخله، ثم حاول تسجيله مجددًا.</value>
+  </data>
+  <data name="LocalActivationChanged" xml:space="preserve">
+    <value>تغيّر مفتاح الاشتراك المحفوظ أثناء هذه العملية. لم يتم حذف أي شيء. يُرجى المحاولة مجددًا.</value>
+  </data>
+  <data name="LocalActivationRemovalFailed" xml:space="preserve">
+    <value>تعذّرت إزالة مفتاح الاشتراك المحلي. تحقّق من أذوناتك وحاول مجددًا.</value>
+  </data>
+  <data name="DeactivationProcessFailed" xml:space="preserve">
+    <value>فشل BudgieLoader برمز الخروج {0}. تم الاحتفاظ بالتفعيل المحلي.</value>
+  </data>
+  <data name="DeactivationNoResult" xml:space="preserve">
+    <value>لم يُرجع BudgieLoader نتيجة صالحة لإلغاء التفعيل. تم الاحتفاظ بالتفعيل المحلي.</value>
+  </data>
+  <data name="DeactivationNoConnection" xml:space="preserve">
+    <value>تعذّر الاتصال بخادم التفعيل. تم الاحتفاظ بالتفعيل المحلي.</value>
+  </data>
+  <data name="DeactivationBadReply" xml:space="preserve">
+    <value>أرجع خادم التفعيل استجابة غير صالحة. تم الاحتفاظ بالتفعيل المحلي.</value>
+  </data>
+  <data name="DeactivationUnknownSerial" xml:space="preserve">
+    <value>لم يتعرّف خادم التفعيل على هذا التفعيل. تم الاحتفاظ بالتفعيل المحلي.</value>
+  </data>
+  <data name="DeactivationCooldown" xml:space="preserve">
+    <value>رفض خادم التفعيل إلغاء التفعيل. قد يكون هذا الرقم التسلسلي لا يزال ضمن فترة الانتظار البالغة 30 يومًا.</value>
+  </data>
+  <data name="DeactivationRejected" xml:space="preserve">
+    <value>رفض خادم التفعيل إلغاء التفعيل بالرمز {0}. تم الاحتفاظ بالتفعيل المحلي.</value>
+  </data>
 </root>

@@ -1,0 +1,190 @@
+<Window
+    x:Class="TeknoParrotUi.Views.AnnouncementWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:p="clr-namespace:TeknoParrotUi.Properties"
+    xmlns:wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+    xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+    Title="{x:Static p:Resources.AnnouncementTitle}"
+    Width="1120" Height="820" MinWidth="760" MinHeight="540"
+    Background="#0B111C" Foreground="#F5F7FC"
+    FontFamily="pack://application:,,,/TeknoParrotUi;component/Resources/#Inter"
+    ShowInTaskbar="False" WindowStyle="None" ResizeMode="CanResize"
+    WindowStartupLocation="CenterOwner">
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="38" ResizeBorderThickness="6"
+                            GlassFrameThickness="0" CornerRadius="0" UseAeroCaptionButtons="False" />
+    </shell:WindowChrome.WindowChrome>
+    <Window.Resources>
+        <Style x:Key="NewsButton" TargetType="Button">
+            <Setter Property="Background" Value="#172237" />
+            <Setter Property="Foreground" Value="#F5F7FC" />
+            <Setter Property="BorderBrush" Value="#3D4C65" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="18,12" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="buttonBorder" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                              RecognizesAccessKey="True" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="buttonBorder" Property="BorderBrush" Value="White" />
+                                <Setter TargetName="buttonBorder" Property="BorderThickness" Value="2" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="buttonBorder" Property="Opacity" Value="0.75" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="buttonBorder" Property="Opacity" Value="0.45" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#263750" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="SubscribeButton" TargetType="Button" BasedOn="{StaticResource NewsButton}">
+            <Setter Property="Background" Value="#FFC65A" />
+            <Setter Property="Foreground" Value="#17120A" />
+            <Setter Property="BorderBrush" Value="#FFC65A" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FFDA91" />
+                    <Setter Property="BorderBrush" Value="#FFDA91" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ChromeButton" TargetType="Button" BasedOn="{StaticResource NewsButton}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Width" Value="44" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Foreground" Value="#9CAAC1" />
+            <Setter Property="shell:WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+        </Style>
+    </Window.Resources>
+
+    <Border BorderBrush="#35435A" BorderThickness="1" SnapsToDevicePixels="True">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="38" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <!-- A draggable broadcast-style title bar; WindowChrome retains native resizing. -->
+            <Grid Background="#080D16">
+                <StackPanel Orientation="Horizontal" Margin="24,0,0,0" VerticalAlignment="Center">
+                    <Rectangle Width="5" Height="12" Fill="#FF6348" Margin="0,0,10,0" />
+                    <TextBlock Text="{x:Static p:Resources.AnnouncementNetwork}" FontSize="10"
+                               FontWeight="SemiBold" Foreground="#96A4BB" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Style="{StaticResource ChromeButton}" Click="MaximizeButton_Click"
+                            ToolTip="{x:Static p:Resources.AnnouncementMaximize}"
+                            AutomationProperties.Name="{x:Static p:Resources.AnnouncementMaximize}">
+                        <materialDesign:PackIcon Kind="WindowMaximize" Width="14" Height="14" />
+                    </Button>
+                    <Button Style="{StaticResource ChromeButton}" Click="CloseButton_Click"
+                            ToolTip="{x:Static p:Resources.AnnouncementClose}"
+                            AutomationProperties.Name="{x:Static p:Resources.AnnouncementClose}">
+                        <materialDesign:PackIcon Kind="Close" Width="18" Height="18" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Row="1" Margin="24,14,24,0" BorderBrush="#304059" BorderThickness="1" Background="#101827">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Border Background="#35435A" />
+                    <ProgressBar x:Name="loadingProgress" Height="2" BorderThickness="0"
+                                 Foreground="#FF6348" Background="#35435A" IsIndeterminate="True" />
+
+                    <Grid Grid.Row="1" ClipToBounds="True">
+                        <wpf:ChromiumWebBrowser x:Name="Browser" />
+                        <Border x:Name="loadingPanel" Background="#101827">
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30">
+                                <materialDesign:PackIcon Kind="NewspaperVariantOutline" Width="48" Height="48" Foreground="#FF8067"
+                                                         HorizontalAlignment="Center" Margin="0,0,0,18" />
+                                <TextBlock Text="{x:Static p:Resources.AnnouncementLoading}" FontSize="21" FontWeight="SemiBold"
+                                           Foreground="#F5F7FC" TextAlignment="Center" TextWrapping="Wrap" />
+                                <TextBlock Text="{x:Static p:Resources.AnnouncementLoadingHint}" FontSize="13" Foreground="#9BAEC9"
+                                           Margin="0,10,0,0" TextAlignment="Center" TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+                        <Border x:Name="loadErrorPanel" Background="#101827" Visibility="Collapsed">
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="490" Margin="30">
+                                <materialDesign:PackIcon Kind="OpenInNew" Width="40" Height="40" Foreground="#FF8067"
+                                                         HorizontalAlignment="Center" Margin="0,0,0,18" />
+                                <TextBlock Text="{x:Static p:Resources.AnnouncementLoadErrorTitle}" FontSize="22" FontWeight="Bold"
+                                           TextAlignment="Center" Foreground="#F5F7FC" TextWrapping="Wrap" />
+                                <TextBlock x:Name="loadErrorText" Text="{x:Static p:Resources.AnnouncementLoadError}"
+                                           FontSize="13" Foreground="#B0BED3" TextWrapping="Wrap" TextAlignment="Center"
+                                           Margin="0,12,0,24" />
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <Button Click="RetryButton_Click" Content="{x:Static p:Resources.AnnouncementRetry}"
+                                            Style="{StaticResource NewsButton}" Margin="0,0,10,0" />
+                                    <Button Click="OpenBrowser_Click" Content="{x:Static p:Resources.AnnouncementOpenBrowser}"
+                                            Style="{StaticResource NewsButton}" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!-- The lower-third promotion remains outside the webpage and always dismissible. -->
+            <Border x:Name="announcementFooter" Grid.Row="2" Margin="24,18,24,22" Padding="18,16" CornerRadius="7"
+                    Background="#142036" BorderBrush="#30405B" BorderThickness="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border x:Name="subscriptionIcon" Width="40" Height="40" Background="#302B23" CornerRadius="6" Margin="0,0,14,0"
+                            VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="Crown" Width="25" Height="25" Foreground="#FFC65A"
+                                                 HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <StackPanel x:Name="subscriptionMessage" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,20,0">
+                        <TextBlock Text="{x:Static p:Resources.AnnouncementSupportTitle}" FontSize="15" FontWeight="Bold"
+                                   Foreground="#F5F7FC" TextWrapping="Wrap" />
+                        <TextBlock Text="{x:Static p:Resources.AnnouncementSupportDescription}" FontSize="11" Foreground="#A7B6CE"
+                                   Margin="0,5,0,0" TextWrapping="Wrap" />
+                    </StackPanel>
+                    <Button x:Name="closeButton" Grid.Column="2" MinWidth="110" VerticalAlignment="Center" Margin="0,0,10,0"
+                            Content="{x:Static p:Resources.AnnouncementClose}" ToolTip="{x:Static p:Resources.AnnouncementCloseHint}"
+                            IsCancel="True" Click="CloseButton_Click" Style="{StaticResource NewsButton}" />
+                    <Button x:Name="subscribeButton" Grid.Column="3" MinWidth="150" VerticalAlignment="Center" Click="SubscribeButton_Click"
+                            AutomationProperties.Name="{x:Static p:Resources.AnnouncementSubscribe}"
+                            Style="{StaticResource SubscribeButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Static p:Resources.AnnouncementSubscribe}" VerticalAlignment="Center" />
+                            <materialDesign:PackIcon Kind="ArrowRight" Width="18" Height="18" Margin="10,0,0,0"
+                                                     VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

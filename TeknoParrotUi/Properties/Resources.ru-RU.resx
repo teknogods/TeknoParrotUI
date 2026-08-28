@@ -2721,4 +2721,89 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>Сохранить информацию в текстовый файл</value>
   </data>
+  <data name="AnnouncementTitle" xml:space="preserve">
+    <value>Новости TeknoParrot</value>
+  </data>
+  <data name="AnnouncementSubscribe" xml:space="preserve">
+    <value>Подписаться</value>
+  </data>
+  <data name="AnnouncementClose" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="AnnouncementLoadError" xml:space="preserve">
+    <value>Не удалось загрузить эту страницу здесь. Откройте её в браузере или закройте этот выпуск новостей, чтобы продолжить работу с TeknoParrot.</value>
+  </data>
+  <data name="AnnouncementOpenError" xml:space="preserve">
+    <value>Не удалось открыть браузер: {0}</value>
+  </data>
+  <data name="AnnouncementNetwork" xml:space="preserve">
+    <value>TEKNOPARROT / НОВОСТИ</value>
+  </data>
+  <data name="AnnouncementOpenBrowser" xml:space="preserve">
+    <value>Открыть в браузере</value>
+  </data>
+  <data name="AnnouncementLoading" xml:space="preserve">
+    <value>Загрузка последнего выпуска новостей</value>
+  </data>
+  <data name="AnnouncementLoadingHint" xml:space="preserve">
+    <value>Подключение к ленте новостей...</value>
+  </data>
+  <data name="AnnouncementLoadErrorTitle" xml:space="preserve">
+    <value>Откройте эту статью в браузере.</value>
+  </data>
+  <data name="AnnouncementRetry" xml:space="preserve">
+    <value>Повторить</value>
+  </data>
+  <data name="AnnouncementSupportTitle" xml:space="preserve">
+    <value>ПОДДЕРЖИТЕ ЖИЗНЬ АРКАД.</value>
+  </data>
+  <data name="AnnouncementSupportDescription" xml:space="preserve">
+    <value>Ваша подписка помогает добавлять больше игр в TeknoParrot.</value>
+  </data>
+  <data name="AnnouncementCloseHint" xml:space="preserve">
+    <value>Закройте этот выпуск новостей, чтобы продолжить работу с TeknoParrot.</value>
+  </data>
+  <data name="AnnouncementMaximize" xml:space="preserve">
+    <value>Развернуть / восстановить</value>
+  </data>
+  <data name="LocalActivationRemovalTitle" xml:space="preserve">
+    <value>Удалить локальный ключ подписки?</value>
+  </data>
+  <data name="LocalActivationRemovalPrompt" xml:space="preserve">
+    <value>{0}
+
+Если этот ключ не ваш или срок его действия истёк, хотите удалить его с этого компьютера?
+
+Будет удалён только ключ, сохранённый на этом ПК. Это не освободит активацию на сервере и не сбросит 30-дневный период ожидания.</value>
+  </data>
+  <data name="LocalActivationRemoved" xml:space="preserve">
+    <value>Локальный ключ подписки удалён. Выберите или введите собственный действующий ключ и повторите регистрацию.</value>
+  </data>
+  <data name="LocalActivationChanged" xml:space="preserve">
+    <value>Сохранённый ключ подписки изменился во время этой операции. Ничего не удалено. Повторите попытку.</value>
+  </data>
+  <data name="LocalActivationRemovalFailed" xml:space="preserve">
+    <value>Не удалось удалить локальный ключ подписки. Проверьте права доступа и повторите попытку.</value>
+  </data>
+  <data name="DeactivationProcessFailed" xml:space="preserve">
+    <value>BudgieLoader завершился с кодом ошибки {0}. Локальная активация сохранена.</value>
+  </data>
+  <data name="DeactivationNoResult" xml:space="preserve">
+    <value>BudgieLoader не вернул корректный результат деактивации. Локальная активация сохранена.</value>
+  </data>
+  <data name="DeactivationNoConnection" xml:space="preserve">
+    <value>Не удалось связаться с сервером активации. Локальная активация сохранена.</value>
+  </data>
+  <data name="DeactivationBadReply" xml:space="preserve">
+    <value>Сервер активации вернул некорректный ответ. Локальная активация сохранена.</value>
+  </data>
+  <data name="DeactivationUnknownSerial" xml:space="preserve">
+    <value>Сервер активации не распознал эту активацию. Локальная активация сохранена.</value>
+  </data>
+  <data name="DeactivationCooldown" xml:space="preserve">
+    <value>Сервер активации отклонил деактивацию. Возможно, для этого серийного номера ещё действует 30-дневный период ожидания.</value>
+  </data>
+  <data name="DeactivationRejected" xml:space="preserve">
+    <value>Сервер активации отклонил деактивацию с кодом {0}. Локальная активация сохранена.</value>
+  </data>
 </root>

@@ -2721,4 +2721,89 @@ TeknoParrotを再展開してください。</value>
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>情報をテキストファイルに保存</value>
   </data>
+  <data name="AnnouncementTitle" xml:space="preserve">
+    <value>TeknoParrot ニュース</value>
+  </data>
+  <data name="AnnouncementSubscribe" xml:space="preserve">
+    <value>サブスクリプションに登録</value>
+  </data>
+  <data name="AnnouncementClose" xml:space="preserve">
+    <value>閉じる</value>
+  </data>
+  <data name="AnnouncementLoadError" xml:space="preserve">
+    <value>このウィンドウではページを読み込めませんでした。ブラウザーで開くか、このお知らせを閉じて TeknoParrot の使用を続けてください。</value>
+  </data>
+  <data name="AnnouncementOpenError" xml:space="preserve">
+    <value>ブラウザーを開けませんでした: {0}</value>
+  </data>
+  <data name="AnnouncementNetwork" xml:space="preserve">
+    <value>TEKNOPARROT / ニュース</value>
+  </data>
+  <data name="AnnouncementOpenBrowser" xml:space="preserve">
+    <value>ブラウザーで開く</value>
+  </data>
+  <data name="AnnouncementLoading" xml:space="preserve">
+    <value>最新のお知らせを読み込み中</value>
+  </data>
+  <data name="AnnouncementLoadingHint" xml:space="preserve">
+    <value>ニュースフィードに接続中...</value>
+  </data>
+  <data name="AnnouncementLoadErrorTitle" xml:space="preserve">
+    <value>この記事をブラウザーで開いてください。</value>
+  </data>
+  <data name="AnnouncementRetry" xml:space="preserve">
+    <value>再試行</value>
+  </data>
+  <data name="AnnouncementSupportTitle" xml:space="preserve">
+    <value>アーケードの未来を支えよう。</value>
+  </data>
+  <data name="AnnouncementSupportDescription" xml:space="preserve">
+    <value>サブスクリプションへの登録が、TeknoParrot の対応ゲーム追加につながります。</value>
+  </data>
+  <data name="AnnouncementCloseHint" xml:space="preserve">
+    <value>このお知らせを閉じて TeknoParrot の使用を続けます。</value>
+  </data>
+  <data name="AnnouncementMaximize" xml:space="preserve">
+    <value>最大化 / 元に戻す</value>
+  </data>
+  <data name="LocalActivationRemovalTitle" xml:space="preserve">
+    <value>ローカルのサブスクリプションキーを削除しますか？</value>
+  </data>
+  <data name="LocalActivationRemovalPrompt" xml:space="preserve">
+    <value>{0}
+
+このキーがご自身のものではない、または有効期限が切れている場合、このコンピューターから削除しますか？
+
+削除されるのは、この PC に保存されたキーだけです。サーバー上の認証は解除されず、30 日間の待機期間もリセットされません。</value>
+  </data>
+  <data name="LocalActivationRemoved" xml:space="preserve">
+    <value>ローカルのサブスクリプションキーを削除しました。ご自身の有効なキーを選択または入力し、もう一度登録してください。</value>
+  </data>
+  <data name="LocalActivationChanged" xml:space="preserve">
+    <value>処理中に保存済みのサブスクリプションキーが変更されました。何も削除していません。もう一度お試しください。</value>
+  </data>
+  <data name="LocalActivationRemovalFailed" xml:space="preserve">
+    <value>ローカルのサブスクリプションキーを削除できませんでした。アクセス権を確認して、もう一度お試しください。</value>
+  </data>
+  <data name="DeactivationProcessFailed" xml:space="preserve">
+    <value>BudgieLoader が終了コード {0} で失敗しました。ローカルの認証情報は保持されています。</value>
+  </data>
+  <data name="DeactivationNoResult" xml:space="preserve">
+    <value>BudgieLoader から有効な認証解除結果が返されませんでした。ローカルの認証情報は保持されています。</value>
+  </data>
+  <data name="DeactivationNoConnection" xml:space="preserve">
+    <value>認証サーバーに接続できませんでした。ローカルの認証情報は保持されています。</value>
+  </data>
+  <data name="DeactivationBadReply" xml:space="preserve">
+    <value>認証サーバーから無効な応答が返されました。ローカルの認証情報は保持されています。</value>
+  </data>
+  <data name="DeactivationUnknownSerial" xml:space="preserve">
+    <value>認証サーバーがこの認証を認識しませんでした。ローカルの認証情報は保持されています。</value>
+  </data>
+  <data name="DeactivationCooldown" xml:space="preserve">
+    <value>認証サーバーが認証解除を拒否しました。このシリアル番号は、まだ 30 日間の待機期間中の可能性があります。</value>
+  </data>
+  <data name="DeactivationRejected" xml:space="preserve">
+    <value>認証サーバーがコード {0} で認証解除を拒否しました。ローカルの認証情報は保持されています。</value>
+  </data>
 </root>

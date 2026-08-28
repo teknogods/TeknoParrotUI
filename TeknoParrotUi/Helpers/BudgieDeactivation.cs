@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -14,8 +15,10 @@ namespace TeknoParrotUi.Helpers
 
         public static void Deactivate(string loaderPath, Action<string> outputCallback)
         {
+            var localActivation = ReadLocalActivation();
             var output = new List<string>();
             var outputLock = new object();
+            int exitCode;
             using (var process = new Process())
             {
                 process.StartInfo = new ProcessStartInfo
@@ -42,37 +45,69 @@ namespace TeknoParrotUi.Helpers
                 process.BeginErrorReadLine();
                 process.WaitForExit();
 
-                if (process.ExitCode != 0)
-                    throw new InvalidOperationException(
-                        $"BudgieLoader failed with exit code {process.ExitCode}. The local activation was retained.");
+                exitCode = process.ExitCode;
             }
 
-            int resultCode;
             lock (outputLock)
             {
-                if (!TryParseResultCode(output, out resultCode))
-                    throw new InvalidOperationException(
-                        "BudgieLoader did not return a deactivation result. The local activation was retained.");
+                CompleteDeactivation(exitCode, output, localActivation, ReadLocalActivation, DeleteLocalActivation);
             }
-            if (resultCode != 0)
-                throw new InvalidOperationException(FailureMessage(resultCode));
+        }
 
+        // The result handling can be tested without starting a loader or touching the registry.
+        internal static void CompleteDeactivation(int exitCode, IEnumerable<string> output, object localActivation,
+            Func<object> readLocalActivation, Action deleteLocalActivation)
+        {
+            if (exitCode != 0)
+                throw new InvalidOperationException(string.Format(Properties.Resources.DeactivationProcessFailed, exitCode));
+            if (!TryParseResultCode(output, out var resultCode))
+                throw new InvalidOperationException(Properties.Resources.DeactivationNoResult);
+            if (resultCode != 0)
+                throw new BudgieDeactivationException(resultCode, FailureMessage(resultCode), localActivation);
+
+            RemoveLocalActivation(localActivation, readLocalActivation, deleteLocalActivation);
+        }
+
+        internal static object ReadLocalActivation()
+        {
+            using (var key = Registry.CurrentUser.OpenSubKey(RegistryKeyPath))
+                return key?.GetValue(RegistryValueName);
+        }
+
+        internal static void DeleteLocalActivation()
+        {
             using (var key = Registry.CurrentUser.OpenSubKey(RegistryKeyPath, writable: true))
                 key?.DeleteValue(RegistryValueName, throwOnMissingValue: false);
+        }
 
-            using (var key = Registry.CurrentUser.OpenSubKey(RegistryKeyPath))
-            {
-                if (key?.GetValue(RegistryValueName) != null)
-                    throw new InvalidOperationException(
-                        "The activation server accepted deactivation, but the local activation could not be removed.");
-            }
+        internal static bool IsSameActivation(object expected, object current)
+        {
+            return StructuralComparisons.StructuralEqualityComparer.Equals(expected, current);
+        }
+
+        internal static void RemoveLocalActivation(object expected, Func<object> read, Action delete)
+        {
+            var current = read();
+            if (current == null)
+                return;
+            // A different key may have been saved while the loader or confirmation was open.
+            if (expected == null || !IsSameActivation(expected, current))
+                throw new InvalidOperationException(Properties.Resources.LocalActivationChanged);
+
+            delete();
+            if (read() != null)
+                throw new InvalidOperationException(Properties.Resources.LocalActivationRemovalFailed);
         }
 
         internal static bool TryParseResultCode(IEnumerable<string> output, out int resultCode)
         {
             resultCode = -1;
+            if (output == null)
+                return false;
             foreach (var line in output)
             {
+                if (line == null)
+                    continue;
                 var start = line.IndexOf(ResultPrefix, StringComparison.OrdinalIgnoreCase);
                 if (start < 0)
                     continue;
@@ -82,13 +117,16 @@ namespace TeknoParrotUi.Helpers
                     value = value.Substring(0, separator);
                 uint parsed;
                 if (uint.TryParse(value, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out parsed) &&
-                    parsed <= int.MaxValue)
+                    parsed <= int.MaxValue && (resultCode == -1 || resultCode == (int)parsed))
                 {
                     resultCode = (int)parsed;
-                    return true;
+                    continue;
                 }
+                // Ambiguous or malformed results must never clear the saved key.
+                resultCode = -1;
+                return false;
             }
-            return false;
+            return resultCode != -1;
         }
 
         private static string FailureMessage(int resultCode)
@@ -96,16 +134,56 @@ namespace TeknoParrotUi.Helpers
             switch (resultCode)
             {
                 case 2:
-                    return "The activation server could not be reached. The local activation was retained.";
+                    return Properties.Resources.DeactivationNoConnection;
                 case 3:
-                    return "The activation server returned an invalid response. The local activation was retained.";
+                    return Properties.Resources.DeactivationBadReply;
                 case 8:
-                    return "The activation server did not recognize this activation. The local activation was retained.";
+                    return Properties.Resources.DeactivationUnknownSerial;
                 case 10:
-                    return "The activation server rejected deactivation. This serial may still be in its 30-day cooldown.";
+                    return Properties.Resources.DeactivationCooldown;
                 default:
-                    return $"The activation server rejected deactivation with code {resultCode}. The local activation was retained.";
+                    return string.Format(Properties.Resources.DeactivationRejected, resultCode);
             }
+        }
+    }
+
+    internal sealed class BudgieDeactivationException : InvalidOperationException
+    {
+        private readonly object _localActivation;
+        internal int ResultCode { get; }
+
+        // VMProtect: banned, bad activation code, unknown serial, expired activation code.
+        // Connection errors, corrupt responses and the server cooldown are not recoverable here.
+        internal bool CanRemoveLocalActivation => _localActivation != null &&
+            (ResultCode == 4 || ResultCode == 6 || ResultCode == 8 || ResultCode == 9);
+
+        internal BudgieDeactivationException(int resultCode, string message, object localActivation) : base(message)
+        {
+            ResultCode = resultCode;
+            _localActivation = localActivation is Array array ? array.Clone() : localActivation;
+        }
+
+        internal bool TryRemoveLocalActivation(Func<bool> confirm)
+        {
+            return TryRemoveLocalActivation(confirm, BudgieDeactivation.ReadLocalActivation,
+                BudgieDeactivation.DeleteLocalActivation);
+        }
+
+        internal bool TryRemoveLocalActivation(Func<bool> confirm, Func<object> read, Action delete)
+        {
+            if (!CanRemoveLocalActivation)
+                return false;
+            var current = read();
+            if (current == null)
+                return false;
+            if (!BudgieDeactivation.IsSameActivation(_localActivation, current))
+                throw new InvalidOperationException(Properties.Resources.LocalActivationChanged);
+            if (!confirm())
+                return false;
+
+            // This only forgets the old local key. It does not release a server activation.
+            BudgieDeactivation.RemoveLocalActivation(_localActivation, read, delete);
+            return true;
         }
     }
 }

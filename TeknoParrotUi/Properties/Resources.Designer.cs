@@ -7433,6 +7433,114 @@ namespace TeknoParrotUi.Properties {
             }
         }
         
+        public static string AnnouncementTitle {
+            get { return ResourceManager.GetString("AnnouncementTitle", resourceCulture); }
+        }
+
+        public static string AnnouncementSubscribe {
+            get { return ResourceManager.GetString("AnnouncementSubscribe", resourceCulture); }
+        }
+
+        public static string AnnouncementClose {
+            get { return ResourceManager.GetString("AnnouncementClose", resourceCulture); }
+        }
+
+        public static string AnnouncementLoadError {
+            get { return ResourceManager.GetString("AnnouncementLoadError", resourceCulture); }
+        }
+
+        public static string AnnouncementOpenError {
+            get { return ResourceManager.GetString("AnnouncementOpenError", resourceCulture); }
+        }
+
+        public static string AnnouncementNetwork {
+            get { return ResourceManager.GetString("AnnouncementNetwork", resourceCulture); }
+        }
+
+        public static string AnnouncementOpenBrowser {
+            get { return ResourceManager.GetString("AnnouncementOpenBrowser", resourceCulture); }
+        }
+
+        public static string AnnouncementLoading {
+            get { return ResourceManager.GetString("AnnouncementLoading", resourceCulture); }
+        }
+
+        public static string AnnouncementLoadingHint {
+            get { return ResourceManager.GetString("AnnouncementLoadingHint", resourceCulture); }
+        }
+
+        public static string AnnouncementLoadErrorTitle {
+            get { return ResourceManager.GetString("AnnouncementLoadErrorTitle", resourceCulture); }
+        }
+
+        public static string AnnouncementRetry {
+            get { return ResourceManager.GetString("AnnouncementRetry", resourceCulture); }
+        }
+
+        public static string AnnouncementSupportTitle {
+            get { return ResourceManager.GetString("AnnouncementSupportTitle", resourceCulture); }
+        }
+
+        public static string AnnouncementSupportDescription {
+            get { return ResourceManager.GetString("AnnouncementSupportDescription", resourceCulture); }
+        }
+
+        public static string AnnouncementCloseHint {
+            get { return ResourceManager.GetString("AnnouncementCloseHint", resourceCulture); }
+        }
+
+        public static string AnnouncementMaximize {
+            get { return ResourceManager.GetString("AnnouncementMaximize", resourceCulture); }
+        }
+
+        public static string LocalActivationRemovalTitle {
+            get { return ResourceManager.GetString("LocalActivationRemovalTitle", resourceCulture); }
+        }
+
+        public static string LocalActivationRemovalPrompt {
+            get { return ResourceManager.GetString("LocalActivationRemovalPrompt", resourceCulture); }
+        }
+
+        public static string LocalActivationRemoved {
+            get { return ResourceManager.GetString("LocalActivationRemoved", resourceCulture); }
+        }
+
+        public static string LocalActivationChanged {
+            get { return ResourceManager.GetString("LocalActivationChanged", resourceCulture); }
+        }
+
+        public static string LocalActivationRemovalFailed {
+            get { return ResourceManager.GetString("LocalActivationRemovalFailed", resourceCulture); }
+        }
+
+        public static string DeactivationProcessFailed {
+            get { return ResourceManager.GetString("DeactivationProcessFailed", resourceCulture); }
+        }
+
+        public static string DeactivationNoResult {
+            get { return ResourceManager.GetString("DeactivationNoResult", resourceCulture); }
+        }
+
+        public static string DeactivationNoConnection {
+            get { return ResourceManager.GetString("DeactivationNoConnection", resourceCulture); }
+        }
+
+        public static string DeactivationBadReply {
+            get { return ResourceManager.GetString("DeactivationBadReply", resourceCulture); }
+        }
+
+        public static string DeactivationUnknownSerial {
+            get { return ResourceManager.GetString("DeactivationUnknownSerial", resourceCulture); }
+        }
+
+        public static string DeactivationCooldown {
+            get { return ResourceManager.GetString("DeactivationCooldown", resourceCulture); }
+        }
+
+        public static string DeactivationRejected {
+            get { return ResourceManager.GetString("DeactivationRejected", resourceCulture); }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>

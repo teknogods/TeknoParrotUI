@@ -51,6 +51,7 @@ namespace TeknoParrotUi.Views
 
                 if (isPatron)
                 {
+                    buttonDereg.Visibility = Visibility.Visible;
                     patreonKey.IsReadOnly = true;
                     buttonRegister.Visibility = Visibility.Hidden;
                     var value = (byte[])key.GetValue("PatreonSerialKey");
@@ -61,6 +62,10 @@ namespace TeknoParrotUi.Views
                 }
                 else
                 {
+                    if (patreonKey.IsReadOnly)
+                        patreonKey.Clear();
+                    patreonKey.IsReadOnly = false;
+                    buttonRegister.Visibility = Visibility.Visible;
                     buttonDereg.Visibility = Visibility.Hidden;
                     _cmdStartInfo.FileName = ".\\TeknoParrot\\BudgieLoader.exe";
                     _cmdStartInfo.RedirectStandardOutput = true;
@@ -169,7 +174,18 @@ namespace TeknoParrotUi.Views
             catch (Exception error)
             {
                 buttonDereg.Visibility = Visibility.Visible;
-                MessageBoxHelper.WarningOK(error.Message);
+                if (LocalActivationRecovery.TryHandle(Window.GetWindow(this), error, out var removed))
+                {
+                    if (removed)
+                    {
+                        listBoxConsole.Items.Add(TeknoParrotUi.Properties.Resources.LocalActivationRemoved);
+                        InitializeMe();
+                    }
+                }
+                else
+                {
+                    MessageBoxHelper.WarningOK(error.Message);
+                }
             }
         }
 

@@ -2721,4 +2721,89 @@ Teraz zamykam...</value>
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>Zapisz informacje do pliku tekstowego</value>
   </data>
+  <data name="AnnouncementTitle" xml:space="preserve">
+    <value>Wiadomości TeknoParrot</value>
+  </data>
+  <data name="AnnouncementSubscribe" xml:space="preserve">
+    <value>Subskrybuj</value>
+  </data>
+  <data name="AnnouncementClose" xml:space="preserve">
+    <value>Zamknij</value>
+  </data>
+  <data name="AnnouncementLoadError" xml:space="preserve">
+    <value>Nie udało się tutaj wczytać tej strony. Otwórz ją w przeglądarce lub zamknij ten biuletyn, aby dalej korzystać z TeknoParrot.</value>
+  </data>
+  <data name="AnnouncementOpenError" xml:space="preserve">
+    <value>Nie udało się otworzyć przeglądarki: {0}</value>
+  </data>
+  <data name="AnnouncementNetwork" xml:space="preserve">
+    <value>TEKNOPARROT / WIADOMOŚCI</value>
+  </data>
+  <data name="AnnouncementOpenBrowser" xml:space="preserve">
+    <value>Otwórz w przeglądarce</value>
+  </data>
+  <data name="AnnouncementLoading" xml:space="preserve">
+    <value>Wczytywanie najnowszego biuletynu</value>
+  </data>
+  <data name="AnnouncementLoadingHint" xml:space="preserve">
+    <value>Łączenie z kanałem wiadomości...</value>
+  </data>
+  <data name="AnnouncementLoadErrorTitle" xml:space="preserve">
+    <value>Otwórz ten artykuł w przeglądarce.</value>
+  </data>
+  <data name="AnnouncementRetry" xml:space="preserve">
+    <value>Spróbuj ponownie</value>
+  </data>
+  <data name="AnnouncementSupportTitle" xml:space="preserve">
+    <value>NIECH ARCADE ŻYJE DALEJ.</value>
+  </data>
+  <data name="AnnouncementSupportDescription" xml:space="preserve">
+    <value>Twoja subskrypcja pomaga dodawać kolejne gry do TeknoParrot.</value>
+  </data>
+  <data name="AnnouncementCloseHint" xml:space="preserve">
+    <value>Zamknij ten biuletyn, aby dalej korzystać z TeknoParrot.</value>
+  </data>
+  <data name="AnnouncementMaximize" xml:space="preserve">
+    <value>Maksymalizuj / przywróć</value>
+  </data>
+  <data name="LocalActivationRemovalTitle" xml:space="preserve">
+    <value>Usunąć lokalny klucz subskrypcji?</value>
+  </data>
+  <data name="LocalActivationRemovalPrompt" xml:space="preserve">
+    <value>{0}
+
+Jeśli ten klucz nie należy do Ciebie lub wygasł, czy chcesz usunąć go z tego komputera?
+
+Zostanie usunięty tylko klucz zapisany na tym komputerze. Nie zwolni to aktywacji na serwerze ani nie zresetuje 30-dniowego okresu oczekiwania.</value>
+  </data>
+  <data name="LocalActivationRemoved" xml:space="preserve">
+    <value>Lokalny klucz subskrypcji został usunięty. Wybierz lub wpisz własny ważny klucz i spróbuj ponownie go zarejestrować.</value>
+  </data>
+  <data name="LocalActivationChanged" xml:space="preserve">
+    <value>Zapisany klucz subskrypcji zmienił się podczas tej operacji. Niczego nie usunięto. Spróbuj ponownie.</value>
+  </data>
+  <data name="LocalActivationRemovalFailed" xml:space="preserve">
+    <value>Nie udało się usunąć lokalnego klucza subskrypcji. Sprawdź uprawnienia i spróbuj ponownie.</value>
+  </data>
+  <data name="DeactivationProcessFailed" xml:space="preserve">
+    <value>BudgieLoader zakończył działanie z kodem błędu {0}. Lokalna aktywacja została zachowana.</value>
+  </data>
+  <data name="DeactivationNoResult" xml:space="preserve">
+    <value>BudgieLoader nie zwrócił prawidłowego wyniku dezaktywacji. Lokalna aktywacja została zachowana.</value>
+  </data>
+  <data name="DeactivationNoConnection" xml:space="preserve">
+    <value>Nie udało się połączyć z serwerem aktywacji. Lokalna aktywacja została zachowana.</value>
+  </data>
+  <data name="DeactivationBadReply" xml:space="preserve">
+    <value>Serwer aktywacji zwrócił nieprawidłową odpowiedź. Lokalna aktywacja została zachowana.</value>
+  </data>
+  <data name="DeactivationUnknownSerial" xml:space="preserve">
+    <value>Serwer aktywacji nie rozpoznał tej aktywacji. Lokalna aktywacja została zachowana.</value>
+  </data>
+  <data name="DeactivationCooldown" xml:space="preserve">
+    <value>Serwer aktywacji odrzucił dezaktywację. Ten numer seryjny może nadal podlegać 30-dniowemu okresowi oczekiwania.</value>
+  </data>
+  <data name="DeactivationRejected" xml:space="preserve">
+    <value>Serwer aktywacji odrzucił dezaktywację z kodem {0}. Lokalna aktywacja została zachowana.</value>
+  </data>
 </root>

@@ -2721,4 +2721,89 @@ Fermeture en cours...</value>
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>Enregistrer les informations dans un fichier texte</value>
   </data>
+  <data name="AnnouncementTitle" xml:space="preserve">
+    <value>Actualités TeknoParrot</value>
+  </data>
+  <data name="AnnouncementSubscribe" xml:space="preserve">
+    <value>S'abonner</value>
+  </data>
+  <data name="AnnouncementClose" xml:space="preserve">
+    <value>Fermer</value>
+  </data>
+  <data name="AnnouncementLoadError" xml:space="preserve">
+    <value>Cette page n'a pas pu être chargée ici. Ouvrez-la dans votre navigateur ou fermez ce bulletin pour continuer à utiliser TeknoParrot.</value>
+  </data>
+  <data name="AnnouncementOpenError" xml:space="preserve">
+    <value>Impossible d'ouvrir votre navigateur : {0}</value>
+  </data>
+  <data name="AnnouncementNetwork" xml:space="preserve">
+    <value>TEKNOPARROT / ACTUALITÉS</value>
+  </data>
+  <data name="AnnouncementOpenBrowser" xml:space="preserve">
+    <value>Ouvrir dans le navigateur</value>
+  </data>
+  <data name="AnnouncementLoading" xml:space="preserve">
+    <value>Chargement du dernier bulletin</value>
+  </data>
+  <data name="AnnouncementLoadingHint" xml:space="preserve">
+    <value>Connexion au fil d'actualités...</value>
+  </data>
+  <data name="AnnouncementLoadErrorTitle" xml:space="preserve">
+    <value>Ouvrez cet article dans votre navigateur.</value>
+  </data>
+  <data name="AnnouncementRetry" xml:space="preserve">
+    <value>Réessayer</value>
+  </data>
+  <data name="AnnouncementSupportTitle" xml:space="preserve">
+    <value>FAITES VIVRE L'ARCADE.</value>
+  </data>
+  <data name="AnnouncementSupportDescription" xml:space="preserve">
+    <value>Votre abonnement permet d'ajouter davantage de jeux à TeknoParrot.</value>
+  </data>
+  <data name="AnnouncementCloseHint" xml:space="preserve">
+    <value>Fermez ce bulletin pour continuer à utiliser TeknoParrot.</value>
+  </data>
+  <data name="AnnouncementMaximize" xml:space="preserve">
+    <value>Agrandir / restaurer</value>
+  </data>
+  <data name="LocalActivationRemovalTitle" xml:space="preserve">
+    <value>Supprimer la clé d'abonnement locale ?</value>
+  </data>
+  <data name="LocalActivationRemovalPrompt" xml:space="preserve">
+    <value>{0}
+
+Si cette clé ne vous appartient pas ou a expiré, souhaitez-vous la supprimer de cet ordinateur ?
+
+Seule la clé enregistrée sur ce PC sera supprimée. Cela ne libérera aucune activation sur le serveur et ne réinitialisera pas le délai d'attente de 30 jours.</value>
+  </data>
+  <data name="LocalActivationRemoved" xml:space="preserve">
+    <value>La clé d'abonnement locale a été supprimée. Sélectionnez ou saisissez votre propre clé valide, puis réessayez de l'enregistrer.</value>
+  </data>
+  <data name="LocalActivationChanged" xml:space="preserve">
+    <value>La clé d'abonnement enregistrée a changé pendant cette opération. Rien n'a été supprimé. Veuillez réessayer.</value>
+  </data>
+  <data name="LocalActivationRemovalFailed" xml:space="preserve">
+    <value>Impossible de supprimer la clé d'abonnement locale. Vérifiez vos autorisations et réessayez.</value>
+  </data>
+  <data name="DeactivationProcessFailed" xml:space="preserve">
+    <value>BudgieLoader a échoué avec le code de sortie {0}. L'activation locale a été conservée.</value>
+  </data>
+  <data name="DeactivationNoResult" xml:space="preserve">
+    <value>BudgieLoader n'a pas renvoyé de résultat de désactivation valide. L'activation locale a été conservée.</value>
+  </data>
+  <data name="DeactivationNoConnection" xml:space="preserve">
+    <value>Impossible de joindre le serveur d'activation. L'activation locale a été conservée.</value>
+  </data>
+  <data name="DeactivationBadReply" xml:space="preserve">
+    <value>Le serveur d'activation a renvoyé une réponse non valide. L'activation locale a été conservée.</value>
+  </data>
+  <data name="DeactivationUnknownSerial" xml:space="preserve">
+    <value>Le serveur d'activation n'a pas reconnu cette activation. L'activation locale a été conservée.</value>
+  </data>
+  <data name="DeactivationCooldown" xml:space="preserve">
+    <value>Le serveur d'activation a refusé la désactivation. Le délai d'attente de 30 jours de ce numéro de série est peut-être toujours en cours.</value>
+  </data>
+  <data name="DeactivationRejected" xml:space="preserve">
+    <value>Le serveur d'activation a refusé la désactivation avec le code {0}. L'activation locale a été conservée.</value>
+  </data>
 </root>

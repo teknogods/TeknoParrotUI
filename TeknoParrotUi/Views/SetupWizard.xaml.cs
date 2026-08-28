@@ -605,6 +605,7 @@ namespace TeknoParrotUi.Views
             {
                 SerialOutputList.Items.Add(string.Format(TeknoParrotUi.Properties.Resources.SetupWizardError, ex.Message));
                 SerialStatusField.Text = string.Format(TeknoParrotUi.Properties.Resources.SetupWizardError, ex.Message);
+                OfferLocalActivationRecovery(ex);
             }
             finally
             {
@@ -652,10 +653,20 @@ namespace TeknoParrotUi.Views
             {
                 SerialOutputList.Items.Add(string.Format(TeknoParrotUi.Properties.Resources.SetupWizardError, ex.Message));
                 SerialStatusField.Text = string.Format(TeknoParrotUi.Properties.Resources.SetupWizardError, ex.Message);
+                OfferLocalActivationRecovery(ex);
             }
             finally
             {
                 RegisterManualButton.IsEnabled = true;
+            }
+        }
+
+        private void OfferLocalActivationRecovery(Exception error)
+        {
+            if (LocalActivationRecovery.TryHandle(Window.GetWindow(this), error, out var removed) && removed)
+            {
+                SerialStatusField.Text = TeknoParrotUi.Properties.Resources.LocalActivationRemoved;
+                SerialOutputList.Items.Add(SerialStatusField.Text);
             }
         }
 
@@ -708,7 +719,7 @@ namespace TeknoParrotUi.Views
             });
         }
 
-        private void FinishSetup()
+        private async void FinishSetup()
         {
             // Save all settings
             JoystickHelper.Serialize();
@@ -722,6 +733,7 @@ namespace TeknoParrotUi.Views
 
             // Show a welcome message
             Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(TeknoParrotUi.Properties.Resources.SetupWizardSetupCompleteMessage);
+            await Application.Current.Windows.OfType<MainWindow>().Single().CheckForAnnouncementAsync();
         }
 
         public void ReturnFromButtonConfig()

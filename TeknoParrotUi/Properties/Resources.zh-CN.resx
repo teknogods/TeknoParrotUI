@@ -2723,4 +2723,89 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>将信息保存到文本文件</value>
   </data>
+  <data name="AnnouncementTitle" xml:space="preserve">
+    <value>TeknoParrot 新闻</value>
+  </data>
+  <data name="AnnouncementSubscribe" xml:space="preserve">
+    <value>订阅</value>
+  </data>
+  <data name="AnnouncementClose" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="AnnouncementLoadError" xml:space="preserve">
+    <value>无法在此窗口中加载此页面。请在浏览器中打开，或关闭此公告以继续使用 TeknoParrot。</value>
+  </data>
+  <data name="AnnouncementOpenError" xml:space="preserve">
+    <value>无法打开浏览器：{0}</value>
+  </data>
+  <data name="AnnouncementNetwork" xml:space="preserve">
+    <value>TEKNOPARROT / 新闻中心</value>
+  </data>
+  <data name="AnnouncementOpenBrowser" xml:space="preserve">
+    <value>在浏览器中打开</value>
+  </data>
+  <data name="AnnouncementLoading" xml:space="preserve">
+    <value>正在加载最新公告</value>
+  </data>
+  <data name="AnnouncementLoadingHint" xml:space="preserve">
+    <value>正在连接新闻源...</value>
+  </data>
+  <data name="AnnouncementLoadErrorTitle" xml:space="preserve">
+    <value>请在浏览器中打开这篇文章。</value>
+  </data>
+  <data name="AnnouncementRetry" xml:space="preserve">
+    <value>重试</value>
+  </data>
+  <data name="AnnouncementSupportTitle" xml:space="preserve">
+    <value>让街机继续精彩。</value>
+  </data>
+  <data name="AnnouncementSupportDescription" xml:space="preserve">
+    <value>您的订阅有助于为 TeknoParrot 添加更多游戏。</value>
+  </data>
+  <data name="AnnouncementCloseHint" xml:space="preserve">
+    <value>关闭此公告以继续使用 TeknoParrot。</value>
+  </data>
+  <data name="AnnouncementMaximize" xml:space="preserve">
+    <value>最大化 / 还原</value>
+  </data>
+  <data name="LocalActivationRemovalTitle" xml:space="preserve">
+    <value>删除本地订阅密钥？</value>
+  </data>
+  <data name="LocalActivationRemovalPrompt" xml:space="preserve">
+    <value>{0}
+
+如果此密钥不属于您或已过期，是否要将其从这台电脑中删除？
+
+此操作只会删除保存在这台电脑上的密钥，不会释放服务器上的激活，也不会重置 30 天的等待期。</value>
+  </data>
+  <data name="LocalActivationRemoved" xml:space="preserve">
+    <value>本地订阅密钥已删除。请选择或输入您自己的有效密钥，然后重试注册。</value>
+  </data>
+  <data name="LocalActivationChanged" xml:space="preserve">
+    <value>保存的订阅密钥在此操作期间发生了变化。未删除任何内容。请重试。</value>
+  </data>
+  <data name="LocalActivationRemovalFailed" xml:space="preserve">
+    <value>无法删除本地订阅密钥。请检查您的权限，然后重试。</value>
+  </data>
+  <data name="DeactivationProcessFailed" xml:space="preserve">
+    <value>BudgieLoader 失败，退出代码为 {0}。已保留本地激活。</value>
+  </data>
+  <data name="DeactivationNoResult" xml:space="preserve">
+    <value>BudgieLoader 未返回有效的停用结果。已保留本地激活。</value>
+  </data>
+  <data name="DeactivationNoConnection" xml:space="preserve">
+    <value>无法连接激活服务器。已保留本地激活。</value>
+  </data>
+  <data name="DeactivationBadReply" xml:space="preserve">
+    <value>激活服务器返回了无效响应。已保留本地激活。</value>
+  </data>
+  <data name="DeactivationUnknownSerial" xml:space="preserve">
+    <value>激活服务器未识别此激活。已保留本地激活。</value>
+  </data>
+  <data name="DeactivationCooldown" xml:space="preserve">
+    <value>激活服务器拒绝了停用请求。此序列号可能仍处于 30 天的等待期内。</value>
+  </data>
+  <data name="DeactivationRejected" xml:space="preserve">
+    <value>激活服务器拒绝了停用请求，代码为 {0}。已保留本地激活。</value>
+  </data>
 </root>

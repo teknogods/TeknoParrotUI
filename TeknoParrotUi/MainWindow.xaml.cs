@@ -15,6 +15,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -49,6 +50,8 @@ namespace TeknoParrotUi
         public List<GitHubUpdates> updates = new List<GitHubUpdates>();
         private HwndSource _source;
         private uint WM_PROTOCOLACTIVATION;
+        private bool _announcementChecked;
+        private readonly CancellationTokenSource _announcementCancellation = new CancellationTokenSource();
 
         public MainWindow()
         {
@@ -60,6 +63,11 @@ namespace TeknoParrotUi
             this.Top = userWindowSize.WindowTop;
             this.Left = userWindowSize.WindowLeft;
             this.Loaded += MainWindow_Loaded;
+            Closed += (sender, args) =>
+            {
+                _announcementCancellation.Cancel();
+                _announcementCancellation.Dispose();
+            };
 
             Directory.CreateDirectory("Icons");
             _library = new Library(contentControl);
@@ -828,6 +836,11 @@ namespace TeknoParrotUi
             }
 #endif
 
+            // Keep announcements independent of automatic updates and preserve the changelog underneath.
+            await CheckForAnnouncementAsync();
+            if (_allowClose || !IsLoaded || Dispatcher.HasShutdownStarted)
+                return;
+
             // Check if we just completed an update and should show changelogs
             // File is now in root directory (not cache) so it survives cache folder deletion
             if (File.Exists(".lastupdate"))
@@ -885,6 +898,48 @@ namespace TeknoParrotUi
                     details = TeknoParrotUi.Properties.Resources.MainMenuDiscordStatus,
                     largeImageKey = "teknoparrot",
                 });
+        }
+
+        public async Task CheckForAnnouncementAsync()
+        {
+            // Apply this before fetching or recording anything, including after first-time setup.
+            if (_announcementChecked || !AnnouncementService.ShouldCheckAtStartup(
+                    Environment.GetCommandLineArgs(), Debugger.IsAttached))
+                return;
+            _announcementChecked = true;
+
+            try
+            {
+                var announcement = await AnnouncementService.CheckAsync(
+                    Lazydata.ParrotData.AnnouncementSourceUrl,
+                    Lazydata.ParrotData.LastAnnouncementContent, _announcementCancellation.Token);
+                if (announcement == null || _allowClose || !IsLoaded || Dispatcher.HasShutdownStarted)
+                    return;
+
+                InitCEF();
+                var dialog = new AnnouncementWindow(announcement.PageUrl, App.IsPatreon()) { Owner = this };
+                dialog.ContentRendered += (sender, args) =>
+                {
+                    // Mark it seen only once the dialog is actually visible.
+                    var previousContent = Lazydata.ParrotData.LastAnnouncementContent;
+                    Lazydata.ParrotData.LastAnnouncementContent = announcement.Content;
+                    try
+                    {
+                        JoystickHelper.Serialize();
+                    }
+                    catch (Exception ex)
+                    {
+                        Lazydata.ParrotData.LastAnnouncementContent = previousContent;
+                        Debug.WriteLine($"Failed to save announcement: {ex.Message}");
+                    }
+                };
+                dialog.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                // Optional announcements must never prevent normal startup or discard the saved value.
+                Debug.WriteLine($"Failed to show announcement: {ex.Message}");
+            }
         }
 
         private async Task ShowUpdateChangelogs()

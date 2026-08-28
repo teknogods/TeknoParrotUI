@@ -2721,4 +2721,89 @@ Nu sluiten...</value>
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>Info opslaan als tekstbestand</value>
   </data>
+  <data name="AnnouncementTitle" xml:space="preserve">
+    <value>TeknoParrot-nieuws</value>
+  </data>
+  <data name="AnnouncementSubscribe" xml:space="preserve">
+    <value>Abonneren</value>
+  </data>
+  <data name="AnnouncementClose" xml:space="preserve">
+    <value>Sluiten</value>
+  </data>
+  <data name="AnnouncementLoadError" xml:space="preserve">
+    <value>Deze pagina kon hier niet worden geladen. Open de pagina in je browser of sluit dit bulletin om TeknoParrot te blijven gebruiken.</value>
+  </data>
+  <data name="AnnouncementOpenError" xml:space="preserve">
+    <value>Je browser kon niet worden geopend: {0}</value>
+  </data>
+  <data name="AnnouncementNetwork" xml:space="preserve">
+    <value>TEKNOPARROT / NIEUWS</value>
+  </data>
+  <data name="AnnouncementOpenBrowser" xml:space="preserve">
+    <value>Openen in browser</value>
+  </data>
+  <data name="AnnouncementLoading" xml:space="preserve">
+    <value>Het nieuwste bulletin wordt geladen</value>
+  </data>
+  <data name="AnnouncementLoadingHint" xml:space="preserve">
+    <value>Verbinding maken met de nieuwsfeed...</value>
+  </data>
+  <data name="AnnouncementLoadErrorTitle" xml:space="preserve">
+    <value>Open dit bericht in je browser.</value>
+  </data>
+  <data name="AnnouncementRetry" xml:space="preserve">
+    <value>Opnieuw proberen</value>
+  </data>
+  <data name="AnnouncementSupportTitle" xml:space="preserve">
+    <value>HOUD DE ARCADE IN LEVEN.</value>
+  </data>
+  <data name="AnnouncementSupportDescription" xml:space="preserve">
+    <value>Je abonnement helpt om meer games naar TeknoParrot te brengen.</value>
+  </data>
+  <data name="AnnouncementCloseHint" xml:space="preserve">
+    <value>Sluit dit bulletin om TeknoParrot te blijven gebruiken.</value>
+  </data>
+  <data name="AnnouncementMaximize" xml:space="preserve">
+    <value>Maximaliseren / herstellen</value>
+  </data>
+  <data name="LocalActivationRemovalTitle" xml:space="preserve">
+    <value>Lokale abonnementssleutel verwijderen?</value>
+  </data>
+  <data name="LocalActivationRemovalPrompt" xml:space="preserve">
+    <value>{0}
+
+Als deze sleutel niet van jou is of verlopen is, wil je deze dan van deze computer verwijderen?
+
+Alleen de sleutel die op deze pc is opgeslagen, wordt verwijderd. Dit geeft geen activering op de server vrij en stelt de wachttijd van 30 dagen niet opnieuw in.</value>
+  </data>
+  <data name="LocalActivationRemoved" xml:space="preserve">
+    <value>De lokale abonnementssleutel is verwijderd. Selecteer of voer je eigen geldige sleutel in en probeer deze opnieuw te registreren.</value>
+  </data>
+  <data name="LocalActivationChanged" xml:space="preserve">
+    <value>De opgeslagen abonnementssleutel is tijdens deze bewerking gewijzigd. Er is niets verwijderd. Probeer het opnieuw.</value>
+  </data>
+  <data name="LocalActivationRemovalFailed" xml:space="preserve">
+    <value>De lokale abonnementssleutel kon niet worden verwijderd. Controleer je machtigingen en probeer het opnieuw.</value>
+  </data>
+  <data name="DeactivationProcessFailed" xml:space="preserve">
+    <value>BudgieLoader is mislukt met afsluitcode {0}. De lokale activering is behouden.</value>
+  </data>
+  <data name="DeactivationNoResult" xml:space="preserve">
+    <value>BudgieLoader heeft geen geldig deactiveringsresultaat teruggegeven. De lokale activering is behouden.</value>
+  </data>
+  <data name="DeactivationNoConnection" xml:space="preserve">
+    <value>De activeringsserver kon niet worden bereikt. De lokale activering is behouden.</value>
+  </data>
+  <data name="DeactivationBadReply" xml:space="preserve">
+    <value>De activeringsserver heeft een ongeldig antwoord teruggegeven. De lokale activering is behouden.</value>
+  </data>
+  <data name="DeactivationUnknownSerial" xml:space="preserve">
+    <value>De activeringsserver heeft deze activering niet herkend. De lokale activering is behouden.</value>
+  </data>
+  <data name="DeactivationCooldown" xml:space="preserve">
+    <value>De activeringsserver heeft de deactivering geweigerd. Deze serienummercode valt mogelijk nog binnen de wachttijd van 30 dagen.</value>
+  </data>
+  <data name="DeactivationRejected" xml:space="preserve">
+    <value>De activeringsserver heeft de deactivering geweigerd met code {0}. De lokale activering is behouden.</value>
+  </data>
 </root>

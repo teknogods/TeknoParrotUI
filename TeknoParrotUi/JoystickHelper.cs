@@ -37,11 +37,7 @@ namespace TeknoParrotUi.Common
         /// </summary>
         public static void Serialize()
         {
-            var serializer = new XmlSerializer(typeof(ParrotData));
-            using (var writer = XmlWriter.Create("ParrotData.xml"))
-            {
-                serializer.Serialize(writer, Lazydata.ParrotData);
-            }
+            ParrotDataSerializer.Save(Lazydata.ParrotData, "ParrotData.xml");
         }
 
         /// <summary>

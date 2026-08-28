@@ -2753,4 +2753,89 @@ Now closing...</value>
 Details:
 {1}</value>
   </data>
+  <data name="AnnouncementTitle" xml:space="preserve">
+    <value>TeknoParrot News</value>
+  </data>
+  <data name="AnnouncementSubscribe" xml:space="preserve">
+    <value>Subscribe</value>
+  </data>
+  <data name="AnnouncementClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="AnnouncementLoadError" xml:space="preserve">
+    <value>This page could not be loaded here. Open it in your browser, or close this bulletin to keep using TeknoParrot.</value>
+  </data>
+  <data name="AnnouncementOpenError" xml:space="preserve">
+    <value>Could not open your browser: {0}</value>
+  </data>
+  <data name="AnnouncementNetwork" xml:space="preserve">
+    <value>TEKNOPARROT / NEWSROOM</value>
+  </data>
+  <data name="AnnouncementOpenBrowser" xml:space="preserve">
+    <value>Open in browser</value>
+  </data>
+  <data name="AnnouncementLoading" xml:space="preserve">
+    <value>Loading the latest bulletin</value>
+  </data>
+  <data name="AnnouncementLoadingHint" xml:space="preserve">
+    <value>Connecting to the news feed...</value>
+  </data>
+  <data name="AnnouncementLoadErrorTitle" xml:space="preserve">
+    <value>Let's open this story in your browser.</value>
+  </data>
+  <data name="AnnouncementRetry" xml:space="preserve">
+    <value>Try again</value>
+  </data>
+  <data name="AnnouncementSupportTitle" xml:space="preserve">
+    <value>KEEP THE ARCADE ALIVE.</value>
+  </data>
+  <data name="AnnouncementSupportDescription" xml:space="preserve">
+    <value>Your subscription helps bring more games to TeknoParrot.</value>
+  </data>
+  <data name="AnnouncementCloseHint" xml:space="preserve">
+    <value>Close this bulletin to keep using TeknoParrot.</value>
+  </data>
+  <data name="AnnouncementMaximize" xml:space="preserve">
+    <value>Maximize / restore</value>
+  </data>
+  <data name="LocalActivationRemovalTitle" xml:space="preserve">
+    <value>Remove local subscription key?</value>
+  </data>
+  <data name="LocalActivationRemovalPrompt" xml:space="preserve">
+    <value>{0}
+
+If this is not your key or it has expired, do you want to delete it from this machine?
+
+Only the key saved on this PC will be removed. This will not release an activation on the server or reset the 30-day cooldown.</value>
+  </data>
+  <data name="LocalActivationRemoved" xml:space="preserve">
+    <value>The local subscription key was removed. Select or enter your own valid key and try registering again.</value>
+  </data>
+  <data name="LocalActivationChanged" xml:space="preserve">
+    <value>The saved subscription key changed during this operation. Nothing was deleted. Please try again.</value>
+  </data>
+  <data name="LocalActivationRemovalFailed" xml:space="preserve">
+    <value>The local subscription key could not be removed. Check your permissions and try again.</value>
+  </data>
+  <data name="DeactivationProcessFailed" xml:space="preserve">
+    <value>BudgieLoader failed with exit code {0}. The local activation was retained.</value>
+  </data>
+  <data name="DeactivationNoResult" xml:space="preserve">
+    <value>BudgieLoader did not return a valid deactivation result. The local activation was retained.</value>
+  </data>
+  <data name="DeactivationNoConnection" xml:space="preserve">
+    <value>The activation server could not be reached. The local activation was retained.</value>
+  </data>
+  <data name="DeactivationBadReply" xml:space="preserve">
+    <value>The activation server returned an invalid response. The local activation was retained.</value>
+  </data>
+  <data name="DeactivationUnknownSerial" xml:space="preserve">
+    <value>The activation server did not recognize this activation. The local activation was retained.</value>
+  </data>
+  <data name="DeactivationCooldown" xml:space="preserve">
+    <value>The activation server rejected deactivation. This serial may still be in its 30-day cooldown.</value>
+  </data>
+  <data name="DeactivationRejected" xml:space="preserve">
+    <value>The activation server rejected deactivation with code {0}. The local activation was retained.</value>
+  </data>
 </root>
