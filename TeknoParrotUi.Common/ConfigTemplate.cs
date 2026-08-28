@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -16,10 +16,16 @@ namespace TeknoParrotUi.Common
         MonitorSelection = 7,
         Password = 8,
     }
+
     public class FieldInformation : INotifyPropertyChanged
     {
         private string _fieldValue;
         private bool _isVisible = true;
+        private bool _isEditorVisible = true;
+        private bool _isEditorEnabled = true;
+        private bool _showRodPreferredSetup;
+        private bool _rodPreferredSetup;
+        private string _rodPreferredSetupSaved;
 
         public string CategoryName { get; set; }
         public string FieldName { get; set; }
@@ -43,24 +49,9 @@ namespace TeknoParrotUi.Common
         public string Hint { get; set; }
         public bool UseUnitySorting { get; set; } = false;
 
-        /// <summary>
-        /// Optional: the FieldName of another FieldInformation entry (usually a Bool field)
-        /// that controls whether this field is shown. Leave empty/null for "always visible".
-        /// e.g. VisibleWhenField = "Remote Local Play"
-        /// </summary>
         public string VisibleWhenField { get; set; }
-
-        /// <summary>
-        /// Optional: the FieldValue that VisibleWhenField must equal for this field to be shown.
-        /// For Bool fields, TeknoParrot stores "1" for checked and "0" for unchecked.
-        /// e.g. VisibleWhenValue = "1"
-        /// </summary>
         public string VisibleWhenValue { get; set; }
 
-        /// <summary>
-        /// Computed at runtime by GameSettingsControl based on VisibleWhenField/VisibleWhenValue.
-        /// Not persisted to the profile XML.
-        /// </summary>
         [XmlIgnore]
         public bool IsVisible
         {
@@ -70,6 +61,66 @@ namespace TeknoParrotUi.Common
                 if (_isVisible == value) return;
                 _isVisible = value;
                 OnPropertyChanged(nameof(IsVisible));
+            }
+        }
+
+        [XmlIgnore]
+        public bool ShowRodPreferredSetup
+        {
+            get => _showRodPreferredSetup;
+            set
+            {
+                if (_showRodPreferredSetup == value) return;
+                _showRodPreferredSetup = value;
+                OnPropertyChanged(nameof(ShowRodPreferredSetup));
+            }
+        }
+
+        [XmlIgnore]
+        public bool RodPreferredSetup
+        {
+            get => _rodPreferredSetup;
+            set
+            {
+                if (_rodPreferredSetup == value) return;
+                _rodPreferredSetup = value;
+                OnPropertyChanged(nameof(RodPreferredSetup));
+            }
+        }
+
+        // Persisted in UserProfiles XML so Rod mode is auto-selected only on first load.
+        public string RodPreferredSetupSaved
+        {
+            get => _rodPreferredSetupSaved;
+            set
+            {
+                if (_rodPreferredSetupSaved == value) return;
+                _rodPreferredSetupSaved = value;
+                OnPropertyChanged(nameof(RodPreferredSetupSaved));
+            }
+        }
+
+        [XmlIgnore]
+        public bool IsEditorVisible
+        {
+            get => _isEditorVisible;
+            set
+            {
+                if (_isEditorVisible == value) return;
+                _isEditorVisible = value;
+                OnPropertyChanged(nameof(IsEditorVisible));
+            }
+        }
+
+        [XmlIgnore]
+        public bool IsEditorEnabled
+        {
+            get => _isEditorEnabled;
+            set
+            {
+                if (_isEditorEnabled == value) return;
+                _isEditorEnabled = value;
+                OnPropertyChanged(nameof(IsEditorEnabled));
             }
         }
 

@@ -155,7 +155,71 @@
             <ItemsControl Name="GameSettingsList">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <UniformGrid Columns="2" Visibility="{Binding IsVisible, Converter={StaticResource boolToVisibilityConverter}}">
+                        <StackPanel Visibility="{Binding IsVisible, Converter={StaticResource boolToVisibilityConverter}}">
+                            <!--
+                                Golden Tee memorial helper. This row is enabled at runtime only on the
+                                "Override Default Outfit" field for Golden Tee profiles. It is UI-only;
+                                no extra config value is written to the profile or teknoparrot.ini.
+                            -->
+                            <UniformGrid
+                                Columns="2"
+                                Visibility="{Binding ShowRodPreferredSetup, Converter={StaticResource boolToVisibilityConverter}}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock
+                                        Height="{StaticResource fieldHeight}"
+                                        Padding="2,4,2,2"
+                                        VerticalAlignment="Center"
+                                        Text="Customization - Use Rod's Preferred Setup" />
+                                    <materialDesign:PackIcon Kind="InformationOutline" Style="{StaticResource hintIcon}" />
+                                    <StackPanel.ToolTip>
+                                        <ToolTip>
+                                            <Border
+                                                Padding="12"
+                                                Background="WhiteSmoke"
+                                                BorderBrush="Gray"
+                                                BorderThickness="1"
+                                                CornerRadius="6">
+                                                <StackPanel Width="310">
+                                                    <Image
+                                                        Width="64"
+                                                        Height="64"
+                                                        Margin="0,0,0,8"
+                                                        HorizontalAlignment="Center"
+                                                        Stretch="Uniform"
+                                                        Source="/TeknoParrotUi;component/Resources/rod.png" />
+                                                    <TextBlock
+                                                        HorizontalAlignment="Center"
+                                                        FontSize="16"
+                                                        FontWeight="SemiBold"
+                                                        Foreground="Black"
+                                                        Text="In Memory of Rod" />
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        Foreground="Black"
+                                                        TextAlignment="Center"
+                                                        TextWrapping="Wrap"
+                                                        Text="Uses the original Golden Tee defaults for outfit, clubs, putter, balls, and accessories — the setup Rod always played." />
+                                                    <TextBlock
+                                                        Margin="0,8,0,0"
+                                                        FontStyle="Italic"
+                                                        Foreground="Black"
+                                                        TextAlignment="Center"
+                                                        TextWrapping="Wrap"
+                                                        Text="Trackball sensitivity is set to 25/25, just like Rod insisted it should be." />
+                                                </StackPanel>
+                                            </Border>
+                                        </ToolTip>
+                                    </StackPanel.ToolTip>
+                                </StackPanel>
+                                <CheckBox
+                                    Height="{StaticResource fieldHeight}"
+                                    Margin="0,0,0,5"
+                                    VerticalAlignment="Center"
+                                    Foreground="{DynamicResource MaterialDesignBody}"
+                                    IsChecked="{Binding RodPreferredSetup, Mode=TwoWay}" />
+                            </UniformGrid>
+
+                            <UniformGrid Columns="2" Visibility="{Binding IsEditorVisible, Converter={StaticResource boolToVisibilityConverter}}">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Height="{StaticResource fieldHeight}" Padding="2,4,2,2">
                                     <TextBlock.Text>
@@ -171,7 +235,7 @@
                                 </StackPanel.ToolTip>
                             </StackPanel>
 
-                            <ContentControl>
+                            <ContentControl Visibility="{Binding IsEditorVisible, Converter={StaticResource boolToVisibilityConverter}}">
                                 <ContentControl.Style>
                                     <Style TargetType="ContentControl">
                                         <Style.Triggers>
@@ -183,7 +247,8 @@
                                             Margin="0,0,0,5"
                                             Foreground="{DynamicResource MaterialDesignBody}"
                                             Tag="SettingsTxt"
-                                            Text="{Binding FieldValue, Mode=TwoWay}">
+                                            IsEnabled="{Binding IsEditorEnabled}"
+                                             Text="{Binding FieldValue, Mode=TwoWay}">
                                                             <TextBox.ToolTip>
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
                                                             </TextBox.ToolTip>
@@ -200,7 +265,8 @@
                                             Margin="0,0,0,5"
                                             Foreground="{DynamicResource MaterialDesignBody}"
                                             Tag="SettingsTxt"
-                                            converters:PasswordBoxHelper.BoundPassword="{Binding FieldValue, Mode=TwoWay}">
+                                            IsEnabled="{Binding IsEditorEnabled}"
+                                             converters:PasswordBoxHelper.BoundPassword="{Binding FieldValue, Mode=TwoWay}">
                                                             <PasswordBox.ToolTip>
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
                                                             </PasswordBox.ToolTip>
@@ -216,7 +282,8 @@
                                             Height="{StaticResource fieldHeight}"
                                             Margin="0,0,0,5"
                                             Foreground="{DynamicResource MaterialDesignBody}"
-                                            IsChecked="{Binding FieldValue, Mode=TwoWay, Converter={StaticResource stringToBoolConverter}}">
+                                            IsEnabled="{Binding IsEditorEnabled}"
+                                             IsChecked="{Binding FieldValue, Mode=TwoWay, Converter={StaticResource stringToBoolConverter}}">
                                                             <CheckBox.ToolTip>
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
                                                             </CheckBox.ToolTip>
@@ -233,7 +300,8 @@
                                             Margin="0,0,0,5"
                                             Foreground="{DynamicResource MaterialDesignBody}"
                                             ItemsSource="{Binding FieldOptions, Mode=TwoWay}"
-                                            SelectedValue="{Binding FieldValue, Mode=TwoWay}">
+                                            IsEnabled="{Binding IsEditorEnabled}"
+                                             SelectedValue="{Binding FieldValue, Mode=TwoWay}">
                                                             <ComboBox.ToolTip>
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
                                                             </ComboBox.ToolTip>
@@ -250,7 +318,8 @@
                                             Margin="0,0,0,5"
                                             Foreground="{DynamicResource MaterialDesignBody}"
                                             ItemsSource="{Binding FieldOptions, Mode=TwoWay}"
-                                            SelectedValue="{Binding FieldValue, Mode=TwoWay}">
+                                            IsEnabled="{Binding IsEditorEnabled}"
+                                             SelectedValue="{Binding FieldValue, Mode=TwoWay}">
                                                             <ComboBox.ToolTip>
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
                                                             </ComboBox.ToolTip>
@@ -270,7 +339,8 @@
                                             IsSnapToTickEnabled="True"
                                             Maximum="{Binding FieldMax, Mode=TwoWay}"
                                             Minimum="{Binding FieldMin, Mode=TwoWay}"
-                                            Value="{Binding FieldValue, Mode=TwoWay, FallbackValue=0}">
+                                            IsEnabled="{Binding IsEditorEnabled}"
+                                             Value="{Binding FieldValue, Mode=TwoWay, FallbackValue=0}">
                                                             <Slider.Style>
                                                                 <Style TargetType="Slider" BasedOn="{StaticResource {x:Type Slider}}">
                                                                     <Style.Triggers>
@@ -304,7 +374,8 @@
                                             Margin="0,0,0,5"
                                             Style="{DynamicResource MaterialDesignTextBox}"
                                             Tag="SettingsKeyCapture"
-                                            VirtualKey="{Binding FieldValue, Mode=TwoWay, Converter={StaticResource virtualKeyToHexConverter}}">>
+                                            IsEnabled="{Binding IsEditorEnabled}"
+                                             VirtualKey="{Binding FieldValue, Mode=TwoWay, Converter={StaticResource virtualKeyToHexConverter}}">
                                                             <usercontrols:KeyCaptureTextBox.ToolTip>
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
                                                             </usercontrols:KeyCaptureTextBox.ToolTip>
@@ -318,7 +389,8 @@
                                                         <usercontrols:MonitorSelection
                                             Height="{StaticResource fieldHeight}"
                                             Margin="0,0,0,5"
-                                            SelectedMonitorIndex="{Binding FieldValue, Mode=TwoWay}"
+                                            IsEnabled="{Binding IsEditorEnabled}"
+                                             SelectedMonitorIndex="{Binding FieldValue, Mode=TwoWay}"
                                             UseUnitySorting="{Binding UseUnitySorting}">
                                                             <usercontrols:MonitorSelection.ToolTip>
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
@@ -331,7 +403,8 @@
                                     </Style>
                                 </ContentControl.Style>
                             </ContentControl>
-                        </UniformGrid>
+                            </UniformGrid>
+                        </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
