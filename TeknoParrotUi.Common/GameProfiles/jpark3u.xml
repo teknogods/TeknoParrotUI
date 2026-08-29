@@ -7,7 +7,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TeknoViper</EmulationProfile>
-	<GameProfileRevision>11</GameProfileRevision>
+	<GameProfileRevision>12</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoViper</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -34,6 +34,20 @@
 				<string>XInput</string>
 				<string>RawInput</string>
 			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Force Feedback Device</FieldName>
+			<FieldValue>off</FieldValue>
+			<FieldType>DynamicDropdown</FieldType>
+			<Hint>Select Player 1 recoil output through an SDL3 wheel or controller. Requires TeknoViper\viperhaptic.exe.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Player 2 Force Feedback Device</FieldName>
+			<FieldValue>off</FieldValue>
+			<FieldType>DynamicDropdown</FieldType>
+			<Hint>Select Player 2 recoil output through an SDL3 wheel or controller. Requires TeknoViper\viperhaptic.exe.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>VR</CategoryName>

@@ -484,6 +484,24 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 parameters.Add("--no-crosshairs");
             if (Enabled("Mute Audio"))
                 parameters.Add("--mute");
+
+            string FfbDevice(string settingName)
+            {
+                var device = Setting(settingName, "off").Trim();
+                var token = device.Split(':');
+                if (device != "off" &&
+                    (token.Length != 2 ||
+                     (token[0] != "wheel" && token[0] != "gamepad") ||
+                     !uint.TryParse(token[1], out _)))
+                    return "off";
+                return device;
+            }
+
+            parameters.Add("--ffb-device");
+            parameters.Add(FfbDevice("Force Feedback Device"));
+            parameters.Add("--ffb-device2");
+            parameters.Add(FfbDevice("Player 2 Force Feedback Device"));
+
             if (Enabled("Prefer High Performance", true))
             {
                 parameters.Add("--high-priority");
