@@ -193,6 +193,7 @@
     <Compile Include="Pipes\Pcsx2x6Pipe.cs" />
     <Compile Include="Pipes\TeknoVegasPipe.cs" />
     <Compile Include="Pipes\TeknoViperPipe.cs" />
+    <Compile Include="Pipes\TeknoModel1Pipe.cs" />
     <Compile Include="Pipes\PlayPipe.cs" />
     <Compile Include="Pipes\LGSPipe.cs" />
     <Compile Include="Pipes\NesicaButton.cs" />
