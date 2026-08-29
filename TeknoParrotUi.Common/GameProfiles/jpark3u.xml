@@ -7,7 +7,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TeknoViper</EmulationProfile>
-	<GameProfileRevision>10</GameProfileRevision>
+	<GameProfileRevision>11</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoViper</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -69,6 +69,13 @@
 				<string>Windowed</string>
 				<string>Fullscreen</string>
 			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>Stretch to Fullscreen</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Stretch fullscreen output to fill the display, ignoring the game's original aspect ratio.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Video</CategoryName>

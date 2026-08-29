@@ -7,7 +7,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>TeknoModel1</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel1</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -69,6 +69,13 @@
         <string>Fullscreen</string>
       </FieldOptions>
       <Hint>Fullscreen uses borderless desktop output. VR presents to the active OpenXR headset.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Stretch to Fullscreen</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Stretch fullscreen output to fill the display, ignoring the game's original aspect ratio.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Video</CategoryName>

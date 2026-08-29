@@ -109,6 +109,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
             if (Setting("DisplayMode", "Fullscreen") == "Fullscreen")
                 parameters.Add("--fullscreen");
+            if (Enabled("Stretch to Fullscreen"))
+                parameters.Add("--stretch-to-fullscreen");
             if (Enabled("Enable VR"))
             {
                 parameters.Add("--vr");
@@ -271,6 +273,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
             if (Setting("DisplayMode", "Fullscreen") == "Fullscreen")
                 parameters.Add("--fullscreen");
+            if (Enabled("Stretch to Fullscreen"))
+                parameters.Add("--stretch-to-fullscreen");
             if (Enabled("Enable VR"))
             {
                 parameters.Add("--vr");
@@ -466,6 +470,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
             if (Setting("DisplayMode", "Fullscreen") == "Fullscreen")
                 parameters.Add("--fullscreen");
+            if (Enabled("Stretch to Fullscreen"))
+                parameters.Add("--stretch-to-fullscreen");
             if (Enabled("Enable VR"))
              {
                 parameters.Add("--vr");
