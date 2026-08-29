@@ -519,6 +519,9 @@ namespace TeknoParrotUi.Views
                         ? ".\\TeknoViper\\TeknoViper.exe"
                         : ".\\TeknoViper\\viperwin.exe";
                     break;
+                case EmulatorType.TeknoModel1:
+                    loaderExe = ".\\TeknoModel1\\TeknoModel1.exe";
+                    break;
                 default:
                     loaderDll = (is64Bit ? ".\\TeknoParrot\\TeknoParrot64" : ".\\TeknoParrot\\TeknoParrot");
                     break;

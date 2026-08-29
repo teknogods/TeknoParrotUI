@@ -261,6 +261,25 @@
                                                 </Setter>
                                             </DataTrigger>
 
+                                            <DataTrigger Binding="{Binding FieldType}" Value="DynamicDropdown">
+                                                <Setter Property="Content">
+                                                    <Setter.Value>
+                                                        <ComboBox
+                                            Height="{StaticResource fieldHeight}"
+                                            Margin="0,0,0,5"
+                                            Foreground="{DynamicResource MaterialDesignBody}"
+                                            DisplayMemberPath="DisplayName"
+                                            ItemsSource="{Binding DynamicOptions}"
+                                            SelectedValue="{Binding FieldValue, Mode=TwoWay}"
+                                            SelectedValuePath="Value">
+                                                            <ComboBox.ToolTip>
+                                                                <ToolTip Style="{StaticResource teknoHint}" />
+                                                            </ComboBox.ToolTip>
+                                                        </ComboBox>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+
                                             <DataTrigger Binding="{Binding FieldType}" Value="Slider">
                                                 <Setter Property="Content">
                                                     <Setter.Value>

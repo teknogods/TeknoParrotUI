@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace TeknoParrotUi.Common
 {
@@ -12,6 +13,12 @@ namespace TeknoParrotUi.Common
         DropdownIndex = 5,
         KeyCapture = 6,
         MonitorSelection = 7,
+        DynamicDropdown = 8,
+    }
+    public class DynamicDropdownOption
+    {
+        public string DisplayName { get; set; }
+        public string Value { get; set; }
     }
     public class FieldInformation
     {
@@ -23,6 +30,8 @@ namespace TeknoParrotUi.Common
         public int FieldMax { get; set; }
         public int FieldStep { get; set; } = 0;
         public List<string> FieldOptions { get; set; }
+        [XmlIgnore]
+        public List<DynamicDropdownOption> DynamicOptions { get; set; }
         public string Hint { get; set; }
         public bool UseUnitySorting { get; set; } = false;
     }

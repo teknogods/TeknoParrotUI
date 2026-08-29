@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using TeknoParrotUi.Common.Jvs;
 
 namespace TeknoParrotUi.Common.Pipes
@@ -11,12 +12,23 @@ namespace TeknoParrotUi.Common.Pipes
     public sealed class TeknoVegasPipe : ControlSender
     {
         private ushort _sequence;
+        private bool _publishInput;
 
         private static bool Down(bool? value) => value.HasValue && value.Value;
 
         private static bool IsProfile(string name) => string.Equals(
             InputCode.GameProfile?.ProfileName, name,
             StringComparison.OrdinalIgnoreCase);
+
+        private static bool SettingEnabled(string name, bool fallback = false)
+        {
+            var value = InputCode.GameProfile?.ConfigValues?
+                .FirstOrDefault(x => x.FieldName == name)?.FieldValue;
+            if (value == null)
+                return fallback;
+            return value == "1" || value.Equals(
+                "true", StringComparison.OrdinalIgnoreCase);
+        }
 
         private static bool UsesVolumeMenuBindings() =>
             IsProfile("roadburn") || IsProfile("cartfury");
@@ -72,6 +84,15 @@ namespace TeknoParrotUi.Common.Pipes
         {
             JvsHelper.ResetState();
             _sequence = 0;
+            _publishInput = !(SettingEnabled("Enable VR") &&
+                              SettingEnabled("Use VR Controls", true));
+            if (!_publishInput)
+            {
+                JvsHelper.WriteStateByte(5, 0);
+                base.Start();
+                return;
+            }
+
             // War's movement buttons and its analog aiming stick are separate
             // cabinet controls. Start the two aim channels centred so an
             // unbound or not-yet-polled stick cannot pin the sight in a corner.
@@ -116,6 +137,12 @@ namespace TeknoParrotUi.Common.Pipes
 
         public override void Transmit()
         {
+            if (!_publishInput)
+            {
+                JvsHelper.WriteStateByte(5, 0);
+                return;
+            }
+
             byte system = 0;
             var operatorInput = InputCode.PlayerDigitalButtons[0];
             if (Down(operatorInput.Test)) system |= 0x80;

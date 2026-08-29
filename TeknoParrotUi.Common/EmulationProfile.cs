@@ -151,6 +151,7 @@ namespace TeknoParrotUi.Common
         cxbxr,
         pcsx2x6,
         TeknoVegas,
-        TeknoViper
+        TeknoViper,
+        TeknoModel1
     }
 }

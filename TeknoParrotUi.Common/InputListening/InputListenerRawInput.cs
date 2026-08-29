@@ -35,6 +35,8 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _isPlay;
         private bool _isTeknoVegas;
         private bool _isTeknoViper;
+        private bool _isTeknoModel1;
+        private bool _isNetMerc;
         private bool _isPCSX2;
         private bool _swapdisplay;
         private bool _onedisplay;
@@ -182,6 +184,11 @@ namespace TeknoParrotUi.Common.InputListening
                     return true;
                 }
 
+                if (_isTeknoModel1 && windowTitle.StartsWith("TeknoModel1 - ", StringComparison.Ordinal))
+                {
+                    return true;
+                }
+
                 if (windowTitle == _hookedWindows[i])
                     return true;
             }
@@ -221,6 +228,8 @@ namespace TeknoParrotUi.Common.InputListening
             _isPlay = gameProfile.EmulationProfile == EmulationProfile.PlayInput;
             _isTeknoVegas = gameProfile.EmulationProfile == EmulationProfile.TeknoVegas;
             _isTeknoViper = gameProfile.EmulationProfile == EmulationProfile.TeknoViper;
+            _isTeknoModel1 = gameProfile.EmulationProfile == EmulationProfile.TeknoModel1;
+            _isNetMerc = _isTeknoModel1 && string.Equals(gameProfile.ExecutableName, "netmerc.zip", StringComparison.OrdinalIgnoreCase);
             _isPCSX2 = gameProfile.EmulationProfile == EmulationProfile.pcsx2x6;
             _16bit = gameProfile.Use16BitAnalog;
             _gameProfile = gameProfile;
@@ -324,7 +333,7 @@ namespace TeknoParrotUi.Common.InputListening
 
             // These emulators publish their exact screen-space content viewport.
             // This keeps absolute and relative gun input aligned with letterboxed output.
-            if (_isPlay || _isTeknoVegas || _isTeknoViper)
+            if (_isPlay || _isTeknoVegas || _isTeknoViper || _isTeknoModel1)
             {
                 string canvasName = "TeknoparrotCanvas";
                 if (_isPlay)
@@ -338,6 +347,10 @@ namespace TeknoParrotUi.Common.InputListening
                 else if (_isTeknoViper)
                 {
                     canvasName = "TeknoViperCanvasInfo";
+                }
+                else if (_isTeknoModel1)
+                {
+                    canvasName = "TeknoModel1CanvasInfo";
                 }
 
                 while (!KillMe && _canvasInfoMMF == null)
@@ -384,7 +397,7 @@ namespace TeknoParrotUi.Common.InputListening
                     // Only update when we are on the foreground
                     if (_windowHandle == GetForegroundWindow())
                     {
-                        if ((_isPlay || _isTeknoVegas || _isTeknoViper) &&
+                        if ((_isPlay || _isTeknoVegas || _isTeknoViper || _isTeknoModel1) &&
                             _canvasInfoAccessor != null)
                         {
                             try
@@ -814,7 +827,7 @@ namespace TeknoParrotUi.Common.InputListening
                                 else if (gun.InputMapping == InputMapping.P4LightGun)
                                     player = 3;
 
-                                if (_isPlay || _isTeknoVegas || _isTeknoViper)
+                                if (_isPlay || _isTeknoVegas || _isTeknoViper || _isTeknoModel1)
                                 {
                                     int scaledDeltaX = (int)(mouse.Mouse.LastX * _dpiScaleX);
                                     int scaledDeltaY = (int)(mouse.Mouse.LastY * _dpiScaleY);
@@ -1407,12 +1420,12 @@ namespace TeknoParrotUi.Common.InputListening
             float factorY = 0.0f;
 
             // Windowed
-            if (_windowed || _isPlay || _isTeknoVegas || _isTeknoViper)
+            if (_windowed || _isPlay || _isTeknoVegas || _isTeknoViper || _isTeknoModel1)
             {
                 // Translate absolute units to pixels
                 if (moveAbsolute)
                 {
-                    if ((_isPlay || _isTeknoVegas || _isTeknoViper) &&
+                    if ((_isPlay || _isTeknoVegas || _isTeknoViper || _isTeknoModel1) &&
                         canvasInfo.windowWidth > 0 && canvasInfo.windowHeight > 0)
                     {
                         // Canvas publishers use physical pixels. Map normalized RawInput
@@ -1460,6 +1473,11 @@ namespace TeknoParrotUi.Common.InputListening
                     factorY = (float)inputY / (float)GetSystemMetrics(SM_CYSCREEN);
                 }
             }
+
+            // NetMerc's STICKY input is reversed by the cabinet/game. Keep the
+            // normal TPUI lightgun byte layout, but flip its screen-space Y value.
+            if (_isNetMerc)
+                factorY = 1.0f - factorY;
 
             float minX = _minX;
             float maxX = _maxX;

@@ -175,6 +175,15 @@ namespace ParrotPatcher
                     manualVersion = false,
                     folderOverride = "TeknoVegas"
                 },
+                new UpdaterComponent
+                {
+                    name = "TeknoModel1",
+                    location = Path.Combine("TeknoModel1", "TeknoModel1.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "TeknoModel1"
+                },
             };
         }
     }

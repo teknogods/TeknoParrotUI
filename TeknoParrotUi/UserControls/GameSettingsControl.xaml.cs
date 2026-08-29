@@ -37,6 +37,7 @@ namespace TeknoParrotUi.UserControls
             GamePathBox.Text = _gameProfile.GamePath;
             GamePathBox2.Text = _gameProfile.GamePath2;
 
+            PopulateModel1FfbDevices(gameProfile);
             GameSettingsList.ItemsSource = gameProfile.ConfigValues;
             _contentControl = contentControl;
             _library = library;
@@ -75,6 +76,29 @@ namespace TeknoParrotUi.UserControls
             {
                 GameExecutable2Text.Visibility = Visibility.Collapsed;
                 GamePathBox2.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private static void PopulateModel1FfbDevices(GameProfile gameProfile)
+        {
+            if (gameProfile.EmulatorType != EmulatorType.TeknoModel1)
+                return;
+
+            var field = gameProfile.ConfigValues?.Find(cv =>
+                cv.FieldName == "Force Feedback Device" &&
+                cv.FieldType == FieldType.DynamicDropdown);
+            if (field == null)
+                return;
+
+            field.DynamicOptions = Model1FfbDeviceProbe.GetDevices();
+            if (!field.DynamicOptions.Any(option => option.Value == field.FieldValue) &&
+                !string.IsNullOrWhiteSpace(field.FieldValue))
+            {
+                field.DynamicOptions.Add(new DynamicDropdownOption
+                {
+                    DisplayName = $"Previously selected device (unavailable) - {field.FieldValue}",
+                    Value = field.FieldValue
+                });
             }
         }
 

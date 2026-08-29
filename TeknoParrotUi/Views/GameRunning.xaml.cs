@@ -716,6 +716,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.TeknoViper:
                     _controlSender = new TeknoViperPipe();
                     break;
+                case EmulationProfile.TeknoModel1:
+                    _controlSender = new TeknoModel1Pipe();
+                    break;
                 case EmulationProfile.RPCS3:
                     _controlSender ??= new RPCS3Pipe();
                     break;
@@ -773,7 +776,8 @@ namespace TeknoParrotUi.Views
                 _gameProfile.EmulatorType != EmulatorType.Play &&
                 _gameProfile.EmulatorType != EmulatorType.RPCS3 &&
                 _gameProfile.EmulatorType != EmulatorType.TeknoVegas &&
-                _gameProfile.EmulatorType != EmulatorType.TeknoViper)
+                _gameProfile.EmulatorType != EmulatorType.TeknoViper &&
+                _gameProfile.EmulatorType != EmulatorType.TeknoModel1)
             {
                 //bool DualJvsEmulation = _gameProfile.ConfigValues.Any(x => x.FieldName == "DualJvsEmulation" && x.FieldValue == "1");
 

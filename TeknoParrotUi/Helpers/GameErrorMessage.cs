@@ -26,6 +26,24 @@ namespace TeknoParrotUi.Helpers
             EmulatorType? emulatorType,
             string diagnostics)
         {
+            if (emulatorType == EmulatorType.TeknoModel1 && errorCode != 0)
+            {
+                var summary = errorCode == 2
+                    ? "TeknoModel1 received an invalid launch configuration."
+                    : "TeknoModel1 could not start or exited unexpectedly.";
+                if (!string.IsNullOrWhiteSpace(diagnostics))
+                {
+                    summary += Environment.NewLine + Environment.NewLine + diagnostics;
+                }
+                else
+                {
+                    summary += Environment.NewLine + Environment.NewLine +
+                               string.Format("Exit code: 0x{0:X8}", errorCode);
+                }
+                MessageBox.Show(summary);
+                return;
+            }
+
             var viperVegas = emulatorType == EmulatorType.TeknoViper ||
                              emulatorType == EmulatorType.TeknoVegas;
             if (viperVegas && errorCode != 0)

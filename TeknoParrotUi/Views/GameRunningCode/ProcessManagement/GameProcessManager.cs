@@ -482,7 +482,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     info.WorkingDirectory = Path.Combine(Directory.GetCurrentDirectory(), "pcsx2x6") ?? throw new InvalidOperationException();
                 }
                 else if (_gameProfile.EmulatorType == EmulatorType.TeknoVegas ||
-                         _gameProfile.EmulatorType == EmulatorType.TeknoViper)
+                         _gameProfile.EmulatorType == EmulatorType.TeknoViper ||
+                         _gameProfile.EmulatorType == EmulatorType.TeknoModel1)
                 {
                     info = TeknoViperVegasLauncher.Build(
                         _gameProfile,
@@ -998,7 +999,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     Trace.WriteLine(e.Data);
                     Console.Error.WriteLine(e.Data);
                     if (_gameProfile.EmulatorType == EmulatorType.TeknoVegas ||
-                        _gameProfile.EmulatorType == EmulatorType.TeknoViper)
+                        _gameProfile.EmulatorType == EmulatorType.TeknoViper ||
+                        _gameProfile.EmulatorType == EmulatorType.TeknoModel1)
                     {
                         lock (emulatorDiagnosticsSync)
                         {

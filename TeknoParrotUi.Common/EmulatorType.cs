@@ -37,6 +37,8 @@ namespace TeknoParrotUi.Common
         // Midway/Atari Vegas, Denver, Seattle, Flagstaff and Phoenix
         TeknoVegas,
         // Konami Viper
-        TeknoViper
+        TeknoViper,
+        // Sega Model 1
+        TeknoModel1
     }
 }

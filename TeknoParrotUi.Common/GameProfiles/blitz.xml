@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GamePath></GamePath>
+  <GamePath2></GamePath2>
+  <TestMenuParameter></TestMenuParameter>
+  <TestMenuIsExecutable>false</TestMenuIsExecutable>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
+  <EmulationProfile>TeknoVegas</EmulationProfile>
+  <GameProfileRevision>11</GameProfileRevision>
+  <HasSeparateTestMode>false</HasSeparateTestMode>
+  <EmulatorType>TeknoVegas</EmulatorType>
+  <Is64Bit>true</Is64Bit>
+  <ExecutableName>blitz.zip</ExecutableName>
+  <ExecutableName2>*.chd</ExecutableName2>
+  <HasTwoExecutables>true</HasTwoExecutables>
+  <Patreon>true</Patreon>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Input API</FieldName>
+      <FieldValue>DirectInput</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>DirectInput</string>
+        <string>XInput</string>
+        <string>RawInput</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>VR</CategoryName>
+      <FieldName>Enable VR</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Present the game through OpenXR. The desktop window remains available as a spectator view.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>VR</CategoryName>
+      <FieldName>Use VR Controls</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>When VR is enabled, use OpenXR headset controllers. Turn this off to keep using TPUI shared-pipe or Xbox controls in VR.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>VR</CategoryName>
+      <FieldName>VR Depth</FieldName>
+      <FieldValue>150</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>100</FieldMin>
+      <FieldMax>200</FieldMax>
+      <FieldOptions />
+      <FieldStep>5</FieldStep>
+      <Hint>Adjust OpenXR stereo depth from 100% to 200%. Only used when VR is enabled.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>DisplayMode</FieldName>
+      <FieldValue>Fullscreen</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windowed</string>
+        <string>Fullscreen</string>
+      </FieldOptions>
+      <Hint>Fullscreen is borderless desktop output. TeknoVegas keeps the cabinet at 100% speed and caps presentation at 60 Hz on high-refresh monitors.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Internal Resolution</FieldName>
+      <FieldValue>4</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>2</string>
+        <string>4</string>
+        <string>8</string>
+      </FieldOptions>
+      <Hint>4x is the recommended maximum-fidelity default; 8x is intended for high-end GPUs and captures.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Texture Filtering</FieldName>
+      <FieldValue>trilinear</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>original</string>
+        <string>trilinear</string>
+        <string>max</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Presentation Resampling</FieldName>
+      <FieldValue>bicubic</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>bicubic</string>
+        <string>linear</string>
+        <string>area</string>
+      </FieldOptions>
+      <Hint>Bicubic preserves more detail when the supersampled image is fitted to the monitor. Exact 1:1 output remains point sampled.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Presentation Sharpening</FieldName>
+      <FieldValue>0.15</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>0</string>
+        <string>0.15</string>
+        <string>0.30</string>
+        <string>0.50</string>
+      </FieldOptions>
+      <Hint>Display-only unsharp masking after resampling. It cannot affect emulation or framebuffer reads.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Display Gamma</FieldName>
+      <FieldValue>1.0</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>0.8</string>
+        <string>0.9</string>
+        <string>1.0</string>
+        <string>1.1</string>
+        <string>1.2</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Display Saturation</FieldName>
+      <FieldValue>1.0</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>0.8</string>
+        <string>0.9</string>
+        <string>1.0</string>
+        <string>1.1</string>
+        <string>1.2</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Display Contrast</FieldName>
+      <FieldValue>1.0</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>0.8</string>
+        <string>0.9</string>
+        <string>1.0</string>
+        <string>1.1</string>
+        <string>1.2</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Window Scale</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>2</string>
+        <string>3</string>
+        <string>4</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>CRT Shader</FieldName>
+      <FieldValue>None</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>None</string>
+        <string>Lottes</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Use Bezel</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Put either blitz.png or default.png into the bezels folder in the TeknoVegas folder. Only enabled in fullscreen mode.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Audio</CategoryName>
+      <FieldName>Mute Audio</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Storage</CategoryName>
+      <FieldName>State Root</FieldName>
+      <FieldValue>.\TeknoVegas\nvram</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Textures</CategoryName>
+      <FieldName>Load Texture Packs</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Textures</CategoryName>
+      <FieldName>Texture Pack Root</FieldName>
+      <FieldValue>.\TeknoVegas\texture-packs</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Textures</CategoryName>
+      <FieldName>Texture VRAM Budget MB</FieldName>
+      <FieldValue>1024</FieldValue>
+      <FieldType>Numeric</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>16384</FieldMax>
+      <Hint>Decoded replacements use an LRU-bounded GPU upload cache. Zero disables the budget.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Textures</CategoryName>
+      <FieldName>HD Texture Anisotropy</FieldName>
+      <FieldValue>4</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>2</string>
+        <string>4</string>
+        <string>8</string>
+      </FieldOptions>
+      <Hint>Adaptive major-axis filtering for authored replacements only. Native Voodoo textures and point-sampled UI remain exact.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Textures</CategoryName>
+      <FieldName>Texture Hot Reload</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Poll replacement files once per second for pack authoring. Leave off for normal play.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Textures</CategoryName>
+      <FieldName>Dump Textures</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Textures</CategoryName>
+      <FieldName>Texture Dump Root</FieldName>
+      <FieldValue>.\TeknoVegas\texture-dumps</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Cabinet Id</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>2</string>
+        <string>3</string>
+        <string>4</string>
+        <string>5</string>
+        <string>6</string>
+        <string>7</string>
+        <string>8</string>
+      </FieldOptions>
+      <Hint>Selects a unique persistent state/PIC slot. Set the same link number once in the game test menu; guest memory is not patched.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Network Port</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Numeric</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>65535</FieldMax>
+      <Hint>Use the same non-zero port on linked cabinets and a unique Cabinet Id/operator link number on each.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Network Interface</FieldName>
+      <FieldValue>auto</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Use auto normally. On VPN or multi-adapter PCs, enter an IPv4 address or adapter name shown by TeknoVegas --list-network-interfaces.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Network Diagnostics</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Print live peer counts and a final per-peer wire report to the run log.</Hint>
+    </FieldInformation>
+  </ConfigValues>
+  <JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Test Menu</ButtonName>
+      <InputMapping>Test</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service</ButtonName>
+      <InputMapping>Service1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Coin</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Start</ButtonName>
+      <InputMapping>P1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Up</ButtonName>
+      <InputMapping>P1ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Down</ButtonName>
+      <InputMapping>P1ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Left</ButtonName>
+      <InputMapping>P1ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Right</ButtonName>
+      <InputMapping>P1ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Button 1</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Button 2</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Button 3</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Coin</ButtonName>
+      <InputMapping>Coin2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Start</ButtonName>
+      <InputMapping>P2ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Up</ButtonName>
+      <InputMapping>P2ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Down</ButtonName>
+      <InputMapping>P2ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Left</ButtonName>
+      <InputMapping>P2ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Right</ButtonName>
+      <InputMapping>P2ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Button 1</ButtonName>
+      <InputMapping>P2Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Button 2</ButtonName>
+      <InputMapping>P2Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Button 3</ButtonName>
+      <InputMapping>P2Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Coin</ButtonName>
+      <InputMapping>JvsTwoCoin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Start</ButtonName>
+      <InputMapping>JvsTwoP1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Up</ButtonName>
+      <InputMapping>JvsTwoP1ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Down</ButtonName>
+      <InputMapping>JvsTwoP1ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Left</ButtonName>
+      <InputMapping>JvsTwoP1ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Right</ButtonName>
+      <InputMapping>JvsTwoP1ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Button 1</ButtonName>
+      <InputMapping>JvsTwoP1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Button 2</ButtonName>
+      <InputMapping>JvsTwoP1Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Button 3</ButtonName>
+      <InputMapping>JvsTwoP1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Coin</ButtonName>
+      <InputMapping>JvsTwoCoin2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Start</ButtonName>
+      <InputMapping>JvsTwoP2ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Up</ButtonName>
+      <InputMapping>JvsTwoP2ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Down</ButtonName>
+      <InputMapping>JvsTwoP2ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Left</ButtonName>
+      <InputMapping>JvsTwoP2ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Right</ButtonName>
+      <InputMapping>JvsTwoP2ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Button 1</ButtonName>
+      <InputMapping>JvsTwoP2Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Button 2</ButtonName>
+      <InputMapping>JvsTwoP2Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Button 3</ButtonName>
+      <InputMapping>JvsTwoP2Button3</InputMapping>
+    </JoystickButtons>
+  </JoystickButtons>
+</GameProfile>

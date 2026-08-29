@@ -8,7 +8,7 @@
 	<ExtraParameters />
 	<TestMenuExtraParameters />
 	<EmulationProfile>TeknoViper</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>8</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoViper</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -51,6 +51,31 @@
 			<FieldMin>1</FieldMin>
 			<FieldMax>255</FieldMax>
 			<FieldOptions />
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>VR</CategoryName>
+			<FieldName>Enable VR</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Present the game through OpenXR. The desktop window remains available as a spectator view.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>VR</CategoryName>
+			<FieldName>Use VR Controls</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>When VR is enabled, use OpenXR headset controllers. Turn this off to keep using TPUI shared-pipe or Xbox controls in VR.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>VR</CategoryName>
+			<FieldName>VR Depth</FieldName>
+			<FieldValue>150</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>100</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions />
+			<FieldStep>5</FieldStep>
+			<Hint>Adjust OpenXR stereo depth from 100% to 200%. Only used when VR is enabled.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Video</CategoryName>
@@ -103,7 +128,9 @@
 			<FieldOptions>
 				<string>None</string>
 				<string>Lottes</string>
+				<string>Lottes Downsample</string>
 			</FieldOptions>
+			<Hint>The downsample option will scale down the 2x/4x/8x image down to CRT res before applying the shader.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Video</CategoryName>

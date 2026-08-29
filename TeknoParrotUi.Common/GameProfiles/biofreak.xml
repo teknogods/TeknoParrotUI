@@ -7,7 +7,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TeknoVegas</EmulationProfile>
-	<GameProfileRevision>9</GameProfileRevision>
+	<GameProfileRevision>11</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoVegas</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -26,6 +26,31 @@
 				<string>XInput</string>
 				<string>RawInput</string>
 			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>VR</CategoryName>
+			<FieldName>Enable VR</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Present the game through OpenXR. The desktop window remains available as a spectator view.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>VR</CategoryName>
+			<FieldName>Use VR Controls</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>When VR is enabled, use OpenXR headset controllers. Turn this off to keep using TPUI shared-pipe or Xbox controls in VR.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>VR</CategoryName>
+			<FieldName>VR Depth</FieldName>
+			<FieldValue>150</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>100</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions />
+			<FieldStep>5</FieldStep>
+			<Hint>Adjust OpenXR stereo depth from 100% to 200%. Only used when VR is enabled.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Video</CategoryName>
@@ -70,6 +95,7 @@
 			<FieldOptions>
 				<string>bicubic</string>
 				<string>linear</string>
+				<string>area</string>
 			</FieldOptions>
 			<Hint>Bicubic preserves more detail when the supersampled image is fitted to the monitor. Exact 1:1 output remains point sampled.</Hint>
 		</FieldInformation>
@@ -152,7 +178,7 @@
 				<string>None</string>
 				<string>Lottes</string>
 			</FieldOptions>
-		</FieldInformation>s
+		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Video</CategoryName>
 			<FieldName>Use Bezel</FieldName>

@@ -16,6 +16,14 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
         private const int ErrorNotSupported = 50;
         private const int ErrorInvalidName = 123;
 
+        private static string VrDepthArgument(string value)
+        {
+            if (!int.TryParse(value, out var percentage) ||
+                percentage < 100 || percentage > 200)
+                percentage = 150;
+            return $"{percentage / 100}.{percentage % 100:D2}";
+        }
+
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         private static extern bool DeleteFile(string fileName);
 
@@ -27,9 +35,141 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     return BuildTeknoVegas(profile, gameLocation, log);
                 case EmulatorType.TeknoViper:
                     return BuildTeknoViper(profile, gameLocation, log);
+                case EmulatorType.TeknoModel1:
+                    return BuildTeknoModel1(profile, gameLocation, log);
                 default:
-                    throw new InvalidOperationException($"{profile.EmulatorType} is not a Viper/Vegas emulator");
+                    throw new InvalidOperationException($"{profile.EmulatorType} is not a supported standalone emulator");
             }
+        }
+
+        private static ProcessStartInfo BuildTeknoModel1(
+            GameProfile profile,
+            string gameLocation,
+            Action<string> log)
+        {
+            string Setting(string name, string fallback = "") =>
+                profile.ConfigValues?.FirstOrDefault(x => x.FieldName == name)?.FieldValue
+                ?? fallback;
+
+            bool Enabled(string name, bool fallback = false)
+            {
+                var value = Setting(name, fallback ? "1" : "0");
+                return value == "1" || value.Equals("true", StringComparison.OrdinalIgnoreCase);
+            }
+
+            string Quote(string value) =>
+                "\"" + (value ?? string.Empty).Replace("\"", "\\\"") + "\"";
+
+            var uiRoot = Directory.GetCurrentDirectory();
+            var workDir = Path.Combine(uiRoot, "TeknoModel1");
+            var executable = Path.Combine(workDir, "TeknoModel1.exe");
+
+            string ResolveUiPath(string path, string fallback)
+            {
+                var value = string.IsNullOrWhiteSpace(path) ? fallback : path;
+                return Path.IsPathRooted(value)
+                    ? value
+                    : Path.GetFullPath(Path.Combine(uiRoot, value));
+            }
+
+            var selectedRom = string.IsNullOrWhiteSpace(gameLocation)
+                ? profile.GamePath
+                : gameLocation;
+            var configuredRomRoot = Setting("ROM Root");
+            string romRoot;
+            if (!string.IsNullOrWhiteSpace(configuredRomRoot))
+                romRoot = ResolveUiPath(configuredRomRoot, workDir);
+            else if (!string.IsNullOrWhiteSpace(selectedRom) &&
+                     selectedRom.EndsWith(".zip", StringComparison.OrdinalIgnoreCase))
+                romRoot = Path.GetDirectoryName(ResolveUiPath(selectedRom, workDir)) ?? workDir;
+            else
+                romRoot = ResolveUiPath(selectedRom, workDir);
+
+            var gameId = profile.ProfileName;
+            var saveRoot = ResolveUiPath(
+                Setting("Save Root"), Path.Combine(workDir, "saves"));
+            Directory.CreateDirectory(saveRoot);
+
+            var scale = Setting("Internal Resolution", "4");
+            if (!int.TryParse(scale, out var scaleValue) || scaleValue < 1 || scaleValue > 8)
+                scale = "4";
+            var filter = Setting("Presentation Filter", "nearest");
+            if (filter != "nearest" && filter != "linear")
+                filter = "nearest";
+
+            var parameters = new List<string>
+            {
+                "--game", gameId,
+                "--rom-dir", Quote(romRoot),
+                "--save-dir", Quote(saveRoot),
+                "--internal-scale", scale,
+                "--presentation-filter", filter,
+                "--outputs"
+            };
+
+            if (Setting("DisplayMode", "Fullscreen") == "Fullscreen")
+                parameters.Add("--fullscreen");
+            if (Enabled("Enable VR"))
+            {
+                parameters.Add("--vr");
+                parameters.Add("--vr-depth");
+                parameters.Add(VrDepthArgument(Setting("VR Depth", "150")));
+            }
+            if (Enabled("Mute Audio"))
+                parameters.Add("--no-audio");
+            if (Enabled("Cabinet Outputs"))
+                parameters.Add("--outputs");
+            if (Enabled("Uncapped"))
+                parameters.Add("--uncapped");
+            if (Enabled("Legacy Low-Latency Pacing"))
+                parameters.Add("--pace-after-present");
+
+            var ffbDevice = Setting("Force Feedback Device", "off").Trim();
+            var ffbToken = ffbDevice.Split(':');
+            if (ffbDevice != "off" &&
+                (ffbToken.Length != 2 ||
+                 (ffbToken[0] != "wheel" && ffbToken[0] != "gamepad") ||
+                 !uint.TryParse(ffbToken[1], out _)))
+                ffbDevice = "off";
+            parameters.Add("--ffb-device");
+            parameters.Add(ffbDevice);
+
+            if (gameId == "netmerc")
+            {
+                var donor = Setting("NetMerc Audio Donor", "vf");
+                if (donor != "vf" && donor != "vr" && donor != "swa" &&
+                    donor != "wingwar" && donor != "off")
+                    donor = "vf";
+                parameters.Add("--netmerc-donor");
+                parameters.Add(donor);
+            }
+
+            var linkRole = Setting("Link Role", "Off").ToLowerInvariant();
+            var linkServer = Setting("Link Server").Trim();
+            if ((linkRole == "master" || linkRole == "slave") &&
+                !string.IsNullOrWhiteSpace(linkServer))
+            {
+                parameters.Add("--link-server");
+                parameters.Add(Quote(linkServer));
+                parameters.Add("--link-role");
+                parameters.Add(linkRole);
+            }
+
+            if (!File.Exists(executable))
+                log?.Invoke($"TeknoModel1 executable was not found at {executable}");
+            if (!Directory.Exists(romRoot))
+                log?.Invoke($"TeknoModel1 ROM root was not found at {romRoot}");
+
+            if (!string.IsNullOrWhiteSpace(selectedRom) &&
+                selectedRom.EndsWith(".zip", StringComparison.OrdinalIgnoreCase))
+                UnblockFile(ResolveUiPath(selectedRom, workDir), log);
+
+            return new ProcessStartInfo(executable, string.Join(" ", parameters))
+            {
+                UseShellExecute = false,
+                WorkingDirectory = workDir,
+                RedirectStandardError = true
+            };
         }
 
         private static ProcessStartInfo BuildTeknoVegas(
@@ -131,6 +271,14 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
             if (Setting("DisplayMode", "Fullscreen") == "Fullscreen")
                 parameters.Add("--fullscreen");
+            if (Enabled("Enable VR"))
+            {
+                parameters.Add("--vr");
+                parameters.Add("--vr-depth");
+                parameters.Add(VrDepthArgument(Setting("VR Depth", "150")));
+                if (!Enabled("Use VR Controls", true))
+                    parameters.Add("--no-vr-controls");
+            }
             if (Enabled("Mute Audio"))
                 parameters.Add("--mute");
             if (Enabled("Use Bezel"))
@@ -318,6 +466,14 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
             if (Setting("DisplayMode", "Fullscreen") == "Fullscreen")
                 parameters.Add("--fullscreen");
+            if (Enabled("Enable VR"))
+             {
+                parameters.Add("--vr");
+                parameters.Add("--vr-depth");
+                parameters.Add(VrDepthArgument(Setting("VR Depth", "150")));
+                if (!Enabled("Use VR Controls", true))
+                    parameters.Add("--no-vr-controls");
+            }
             if (profile.GunGame && !Enabled("Crosshairs", true))
                 parameters.Add("--no-crosshairs");
             if (Enabled("Mute Audio"))
@@ -331,6 +487,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 parameters.Add("--bezels");
             if (Setting("CRT Shader", "None") == "Lottes")
                 parameters.Add("--crt-shader lottes");
+            if (Setting("CRT Shader", "None") == "Lottes Downsample")
+                parameters.Add("--crt-shader lottes-ssaa");
 
             if (!Enabled("Hide Crosshairs after Inactivity"))
                 parameters.Add("--no-crosshair-autohide");

@@ -1,0 +1,14 @@
+{
+    "game_name":  "Wayne Gretzky\u0027s 3D Hockey",
+    "game_genre":  "Sports",
+    "icon_name":  "wg3dh.png",
+    "platform":  "Atari Phoenix",
+    "release_year":  "1996",
+    "nvidia":  "OK",
+    "nvidia_issues":  null,
+    "amd":  "OK",
+    "amd_issues":  null,
+    "intel":  "OK",
+    "intel_issues":  null,
+    "general_issues":  "User-supplied MAME ROM/CHD required."
+}
