@@ -88,7 +88,8 @@ namespace TeknoParrotUi.Common
             }
         }
 
-        // Persisted in UserProfiles XML so Rod mode is auto-selected only on first load.
+        // Persisted in UserProfiles XML so the user's Rod's Preferred Setup
+        // selection is preserved independently of the normal customization toggle.
         public string RodPreferredSetupSaved
         {
             get => _rodPreferredSetupSaved;
