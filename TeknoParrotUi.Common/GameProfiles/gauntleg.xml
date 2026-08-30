@@ -7,7 +7,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TeknoVegas</EmulationProfile>
-	<GameProfileRevision>18</GameProfileRevision>
+	<GameProfileRevision>20</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoVegas</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -91,9 +91,11 @@
 			<FieldType>Dropdown</FieldType>
 			<FieldOptions>
 				<string>original</string>
+				<string>nearest</string>
 				<string>trilinear</string>
 				<string>max</string>
 			</FieldOptions>
+			<Hint>Nearest overrides the game's bilinear texture sampling after startup so 2D sprites, fonts, and HUD artwork remain hard-edged at higher internal resolutions.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Video</CategoryName>
@@ -102,10 +104,11 @@
 			<FieldType>Dropdown</FieldType>
 			<FieldOptions>
 				<string>bicubic</string>
+				<string>nearest</string>
 				<string>linear</string>
 				<string>area</string>
 			</FieldOptions>
-			<Hint>Bicubic preserves more detail when the supersampled image is fitted to the monitor. Exact 1:1 output remains point sampled.</Hint>
+			<Hint>Nearest point-samples the finished internal-resolution framebuffer. To prevent sprites and HUD artwork from being smoothed during 4x or 8x rendering, also set Texture Filtering to nearest.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Video</CategoryName>
