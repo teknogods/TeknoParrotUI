@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,7 +11,6 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 
 namespace TeknoParrotUi.UserControls
 {
@@ -30,9 +29,6 @@ namespace TeknoParrotUi.UserControls
         private ContentControl _contentControl;
         private Library _library;
         private InputApi _inputApi = InputApi.DirectInput;
-        private GameProfile _stockGoldenTeeProfile;
-        private FieldInformation _rodPreferredSetupAnchor;
-        private bool _applyingRodPreferredSetup;
 
         public void LoadNewSettings(GameProfile gameProfile, ListBoxItem comboItem, ContentControl contentControl, Library library)
         {
@@ -43,8 +39,6 @@ namespace TeknoParrotUi.UserControls
             GamePathBox2.Text = _gameProfile.GamePath2;
 
             GameSettingsList.ItemsSource = gameProfile.ConfigValues;
-            ConfigureRodPreferredSetup();
-
             _contentControl = contentControl;
             _library = library;
 
@@ -93,298 +87,44 @@ namespace TeknoParrotUi.UserControls
 
         private void ConfigValue_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (!(sender is FieldInformation field))
-                return;
-
-            // The Rod checkbox and Override Default Outfit are intentionally inverse controls.
-            // Use the guard so programmatic changes do not bounce back through this handler.
-            if (!_applyingRodPreferredSetup &&
-                e.PropertyName == nameof(FieldInformation.RodPreferredSetup) &&
-                field.ShowRodPreferredSetup)
-            {
-                if (field.RodPreferredSetup)
-                    ApplyRodPreferredSetup();
-                else
-                    EnableCustomGoldenTeeSetup();
-
-                UpdateConditionalVisibility();
-                return;
-            }
-
-            // If the user explicitly changes Override Default Outfit, keep the Rod checkbox
-            // in the opposite state. This does NOT infer Rod mode from arbitrary default values;
-            // it only reacts to this one explicit customization toggle.
-            if (!_applyingRodPreferredSetup &&
-                e.PropertyName == nameof(FieldInformation.FieldValue) &&
-                ReferenceEquals(field, _rodPreferredSetupAnchor))
-            {
-                if (string.Equals(field.FieldValue, "1", StringComparison.OrdinalIgnoreCase))
-                {
-                    SetRodToggleState(false, "0");
-                }
-                else if (string.Equals(field.FieldValue, "0", StringComparison.OrdinalIgnoreCase))
-                {
-                    ApplyRodPreferredSetup();
-                }
-
-                UpdateConditionalVisibility();
-                return;
-            }
-
+            // Only react to the underlying value changing, not to IsVisible flips we
+            // trigger ourselves (avoids re-entrant recursion).
             if (e.PropertyName == nameof(FieldInformation.FieldValue))
+            {
                 UpdateConditionalVisibility();
-        }
-
-        private void ConfigureRodPreferredSetup()
-        {
-            _stockGoldenTeeProfile = null;
-            _rodPreferredSetupAnchor = null;
-
-            if (_gameProfile?.ConfigValues == null || !IsGoldenTeeProfile(_gameProfile))
-                return;
-
-            // The memorial checkbox is hosted on the existing Override Default Outfit item so
-            // no fake OpenParrot setting is added to ConfigValues.
-            _rodPreferredSetupAnchor = _gameProfile.ConfigValues.FirstOrDefault(field =>
-                string.Equals(field.CategoryName, "Customization", StringComparison.OrdinalIgnoreCase) &&
-                string.Equals(field.FieldName, "Override Default Outfit", StringComparison.OrdinalIgnoreCase));
-
-            if (_rodPreferredSetupAnchor == null)
-                return;
-
-            _stockGoldenTeeProfile = LoadStockGoldenTeeProfile(_gameProfile);
-            if (_stockGoldenTeeProfile == null)
-                return;
-
-            foreach (var field in _gameProfile.ConfigValues)
-            {
-                field.ShowRodPreferredSetup = false;
-                field.IsEditorVisible = true;
-                field.IsEditorEnabled = true;
             }
-
-            _rodPreferredSetupAnchor.ShowRodPreferredSetup = true;
-
-            // First-ever load for this user profile: there is no saved tribute preference yet.
-            // Default Rod mode ON once, and immediately apply the complete setup including 25/25.
-            if (string.IsNullOrWhiteSpace(_rodPreferredSetupAnchor.RodPreferredSetupSaved))
-            {
-                _rodPreferredSetupAnchor.RodPreferredSetupSaved = "1";
-                _rodPreferredSetupAnchor.RodPreferredSetup = true;
-                ApplyRodPreferredSetup();
-                return;
-            }
-
-            // Every later load honors the user's previously saved checkbox choice instead of
-            // guessing based on whether their current customization happens to look stock.
-            _rodPreferredSetupAnchor.RodPreferredSetup =
-                string.Equals(_rodPreferredSetupAnchor.RodPreferredSetupSaved, "1", StringComparison.Ordinal);
-
-            // If the user previously left Rod mode selected, enforce its invariant again on load.
-            // This also repairs an old profile that somehow saved non-25 sensitivity while Rod
-            // mode was selected.
-            if (_rodPreferredSetupAnchor.RodPreferredSetup)
-                ApplyRodPreferredSetup();
-            else
-                UpdateConditionalVisibility();
-        }
-
-        private static bool IsGoldenTeeProfile(GameProfile profile)
-        {
-            if (profile == null)
-                return false;
-
-            var fileName = Path.GetFileName(profile.FileName ?? string.Empty);
-
-            return fileName.StartsWith("GoldenTeeLive20", StringComparison.OrdinalIgnoreCase) &&
-                   fileName.EndsWith(".xml", StringComparison.OrdinalIgnoreCase);
-        }
-
-        private static GameProfile LoadStockGoldenTeeProfile(GameProfile currentProfile)
-        {
-            try
-            {
-                var profileFileName = Path.GetFileName(currentProfile.FileName);
-                if (string.IsNullOrWhiteSpace(profileFileName))
-                    return null;
-
-                var stockPath = Path.Combine("GameProfiles", profileFileName);
-                if (!File.Exists(stockPath))
-                    return null;
-
-                return JoystickHelper.DeSerializeGameProfile(stockPath, false);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Could not load stock Golden Tee profile for Rod preferred setup: {ex.Message}");
-                return null;
-            }
-        }
-
-        private void EnableCustomGoldenTeeSetup()
-        {
-            if (_rodPreferredSetupAnchor == null)
-                return;
-
-            try
-            {
-                _applyingRodPreferredSetup = true;
-
-                _rodPreferredSetupAnchor.FieldValue = "1";
-                _rodPreferredSetupAnchor.RodPreferredSetupSaved = "0";
-                _rodPreferredSetupAnchor.RodPreferredSetup = false;
-            }
-            finally
-            {
-                _applyingRodPreferredSetup = false;
-            }
-
-            UpdateConditionalVisibility();
-        }
-
-        private void ApplyRodPreferredSetup()
-        {
-            if (_gameProfile?.ConfigValues == null || _rodPreferredSetupAnchor == null)
-                return;
-
-            try
-            {
-                _applyingRodPreferredSetup = true;
-
-                // Restore the stock customization values for this exact Golden Tee profile when
-                // available. Trackball 25/25 is NOT dependent on this stock-profile lookup.
-                if (_stockGoldenTeeProfile?.ConfigValues != null)
-                {
-                    foreach (var stockField in _stockGoldenTeeProfile.ConfigValues.Where(field =>
-                                 string.Equals(field.CategoryName, "Customization", StringComparison.OrdinalIgnoreCase)))
-                    {
-                        var currentField = _gameProfile.ConfigValues.FirstOrDefault(field =>
-                            string.Equals(field.CategoryName, stockField.CategoryName, StringComparison.OrdinalIgnoreCase) &&
-                            string.Equals(field.FieldName, stockField.FieldName, StringComparison.OrdinalIgnoreCase));
-
-                        if (currentField != null)
-                            currentField.FieldValue = stockField.FieldValue;
-                    }
-                }
-
-                // Rod mode and normal outfit customization are mutually exclusive.
-                _rodPreferredSetupAnchor.FieldValue = "0";
-
-                // Rod was adamant about Player 1 being 25/25. Force these every time Rod mode
-                // is selected, regardless of whatever values the user had before.
-                SetFieldValue("Trackball Sensitivity X", "25");
-                SetFieldValue("Trackball Sensitivity Y", "25");
-
-                // Persist the user's Rod-mode choice in the UserProfile XML.
-                _rodPreferredSetupAnchor.RodPreferredSetupSaved = "1";
-                _rodPreferredSetupAnchor.RodPreferredSetup = true;
-            }
-            finally
-            {
-                _applyingRodPreferredSetup = false;
-            }
-
-            // Apply the lock immediately. Do not rely on another PropertyChanged event firing.
-            UpdateConditionalVisibility();
-        }
-
-        private void SetRodToggleState(bool enabled, string savedValue)
-        {
-            if (_rodPreferredSetupAnchor == null)
-                return;
-
-            try
-            {
-                _applyingRodPreferredSetup = true;
-                _rodPreferredSetupAnchor.RodPreferredSetupSaved = savedValue;
-                _rodPreferredSetupAnchor.RodPreferredSetup = enabled;
-            }
-            finally
-            {
-                _applyingRodPreferredSetup = false;
-            }
-        }
-
-        private void SetFieldValue(string fieldName, string value)
-        {
-            var field = _gameProfile?.ConfigValues?.FirstOrDefault(item =>
-                string.Equals(item.FieldName?.Trim(), fieldName, StringComparison.OrdinalIgnoreCase));
-
-            if (field != null)
-                field.FieldValue = value;
-        }
-
-        private static bool IsRodTrackballSensitivityField(FieldInformation field)
-        {
-            return field != null &&
-                   (string.Equals(field.FieldName, "Trackball Sensitivity X", StringComparison.OrdinalIgnoreCase) ||
-                    string.Equals(field.FieldName, "Trackball Sensitivity Y", StringComparison.OrdinalIgnoreCase));
         }
 
         private void UpdateConditionalVisibility()
         {
             if (_gameProfile?.ConfigValues == null) return;
 
-            var useRodPreferredSetup = _rodPreferredSetupAnchor?.RodPreferredSetup == true;
-
             foreach (var field in _gameProfile.ConfigValues)
             {
-                field.IsEditorVisible = true;
-                field.IsEditorEnabled = true;
-
                 if (string.IsNullOrEmpty(field.VisibleWhenField))
                 {
                     // No dependency declared: always visible.
                     field.IsVisible = true;
-                }
-                else
-                {
-                    var controller = _gameProfile.ConfigValues.Find(f => f.FieldName == field.VisibleWhenField);
-                    if (controller == null)
-                    {
-                        // Referenced field doesn't exist in this profile; fail open.
-                        field.IsVisible = true;
-                    }
-                    else
-                    {
-                        // VisibleWhenValue may list more than one acceptable value, comma-separated
-                        // (e.g. "On,Host Only"), so a field can stay visible for multiple states of
-                        // its controller - not just a single exact match.
-                        var acceptedValues = (field.VisibleWhenValue ?? string.Empty)
-                            .Split(',')
-                            .Select(v => v.Trim());
-
-                        field.IsVisible = acceptedValues.Any(v =>
-                            string.Equals(controller.FieldValue, v, StringComparison.OrdinalIgnoreCase));
-                    }
-                }
-
-                // Rod's preferred setup also locks Player 1's X/Y sensitivity at 25.
-                // Leave the sliders visible so the chosen value is obvious, but disable them
-                // until the user opts out of Rod's setup.
-                if (useRodPreferredSetup && IsRodTrackballSensitivityField(field))
-                {
-                    field.FieldValue = "25";
-                    field.IsEditorEnabled = false;
-                }
-
-                if (!useRodPreferredSetup ||
-                    !string.Equals(field.CategoryName, "Customization", StringComparison.OrdinalIgnoreCase))
                     continue;
+                }
 
-                if (ReferenceEquals(field, _rodPreferredSetupAnchor))
+                var controller = _gameProfile.ConfigValues.Find(f => f.FieldName == field.VisibleWhenField);
+                if (controller == null)
                 {
-                    // Keep the anchor item alive so the Rod checkbox remains on screen, but hide
-                    // its normal "Override Default Outfit" editor until the user opts to customize.
+                    // Referenced field doesn't exist in this profile; fail open.
                     field.IsVisible = true;
-                    field.IsEditorVisible = false;
+                    continue;
                 }
-                else
-                {
-                    // Rod used the stock Golden Tee setup, so there is nothing else to configure
-                    // while this mode is selected.
-                    field.IsVisible = false;
-                }
+
+                // VisibleWhenValue may list more than one acceptable value, comma-separated
+                // (e.g. "On,Host Only"), so a field can stay visible for multiple states of
+                // its controller - not just a single exact match.
+                var acceptedValues = (field.VisibleWhenValue ?? string.Empty)
+                    .Split(',')
+                    .Select(v => v.Trim());
+
+                field.IsVisible = acceptedValues.Any(v =>
+                    string.Equals(controller.FieldValue, v, StringComparison.OrdinalIgnoreCase));
             }
         }
 
@@ -440,11 +180,6 @@ namespace TeknoParrotUi.UserControls
 
         private void BtnSaveSettings(object sender, RoutedEventArgs e)
         {
-            // Rod mode is an invariant: even if some binding or external code changed these
-            // values, saving while Rod is selected must persist 25/25 and stock customization.
-            if (_rodPreferredSetupAnchor?.RodPreferredSetup == true)
-                ApplyRodPreferredSetup();
-
             string inputApiString = _gameProfile.ConfigValues.Find(cv => cv.FieldName == "Input API")?.FieldValue;
 
             if (inputApiString != null)
