@@ -8,7 +8,7 @@
 	<ExtraParameters />
 	<TestMenuExtraParameters />
 	<EmulationProfile>TeknoViper</EmulationProfile>
-	<GameProfileRevision>10</GameProfileRevision>
+	<GameProfileRevision>12</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoViper</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -120,6 +120,7 @@
 			<FieldType>Dropdown</FieldType>
 			<FieldOptions>
 				<string>original</string>
+				<string>nearest</string>
 				<string>trilinear</string>
 				<string>max</string>
 			</FieldOptions>
@@ -130,6 +131,7 @@
 			<FieldValue>bicubic</FieldValue>
 			<FieldType>Dropdown</FieldType>
 			<FieldOptions>
+				<string>nearest</string>
 				<string>linear</string>
 				<string>bicubic</string>
 			</FieldOptions>
