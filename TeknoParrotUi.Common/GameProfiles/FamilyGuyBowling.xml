@@ -7,14 +7,14 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>RawThrillsGUN</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>7</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>true</Is64Bit>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<Patreon>true</Patreon>
 	<RequiresAdmin>false</RequiresAdmin>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
-	<GunGame>true</GunGame>
+	<GunGame>false</GunGame>
 	<ExecutableName>bowling.exe</ExecutableName>
 	<xAxisMin>0</xAxisMin>
 	<xAxisMax>255</xAxisMax>
@@ -30,6 +30,7 @@
 				<string>DirectInput</string>
 				<string>XInput</string>
 				<string>RawInput</string>
+				<string>RawInputTrackball</string>
 			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
@@ -50,6 +51,26 @@
 			<FieldName>Windowed</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>Trackball Sensitivity X</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Scales the trackballs X input. Percent, so 100 = 100%, 25 = 25%</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>Trackball Sensitivity Y</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions></FieldOptions>
+			<Hint>Scales the trackballs Y input. Percent, so 100 = 100%, 25 = 25%</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
