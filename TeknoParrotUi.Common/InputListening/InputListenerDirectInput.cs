@@ -2016,6 +2016,12 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.StreamHostP1ButtonStart:
                     InputCode.StreamingPlayerDigitalButtons[6].Start = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
+                case InputMapping.StreamHostP1Button1:
+                    InputCode.StreamingPlayerDigitalButtons[6].Button1 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.StreamHostP1Button2:
+                    InputCode.StreamingPlayerDigitalButtons[6].Button2 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
                 case InputMapping.Stream2P1ButtonStart:
                     InputCode.StreamingPlayerDigitalButtons[0].Start = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
@@ -2039,6 +2045,12 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.Stream2P1Button6:
                     InputCode.StreamingPlayerDigitalButtons[0].Button6 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream2P1ButtonLeft:
+                    InputCode.StreamingPlayerDigitalButtons[0].Left = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream2P1ButtonRight:
+                    InputCode.StreamingPlayerDigitalButtons[0].Right = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.Stream2P2ButtonStart:
                     InputCode.StreamingPlayerDigitalButtons[1].Start = DigitalHelper.GetButtonPressDirectInput(button, state);
@@ -2067,6 +2079,12 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.Stream3P1Button6:
                     InputCode.StreamingPlayerDigitalButtons[2].Button6 = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
+                case InputMapping.Stream3P1ButtonLeft:
+                    InputCode.StreamingPlayerDigitalButtons[2].Left = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream3P1ButtonRight:
+                    InputCode.StreamingPlayerDigitalButtons[2].Right = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
                 case InputMapping.Stream3P2ButtonStart:
                     InputCode.StreamingPlayerDigitalButtons[3].Start = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
@@ -2093,6 +2111,12 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.Stream4P1Button6:
                     InputCode.StreamingPlayerDigitalButtons[4].Button6 = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream4P1ButtonLeft:
+                    InputCode.StreamingPlayerDigitalButtons[4].Left = DigitalHelper.GetButtonPressDirectInput(button, state);
+                    break;
+                case InputMapping.Stream4P1ButtonRight:
+                    InputCode.StreamingPlayerDigitalButtons[4].Right = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.Stream4P2ButtonStart:
                     InputCode.StreamingPlayerDigitalButtons[5].Start = DigitalHelper.GetButtonPressDirectInput(button, state);

@@ -264,6 +264,8 @@ namespace TeknoParrotUi.Common
         TPSystem2,
         TPSystem3,
         StreamHostP1ButtonStart,
+        StreamHostP1Button1,
+        StreamHostP1Button2,
         Stream2P1ButtonStart,
         Stream2P2Button1,
         Stream2P2Button2,
@@ -272,6 +274,8 @@ namespace TeknoParrotUi.Common
         Stream2P1Button3,
         Stream2P1Button4,
         Stream2P1Button6,
+        Stream2P1ButtonLeft,
+        Stream2P1ButtonRight,
         Stream2P2ButtonStart,
         Stream3P1ButtonStart,
         Stream3P2Button1,
@@ -281,6 +285,8 @@ namespace TeknoParrotUi.Common
         Stream3P1Button3,
         Stream3P1Button4,
         Stream3P1Button6,
+        Stream3P1ButtonLeft,
+        Stream3P1ButtonRight,
         Stream3P2ButtonStart,
         Stream4P1ButtonStart,
         Stream4P2Button1,
@@ -290,7 +296,9 @@ namespace TeknoParrotUi.Common
         Stream4P1Button3,
         Stream4P1Button4,
         Stream4P1Button6,
-        Stream4P2ButtonStart
+        Stream4P2ButtonStart,
+        Stream4P1ButtonLeft, 
+        Stream4P1ButtonRight
     }
 
     public enum RotaryInputMode

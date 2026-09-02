@@ -575,6 +575,9 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulationProfile.Contra:
                     _controlSender = new ContraPipe();
+                    break;  
+                case EmulationProfile.FamilyGuy:
+                    _controlSender = new FamilyGuyPipe();
                     break;
                 case EmulationProfile.MarioBros:
                     _controlSender = new MarioBrosPipe();

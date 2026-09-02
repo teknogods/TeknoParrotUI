@@ -149,6 +149,7 @@ namespace TeknoParrotUi.Common
         KonamiAcio,
         KonamiAcioRacing,
         cxbxr,
-        pcsx2x6
+        pcsx2x6,
+        FamilyGuy
     }
 }

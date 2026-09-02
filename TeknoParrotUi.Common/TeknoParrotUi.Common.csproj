@@ -189,6 +189,7 @@
     <Compile Include="ModData.cs" />
     <Compile Include="Pipes\AAAPipe.cs" />
     <Compile Include="Pipes\AcioPipe.cs" />
+    <Compile Include="Pipes\FamilyGuyPipe.cs" />
     <Compile Include="Pipes\LadyLuckPipe.cs" />
     <Compile Include="Pipes\System147.cs" />
     <Compile Include="Pipes\DolphinJvsPipeExtended.cs" />
