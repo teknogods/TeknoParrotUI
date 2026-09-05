@@ -1,0 +1,14 @@
+{
+    "game_name":  "NFL Blitz \u002799",
+    "game_genre":  "Sports",
+    "icon_name":  "blitz99.png",
+    "platform":  "Midway Seattle",
+    "release_year":  "1998",
+    "nvidia":  "OK",
+    "nvidia_issues":  null,
+    "amd":  "OK",
+    "amd_issues":  null,
+    "intel":  "OK",
+    "intel_issues":  null,
+    "general_issues":  "User-supplied MAME ROM/CHD required."
+}
