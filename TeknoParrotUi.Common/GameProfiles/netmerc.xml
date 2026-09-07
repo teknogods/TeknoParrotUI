@@ -7,7 +7,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>TeknoModel1</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel1</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -103,15 +103,23 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Video</CategoryName>
+      <FieldName>Smooth Geometry</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Disable pixel snapping for vertices</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
       <FieldName>Presentation Filter</FieldName>
-      <FieldValue>nearest</FieldValue>
+      <FieldValue>ssaa</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
+        <string>ssaa</string>
         <string>nearest</string>
         <string>linear</string>
         <string>bicubic</string>
       </FieldOptions>
-      <Hint>Nearest preserves sharp pixels and is recommended for VR. Linear and bicubic smooth desktop scaling. CRT shaders override this filter; VR uses nearest when bicubic is selected.</Hint>
+      <Hint>SSAA averages high-resolution samples for smooth downscaling on desktop and VR; recommended at 4x/8x. With Lottes CRT, SSAA resolves to native CRT resolution before applying the shader. Nearest preserves hard pixels. Bicubic is desktop-only; VR uses nearest for bicubic.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Video</CategoryName>
@@ -123,7 +131,7 @@
         <string>Lottes</string>
         <string>Lottes Downsample</string>
       </FieldOptions>
-      <Hint>Desktop Vulkan only. Lottes applies scanlines, bloom, curvature, and a shadow mask. Lottes Downsample resolves enhanced rendering to native CRT resolution first. Overrides presentation filtering and sharpening; ignored in VR.</Hint>
+      <Hint>Desktop Vulkan only. Lottes applies scanlines, bloom, curvature, and a shadow mask. Select SSAA under Presentation Filter to downsample before CRT. Lottes Downsample is the legacy equivalent. CRT overrides other filters and sharpening; ignored in VR.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Video</CategoryName>

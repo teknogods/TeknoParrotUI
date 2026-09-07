@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows.Media;
 using TeknoParrotUi.Common;
 
 namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
@@ -95,10 +96,10 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             if (!int.TryParse(scale, out var scaleValue) || scaleValue < 1 || scaleValue > 8)
                 scale = "4";
             var vrEnabled = Enabled("Enable VR");
-            var filter = Setting("Presentation Filter", "nearest").Trim().ToLowerInvariant();
-            if (filter != "nearest" && filter != "linear" && filter != "bicubic")
-                filter = "nearest";
-            // OpenXR supports nearest/linear transfers, not desktop bicubic reconstruction.
+            var filter = Setting("Presentation Filter", "ssaa").Trim().ToLowerInvariant();
+            if (filter != "ssaa" && filter != "nearest" && filter != "linear" && filter != "bicubic")
+                filter = "ssaa";
+            
             if (vrEnabled && filter == "bicubic")
                 filter = "nearest";
 
@@ -122,6 +123,10 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 "--outputs"
             };
 
+            if (Enabled("Smooth Geometry"))
+                parameters.Add("--smooth-geometry");
+            if (gameId == "vr" && Enabled("Extended Draw Distance"))
+                parameters.Add("--vr-extended-draw-distance");
             if (Setting("DisplayMode", "Fullscreen") == "Fullscreen")
                 parameters.Add("--fullscreen");
             if (Enabled("Stretch to Fullscreen"))
