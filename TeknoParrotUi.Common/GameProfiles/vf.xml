@@ -7,7 +7,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>TeknoModel1</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel1</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -102,8 +102,178 @@
       <FieldOptions>
         <string>nearest</string>
         <string>linear</string>
+        <string>bicubic</string>
       </FieldOptions>
-      <Hint>Nearest is recommended for VR and preserves sharp native pixels; linear smooths desktop scaling.</Hint>
+      <Hint>Nearest preserves sharp pixels and is recommended for VR. Linear and bicubic smooth desktop scaling. CRT shaders override this filter; VR uses nearest when bicubic is selected.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>CRT Shader</FieldName>
+      <FieldValue>None</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>None</string>
+        <string>Lottes</string>
+        <string>Lottes Downsample</string>
+      </FieldOptions>
+      <Hint>Desktop Vulkan only. Lottes applies scanlines, bloom, curvature, and a shadow mask. Lottes Downsample resolves enhanced rendering to native CRT resolution first. Overrides presentation filtering and sharpening; ignored in VR.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Use Bezel</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Put vf.png or default.png in TeknoModel1/bezels. Artwork blends over the game after CRT and colour effects. Only shown in fullscreen without Stretch to Fullscreen; ignored in VR.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Presentation Sharpening</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>0</string>
+        <string>0.05</string>
+        <string>0.1</string>
+        <string>0.15</string>
+        <string>0.2</string>
+        <string>0.25</string>
+        <string>0.3</string>
+        <string>0.35</string>
+        <string>0.4</string>
+        <string>0.45</string>
+        <string>0.5</string>
+        <string>0.55</string>
+        <string>0.6</string>
+        <string>0.65</string>
+        <string>0.7</string>
+        <string>0.75</string>
+        <string>0.8</string>
+        <string>0.85</string>
+        <string>0.9</string>
+        <string>0.95</string>
+        <string>1</string>
+      </FieldOptions>
+      <Hint>Desktop sharpening from 0 to 1. Disabled by CRT shaders and ignored in VR.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Display Gamma</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>0.5</string>
+        <string>0.55</string>
+        <string>0.6</string>
+        <string>0.65</string>
+        <string>0.7</string>
+        <string>0.75</string>
+        <string>0.8</string>
+        <string>0.85</string>
+        <string>0.9</string>
+        <string>0.95</string>
+        <string>1</string>
+        <string>1.05</string>
+        <string>1.1</string>
+        <string>1.15</string>
+        <string>1.2</string>
+        <string>1.25</string>
+        <string>1.3</string>
+        <string>1.35</string>
+        <string>1.4</string>
+        <string>1.45</string>
+        <string>1.5</string>
+        <string>1.55</string>
+        <string>1.6</string>
+        <string>1.65</string>
+        <string>1.7</string>
+        <string>1.75</string>
+        <string>1.8</string>
+        <string>1.85</string>
+        <string>1.9</string>
+        <string>1.95</string>
+        <string>2</string>
+      </FieldOptions>
+      <Hint>Desktop adjustment from 0.5 to 2 (1 is neutral). Applies after the CRT shader; ignored in VR.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Display Saturation</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>0.5</string>
+        <string>0.55</string>
+        <string>0.6</string>
+        <string>0.65</string>
+        <string>0.7</string>
+        <string>0.75</string>
+        <string>0.8</string>
+        <string>0.85</string>
+        <string>0.9</string>
+        <string>0.95</string>
+        <string>1</string>
+        <string>1.05</string>
+        <string>1.1</string>
+        <string>1.15</string>
+        <string>1.2</string>
+        <string>1.25</string>
+        <string>1.3</string>
+        <string>1.35</string>
+        <string>1.4</string>
+        <string>1.45</string>
+        <string>1.5</string>
+        <string>1.55</string>
+        <string>1.6</string>
+        <string>1.65</string>
+        <string>1.7</string>
+        <string>1.75</string>
+        <string>1.8</string>
+        <string>1.85</string>
+        <string>1.9</string>
+        <string>1.95</string>
+        <string>2</string>
+      </FieldOptions>
+      <Hint>Desktop adjustment from 0.5 to 2 (1 is neutral). Applies after the CRT shader; ignored in VR.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Display Contrast</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>0.5</string>
+        <string>0.55</string>
+        <string>0.6</string>
+        <string>0.65</string>
+        <string>0.7</string>
+        <string>0.75</string>
+        <string>0.8</string>
+        <string>0.85</string>
+        <string>0.9</string>
+        <string>0.95</string>
+        <string>1</string>
+        <string>1.05</string>
+        <string>1.1</string>
+        <string>1.15</string>
+        <string>1.2</string>
+        <string>1.25</string>
+        <string>1.3</string>
+        <string>1.35</string>
+        <string>1.4</string>
+        <string>1.45</string>
+        <string>1.5</string>
+        <string>1.55</string>
+        <string>1.6</string>
+        <string>1.65</string>
+        <string>1.7</string>
+        <string>1.75</string>
+        <string>1.8</string>
+        <string>1.85</string>
+        <string>1.9</string>
+        <string>1.95</string>
+        <string>2</string>
+      </FieldOptions>
+      <Hint>Desktop adjustment from 0.5 to 2 (1 is neutral). Applies after the CRT shader; ignored in VR.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Audio</CategoryName>

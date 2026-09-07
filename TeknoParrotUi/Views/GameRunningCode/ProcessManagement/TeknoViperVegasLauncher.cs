@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using TeknoParrotUi.Common;
@@ -93,9 +94,23 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var scale = Setting("Internal Resolution", "4");
             if (!int.TryParse(scale, out var scaleValue) || scaleValue < 1 || scaleValue > 8)
                 scale = "4";
-            var filter = Setting("Presentation Filter", "nearest");
-            if (filter != "nearest" && filter != "linear")
+            var vrEnabled = Enabled("Enable VR");
+            var filter = Setting("Presentation Filter", "nearest").Trim().ToLowerInvariant();
+            if (filter != "nearest" && filter != "linear" && filter != "bicubic")
                 filter = "nearest";
+            // OpenXR supports nearest/linear transfers, not desktop bicubic reconstruction.
+            if (vrEnabled && filter == "bicubic")
+                filter = "nearest";
+
+            string DisplayValue(string name, double fallback, double minimum, double maximum)
+            {
+                var value = Setting(name);
+                if ((!double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var parsed) &&
+                     !double.TryParse(value, NumberStyles.Float, CultureInfo.CurrentCulture, out parsed)) ||
+                    double.IsNaN(parsed) || double.IsInfinity(parsed) || parsed < minimum || parsed > maximum)
+                    parsed = fallback;
+                return parsed.ToString(CultureInfo.InvariantCulture);
+            }
 
             var parameters = new List<string>
             {
@@ -111,11 +126,37 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 parameters.Add("--fullscreen");
             if (Enabled("Stretch to Fullscreen"))
                 parameters.Add("--stretch-to-fullscreen");
-            if (Enabled("Enable VR"))
+            if (vrEnabled)
             {
                 parameters.Add("--vr");
                 parameters.Add("--vr-depth");
                 parameters.Add(VrDepthArgument(Setting("VR Depth", "150")));
+            }
+            else
+            {
+                var crtShader = Setting("CRT Shader", "None").Trim().ToLowerInvariant();
+                switch (crtShader)
+                {
+                    case "lottes":
+                        break;
+                    case "lottes downsample":
+                    case "lottes-ssaa":
+                        crtShader = "lottes-ssaa";
+                        break;
+                    default:
+                        crtShader = "none";
+                        break;
+                }
+                parameters.AddRange(new[]
+                {
+                    "--crt-shader", crtShader,
+                    "--sharpen", DisplayValue("Presentation Sharpening", 0.0, 0.0, 1.0),
+                    "--gamma", DisplayValue("Display Gamma", 1.0, 0.5, 2.0),
+                    "--saturation", DisplayValue("Display Saturation", 1.0, 0.5, 2.0),
+                    "--contrast", DisplayValue("Display Contrast", 1.0, 0.5, 2.0)
+                });
+                if (Enabled("Use Bezel"))
+                    parameters.Add("--bezels");
             }
             if (Enabled("Mute Audio"))
                 parameters.Add("--no-audio");
