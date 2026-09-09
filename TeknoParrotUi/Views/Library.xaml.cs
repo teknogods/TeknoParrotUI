@@ -514,6 +514,9 @@ namespace TeknoParrotUi.Views
                 case EmulatorType.TeknoVegas:
                     loaderExe = ".\\TeknoVegas\\TeknoVegas.exe";
                     break;
+                case EmulatorType.TeknoZeus:
+                    loaderExe = ".\\TeknoZeus\\TeknoZeus.exe";
+                    break;
                 case EmulatorType.TeknoViper:
                     loaderExe = File.Exists(".\\TeknoViper\\TeknoViper.exe")
                         ? ".\\TeknoViper\\TeknoViper.exe"

@@ -35,6 +35,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _isPlay;
         private bool _isTeknoVegas;
         private bool _isTeknoViper;
+        private bool _isTeknoZeus;
         private bool _isTeknoModel1;
         private bool _isNetMerc;
         private bool _isPCSX2;
@@ -170,6 +171,9 @@ namespace TeknoParrotUi.Common.InputListening
 
         private bool isHookableWindow(string windowTitle)
         {
+            if (_isTeknoZeus && windowTitle.StartsWith("TeknoZeus - ", StringComparison.Ordinal))
+                return true;
+
             for (int i = 0; i < _hookedWindows.Count; i++)
             {
                 // PCSX2 bases the name on the acgame file, and everyone has a different game name in there it seems
@@ -227,6 +231,7 @@ namespace TeknoParrotUi.Common.InputListening
             _isGunslinger = gameProfile.EmulationProfile == EmulationProfile.GunslingerStratos3;
             _isPlay = gameProfile.EmulationProfile == EmulationProfile.PlayInput;
             _isTeknoVegas = gameProfile.EmulationProfile == EmulationProfile.TeknoVegas;
+            _isTeknoZeus = gameProfile.EmulationProfile == EmulationProfile.TeknoZeus;
             _isTeknoViper = gameProfile.EmulationProfile == EmulationProfile.TeknoViper;
             _isTeknoModel1 = gameProfile.EmulationProfile == EmulationProfile.TeknoModel1;
             _isNetMerc = _isTeknoModel1 && string.Equals(gameProfile.ExecutableName, "netmerc.zip", StringComparison.OrdinalIgnoreCase);
@@ -333,7 +338,7 @@ namespace TeknoParrotUi.Common.InputListening
 
             // These emulators publish their exact screen-space content viewport.
             // This keeps absolute and relative gun input aligned with letterboxed output.
-            if (_isPlay || _isTeknoVegas || _isTeknoViper || _isTeknoModel1)
+            if (_isPlay || _isTeknoVegas || _isTeknoViper || _isTeknoModel1 || _isTeknoZeus)
             {
                 string canvasName = "TeknoparrotCanvas";
                 if (_isPlay)
@@ -343,6 +348,10 @@ namespace TeknoParrotUi.Common.InputListening
                 else if (_isTeknoVegas)
                 {
                     canvasName = "TeknoVegasCanvasInfo";
+                }
+                else if (_isTeknoZeus)
+                {
+                    canvasName = "TeknoZeusCanvasInfo";
                 }
                 else if (_isTeknoViper)
                 {
@@ -397,7 +406,7 @@ namespace TeknoParrotUi.Common.InputListening
                     // Only update when we are on the foreground
                     if (_windowHandle == GetForegroundWindow())
                     {
-                        if ((_isPlay || _isTeknoVegas || _isTeknoViper || _isTeknoModel1) &&
+                        if ((_isPlay || _isTeknoVegas || _isTeknoViper || _isTeknoModel1 || _isTeknoZeus) &&
                             _canvasInfoAccessor != null)
                         {
                             try
@@ -827,7 +836,7 @@ namespace TeknoParrotUi.Common.InputListening
                                 else if (gun.InputMapping == InputMapping.P4LightGun)
                                     player = 3;
 
-                                if (_isPlay || _isTeknoVegas || _isTeknoViper || _isTeknoModel1)
+                                if (_isPlay || _isTeknoVegas || _isTeknoViper || _isTeknoModel1 || _isTeknoZeus)
                                 {
                                     int scaledDeltaX = (int)(mouse.Mouse.LastX * _dpiScaleX);
                                     int scaledDeltaY = (int)(mouse.Mouse.LastY * _dpiScaleY);
@@ -1420,12 +1429,12 @@ namespace TeknoParrotUi.Common.InputListening
             float factorY = 0.0f;
 
             // Windowed
-            if (_windowed || _isPlay || _isTeknoVegas || _isTeknoViper || _isTeknoModel1)
+            if (_windowed || _isPlay || _isTeknoVegas || _isTeknoViper || _isTeknoModel1 || _isTeknoZeus)
             {
                 // Translate absolute units to pixels
                 if (moveAbsolute)
                 {
-                    if ((_isPlay || _isTeknoVegas || _isTeknoViper || _isTeknoModel1) &&
+                    if ((_isPlay || _isTeknoVegas || _isTeknoViper || _isTeknoModel1 || _isTeknoZeus) &&
                         canvasInfo.windowWidth > 0 && canvasInfo.windowHeight > 0)
                     {
                         // Canvas publishers use physical pixels. Map normalized RawInput

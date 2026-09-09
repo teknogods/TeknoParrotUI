@@ -39,6 +39,7 @@ namespace TeknoParrotUi.Common
         // Konami Viper
         TeknoViper,
         // Sega Model 1
-        TeknoModel1
+        TeknoModel1,
+        TeknoZeus
     }
 }

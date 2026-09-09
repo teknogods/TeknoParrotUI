@@ -483,7 +483,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 }
                 else if (_gameProfile.EmulatorType == EmulatorType.TeknoVegas ||
                          _gameProfile.EmulatorType == EmulatorType.TeknoViper ||
-                         _gameProfile.EmulatorType == EmulatorType.TeknoModel1)
+                         _gameProfile.EmulatorType == EmulatorType.TeknoModel1 ||
+                         _gameProfile.EmulatorType == EmulatorType.TeknoZeus)
                 {
                     info = TeknoViperVegasLauncher.Build(
                         _gameProfile,
@@ -1000,7 +1001,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     Console.Error.WriteLine(e.Data);
                     if (_gameProfile.EmulatorType == EmulatorType.TeknoVegas ||
                         _gameProfile.EmulatorType == EmulatorType.TeknoViper ||
-                        _gameProfile.EmulatorType == EmulatorType.TeknoModel1)
+                        _gameProfile.EmulatorType == EmulatorType.TeknoModel1 ||
+                         _gameProfile.EmulatorType == EmulatorType.TeknoZeus)
                     {
                         lock (emulatorDiagnosticsSync)
                         {

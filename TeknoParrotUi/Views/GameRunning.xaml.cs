@@ -102,7 +102,8 @@ namespace TeknoParrotUi.Views
             // second process for TPUI to start.
             _twoExes = gameProfile.HasTwoExecutables &&
                        gameProfile.EmulatorType != EmulatorType.TeknoVegas &&
-                       gameProfile.EmulatorType != EmulatorType.TeknoViper;
+                       gameProfile.EmulatorType != EmulatorType.TeknoViper &&
+                       gameProfile.EmulatorType != EmulatorType.TeknoZeus;
             _secondExeFirst = gameProfile.LaunchSecondExecutableFirst;
             _secondExeArguments = gameProfile.SecondExecutableArguments;
             _launchMinimized = gameProfile.LaunchMinimized;
@@ -713,6 +714,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.TeknoVegas:
                     _controlSender = new TeknoVegasPipe();
                     break;
+                case EmulationProfile.TeknoZeus:
+                    _controlSender = new TeknoZeusPipe();
+                    break;
                 case EmulationProfile.TeknoViper:
                     _controlSender = new TeknoViperPipe();
                     break;
@@ -777,7 +781,8 @@ namespace TeknoParrotUi.Views
                 _gameProfile.EmulatorType != EmulatorType.RPCS3 &&
                 _gameProfile.EmulatorType != EmulatorType.TeknoVegas &&
                 _gameProfile.EmulatorType != EmulatorType.TeknoViper &&
-                _gameProfile.EmulatorType != EmulatorType.TeknoModel1)
+                _gameProfile.EmulatorType != EmulatorType.TeknoModel1 &&
+                _gameProfile.EmulatorType != EmulatorType.TeknoZeus)
             {
                 //bool DualJvsEmulation = _gameProfile.ConfigValues.Any(x => x.FieldName == "DualJvsEmulation" && x.FieldValue == "1");
 

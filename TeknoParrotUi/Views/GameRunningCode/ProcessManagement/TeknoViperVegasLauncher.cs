@@ -35,6 +35,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             {
                 case EmulatorType.TeknoVegas:
                     return BuildTeknoVegas(profile, gameLocation, log);
+                case EmulatorType.TeknoZeus:
+                    return TeknoZeusLauncher.Build(profile, gameLocation, log);
                 case EmulatorType.TeknoViper:
                     return BuildTeknoViper(profile, gameLocation, log);
                 case EmulatorType.TeknoModel1:
@@ -125,8 +127,19 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
             if (Enabled("Smooth Geometry"))
                 parameters.Add("--smooth-geometry");
-            if (gameId == "vr" && Enabled("Extended Draw Distance"))
+            if ((gameId == "vr" || gameId == "vformula") && Enabled("Extended Draw Distance"))
                 parameters.Add("--vr-extended-draw-distance");
+            if (gameId == "wingwar" && Enabled("Extended Draw Distance"))
+                parameters.Add("--wingwar-extended-draw-distance");
+            if (gameId == "vformula" && !vrEnabled && Enabled("Widescreen hack"))
+                parameters.Add("--vformula-widescreen");
+            if (gameId == "vf" && !vrEnabled && Enabled("Widescreen hack"))
+                parameters.Add("--vf-widescreen");
+            if (gameId == "wingwar" && !vrEnabled && Enabled("Widescreen hack"))
+                parameters.Add("--wingwar-widescreen");
+            if (!vrEnabled && !Enabled("Uncapped") &&
+                !Enabled("Legacy Low-Latency Pacing") && Enabled("Low Latency Mode", true))
+                parameters.Add("--adaptive-late-start");
             if (Setting("DisplayMode", "Fullscreen") == "Fullscreen")
                 parameters.Add("--fullscreen");
             if (Enabled("Stretch to Fullscreen"))

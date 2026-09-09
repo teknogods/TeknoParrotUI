@@ -26,11 +26,11 @@ namespace TeknoParrotUi.Helpers
             EmulatorType? emulatorType,
             string diagnostics)
         {
-            if (emulatorType == EmulatorType.TeknoModel1 && errorCode != 0)
+            if ((emulatorType == EmulatorType.TeknoModel1 || emulatorType == EmulatorType.TeknoZeus) && errorCode != 0)
             {
                 var summary = errorCode == 2
-                    ? "TeknoModel1 received an invalid launch configuration."
-                    : "TeknoModel1 could not start or exited unexpectedly.";
+                    ? $"{emulatorType} received an invalid launch configuration."
+                    : $"{emulatorType} could not start or exited unexpectedly.";
                 if (!string.IsNullOrWhiteSpace(diagnostics))
                 {
                     summary += Environment.NewLine + Environment.NewLine + diagnostics;
