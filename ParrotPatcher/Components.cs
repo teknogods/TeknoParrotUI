@@ -35,8 +35,11 @@ namespace ParrotPatcher
                 },
                 new UpdaterComponent
                 {
-                    name = "OpenSegaAPI",
-                    location = Path.Combine("TeknoParrot", "Opensegaapi.dll"),
+                    name = "SegaApi",
+                    location = Path.Combine("TeknoParrot", "SegaApi.dll"),
+                    additionalLocations = new List<string> { Path.Combine("ElfLdr2", "libs", "SegaApi.dll") },
+                    reponame = "TeknoParrot",
+                    opensource = false,
                     folderOverride = "TeknoParrot"
                 },
                 new UpdaterComponent
@@ -156,6 +159,15 @@ namespace ParrotPatcher
                     manualVersion = false,
                     folderOverride = "pcsx2x6",
                     excludedFiles = new List<string> { "TeknoParrot/*" }     
+                },
+                new UpdaterComponent
+                {
+                    name = "TeknoCobra",
+                    location = Path.Combine("TeknoCobra", "TeknoCobra.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "TeknoCobra"
                 },
                 new UpdaterComponent
                 {

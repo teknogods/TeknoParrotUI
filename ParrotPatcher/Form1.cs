@@ -221,6 +221,7 @@ namespace ParrotPatcher
             bool isUI = component.name == "TeknoParrotUI";
             bool isUsingFolderOverride = !string.IsNullOrEmpty(component.folderOverride);
             string destinationFolder = isUsingFolderOverride ? component.folderOverride : component.name;
+            bool installedAdditionalLocations = false;
 
             foreach (var entry in zip.Entries)
             {
@@ -234,7 +235,20 @@ namespace ParrotPatcher
 
                 var dest = isUI ? name : Path.Combine(destinationFolder, name);
                 ExtractSingleFile(entry, dest, component);
+
+                if (component.additionalLocations.Count > 0 &&
+                    string.Equals(Path.GetFullPath(dest), Path.GetFullPath(component.location), StringComparison.OrdinalIgnoreCase))
+                {
+                    foreach (var additionalLocation in component.additionalLocations)
+                    {
+                        ExtractSingleFile(entry, additionalLocation, component);
+                    }
+                    installedAdditionalLocations = true;
+                }
             }
+
+            if (component.additionalLocations.Count > 0 && !installedAdditionalLocations)
+                throw new InvalidDataException($"Update archive is missing {Path.GetFileName(component.location)}.");
         }
 
         private void CreateDirectory(string name, UpdaterComponent component)
@@ -320,17 +334,10 @@ namespace ParrotPatcher
 
         private void ExtractFile(ZipArchiveEntry entry, string dest)
         {
-            try
+            using (var entryStream = entry.Open())
+            using (var dll = File.Create(dest))
             {
-                using (var entryStream = entry.Open())
-                using (var dll = File.Create(dest))
-                {
-                    entryStream.CopyTo(dll);
-                }
-            }
-            catch
-            {
-                // ignore
+                entryStream.CopyTo(dll);
             }
         }
 

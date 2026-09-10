@@ -365,6 +365,8 @@ namespace TeknoParrotUi
             public string name { get; set; }
             // location of file to check version from, i.e TeknoParrot\TeknoParrot.dll
             public string location { get; set; }
+            // Additional paths where the same versioned file must be installed.
+            public List<string> additionalLocations { get; set; } = new List<string>();
             // repository name, if not set it will use name as the repo name
             public string reponame { get; set; }
             // if set, the changelog button will link to the commits page, if not it will link to the release directly
@@ -407,6 +409,21 @@ namespace TeknoParrotUi
                         {
                             _localVersion = TeknoParrotUi.Properties.Resources.UpdaterNotInstalled;
                         }
+
+                        foreach (var additionalLocation in additionalLocations)
+                        {
+                            var additionalVersion = new UpdaterComponent
+                            {
+                                location = additionalLocation,
+                                manualVersion = manualVersion
+                            }.localVersion;
+                            if (additionalVersion != _localVersion)
+                            {
+                                _localVersion = additionalVersion == TeknoParrotUi.Properties.Resources.UpdaterNotInstalled
+                                    ? additionalVersion : "unknown";
+                                break;
+                            }
+                        }
                     }
 
                     return _localVersion;
@@ -435,8 +452,11 @@ namespace TeknoParrotUi
             },
             new UpdaterComponent
             {
-                name = "OpenSegaAPI",
-                location = Path.Combine("TeknoParrot", "Opensegaapi.dll"),
+                name = "SegaApi",
+                location = Path.Combine("TeknoParrot", "SegaApi.dll"),
+                additionalLocations = new List<string> { Path.Combine("ElfLdr2", "libs", "SegaApi.dll") },
+                reponame = "TeknoParrot",
+                opensource = false,
                 folderOverride = "TeknoParrot"
             },
             new UpdaterComponent
