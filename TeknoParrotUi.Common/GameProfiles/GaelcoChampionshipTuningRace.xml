@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TokyoCop</EmulationProfile>
-	<GameProfileRevision>30</GameProfileRevision>
+	<GameProfileRevision>31</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>car</ExecutableName>
@@ -24,9 +24,10 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>AMDCrashFix</FieldName>
+			<FieldName>AMDIntelFix</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
+			<Hint>Enable to display game on AMD or Intel GPU</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
