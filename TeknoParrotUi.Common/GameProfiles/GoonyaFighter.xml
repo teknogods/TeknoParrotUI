@@ -6,7 +6,8 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters>-tptest</TestMenuExtraParameters>
 	<EmulationProfile>APM3Direct</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<ApmTestGameId>SDFD</ApmTestGameId>
+	<GameProfileRevision>7</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<TestExecIs64Bit>true</TestExecIs64Bit>
