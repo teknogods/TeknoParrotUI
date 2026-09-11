@@ -6,7 +6,7 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -28,13 +28,6 @@
       <FieldValue>35</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Force feedback strength from 0 to 100 percent. Default: 35.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Invert Force Feedback</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <Hint>Reverse the steering force direction.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
