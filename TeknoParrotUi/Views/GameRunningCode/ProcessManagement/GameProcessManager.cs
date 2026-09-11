@@ -484,10 +484,12 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     info.UseShellExecute = false;
                     info.WorkingDirectory = Path.Combine(Directory.GetCurrentDirectory(), "pcsx2x6") ?? throw new InvalidOperationException();
                 }
-                else if (_gameProfile.EmulatorType == EmulatorType.TeknoVegas ||
-                         _gameProfile.EmulatorType == EmulatorType.TeknoViper ||
+                else if ((_gameProfile.EmulatorType == EmulatorType.TeknoAir || _gameProfile.EmulatorType == EmulatorType.TeknoVegas) ||
+                         ((_gameProfile.EmulatorType == EmulatorType.TeknoViper || _gameProfile.EmulatorType == EmulatorType.TeknoM2) || _gameProfile.EmulatorType == EmulatorType.TeknoAGX) ||
+                         _gameProfile.EmulatorType == EmulatorType.TeknoHNG64 || (_gameProfile.EmulatorType == EmulatorType.TeknoHornet || _gameProfile.EmulatorType == EmulatorType.TeknoVUnit) || _gameProfile.EmulatorType == EmulatorType.TeknoCobra ||
                          _gameProfile.EmulatorType == EmulatorType.TeknoModel1 ||
-                         _gameProfile.EmulatorType == EmulatorType.TeknoZeus)
+                         _gameProfile.EmulatorType == EmulatorType.TeknoModel2 ||
+                         (_gameProfile.EmulatorType == EmulatorType.TeknoZeus || ((_gameProfile.EmulatorType == EmulatorType.TeknoS22 || _gameProfile.EmulatorType == EmulatorType.TeknoS21) || (_gameProfile.EmulatorType == EmulatorType.TeknoS23 || _gameProfile.EmulatorType == EmulatorType.TeknoGClub))))
                 {
                     info = TeknoViperVegasLauncher.Build(
                         _gameProfile,
@@ -1010,10 +1012,12 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
                     Trace.WriteLine(e.Data);
                     Console.Error.WriteLine(e.Data);
-                    if (_gameProfile.EmulatorType == EmulatorType.TeknoVegas ||
-                        _gameProfile.EmulatorType == EmulatorType.TeknoViper ||
+                    if ((_gameProfile.EmulatorType == EmulatorType.TeknoAir || _gameProfile.EmulatorType == EmulatorType.TeknoVegas) ||
+                        ((_gameProfile.EmulatorType == EmulatorType.TeknoViper || _gameProfile.EmulatorType == EmulatorType.TeknoM2) || _gameProfile.EmulatorType == EmulatorType.TeknoAGX) ||
+                        _gameProfile.EmulatorType == EmulatorType.TeknoHNG64 || (_gameProfile.EmulatorType == EmulatorType.TeknoHornet || _gameProfile.EmulatorType == EmulatorType.TeknoVUnit) || _gameProfile.EmulatorType == EmulatorType.TeknoCobra ||
                         _gameProfile.EmulatorType == EmulatorType.TeknoModel1 ||
-                         _gameProfile.EmulatorType == EmulatorType.TeknoZeus)
+                         _gameProfile.EmulatorType == EmulatorType.TeknoModel2 ||
+                         (_gameProfile.EmulatorType == EmulatorType.TeknoZeus || ((_gameProfile.EmulatorType == EmulatorType.TeknoS22 || _gameProfile.EmulatorType == EmulatorType.TeknoS21) || (_gameProfile.EmulatorType == EmulatorType.TeknoS23 || _gameProfile.EmulatorType == EmulatorType.TeknoGClub))))
                     {
                         lock (emulatorDiagnosticsSync)
                         {

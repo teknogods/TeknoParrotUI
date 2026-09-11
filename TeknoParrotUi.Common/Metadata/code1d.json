@@ -1,0 +1,14 @@
+{
+  "game_name": "Code One Dispatch Ver 1.21 (UAD)",
+  "game_genre": "Driving",
+  "icon_name": "code1d.png",
+  "platform": "Konami Viper",
+  "release_year": "2000",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": "User-supplied MAME ROM/CHD required."
+}

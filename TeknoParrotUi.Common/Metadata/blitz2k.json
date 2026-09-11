@@ -1,0 +1,14 @@
+{
+    "game_name":  "NFL Blitz 2000 Gold Edition",
+    "game_genre":  "Sports",
+    "icon_name":  "blitz2k.png",
+    "platform":  "Midway Seattle",
+    "release_year":  "1999",
+    "nvidia":  "OK",
+    "nvidia_issues":  null,
+    "amd":  "OK",
+    "amd_issues":  null,
+    "intel":  "OK",
+    "intel_issues":  null,
+    "general_issues":  "User-supplied MAME ROM/CHD required."
+}

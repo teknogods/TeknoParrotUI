@@ -1,0 +1,14 @@
+{
+    "game_name":  "Hyperdrive",
+    "game_genre":  "Racing",
+    "icon_name":  "hyprdriv.png",
+    "platform":  "Midway Seattle Widget",
+    "release_year":  "1998",
+    "nvidia":  "OK",
+    "nvidia_issues":  null,
+    "amd":  "OK",
+    "amd_issues":  null,
+    "intel":  "OK",
+    "intel_issues":  null,
+    "general_issues":  "User-supplied MAME ROM/CHD required. LAN linking uses the same non-zero Network Port and a unique Cabinet Id per machine."
+}

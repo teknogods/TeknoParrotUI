@@ -37,7 +37,7 @@ namespace TeknoParrotUi.UserControls
             GamePathBox.Text = _gameProfile.GamePath;
             GamePathBox2.Text = _gameProfile.GamePath2;
 
-            PopulateModel1FfbDevices(gameProfile);
+            PopulateModelFfbDevices(gameProfile);
             PopulateViperFfbDevices(gameProfile);
             GameSettingsList.ItemsSource = gameProfile.ConfigValues;
             _contentControl = contentControl;
@@ -64,8 +64,10 @@ namespace TeknoParrotUi.UserControls
                 if (!string.IsNullOrEmpty(_gameProfile.ExecutableName2))
                     exeName = $" ({_gameProfile.ExecutableName2})".Replace(";", Properties.Resources.GameSettingsExecutableOr);
 
-                var secondPathLabel = _gameProfile.EmulatorType == EmulatorType.TeknoVegas ||
-                                      _gameProfile.EmulatorType == EmulatorType.TeknoViper ||
+                var secondPathLabel = (_gameProfile.EmulatorType == EmulatorType.TeknoAir || _gameProfile.EmulatorType == EmulatorType.TeknoVegas) ||
+                                      (_gameProfile.EmulatorType == EmulatorType.TeknoViper || _gameProfile.EmulatorType == EmulatorType.TeknoM2) ||
+                                      _gameProfile.EmulatorType == EmulatorType.TeknoAGX ||
+                                      (_gameProfile.EmulatorType == EmulatorType.TeknoHornet || _gameProfile.EmulatorType == EmulatorType.TeknoVUnit) || _gameProfile.EmulatorType == EmulatorType.TeknoCobra ||
                                       _gameProfile.EmulatorType == EmulatorType.TeknoZeus
                     ? "Game CHD"
                     : Properties.Resources.GameSettingsSecondGameExecutableLabel;
@@ -81,9 +83,10 @@ namespace TeknoParrotUi.UserControls
             }
         }
 
-        private static void PopulateModel1FfbDevices(GameProfile gameProfile)
+        private static void PopulateModelFfbDevices(GameProfile gameProfile)
         {
-            if (gameProfile.EmulatorType != EmulatorType.TeknoModel1)
+            if (gameProfile.EmulatorType != EmulatorType.TeknoModel1 &&
+                gameProfile.EmulatorType != EmulatorType.TeknoModel2)
                 return;
 
             var field = gameProfile.ConfigValues?.Find(cv =>
@@ -92,7 +95,8 @@ namespace TeknoParrotUi.UserControls
             if (field == null)
                 return;
 
-            field.DynamicOptions = Model1FfbDeviceProbe.GetDevices();
+            field.DynamicOptions = gameProfile.EmulatorType == EmulatorType.TeknoModel2
+                ? Model2FfbDeviceProbe.GetDevices() : Model1FfbDeviceProbe.GetDevices();
             if (!field.DynamicOptions.Any(option => option.Value == field.FieldValue) &&
                 !string.IsNullOrWhiteSpace(field.FieldValue))
             {

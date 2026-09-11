@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GamePath></GamePath>
+  <GamePath2></GamePath2>
+  <TestMenuParameter></TestMenuParameter>
+  <TestMenuIsExecutable>false</TestMenuIsExecutable>
+  <ExtraParameters></ExtraParameters>
+  <TestMenuExtraParameters></TestMenuExtraParameters>
+  <EmulationProfile>TeknoModel1</EmulationProfile>
+  <GameProfileRevision>15</GameProfileRevision>
+  <HasSeparateTestMode>false</HasSeparateTestMode>
+  <EmulatorType>TeknoModel1</EmulatorType>
+  <Is64Bit>true</Is64Bit>
+  <ExecutableName>wingwar.zip</ExecutableName>
+  <HasTwoExecutables>false</HasTwoExecutables>
+  <Patreon>true</Patreon>
+  <DevOnly>false</DevOnly>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Input API</FieldName>
+      <FieldValue>DirectInput</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>DirectInput</string>
+        <string>XInput</string>
+        <string>RawInput</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Force Feedback Device</FieldName>
+      <FieldValue>off</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select direct SDL3 wheel force feedback or controller vibration. Requires model1haptic.exe from the TeknoModel1 package.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>VR</CategoryName>
+      <FieldName>Enable VR</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Present independent geometric stereo views through OpenXR. Oculus Touch controls and headset audio are selected automatically when available.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>VR</CategoryName>
+      <FieldName>Use VR Controls</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Use OpenXR controllers exclusively in VR. Turn this off to use TPUI mappings instead; head tracking remains enabled.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>VR</CategoryName>
+      <FieldName>VR Depth</FieldName>
+      <FieldValue>150</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>100</FieldMin>
+      <FieldMax>200</FieldMax>
+      <FieldOptions />
+      <FieldStep>5</FieldStep>
+      <Hint>Adjust OpenXR geometric stereo strength from 100% to 200%.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>DisplayMode</FieldName>
+      <FieldValue>Fullscreen</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windowed</string>
+        <string>Fullscreen</string>
+      </FieldOptions>
+      <Hint>Fullscreen uses borderless desktop output. VR presents to the active OpenXR headset.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Stretch to Fullscreen</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Stretch fullscreen output to fill the display, ignoring the game's original aspect ratio.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Internal Resolution</FieldName>
+      <FieldValue>4</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>2</string>
+        <string>3</string>
+        <string>4</string>
+        <string>5</string>
+        <string>6</string>
+        <string>7</string>
+        <string>8</string>
+      </FieldOptions>
+      <Hint>Sets Model 1 polygon rendering from native 1x through enhanced 8x. 4x is the balanced default.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Smooth Geometry</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Reduces wobble and preserves thin distant details at 2x-8x internal resolution by keeping fractional 3D vertex positions. Works with Vulkan and VR; ignored at native 1x and with software rendering. Off preserves the original geometry.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Widescreen hack</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Experimental 16:9 view for the World ROM, with wider prop visibility and improved nearby scenery coverage. Preserves the original HUD layout and radar projection. Works with desktop Vulkan and software rendering; ignored in VR. Can be combined with Extended Draw Distance.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Extended Draw Distance</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Experimental World ROM scenery enhancement. Extends terrain depth from 2048 to 4096 game units and keeps detailed terrain and small props visible farther away. Works on desktop and in VR; increases rendering cost. Coverage still depends on the terrain selection area. Does not extend aircraft visibility.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Low Latency Mode</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Samples controls closer to frame presentation to reduce input delay. Enabled by default for capped desktop play. Turn off if frame pacing becomes uneven; ignored in VR, uncapped play, or legacy pacing.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Presentation Filter</FieldName>
+      <FieldValue>ssaa</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>ssaa</string>
+        <string>nearest</string>
+        <string>linear</string>
+        <string>bicubic</string>
+      </FieldOptions>
+      <Hint>SSAA averages high-resolution samples for smooth downscaling on desktop and VR; recommended at 4x/8x. With Lottes CRT, SSAA resolves to native CRT resolution before applying the shader. Nearest preserves hard pixels. Bicubic is desktop-only; VR uses nearest for bicubic.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>CRT Shader</FieldName>
+      <FieldValue>None</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>None</string>
+        <string>Lottes</string>
+        <string>Lottes Downsample</string>
+      </FieldOptions>
+      <Hint>Desktop Vulkan only. Lottes applies scanlines, bloom, curvature, and a shadow mask. Select SSAA under Presentation Filter to downsample before CRT. Lottes Downsample is the legacy equivalent. CRT overrides other filters and sharpening; ignored in VR.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Use Bezel</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Put wingwar.png or default.png in TeknoModel1/bezels. Artwork blends over the game after CRT and colour effects. Only shown in fullscreen without Stretch to Fullscreen; ignored in VR.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Presentation Sharpening</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>0</string>
+        <string>0.05</string>
+        <string>0.1</string>
+        <string>0.15</string>
+        <string>0.2</string>
+        <string>0.25</string>
+        <string>0.3</string>
+        <string>0.35</string>
+        <string>0.4</string>
+        <string>0.45</string>
+        <string>0.5</string>
+        <string>0.55</string>
+        <string>0.6</string>
+        <string>0.65</string>
+        <string>0.7</string>
+        <string>0.75</string>
+        <string>0.8</string>
+        <string>0.85</string>
+        <string>0.9</string>
+        <string>0.95</string>
+        <string>1</string>
+      </FieldOptions>
+      <Hint>Desktop sharpening from 0 to 1. Disabled by CRT shaders and ignored in VR.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Display Gamma</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>0.5</string>
+        <string>0.55</string>
+        <string>0.6</string>
+        <string>0.65</string>
+        <string>0.7</string>
+        <string>0.75</string>
+        <string>0.8</string>
+        <string>0.85</string>
+        <string>0.9</string>
+        <string>0.95</string>
+        <string>1</string>
+        <string>1.05</string>
+        <string>1.1</string>
+        <string>1.15</string>
+        <string>1.2</string>
+        <string>1.25</string>
+        <string>1.3</string>
+        <string>1.35</string>
+        <string>1.4</string>
+        <string>1.45</string>
+        <string>1.5</string>
+        <string>1.55</string>
+        <string>1.6</string>
+        <string>1.65</string>
+        <string>1.7</string>
+        <string>1.75</string>
+        <string>1.8</string>
+        <string>1.85</string>
+        <string>1.9</string>
+        <string>1.95</string>
+        <string>2</string>
+      </FieldOptions>
+      <Hint>Desktop adjustment from 0.5 to 2 (1 is neutral). Applies after the CRT shader; ignored in VR.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Display Saturation</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>0.5</string>
+        <string>0.55</string>
+        <string>0.6</string>
+        <string>0.65</string>
+        <string>0.7</string>
+        <string>0.75</string>
+        <string>0.8</string>
+        <string>0.85</string>
+        <string>0.9</string>
+        <string>0.95</string>
+        <string>1</string>
+        <string>1.05</string>
+        <string>1.1</string>
+        <string>1.15</string>
+        <string>1.2</string>
+        <string>1.25</string>
+        <string>1.3</string>
+        <string>1.35</string>
+        <string>1.4</string>
+        <string>1.45</string>
+        <string>1.5</string>
+        <string>1.55</string>
+        <string>1.6</string>
+        <string>1.65</string>
+        <string>1.7</string>
+        <string>1.75</string>
+        <string>1.8</string>
+        <string>1.85</string>
+        <string>1.9</string>
+        <string>1.95</string>
+        <string>2</string>
+      </FieldOptions>
+      <Hint>Desktop adjustment from 0.5 to 2 (1 is neutral). Applies after the CRT shader; ignored in VR.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Display Contrast</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>0.5</string>
+        <string>0.55</string>
+        <string>0.6</string>
+        <string>0.65</string>
+        <string>0.7</string>
+        <string>0.75</string>
+        <string>0.8</string>
+        <string>0.85</string>
+        <string>0.9</string>
+        <string>0.95</string>
+        <string>1</string>
+        <string>1.05</string>
+        <string>1.1</string>
+        <string>1.15</string>
+        <string>1.2</string>
+        <string>1.25</string>
+        <string>1.3</string>
+        <string>1.35</string>
+        <string>1.4</string>
+        <string>1.45</string>
+        <string>1.5</string>
+        <string>1.55</string>
+        <string>1.6</string>
+        <string>1.65</string>
+        <string>1.7</string>
+        <string>1.75</string>
+        <string>1.8</string>
+        <string>1.85</string>
+        <string>1.9</string>
+        <string>1.95</string>
+        <string>2</string>
+      </FieldOptions>
+      <Hint>Desktop adjustment from 0.5 to 2 (1 is neutral). Applies after the CRT shader; ignored in VR.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Audio</CategoryName>
+      <FieldName>Mute Audio</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Link Server</FieldName>
+      <FieldValue>127.0.0.1:17602</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Address of a running model1linkd relay. Leave Link Role off for a standalone cabinet.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Link Role</FieldName>
+      <FieldValue>Off</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Off</string>
+        <string>Master</string>
+        <string>Slave</string>
+      </FieldOptions>
+      <Hint>Linked cabinets need opposite roles and unique persistent save slots.</Hint>
+    </FieldInformation>    <FieldInformation>
+      <CategoryName>Cabinet</CategoryName>
+      <FieldName>Cabinet Outputs</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Publish the emulated output latch to compatible Windows cabinet-output clients.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Storage</CategoryName>
+      <FieldName>Save Root</FieldName>
+      <FieldValue>.\TeknoModel1\saves</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Stores per-game NVRAM, I/O EEPROM, and persistent VR calibration.</Hint>
+    </FieldInformation>
+  </ConfigValues>
+  <JoystickButtons>
+    <JoystickButtons><ButtonName>Test Menu</ButtonName><InputMapping>Test</InputMapping></JoystickButtons>
+    <JoystickButtons><ButtonName>Service</ButtonName><InputMapping>Service1</InputMapping></JoystickButtons>
+    <JoystickButtons><ButtonName>Coin</ButtonName><InputMapping>Coin1</InputMapping></JoystickButtons>
+    <JoystickButtons><ButtonName>Start</ButtonName><InputMapping>P1ButtonStart</InputMapping></JoystickButtons>
+    <JoystickButtons><ButtonName>Gun</ButtonName><InputMapping>P1Button1</InputMapping></JoystickButtons>
+    <JoystickButtons><ButtonName>Missile</ButtonName><InputMapping>P1Button2</InputMapping></JoystickButtons>
+    <JoystickButtons><ButtonName>Smoke</ButtonName><InputMapping>P1Button3</InputMapping></JoystickButtons>
+    <JoystickButtons><ButtonName>View 1</ButtonName><InputMapping>P1Button4</InputMapping></JoystickButtons>
+    <JoystickButtons><ButtonName>View 2</ButtonName><InputMapping>P1Button5</InputMapping></JoystickButtons>
+    <JoystickButtons><ButtonName>View 3</ButtonName><InputMapping>P1Button6</InputMapping></JoystickButtons>
+    <JoystickButtons><ButtonName>View 4</ButtonName><InputMapping>ExtensionOne1</InputMapping></JoystickButtons>
+    <JoystickButtons><ButtonName>Flight Stick X</ButtonName><InputMapping>Analog0</InputMapping><AnalogType>AnalogJoystick</AnalogType></JoystickButtons>
+    <JoystickButtons><ButtonName>Flight Stick Y</ButtonName><InputMapping>Analog2</InputMapping><AnalogType>AnalogJoystickY</AnalogType></JoystickButtons>
+    <JoystickButtons><ButtonName>Throttle</ButtonName><InputMapping>Analog4</InputMapping><AnalogType>Gas</AnalogType></JoystickButtons>
+  </JoystickButtons>
+</GameProfile>

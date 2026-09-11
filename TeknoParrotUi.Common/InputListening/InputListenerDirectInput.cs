@@ -118,6 +118,11 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool KeyboardHandlebarLeft = false;
         private static bool KeyboardHandlebarRight = false;
         private static bool KeyboardorButtonAxis = false;
+        private static readonly bool[] _s21AxisNegative = new bool[16];
+        private static readonly bool[] _s21AxisPositive = new bool[16];
+        private static readonly bool[] _s21KeyboardAxis = new bool[16];
+        private static readonly byte[] _s21AxisRest = new byte[16];
+        private static int _s21AxisStep = 10;
         private static bool ReverseYAxis = false;
         private static bool ReverseSWThrottleAxis = false;
         
@@ -502,7 +507,7 @@ namespace TeknoParrotUi.Common.InputListening
             if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID || _gameProfile.EmulationProfile == EmulationProfile.DeadHeat || _gameProfile.EmulationProfile == EmulationProfile.Nirin ||
                 _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.DeadHeatRiders || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
                 _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ ||
-                _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3 || _gameProfile.EmulationProfile == EmulationProfile.IDZ || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt6RR || _gameProfile.EmulationProfile == EmulationProfile.PlayInput || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPXElf2 || _gameProfile.EmulationProfile == EmulationProfile.KonamiAcioRacing || _gameProfile.EmulationProfile == EmulationProfile.TeknoViper || _gameProfile.EmulationProfile == EmulationProfile.TeknoZeus)
+                _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3 || _gameProfile.EmulationProfile == EmulationProfile.IDZ || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt6RR || _gameProfile.EmulationProfile == EmulationProfile.PlayInput || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPXElf2 || _gameProfile.EmulationProfile == EmulationProfile.KonamiAcioRacing || (_gameProfile.EmulationProfile == EmulationProfile.TeknoViper || _gameProfile.EmulationProfile == EmulationProfile.TeknoM2) || _gameProfile.EmulationProfile == EmulationProfile.TeknoAGX || _gameProfile.EmulationProfile == EmulationProfile.TeknoHNG64 || (_gameProfile.EmulationProfile == EmulationProfile.TeknoHornet || _gameProfile.EmulationProfile == EmulationProfile.TeknoVUnit) || _gameProfile.EmulationProfile == EmulationProfile.TeknoCobra || (_gameProfile.EmulationProfile == EmulationProfile.TeknoZeus || ((_gameProfile.EmulationProfile == EmulationProfile.TeknoS22 || _gameProfile.EmulationProfile == EmulationProfile.TeknoS21) || (_gameProfile.EmulationProfile == EmulationProfile.TeknoS23 || _gameProfile.EmulationProfile == EmulationProfile.TeknoGClub))))
             {
                 InputCode.AnalogBytes[0] = 0x80;
                 WheelAnalogByteValue = 0;
@@ -516,6 +521,16 @@ namespace TeknoParrotUi.Common.InputListening
                 WheelAnalogByteValue = 0;
                 GasAnalogByteValue = 4;
                 BrakeAnalogByteValue = 6;
+            }
+
+            if (_gameProfile.EmulationProfile == EmulationProfile.TeknoAir)
+            {
+                InputCode.AnalogBytes[0] = 0x80;
+                InputCode.AnalogBytes[2] = 0x80;
+                WheelAnalogByteValue = 0;
+                AnalogXAnalogByteValue = 0;
+                AnalogYAnalogByteValue = 2;
+                GasAnalogByteValue = 4;
             }
 
             if (_gameProfile.EmulationProfile == EmulationProfile.FZeroAX || _gameProfile.EmulationProfile == EmulationProfile.FZeroAXMonster)
@@ -812,9 +827,36 @@ namespace TeknoParrotUi.Common.InputListening
                 }
             }
 
+            if (_gameProfile.EmulationProfile == EmulationProfile.TeknoS21)
+            {
+                Array.Clear(_s21AxisNegative, 0, _s21AxisNegative.Length);
+                Array.Clear(_s21AxisPositive, 0, _s21AxisPositive.Length);
+                Array.Clear(_s21KeyboardAxis, 0, _s21KeyboardAxis.Length);
+                var s21Sensitivity = gameProfile.ConfigValues.FirstOrDefault(
+                    x => x.FieldName == "Keyboard/Button Axis Sensitivity")?.FieldValue;
+                _s21AxisStep = int.TryParse(s21Sensitivity, out var step) ? Math.Max(1, Math.Min(255, step)) : 10;
+                foreach (var binding in joystickButtons)
+                {
+                    int axis = (int)binding.InputMapping - (int)InputMapping.Analog0;
+                    if (axis < 0 || axis >= _s21KeyboardAxis.Length ||
+                        binding.AnalogType == AnalogType.Minimum || binding.AnalogType == AnalogType.Maximum)
+                        continue;
+                    _s21AxisRest[axis] = binding.AnalogType == AnalogType.Gas || binding.AnalogType == AnalogType.Brake
+                        ? (byte)0 : (byte)128;
+                    _s21KeyboardAxis[axis] = KeyboardorButtonAxis;
+                    if (KeyboardorButtonAxis) InputCode.AnalogBytes[axis] = _s21AxisRest[axis];
+                }
+            }
+
             // Spawn listeners
             foreach (var guid in guids)
             {
+                if (guid == DigitalHelper.DirectInputKeyboardGuid)
+                {
+                    var keyboardBindings = nonNullButtons.Where(x => x.DirectInputButton.JoystickGuid == guid).ToList();
+                    new Thread(() => ListenKeyboard(keyboardBindings)).Start();
+                    continue;
+                }
                 var joystick = new Joystick(_diInput, guid);
                 // Set BufferSize in order to use buffered data.
                 joystick.Properties.BufferSize = 512;
@@ -825,6 +867,49 @@ namespace TeknoParrotUi.Common.InputListening
 
             while (!KillMe)
                 Thread.Sleep(5000);
+        }
+
+        private void ListenKeyboard(List<JoystickButtons> bindings)
+        {
+            using (var keyboard = new Keyboard(_diInput))
+            {
+                keyboard.Properties.BufferSize = 512;
+                try
+                {
+                    while (!KillMe)
+                    {
+                        try
+                        {
+                            keyboard.Acquire();
+                            keyboard.Poll();
+                            foreach (var key in keyboard.GetBufferedData())
+                                foreach (var binding in bindings)
+                                    HandleDirectInput(binding, new JoystickUpdate
+                                    {
+                                        // Preserve TPUI's existing keyboard binding offsets.
+                                        RawOffset = (int)key.Key + 47,
+                                        Value = key.IsPressed ? 128 : 0
+                                    });
+                        }
+                        catch (SharpDXException)
+                        {
+                            ReleaseKeyboardBindings(bindings);
+                        }
+                        Thread.Sleep(10);
+                    }
+                }
+                finally
+                {
+                    ReleaseKeyboardBindings(bindings);
+                    keyboard.Unacquire();
+                }
+            }
+        }
+
+        private void ReleaseKeyboardBindings(List<JoystickButtons> bindings)
+        {
+            foreach (var binding in bindings)
+                HandleDirectInput(binding, new JoystickUpdate { RawOffset = binding.DirectInputButton.Button, Value = 0 });
         }
 
         private void ListenRelativeAnalog(object sender, ElapsedEventArgs e)
@@ -968,6 +1053,24 @@ namespace TeknoParrotUi.Common.InputListening
 
         private void ListenKeyboardButton(object sender, ElapsedEventArgs e)
         {
+            if (_gameProfile.EmulationProfile == EmulationProfile.TeknoS21)
+            {
+                if (KillMe)
+                {
+                    timer.Stop();
+                    return;
+                }
+                for (int axis = 0; axis < _s21KeyboardAxis.Length; ++axis)
+                {
+                    if (!_s21KeyboardAxis[axis]) continue;
+                    int target = _s21AxisNegative[axis] == _s21AxisPositive[axis]
+                        ? _s21AxisRest[axis] : _s21AxisNegative[axis] ? 0 : 255;
+                    int value = InputCode.AnalogBytes[axis];
+                    InputCode.AnalogBytes[axis] = (byte)(value < target
+                        ? Math.Min(target, value + _s21AxisStep) : Math.Max(target, value - _s21AxisStep));
+                }
+                return;
+            }
             if (WheelAnalogByteValue >= 0 && KeyboardWheelActivate)
             {
                 if (KeyboardWheelRight && KeyboardWheelLeft)
@@ -3025,6 +3128,23 @@ namespace TeknoParrotUi.Common.InputListening
             if ((JoystickOffset)joystickButtons.DirectInputButton.Button != state.Offset)
                 return null;
 
+            if (_gameProfile.EmulationProfile == EmulationProfile.TeknoS21)
+            {
+                bool direction = joystickButtons.AnalogType == AnalogType.Minimum ||
+                                 joystickButtons.AnalogType == AnalogType.Maximum;
+                if (KeyboardorButtonAxis)
+                {
+                    int axis = (int)joystickButtons.InputMapping - (int)InputMapping.Analog0;
+                    if (direction && axis >= 0 && axis < _s21KeyboardAxis.Length)
+                    {
+                        bool down = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true;
+                        if (joystickButtons.AnalogType == AnalogType.Minimum) _s21AxisNegative[axis] = down;
+                        else _s21AxisPositive[axis] = down;
+                    }
+                    return null;
+                }
+                if (direction) return null;
+            }
             switch (joystickButtons.AnalogType)
             {
                 case AnalogType.None:

@@ -1,0 +1,14 @@
+{
+  "game_name": "GTI Club: Corso Italiano (JAB)",
+  "game_genre": "Driving",
+  "icon_name": "gticlub2.png",
+  "platform": "Konami Viper",
+  "release_year": "2000",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null,
+  "general_issues": "User-supplied MAME ROM/CHD required. Force feedback is not emulated."
+}

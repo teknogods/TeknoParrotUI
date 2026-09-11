@@ -1,0 +1,14 @@
+{
+    "game_name":  "NBA/NFL SportStation",
+    "game_genre":  "Sports",
+    "icon_name":  "nbanfl.png",
+    "platform":  "Midway Vegas / Voodoo 3",
+    "release_year":  "1999",
+    "nvidia":  "OK",
+    "nvidia_issues":  null,
+    "amd":  "OK",
+    "amd_issues":  null,
+    "intel":  "OK",
+    "intel_issues":  null,
+    "general_issues":  "User-supplied MAME ROM/CHD required."
+}

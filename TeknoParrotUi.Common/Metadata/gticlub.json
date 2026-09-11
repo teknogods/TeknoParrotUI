@@ -1,0 +1,8 @@
+{
+  "game_name": "GTI Club: Rally Cote D’Azur (EAA)",
+  "game_genre": "Driving",
+  "icon_name": "gticlub.png",
+  "platform": "Konami GTI Club",
+  "release_year": "1996",
+  "general_issues": "Select the merged gticlub.zip ROM archive. Optional artwork goes in TeknoGClub/bezels and TeknoGClub/crosshairs."
+}

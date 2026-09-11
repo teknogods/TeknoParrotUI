@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.8.34330.188
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11512.155 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeknoParrotUi", "TeknoParrotUi\TeknoParrotUi.csproj", "{B495A440-9A88-4092-AC84-A63D87CBF024}"
 EndProject
@@ -46,7 +46,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_Rules = {"EnabledRules":["StringFormat"]}
 		SolutionGuid = {5DF73887-CC7E-48A1-9843-0254ECA2E1EA}
 	EndGlobalSection
 EndGlobal

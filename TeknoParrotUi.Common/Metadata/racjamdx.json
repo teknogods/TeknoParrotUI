@@ -1,0 +1,14 @@
+{
+  "game_name": "Racing Jam DX",
+  "game_genre": "Driving",
+  "icon_name": "racjamdx.png",
+  "platform": "Konami Cobra",
+  "release_year": "1997",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": "User-supplied MAME ROM and CHD required. Compatibility emulation; performance and accuracy remain in development."
+}

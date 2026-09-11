@@ -1,0 +1,14 @@
+{
+    "game_name":  "Road Burners",
+    "game_genre":  "Racing",
+    "icon_name":  "roadburn.png",
+    "platform":  "Atari Vegas / Voodoo 2",
+    "release_year":  "1999",
+    "nvidia":  "OK",
+    "nvidia_issues":  null,
+    "amd":  "OK",
+    "amd_issues":  null,
+    "intel":  "OK",
+    "intel_issues":  null,
+    "general_issues":  "User-supplied MAME ROM/CHD required. LAN linking uses the same non-zero Network Port and a unique Cabinet Id per machine."
+}

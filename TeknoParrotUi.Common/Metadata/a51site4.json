@@ -1,0 +1,8 @@
+{
+  "game_name": "Area 51: Site 4 (HD Rev 2.01)",
+  "game_genre": "Shooter",
+  "icon_name": "a51site4.png",
+  "platform": "Atari MediaGX",
+  "release_year": "1998",
+  "general_issues": "Requires user-supplied a51site4.zip and a51site4-2_01.chd. Emulation is under active development."
+}

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Costura.Fody.6.0.0\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.6.0.0\build\Costura.Fody.props')" />
   <Import Project="..\packages\Resource.Embedder.2.2.0\build\Resource.Embedder.props" Condition="Exists('..\packages\Resource.Embedder.2.2.0\build\Resource.Embedder.props')" />
@@ -315,6 +315,7 @@
     <Compile Include="Helpers\DllArchitectureChecker.cs" />
     <Compile Include="Helpers\GameErrorMessage.cs" />
     <Compile Include="Helpers\Model1FfbDeviceProbe.cs" />
+    <Compile Include="Helpers\Model2FfbDeviceProbe.cs" />
     <Compile Include="Helpers\ViperFfbDeviceProbe.cs" />
     <Compile Include="Helpers\GenreTranslationHelper.cs" />
     <Compile Include="Helpers\IniFile.cs" />
@@ -424,8 +425,17 @@
       <DependentUpon>AccountPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GameRunningCode\ProcessManagement\GameProcessManager.cs" />
+    <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoVUnitLauncher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoViperVegasLauncher.cs" />
+    <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoAirLauncher.cs" />
+    <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoM2Launcher.cs" />
+    <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoCobraLauncher.cs" />
+    <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoHNG64Launcher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoZeusLauncher.cs" />
+    <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoS22Launcher.cs" />
+    <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoS21Launcher.cs" />
+    <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoS23Launcher.cs" />
+    <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoGClubLauncher.cs" />
     <Compile Include="Views\GameRunningCode\ControlHandlers\GunControlHandler.cs" />
     <Compile Include="Views\GameRunningCode\ControlHandlers\OlympicControlHandler.cs" />
     <Compile Include="Views\GameRunningCode\EmulatorHelpers\SegaToolsHelper.cs" />
@@ -748,6 +758,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ParrotPatcher\ParrotPatcher.csproj">
+      <Project>{151bc2a5-80a9-4148-a221-3b367e40d137}</Project>
+      <Name>ParrotPatcher</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <SetPlatform>Platform=AnyCPU</SetPlatform>
+    </ProjectReference>
     <ProjectReference Include="..\TeknoParrotUi.Common\TeknoParrotUi.Common.csproj">
       <Project>{599710ae-ab2b-42fc-9583-5685d6726e0d}</Project>
       <Name>TeknoParrotUi.Common</Name>

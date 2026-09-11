@@ -1,0 +1,8 @@
+{
+  "game_name": "Hang Pilot (JAB)",
+  "game_genre": "Flying",
+  "icon_name": "hangplt.png",
+  "platform": "Konami GTI Club",
+  "release_year": "1997",
+  "general_issues": "Select the merged hangplt.zip ROM archive. Optional artwork goes in TeknoGClub/bezels and TeknoGClub/crosshairs."
+}

@@ -564,6 +564,24 @@ namespace TeknoParrotUi
             },
             new UpdaterComponent
             {
+                name = "TeknoZeus",
+                location = Path.Combine("TeknoZeus", "TeknoZeus.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "TeknoZeus"
+            },
+            new UpdaterComponent
+            {
+                name = "TeknoCobra",
+                location = Path.Combine("TeknoCobra", "TeknoCobra.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "TeknoCobra"
+            },
+            new UpdaterComponent
+            {
                 name = "TeknoViper",
                 location = Path.Combine("TeknoViper", "TeknoViper.exe"),
                 reponame = "TeknoParrot",
@@ -588,6 +606,105 @@ namespace TeknoParrotUi
                 opensource = false,
                 manualVersion = false,
                 folderOverride = "TeknoModel1"
+            },
+            new UpdaterComponent
+            {
+                name = "TeknoModel2",
+                location = Path.Combine("TeknoModel2", "TeknoModel2.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "TeknoModel2"
+            },
+            new UpdaterComponent
+            {
+                name = "TeknoHNG64",
+                location = Path.Combine("TeknoHNG64", "TeknoHNG64.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "TeknoHNG64"
+            },
+            new UpdaterComponent
+            {
+                name = "TeknoHornet",
+                location = Path.Combine("TeknoHornet", "TeknoHornet.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "TeknoHornet"
+            },
+            new UpdaterComponent
+            {
+                name = "TeknoS22",
+                location = Path.Combine("TeknoS22", "TeknoS22.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "TeknoS22"
+            },
+            new UpdaterComponent
+            {
+                name = "TeknoAGX",
+                location = Path.Combine("TeknoAGX", "TeknoAGX.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "TeknoAGX"
+            },
+            new UpdaterComponent
+            {
+                name = "TeknoVUnit",
+                location = Path.Combine("TeknoVUnit", "TeknoVUnit.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "TeknoVUnit"
+            },
+            new UpdaterComponent
+            {
+                name = "TeknoM2",
+                location = Path.Combine("TeknoM2", "TeknoM2.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "TeknoM2"
+            },
+            new UpdaterComponent
+            {
+                name = "TeknoS23",
+                location = Path.Combine("TeknoS23", "TeknoS23.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "TeknoS23"
+            },
+            new UpdaterComponent
+            {
+                name = "TeknoGClub",
+                location = Path.Combine("TeknoGClub", "TeknoGClub.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "TeknoGClub"
+            },
+            new UpdaterComponent
+            {
+                name = "TeknoAir",
+                location = Path.Combine("TeknoAir", "TeknoAir.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "TeknoAir"
+            },
+            new UpdaterComponent
+            {
+                name = "TeknoS21",
+                location = Path.Combine("TeknoS21", "TeknoS21.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "TeknoS21"
             },
         };
 

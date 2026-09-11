@@ -514,13 +514,46 @@ namespace TeknoParrotUi.Views
                 case EmulatorType.TeknoVegas:
                     loaderExe = ".\\TeknoVegas\\TeknoVegas.exe";
                     break;
+                case EmulatorType.TeknoGClub:
+                    loaderExe = ".\\TeknoGClub\\TeknoGClub.exe";
+                    break;
+                case EmulatorType.TeknoS23:
+                    loaderExe = ".\\TeknoS23\\TeknoS23.exe";
+                    break;
+                case EmulatorType.TeknoS21:
+                    loaderExe = ".\\TeknoS21\\TeknoS21.exe";
+                    break;
+                case EmulatorType.TeknoS22:
+                    loaderExe = ".\\TeknoS22\\TeknoS22.exe";
+                    break;
                 case EmulatorType.TeknoZeus:
                     loaderExe = ".\\TeknoZeus\\TeknoZeus.exe";
+                    break;
+                case EmulatorType.TeknoCobra:
+                    loaderExe = ".\\TeknoCobra\\TeknoCobra.exe";
+                    break;
+                case EmulatorType.TeknoVUnit:
+                    loaderExe = ".\\TeknoVUnit\\TeknoVUnit.exe";
+                    break;
+                case EmulatorType.TeknoHornet:
+                    loaderExe = ".\\TeknoHornet\\TeknoHornet.exe";
+                    break;
+                case EmulatorType.TeknoAGX:
+                    loaderExe = ".\\TeknoAGX\\TeknoAGX.exe";
+                    break;
+                case EmulatorType.TeknoM2:
+                    loaderExe = ".\\TeknoM2\\TeknoM2.exe";
+                    break;
+                case EmulatorType.TeknoAir:
+                    loaderExe = ".\\TeknoAir\\TeknoAir.exe";
                     break;
                 case EmulatorType.TeknoViper:
                     loaderExe = File.Exists(".\\TeknoViper\\TeknoViper.exe")
                         ? ".\\TeknoViper\\TeknoViper.exe"
                         : ".\\TeknoViper\\viperwin.exe";
+                    break;
+                case EmulatorType.TeknoModel2:
+                    loaderExe = ".\\TeknoModel2\\TeknoModel2.exe";
                     break;
                 case EmulatorType.TeknoModel1:
                     loaderExe = ".\\TeknoModel1\\TeknoModel1.exe";

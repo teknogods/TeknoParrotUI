@@ -102,8 +102,9 @@ namespace TeknoParrotUi.Views
             // second process for TPUI to start.
             _twoExes = gameProfile.HasTwoExecutables &&
                        gameProfile.EmulatorType != EmulatorType.TeknoVegas &&
-                       gameProfile.EmulatorType != EmulatorType.TeknoViper &&
-                       gameProfile.EmulatorType != EmulatorType.TeknoZeus;
+                       ((gameProfile.EmulatorType != EmulatorType.TeknoViper && gameProfile.EmulatorType != EmulatorType.TeknoM2) && gameProfile.EmulatorType != EmulatorType.TeknoAGX) &&
+                       gameProfile.EmulatorType != EmulatorType.TeknoHNG64 && (gameProfile.EmulatorType != EmulatorType.TeknoHornet && gameProfile.EmulatorType != EmulatorType.TeknoVUnit) && gameProfile.EmulatorType != EmulatorType.TeknoCobra &&
+                       (gameProfile.EmulatorType != EmulatorType.TeknoZeus && ((gameProfile.EmulatorType != EmulatorType.TeknoS22 && gameProfile.EmulatorType != EmulatorType.TeknoS21) && (gameProfile.EmulatorType != EmulatorType.TeknoS23 && gameProfile.EmulatorType != EmulatorType.TeknoGClub)));
             _secondExeFirst = gameProfile.LaunchSecondExecutableFirst;
             _secondExeArguments = gameProfile.SecondExecutableArguments;
             _launchMinimized = gameProfile.LaunchMinimized;
@@ -714,11 +715,45 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.TeknoVegas:
                     _controlSender = new TeknoVegasPipe();
                     break;
+                case EmulationProfile.TeknoGClub:
+                    _controlSender = new TeknoGClubPipe();
+                    break;
+                case EmulationProfile.TeknoS23:
+                    _controlSender = new TeknoS23Pipe();
+                    break;
+                case EmulationProfile.TeknoS21:
+                    _controlSender = new TeknoS21Pipe();
+                    break;
+                case EmulationProfile.TeknoS22:
+                    _controlSender = new TeknoS22Pipe();
+                    break;
                 case EmulationProfile.TeknoZeus:
                     _controlSender = new TeknoZeusPipe();
                     break;
+                case EmulationProfile.TeknoHNG64:
+                    _controlSender = new TeknoHNG64Pipe();
+                    break;
+                case EmulationProfile.TeknoCobra:
+                    _controlSender = new TeknoCobraPipe();
+                    break;
+                case EmulationProfile.TeknoHornet:
+                    _controlSender = new TeknoHornetPipe();
+                    break;
+                case EmulationProfile.TeknoAGX:
+                    _controlSender = new TeknoAGXPipe();
+                    break;
+                case EmulationProfile.TeknoVUnit:
+                case EmulationProfile.TeknoM2:
+                    _controlSender = new TeknoM2Pipe();
+                    break;
+                case EmulationProfile.TeknoAir:
+                    _controlSender = new TeknoAirPipe();
+                    break;
                 case EmulationProfile.TeknoViper:
                     _controlSender = new TeknoViperPipe();
+                    break;
+                case EmulationProfile.TeknoModel2:
+                    _controlSender = new TeknoModel2Pipe();
                     break;
                 case EmulationProfile.TeknoModel1:
                     _controlSender = new TeknoModel1Pipe();
@@ -780,9 +815,11 @@ namespace TeknoParrotUi.Views
                 _gameProfile.EmulatorType != EmulatorType.Play &&
                 _gameProfile.EmulatorType != EmulatorType.RPCS3 &&
                 _gameProfile.EmulatorType != EmulatorType.TeknoVegas &&
-                _gameProfile.EmulatorType != EmulatorType.TeknoViper &&
+                ((_gameProfile.EmulatorType != EmulatorType.TeknoViper && _gameProfile.EmulatorType != EmulatorType.TeknoM2) && _gameProfile.EmulatorType != EmulatorType.TeknoAGX) &&
+                _gameProfile.EmulatorType != EmulatorType.TeknoHNG64 && (_gameProfile.EmulatorType != EmulatorType.TeknoHornet && _gameProfile.EmulatorType != EmulatorType.TeknoVUnit) && _gameProfile.EmulatorType != EmulatorType.TeknoCobra &&
                 _gameProfile.EmulatorType != EmulatorType.TeknoModel1 &&
-                _gameProfile.EmulatorType != EmulatorType.TeknoZeus)
+                _gameProfile.EmulatorType != EmulatorType.TeknoModel2 &&
+                (_gameProfile.EmulatorType != EmulatorType.TeknoZeus && ((_gameProfile.EmulatorType != EmulatorType.TeknoS22 && _gameProfile.EmulatorType != EmulatorType.TeknoS21) && (_gameProfile.EmulatorType != EmulatorType.TeknoS23 && _gameProfile.EmulatorType != EmulatorType.TeknoGClub))))
             {
                 //bool DualJvsEmulation = _gameProfile.ConfigValues.Any(x => x.FieldName == "DualJvsEmulation" && x.FieldValue == "1");
 

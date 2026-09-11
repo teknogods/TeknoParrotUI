@@ -31,7 +31,7 @@ namespace TeknoParrotUi.Common.Pipes
         }
 
         private static bool GunProfile() =>
-            IsProfile("jpark3u") || IsProfile("wcombatu") || IsProfile("p911ud");
+            IsProfile("jpark3u") || IsProfile("wcombatu") || IsProfile("p911ud") || IsProfile("p9112");
 
         private static byte PlayerByte(int index)
         {
@@ -100,6 +100,11 @@ namespace TeknoParrotUi.Common.Pipes
             byte system = 0;
             if (Down(operatorInput.Test)) system |= 0x80;
             if (Down(operatorInput.Service)) system |= 0x40;
+            if (InputCode.GameProfile?.EmulationProfile == EmulationProfile.TeknoVUnit)
+            {
+                if (Down(operatorInput.ExtensionButton3)) system |= 0x10;
+                if (Down(operatorInput.ExtensionButton4)) system |= 0x08;
+            }
             JvsHelper.WriteStateByte(8, system);
 
             for (var player = 0; player < 4; ++player)

@@ -1,0 +1,8 @@
+{
+  "game_name": "Operation Thunder Hurricane (EAA)",
+  "game_genre": "Shooter",
+  "icon_name": "thunderh.png",
+  "platform": "Konami GTI Club",
+  "release_year": "1997",
+  "general_issues": "Select the merged thunderh.zip ROM archive. Optional artwork goes in TeknoGClub/bezels and TeknoGClub/crosshairs."
+}
