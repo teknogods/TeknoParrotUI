@@ -12,9 +12,25 @@ namespace TeknoParrotUi.Helpers
     {
         private const int ProbeTimeoutMilliseconds = 5000;
 
-        internal static bool IsPersistentSelection(string value) =>
-            value != null && Regex.IsMatch(value,
-                @"\A(?:haptic-name|gamepad-path|gamepad-name):(?:[0-9a-f]{2})+\z");
+        internal static string GetLaunchSelection(string value)
+        {
+            value = value?.Trim() ?? "off";
+
+            if (Regex.IsMatch(value, @"\A(?:wheel|gamepad):(?:0|[1-9][0-9]*)\z") &&
+                uint.TryParse(value.Substring(value.IndexOf(':') + 1), out _))
+            {
+                return (value.StartsWith("wheel:", StringComparison.Ordinal)
+                    ? "haptic-index:" : "gamepad-index:") +
+                    value.Substring(value.IndexOf(':') + 1);
+            }
+
+            if (Regex.IsMatch(value,
+                    @"\A(?:haptic-name|gamepad-path|gamepad-name):(?:[0-9a-f]{2})+\z") ||
+                (Regex.IsMatch(value, @"\A(?:haptic|gamepad)-index:(?:0|[1-9][0-9]*)\z") &&
+                 uint.TryParse(value.Substring(value.IndexOf(':') + 1), out _)))
+                return value;
+            return "off";
+        }
 
         public static List<DynamicDropdownOption> GetDevices()
         {
@@ -28,7 +44,7 @@ namespace TeknoParrotUi.Helpers
             };
 
             var model2Directory = Path.Combine(Directory.GetCurrentDirectory(), "TeknoModel2");
-            var probePath = Path.Combine(model2Directory, "TeknoModel2.exe");
+            var probePath = Path.Combine(model2Directory, "model2haptic.exe");
             if (!File.Exists(probePath))
                 return devices;
 
@@ -36,7 +52,7 @@ namespace TeknoParrotUi.Helpers
             {
                 using (var process = new Process
                 {
-                    StartInfo = new ProcessStartInfo(probePath, "--list-ffb-devices-ui")
+                    StartInfo = new ProcessStartInfo(probePath, "--list")
                     {
                         CreateNoWindow = true,
                         UseShellExecute = false,
@@ -63,25 +79,22 @@ namespace TeknoParrotUi.Helpers
                         return devices;
 
                     var labels = new HashSet<string>(StringComparer.Ordinal);
-                    var selections = new HashSet<string>(StringComparer.Ordinal);
                     foreach (var line in stdout.Split(new[] { "\r\n", "\n" },
                                  StringSplitOptions.RemoveEmptyEntries))
                     {
-                        var fields = line.Split(new[] { '\t' }, 3);
-                        // Only the third column survives a new emulator process.
-                        // Empty selections identify devices the emulator cannot distinguish.
-                        if (fields.Length != 3 || !IsPersistentSelection(fields[2]) ||
-                            string.IsNullOrWhiteSpace(fields[1]) || !selections.Add(fields[2]))
+                        var fields = line.Split(new[] { '\t' }, 2);
+                        if (fields.Length != 2 || fields[0] == "off" ||
+                            string.IsNullOrWhiteSpace(fields[0]) ||
+                            string.IsNullOrWhiteSpace(fields[1]))
                             continue;
 
-                        var label = (fields[2].StartsWith("haptic-name:", StringComparison.Ordinal)
-                            ? "Wheel FFB - " : "Controller vibration - ") + fields[1].Trim();
+                        var label = fields[1].Trim();
                         if (!labels.Add(label))
                             label += $" [{fields[0]}]";
                         devices.Add(new DynamicDropdownOption
                         {
                             DisplayName = label,
-                            Value = fields[2]
+                            Value = fields[0].Trim()
                         });
                     }
                 }

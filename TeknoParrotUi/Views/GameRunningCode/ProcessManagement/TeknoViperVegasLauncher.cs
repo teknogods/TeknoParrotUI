@@ -218,9 +218,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 parameters.Add("--vr");
                 if (!Enabled("Use VR Controls", true)) parameters.Add("--no-vr-controls");
             }
-            var ffbDevice = Setting("Force Feedback Device", "off").Trim();
-            if (!TeknoParrotUi.Helpers.Model2FfbDeviceProbe.IsPersistentSelection(ffbDevice))
-                ffbDevice = "off";
+            var ffbDevice = TeknoParrotUi.Helpers.Model2FfbDeviceProbe.GetLaunchSelection(
+                Setting("Force Feedback Device", "off"));
             parameters.Add("--ffb-device");
             parameters.Add(ffbDevice);
             if (!int.TryParse(Setting("Force Feedback Strength", "35"), out var ffbGain) ||
