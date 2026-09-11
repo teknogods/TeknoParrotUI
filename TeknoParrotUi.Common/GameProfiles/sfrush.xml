@@ -7,7 +7,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>TeknoVegas</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoVegas</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -26,6 +26,24 @@
         <string>XInput</string>
         <string>RawInput</string>
       </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Force Feedback Device</FieldName>
+      <FieldValue>off</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select wheel force feedback or controller vibration. Connect your device before opening Game Settings. Select off to disable feedback.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Force Feedback Strength</FieldName>
+      <FieldValue>200</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>25</FieldMin>
+      <FieldMax>400</FieldMax>
+      <FieldStep>5</FieldStep>
+      <FieldOptions />
+      <Hint>Force feedback strength from 25% to 400%. Default: 200%. Only used when a feedback device is selected.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>VR</CategoryName>

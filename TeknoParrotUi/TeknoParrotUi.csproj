@@ -317,6 +317,7 @@
     <Compile Include="Helpers\Model1FfbDeviceProbe.cs" />
     <Compile Include="Helpers\Model2FfbDeviceProbe.cs" />
     <Compile Include="Helpers\ViperFfbDeviceProbe.cs" />
+    <Compile Include="Helpers\VegasFfbDeviceProbe.cs" />
     <Compile Include="Helpers\GenreTranslationHelper.cs" />
     <Compile Include="Helpers\IniFile.cs" />
     <Compile Include="Helpers\NativeMethods.cs" />

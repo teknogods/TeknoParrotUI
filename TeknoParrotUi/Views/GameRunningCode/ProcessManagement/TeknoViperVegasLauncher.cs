@@ -518,6 +518,23 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 "--overlay", Quote(Path.Combine(stateRoot, stateName + ".vgdif"))
             };
 
+            var ffbDevice = Setting("Force Feedback Device", "off").Trim();
+            var ffbToken = ffbDevice.Split(':');
+            if (ffbDevice != "off" &&
+                (ffbToken.Length != 2 ||
+                 (ffbToken[0] != "wheel" && ffbToken[0] != "gamepad") ||
+                 !uint.TryParse(ffbToken[1], NumberStyles.None,
+                     CultureInfo.InvariantCulture, out _)))
+                ffbDevice = "off";
+            parameters.Add("--ffb-device");
+            parameters.Add(ffbDevice);
+
+            if (!int.TryParse(Setting("Force Feedback Strength", "200"), out var ffbStrength) ||
+                ffbStrength < 25 || ffbStrength > 400)
+                ffbStrength = 200;
+            parameters.Add("--ffb-gain");
+            parameters.Add((ffbStrength / 100.0).ToString("0.00", CultureInfo.InvariantCulture));
+
             var widescreen = Setting("True Widescreen", "off");
             if (widescreen != "16:9")
                 widescreen = "off";

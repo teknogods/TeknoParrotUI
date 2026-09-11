@@ -39,6 +39,7 @@ namespace TeknoParrotUi.UserControls
 
             PopulateModelFfbDevices(gameProfile);
             PopulateViperFfbDevices(gameProfile);
+            PopulateVegasFfbDevices(gameProfile);
             GameSettingsList.ItemsSource = gameProfile.ConfigValues;
             _contentControl = contentControl;
             _library = library;
@@ -137,6 +138,29 @@ namespace TeknoParrotUi.UserControls
                         Value = field.FieldValue
                     });
                 }
+            }
+        }
+
+        private static void PopulateVegasFfbDevices(GameProfile gameProfile)
+        {
+            if (gameProfile.EmulatorType != EmulatorType.TeknoVegas)
+                return;
+
+            var field = gameProfile.ConfigValues?.Find(cv =>
+                cv.FieldName == "Force Feedback Device" &&
+                cv.FieldType == FieldType.DynamicDropdown);
+            if (field == null)
+                return;
+
+            field.DynamicOptions = VegasFfbDeviceProbe.GetDevices();
+            if (!field.DynamicOptions.Any(option => option.Value == field.FieldValue) &&
+                !string.IsNullOrWhiteSpace(field.FieldValue))
+            {
+                field.DynamicOptions.Add(new DynamicDropdownOption
+                {
+                    DisplayName = $"Previously selected device (unavailable) - {field.FieldValue}",
+                    Value = field.FieldValue
+                });
             }
         }
 
