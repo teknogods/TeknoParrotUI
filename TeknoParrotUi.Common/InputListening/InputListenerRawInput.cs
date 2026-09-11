@@ -212,7 +212,9 @@ namespace TeknoParrotUi.Common.InputListening
                 {
                     return true;
                 }
-
+                if (_isTeknoVegas &&
+                     windowTitle.StartsWith("TeknoVegas [", StringComparison.Ordinal))
+                    return true;
                 if (_isTeknoModel1 && windowTitle.StartsWith("TeknoModel1 - ", StringComparison.Ordinal))
                 {
                     return true;
