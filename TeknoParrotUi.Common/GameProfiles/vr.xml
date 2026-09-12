@@ -7,7 +7,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>TeknoModel1</EmulationProfile>
-  <GameProfileRevision>11</GameProfileRevision>
+  <GameProfileRevision>12</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel1</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -322,12 +322,6 @@
       </FieldOptions>
       <Hint>Linked cabinets need opposite roles and unique persistent save slots.</Hint>
     </FieldInformation>    <FieldInformation>
-      <CategoryName>Cabinet</CategoryName>
-      <FieldName>Cabinet Outputs</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <Hint>Publish the emulated output latch to compatible Windows cabinet-output clients.</Hint>
-    </FieldInformation>
     <FieldInformation>
       <CategoryName>Storage</CategoryName>
       <FieldName>Save Root</FieldName>

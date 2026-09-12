@@ -371,8 +371,6 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             }
             if (Enabled("Mute Audio"))
                 parameters.Add("--no-audio");
-            if (Enabled("Cabinet Outputs"))
-                parameters.Add("--outputs");
             if (Enabled("Uncapped"))
                 parameters.Add("--uncapped");
             if (Enabled("Legacy Low-Latency Pacing"))

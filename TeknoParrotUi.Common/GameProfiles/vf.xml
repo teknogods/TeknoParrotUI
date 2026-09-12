@@ -7,7 +7,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>TeknoModel1</EmulationProfile>
-  <GameProfileRevision>12</GameProfileRevision>
+  <GameProfileRevision>13</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel1</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -302,13 +302,6 @@
       <FieldName>Mute Audio</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Cabinet</CategoryName>
-      <FieldName>Cabinet Outputs</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <Hint>Publish the emulated output latch to compatible Windows cabinet-output clients.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Storage</CategoryName>
