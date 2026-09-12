@@ -6,7 +6,6 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
 {
     public static class DigitalHelper
     {
-        public static readonly System.Guid DirectInputKeyboardGuid = new System.Guid("6f1d2b61-d5a0-11cf-bfc7-444553540000");
         public static int CurrentWmmt5Gear = 0;
         public static int CurrentSrcGear = 1;
         public static int CurrentIDZGear = 0;
@@ -380,11 +379,6 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
 
             if ((JoystickOffset)button.Button != state.Offset)
                 return null;
-
-            // Keyboard bindings use scan code + 47, including extended keys
-            // such as arrows and numpad Enter beyond the joystick's 128 buttons.
-            if (button.JoystickGuid == DirectInputKeyboardGuid)
-                return state.Value != 0;
 
             //// Axis as button (WHY DID WE HAVE THIS?)
             //if (button.IsAxis)

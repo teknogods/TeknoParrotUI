@@ -851,12 +851,6 @@ namespace TeknoParrotUi.Common.InputListening
             // Spawn listeners
             foreach (var guid in guids)
             {
-                if (guid == DigitalHelper.DirectInputKeyboardGuid)
-                {
-                    var keyboardBindings = nonNullButtons.Where(x => x.DirectInputButton.JoystickGuid == guid).ToList();
-                    new Thread(() => ListenKeyboard(keyboardBindings)).Start();
-                    continue;
-                }
                 var joystick = new Joystick(_diInput, guid);
                 // Set BufferSize in order to use buffered data.
                 joystick.Properties.BufferSize = 512;
@@ -867,49 +861,6 @@ namespace TeknoParrotUi.Common.InputListening
 
             while (!KillMe)
                 Thread.Sleep(5000);
-        }
-
-        private void ListenKeyboard(List<JoystickButtons> bindings)
-        {
-            using (var keyboard = new Keyboard(_diInput))
-            {
-                keyboard.Properties.BufferSize = 512;
-                try
-                {
-                    while (!KillMe)
-                    {
-                        try
-                        {
-                            keyboard.Acquire();
-                            keyboard.Poll();
-                            foreach (var key in keyboard.GetBufferedData())
-                                foreach (var binding in bindings)
-                                    HandleDirectInput(binding, new JoystickUpdate
-                                    {
-                                        // Preserve TPUI's existing keyboard binding offsets.
-                                        RawOffset = (int)key.Key + 47,
-                                        Value = key.IsPressed ? 128 : 0
-                                    });
-                        }
-                        catch (SharpDXException)
-                        {
-                            ReleaseKeyboardBindings(bindings);
-                        }
-                        Thread.Sleep(10);
-                    }
-                }
-                finally
-                {
-                    ReleaseKeyboardBindings(bindings);
-                    keyboard.Unacquire();
-                }
-            }
-        }
-
-        private void ReleaseKeyboardBindings(List<JoystickButtons> bindings)
-        {
-            foreach (var binding in bindings)
-                HandleDirectInput(binding, new JoystickUpdate { RawOffset = binding.DirectInputButton.Button, Value = 0 });
         }
 
         private void ListenRelativeAnalog(object sender, ElapsedEventArgs e)
