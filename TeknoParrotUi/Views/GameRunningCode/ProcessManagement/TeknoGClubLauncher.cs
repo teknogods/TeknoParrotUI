@@ -43,6 +43,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             // Cabinet lamps/meters are always published, independently of FFB.
             var args = new List<string> { "--rom-root", Quote(romRoot), "--state-root", Quote(Path.Combine(root, "state")), "--resolution-scale", scale, "--filter", filter, "--outputs" };
             var supportsFeedback = new[] { "gticlub", "gticlubu", "gticluba", "gticlubj" }.Contains(set);
+            if (supportsFeedback && Enabled("Skip Wheel Initialization")) args.Add("--skip-wheel-init");
             var ffbDevice = supportsFeedback
                 ? GClubFfbDeviceProbe.GetLaunchSelection(Setting("Force Feedback Device", "off"))
                 : "off";
