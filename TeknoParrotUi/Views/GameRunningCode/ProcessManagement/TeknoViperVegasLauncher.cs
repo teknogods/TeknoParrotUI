@@ -212,6 +212,15 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             }
             if ((tpOnline || Enabled("Enable LAN")) && Enabled("Network Diagnostics", true))
                 parameters.Add("--network-diagnostics");
+            var volumeSetting = Setting("Volume (%)");
+            if (!string.IsNullOrWhiteSpace(volumeSetting))
+            {
+                if (!int.TryParse(volumeSetting, NumberStyles.Integer, CultureInfo.InvariantCulture, out var volume) ||
+                    volume < 0 || volume > 800)
+                    throw new ArgumentException("Volume (%) must be between 0 and 800.");
+                parameters.Add("--volume");
+                parameters.Add(volume.ToString(CultureInfo.InvariantCulture));
+            }
             if (Enabled("Mute Audio")) parameters.Add("--no-audio");
             if (Enabled("Enable VR"))
             {

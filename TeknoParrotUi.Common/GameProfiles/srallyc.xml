@@ -6,7 +6,7 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>11</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -84,6 +84,15 @@
         <string>lanczos</string>
         <string>ssaa</string>
       </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Audio</CategoryName>
+      <FieldName>Volume (%)</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>800</FieldMax>
+      <Hint>100% is the default. Can be boosted up to 800% but may cause audio clipping.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Audio</CategoryName>
