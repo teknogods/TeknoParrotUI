@@ -7,7 +7,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>TeknoModel1</EmulationProfile>
-  <GameProfileRevision>12</GameProfileRevision>
+  <GameProfileRevision>13</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel1</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -321,7 +321,7 @@
         <string>Slave</string>
       </FieldOptions>
       <Hint>Linked cabinets need opposite roles and unique persistent save slots.</Hint>
-    </FieldInformation>    <FieldInformation>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>Storage</CategoryName>
       <FieldName>Save Root</FieldName>
