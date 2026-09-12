@@ -31,7 +31,8 @@ namespace TeknoParrotUi.Common.Pipes
         }
 
         private static bool UsesVolumeMenuBindings() =>
-            IsProfile("roadburn") || IsProfile("cartfury");
+            IsProfile("roadburn") || IsProfile("cartfury") ||
+            IsProfile("carnevil");
 
         private static byte PlayerByte(int index)
         {
