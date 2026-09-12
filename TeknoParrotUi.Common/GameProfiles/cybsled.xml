@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Cyber Sled (World, CY2)</GameNameInternal>
   <EmulationProfile>TeknoS21</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <EmulatorType>TeknoS21</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>cybsled.zip</ExecutableName>
@@ -148,7 +148,9 @@
       <CategoryName>General</CategoryName>
       <FieldName>Keyboard/Button Axis Sensitivity</FieldName>
       <FieldValue>10</FieldValue>
-      <FieldType>Text</FieldType>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>255</FieldMax>
       <Hint>Axis movement per 16 ms, from 1 (slow) to 255 (instant). DirectInput keyboard/button axes only.</Hint>
     </FieldInformation>
   </ConfigValues>
@@ -223,6 +225,7 @@
       <AnalogType>Minimum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Left Stick X</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Left Stick X Right</ButtonName>
@@ -230,6 +233,7 @@
       <AnalogType>Maximum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Left Stick X</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Left Stick Y Up</ButtonName>
@@ -237,6 +241,7 @@
       <AnalogType>Minimum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Left Stick Y</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Left Stick Y Down</ButtonName>
@@ -244,6 +249,7 @@
       <AnalogType>Maximum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Left Stick Y</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Right Stick X Left</ButtonName>
@@ -251,6 +257,7 @@
       <AnalogType>Minimum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Right Stick X</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Right Stick X Right</ButtonName>
@@ -258,6 +265,7 @@
       <AnalogType>Maximum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Right Stick X</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Right Stick Y Up</ButtonName>
@@ -265,6 +273,7 @@
       <AnalogType>Minimum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Right Stick Y</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Right Stick Y Down</ButtonName>
@@ -272,6 +281,7 @@
       <AnalogType>Maximum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Right Stick Y</Hint>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

@@ -3,7 +3,7 @@
 	<GamePath />
 	<GamePath2 />
 	<EmulationProfile>TeknoZeus</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoZeus</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -198,6 +198,21 @@
 			<FieldType>Bool</FieldType>
 			<Hint>Print TPOnline packet counters every five seconds. Online lobbies automatically set cabinet IDs and override the local Cabinet Link settings.</Hint>
 		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Input</CategoryName>
+			<FieldName>Use Keyboard/Button For Axis</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>DirectInput only. Bind the separate axis directions in Controller Setup to use keyboard keys or controller buttons.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Input</CategoryName>
+			<FieldName>Keyboard/Button Axis X/Y Sensitivity</FieldName>
+			<FieldValue>10</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>127</FieldMax>
+		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>
@@ -253,24 +268,112 @@
 			<InputMapping>P1Button3</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Movement X</ButtonName>
+			<ButtonName>Analog X</ButtonName>
 			<InputMapping>Analog0</InputMapping>
 			<AnalogType>AnalogJoystick</AnalogType>
+			<Hint>Movement X</Hint>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Movement Y</ButtonName>
+			<ButtonName>Analog X Left</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<Hint>Movement X</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Analog X Right</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<Hint>Movement X</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Analog Y</ButtonName>
 			<InputMapping>Analog2</InputMapping>
 			<AnalogType>AnalogJoystick</AnalogType>
+			<Hint>Movement Y</Hint>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Trackball Aim X</ButtonName>
+			<ButtonName>Analog Y Up</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<Hint>Movement Y</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Analog Y Down</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<Hint>Movement Y</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Analog Z</ButtonName>
 			<InputMapping>Analog4</InputMapping>
 			<AnalogType>AnalogJoystick</AnalogType>
+			<Hint>Trackball Aim X</Hint>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
-			<ButtonName>Trackball Aim Y</ButtonName>
+			<ButtonName>Analog Z Left</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<Hint>Trackball Aim X</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Analog Z Right</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<Hint>Trackball Aim X</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Analog R</ButtonName>
 			<InputMapping>Analog6</InputMapping>
 			<AnalogType>AnalogJoystick</AnalogType>
+			<Hint>Trackball Aim Y</Hint>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Analog R Up</ButtonName>
+			<InputMapping>Analog6</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<Hint>Trackball Aim Y</Hint>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Analog R Down</ButtonName>
+			<InputMapping>Analog6</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+			<Hint>Trackball Aim Y</Hint>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>

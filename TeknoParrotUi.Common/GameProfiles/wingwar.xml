@@ -7,7 +7,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>TeknoModel1</EmulationProfile>
-  <GameProfileRevision>15</GameProfileRevision>
+  <GameProfileRevision>16</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel1</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -328,7 +328,8 @@
         <string>Slave</string>
       </FieldOptions>
       <Hint>Linked cabinets need opposite roles and unique persistent save slots.</Hint>
-    </FieldInformation>    <FieldInformation>
+    </FieldInformation>
+    <FieldInformation>
       <CategoryName>Cabinet</CategoryName>
       <FieldName>Cabinet Outputs</FieldName>
       <FieldValue>0</FieldValue>
@@ -341,6 +342,29 @@
       <FieldValue>.\TeknoModel1\saves</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Stores per-game NVRAM, I/O EEPROM, and persistent VR calibration.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Input</CategoryName>
+      <FieldName>Use Keyboard/Button For Axis</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>DirectInput only. Bind the separate axis directions in Controller Setup to use keyboard keys or controller buttons.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Input</CategoryName>
+      <FieldName>Keyboard/Button Axis X/Y Sensitivity</FieldName>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>127</FieldMax>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Input</CategoryName>
+      <FieldName>Keyboard/Button Axis Throttle Sensitivity</FieldName>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>255</FieldMax>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
@@ -355,8 +379,64 @@
     <JoystickButtons><ButtonName>View 2</ButtonName><InputMapping>P1Button5</InputMapping></JoystickButtons>
     <JoystickButtons><ButtonName>View 3</ButtonName><InputMapping>P1Button6</InputMapping></JoystickButtons>
     <JoystickButtons><ButtonName>View 4</ButtonName><InputMapping>ExtensionOne1</InputMapping></JoystickButtons>
-    <JoystickButtons><ButtonName>Flight Stick X</ButtonName><InputMapping>Analog0</InputMapping><AnalogType>AnalogJoystick</AnalogType></JoystickButtons>
-    <JoystickButtons><ButtonName>Flight Stick Y</ButtonName><InputMapping>Analog2</InputMapping><AnalogType>AnalogJoystickY</AnalogType></JoystickButtons>
-    <JoystickButtons><ButtonName>Throttle</ButtonName><InputMapping>Analog4</InputMapping><AnalogType>Gas</AnalogType></JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog X</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <Hint>Flight Stick X</Hint>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog X Left</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Flight Stick X</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog X Right</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Flight Stick X</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog Y</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>AnalogJoystickY</AnalogType>
+      <Hint>Flight Stick Y</Hint>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog Y Up</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>AnalogJoystickY</AnalogType>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Flight Stick Y</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog Y Down</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>AnalogJoystickY</AnalogType>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Flight Stick Y</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Throttle</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>Gas</AnalogType>
+    </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

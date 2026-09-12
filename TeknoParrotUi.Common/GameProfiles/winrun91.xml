@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Winning Run '91</GameNameInternal>
   <EmulationProfile>TeknoS21</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <EmulatorType>TeknoS21</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>winrun91.zip</ExecutableName>
@@ -146,14 +146,24 @@
       <FieldName>Use Keyboard/Button For Axis</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>DirectInput: bind separate direction keys or buttons in Controller Setup. Release returns sticks to center and pedals to rest.</Hint>
+      <Hint>DirectInput: bind Wheel Axis Left/Right for steering, and bind Gas/Brake directly to keys, buttons, or pedal axes.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Keyboard/Button Axis Sensitivity</FieldName>
+      <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
       <FieldValue>10</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Axis movement per 16 ms, from 1 (slow) to 255 (instant). DirectInput keyboard/button axes only.</Hint>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>127</FieldMax>
+      <Hint>Steering movement per 16 ms. DirectInput keyboard/button axes only.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>255</FieldMax>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
@@ -198,47 +208,31 @@
       <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Steering</ButtonName>
+      <ButtonName>Wheel Axis</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Wheel</AnalogType>
       <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Accelerator</ButtonName>
+      <ButtonName>Gas</ButtonName>
       <InputMapping>Analog2</InputMapping>
       <AnalogType>Gas</AnalogType>
-      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Brake</ButtonName>
       <InputMapping>Analog4</InputMapping>
       <AnalogType>Brake</AnalogType>
-      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Steering Left</ButtonName>
+      <ButtonName>Wheel Axis Left</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Minimum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Steering Right</ButtonName>
+      <ButtonName>Wheel Axis Right</ButtonName>
       <InputMapping>Analog0</InputMapping>
-      <AnalogType>Maximum</AnalogType>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Accelerator Press</ButtonName>
-      <InputMapping>Analog2</InputMapping>
-      <AnalogType>Maximum</AnalogType>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Brake Press</ButtonName>
-      <InputMapping>Analog4</InputMapping>
       <AnalogType>Maximum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>

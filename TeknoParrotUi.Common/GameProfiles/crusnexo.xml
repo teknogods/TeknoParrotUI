@@ -3,7 +3,7 @@
 	<GamePath />
 	<GamePath2 />
 	<EmulationProfile>TeknoZeus</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoZeus</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -205,6 +205,29 @@
 			<FieldType>Bool</FieldType>
 			<Hint>Print TPOnline packet counters every five seconds. Online lobbies automatically set cabinet IDs and override the local Cabinet Link settings.</Hint>
 		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Input</CategoryName>
+			<FieldName>Use Keyboard/Button For Axis</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>DirectInput only. Bind the separate axis directions in Controller Setup to use keyboard keys or controller buttons.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Input</CategoryName>
+			<FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
+			<FieldValue>10</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>127</FieldMax>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Input</CategoryName>
+			<FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
+			<FieldValue>10</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>255</FieldMax>
+		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>
@@ -278,6 +301,8 @@
 			<InputMapping>Analog0</InputMapping>
 			<AnalogType>Wheel</AnalogType>
 			<HideWithXInput>true</HideWithXInput>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRawInputTrackball>true</HideWithRawInputTrackball>
 			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>
@@ -285,6 +310,8 @@
 			<InputMapping>Analog0</InputMapping>
 			<AnalogType>Wheel</AnalogType>
 			<HideWithXInput>true</HideWithXInput>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRawInputTrackball>true</HideWithRawInputTrackball>
 			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
 		</JoystickButtons>
 		<JoystickButtons>

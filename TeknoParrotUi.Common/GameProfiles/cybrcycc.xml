@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Cyber Cycles (World, CB2 Ver.C)</GameNameInternal>
   <EmulationProfile>TeknoS22</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <EmulatorType>TeknoS22</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>cybrcycc.zip</ExecutableName>
@@ -23,13 +23,14 @@
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
-      <CategoryName>General</CategoryName>
+      <CategoryName>Input</CategoryName>
       <FieldName>Use Keyboard/Button For Axis</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
+      <Hint>DirectInput only. Bind the separate axis directions in Controller Setup to use keyboard keys or controller buttons.</Hint>
     </FieldInformation>
     <FieldInformation>
-      <CategoryName>General</CategoryName>
+      <CategoryName>Input</CategoryName>
       <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
       <FieldValue>10</FieldValue>
       <FieldType>Slider</FieldType>
@@ -37,7 +38,7 @@
       <FieldMax>127</FieldMax>
     </FieldInformation>
     <FieldInformation>
-      <CategoryName>General</CategoryName>
+      <CategoryName>Input</CategoryName>
       <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
       <FieldValue>10</FieldValue>
       <FieldType>Slider</FieldType>
@@ -228,6 +229,25 @@
       <ButtonName>Wheel Axis</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Wheel</AnalogType>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Left</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>Wheel</AnalogType>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Right</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>Wheel</AnalogType>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Gas</ButtonName>

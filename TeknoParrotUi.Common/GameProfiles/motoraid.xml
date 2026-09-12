@@ -6,7 +6,7 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -184,6 +184,29 @@
       <FieldType>Bool</FieldType>
       <Hint>Print LAN or TPOnline peer and frame statistics every five seconds. TPO lobby launches automatically use direct peers and override the LAN settings.</Hint>
     </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Input</CategoryName>
+      <FieldName>Use Keyboard/Button For Axis</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>DirectInput only. Bind the separate axis directions in Controller Setup to use keyboard keys or controller buttons.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Input</CategoryName>
+      <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>127</FieldMax>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Input</CategoryName>
+      <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>255</FieldMax>
+    </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
@@ -211,9 +234,28 @@
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Steering / Bank</ButtonName>
+      <ButtonName>Wheel Axis</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Wheel</AnalogType>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Left</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>Wheel</AnalogType>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis Right</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>Wheel</AnalogType>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Gas</ButtonName>

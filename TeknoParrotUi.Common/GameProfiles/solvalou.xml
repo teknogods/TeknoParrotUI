@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Solvalou</GameNameInternal>
   <EmulationProfile>TeknoS21</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <EmulatorType>TeknoS21</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>solvalou.zip</ExecutableName>
@@ -120,7 +120,9 @@
       <CategoryName>General</CategoryName>
       <FieldName>Keyboard/Button Axis Sensitivity</FieldName>
       <FieldValue>10</FieldValue>
-      <FieldType>Text</FieldType>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>255</FieldMax>
       <Hint>Axis movement per 16 ms, from 1 (slow) to 255 (instant). DirectInput keyboard/button axes only.</Hint>
     </FieldInformation>
   </ConfigValues>
@@ -183,6 +185,7 @@
       <AnalogType>Minimum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Aim X</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Aim X Right</ButtonName>
@@ -190,6 +193,7 @@
       <AnalogType>Maximum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Aim X</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Aim Y Up</ButtonName>
@@ -197,6 +201,7 @@
       <AnalogType>Minimum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Aim Y</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Aim Y Down</ButtonName>
@@ -204,6 +209,7 @@
       <AnalogType>Maximum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Aim Y</Hint>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

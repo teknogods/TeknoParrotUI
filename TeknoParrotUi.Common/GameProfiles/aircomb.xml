@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Air Combat (US)</GameNameInternal>
   <EmulationProfile>TeknoS21</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <EmulatorType>TeknoS21</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>aircomb.zip</ExecutableName>
@@ -120,7 +120,9 @@
       <CategoryName>General</CategoryName>
       <FieldName>Keyboard/Button Axis Sensitivity</FieldName>
       <FieldValue>10</FieldValue>
-      <FieldType>Text</FieldType>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>255</FieldMax>
       <Hint>Axis movement per 16 ms, from 1 (slow) to 255 (instant). DirectInput keyboard/button axes only.</Hint>
     </FieldInformation>
   </ConfigValues>
@@ -189,6 +191,7 @@
       <AnalogType>Minimum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Stick X</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Stick X Right</ButtonName>
@@ -196,6 +199,7 @@
       <AnalogType>Maximum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Stick X</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Stick Y Up</ButtonName>
@@ -203,6 +207,7 @@
       <AnalogType>Minimum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Stick Y</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Stick Y Down</ButtonName>
@@ -210,6 +215,7 @@
       <AnalogType>Maximum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Stick Y</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Rudder Left</ButtonName>
@@ -217,6 +223,7 @@
       <AnalogType>Minimum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Rudder</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Rudder Right</ButtonName>
@@ -224,6 +231,7 @@
       <AnalogType>Maximum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Rudder</Hint>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
