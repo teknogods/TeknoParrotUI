@@ -27,11 +27,9 @@ public partial class UpdatesView : UserControl
 
         // Component versions resolve against the TeknoParrot data folder; the
         // TeknoParrotUI component tracks this app itself. On Windows that's
-        // the apphost .exe (its PE resource carries the version). On Linux
-        // the apphost is a native ELF launcher stub with no version resource
-        // at all - point at the managed TeknoParrotUi.dll sitting next to it
-        // instead (a real PE-format assembly, readable on any OS - see
-        // UpdaterComponent.isManagedAssembly).
+        // the apphost .exe (its PE resource carries the version). Linux bundles
+        // the managed assembly inside an ELF executable, so read the running
+        // assembly's version without requiring a loose TeknoParrotUi.dll.
         if (OperatingSystem.IsAndroid())
         {
             _components = PlatformAppUpdater.IsAndroidAvailable
@@ -53,8 +51,11 @@ public partial class UpdatesView : UserControl
                 ? Environment.ProcessPath ?? System.IO.Path.Combine(
                     Environment.CurrentDirectory,
                     "TeknoParrotUi.exe")
-                : System.IO.Path.Combine(AppContext.BaseDirectory, "TeknoParrotUi.dll");
-            _components = UpdaterComponent.BuildDefaultComponents(uiLocation);
+                : Environment.ProcessPath ?? System.IO.Path.Combine(AppContext.BaseDirectory, "TeknoParrotUi");
+            var uiVersion = OperatingSystem.IsWindows()
+                ? null
+                : typeof(UpdatesView).Assembly.GetName().Version?.ToString();
+            _components = UpdaterComponent.BuildDefaultComponents(uiLocation, uiVersion);
         }
 
         foreach (var component in _components)

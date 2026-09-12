@@ -11,7 +11,7 @@
 # Examples:
 #   ./publish.sh                                      # outputs to ./publish/TeknoParrotUi (framework-dependent)
 #   ./publish.sh ./dist/release --zip                 # outputs to ./dist/release, creates zip (framework-dependent)
-#   ./publish.sh --self-contained                     # self-contained publish, includes .NET 8 runtime
+#   ./publish.sh --self-contained                     # single-file publish, includes .NET 8 runtime
 #   ./publish.sh ./dist/release --zip --self-contained # self-contained publish with zip output
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -73,6 +73,8 @@ dotnet publish \
     -c Release \
     -r linux-x64 \
     --self-contained "$SELF_CONTAINED_FLAG" \
+    -p:PublishSingleFile="$SELF_CONTAINED_FLAG" \
+    -p:IncludeNativeLibrariesForSelfExtract="$SELF_CONTAINED_FLAG" \
     -o "$OUTPUT_DIR" \
     --nologo \
     || error_exit "TeknoParrotUi publish failed"
@@ -102,46 +104,16 @@ rm -rf -- "$PATCHER_OUTPUT_DIR"
 trap - EXIT
 
 if [ "$SELF_CONTAINED" = true ]; then
-    # Fail before creating a release archive if the bundled runtime or shared
-    # UI dependencies are missing. They cannot be loaded from inside the patcher.
-    for required in libhostfxr.so libhostpolicy.so libcoreclr.so \
-        System.Private.CoreLib.dll Avalonia.Base.dll libSkiaSharp.so libHarfBuzzSharp.so; do
-        if [ ! -s "$OUTPUT_DIR/$required" ]; then
-            error_exit "Self-contained publish is missing $required at the application root"
-        fi
-    done
-
-    # ---------------------------------------------------------------------------
-    # Self-contained publishes bundle the whole .NET runtime (hostfxr, coreclr,
-    # the BCL, every app dependency, native libs, ...) next to the apphost, and
-    # TeknoParrotUi.deps.json hard-codes root-relative paths for every single
-    # one of them. hostfxr/hostpolicy read that file to build the trusted
-    # assembly list *before* any of our managed code (including LibsResolver)
-    # ever runs - moving a listed file into libs/ without rewriting deps.json
-    # breaks the native host outright (confirmed: it fails to even start,
-    # dumping generic "host-options" usage instead of running the app).
-    #
-    # Satellite translation assemblies are the one safe exception: they're
-    # not required for the host to boot (missing/misplaced ones just make
-    # ResourceManager silently fall back to the neutral culture), and
-    # LibsResolver.ResolveManaged() already has an explicit libs/{culture}/
-    # lookup for them. Confirmed working via manual relaunch testing.
-    # Everything else stays flat at the root.
-    # ---------------------------------------------------------------------------
-    echo -e "${CYAN}Moving translation files into libs/ (self-contained)...${NC}"
-    LIBS_DIR="$OUTPUT_DIR/libs"
-    mkdir -p "$LIBS_DIR"
-
-    MOVED_COUNT=0
-
-    # Move translation satellite assemblies (fi-FI/, de-DE/, ar-SA/, etc.)
-    for dir in "$OUTPUT_DIR"/*; do
-        if [ -d "$dir" ]; then
-            dirname=$(basename "$dir")
-            if [[ $dirname =~ ^[a-zA-Z]{2}(-[a-zA-Z]{2,4})?$ ]]; then
-                mv "$dir" "$LIBS_DIR/$dirname" 2>/dev/null || warn "Failed to move $dirname"
-                ((MOVED_COUNT++)) || true
-            fi
+    # The UI executable contains the runtime, managed/native dependencies and
+    # translations. .NET extracts native libraries to its per-user bundle cache
+    # at startup; the application/data directory remains beside the executable.
+    if [ ! -s "$OUTPUT_DIR/TeknoParrotUi" ]; then
+        error_exit "Bundled TeknoParrotUi executable is missing"
+    fi
+    for loose in "$OUTPUT_DIR"/*.dll "$OUTPUT_DIR"/*.so \
+        "$OUTPUT_DIR/TeknoParrotUi.runtimeconfig.json" "$OUTPUT_DIR/TeknoParrotUi.deps.json"; do
+        if [ -f "$loose" ]; then
+            error_exit "Single-file publish unexpectedly left a loose dependency: $loose"
         fi
     done
 
@@ -150,7 +122,7 @@ if [ "$SELF_CONTAINED" = true ]; then
         rm -rf "$OUTPUT_DIR/runtimes" 2>/dev/null || true
     fi
 
-    echo -e "${GREEN}Moved $MOVED_COUNT translation folder(s) into libs/${NC}"
+    echo -e "${GREEN}Runtime and UI dependencies bundled in TeknoParrotUi${NC}"
 else
     # ---------------------------------------------------------------------------
     # Move dependency assemblies into libs/ so the root folder stays clean.

@@ -86,11 +86,20 @@ namespace TeknoParrotUi.Common.Updater
 
         public const string NotInstalled = "Not installed";
 
+        /// <summary>
+        /// Version supplied by a running application whose assembly may be
+        /// bundled inside an executable. Survives clearing the file-version cache.
+        /// </summary>
+        public string versionOverride { get; set; }
+
         public string _localVersion;
         public string localVersion
         {
             get
             {
+                if (!string.IsNullOrEmpty(versionOverride))
+                    return versionOverride;
+
                 if (_localVersion == null)
                 {
                     if (File.Exists(location))
@@ -130,20 +139,19 @@ namespace TeknoParrotUi.Common.Updater
 
         /// <summary>
         /// The standard TeknoParrot component set. <paramref name="uiLocation"/> is the
-        /// path of the UI executable/assembly used for the TeknoParrotUI component version -
-        /// on Linux this should be the managed TeknoParrotUi.dll (not the native apphost
-        /// launcher stub, which carries no readable version resource), see UpdatesView.
+        /// path of the UI executable/assembly. Supply <paramref name="uiVersion"/>
+        /// for bundled applications whose executable has no readable version resource.
         /// TeknoParrotUI now ships a Linux release (self-contained zip) alongside the
         /// Windows one under the same GitHub release/tag - UpdaterCore.InstallUpdate picks
         /// the matching platform's asset automatically.
         /// </summary>
-        public static List<UpdaterComponent> BuildDefaultComponents(string uiLocation)
+        public static List<UpdaterComponent> BuildDefaultComponents(string uiLocation, string uiVersion = null)
         {
             var components = new List<UpdaterComponent>
             {
                 // net8-migration branch: own rolling release/tag, kept fully separate
                 // from the official "TeknoParrotUI" release channel (see releaseTag docs).
-                new UpdaterComponent { name = "TeknoParrotUI", location = uiLocation, isManagedAssembly = true, releaseTag = "TeknoParrotUI-net8" }
+                new UpdaterComponent { name = "TeknoParrotUI", location = uiLocation, versionOverride = uiVersion, isManagedAssembly = true, releaseTag = "TeknoParrotUI-net8" }
             };
 
             components.AddRange(new List<UpdaterComponent>
