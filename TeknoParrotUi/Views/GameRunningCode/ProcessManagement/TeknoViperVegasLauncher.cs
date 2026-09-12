@@ -674,7 +674,19 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             // TeknoHornet.exe owns first-run setup after its license gate.
             var parameters = new List<string> { Quote(game), "--rom-root", Quote(romRoot),
                 "--nvram", Quote(nvram), "--renderer", "vulkan", "--upscale", Setting("Internal Resolution", "4"),
-                "--filter", Setting("Presentation Resampling", "area"), "--parallel-graphics" };
+                "--filter", Setting("Presentation Resampling", "area"), "--parallel-graphics", "-outputs" };
+            // Match the other standalone emulators: publish lamps/meters on every launch.
+            parameters.Add("--ffb-device");
+            parameters.Add(TeknoParrotUi.Helpers.HornetFfbDeviceProbe.GetLaunchSelection(
+                Setting("Force Feedback Device", "off")));
+            parameters.Add("--ffb-device2");
+            parameters.Add(TeknoParrotUi.Helpers.HornetFfbDeviceProbe.GetLaunchSelection(
+                Setting("Player 2 Force Feedback Device", "off")));
+            if (!int.TryParse(Setting("Force Feedback Strength", "35"), NumberStyles.Integer,
+                    CultureInfo.InvariantCulture, out var ffbGain) || ffbGain < 0 || ffbGain > 100)
+                ffbGain = 35;
+            parameters.Add("--ffb-gain");
+            parameters.Add(ffbGain.ToString(CultureInfo.InvariantCulture));
             parameters.Add(Setting("DisplayMode", "Fullscreen") == "Fullscreen" ? "--fullscreen" : "--windowed");
             if (Enabled("Stretch to Fullscreen")) parameters.Add("--stretch-to-fullscreen");
             if (Enabled("Use Bezel")) parameters.Add("--bezels");

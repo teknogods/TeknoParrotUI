@@ -39,6 +39,7 @@ namespace TeknoParrotUi.UserControls
 
             PopulateModelFfbDevices(gameProfile);
             PopulateViperFfbDevices(gameProfile);
+            PopulateHornetFfbDevices(gameProfile);
             PopulateVegasFfbDevices(gameProfile);
             PopulateGClubFfbDevices(gameProfile);
             GameSettingsList.ItemsSource = gameProfile.ConfigValues;
@@ -123,6 +124,38 @@ namespace TeknoParrotUi.UserControls
                 return;
 
             var devices = ViperFfbDeviceProbe.GetDevices();
+            foreach (var field in fields)
+            {
+                field.DynamicOptions = devices.Select(option => new DynamicDropdownOption
+                {
+                    DisplayName = option.DisplayName,
+                    Value = option.Value
+                }).ToList();
+                if (!field.DynamicOptions.Any(option => option.Value == field.FieldValue) &&
+                    !string.IsNullOrWhiteSpace(field.FieldValue))
+                {
+                    field.DynamicOptions.Add(new DynamicDropdownOption
+                    {
+                        DisplayName = $"Previously selected device (unavailable) - {field.FieldValue}",
+                        Value = field.FieldValue
+                    });
+                }
+            }
+        }
+
+        private static void PopulateHornetFfbDevices(GameProfile gameProfile)
+        {
+            if (gameProfile.EmulatorType != EmulatorType.TeknoHornet)
+                return;
+
+            var fields = gameProfile.ConfigValues?.Where(cv =>
+                (cv.FieldName == "Force Feedback Device" ||
+                 cv.FieldName == "Player 2 Force Feedback Device") &&
+                cv.FieldType == FieldType.DynamicDropdown).ToList();
+            if (fields == null || fields.Count == 0)
+                return;
+
+            var devices = HornetFfbDeviceProbe.GetDevices();
             foreach (var field in fields)
             {
                 field.DynamicOptions = devices.Select(option => new DynamicDropdownOption
