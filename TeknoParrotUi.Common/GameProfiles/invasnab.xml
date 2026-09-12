@@ -3,7 +3,7 @@
 	<GamePath />
 	<GamePath2 />
 	<EmulationProfile>TeknoZeus</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoZeus</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -18,6 +18,30 @@
 	<Patreon>true</Patreon>
 	<DevOnly>false</DevOnly>
 	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Force Feedback Device</FieldName>
+			<FieldValue>off</FieldValue>
+			<FieldType>DynamicDropdown</FieldType>
+			<Hint>Select Player 1 recoil through an SDL3 wheel or controller. Requires TeknoZeus\zeushaptic.exe.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Force Feedback Strength</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>0</FieldMin>
+			<FieldMax>100</FieldMax>
+			<FieldStep>1</FieldStep>
+			<Hint>Feedback strength as a percentage, including lightgun recoil.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Player 2 Force Feedback Device</FieldName>
+			<FieldValue>off</FieldValue>
+			<FieldType>DynamicDropdown</FieldType>
+			<Hint>Select Player 2 recoil through an SDL3 wheel or controller. Requires TeknoZeus\zeushaptic.exe.</Hint>
+		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Input API</FieldName>

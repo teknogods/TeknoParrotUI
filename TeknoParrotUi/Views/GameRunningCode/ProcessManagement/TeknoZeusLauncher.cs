@@ -56,11 +56,21 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var parameters = new List<string>
             {
                 Quote(profile.ProfileName), "--rom-dir", Quote(romRoot), "--state-dir", Quote(stateRoot),
+                "-outputs",
                 "--internal-scale", Number("Internal Resolution", 4, 1, 8),
                 "--window-scale", "2", "--aspect", Choice("Aspect Ratio", "4:3", "native", "4:3", "16:9", "stretch"),
                 "--presentation-filter", Choice("Presentation Filter", "linear", "point", "linear", "bicubic", "ssaa"),
                 Enabled("VSync", true) ? "--vsync" : "--no-vsync"
             };
+            var supportsRecoil = profile.ProfileName.StartsWith("invasnab", StringComparison.OrdinalIgnoreCase);
+            var supportsSteering = profile.ProfileName.StartsWith("crusnexo", StringComparison.OrdinalIgnoreCase);
+            if (supportsSteering || supportsRecoil)
+            {
+                parameters.AddRange(new[] { "--ffb-device", Quote(Setting("Force Feedback Device", "off")),
+                    "--ffb-strength", Number("Force Feedback Strength", 100, 0, 100) });
+            }
+            if (supportsRecoil)
+                parameters.AddRange(new[] { "--ffb-device2", Quote(Setting("Player 2 Force Feedback Device", "off")) });
             if (profile.HasTwoExecutables)
             {
                 // Zeus resolves the selected revision's disk name in a flat or merged CHD root.
