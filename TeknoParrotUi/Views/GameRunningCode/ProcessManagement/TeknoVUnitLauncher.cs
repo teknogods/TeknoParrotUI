@@ -45,6 +45,16 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 if (string.IsNullOrWhiteSpace(profile.GamePath2)) throw new InvalidOperationException("Select the War Gods 11/07/1996 CHD as the second game file.");
                 args.Add("--disk"); args.Add(Quote(Resolve(profile.GamePath2)));
             }
+            args.Add("--outputs");
+            var ffbDevice = Setting("Force Feedback Device", "off").Trim();
+            var token = ffbDevice.Split(':');
+            if (profile.ProfileName == "wargods" ||
+                (ffbDevice != "off" && (token.Length != 2 ||
+                 (token[0] != "wheel" && token[0] != "gamepad") ||
+                 !uint.TryParse(token[1], out _))))
+                ffbDevice = "off";
+            args.Add("--ffb-device"); args.Add(Quote(ffbDevice));
+            args.Add("--ffb-gain"); args.Add(Number("Force Feedback Strength", 0, 100, 100));
             if (Setting("DisplayMode", "Fullscreen") == "Fullscreen") args.Add("--fullscreen");
             if (Enabled("Stretch to Fullscreen")) args.Add("--stretch-to-fullscreen");
             if (Enabled("Use Bezel")) args.Add("--bezels");

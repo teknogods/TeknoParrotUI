@@ -3,7 +3,7 @@
   <GamePath />
   <GamePath2 />
   <EmulationProfile>TeknoVUnit</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoVUnit</EmulatorType>
   <Is64Bit>true</Is64Bit>

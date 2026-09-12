@@ -7,7 +7,7 @@
   <ExtraParameters />
   <TestMenuExtraParameters />
   <EmulationProfile>TeknoVUnit</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoVUnit</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -186,6 +186,22 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Force Feedback</CategoryName>
+      <FieldName>Force Feedback Device</FieldName>
+      <FieldValue>off</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select a force-feedback wheel or a controller for vibration.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Force Feedback</CategoryName>
+      <FieldName>Force Feedback Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Force feedback strength as a percentage. 0 disables force.</Hint>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
