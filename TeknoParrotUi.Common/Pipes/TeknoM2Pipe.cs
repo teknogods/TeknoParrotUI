@@ -13,6 +13,12 @@ namespace TeknoParrotUi.Common.Pipes
     {
         private ushort _sequence;
         private bool _publishInput;
+        private bool _vunitShifter;
+        private bool _useSequentialShifter;
+        private int _shifterGear;
+        private byte _heldGears;
+        private bool _shiftUpHeld;
+        private bool _shiftDownHeld;
 
         private static bool Down(bool? value) => value.HasValue && value.Value;
 
@@ -47,7 +53,7 @@ namespace TeknoParrotUi.Common.Pipes
             return value;
         }
 
-        private static byte ExtraByte(int index)
+        private byte ExtraByte(int index)
         {
             var input = InputCode.PlayerDigitalButtons[index];
             byte value = 0;
@@ -55,6 +61,38 @@ namespace TeknoParrotUi.Common.Pipes
             if (Down(input.Button5)) value |= 0x02;
             if (Down(input.Button6)) value |= 0x04;
             if (Down(input.ExtensionButton1)) value |= 0x08;
+            if (index == 0 && _vunitShifter)
+            {
+                var shifter = InputCode.PlayerDigitalButtons[2];
+                bool up = Down(shifter.Button5);
+                bool down = Down(shifter.Button6);
+                bool shiftUp = up && !_shiftUpHeld && !down;
+                bool shiftDown = down && !_shiftDownHeld && !up;
+                bool gearPressed = (value & ~_heldGears) != 0;
+
+                if (gearPressed)
+                    _useSequentialShifter = false;
+
+                if (!_useSequentialShifter)
+                {
+                    _shifterGear = 0;
+                    for (int gear = 1; gear <= 4; ++gear)
+                        if ((value & (1 << (gear - 1))) != 0)
+                            _shifterGear = gear;
+                }
+
+                if (!gearPressed && (shiftUp || shiftDown))
+                {
+                    _useSequentialShifter = true;
+                    _shifterGear = Math.Max(0, Math.Min(4, _shifterGear + (shiftUp ? 1 : -1)));
+                }
+
+                _heldGears = value;
+                _shiftUpHeld = up;
+                _shiftDownHeld = down;
+                if (_useSequentialShifter)
+                    return _shifterGear == 0 ? (byte)0 : (byte)(1 << (_shifterGear - 1));
+            }
             return value;
         }
 
@@ -62,6 +100,13 @@ namespace TeknoParrotUi.Common.Pipes
         {
             JvsHelper.ResetState();
             _sequence = 0;
+            _vunitShifter = InputCode.GameProfile?.EmulationProfile == EmulationProfile.TeknoVUnit &&
+                            (IsProfile("crusnusa") || IsProfile("crusnwld") || IsProfile("offroadc"));
+            _useSequentialShifter = false;
+            _shifterGear = 0;
+            _heldGears = 0;
+            _shiftUpHeld = false;
+            _shiftDownHeld = false;
             _publishInput = !(SettingEnabled("Enable VR") &&
                               SettingEnabled("Use VR Controls", true));
             if (!_publishInput)

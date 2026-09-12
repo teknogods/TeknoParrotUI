@@ -311,6 +311,14 @@
       <ButtonName>Volume Down</ButtonName>
       <InputMapping>ExtensionOne4</InputMapping>
     </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shift Up</ButtonName>
+      <InputMapping>JvsTwoP1Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shift Down</ButtonName>
+      <InputMapping>JvsTwoP1Button6</InputMapping>
+    </JoystickButtons>
   </JoystickButtons>
   <HasTpoSupport>true</HasTpoSupport>
 </GameProfile>
