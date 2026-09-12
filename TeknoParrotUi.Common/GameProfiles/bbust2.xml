@@ -7,10 +7,12 @@
   <ExtraParameters />
   <TestMenuExtraParameters />
   <EmulationProfile>TeknoHNG64</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoHNG64</EmulatorType>
   <Is64Bit>true</Is64Bit>
+  <GunGame>true</GunGame>
+  <InvertedMouseAxis>true</InvertedMouseAxis>
   <ExecutableName>bbust2.zip</ExecutableName>
   <ExecutableName2 />
   <HasTwoExecutables>false</HasTwoExecutables>
@@ -148,7 +150,7 @@
     <JoystickButtons>
       <ButtonName>Player 1 Gun Y</ButtonName>
       <InputMapping>Analog2</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
@@ -190,7 +192,7 @@
     <JoystickButtons>
       <ButtonName>Player 2 Gun Y</ButtonName>
       <InputMapping>Analog6</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
@@ -232,7 +234,7 @@
     <JoystickButtons>
       <ButtonName>Player 3 Gun Y</ButtonName>
       <InputMapping>Analog10</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
