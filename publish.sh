@@ -77,18 +77,40 @@ dotnet publish \
     --nologo \
     || error_exit "TeknoParrotUi publish failed"
 
-# Publish ParrotPatcher
+# Publish the single-file patcher separately. Incremental publish cleanup can
+# delete its previously published loose dependencies, which the UI still needs
+# when both projects share a publish directory.
+PATCHER_OUTPUT_DIR=$(mktemp -d "$OUTPUT_DIR/.patcher-publish.XXXXXX") \
+    || error_exit "Could not create ParrotPatcher publish directory"
+trap 'rm -rf -- "$PATCHER_OUTPUT_DIR"' EXIT
+
 echo -e "${CYAN}Publishing ParrotPatcher...${NC}"
 dotnet publish \
     "ParrotPatcher/ParrotPatcher.csproj" \
     -c Release \
     -r linux-x64 \
     --self-contained "$SELF_CONTAINED_FLAG" \
-    -o "$OUTPUT_DIR" \
+    -p:PublishSingleFile=true \
+    -p:IncludeNativeLibrariesForSelfExtract=true \
+    -o "$PATCHER_OUTPUT_DIR" \
     --nologo \
     || error_exit "ParrotPatcher publish failed"
 
+cp "$PATCHER_OUTPUT_DIR/ParrotPatcher" "$OUTPUT_DIR/ParrotPatcher" \
+    || error_exit "Could not copy ParrotPatcher executable"
+rm -rf -- "$PATCHER_OUTPUT_DIR"
+trap - EXIT
+
 if [ "$SELF_CONTAINED" = true ]; then
+    # Fail before creating a release archive if the bundled runtime or shared
+    # UI dependencies are missing. They cannot be loaded from inside the patcher.
+    for required in libhostfxr.so libhostpolicy.so libcoreclr.so \
+        System.Private.CoreLib.dll Avalonia.Base.dll libSkiaSharp.so libHarfBuzzSharp.so; do
+        if [ ! -s "$OUTPUT_DIR/$required" ]; then
+            error_exit "Self-contained publish is missing $required at the application root"
+        fi
+    done
+
     # ---------------------------------------------------------------------------
     # Self-contained publishes bundle the whole .NET runtime (hostfxr, coreclr,
     # the BCL, every app dependency, native libs, ...) next to the apphost, and
