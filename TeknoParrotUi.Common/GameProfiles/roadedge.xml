@@ -7,7 +7,7 @@
   <ExtraParameters />
   <TestMenuExtraParameters />
   <EmulationProfile>TeknoHNG64</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoHNG64</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -151,11 +151,11 @@
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Shift Up</ButtonName>
-      <InputMapping>P1Button1</InputMapping>
+      <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Shift Down</ButtonName>
-      <InputMapping>P1Button2</InputMapping>
+      <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>BGM 1</ButtonName>
