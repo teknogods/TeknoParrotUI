@@ -37,7 +37,11 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var rom = Resolve(selected);
             var state = Resolve(Setting("State Root", @"TeknoVUnit\state"));
             Directory.CreateDirectory(state);
-            var args = new List<string> { "--set", Quote(profile.ProfileName), "--rom-dir", Quote(Path.GetDirectoryName(rom)),
+            //TODO: make this generic
+            var setName = profile.ProfileName;
+            if (setName == "crusnwld" && Choice("Game Version", "2.5", "2.5", "2.4") == "2.4")
+                setName = "crusnwld24";
+            var args = new List<string> { "--set", Quote(setName), "--rom-dir", Quote(Path.GetDirectoryName(rom)),
                 "--state-dir", Quote(state), "--renderer", Enabled("Enable VR") ? "openxr" : "vulkan",
                 "--upscale", Number("Internal Resolution", 1, 8, 4), "--filter", Choice("Presentation Resampling", "bicubic", "nearest", "linear", "bicubic", "area") };
             if (profile.ProfileName == "wargods")

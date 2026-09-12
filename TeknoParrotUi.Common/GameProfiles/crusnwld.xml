@@ -7,8 +7,7 @@
 	<ExtraParameters />
 	<TestMenuExtraParameters />
 	<EmulationProfile>TeknoVUnit</EmulationProfile>
-	<GameProfileRevision>5</GameProfileRevision>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>9</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoVUnit</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -17,6 +16,17 @@
 	<HasTwoExecutables>false</HasTwoExecutables>
 	<Patreon>true</Patreon>
 	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Game Version</FieldName>
+			<FieldValue>2.5</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>2.5</string>
+				<string>2.4</string>
+			</FieldOptions>
+			<Hint>When using networking, make sure all cabinets are set to the same version</Hint>
+		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Input API</FieldName>

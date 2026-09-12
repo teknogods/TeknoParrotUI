@@ -1,8 +1,8 @@
 {
-  "game_name": "Cruis'n World (v2.5)",
+  "game_name": "Cruis'n World (v2.5 / v2.4)",
   "game_genre": "Racing",
   "platform": "Midway V Unit",
   "release_year": "1996",
-  "general_issues": "User-supplied MAME media required. Latest revision only.",
+  "general_issues": "User-supplied merged MAME media required. Select v2.5 or v2.4 under General / Game Version.",
   "icon_name": ""
 }
