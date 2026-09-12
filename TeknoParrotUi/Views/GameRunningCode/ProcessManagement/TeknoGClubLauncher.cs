@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Helpers;
 namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 {
     internal static class TeknoGClubLauncher
@@ -38,7 +40,18 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             Directory.CreateDirectory(root);
             Directory.CreateDirectory(Path.Combine(root, "state"));
             Directory.CreateDirectory(Path.Combine(root, "bezels"));
-            var args = new List<string> { "--rom-root", Quote(romRoot), "--state-root", Quote(Path.Combine(root, "state")), "--resolution-scale", scale, "--filter", filter };
+            // Cabinet lamps/meters are always published, independently of FFB.
+            var args = new List<string> { "--rom-root", Quote(romRoot), "--state-root", Quote(Path.Combine(root, "state")), "--resolution-scale", scale, "--filter", filter, "--outputs" };
+            var supportsFeedback = new[] { "gticlub", "gticlubu", "gticluba", "gticlubj" }.Contains(set);
+            var ffbDevice = supportsFeedback
+                ? GClubFfbDeviceProbe.GetLaunchSelection(Setting("Force Feedback Device", "off"))
+                : "off";
+            if (!int.TryParse(Setting("Force Feedback Strength", "35"), NumberStyles.Integer,
+                    CultureInfo.InvariantCulture, out var ffbGain) || ffbGain < 0 || ffbGain > 100)
+                ffbGain = 35;
+            args.Add("--ffb-device"); args.Add(ffbDevice);
+            args.Add("--ffb-gain"); args.Add(ffbGain.ToString(CultureInfo.InvariantCulture));
+            if (supportsFeedback && Enabled("Invert Force Feedback")) args.Add("--ffb-invert-x");
             var fullscreen = Setting("DisplayMode", "Fullscreen").Equals("Fullscreen", StringComparison.OrdinalIgnoreCase);
             if (fullscreen) args.Add("--fullscreen");
             if (fullscreen && Enabled("Stretch to Fullscreen")) args.Add("--stretch");

@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>GTI Club: Rally Cote D’Azur (EAA)</GameNameInternal>
   <EmulationProfile>TeknoGClub</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <EmulatorType>TeknoGClub</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>gticlub.zip</ExecutableName>
@@ -19,6 +19,24 @@
   <yAxisMin>0</yAxisMin>
   <yAxisMax>255</yAxisMax>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Force Feedback Device</FieldName>
+      <FieldValue>off</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select wheel force feedback or controller vibration. Reopen Game Settings to refresh connected devices. Requires TeknoGClub\GClubHaptic.exe and SDL3.dll.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Force Feedback Strength</FieldName>
+      <FieldValue>35</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <FieldStep>1</FieldStep>
+      <FieldOptions />
+      <Hint>Force feedback strength from 0% to 100%. Default: 35%. Only used when a feedback device is selected.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
