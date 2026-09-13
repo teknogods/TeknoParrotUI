@@ -21,8 +21,16 @@ namespace TeknoParrotUi.Views.GameRunningCode.Utilities
             _twoExes = twoExes;
         }
 
+        readonly EmulatorType[] emuWithoutConfigList = { EmulatorType.TeknoAGX, EmulatorType.TeknoAir, EmulatorType.TeknoCobra, EmulatorType.TeknoGClub, EmulatorType.TeknoHNG64, EmulatorType.TeknoHornet,
+                                EmulatorType.TeknoM2, EmulatorType.TeknoModel1, EmulatorType.TeknoModel2, EmulatorType.TeknoS21, EmulatorType.TeknoS22, EmulatorType.TeknoS23, EmulatorType.TeknoVegas,
+                                EmulatorType.TeknoViper, EmulatorType.TeknoVUnit, EmulatorType.TeknoZeus};
         public void WriteConfigIni()
         {
+            if (emuWithoutConfigList.Contains(_gameProfile.EmulatorType))
+            {
+                return;
+            }
+
             var lameFile = "";
             var categories = _gameProfile.ConfigValues.Select(x => x.CategoryName).Distinct().ToList();
 
