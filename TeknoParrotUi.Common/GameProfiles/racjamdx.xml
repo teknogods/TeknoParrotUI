@@ -7,7 +7,7 @@
   <ExtraParameters />
   <TestMenuExtraParameters />
   <EmulationProfile>TeknoCobra</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoCobra</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -218,7 +218,7 @@
       <InputMapping>Coin2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Start</ButtonName>
+      <ButtonName>Start / View</ButtonName>
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
@@ -242,12 +242,16 @@
       <InputMapping>P1Button5</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Gear 6</ButtonName>
+      <ButtonName>Reverse</ButtonName>
       <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>View</ButtonName>
-      <InputMapping>ExtensionOne1</InputMapping>
+      <ButtonName>Shift Up</ButtonName>
+      <InputMapping>P1ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shift Down</ButtonName>
+      <InputMapping>P1ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Handbrake Button</ButtonName>

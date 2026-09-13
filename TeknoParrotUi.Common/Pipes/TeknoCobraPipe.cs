@@ -77,7 +77,7 @@ namespace TeknoParrotUi.Common.Pipes
                     if (Down(input.Button4)) extra |= 1;
                     if (Down(input.Button5)) extra |= 2;
                     if (Down(input.Button6)) extra |= 4;
-                    if (Down(input.ExtensionButton1)) extra |= 8; // Racing view
+                    if (Down(input.ExtensionButton1)) extra |= 8;
                     if (Down(input.Service)) extra |= 0x10;
                     if (Down(input.ExtensionButton2)) extra |= 0x20; // Handbrake
                     if (Down(input.ExtensionButton3)) extra |= 0x40; // Clutch
