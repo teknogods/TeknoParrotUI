@@ -49,7 +49,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var selected = string.IsNullOrWhiteSpace(gameLocation) ? profile.GamePath : gameLocation;
             var media = Resolve(selected, workDir);
             if (media.EndsWith(".zip", StringComparison.OrdinalIgnoreCase)) media = Path.GetDirectoryName(media);
-            var args = new List<string> { "--game", game, "--tp-input", "--rom-root", Quote(media),
+            var args = new List<string> { "--game", game, "--tp-input", "-Outputs", "--rom-root", Quote(media),
                 "--save-root", Quote(Resolve(Setting("State Root"), Path.Combine(workDir, "state", "saves"))),
                 "--internal-scale", Choice("Internal Resolution", "1", "1", "2", "4", "8"),
                 "--presentation-filter", Choice("Presentation Resampling", "area", "auto", "nearest", "linear", "bicubic", "area") };
@@ -63,6 +63,23 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             } else {
                 var crt = Choice("CRT Shader", "none", "none", "lottes", "lottes downsample");
                 args.AddRange(new[] { "--crt", crt.Replace(" ", "-") });
+            }
+            if (game == "roadedge" || game == "xrally" || game == "bbust2")
+            {
+                var selections = new HashSet<string>(StringComparer.Ordinal);
+                for (int player = 1; player <= (game == "bbust2" ? 3 : 1); ++player)
+                {
+                    var prefix = player == 1 ? "" : "Player " + player + " ";
+                    var suffix = player == 1 ? "" : "-p" + player;
+                    var device = Helpers.Hng64FfbDeviceProbe.GetLaunchSelection(
+                        Setting(prefix + "Force Feedback Device", "off"));
+                    if (device != "off" && !selections.Add(device))
+                        throw new ArgumentException("Select a different force feedback device for each player.");
+                    if (!int.TryParse(Setting(prefix + "Force Feedback Strength", "100"), out var gain) ||
+                        gain < 0 || gain > 100) gain = 100;
+                    args.AddRange(new[] { "--ffb-device" + suffix, device,
+                        "--ffb-gain" + suffix, gain.ToString(System.Globalization.CultureInfo.InvariantCulture) });
+                }
             }
             if (!File.Exists(executable)) log?.Invoke("TeknoHNG64 executable not found: " + executable);
             return new ProcessStartInfo(executable, string.Join(" ", args)) {

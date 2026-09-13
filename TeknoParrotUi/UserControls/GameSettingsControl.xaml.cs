@@ -38,6 +38,7 @@ namespace TeknoParrotUi.UserControls
             GamePathBox2.Text = _gameProfile.GamePath2;
 
             PopulateModelFfbDevices(gameProfile);
+            PopulateHng64FfbDevices(gameProfile);
             PopulateViperFfbDevices(gameProfile);
             PopulateZeusFfbDevices(gameProfile);
             PopulateVUnitFfbDevices(gameProfile);
@@ -110,6 +111,35 @@ namespace TeknoParrotUi.UserControls
                     DisplayName = $"Previously selected device (unavailable) - {field.FieldValue}",
                     Value = field.FieldValue
                 });
+            }
+        }
+
+        private static void PopulateHng64FfbDevices(GameProfile gameProfile)
+        {
+            if (gameProfile.EmulatorType != EmulatorType.TeknoHNG64)
+                return;
+            var fields = gameProfile.ConfigValues?.Where(cv =>
+                (cv.FieldName == "Force Feedback Device" ||
+                 cv.FieldName == "Player 2 Force Feedback Device" ||
+                 cv.FieldName == "Player 3 Force Feedback Device") &&
+                cv.FieldType == FieldType.DynamicDropdown).ToList();
+            if (fields == null || fields.Count == 0)
+                return;
+            var devices = Hng64FfbDeviceProbe.GetDevices();
+            foreach (var field in fields)
+            {
+                field.DynamicOptions = devices.Select(option => new DynamicDropdownOption
+                {
+                    DisplayName = option.DisplayName,
+                    Value = option.Value
+                }).ToList();
+                if (!field.DynamicOptions.Any(option => option.Value == field.FieldValue) &&
+                    !string.IsNullOrWhiteSpace(field.FieldValue))
+                    field.DynamicOptions.Add(new DynamicDropdownOption
+                    {
+                        DisplayName = $"Previously selected device (unavailable) - {field.FieldValue}",
+                        Value = field.FieldValue
+                    });
             }
         }
 
