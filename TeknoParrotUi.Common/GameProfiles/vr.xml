@@ -7,7 +7,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>TeknoModel1</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel1</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -33,6 +33,15 @@
       <FieldValue>off</FieldValue>
       <FieldType>DynamicDropdown</FieldType>
       <Hint>Select direct SDL3 wheel force feedback or controller vibration. Requires model1haptic.exe from the TeknoModel1 package.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Force Feedback Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Force feedback strength from 0 to 100 percent. Default: 100. Applies to all selected feedback devices.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>VR</CategoryName>

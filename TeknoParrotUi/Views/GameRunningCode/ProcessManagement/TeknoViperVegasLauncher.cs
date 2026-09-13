@@ -231,9 +231,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 Setting("Force Feedback Device", "off"));
             parameters.Add("--ffb-device");
             parameters.Add(ffbDevice);
-            if (!int.TryParse(Setting("Force Feedback Strength", "35"), out var ffbGain) ||
+            if (!int.TryParse(Setting("Force Feedback Strength", "100"), out var ffbGain) ||
                 ffbGain < 0 || ffbGain > 100)
-                ffbGain = 35;
+                ffbGain = 100;
             parameters.Add("--ffb-gain");
             parameters.Add(ffbGain.ToString(System.Globalization.CultureInfo.InvariantCulture));
             if (Enabled("Invert Force Feedback")) parameters.Add("--ffb-invert-x");
@@ -395,6 +395,12 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             parameters.Add("--ffb-device");
             parameters.Add(ffbDevice);
 
+            if (!int.TryParse(Setting("Force Feedback Strength", "100"), out var ffbGain) ||
+                ffbGain < 0 || ffbGain > 100)
+                ffbGain = 100;
+            parameters.Add("--ffb-gain");
+            parameters.Add(ffbGain.ToString(CultureInfo.InvariantCulture));
+
             if (gameId == "netmerc")
             {
                 var donor = Setting("NetMerc Audio Donor", "vf");
@@ -536,9 +542,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             parameters.Add("--ffb-device");
             parameters.Add(ffbDevice);
 
-            if (!int.TryParse(Setting("Force Feedback Strength", "200"), out var ffbStrength) ||
-                ffbStrength < 25 || ffbStrength > 400)
-                ffbStrength = 200;
+            if (!int.TryParse(Setting("Force Feedback Strength", "100"), out var ffbStrength) ||
+                ffbStrength < 0 || ffbStrength > 100)
+                ffbStrength = 100;
             parameters.Add("--ffb-gain");
             parameters.Add((ffbStrength / 100.0).ToString("0.00", CultureInfo.InvariantCulture));
 
@@ -691,9 +697,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             parameters.Add("--ffb-device2");
             parameters.Add(TeknoParrotUi.Helpers.HornetFfbDeviceProbe.GetLaunchSelection(
                 Setting("Player 2 Force Feedback Device", "off")));
-            if (!int.TryParse(Setting("Force Feedback Strength", "35"), NumberStyles.Integer,
+            if (!int.TryParse(Setting("Force Feedback Strength", "100"), NumberStyles.Integer,
                     CultureInfo.InvariantCulture, out var ffbGain) || ffbGain < 0 || ffbGain > 100)
-                ffbGain = 35;
+                ffbGain = 100;
             parameters.Add("--ffb-gain");
             parameters.Add(ffbGain.ToString(CultureInfo.InvariantCulture));
             parameters.Add(Setting("DisplayMode", "Fullscreen") == "Fullscreen" ? "--fullscreen" : "--windowed");
@@ -853,6 +859,12 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             parameters.Add(FfbDevice("Force Feedback Device"));
             parameters.Add("--ffb-device2");
             parameters.Add(FfbDevice("Player 2 Force Feedback Device"));
+
+            if (!int.TryParse(Setting("Force Feedback Strength", "100"), out var ffbGain) ||
+                ffbGain < 0 || ffbGain > 100)
+                ffbGain = 100;
+            parameters.Add("--ffb-gain");
+            parameters.Add(ffbGain.ToString(CultureInfo.InvariantCulture));
 
             if (Enabled("Prefer High Performance", true))
             {

@@ -7,7 +7,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>TeknoVegas</EmulationProfile>
-  <GameProfileRevision>17</GameProfileRevision>
+  <GameProfileRevision>18</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoVegas</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -37,13 +37,13 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Force Feedback Strength</FieldName>
-      <FieldValue>200</FieldValue>
+      <FieldValue>100</FieldValue>
       <FieldType>Slider</FieldType>
-      <FieldMin>25</FieldMin>
-      <FieldMax>400</FieldMax>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
       <FieldStep>5</FieldStep>
       <FieldOptions />
-      <Hint>Force feedback strength from 25% to 400%. Default: 200%. Only used when a feedback device is selected.</Hint>
+      <Hint>Force feedback strength from 0% to 100%. Default: 100%. Only used when a feedback device is selected.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>VR</CategoryName>

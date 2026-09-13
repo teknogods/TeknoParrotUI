@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>GTI Club: Rally Cote D’Azur (EAA)</GameNameInternal>
   <EmulationProfile>TeknoGClub</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <EmulatorType>TeknoGClub</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>gticlub.zip</ExecutableName>
@@ -29,13 +29,13 @@
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Force Feedback Strength</FieldName>
-      <FieldValue>35</FieldValue>
+      <FieldValue>100</FieldValue>
       <FieldType>Slider</FieldType>
       <FieldMin>0</FieldMin>
       <FieldMax>100</FieldMax>
       <FieldStep>1</FieldStep>
       <FieldOptions />
-      <Hint>Force feedback strength from 0% to 100%. Default: 35%. Only used when a feedback device is selected.</Hint>
+      <Hint>Force feedback strength from 0% to 100%. Default: 100%. Only used when a feedback device is selected.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

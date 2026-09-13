@@ -47,9 +47,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var ffbDevice = supportsFeedback
                 ? GClubFfbDeviceProbe.GetLaunchSelection(Setting("Force Feedback Device", "off"))
                 : "off";
-            if (!int.TryParse(Setting("Force Feedback Strength", "35"), NumberStyles.Integer,
+            if (!int.TryParse(Setting("Force Feedback Strength", "100"), NumberStyles.Integer,
                     CultureInfo.InvariantCulture, out var ffbGain) || ffbGain < 0 || ffbGain > 100)
-                ffbGain = 35;
+                ffbGain = 100;
             args.Add("--ffb-device"); args.Add(ffbDevice);
             args.Add("--ffb-gain"); args.Add(ffbGain.ToString(CultureInfo.InvariantCulture));
             if (supportsFeedback && Enabled("Invert Force Feedback")) args.Add("--ffb-invert-x");

@@ -8,7 +8,7 @@
 	<ExtraParameters />
 	<TestMenuExtraParameters />
 	<EmulationProfile>TeknoViper</EmulationProfile>
-	<GameProfileRevision>12</GameProfileRevision>
+	<GameProfileRevision>13</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoViper</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -34,6 +34,15 @@
 			<FieldValue>off</FieldValue>
 			<FieldType>DynamicDropdown</FieldType>
 			<Hint>Select direct SDL3 wheel force feedback or controller vibration. Requires TeknoViper\viperhaptic.exe.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Force Feedback Strength</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>0</FieldMin>
+			<FieldMax>100</FieldMax>
+			<Hint>Force feedback strength from 0 to 100 percent. Default: 100. Applies to all selected feedback devices.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
