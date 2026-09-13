@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,19 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 {
     internal static class TeknoCobraLauncher
     {
+        private static void AddFeedbackArguments(GameProfile profile, List<string> args)
+        {
+            if (profile.ProfileName != "racjamdx") return;
+            string Setting(string name, string fallback) =>
+                profile.ConfigValues?.FirstOrDefault(x => x.FieldName == name)?.FieldValue ?? fallback;
+            args.AddRange(new[] { "--ffb-device",
+                Helpers.CobraFfbDeviceProbe.GetLaunchSelection(Setting("Force Feedback Device", "off")) });
+            if (!int.TryParse(Setting("Force Feedback Strength", "100"), NumberStyles.Integer,
+                    CultureInfo.InvariantCulture, out var gain) || gain < 0 || gain > 100)
+                gain = 100;
+            args.AddRange(new[] { "--ffb-gain", gain.ToString(CultureInfo.InvariantCulture) });
+        }
+
         private static string Quote(string value)
         {
             var result = new StringBuilder("\"");
@@ -67,9 +81,10 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             if (vr && scale == "8") scale = "4";
             var resampling = Choice("Presentation Resampling", "linear", "linear", "nearest", "ssaa");
             if (vr && resampling == "ssaa") resampling = "linear";
-            var args = new List<string> { "--game", game, "--tp-input", "--rom-dir", Quote(romRoot),
+            var args = new List<string> { "--game", game, "--tp-input", "-Outputs", "--rom-dir", Quote(romRoot),
                 "--internal-scale", scale, "--hud-filter", Choice("HUD Filter", "smooth", "smooth", "crisp"),
                 "--presentation-filter", resampling };
+            AddFeedbackArguments(profile, args);
             if (disk != null) args.AddRange(new[] { "--disk", Quote(disk) });
             else args.AddRange(new[] { "--chd-dir", Quote(chdRoot) });
             args.AddRange(new[] { "--save-dir", Quote(saves) });

@@ -7,7 +7,7 @@
   <ExtraParameters />
   <TestMenuExtraParameters />
   <EmulationProfile>TeknoCobra</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoCobra</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -16,6 +16,24 @@
   <HasTwoExecutables>true</HasTwoExecutables>
   <Patreon>true</Patreon>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Force Feedback Device</FieldName>
+      <FieldValue>off</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select wheel force feedback or controller vibration. Reopen Game Settings to refresh connected devices. Requires TeknoCobra\CobraHaptic.exe and SDL3.dll.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Force Feedback Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <FieldStep>1</FieldStep>
+      <FieldOptions />
+      <Hint>Force feedback strength from 0% to 100%. Default: 100%. Applies to wheel force feedback and controller vibration.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
