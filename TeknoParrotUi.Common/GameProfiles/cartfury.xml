@@ -7,7 +7,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>TeknoVegas</EmulationProfile>
-  <GameProfileRevision>18</GameProfileRevision>
+  <GameProfileRevision>20</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoVegas</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -435,6 +435,14 @@
     <JoystickButtons>
       <ButtonName>Boost</ButtonName>
       <InputMapping>P2Button4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shift Up</ButtonName>
+      <InputMapping>P2Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shift Down</ButtonName>
+      <InputMapping>P2Button6</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
