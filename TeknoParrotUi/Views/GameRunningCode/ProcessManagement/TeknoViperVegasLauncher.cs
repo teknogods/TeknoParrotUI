@@ -182,6 +182,11 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 parameters.Add("--fullscreen");
             if (Enabled("Stretch to Fullscreen")) parameters.Add("--stretch");
             if (Enabled("Use Bezel")) parameters.Add("--bezels");
+            if (profile.GunGame)
+            {
+                if (!Enabled("Crosshairs", true)) parameters.Add("--no-crosshairs");
+                if (!Enabled("Hide Crosshairs after Inactivity", true)) parameters.Add("--no-crosshair-autohide");
+            }
             var crt = Setting("CRT Shader", "None").Trim();
             if (crt.Equals("Lottes", StringComparison.OrdinalIgnoreCase))
                 parameters.Add("--crt lottes");

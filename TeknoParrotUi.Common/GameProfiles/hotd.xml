@@ -6,14 +6,14 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>hotd.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
+  <DevOnly>false</DevOnly>
   <GunGame>true</GunGame>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <ConfigValues>
@@ -124,6 +124,20 @@
         <string>Lottes Downsample</string>
       </FieldOptions>
       <Hint>Lottes retains enhanced resolution; Lottes Downsample resolves to native CRT pixels first.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Crosshairs</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Draw P1/P2 sights using TeknoModel2/crosshairs/P1.png and P2.png, with built-in sights as fallback. Disable for an external lightgun overlay.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Hide Crosshairs after Inactivity</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Hide each player's sight after five seconds without movement or gun-button changes. An unused P2 sight stays hidden.</Hint>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
