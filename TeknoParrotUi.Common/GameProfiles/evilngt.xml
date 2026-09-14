@@ -7,7 +7,7 @@
   <ExtraParameters />
   <TestMenuExtraParameters />
   <EmulationProfile>TeknoM2</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoM2</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -172,7 +172,7 @@
     <JoystickButtons>
       <ButtonName>Player 1 Gun Y</ButtonName>
       <InputMapping>Analog2</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
@@ -206,7 +206,7 @@
     <JoystickButtons>
       <ButtonName>Player 2 Gun Y</ButtonName>
       <InputMapping>Analog6</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
@@ -240,7 +240,7 @@
     <JoystickButtons>
       <ButtonName>Player 3 Gun Y</ButtonName>
       <InputMapping>Analog10</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>

@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Time Crisis II (US, TSS5 Ver. A)</GameNameInternal>
   <EmulationProfile>TeknoS23</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <EmulatorType>TeknoS23</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>timecrs2.zip</ExecutableName>
@@ -229,7 +229,7 @@
     <JoystickButtons>
       <ButtonName>Gun Y</ButtonName>
       <InputMapping>Analog2</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>

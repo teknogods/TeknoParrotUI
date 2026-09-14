@@ -6,7 +6,7 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -182,7 +182,7 @@
     <JoystickButtons>
       <ButtonName>P1 Gun Y</ButtonName>
       <InputMapping>Analog2</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
@@ -208,7 +208,7 @@
     <JoystickButtons>
       <ButtonName>P2 Gun Y</ButtonName>
       <InputMapping>Analog6</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>

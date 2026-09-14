@@ -7,7 +7,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TeknoViper</EmulationProfile>
-	<GameProfileRevision>15</GameProfileRevision>
+	<GameProfileRevision>16</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoViper</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -245,7 +245,7 @@
 		<JoystickButtons>
 			<ButtonName>Player 1 Gun Y</ButtonName>
 			<InputMapping>Analog2</InputMapping>
-			<AnalogType>AnalogJoystick</AnalogType>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
 			<HideWithRawInput>true</HideWithRawInput>
 		</JoystickButtons>
 		<JoystickButtons>
@@ -283,7 +283,7 @@
 		<JoystickButtons>
 			<ButtonName>Player 2 Gun Y</ButtonName>
 			<InputMapping>Analog6</InputMapping>
-			<AnalogType>AnalogJoystick</AnalogType>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
 			<HideWithRawInput>true</HideWithRawInput>
 		</JoystickButtons>
 		<JoystickButtons>

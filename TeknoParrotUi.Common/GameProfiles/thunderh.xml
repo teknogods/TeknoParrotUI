@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Operation Thunder Hurricane (EAA)</GameNameInternal>
   <EmulationProfile>TeknoGClub</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <EmulatorType>TeknoGClub</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>thunderh.zip</ExecutableName>
@@ -191,7 +191,7 @@
     <JoystickButtons>
       <ButtonName>Aim Y</ButtonName>
       <InputMapping>Analog2</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
     <JoystickButtons>
@@ -251,7 +251,7 @@
     <JoystickButtons>
       <ButtonName>Aim Y Player 2</ButtonName>
       <InputMapping>Analog6</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <HideWithRawInput>true</HideWithRawInput>
     </JoystickButtons>
   </JoystickButtons>
