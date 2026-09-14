@@ -28,6 +28,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var root = Path.Combine(Directory.GetCurrentDirectory(), "TeknoS21");
             var game = Path.GetFullPath(gameLocation);
             if (!File.Exists(game)) throw new FileNotFoundException("Select this game's merged ROM ZIP.", game);
+            if (!Path.GetExtension(game).Equals(".zip", StringComparison.OrdinalIgnoreCase))
+                throw new ArgumentException("Select this game's merged ROM ZIP, not an extracted ROM file.");
             var romRoot = Path.GetDirectoryName(game);
             var set = profile.ProfileName;
             if (string.IsNullOrWhiteSpace(set) || set.Any(c => !char.IsLetterOrDigit(c))) throw new ArgumentException("Invalid System 21 game profile");
@@ -62,7 +64,13 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var exe = Path.Combine(root, "TeknoS21.exe");
             if (!File.Exists(exe)) throw new FileNotFoundException("TeknoS21 executable is missing", exe);
             log?.Invoke($"TeknoS21: {set}, {scale}x, {filter}");
-            return new ProcessStartInfo(exe, string.Join(" ", args)) { WorkingDirectory = root, UseShellExecute = false };
+            return new ProcessStartInfo(exe, string.Join(" ", args))
+            {
+                WorkingDirectory = root,
+                UseShellExecute = false,
+                RedirectStandardError = true,
+                StandardErrorEncoding = Encoding.UTF8
+            };
         }
     }
 }

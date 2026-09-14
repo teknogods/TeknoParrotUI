@@ -26,6 +26,30 @@ namespace TeknoParrotUi.Helpers
             EmulatorType? emulatorType,
             string diagnostics)
         {
+            if (emulatorType == EmulatorType.TeknoS21)
+            {
+                if (errorCode == 0) return;
+                var summary = "TeknoS21 could not start or exited unexpectedly.";
+                summary += Environment.NewLine + string.Format("Exit code: 0x{0:X8}", errorCode);
+                if (!string.IsNullOrWhiteSpace(diagnostics))
+                {
+                    var failure = diagnostics.LastIndexOf("TeknoS21 failed while ", StringComparison.Ordinal);
+                    summary += Environment.NewLine + Environment.NewLine +
+                               (failure >= 0 ? diagnostics.Substring(failure) : diagnostics);
+                }
+                else
+                {
+                    summary += Environment.NewLine + Environment.NewLine +
+                        (unchecked((uint)errorCode) == 0xC0000005u
+                            ? "The emulator encountered a memory access violation."
+                            : "The emulator exited before it could log the cause.") +
+                        Environment.NewLine + "Send this message and any TeknoS21-startup.log from the TeknoS21 folder, " +
+                        "with the game name and GPU driver version. A crash dump may be needed.";
+                }
+                MessageBox.Show(summary, "TeknoS21 error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             if ((emulatorType == EmulatorType.TeknoVUnit || emulatorType == EmulatorType.TeknoHornet || emulatorType == EmulatorType.TeknoModel1 || emulatorType == EmulatorType.TeknoModel2 || emulatorType == EmulatorType.TeknoZeus || emulatorType == EmulatorType.TeknoHNG64 || emulatorType == EmulatorType.TeknoCobra) && errorCode != 0)
             {
                 var summary = errorCode == 2
