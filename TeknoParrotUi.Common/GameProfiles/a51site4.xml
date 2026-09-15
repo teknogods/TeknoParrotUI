@@ -7,7 +7,7 @@
 	<ExtraParameters />
 	<TestMenuExtraParameters />
 	<EmulationProfile>TeknoAGX</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoAGX</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -115,6 +115,16 @@
 			<FieldName>Mute Audio</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Audio</CategoryName>
+			<FieldName>Volume</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>0</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldStep>1</FieldStep>
+			<Hint>At 100% it uses the games/cabinets own volume. Anything above will boost volume on the emulator side, if its too quiet.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Video</CategoryName>

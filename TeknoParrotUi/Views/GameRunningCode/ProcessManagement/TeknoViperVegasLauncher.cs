@@ -115,6 +115,10 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             if (Setting("CRT Shader", "None") == "Lottes") args.Add("--crt-shader lottes");
             if (Enabled("VSync")) args.Add("--vsync");
             if (Enabled("Mute Audio")) args.Add("--no-audio");
+            if (!int.TryParse(Setting("Volume", "100"), NumberStyles.Integer,
+                    CultureInfo.InvariantCulture, out var volume)) volume = 100;
+            args.Add("--volume");
+            args.Add(Math.Max(0, Math.Min(200, volume)).ToString(CultureInfo.InvariantCulture));
             if (Enabled("Enable VR")) {
                 args.Add("--openxr");
                 if (!Enabled("Use VR Controls", true)) args.Add("--no-vr-controls");
