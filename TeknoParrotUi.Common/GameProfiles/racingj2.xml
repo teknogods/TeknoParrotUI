@@ -7,7 +7,7 @@
   <ExtraParameters />
   <TestMenuExtraParameters />
   <EmulationProfile>TeknoHornet</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoHornet</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -35,8 +35,12 @@
         <string>racingj2ne</string>
         <string>racingj2nj</string>
         <string>racingj2na</string>
+        <string>racingj2</string>
+        <string>racingj2e</string>
+        <string>racingj2j</string>
+        <string>racingj2a</string>
       </FieldOptions>
-      <Hint>GN cabinet: 5 gears plus reverse, clutch and handbrake.</Hint>
+      <Hint>N = GN cabinet with H pattern shifter and clutch, otherwise GQ cabinet with sequential shifting</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
