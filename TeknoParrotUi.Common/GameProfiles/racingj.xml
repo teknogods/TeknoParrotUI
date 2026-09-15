@@ -7,7 +7,7 @@
   <ExtraParameters />
   <TestMenuExtraParameters />
   <EmulationProfile>TeknoHornet</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoHornet</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -25,6 +25,19 @@
   <Patreon>true</Patreon>
   <DevOnly>false</DevOnly>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>ROM Set</FieldName>
+      <FieldValue>racingjn</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>racingjn</string>
+        <string>racingjne</string>
+        <string>racingjnj</string>
+        <string>racingjna</string>
+      </FieldOptions>
+      <Hint>GN cabinet: 5 gears plus reverse, clutch and handbrake. </Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Force Feedback Device</FieldName>
@@ -217,32 +230,56 @@
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Up</ButtonName>
+      <ButtonName>Gear 1</ButtonName>
       <InputMapping>P1ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Down</ButtonName>
+      <ButtonName>Gear 2</ButtonName>
       <InputMapping>P1ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Left</ButtonName>
+      <ButtonName>Gear 3</ButtonName>
       <InputMapping>P1ButtonLeft</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Right</ButtonName>
+      <ButtonName>Gear 4</ButtonName>
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 1</ButtonName>
+      <ButtonName>Gear 5</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 2</ButtonName>
+      <ButtonName>Reverse</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 3</ButtonName>
+      <ButtonName>Neutral</ButtonName>
       <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shift Up</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shift Down</ButtonName>
+      <InputMapping>P1Button6</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Menu Up</ButtonName>
+      <InputMapping>P2ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Menu Down</ButtonName>
+      <InputMapping>P2ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Menu Left</ButtonName>
+      <InputMapping>P2ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Menu Right</ButtonName>
+      <InputMapping>P2ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>

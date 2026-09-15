@@ -697,7 +697,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             romRoot = Path.GetFullPath(romRoot);
             if (romRoot.EndsWith(".zip", StringComparison.OrdinalIgnoreCase))
                 romRoot = Path.GetDirectoryName(romRoot);
-            var game = profile.ProfileName;
+            var game = Setting("ROM Set", profile.ProfileName);
+            if (string.IsNullOrWhiteSpace(game)) game = profile.ProfileName;
             var stateRoot = Setting("State Root", Path.Combine(workDir, "state"));
             if (string.IsNullOrWhiteSpace(stateRoot)) stateRoot = Path.Combine(workDir, "state");
             stateRoot = Path.GetFullPath(stateRoot);
