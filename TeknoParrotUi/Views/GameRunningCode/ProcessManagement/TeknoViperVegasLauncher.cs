@@ -536,6 +536,14 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 "--overlay", Quote(Path.Combine(stateRoot, stateName + ".vgdif"))
             };
 
+            if (string.Equals(gameId, "calspeed", StringComparison.OrdinalIgnoreCase))
+            {
+                if (Enabled("Overclock Emulated CPU"))
+                    parameters.Add("--calspeed-cpu-boost");
+                if (Enabled("Performance Patch"))
+                    parameters.Add("--calspeed-native-renderer");
+            }
+
             var ffbDevice = Setting("Force Feedback Device", "off").Trim();
             var ffbToken = ffbDevice.Split(':');
             if (ffbDevice != "off" &&

@@ -7,7 +7,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>TeknoVegas</EmulationProfile>
-  <GameProfileRevision>17</GameProfileRevision>
+  <GameProfileRevision>18</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoVegas</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -16,6 +16,20 @@
   <HasTwoExecutables>true</HasTwoExecutables>
   <Patreon>true</Patreon>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>Performance</CategoryName>
+      <FieldName>Overclock Emulated CPU</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Runs emulated CPU faster but raises system requirements</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Performance</CategoryName>
+      <FieldName>Performance Patch</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Replaces parts of the games renderer with our own code to improve performance, may cause glitches</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
