@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace TeknoParrotUi.Common
@@ -114,6 +115,27 @@ namespace TeknoParrotUi.Common
         public string GameVersion { get; set; } = "";
         public bool AllowSettingSync { get; set; } = false;
         public bool Use16BitAnalog { get; set; } = false;
+        public GameProfile Clone()
+        {
+            var copy = (GameProfile)MemberwiseClone();
+            copy.ConfigValues = ConfigValues?.Select(field => field?.Clone()).ToList();
+            copy.JoystickButtons = JoystickButtons?.Select(button => button?.Clone()).ToList();
+            if (RPCS3Config != null)
+            {
+                copy.RPCS3Config = new RPCS3Config
+                {
+                    ConfigItems = RPCS3Config.ConfigItems?.Select(item => item == null ? null : new RPCS3ConfigItem
+                    {
+                        Category = item.Category,
+                        Name = item.Name,
+                        Value = item.Value
+                    }).ToList()
+                };
+            }
+            copy.GameInfo = GameInfo?.Clone();
+            return copy;
+        }
+
         public override string ToString()
         {
             return GameNameInternal;

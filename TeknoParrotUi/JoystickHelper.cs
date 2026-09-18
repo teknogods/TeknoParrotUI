@@ -120,7 +120,10 @@ namespace TeknoParrotUi.Common
             {
                 GameProfile profile;
 
-                using (XmlReader reader = XmlReader.Create(fileName, readerSettings))
+                // Buffer small XmlReader reads, especially on slower storage.
+                using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read,
+                    FileShare.Read, 64 * 1024, FileOptions.SequentialScan))
+                using (XmlReader reader = XmlReader.Create(stream, readerSettings))
                 {
                     profile = (GameProfile)gameProfileSerializer.Deserialize(reader);
                 }
@@ -159,6 +162,26 @@ namespace TeknoParrotUi.Common
                 }
                 return null;
             }
+        }
+
+        public static IReadOnlyDictionary<string, Metadata> LoadMetadataCatalog()
+        {
+            const string catalogPath = "Metadata.catalog.json";
+            try
+            {
+                var catalog = Utf8Json.JsonSerializer.Deserialize<Dictionary<string, Metadata>>(
+                    File.ReadAllBytes(catalogPath));
+                return catalog == null ? null : new Dictionary<string, Metadata>(catalog, StringComparer.OrdinalIgnoreCase);
+            }
+            catch (FileNotFoundException)
+            {
+                // Older distributions still ship individual metadata files only.
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error loading metadata catalog: {ex.Message}");
+            }
+            return null;
         }
 
         public static Metadata DeSerializeMetadata(string fileName)

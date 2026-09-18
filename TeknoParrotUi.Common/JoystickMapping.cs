@@ -303,6 +303,15 @@ namespace TeknoParrotUi.Common
     [Serializable]
     public class JoystickButtons
     {
+        internal JoystickButtons Clone()
+        {
+            var copy = (JoystickButtons)MemberwiseClone();
+            copy.DirectInputButton = DirectInputButton?.Clone();
+            copy.XInputButton = XInputButton?.Clone();
+            copy.RawInputButton = RawInputButton?.Clone();
+            return copy;
+        }
+
         public string ButtonName { get; set; }
         public JoystickButton DirectInputButton { get; set; }
         public XInputButton XInputButton { get; set; }
@@ -337,6 +346,8 @@ namespace TeknoParrotUi.Common
     [Serializable]
     public class JoystickButton
     {
+        internal JoystickButton Clone() => (JoystickButton)MemberwiseClone();
+
         public int Button { get; set; }
         public bool IsAxis { get; set; }
         public bool IsAxisMinus { get; set; }
@@ -348,6 +359,8 @@ namespace TeknoParrotUi.Common
 
     public class XInputButton
     {
+        internal XInputButton Clone() => (XInputButton)MemberwiseClone();
+
         public bool IsLeftThumbX { get; set; }
         public bool IsRightThumbX { get; set; }
         public bool IsLeftThumbY { get; set; }
@@ -363,6 +376,8 @@ namespace TeknoParrotUi.Common
 
     public class RawInputButton
     {
+        internal RawInputButton Clone() => (RawInputButton)MemberwiseClone();
+
         public string DevicePath { get; set; }
         public RawDeviceType DeviceType { get; set; }
         public RawMouseButton MouseButton { get; set; }

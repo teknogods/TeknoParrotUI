@@ -1,0 +1,59 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <UsingTask TaskName="GenerateMetadataCatalog" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+    <ParameterGroup>
+      <SourceFiles ParameterType="Microsoft.Build.Framework.ITaskItem[]" Required="true" />
+      <OutputFile ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Reference Include="$(MSBuildThisFileDirectory)..\..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll" />
+      <Using Namespace="System" />
+      <Using Namespace="System.IO" />
+      <Using Namespace="System.Linq" />
+      <Using Namespace="System.Text" />
+      <Using Namespace="System.Collections.Generic" />
+      <Using Namespace="Newtonsoft.Json" />
+      <Using Namespace="Newtonsoft.Json.Linq" />
+      <Code Type="Fragment" Language="cs"><![CDATA[
+        var catalog = new JObject();
+        var names = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var file in SourceFiles.OrderBy(item => item.ItemSpec, StringComparer.Ordinal))
+        {
+            try
+            {
+                var name = Path.GetFileNameWithoutExtension(file.ItemSpec);
+                if (!names.Add(name))
+                    throw new InvalidDataException("Duplicate metadata name: " + name);
+                catalog.Add(name, JObject.Parse(File.ReadAllText(file.ItemSpec)));
+            }
+            catch (Exception ex)
+            {
+                Log.LogError("Cannot build metadata catalog from {0}: {1}", file.ItemSpec, ex.Message);
+                return false;
+            }
+        }
+
+        var json = catalog.ToString(Formatting.None);
+        Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(OutputFile)));
+        if (!File.Exists(OutputFile) || File.ReadAllText(OutputFile) != json)
+            File.WriteAllText(OutputFile, json, new UTF8Encoding(false));
+        Log.LogMessage(Microsoft.Build.Framework.MessageImportance.High,
+            "Metadata catalog: {0} games -> {1}", catalog.Count, OutputFile);
+      ]]></Code>
+    </Task>
+  </UsingTask>
+
+  <Target Name="BuildMetadataCatalog" BeforeTargets="AssignTargetPaths" Condition="'$(DesignTimeBuild)' != 'true'">
+    <ItemGroup>
+      <_MetadataSource Include="$(MSBuildProjectDirectory)\Metadata\*.json" />
+    </ItemGroup>
+    <GenerateMetadataCatalog SourceFiles="@(_MetadataSource)" OutputFile="$(IntermediateOutputPath)Metadata.catalog.json" />
+    <ItemGroup>
+      <Content Include="$(IntermediateOutputPath)Metadata.catalog.json">
+        <Link>Metadata.catalog.json</Link>
+        <TargetPath>Metadata.catalog.json</TargetPath>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <FileWrites Include="$(IntermediateOutputPath)Metadata.catalog.json" />
+    </ItemGroup>
+  </Target>
+</Project>

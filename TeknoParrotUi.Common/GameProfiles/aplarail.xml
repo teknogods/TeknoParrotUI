@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Attack Pla Rail (Japan, AP1/VER.A)</GameNameInternal>
   <EmulationProfile>TeknoS11</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <EmulatorType>TeknoS11</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>aplarail.zip</ExecutableName>
@@ -145,7 +145,7 @@
     <JoystickButtons>
       <ButtonName>Test</ButtonName>
       <InputMapping>Test</InputMapping>
-      <Hint>Press once to enable the test switch; press again to disable it. Resets on each game launch.</Hint>
+      <Hint></Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Service</ButtonName>

@@ -76,7 +76,7 @@ namespace TeknoParrotUi.Helpers
             else
             {
                 var allDevices = _directInput.GetDevices().ToList();
-                Trace.WriteLine($"Total devices found: {allDevices.Count}");
+/*                Trace.WriteLine($"Total devices found: {allDevices.Count}");
 
                 foreach (var device in allDevices)
                 {
@@ -87,7 +87,7 @@ namespace TeknoParrotUi.Helpers
                     Trace.WriteLine($"  ProductName: {device.ProductName}");
                     Trace.WriteLine($"  IsHumanInterfaceDevice: {device.IsHumanInterfaceDevice}");
                     Trace.WriteLine("  ------------------");
-                }
+                }*/
                 devices.AddRange(_directInput.GetDevices().Where(x => x.Type != DeviceType.Mouse && x.UsagePage != UsagePage.VendorDefinedBegin && x.Usage != UsageId.AlphanumericBitmapSizeX && x.Usage != UsageId.AlphanumericAlphanumericDisplay && x.UsagePage != unchecked((UsagePage)0xffffff43) && x.UsagePage != UsagePage.Vr).ToList());
             }
 

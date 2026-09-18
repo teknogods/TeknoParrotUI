@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace TeknoParrotUi.Common
@@ -22,6 +23,18 @@ namespace TeknoParrotUi.Common
     }
     public class FieldInformation
     {
+        internal FieldInformation Clone()
+        {
+            var copy = (FieldInformation)MemberwiseClone();
+            copy.FieldOptions = FieldOptions == null ? null : new List<string>(FieldOptions);
+            copy.DynamicOptions = DynamicOptions?.Select(option => option == null ? null : new DynamicDropdownOption
+            {
+                DisplayName = option.DisplayName,
+                Value = option.Value
+            }).ToList();
+            return copy;
+        }
+
         public string CategoryName { get; set; }
         public string FieldName { get; set; }
         public string FieldValue { get; set; }
