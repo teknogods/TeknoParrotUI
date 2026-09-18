@@ -520,7 +520,7 @@ namespace TeknoParrotUi.Common.InputListening
             if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID || _gameProfile.EmulationProfile == EmulationProfile.DeadHeat || _gameProfile.EmulationProfile == EmulationProfile.Nirin ||
                 _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.DeadHeatRiders || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
                 _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ ||
-                _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3 || _gameProfile.EmulationProfile == EmulationProfile.IDZ || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt6RR || _gameProfile.EmulationProfile == EmulationProfile.PlayInput || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPXElf2 || _gameProfile.EmulationProfile == EmulationProfile.KonamiAcioRacing || (_gameProfile.EmulationProfile == EmulationProfile.TeknoViper || _gameProfile.EmulationProfile == EmulationProfile.TeknoM2) || _gameProfile.EmulationProfile == EmulationProfile.TeknoAGX || _gameProfile.EmulationProfile == EmulationProfile.TeknoHNG64 || (_gameProfile.EmulationProfile == EmulationProfile.TeknoHornet || _gameProfile.EmulationProfile == EmulationProfile.TeknoVUnit) || _gameProfile.EmulationProfile == EmulationProfile.TeknoCobra || (_gameProfile.EmulationProfile == EmulationProfile.TeknoZeus || ((_gameProfile.EmulationProfile == EmulationProfile.TeknoS22 || _gameProfile.EmulationProfile == EmulationProfile.TeknoS21) || (_gameProfile.EmulationProfile == EmulationProfile.TeknoS23 || _gameProfile.EmulationProfile == EmulationProfile.TeknoGClub))))
+                _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3 || _gameProfile.EmulationProfile == EmulationProfile.IDZ || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt6RR || _gameProfile.EmulationProfile == EmulationProfile.PlayInput || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPXElf2 || _gameProfile.EmulationProfile == EmulationProfile.KonamiAcioRacing || ((_gameProfile.EmulationProfile == EmulationProfile.TeknoViper || _gameProfile.EmulationProfile == EmulationProfile.TeknoS11) || _gameProfile.EmulationProfile == EmulationProfile.TeknoM2) || _gameProfile.EmulationProfile == EmulationProfile.TeknoAGX || _gameProfile.EmulationProfile == EmulationProfile.TeknoHNG64 || (_gameProfile.EmulationProfile == EmulationProfile.TeknoHornet || _gameProfile.EmulationProfile == EmulationProfile.TeknoVUnit) || _gameProfile.EmulationProfile == EmulationProfile.TeknoCobra || (_gameProfile.EmulationProfile == EmulationProfile.TeknoZeus || ((_gameProfile.EmulationProfile == EmulationProfile.TeknoS22 || _gameProfile.EmulationProfile == EmulationProfile.TeknoS21) || (_gameProfile.EmulationProfile == EmulationProfile.TeknoS23 || _gameProfile.EmulationProfile == EmulationProfile.TeknoGClub))))
             {
                 InputCode.AnalogBytes[0] = 0x80;
                 WheelAnalogByteValue = 0;
@@ -702,7 +702,7 @@ namespace TeknoParrotUi.Common.InputListening
                 (_gameProfile.EmulationProfile == EmulationProfile.TeknoModel1 ||
                  _gameProfile.EmulationProfile == EmulationProfile.TeknoModel2 ||
                  _gameProfile.EmulationProfile == EmulationProfile.TeknoVegas ||
-                 _gameProfile.EmulationProfile == EmulationProfile.TeknoViper ||
+                 (_gameProfile.EmulationProfile == EmulationProfile.TeknoViper || _gameProfile.EmulationProfile == EmulationProfile.TeknoS11) ||
                  _gameProfile.EmulationProfile == EmulationProfile.TeknoZeus ||
                  _gameProfile.EmulationProfile == EmulationProfile.TeknoCobra ||
                  _gameProfile.EmulationProfile == EmulationProfile.TeknoHNG64 ||
@@ -718,10 +718,12 @@ namespace TeknoParrotUi.Common.InputListening
                 // These games use different analog channels, even within the same emulator.
                 // Keep the existing named controls and keyboard state, using each XML's mapping.
                 WheelAnalogByteValue = GasAnalogByteValue = BrakeAnalogByteValue = -1;
-                P2GasAnalogByteValue = P2BrakeAnalogByteValue = -1;
+                P2WheelAnalogByteValue = P2GasAnalogByteValue = P2BrakeAnalogByteValue = -1;
                 ClutchAnalogByteValue = HandbrakeAnalogByteValue = ThrottleAnalogByteValue = -1;
                 AnalogXAnalogByteValue = AnalogYAnalogByteValue = -1;
                 P2AnalogXAnalogByteValue = P2AnalogYAnalogByteValue = -1;
+                P3AnalogXAnalogByteValue = P3AnalogYAnalogByteValue = -1;
+                P4AnalogXAnalogByteValue = P4AnalogYAnalogByteValue = -1;
                 foreach (var binding in joystickButtons.Where(x => !x.HideWithoutKeyboardForAxis))
                 {
                     int axis = (int)binding.InputMapping - (int)InputMapping.Analog0;
@@ -729,6 +731,7 @@ namespace TeknoParrotUi.Common.InputListening
                     switch (binding.ButtonName)
                     {
                         case "Wheel Axis": WheelAnalogByteValue = axis; break;
+                        case "P2 Wheel Axis": P2WheelAnalogByteValue = axis; break;
                         case "Analog X":
                         case "Player 1 Joystick X": AnalogXAnalogByteValue = axis; break;
                         case "Analog Y":
@@ -737,8 +740,13 @@ namespace TeknoParrotUi.Common.InputListening
                         case "Player 2 Joystick X": P2AnalogXAnalogByteValue = axis; break;
                         case "Analog R":
                         case "Player 2 Joystick Y": P2AnalogYAnalogByteValue = axis; break;
+                        case "Player 3 Joystick X": P3AnalogXAnalogByteValue = axis; break;
+                        case "Player 3 Joystick Y": P3AnalogYAnalogByteValue = axis; break;
+                        case "Player 4 Joystick X": P4AnalogXAnalogByteValue = axis; break;
+                        case "Player 4 Joystick Y": P4AnalogYAnalogByteValue = axis; break;
                         case "Clutch": ClutchAnalogByteValue = axis; break;
                         case "Handbrake Axis": HandbrakeAnalogByteValue = axis; break;
+                        case "P2 Gas":
                         case "P2 Right": P2GasAnalogByteValue = axis; break;
                         case "P2 Left": P2BrakeAnalogByteValue = axis; break;
                         default:
@@ -838,6 +846,10 @@ namespace TeknoParrotUi.Common.InputListening
                 if (P2AnalogYAnalogByteValue >= 0)
                     KeyboardAnalogYValue2P = InputCode.AnalogBytes[P2AnalogYAnalogByteValue];
 
+                if (P3AnalogXAnalogByteValue >= 0) KeyboardAnalogXValue3P = InputCode.AnalogBytes[P3AnalogXAnalogByteValue];
+                if (P3AnalogYAnalogByteValue >= 0) KeyboardAnalogYValue3P = InputCode.AnalogBytes[P3AnalogYAnalogByteValue];
+                if (P4AnalogXAnalogByteValue >= 0) KeyboardAnalogXValue4P = InputCode.AnalogBytes[P4AnalogXAnalogByteValue];
+                if (P4AnalogYAnalogByteValue >= 0) KeyboardAnalogYValue4P = InputCode.AnalogBytes[P4AnalogYAnalogByteValue];
                 if (HandlebarAnalogByteValue >= 0)
                     KeyboardHandlebarValue = InputCode.AnalogBytes[HandlebarAnalogByteValue];
 
@@ -2659,16 +2671,28 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[2].Button6 = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.JvsTwoP1ButtonUp:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[2], button, state, Direction.Up);
+                    if (_gameProfile.UseDirectionalPresses)
+                        DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[2], button, state, Direction.Up);
+                    else
+                        InputCode.PlayerDigitalButtons[2].Up = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.JvsTwoP1ButtonDown:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[2], button, state, Direction.Down);
+                    if (_gameProfile.UseDirectionalPresses)
+                        DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[2], button, state, Direction.Down);
+                    else
+                        InputCode.PlayerDigitalButtons[2].Down = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.JvsTwoP1ButtonLeft:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[2], button, state, Direction.Left);
+                    if (_gameProfile.UseDirectionalPresses)
+                        DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[2], button, state, Direction.Left);
+                    else
+                        InputCode.PlayerDigitalButtons[2].Left = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.JvsTwoP1ButtonRight:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[2], button, state, Direction.Right);
+                    if (_gameProfile.UseDirectionalPresses)
+                        DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[2], button, state, Direction.Right);
+                    else
+                        InputCode.PlayerDigitalButtons[2].Right = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.JvsTwoP1ButtonStart:
                     InputCode.PlayerDigitalButtons[2].Start = DigitalHelper.GetButtonPressDirectInput(button, state);
@@ -2692,16 +2716,28 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[3].Button6 = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.JvsTwoP2ButtonUp:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[3], button, state, Direction.Up);
+                    if (_gameProfile.UseDirectionalPresses)
+                        DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[3], button, state, Direction.Up);
+                    else
+                        InputCode.PlayerDigitalButtons[3].Up = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.JvsTwoP2ButtonDown:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[3], button, state, Direction.Down);
+                    if (_gameProfile.UseDirectionalPresses)
+                        DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[3], button, state, Direction.Down);
+                    else
+                        InputCode.PlayerDigitalButtons[3].Down = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.JvsTwoP2ButtonLeft:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[3], button, state, Direction.Left);
+                    if (_gameProfile.UseDirectionalPresses)
+                        DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[3], button, state, Direction.Left);
+                    else
+                        InputCode.PlayerDigitalButtons[3].Left = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.JvsTwoP2ButtonRight:
-                    DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[3], button, state, Direction.Right);
+                    if (_gameProfile.UseDirectionalPresses)
+                        DigitalHelper.GetDirectionPressDirectInput(InputCode.PlayerDigitalButtons[3], button, state, Direction.Right);
+                    else
+                        InputCode.PlayerDigitalButtons[3].Right = DigitalHelper.GetButtonPressDirectInput(button, state);
                     break;
                 case InputMapping.JvsTwoP2ButtonStart:
                     InputCode.PlayerDigitalButtons[3].Start = DigitalHelper.GetButtonPressDirectInput(button, state);
@@ -3822,7 +3858,7 @@ namespace TeknoParrotUi.Common.InputListening
                                 }
                                 return gas;
                             }
-                            if (P2GasAnalogByteValue >= 0 && joystickButtons.ButtonName == "P2 Right")
+                            if (P2GasAnalogByteValue >= 0 && (joystickButtons.ButtonName == "P2 Right" || joystickButtons.ButtonName == "P2 Gas"))
                             {
                                 KeyboardGasActivate2P = isKeyboardOrButton;
                                 if (isKeyboardOrButton)
@@ -3996,6 +4032,15 @@ namespace TeknoParrotUi.Common.InputListening
 
                         if (KeyboardorButtonAxis)
                         {
+                            if (P2WheelAnalogByteValue >= 0 && joystickButtons.ButtonName.StartsWith("P2 Wheel Axis"))
+                            {
+                                if (joystickButtons.ButtonName == "P2 Wheel Axis") break;
+                                KeyboardWheelActivate2P = true;
+                                bool down = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true;
+                                if (joystickButtons.ButtonName.EndsWith(" Left")) P2KeyboardWheelLeft = down;
+                                if (joystickButtons.ButtonName.EndsWith(" Right")) P2KeyboardWheelRight = down;
+                                break;
+                            }
                             if (joystickButtons.ButtonName == "Wheel Axis" || joystickButtons.ButtonName == "Leaning Axis" || joystickButtons.ButtonName == "Handlebar Axis")
                                 break;
 

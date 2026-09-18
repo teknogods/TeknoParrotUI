@@ -32,6 +32,7 @@ namespace TeknoParrotUi.Views
         private static Thread _diThread;
         private static ControlSender _controlSender;
         private static readonly InputListener InputListener = new InputListener();
+        private int _threadsTerminated;
         private bool _forceQuit;
         private readonly bool _cmdLaunch;
         private static ControlPipe _pipe;
@@ -102,7 +103,7 @@ namespace TeknoParrotUi.Views
             // second process for TPUI to start.
             _twoExes = gameProfile.HasTwoExecutables &&
                        gameProfile.EmulatorType != EmulatorType.TeknoVegas &&
-                       ((gameProfile.EmulatorType != EmulatorType.TeknoViper && gameProfile.EmulatorType != EmulatorType.TeknoM2) && gameProfile.EmulatorType != EmulatorType.TeknoAGX) &&
+                       (((gameProfile.EmulatorType != EmulatorType.TeknoViper && gameProfile.EmulatorType != EmulatorType.TeknoS11) && gameProfile.EmulatorType != EmulatorType.TeknoM2) && gameProfile.EmulatorType != EmulatorType.TeknoAGX) &&
                        gameProfile.EmulatorType != EmulatorType.TeknoHNG64 && (gameProfile.EmulatorType != EmulatorType.TeknoHornet && gameProfile.EmulatorType != EmulatorType.TeknoVUnit) && gameProfile.EmulatorType != EmulatorType.TeknoCobra &&
                        (gameProfile.EmulatorType != EmulatorType.TeknoZeus && ((gameProfile.EmulatorType != EmulatorType.TeknoS22 && gameProfile.EmulatorType != EmulatorType.TeknoS21) && (gameProfile.EmulatorType != EmulatorType.TeknoS23 && gameProfile.EmulatorType != EmulatorType.TeknoGClub)));
             _secondExeFirst = gameProfile.LaunchSecondExecutableFirst;
@@ -251,6 +252,11 @@ namespace TeknoParrotUi.Views
 
         public void TerminateThreads()
         {
+            // Both process exit and view unload call this. Old views must not
+            // unregister input or stop the shared listener a second time.
+            if (Interlocked.Exchange(ref _threadsTerminated, 1) != 0)
+                return;
+
             _controlSender?.Stop();
             InputListener?.StopListening();
 
@@ -749,6 +755,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.TeknoAir:
                     _controlSender = new TeknoAirPipe();
                     break;
+                case EmulationProfile.TeknoS11:
+                    _controlSender = new TeknoS11Pipe();
+                    break;
                 case EmulationProfile.TeknoViper:
                     _controlSender = new TeknoViperPipe();
                     break;
@@ -815,7 +824,7 @@ namespace TeknoParrotUi.Views
                 _gameProfile.EmulatorType != EmulatorType.Play &&
                 _gameProfile.EmulatorType != EmulatorType.RPCS3 &&
                 _gameProfile.EmulatorType != EmulatorType.TeknoVegas &&
-                ((_gameProfile.EmulatorType != EmulatorType.TeknoViper && _gameProfile.EmulatorType != EmulatorType.TeknoM2) && _gameProfile.EmulatorType != EmulatorType.TeknoAGX) &&
+                (((_gameProfile.EmulatorType != EmulatorType.TeknoViper && _gameProfile.EmulatorType != EmulatorType.TeknoS11) && _gameProfile.EmulatorType != EmulatorType.TeknoM2) && _gameProfile.EmulatorType != EmulatorType.TeknoAGX) &&
                 _gameProfile.EmulatorType != EmulatorType.TeknoHNG64 && (_gameProfile.EmulatorType != EmulatorType.TeknoHornet && _gameProfile.EmulatorType != EmulatorType.TeknoVUnit) && _gameProfile.EmulatorType != EmulatorType.TeknoCobra &&
                 _gameProfile.EmulatorType != EmulatorType.TeknoModel1 &&
                 _gameProfile.EmulatorType != EmulatorType.TeknoModel2 &&

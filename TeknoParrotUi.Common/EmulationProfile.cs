@@ -165,6 +165,7 @@ namespace TeknoParrotUi.Common
         TeknoS23,
         TeknoGClub,
         TeknoAir,
-        TeknoS21
+        TeknoS21,
+        TeknoS11
     }
 }

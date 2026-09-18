@@ -59,6 +59,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     return TeknoVUnitLauncher.Build(profile, gameLocation, log);
                 case EmulatorType.TeknoM2:
                     return TeknoM2Launcher.Build(profile, gameLocation, log);
+                case EmulatorType.TeknoS11:
+                    return TeknoS11Launcher.Build(profile, gameLocation, log);
                 case EmulatorType.TeknoViper:
                     return BuildTeknoViper(profile, gameLocation, log);
                 case EmulatorType.TeknoModel2:
@@ -188,8 +190,14 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             if (Enabled("Use Bezel")) parameters.Add("--bezels");
             if (profile.GunGame)
             {
-                if (!Enabled("Crosshairs", true)) parameters.Add("--no-crosshairs");
-                if (!Enabled("Hide Crosshairs after Inactivity", true)) parameters.Add("--no-crosshair-autohide");
+                // Analog gun games draw their own reticles, including with older saved profiles.
+                var nativeReticles = gameId.Equals("gunblade", StringComparison.OrdinalIgnoreCase) ||
+                                     gameId.Equals("rchase2", StringComparison.OrdinalIgnoreCase) ||
+                                     gameId.Equals("rchase2a", StringComparison.OrdinalIgnoreCase) ||
+                                     gameId.Equals("bel", StringComparison.OrdinalIgnoreCase);
+                if (nativeReticles || !Enabled("Crosshairs", true)) parameters.Add("--no-crosshairs");
+                if (!nativeReticles && !Enabled("Hide Crosshairs after Inactivity", true))
+                    parameters.Add("--no-crosshair-autohide");
             }
             var crt = Setting("CRT Shader", "None").Trim();
             if (crt.Equals("Lottes", StringComparison.OrdinalIgnoreCase))

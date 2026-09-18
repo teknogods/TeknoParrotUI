@@ -1,0 +1,7 @@
+{
+  "game_name": "Tekken 3 (World, TET2/VER.E1)",
+  "game_genre": "Action",
+  "platform": "System12",
+  "icon_name": "",
+  "general_issues": "Development profile. Game compatibility varies; see TeknoS11 STATUS.md. Select a merged ROM ZIP and, where requested, a CHD from the game disc directory."
+}

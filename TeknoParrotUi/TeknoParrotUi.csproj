@@ -442,6 +442,7 @@
     <Compile Include="Views\GameRunningCode\ProcessManagement\ForceFeedbackArguments.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoS22Launcher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoS21Launcher.cs" />
+    <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoS11Launcher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoS23Launcher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoGClubLauncher.cs" />
     <Compile Include="Views\GameRunningCode\ControlHandlers\GunControlHandler.cs" />

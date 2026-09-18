@@ -193,6 +193,7 @@
     <Compile Include="Pipes\Pcsx2x6Pipe.cs" />
     <Compile Include="Pipes\TeknoVegasPipe.cs" />
     <Compile Include="Pipes\TeknoViperPipe.cs" />
+    <Compile Include="Pipes\TeknoS11Pipe.cs" />
     <Compile Include="Pipes\TeknoAirPipe.cs" />
     <Compile Include="Pipes\TeknoM2Pipe.cs" />
     <Compile Include="Pipes\TeknoAGXPipe.cs" />

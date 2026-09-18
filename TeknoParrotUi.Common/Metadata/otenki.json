@@ -1,0 +1,7 @@
+{
+  "game_name": "Otenki Kororin (V2.01J 2001/07/02 10:00)",
+  "game_genre": "Action",
+  "platform": "TaitoGNet",
+  "icon_name": "",
+  "general_issues": "Development profile. Game compatibility varies; see TeknoS11 STATUS.md. Select coh3002t.zip as the first game path and the game CHD as the second. No separate game ROM ZIP is required."
+}

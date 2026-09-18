@@ -320,3 +320,5 @@ ASALocalRun/
 TeknoParrotUi/CurrentCommit.txt
 TeknoParrotUi/Helpers/Secrets.cs
 /ResXManager.config.xml
+/scripts
+/TeknoS11-profile-selection.json

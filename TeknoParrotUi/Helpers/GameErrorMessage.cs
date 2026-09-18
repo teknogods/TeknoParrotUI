@@ -26,6 +26,11 @@ namespace TeknoParrotUi.Helpers
             EmulatorType? emulatorType,
             string diagnostics)
         {
+            if (emulatorType == EmulatorType.TeknoS11 && errorCode != 0)
+            {
+                MessageBox.Show("TeknoS11 exited with code " + errorCode + Environment.NewLine + diagnostics, "TeknoS11 error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             if (emulatorType == EmulatorType.TeknoS21)
             {
                 if (errorCode == 0) return;

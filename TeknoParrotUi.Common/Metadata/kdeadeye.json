@@ -1,0 +1,7 @@
+{
+  "game_name": "Dead Eye (GV054 UAA01)",
+  "game_genre": "Shooter",
+  "platform": "KonamiGV",
+  "icon_name": "",
+  "general_issues": "Development profile. Game compatibility varies; see TeknoS11 STATUS.md. Select a merged ROM ZIP and, where requested, a CHD from the game disc directory."
+}

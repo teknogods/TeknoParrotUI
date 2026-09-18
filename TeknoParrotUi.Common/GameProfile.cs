@@ -109,6 +109,7 @@ namespace TeknoParrotUi.Common
         public byte Rotary4Increment { get; set; } = 5;
         public RPCS3Config RPCS3Config { get; set; }
         public bool UseRemoteThread { get; set; } = false;
+        // False treats directions as independent buttons (e.g. simultaneous DDR pads).
         public bool UseDirectionalPresses { get; set; } = true;
         public string GameVersion { get; set; } = "";
         public bool AllowSettingSync { get; set; } = false;

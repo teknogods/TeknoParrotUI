@@ -14,8 +14,9 @@ namespace TeknoParrotUi.Common
         /// <summary>
         /// This is so we can easily kill the thread.
         /// </summary>
-        private static bool KillMe { get; set; }
+        private static volatile bool KillMe;
 
+        private Thread _rawInputThread;
         private static Thread _xi1;
         private static Thread _xi2;
         private static Thread _xi3;
@@ -57,6 +58,22 @@ namespace TeknoParrotUi.Common
             }
         }
 
+        private void StartRawInput(List<JoystickButtons> joystickButtons, GameProfile gameProfile)
+        {
+            _rawInputThread = new Thread(() =>
+            {
+                try
+                {
+                    _inputListenerRawInput.ListenRawInput(joystickButtons, gameProfile);
+                }
+                finally
+                {
+                    _inputListenerRawInput.Dispose();
+                }
+            });
+            _rawInputThread.Start();
+        }
+
         public void Listen(bool useSto0Z, int stoozPercent, List<JoystickButtons> joystickButtons, InputApi inputApi, GameProfile gameProfile)
         {
             try
@@ -92,8 +109,7 @@ namespace TeknoParrotUi.Common
                 }
                 else if (_inputApi == InputApi.RawInput)
                 {
-                    var thread = new Thread(() => _inputListenerRawInput.ListenRawInput(joystickButtons, gameProfile));
-                    thread.Start();
+                    StartRawInput(joystickButtons, gameProfile);
                 }
                 else if (_inputApi == InputApi.RawInputTrackball)
                 {
@@ -133,8 +149,7 @@ namespace TeknoParrotUi.Common
                     // RawInput for mouse/keyboard (only if the game profile supports it)
                     if (_mergedIncludesRawInput)
                     {
-                        var riThread = new Thread(() => _inputListenerRawInput.ListenRawInput(joystickButtons, gameProfile));
-                        riThread.Start();
+                        StartRawInput(joystickButtons, gameProfile);
                     }
 
                     // RawInputTrackball for trackball devices (only if the game profile supports it)
@@ -155,6 +170,9 @@ namespace TeknoParrotUi.Common
 
         public void WndProcReceived(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
+            if (KillMe)
+                return;
+
             if (_inputApi == InputApi.RawInput || (_inputApi == InputApi.MergedInput && _mergedIncludesRawInput))
                 _inputListenerRawInput.WndProcReceived(hwnd, msg, wParam, lParam, ref handled);
 
@@ -170,7 +188,12 @@ namespace TeknoParrotUi.Common
             InputListenerRawInput.KillMe = true;
             InputListenerRawInputTrackball.KillMe = true;
 
-            if (_gameprofile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameprofile.EmulationProfile == EmulationProfile.NamcoWmmt6RR)
+            // Finish the previous RawInput session before a new launch resets KillMe.
+            // Cleanup runs on that worker, after its last viewport/focus update.
+            _rawInputThread?.Join();
+            _rawInputThread = null;
+
+            if (_gameprofile?.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameprofile?.EmulationProfile == EmulationProfile.NamcoWmmt6RR)
             {
                 DigitalHelper.CurrentWmmt5Gear = 1;
                 InputCode.PlayerDigitalButtons[0].Button1 = false;
