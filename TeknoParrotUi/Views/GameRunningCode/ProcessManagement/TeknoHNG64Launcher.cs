@@ -82,6 +82,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 }
             }
             if (!File.Exists(executable)) log?.Invoke("TeknoHNG64 executable not found: " + executable);
+            ForceFeedbackArguments.Add(profile, args, "Constant", "Recoil");
             return new ProcessStartInfo(executable, string.Join(" ", args)) {
                 UseShellExecute = false, WorkingDirectory = workDir, RedirectStandardError = true
             };

@@ -111,6 +111,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var executable = Path.Combine(workDir, "TeknoZeus.exe");
             if (!File.Exists(executable)) log?.Invoke($"TeknoZeus executable was not found at {executable}");
             if (!Directory.Exists(romRoot)) log?.Invoke($"TeknoZeus ROM root was not found at {romRoot}");
+            ForceFeedbackArguments.Add(profile, parameters, "Constant", "Recoil");
             return new ProcessStartInfo(executable, string.Join(" ", parameters))
             {
                 WorkingDirectory = workDir,

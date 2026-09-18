@@ -99,6 +99,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var exe = Path.Combine(root, "TeknoGClub.exe");
             if (!File.Exists(exe)) throw new FileNotFoundException("TeknoGClub executable is missing", exe);
             log?.Invoke($"TeknoGClub: {set}, {scale}x, {filter}");
+            ForceFeedbackArguments.Add(profile, args, "Constant");
             return new ProcessStartInfo(exe, string.Join(" ", args)) { WorkingDirectory = root, UseShellExecute = false };
         }
     }

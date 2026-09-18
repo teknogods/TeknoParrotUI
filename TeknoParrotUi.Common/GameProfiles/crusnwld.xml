@@ -7,7 +7,7 @@
 	<ExtraParameters />
 	<TestMenuExtraParameters />
 	<EmulationProfile>TeknoVUnit</EmulationProfile>
-	<GameProfileRevision>9</GameProfileRevision>
+	<GameProfileRevision>10</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoVUnit</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -50,9 +50,28 @@
 			<FieldName>Force Feedback Strength</FieldName>
 			<FieldValue>100</FieldValue>
 			<FieldType>Slider</FieldType>
+			<SettingsPage>ForceFeedback</SettingsPage>
 			<FieldMin>0</FieldMin>
 			<FieldMax>100</FieldMax>
-			<Hint>Force feedback strength as a percentage. 0 disables force.</Hint>
+			<Hint>Overall effect strength. 100% keeps the normal full strength.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Enable Constant Effect</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<SettingsPage>ForceFeedback</SettingsPage>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Constant Effect Strength</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<SettingsPage>ForceFeedback</SettingsPage>
+			<EnabledBy>Enable Constant Effect</EnabledBy>
+			<FieldMin>0</FieldMin>
+			<FieldMax>100</FieldMax>
+			<Hint>Strength of torque and impacts sent by the game.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Video</CategoryName>

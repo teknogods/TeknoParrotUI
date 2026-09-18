@@ -79,6 +79,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             }
             var executable = Path.Combine(workDir, "TeknoVUnit.exe");
             if (!File.Exists(executable)) log?.Invoke("TeknoVUnit executable missing: " + executable);
+            ForceFeedbackArguments.Add(profile, args, "Constant");
             return new ProcessStartInfo(executable, string.Join(" ", args)) { UseShellExecute = false, WorkingDirectory = workDir, RedirectStandardError = true };
         }
     }

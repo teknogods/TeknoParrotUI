@@ -439,6 +439,7 @@
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoCobraLauncher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoHNG64Launcher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoZeusLauncher.cs" />
+    <Compile Include="Views\GameRunningCode\ProcessManagement\ForceFeedbackArguments.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoS22Launcher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoS21Launcher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoS23Launcher.cs" />
@@ -475,6 +476,9 @@
     <Compile Include="EmuBlacklist.cs" />
     <Compile Include="GameVersion.cs" />
     <Compile Include="Helpers\DiscordRPC.cs" />
+    <Compile Include="UserControls\ForceFeedbackSettingsControl.xaml.cs">
+      <DependentUpon>ForceFeedbackSettingsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\GameSettingsControl.xaml.cs">
       <DependentUpon>GameSettingsControl.xaml</DependentUpon>
     </Compile>
@@ -590,6 +594,10 @@
     <Page Include="Views\DownloadWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ForceFeedbackSettingsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\GameSettingsControl.xaml">
       <SubType>Designer</SubType>

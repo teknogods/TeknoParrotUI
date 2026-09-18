@@ -246,6 +246,24 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             parameters.Add("--ffb-gain");
             parameters.Add(ffbGain.ToString(System.Globalization.CultureInfo.InvariantCulture));
             if (Enabled("Invert Force Feedback")) parameters.Add("--ffb-invert-x");
+            parameters.Add("--ffb-spring-mode");
+            var springMode = Setting("Force Feedback Spring Effect", "Spring");
+            parameters.Add(springMode == "Spring using Constant Force" || springMode == "Constant Spring"
+                ? "constant" : "spring");
+            foreach (var effect in new[] { "Spring", "Constant", "Friction", "Sine" })
+            {
+                if (!int.TryParse(Setting(effect + " Effect Strength", "100"), NumberStyles.Integer,
+                    CultureInfo.InvariantCulture, out var strength) || strength < 0 || strength > 100)
+                    strength = 100;
+                if (!Enabled("Enable " + effect + " Effect", true)) strength = 0;
+                parameters.Add("--ffb-" + effect.ToLowerInvariant() + "-gain");
+                parameters.Add(strength.ToString(CultureInfo.InvariantCulture));
+            }
+            if (!int.TryParse(Setting("Sine Effect Period", "40"), NumberStyles.Integer,
+                CultureInfo.InvariantCulture, out var sinePeriod) || sinePeriod < 10 || sinePeriod > 200)
+                sinePeriod = 40;
+            parameters.Add("--ffb-sine-period");
+            parameters.Add(sinePeriod.ToString(CultureInfo.InvariantCulture));
             var executable = Path.Combine(workDir, "TeknoModel2.exe");
             if (!File.Exists(executable)) log?.Invoke($"TeknoModel2 executable was not found at {executable}");
             if (!Directory.Exists(romRoot)) log?.Invoke($"TeknoModel2 ROM root was not found at {romRoot}");
@@ -409,6 +427,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 ffbGain = 100;
             parameters.Add("--ffb-gain");
             parameters.Add(ffbGain.ToString(CultureInfo.InvariantCulture));
+            ForceFeedbackArguments.Add(profile, parameters, "Spring", "Constant", "Friction");
 
             if (gameId == "netmerc")
             {
@@ -564,6 +583,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 ffbStrength = 100;
             parameters.Add("--ffb-gain");
             parameters.Add((ffbStrength / 100.0).ToString("0.00", CultureInfo.InvariantCulture));
+            ForceFeedbackArguments.Add(profile, parameters, "Constant");
 
             var widescreen = Setting("True Widescreen", "off");
             if (widescreen != "16:9")
@@ -720,6 +740,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 ffbGain = 100;
             parameters.Add("--ffb-gain");
             parameters.Add(ffbGain.ToString(CultureInfo.InvariantCulture));
+            ForceFeedbackArguments.Add(profile, parameters, "Constant", "Recoil");
             parameters.Add(Setting("DisplayMode", "Fullscreen") == "Fullscreen" ? "--fullscreen" : "--windowed");
             if (Enabled("Stretch to Fullscreen")) parameters.Add("--stretch-to-fullscreen");
             if (Enabled("Use Bezel")) parameters.Add("--bezels");
@@ -883,6 +904,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 ffbGain = 100;
             parameters.Add("--ffb-gain");
             parameters.Add(ffbGain.ToString(CultureInfo.InvariantCulture));
+            ForceFeedbackArguments.Add(profile, parameters, "Constant", "Recoil");
 
             if (Enabled("Prefer High Performance", true))
             {

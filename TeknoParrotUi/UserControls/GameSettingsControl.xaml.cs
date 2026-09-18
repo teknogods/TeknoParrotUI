@@ -46,7 +46,8 @@ namespace TeknoParrotUi.UserControls
             PopulateCobraFfbDevices(gameProfile);
             PopulateVegasFfbDevices(gameProfile);
             PopulateGClubFfbDevices(gameProfile);
-            GameSettingsList.ItemsSource = gameProfile.ConfigValues;
+            GameSettingsList.ItemsSource = gameProfile.ConfigValues.Where(f =>
+                f.SettingsPage != ForceFeedbackSettingsControl.PageName).ToList();
             _contentControl = contentControl;
             _library = library;
 
@@ -88,6 +89,23 @@ namespace TeknoParrotUi.UserControls
                 GameExecutable2Text.Visibility = Visibility.Collapsed;
                 GamePathBox2.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void ForceFeedbackButtonLoaded(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            button.Visibility = button.DataContext is FieldInformation field &&
+                (field.FieldName == "Force Feedback Device" ||
+                 field.FieldName == "Player 2 Force Feedback Device" ||
+                 field.FieldName == "Player 3 Force Feedback Device") &&
+                ForceFeedbackSettingsControl.HasSettings(_gameProfile)
+                    ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void OpenForceFeedbackSettings(object sender, RoutedEventArgs e)
+        {
+            _contentControl.Content = new ForceFeedbackSettingsControl(_gameProfile,
+                () => _contentControl.Content = this);
         }
 
         private static void PopulateModelFfbDevices(GameProfile gameProfile)

@@ -6,7 +6,7 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>10</GameProfileRevision>
+  <GameProfileRevision>13</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -27,9 +27,106 @@
       <FieldName>Force Feedback Strength</FieldName>
       <FieldValue>100</FieldValue>
       <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
       <FieldMin>0</FieldMin>
       <FieldMax>100</FieldMax>
-      <Hint>Force feedback strength from 0 to 100 percent. Default: 100.</Hint>
+      <Hint>Overall effect strength. 100% keeps the normal full strength.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Spring Effect</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Force Feedback Spring Effect</FieldName>
+      <FieldValue>Spring</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Spring Effect</EnabledBy>
+      <FieldOptions>
+        <string>Spring</string>
+        <string>Spring using Constant Force</string>
+      </FieldOptions>
+      <Hint>Both modes follow spring commands sent by the game. Spring uses the wheel's spring effect. Spring using Constant Force recreates the same game-controlled spring through the wheel's constant-force effect. It does not add an always-on spring.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Spring Effect Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Spring Effect</EnabledBy>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Strength of spring forces requested by the game, in either spring mode.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Constant Effect</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Constant Effect Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Constant Effect</EnabledBy>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Strength of torque and impacts sent by the game. Spring strength is adjusted separately above.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Friction Effect</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Friction Effect Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Friction Effect</EnabledBy>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Resistance when the game requests friction.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Sine Effect</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Sine Effect Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Sine Effect</EnabledBy>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Periodic road and loose-surface vibration.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Sine Effect Period</FieldName>
+      <FieldValue>40</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Sine Effect</EnabledBy>
+      <FieldMin>10</FieldMin>
+      <FieldMax>200</FieldMax>
+      <Hint>Time per vibration cycle in milliseconds. Lower values vibrate faster. Default: 40 ms (25 Hz).</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

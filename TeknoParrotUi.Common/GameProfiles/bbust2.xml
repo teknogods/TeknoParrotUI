@@ -7,7 +7,7 @@
   <ExtraParameters />
   <TestMenuExtraParameters />
   <EmulationProfile>TeknoHNG64</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoHNG64</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -30,9 +30,10 @@
       <FieldName>Force Feedback Strength</FieldName>
       <FieldValue>100</FieldValue>
       <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
       <FieldMin>0</FieldMin>
       <FieldMax>100</FieldMax>
-      <Hint>Force feedback strength from 0 to 100 percent. Default: 100.</Hint>
+      <Hint>Overall effect strength. 100% keeps the normal full strength.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -46,9 +47,10 @@
       <FieldName>Player 2 Force Feedback Strength</FieldName>
       <FieldValue>100</FieldValue>
       <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
       <FieldMin>0</FieldMin>
       <FieldMax>100</FieldMax>
-      <Hint>Force feedback strength from 0 to 100 percent. Default: 100.</Hint>
+      <Hint>Overall effect strength. 100% keeps the normal full strength.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -62,9 +64,64 @@
       <FieldName>Player 3 Force Feedback Strength</FieldName>
       <FieldValue>100</FieldValue>
       <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
       <FieldMin>0</FieldMin>
       <FieldMax>100</FieldMax>
-      <Hint>Force feedback strength from 0 to 100 percent. Default: 100.</Hint>
+      <Hint>Overall effect strength. 100% keeps the normal full strength.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Recoil Effect</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Recoil Effect Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Recoil Effect</EnabledBy>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Recoil strength for player 1 when firing.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 2 Enable Recoil Effect</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 2 Recoil Effect Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Player 2 Enable Recoil Effect</EnabledBy>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Recoil strength for player 2 when firing.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 3 Enable Recoil Effect</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 3 Recoil Effect Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Player 3 Enable Recoil Effect</EnabledBy>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Recoil strength for player 3 when firing.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

@@ -22,6 +22,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     CultureInfo.InvariantCulture, out var gain) || gain < 0 || gain > 100)
                 gain = 100;
             args.AddRange(new[] { "--ffb-gain", gain.ToString(CultureInfo.InvariantCulture) });
+            ForceFeedbackArguments.Add(profile, args, "Constant");
         }
 
         private static string Quote(string value)

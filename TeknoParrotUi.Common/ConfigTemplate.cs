@@ -33,6 +33,11 @@ namespace TeknoParrotUi.Common
         [XmlIgnore]
         public List<DynamicDropdownOption> DynamicOptions { get; set; }
         public string Hint { get; set; }
+        // Optional XML-driven settings pages. Unmarked fields stay in Game Settings.
+        public string SettingsPage { get; set; }
+        public string EnabledBy { get; set; }
+        public bool ShouldSerializeSettingsPage() => !string.IsNullOrEmpty(SettingsPage);
+        public bool ShouldSerializeEnabledBy() => !string.IsNullOrEmpty(EnabledBy);
         public bool UseUnitySorting { get; set; } = false;
     }
 }
