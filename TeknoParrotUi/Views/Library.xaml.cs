@@ -16,6 +16,9 @@ using TeknoParrotUi.UserControls;
 using System.Security.Principal;
 using System.IO.Compression;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Collections.Concurrent;
 using TeknoParrotUi.Helpers;
 using ControlzEx;
 using Linearstar.Windows.RawInput;
@@ -104,80 +107,126 @@ namespace TeknoParrotUi.Views
             }
         }
 
-        private static bool DownloadFile(string urlAddress, string filePath)
+        private static readonly HttpClient IconClient = new HttpClient(new HttpClientHandler { UseProxy = false })
+        {
+            Timeout = TimeSpan.FromSeconds(5)
+        };
+        private static readonly ConcurrentDictionary<string, byte> MissingIconUrls = new ConcurrentDictionary<string, byte>(StringComparer.Ordinal);
+        // Accessed on the UI thread; concurrent selections share an in-progress download.
+        private static readonly Dictionary<string, Task<BitmapSource>> IconLoads = new Dictionary<string, Task<BitmapSource>>(StringComparer.OrdinalIgnoreCase);
+        private static readonly DependencyProperty IconRequestProperty =
+            DependencyProperty.RegisterAttached("IconRequest", typeof(object), typeof(Library));
+
+        private static async Task<bool> DownloadFileAsync(string urlAddress, string filePath)
         {
             if (File.Exists(filePath)) return true;
+            if (MissingIconUrls.ContainsKey(urlAddress)) return false;
+
             Debug.WriteLine($"Downloading {filePath} from {urlAddress}");
             try
             {
-                var request = (HttpWebRequest)WebRequest.Create(urlAddress);
-                request.CachePolicy = new System.Net.Cache.HttpRequestCachePolicy(System.Net.Cache.HttpRequestCacheLevel.NoCacheNoStore);
-                request.Timeout = 5000;
-                request.Proxy = null;
+                using (var request = new HttpRequestMessage(HttpMethod.Get, urlAddress))
+                {
+                    request.Headers.CacheControl = new System.Net.Http.Headers.CacheControlHeaderValue
+                    {
+                        NoCache = true,
+                        NoStore = true
+                    };
+                    using (var response = await IconClient.SendAsync(request).ConfigureAwait(false))
+                    {
+                        if (response.StatusCode == HttpStatusCode.NotFound)
+                        {
+                            MissingIconUrls.TryAdd(urlAddress, 0);
+                            Debug.WriteLine($"File at {urlAddress} is missing!");
+                            return false;
+                        }
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            Debug.WriteLine($"Icon download failed for {urlAddress}: HTTP {(int)response.StatusCode}");
+                            return false;
+                        }
 
-                using (var response = request.GetResponse().GetResponseStream())
-                using (var file = File.Open(filePath, FileMode.OpenOrCreate, FileAccess.Write))
-                {
-                    response.CopyTo(file);
-                    return true;
+                        var data = await response.Content.ReadAsByteArrayAsync().ConfigureAwait(false);
+                        File.WriteAllBytes(filePath, data);
+                        return true;
+                    }
                 }
             }
-            catch (WebException wx)
+            catch (Exception ex)
             {
-                var error = wx.Response as HttpWebResponse;
-                if (error != null && error.StatusCode == HttpStatusCode.NotFound)
-                {
-                    Debug.WriteLine($"File at {urlAddress} is missing!");
-                }
-                // ignore
-            }
-            catch (Exception)
-            {
-                // ignore
+                Debug.WriteLine($"Icon download failed for {urlAddress}: {ex.Message}");
             }
 
             return false;
         }
 
-        private static bool TryUpdateIcon(string iconName, ref Image gameIcon)
+        private static async Task<BitmapSource> LoadIconAsync(string iconName)
         {
-            var iconPath = Path.Combine("Icons", iconName);
-            bool success = Lazydata.ParrotData.DownloadIcons ? DownloadFile(
-                    "https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/Icons/" +
-                    iconName, iconPath) : true;
+            if (IconLoads.TryGetValue(iconName, out var pending))
+                return await pending;
 
-            if (success && File.Exists(iconPath))
+            bool downloadIcons = Lazydata.ParrotData.DownloadIcons;
+            var load = Task.Run(async () =>
             {
                 try
                 {
-                    gameIcon.Source = LoadImage(iconPath);
-                    return true;
+                    var iconPath = Path.Combine("Icons", iconName);
+                    bool success = !downloadIcons || await DownloadFileAsync(
+                        "https://raw.githubusercontent.com/teknogods/TeknoParrotUIThumbnails/master/Icons/" + iconName,
+                        iconPath).ConfigureAwait(false);
+                    if (success && File.Exists(iconPath))
+                    {
+                        try
+                        {
+                            return LoadImage(iconPath);
+                        }
+                        catch
+                        {
+                            // Remove corrupt cached images so a later selection can retry.
+                            File.Delete(iconPath);
+                            throw;
+                        }
+                    }
                 }
-                catch
+                catch (Exception ex)
                 {
-                    // Delete the icon since it's probably corrupted, then try the fallback.
-                    if (File.Exists(iconPath)) File.Delete(iconPath);
+                    Debug.WriteLine($"Icon load failed for {iconName}: {ex.Message}");
                 }
+                return null;
+            });
+            IconLoads.Add(iconName, load);
+            try
+            {
+                return await load;
             }
-
-            return false;
+            finally
+            {
+                IconLoads.Remove(iconName);
+            }
         }
 
-        public static void UpdateIcon(string iconName, EmulatorType emulatorType, ref Image gameIcon)
+        public static void ResetIcon(Image target)
         {
-            if (TryUpdateIcon(iconName, ref gameIcon))
-            {
-                return;
-            }
+            target.ClearValue(IconRequestProperty);
+            target.Source = defaultIcon;
+        }
 
-            if (_emulatorPlaceholderIcons.TryGetValue(emulatorType, out string placeholderIcon) &&
-                !string.Equals(iconName, placeholderIcon, StringComparison.OrdinalIgnoreCase) &&
-                TryUpdateIcon(placeholderIcon, ref gameIcon))
-            {
+        public static async Task UpdateIconAsync(string iconName, EmulatorType emulatorType, Image target)
+        {
+            var request = new object();
+            target.SetValue(IconRequestProperty, request);
+            target.Source = defaultIcon;
+            var icon = await LoadIconAsync(iconName);
+            if (!ReferenceEquals(target.GetValue(IconRequestProperty), request))
                 return;
-            }
 
-            gameIcon.Source = defaultIcon;
+            if (icon == null && _emulatorPlaceholderIcons.TryGetValue(emulatorType, out string placeholderIcon) &&
+                !string.Equals(iconName, placeholderIcon, StringComparison.OrdinalIgnoreCase))
+                icon = await LoadIconAsync(placeholderIcon);
+
+            // A slower request must never overwrite a more recent selection.
+            if (ReferenceEquals(target.GetValue(IconRequestProperty), request))
+                target.Source = icon ?? defaultIcon;
         }
 
         /// <summary>
@@ -187,8 +236,11 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (gameList.Items.Count == 0)
+            if (gameList.SelectedIndex < 0)
+            {
+                ResetIcon(gameIcon);
                 return;
+            }
 
             // Close high score window if it's open when selecting a different game
             if (_highScoreWindow != null && _highScoreWindow.IsLoaded)
@@ -197,12 +249,8 @@ namespace TeknoParrotUi.Views
                 _highScoreWindow = null;
             }
 
-            var modifyItem = (ListBoxItem)((ListBox)sender).SelectedItem;
             var profile = _gameNames[gameList.SelectedIndex];
-            UpdateIcon(profile.IconName.Split('/')[1], profile.EmulatorType, ref gameIcon);
-
-            _gameSettings.LoadNewSettings(profile, modifyItem, _contentControl, this);
-            Joystick.LoadNewSettings(profile, modifyItem);
+            _ = UpdateIconAsync(Path.GetFileName(profile.IconName), profile.EmulatorType, gameIcon);
             if (!profile.HasSeparateTestMode)
             {
                 testMenuButton.IsEnabled = false;
@@ -305,9 +353,38 @@ namespace TeknoParrotUi.Views
             }
         }
 
+        public bool ReloadGameProfile(GameProfile profile)
+        {
+            var reloaded = JoystickHelper.DeSerializeGameProfile(
+                Path.Combine("UserProfiles", Path.GetFileName(profile.FileName)), true);
+            if (reloaded == null)
+            {
+                MessageBoxHelper.ErrorOK(string.Format(Properties.Resources.ErrorCantLoadProfile, profile.FileName));
+                return false;
+            }
+
+            // Metadata is already loaded and is not editable on the settings page.
+            reloaded.ProfileName = profile.ProfileName;
+            reloaded.GameNameInternal = profile.GameNameInternal;
+            reloaded.GameGenreInternal = profile.GameGenreInternal;
+            reloaded.IconName = profile.IconName;
+            reloaded.GameInfo = profile.GameInfo;
+
+            int userIndex = GameProfileLoader.UserProfiles.IndexOf(profile);
+            if (userIndex >= 0)
+                GameProfileLoader.UserProfiles[userIndex] = reloaded;
+            int libraryIndex = _gameNames.IndexOf(profile);
+            if (libraryIndex >= 0)
+            {
+                _gameNames[libraryIndex] = reloaded;
+                ((ListBoxItem)gameList.Items[libraryIndex]).Tag = reloaded;
+            }
+            return true;
+        }
+
         private void resetLibrary()
         {
-            gameIcon.Source = defaultIcon;
+            ResetIcon(gameIcon);
             _gameSettings.InitializeComponent();
             Joystick.InitializeComponent();
             gameInfoText.Text = "";
@@ -1725,6 +1802,7 @@ namespace TeknoParrotUi.Views
             {
                 JoystickHelper.SerializeGameProfile(gameProfile);
             }
+            _gameSettings.LoadNewSettings(gameProfile, (ListBoxItem)gameList.SelectedItem, _contentControl, this);
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _gameSettings;
         }
 

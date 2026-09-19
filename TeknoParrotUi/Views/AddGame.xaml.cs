@@ -112,7 +112,7 @@ namespace TeknoParrotUi.Views
             {
                 if (gameIcon != null)
                 {
-                    gameIcon.Source = Library.defaultIcon;
+                    Library.ResetIcon(gameIcon);
                     _selected = new GameProfile();
                     AddButton.IsEnabled = false;
                     DeleteButton.IsEnabled = false;
@@ -128,14 +128,18 @@ namespace TeknoParrotUi.Views
         /// <param name="e"></param>
         private void StockGameList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (stockGameList.SelectedIndex < 0) return;
+            if (stockGameList.SelectedIndex < 0)
+            {
+                Library.ResetIcon(gameIcon);
+                return;
+            }
 
             e.Handled = true;
 
             var gameItem = (ListBoxItem)stockGameList.SelectedValue;
             _selected = (GameProfile)gameItem.Tag;
             //_selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
-            Library.UpdateIcon(_selected.IconName.Split('/')[1], _selected.EmulatorType, ref gameIcon);
+            _ = Library.UpdateIconAsync(Path.GetFileName(_selected.IconName), _selected.EmulatorType, gameIcon);
 
             var added = ((ListBoxItem)stockGameList.SelectedItem).Content.ToString().Contains(TeknoParrotUi.Properties.Resources.AddGameAddedSuffix);
             AddButton.IsEnabled = !added;

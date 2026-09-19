@@ -174,13 +174,14 @@
                                 </StackPanel.ToolTip>
                             </StackPanel>
 
-                            <ContentControl>
+                            <ContentControl Content="{Binding}">
                                 <ContentControl.Style>
                                     <Style TargetType="ContentControl">
                                         <Style.Triggers>
                                             <DataTrigger Binding="{Binding FieldType}" Value="Text">
-                                                <Setter Property="Content">
+                                                <Setter Property="ContentTemplate">
                                                     <Setter.Value>
+                                                        <DataTemplate>
                                                         <TextBox
                                             Height="{StaticResource fieldHeight}"
                                             Margin="0,0,0,5"
@@ -191,13 +192,15 @@
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
                                                             </TextBox.ToolTip>
                                                         </TextBox>
+                                                        </DataTemplate>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
 
                                             <DataTrigger Binding="{Binding FieldType}" Value="Numeric">
-                                                <Setter Property="Content">
+                                                <Setter Property="ContentTemplate">
                                                     <Setter.Value>
+                                                        <DataTemplate>
                                                         <materialDesign:NumericUpDown
                                             Height="{StaticResource fieldHeight}"
                                             Margin="0,0,0,5"
@@ -211,13 +214,15 @@
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
                                                             </materialDesign:NumericUpDown.ToolTip>
                                                         </materialDesign:NumericUpDown>
+                                                        </DataTemplate>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
 
                                             <DataTrigger Binding="{Binding FieldType}" Value="Bool">
-                                                <Setter Property="Content">
+                                                <Setter Property="ContentTemplate">
                                                     <Setter.Value>
+                                                        <DataTemplate>
                                                         <CheckBox
                                             Height="{StaticResource fieldHeight}"
                                             Margin="0,0,0,5"
@@ -227,13 +232,15 @@
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
                                                             </CheckBox.ToolTip>
                                                         </CheckBox>
+                                                        </DataTemplate>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
 
                                             <DataTrigger Binding="{Binding FieldType}" Value="Dropdown">
-                                                <Setter Property="Content">
+                                                <Setter Property="ContentTemplate">
                                                     <Setter.Value>
+                                                        <DataTemplate>
                                                         <ComboBox
                                             Height="{StaticResource fieldHeight}"
                                             Margin="0,0,0,5"
@@ -244,13 +251,15 @@
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
                                                             </ComboBox.ToolTip>
                                                         </ComboBox>
+                                                        </DataTemplate>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
 
                                             <DataTrigger Binding="{Binding FieldType}" Value="DropdownIndex">
-                                                <Setter Property="Content">
+                                                <Setter Property="ContentTemplate">
                                                     <Setter.Value>
+                                                        <DataTemplate>
                                                         <ComboBox
                                             Height="{StaticResource fieldHeight}"
                                             Margin="0,0,0,5"
@@ -261,13 +270,15 @@
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
                                                             </ComboBox.ToolTip>
                                                         </ComboBox>
+                                                        </DataTemplate>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
 
                                             <DataTrigger Binding="{Binding FieldType}" Value="DynamicDropdown">
-                                                <Setter Property="Content">
+                                                <Setter Property="ContentTemplate">
                                                     <Setter.Value>
+                                                        <DataTemplate>
                                                         <ComboBox
                                             Height="{StaticResource fieldHeight}"
                                             Margin="0,0,0,5"
@@ -280,13 +291,15 @@
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
                                                             </ComboBox.ToolTip>
                                                         </ComboBox>
+                                                        </DataTemplate>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
 
                                             <DataTrigger Binding="{Binding FieldType}" Value="Slider">
-                                                <Setter Property="Content">
+                                                <Setter Property="ContentTemplate">
                                                     <Setter.Value>
+                                                        <DataTemplate>
                                                         <Slider
                                             Height="{StaticResource fieldHeight}"
                                             Margin="0,0,0,5"
@@ -318,28 +331,32 @@
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
                                                             </Slider.ToolTip>
                                                         </Slider>
+                                                        </DataTemplate>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding FieldType}" Value="KeyCapture">
-                                                <Setter Property="Content">
+                                                <Setter Property="ContentTemplate">
                                                     <Setter.Value>
+                                                        <DataTemplate>
                                                         <usercontrols:KeyCaptureTextBox
                                             Height="{StaticResource fieldHeight}"
                                             Margin="0,0,0,5"
                                             Style="{DynamicResource MaterialDesignTextBox}"
                                             Tag="SettingsKeyCapture"
-                                            VirtualKey="{Binding FieldValue, Mode=TwoWay, Converter={StaticResource virtualKeyToHexConverter}}">>
+                                            VirtualKey="{Binding FieldValue, Mode=TwoWay, Converter={StaticResource virtualKeyToHexConverter}}">
                                                             <usercontrols:KeyCaptureTextBox.ToolTip>
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
                                                             </usercontrols:KeyCaptureTextBox.ToolTip>
                                                         </usercontrols:KeyCaptureTextBox>
+                                                        </DataTemplate>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
                                             <DataTrigger Binding="{Binding FieldType}" Value="MonitorSelection">
-                                                <Setter Property="Content">
+                                                <Setter Property="ContentTemplate">
                                                     <Setter.Value>
+                                                        <DataTemplate>
                                                         <usercontrols:MonitorSelection
                                             Height="{StaticResource fieldHeight}"
                                             Margin="0,0,0,5"
@@ -349,6 +366,7 @@
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
                                                             </usercontrols:MonitorSelection.ToolTip>
                                                         </usercontrols:MonitorSelection>
+                                                        </DataTemplate>
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>

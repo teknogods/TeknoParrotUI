@@ -437,19 +437,19 @@ namespace TeknoParrotUi.UserControls
                 }
             }
 
-            JoystickHelper.SerializeGameProfile(_gameProfile);
             _gameProfile.GamePath = GamePathBox.Text;
             _gameProfile.GamePath2 = GamePathBox2.Text;
             JoystickHelper.SerializeGameProfile(_gameProfile);
             _comboItem.Tag = _gameProfile;
             Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(Properties.Resources.SuccessfullySaved, System.IO.Path.GetFileName(_gameProfile.FileName)));
-            _library.ListUpdate(_gameProfile.GameNameInternal);
+            // Profiles are already in the library during save so let's not reload it
             _contentControl.Content = _library;
         }
         private void BtnGoBack(object sender, RoutedEventArgs e)
         {
-            // Reload library to discard changes
-            _library.ListUpdate(_gameProfile.GameNameInternal);
+            // Discard edits by reloading only this game.
+            if (!_library.ReloadGameProfile(_gameProfile))
+                return;
 
             _contentControl.Content = _library;
         }

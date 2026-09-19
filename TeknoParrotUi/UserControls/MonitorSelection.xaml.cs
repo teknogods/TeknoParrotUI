@@ -10,7 +10,7 @@ namespace TeknoParrotUi.UserControls
 {
     public partial class MonitorSelection : System.Windows.Controls.UserControl
     {
-        public ObservableCollection<MonitorItem> FoundMonitors { get; set; } = new ObservableCollection<MonitorItem>();
+        public ObservableCollection<MonitorItem> FoundMonitors { get; } = new ObservableCollection<MonitorItem>();
 
         public class MonitorItem
         {
@@ -128,16 +128,14 @@ namespace TeknoParrotUi.UserControls
         public MonitorSelection()
         {
             InitializeComponent();
-            DataContext = this;
             PopulateItemsSource();
-            comboBox.SelectionChanged += ComboBox_SelectionChanged;
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (comboBox.SelectedValue != null)
             {
-                SelectedMonitorIndex = comboBox.SelectedValue.ToString();
+                SetCurrentValue(SelectedMonitorIndexProperty, comboBox.SelectedValue.ToString());
             }
         }
 
@@ -233,7 +231,11 @@ namespace TeknoParrotUi.UserControls
                 });
             }
 
-            FoundMonitors = items;
+            // Preserve the saved selection while rebuilding the bound collection.
+            comboBox.SelectionChanged -= ComboBox_SelectionChanged;
+            FoundMonitors.Clear();
+            foreach (var item in items)
+                FoundMonitors.Add(item);
             
             // Set initial selection
             if (int.TryParse(SelectedMonitorIndex, out int initialIndex) && initialIndex >= 0 && initialIndex < FoundMonitors.Count)
@@ -244,6 +246,7 @@ namespace TeknoParrotUi.UserControls
             {
                 comboBox.SelectedIndex = 0;
             }
+            comboBox.SelectionChanged += ComboBox_SelectionChanged;
         }
     }
 }
