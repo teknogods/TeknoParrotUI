@@ -144,6 +144,21 @@ namespace TeknoParrotUi.Common
                     }
                 }
 
+                // Preserve a disabled spring's old uncentering enable state;
+                // new uncentering strength uses the profile's 30% default.
+                var uncenteringEnable = gameProfile.ConfigValues.FirstOrDefault(f => f.FieldName == "Enable Uncentering Effect");
+                if (uncenteringEnable != null && !other.ConfigValues.Any(f => f.FieldName == "Enable Uncentering Effect"))
+                {
+                    var previous = other.ConfigValues.FirstOrDefault(f => f.FieldName == "Enable Spring Effect");
+                    if (previous != null) uncenteringEnable.FieldValue = previous.FieldValue;
+                }
+
+                var uncenteringMode = gameProfile.ConfigValues.FirstOrDefault(f => f.FieldName == "Uncentering Effect Mode");
+                if (uncenteringMode?.FieldValue == "Sine vibration (experimental)")
+                    uncenteringMode.FieldValue = "Sine vibration";
+                else if (uncenteringMode?.FieldValue == "Push away from centre")
+                    uncenteringMode.FieldValue = "Push away from center";
+
                 gameProfile.GamePath = other.GamePath;
                 gameProfile.GamePath2 = other.GamePath2;
             }

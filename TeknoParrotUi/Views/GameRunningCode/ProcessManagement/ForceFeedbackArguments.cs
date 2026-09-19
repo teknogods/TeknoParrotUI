@@ -20,6 +20,18 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 arguments.Add("--ffb-spring-mode");
                 arguments.Add(mode == "Spring using Constant Force" || mode == "Constant Spring" ? "constant" : "spring");
             }
+            if (effects.Contains("Uncentering") && Setting("Uncentering Effect Mode") != null)
+            {
+                arguments.Add("--ffb-uncentering-mode");
+                var mode = Setting("Uncentering Effect Mode");
+                arguments.Add(mode == "Both" ? "both" :
+                    mode == "Sine vibration" || mode == "Sine vibration (experimental)" ? "sine" : "uncentering");
+                if (!int.TryParse(Setting("Uncentering Sine Period", "40"), NumberStyles.Integer,
+                    CultureInfo.InvariantCulture, out var period) || period < 10 || period > 200)
+                    period = 40;
+                arguments.Add("--ffb-uncentering-period");
+                arguments.Add(period.ToString(CultureInfo.InvariantCulture));
+            }
             foreach (var effect in effects)
             {
                 for (var player = 1; player <= (effect == "Recoil" ? 3 : 1); ++player)
@@ -28,7 +40,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     var value = Setting(prefix + effect + " Effect Strength");
                     if (value == null) continue;
                     if (!int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var gain) || gain < 0 || gain > 100)
-                        gain = 100;
+                        gain = effect == "Uncentering" ? 30 : 100;
                     var enabled = Setting(prefix + "Enable " + effect + " Effect", "1");
                     if (enabled != "1" && !enabled.Equals("true", StringComparison.OrdinalIgnoreCase)) gain = 0;
                     arguments.Add("--ffb-" + effect.ToLowerInvariant() + "-gain" + (player == 1 ? "" : "-p" + player));

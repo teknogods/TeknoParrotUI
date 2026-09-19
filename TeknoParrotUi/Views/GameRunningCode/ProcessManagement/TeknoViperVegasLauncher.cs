@@ -435,7 +435,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 ffbGain = 100;
             parameters.Add("--ffb-gain");
             parameters.Add(ffbGain.ToString(CultureInfo.InvariantCulture));
-            ForceFeedbackArguments.Add(profile, parameters, "Spring", "Constant", "Friction");
+            ForceFeedbackArguments.Add(profile, parameters, "Spring", "Constant", "Friction", "Uncentering");
 
             if (gameId == "netmerc")
             {

@@ -7,7 +7,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>TeknoModel1</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>16</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel1</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -73,7 +73,50 @@
       <EnabledBy>Enable Spring Effect</EnabledBy>
       <FieldMin>0</FieldMin>
       <FieldMax>100</FieldMax>
-      <Hint>Strength of spring forces requested by the game, in either spring mode.</Hint>
+      <Hint>Strength of normal centering forces requested by the game, in either spring mode. Uncentering strength is adjusted separately below.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Uncentering Effect</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Uncentering Effect Mode</FieldName>
+      <FieldValue>Push away from center</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Uncentering Effect</EnabledBy>
+      <FieldOptions>
+        <string>Push away from center</string>
+        <string>Sine vibration</string>
+        <string>Both</string>
+      </FieldOptions>
+      <Hint>Choose outward force, vibration, or both for uncentering.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Uncentering Effect Strength</FieldName>
+      <FieldValue>30</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Uncentering Effect</EnabledBy>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Adjusts uncentering strength independently of normal centering.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Uncentering Sine Period</FieldName>
+      <FieldValue>40</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Uncentering Effect</EnabledBy>
+      <FieldMin>10</FieldMin>
+      <FieldMax>200</FieldMax>
+      <Hint>Vibration cycle length for Sine vibration and Both. Higher values produce slower vibration.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
