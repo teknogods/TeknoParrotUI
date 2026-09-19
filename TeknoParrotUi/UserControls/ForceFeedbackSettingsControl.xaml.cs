@@ -131,13 +131,14 @@ namespace TeknoParrotUi.UserControls
                 foreach (var field in originals)
                     field.FieldValue = _fields.Single(f => f.FieldName == field.FieldName).FieldValue;
                 JoystickHelper.SerializeGameProfile(_profile);
-                SaveStatus.Text = "Force feedback settings saved.";
             }
             catch (Exception ex)
             {
                 for (var i = 0; i < originals.Count; i++) originals[i].FieldValue = previous[i];
                 SaveStatus.Text = "Could not save settings: " + ex.Message;
+                return;
             }
+            _back();
         }
 
         private void GoBack(object sender, RoutedEventArgs e) => _back();
