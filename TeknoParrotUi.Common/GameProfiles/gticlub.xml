@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>GTI Club: Rally Cote D’Azur (EAA)</GameNameInternal>
   <EmulationProfile>TeknoGClub</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <EmulatorType>TeknoGClub</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>gticlub.zip</ExecutableName>
@@ -258,6 +258,10 @@
     <JoystickButtons>
       <ButtonName>Shift Down</ButtonName>
       <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>AT/MT</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
