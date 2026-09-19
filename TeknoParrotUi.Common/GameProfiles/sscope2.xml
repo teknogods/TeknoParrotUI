@@ -7,7 +7,7 @@
   <ExtraParameters />
   <TestMenuExtraParameters />
   <EmulationProfile>TeknoHornet</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoHornet</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -95,6 +95,28 @@
         <string>Windowed</string>
         <string>Fullscreen</string>
       </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Screen Layout</FieldName>
+      <FieldValue>Original</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Original</string>
+        <string>Single Screen Scope</string>
+      </FieldOptions>
+      <Hint>Original keeps both displays side by side. Single Screen Scope fills the game area with the main display and brings up a circular scope using Player 1 Button 2.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Scope Button Mode</FieldName>
+      <FieldValue>Hold</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Hold</string>
+        <string>Toggle</string>
+      </FieldOptions>
+      <Hint>Single Screen Scope only: hold Player 1 Button 2 to aim through the lens, or press once to enter and again to leave.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Video</CategoryName>

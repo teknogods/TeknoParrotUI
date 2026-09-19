@@ -1063,7 +1063,16 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 {
                     if (_forceQuit)
                     {
-                        cmdProcess.Kill();
+                        if (_gameProfile.EmulatorType == EmulatorType.TeknoHornet) // Hornet commits cabinet settings and gun calibration during shutdown. Give its window a chance to close.
+                        {
+                            cmdProcess.CloseMainWindow();
+                            if (!cmdProcess.WaitForExit(5000))
+                                cmdProcess.Kill();
+                        }
+                        else
+                        {
+                            cmdProcess.Kill();
+                        }
                     }
 
                     if (_gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
