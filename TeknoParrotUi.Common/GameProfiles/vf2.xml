@@ -6,7 +6,7 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -15,6 +15,19 @@
   <Patreon>true</Patreon>
   <DevOnly>false</DevOnly>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Version</FieldName>
+      <FieldValue>vf2</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>vf2</string>
+        <string>vf2b</string>
+        <string>vf2a</string>
+        <string>vf2o</string>
+      </FieldOptions>
+      <Hint>vf2: Version 2.1; vf2b: Revision B; vf2a: Revision A; vf2o: original. All use the merged vf2.zip archive. Each version uses separate saves.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
@@ -96,6 +109,13 @@
       <FieldName>Save Root</FieldName>
       <FieldValue>.\TeknoModel2\nvram</FieldValue>
       <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Widescreen</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Experimental 16:9 view with a wider 3D render target and centered 4:3 HUD. Desktop only; ignored when VR is enabled.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Video</CategoryName>

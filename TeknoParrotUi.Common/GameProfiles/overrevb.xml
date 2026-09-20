@@ -6,7 +6,7 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>13</GameProfileRevision>
+  <GameProfileRevision>14</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -15,6 +15,18 @@
   <Patreon>true</Patreon>
   <DevOnly>false</DevOnly>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Version</FieldName>
+      <FieldValue>overrevb</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>overrevb</string>
+        <string>overrevba</string>
+        <string>overrev</string>
+      </FieldOptions>
+      <Hint>overrevb: Model 2B Revision B; overrevba: Model 2B Revision A; overrev: Model 2C Revision A. All use the merged overrev.zip archive. Each version uses separate saves.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Force Feedback Device</FieldName>
@@ -180,6 +192,13 @@
       <FieldName>Save Root</FieldName>
       <FieldValue>.\TeknoModel2\nvram</FieldValue>
       <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Widescreen</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Experimental 16:9 view with a wider 3D render target and centered 4:3 HUD. Desktop only; ignored when VR is enabled.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Video</CategoryName>

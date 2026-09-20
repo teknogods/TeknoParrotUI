@@ -6,7 +6,7 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -17,6 +17,18 @@
   <GunGame>true</GunGame>
   <InvertedMouseAxis>true</InvertedMouseAxis>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Version</FieldName>
+      <FieldValue>hotd</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>hotd</string>
+        <string>hotdo</string>
+        <string>hotdp</string>
+      </FieldOptions>
+      <Hint>hotd: Revision A; hotdo: original; hotdp: prototype. All use the merged hotd.zip archive. Each version uses separate saves.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
@@ -101,10 +113,17 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Video</CategoryName>
+      <FieldName>Widescreen</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Experimental 16:9 scenery with the original 4:3 HUD and shooting area centered. Side scenery cannot be shot; aiming there counts as off-screen for reload. Desktop only; ignored in VR. Keep the game's original gun calibration.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
       <FieldName>Stretch to Fullscreen</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>Fill the entire display area. Off preserves the cabinet 4:3 aspect ratio.</Hint>
+      <Hint>Fill the entire display area. Off preserves the selected 4:3 or 16:9 aspect ratio.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Video</CategoryName>

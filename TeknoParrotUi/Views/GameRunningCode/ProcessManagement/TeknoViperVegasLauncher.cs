@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -188,6 +188,14 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             if (Setting("DisplayMode", "Fullscreen").Equals("Fullscreen", StringComparison.OrdinalIgnoreCase))
                 parameters.Add("--fullscreen");
             if (Enabled("Stretch to Fullscreen")) parameters.Add("--stretch");
+            if (Enabled("Widescreen") && !Enabled("Enable VR") &&
+                new[] { "srallyc", "schamp", "vf2", "vf2a", "vf2b", "vf2o",
+                        "stcc", "stcca", "stccb", "stcco", "doa", "doab", "doaa", "doaab", "doaae",
+                        "daytona", "daytonase", "daytona93", "daytonas", "sgt24h",
+                        "overrevb", "overrevba", "overrev",
+                        "vcop", "vcopa", "vcop2", "hotd", "hotdo", "hotdp" }
+                    .Contains(gameId, StringComparer.OrdinalIgnoreCase))
+                parameters.Add("--widescreen");
             if (Enabled("Use Bezel")) parameters.Add("--bezels");
             if (profile.GunGame)
             {
