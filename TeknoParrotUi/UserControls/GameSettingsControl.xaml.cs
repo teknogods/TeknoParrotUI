@@ -21,6 +21,8 @@ namespace TeknoParrotUi.UserControls
         public GameSettingsControl()
         {
             InitializeComponent();
+            GameSettingsList.AddHandler(System.Windows.Controls.Primitives.Selector.SelectionChangedEvent,
+                new SelectionChangedEventHandler(SettingSelectionChanged));
         }
 
         private GameProfile _gameProfile;
@@ -48,6 +50,8 @@ namespace TeknoParrotUi.UserControls
             PopulateGClubFfbDevices(gameProfile);
             GameSettingsList.ItemsSource = gameProfile.ConfigValues.Where(f =>
                 f.SettingsPage != ForceFeedbackSettingsControl.PageName).ToList();
+            System.Windows.Data.CollectionViewSource.GetDefaultView(GameSettingsList.ItemsSource).Filter =
+                item => ((FieldInformation)item).IsVisible(_gameProfile.ConfigValues);
             _contentControl = contentControl;
             _library = library;
 
@@ -100,6 +104,17 @@ namespace TeknoParrotUi.UserControls
                  field.FieldName == "Player 3 Force Feedback Device") &&
                 ForceFeedbackSettingsControl.HasSettings(_gameProfile)
                     ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void SettingSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!(e.OriginalSource is ComboBox combo) || !(combo.DataContext is FieldInformation field) ||
+                combo.SelectedValue == null || e.RemovedItems.Count == 0 ||
+                !_gameProfile.ConfigValues.Any(setting => setting.VisibleWhen == field.FieldName))
+                return;
+            combo.GetBindingExpression(ComboBox.SelectedValueProperty)?.UpdateSource();
+            Dispatcher.BeginInvoke(new Action(() =>
+                System.Windows.Data.CollectionViewSource.GetDefaultView(GameSettingsList.ItemsSource).Refresh()));
         }
 
         private void OpenForceFeedbackSettings(object sender, RoutedEventArgs e)

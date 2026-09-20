@@ -126,7 +126,8 @@ namespace TeknoParrotUi.UserControls
                     t.BindName = BuildMergedBindName(t.BindNameXi, t.BindNameDi, _mergedIncludesRawInput ? t.BindNameRi : null);
             }
 
-            JoystickMappingItems.ItemsSource = gameProfile.JoystickButtons;
+            JoystickMappingItems.ItemsSource = gameProfile.JoystickButtons.Where(button =>
+                SettingVisibility.IsVisible(gameProfile.ConfigValues, button.VisibleWhen, button.VisibleWhenValue)).ToList();
             if (_joystickControlRawInput == null)
                 _joystickControlRawInput = new JoystickControlRawInput();
             if (_joystickControlXInput == null)

@@ -313,6 +313,10 @@ namespace TeknoParrotUi.Common
         }
 
         public string ButtonName { get; set; }
+        public string VisibleWhen { get; set; }
+        public string VisibleWhenValue { get; set; }
+        public bool ShouldSerializeVisibleWhen() => !string.IsNullOrEmpty(VisibleWhen);
+        public bool ShouldSerializeVisibleWhenValue() => !string.IsNullOrEmpty(VisibleWhenValue);
         public JoystickButton DirectInputButton { get; set; }
         public XInputButton XInputButton { get; set; }
         public RawInputButton RawInputButton { get; set; }

@@ -54,6 +54,10 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _bg4Key;
         private bool _16bit;
         private bool _boneEaterLandscape;
+        private bool _isBoneEater;
+        private bool _boneEaterSingleScreen;
+        private DateTime _nextBoneEaterCanvasAttempt;
+        private bool UsesPublishedCanvas => _isBoneEater || _isPlay || _isTeknoVegas || _isTeknoHNG64 || _isTeknoViper || _isTeknoS11 || _isTeknoM2 || _isTeknoAGX || _isTeknoS22 || _isTeknoGClub || _isTeknoS23 || _isTeknoHornet || _isTeknoModel1 || _isTeknoModel2 || _isTeknoZeus;
         // Rotary encoder button states
         private static bool Rotary1LeftPressed = false;
         private static bool Rotary1RightPressed = false;
@@ -235,6 +239,12 @@ namespace TeknoParrotUi.Common.InputListening
 
         private IntPtr GetWindowInformation()
         {
+            if (_isBoneEater && _canvasInfoAccessor != null)
+            {
+                var output = new IntPtr(unchecked((int)_canvasInfoAccessor.ReadInt64(48)));
+                if (output != IntPtr.Zero && IsWindow(output))
+                    return output;
+            }
             foreach (Process pList in Process.GetProcesses())
             {
                 // TODO: Find a better way to find game window handle
@@ -335,10 +345,10 @@ namespace TeknoParrotUi.Common.InputListening
 
             _windowed = gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1") || gameProfile.ConfigValues.Any(x => x.FieldName == "DisplayMode" && x.FieldValue == "Windowed");
 
-            if (gameProfile.ConfigValues.Any(x => x.FieldName == "Render As Landscape" && x.FieldValue == "1"))
-            {
-                _boneEaterLandscape = true;
-            }
+            _isBoneEater = string.Equals(gameProfile.ExecutableName, "arkndd.dll", StringComparison.OrdinalIgnoreCase);
+            _boneEaterLandscape = _isBoneEater && gameProfile.ConfigValues.Any(x => x.FieldName == "Render As Landscape" && x.FieldValue == "1");
+            _boneEaterSingleScreen = _isBoneEater && gameProfile.ConfigValues.Any(x => x.FieldName == "Screen Layout" && x.FieldValue == "Single Screen Scope");
+            _nextBoneEaterCanvasAttempt = DateTime.MinValue;
 
             // Initialize rotary encoder mode flag
             UseButtonModeRotary = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Buttons For Rotary Encoders" && x.FieldValue == "1");
@@ -381,7 +391,7 @@ namespace TeknoParrotUi.Common.InputListening
 
             // These emulators publish their exact screen-space content viewport.
             // This keeps absolute and relative gun input aligned with letterboxed output.
-            if (_isPlay || _isTeknoVegas || _isTeknoHNG64 || _isTeknoViper || _isTeknoS11 || _isTeknoM2 || _isTeknoAGX || _isTeknoS22 || _isTeknoGClub || _isTeknoS23 || _isTeknoHornet || _isTeknoModel1 || _isTeknoModel2 || _isTeknoZeus)
+            if (UsesPublishedCanvas && !_isBoneEater)
             {
                 string canvasName = "TeknoparrotCanvas";
                 if (_isPlay)
@@ -461,6 +471,25 @@ namespace TeknoParrotUi.Common.InputListening
 
             while (!KillMe)
             {
+                // Wait for the renderer's canvas bounds without blocking
+                // window discovery or input during startup.
+                if (_isBoneEater && _canvasInfoAccessor == null && DateTime.UtcNow >= _nextBoneEaterCanvasAttempt)
+                {
+                    _nextBoneEaterCanvasAttempt = DateTime.UtcNow.AddMilliseconds(250);
+                    try
+                    {
+                        _canvasInfoMMF = MemoryMappedFile.OpenExisting("TeknoBoneEaterCanvasInfo", MemoryMappedFileRights.Read);
+                        _canvasInfoAccessor = _canvasInfoMMF.CreateViewAccessor(0, 56, MemoryMappedFileAccess.Read);
+                        _windowFound = false;
+                    }
+                    catch
+                    {
+                        _canvasInfoAccessor?.Dispose();
+                        _canvasInfoAccessor = null;
+                        _canvasInfoMMF?.Dispose();
+                        _canvasInfoMMF = null;
+                    }
+                }
                 if (!_windowFound)
                 {
                     // Look for hookable window
@@ -489,7 +518,7 @@ namespace TeknoParrotUi.Common.InputListening
                     // Only update when we are on the foreground
                     if (_windowHandle == GetForegroundWindow())
                     {
-                        if ((_isPlay || _isTeknoVegas || _isTeknoHNG64 || _isTeknoViper || _isTeknoS11 || _isTeknoM2 || _isTeknoAGX || _isTeknoS22 || _isTeknoGClub || _isTeknoS23 || _isTeknoHornet || _isTeknoModel1 || _isTeknoModel2 || _isTeknoZeus) &&
+                        if ((UsesPublishedCanvas) &&
                             _canvasInfoAccessor != null)
                         {
                             try
@@ -501,7 +530,8 @@ namespace TeknoParrotUi.Common.InputListening
                                 try
                                 {
                                     canvasInfo = Marshal.PtrToStructure<CanvasInfo>(handle.AddrOfPinnedObject());
-                                    hasCanvasInfo = true;
+                                    hasCanvasInfo = canvasInfo.viewportRight > canvasInfo.viewportLeft &&
+                                        canvasInfo.viewportBottom > canvasInfo.viewportTop;
                                 }
                                 finally
                                 {
@@ -656,13 +686,17 @@ namespace TeknoParrotUi.Common.InputListening
 
                             if (_boneEaterLandscape)
                             {
-                                // The landscape window renders the portrait (projector 16:9) content in the left column,
-                                // letterboxed. Calculate the exact portrait content rect to clip and map inputs correctly.
+                                // Estimate the fitted gameplay area when published
+                                // canvas bounds are unavailable.
                                 const float PortraitAspect = 5f / 8f;
-
-                                //_windowLocationX = 0;
-                                //_windowLocationY = 0;
-                                _windowWidth = (int)(_windowHeight * PortraitAspect);
+                                int columnWidth = _boneEaterSingleScreen ? _windowWidth :
+                                    Math.Min((int)(_windowHeight * PortraitAspect), (int)(_windowWidth * 0.75f));
+                                int imageWidth = Math.Min(columnWidth, (int)(_windowHeight * PortraitAspect));
+                                int imageHeight = Math.Min(_windowHeight, (int)(imageWidth / PortraitAspect));
+                                _windowLocationX += (columnWidth - imageWidth) / 2;
+                                _windowLocationY += (_windowHeight - imageHeight) / 2;
+                                _windowWidth = imageWidth;
+                                _windowHeight = imageHeight;
                             }
 
                             RECT clipRect = new RECT();
@@ -919,7 +953,7 @@ namespace TeknoParrotUi.Common.InputListening
                                 else if (gun.InputMapping == InputMapping.P4LightGun)
                                     player = 3;
 
-                                if (_isPlay || _isTeknoVegas || _isTeknoHNG64 || _isTeknoViper || _isTeknoS11 || _isTeknoM2 || _isTeknoAGX || _isTeknoS22 || _isTeknoGClub || _isTeknoS23 || _isTeknoHornet || _isTeknoModel1 || _isTeknoModel2 || _isTeknoZeus)
+                                if (UsesPublishedCanvas)
                                 {
                                     int scaledDeltaX = (int)(mouse.Mouse.LastX * _dpiScaleX);
                                     int scaledDeltaY = (int)(mouse.Mouse.LastY * _dpiScaleY);
@@ -1550,12 +1584,12 @@ namespace TeknoParrotUi.Common.InputListening
             float factorY = 0.0f;
 
             // Windowed
-            if (_windowed || _isPlay || _isTeknoVegas || _isTeknoHNG64 || _isTeknoViper || _isTeknoS11 || _isTeknoM2 || _isTeknoAGX || _isTeknoS22 || _isTeknoGClub || _isTeknoS23 || _isTeknoHornet || _isTeknoModel1 || _isTeknoModel2 || _isTeknoZeus)
+            if (_windowed || UsesPublishedCanvas)
             {
                 // Translate absolute units to pixels
                 if (moveAbsolute)
                 {
-                    if ((_isPlay || _isTeknoVegas || _isTeknoHNG64 || _isTeknoViper || _isTeknoS11 || _isTeknoM2 || _isTeknoAGX || _isTeknoS22 || _isTeknoGClub || _isTeknoS23 || _isTeknoHornet || _isTeknoModel1 || _isTeknoModel2 || _isTeknoZeus) &&
+                    if ((UsesPublishedCanvas) &&
                         canvasInfo.windowWidth > 0 && canvasInfo.windowHeight > 0)
                     {
                         // Canvas publishers use physical pixels. Map normalized RawInput

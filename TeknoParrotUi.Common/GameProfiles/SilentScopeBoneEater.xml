@@ -7,7 +7,7 @@
 	<ExtraParameters />
 	<TestMenuExtraParameters />
 	<EmulationProfile>KonamiAcio</EmulationProfile>
-	<GameProfileRevision>14</GameProfileRevision>
+	<GameProfileRevision>17</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<ExecutableName>arkndd.dll</ExecutableName>
 	<EmulatorType>TeknoMacaw</EmulatorType>
@@ -65,7 +65,7 @@
 			<FieldName>Render As Landscape</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
-			<Hint>Will render both the portrait game screen and the scope screen into a 16:9 window or fullscreen experience</Hint>
+			<Hint>Renders into a landscape window or fullscreen display. Dual Screen shows the game and scope side by side. Single Screen Scope overlays the scope on the game using the Scope button. Disable this setting for portrait output.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -78,6 +78,42 @@
 			<FieldName>Landscape Resolution Height</FieldName>
 			<FieldValue>1080</FieldValue>
 			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>Screen Layout</FieldName>
+			<FieldValue>Dual Screen</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Dual Screen</string>
+				<string>Single Screen Scope</string>
+			</FieldOptions>
+			<Hint>Dual Screen keeps the game and scope in separate views, shown side by side when Render As Landscape is enabled. Single Screen Scope overlays a circular scope on the merged gameplay and HUD using the Scope button. Both layouts support portrait and landscape output.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>Scope Button Mode</FieldName>
+			<VisibleWhen>Screen Layout</VisibleWhen>
+			<VisibleWhenValue>Single Screen Scope</VisibleWhenValue>
+			<FieldValue>Hold</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Hold</string>
+				<string>Toggle</string>
+			</FieldOptions>
+			<Hint>Single Screen Scope only: hold the Scope button to show the lens, or press once to show it and again to hide it.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>Scope Scale (%)</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>25</FieldMin>
+			<FieldMax>150</FieldMax>
+			<FieldStep>1</FieldStep>
+			<VisibleWhen>Screen Layout</VisibleWhen>
+			<VisibleWhenValue>Single Screen Scope</VisibleWhenValue>
+			<Hint>100% is the standard scope size. Lower values shrink the scope; values above 100% enlarge it and may extend beyond the game image.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -170,6 +206,12 @@
 		<JoystickButtons>
 			<ButtonName>Gun Button</ButtonName>
 			<InputMapping>P2Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Scope</ButtonName>
+			<InputMapping>P2Button2</InputMapping>
+			<VisibleWhen>Screen Layout</VisibleWhen>
+			<VisibleWhenValue>Single Screen Scope</VisibleWhenValue>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Player 1 Gun X</ButtonName>

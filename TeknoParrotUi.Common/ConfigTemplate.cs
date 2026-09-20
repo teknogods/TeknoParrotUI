@@ -49,8 +49,19 @@ namespace TeknoParrotUi.Common
         // Optional XML-driven settings pages. Unmarked fields stay in Game Settings.
         public string SettingsPage { get; set; }
         public string EnabledBy { get; set; }
+        public string VisibleWhen { get; set; }
+        public string VisibleWhenValue { get; set; }
+        public bool ShouldSerializeVisibleWhen() => !string.IsNullOrEmpty(VisibleWhen);
+        public bool ShouldSerializeVisibleWhenValue() => !string.IsNullOrEmpty(VisibleWhenValue);
+        public bool IsVisible(IEnumerable<FieldInformation> settings) => SettingVisibility.IsVisible(settings, VisibleWhen, VisibleWhenValue);
         public bool ShouldSerializeSettingsPage() => !string.IsNullOrEmpty(SettingsPage);
         public bool ShouldSerializeEnabledBy() => !string.IsNullOrEmpty(EnabledBy);
         public bool UseUnitySorting { get; set; } = false;
+    }
+
+    public static class SettingVisibility
+    {
+        public static bool IsVisible(IEnumerable<FieldInformation> settings, string field, string value) =>
+            string.IsNullOrEmpty(field) || settings?.Any(setting => setting.FieldName == field && setting.FieldValue == value) == true;
     }
 }
