@@ -7,7 +7,7 @@
   <ExtraParameters />
   <TestMenuExtraParameters />
   <EmulationProfile>TeknoHornet</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoHornet</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -99,17 +99,19 @@
     <FieldInformation>
       <CategoryName>Video</CategoryName>
       <FieldName>Screen Layout</FieldName>
-      <FieldValue>Original</FieldValue>
+      <FieldValue>Dual Screen</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
-        <string>Original</string>
+        <string>Dual Screen</string>
         <string>Single Screen Scope</string>
       </FieldOptions>
-      <Hint>Original keeps both displays side by side. Single Screen Scope fills the game area with the main display and brings up a circular scope using Player 1 Button 2.</Hint>
+      <Hint>Dual Screen keeps both displays side by side. Single Screen Scope fills the game area with the main display and brings up a circular scope using Player 1 Button 2.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Video</CategoryName>
       <FieldName>Scope Button Mode</FieldName>
+      <VisibleWhen>Screen Layout</VisibleWhen>
+      <VisibleWhenValue>Single Screen Scope</VisibleWhenValue>
       <FieldValue>Hold</FieldValue>
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
@@ -117,6 +119,18 @@
         <string>Toggle</string>
       </FieldOptions>
       <Hint>Single Screen Scope only: hold Player 1 Button 2 to aim through the lens, or press once to enter and again to leave.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Scope Scale (%)</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>25</FieldMin>
+      <FieldMax>150</FieldMax>
+      <FieldStep>1</FieldStep>
+      <VisibleWhen>Screen Layout</VisibleWhen>
+      <VisibleWhenValue>Single Screen Scope</VisibleWhenValue>
+      <Hint>100% is the standard scope size. Lower values shrink the scope; values above 100% enlarge it and may extend beyond the game image.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Video</CategoryName>
@@ -197,6 +211,8 @@
     <JoystickButtons>
       <ButtonName>Player 1 Button 2</ButtonName>
       <InputMapping>P1Button2</InputMapping>
+      <VisibleWhen>Screen Layout</VisibleWhen>
+      <VisibleWhenValue>Single Screen Scope</VisibleWhenValue>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Button 3</ButtonName>

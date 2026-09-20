@@ -144,6 +144,11 @@ namespace TeknoParrotUi.Common
                     }
                 }
 
+                var screenLayout = gameProfile.ConfigValues.FirstOrDefault(f => f.FieldName == "Screen Layout");
+                if (gameProfile.EmulatorType == EmulatorType.TeknoHornet && screenLayout?.FieldValue == "Original" &&
+                    screenLayout.FieldOptions.Contains("Dual Screen"))
+                    screenLayout.FieldValue = "Dual Screen";
+
                 // Preserve a disabled spring's old uncentering enable state;
                 // new uncentering strength uses the profile's 30% default.
                 var uncenteringEnable = gameProfile.ConfigValues.FirstOrDefault(f => f.FieldName == "Enable Uncentering Effect");

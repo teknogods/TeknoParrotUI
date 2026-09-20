@@ -749,13 +749,17 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             parameters.Add("--ffb-gain");
             parameters.Add(ffbGain.ToString(CultureInfo.InvariantCulture));
             ForceFeedbackArguments.Add(profile, parameters, "Constant", "Recoil");
-            if (Setting("Screen Layout", "Original") == "Single Screen Scope")
+            if (Setting("Screen Layout", "Dual Screen") == "Single Screen Scope")
             {
                 parameters.Add("--layout single-screen-scope");
                 parameters.Add(Setting("Scope Button Mode", "Hold") == "Toggle"
                     ? "--scope-button toggle" : "--scope-button hold");
+                if (!int.TryParse(Setting("Scope Scale (%)", "100"), NumberStyles.Integer,
+                        CultureInfo.InvariantCulture, out var scopeScale) || scopeScale < 25 || scopeScale > 150)
+                    scopeScale = 100;
+                parameters.Add("--scope-scale " + scopeScale.ToString(CultureInfo.InvariantCulture));
             }
-            else if (Setting("Screen Layout") == "Original")
+            else if (Setting("Screen Layout") == "Dual Screen" || Setting("Screen Layout") == "Original")
             {
                 parameters.Add("--layout side-by-side");
             }
