@@ -107,27 +107,31 @@ namespace TeknoParrotUi.Helpers
                         return;
                     }
 
-                    if (newState.Gamepad.LeftThumbX != oldState.Gamepad.LeftThumbX)
+                    short axisValue = 0;
+                    bool axisIsLeftThumb = false;
+                    bool axisIsY = false;
+
+                    // Ignore potential jitter and try to pick the axis with the most movement
+                    void ConsiderAxis(short value, short oldValue, bool isLeftThumb, bool isY)
                     {
-                        GetAnalogXInput(newState.Gamepad.LeftThumbX, true, txt, false, index);
-                        return;
+                        var deadZone = isLeftThumb ? Gamepad.LeftThumbDeadZone : Gamepad.RightThumbDeadZone;
+                        var magnitude = Math.Abs((int)value);
+                        if (value == oldValue || magnitude <= deadZone || magnitude <= Math.Abs((int)axisValue))
+                            return;
+
+                        axisValue = value;
+                        axisIsLeftThumb = isLeftThumb;
+                        axisIsY = isY;
                     }
 
-                    if (newState.Gamepad.RightThumbX != oldState.Gamepad.RightThumbX)
-                    {
-                        GetAnalogXInput(newState.Gamepad.RightThumbX, false, txt, false, index);
-                        return;
-                    }
+                    ConsiderAxis(newState.Gamepad.LeftThumbX, oldState.Gamepad.LeftThumbX, true, false);
+                    ConsiderAxis(newState.Gamepad.RightThumbX, oldState.Gamepad.RightThumbX, false, false);
+                    ConsiderAxis(newState.Gamepad.LeftThumbY, oldState.Gamepad.LeftThumbY, true, true);
+                    ConsiderAxis(newState.Gamepad.RightThumbY, oldState.Gamepad.RightThumbY, false, true);
 
-                    if (newState.Gamepad.LeftThumbY != oldState.Gamepad.LeftThumbY)
+                    if (axisValue != 0)
                     {
-                        GetAnalogXInput(newState.Gamepad.LeftThumbY, true, txt, true, index);
-                        return;
-                    }
-
-                    if (newState.Gamepad.RightThumbY != oldState.Gamepad.RightThumbY)
-                    {
-                        GetAnalogXInput(newState.Gamepad.RightThumbY, false, txt, true, index);
+                        GetAnalogXInput(axisValue, axisIsLeftThumb, txt, axisIsY, index);
                         return;
                     }
 

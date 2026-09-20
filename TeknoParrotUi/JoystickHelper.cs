@@ -24,7 +24,6 @@ namespace TeknoParrotUi.Common
             IgnoreProcessingInstructions = true,
             ValidationType = ValidationType.None
         };
-        private static readonly JsonSerializer jsonSerializer = new JsonSerializer();
 
         private static bool IsEnvironmentFlagEnabled(string variableName)
         {
