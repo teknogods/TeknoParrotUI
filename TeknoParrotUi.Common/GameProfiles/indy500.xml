@@ -6,7 +6,7 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>13</GameProfileRevision>
+  <GameProfileRevision>14</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -15,6 +15,18 @@
   <Patreon>true</Patreon>
   <DevOnly>false</DevOnly>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Version</FieldName>
+      <FieldValue>indy500</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>indy500</string>
+        <string>indy500to</string>
+        <string>indy500d</string>
+      </FieldOptions>
+      <Hint>indy500: Twin Revision A (newer); indy500to: Twin Revision A (older); indy500d: Deluxe Revision A. All use the merged indy500.zip archive. Each version uses separate saves</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Force Feedback Device</FieldName>

@@ -165,7 +165,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     selectedRom.EndsWith(".zip", StringComparison.OrdinalIgnoreCase)
                         ? Path.GetDirectoryName(Resolve(selectedRom)) : Resolve(selectedRom);
             else romRoot = Resolve(romRoot);
-            var gameId = profile.ProfileName;
+            var gameId = Setting("Game Version", profile.ProfileName).Trim();
+            if (string.IsNullOrWhiteSpace(gameId)) gameId = profile.ProfileName;
             var configuredSaveRoot = Setting("Save Root");
             var saveRoot = Resolve(string.IsNullOrWhiteSpace(configuredSaveRoot)
                 ? Path.Combine(workDir, "nvram") : configuredSaveRoot);
