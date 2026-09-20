@@ -180,7 +180,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             {
                 "--game", Quote(gameId), "--rom-root", Quote(romRoot),
                 "--nvram", Quote(Path.Combine(saveRoot, gameId + ".nvram")),
-                "--renderer", Setting("Renderer", "vulkan") == "software" ? "software" : "vulkan",
+                "--renderer", "vulkan",
                 "--upscale", scale,
                 "--filter", filter,
                 "--outputs"
@@ -286,6 +286,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             parameters.Add("--ffb-sine-period");
             parameters.Add(sinePeriod.ToString(CultureInfo.InvariantCulture));
             var executable = Path.Combine(workDir, "TeknoModel2.exe");
+            log?.Invoke($"TeknoModel2: {gameId}, renderer=vulkan, widescreen={(parameters.Contains("--widescreen") ? "on" : "off")}");
             if (!File.Exists(executable)) log?.Invoke($"TeknoModel2 executable was not found at {executable}");
             if (!Directory.Exists(romRoot)) log?.Invoke($"TeknoModel2 ROM root was not found at {romRoot}");
             return new ProcessStartInfo(executable, string.Join(" ", parameters))

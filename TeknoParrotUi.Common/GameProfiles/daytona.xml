@@ -6,7 +6,7 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>14</GameProfileRevision>
+  <GameProfileRevision>15</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -160,16 +160,6 @@
       <FieldOptions>
         <string>Windowed</string>
         <string>Fullscreen</string>
-      </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Video</CategoryName>
-      <FieldName>Renderer</FieldName>
-      <FieldValue>vulkan</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>vulkan</string>
-        <string>software</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
