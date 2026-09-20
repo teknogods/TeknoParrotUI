@@ -196,6 +196,10 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                         "vcop", "vcopa", "vcop2", "hotd", "hotdo", "hotdp" }
                     .Contains(gameId, StringComparer.OrdinalIgnoreCase))
                 parameters.Add("--widescreen");
+            if (Enabled("Extended Draw Distance") &&
+                new[] { "daytona", "daytona93", "daytonas", "daytonase" }
+                    .Contains(gameId, StringComparer.OrdinalIgnoreCase))
+                parameters.Add("--daytona-extended-draw-distance");
             if (Enabled("Use Bezel")) parameters.Add("--bezels");
             if (profile.GunGame)
             {
