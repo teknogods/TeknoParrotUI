@@ -764,6 +764,21 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 "--parallel-graphics", "--high-performance", "-outputs" };
             parameters.Add("--pacing");
             parameters.Add(Enabled("Disable VSync") ? "--no-vsync" : "--vsync");
+            if (game == "thrilld" || game == "thrilldgeu")
+            {
+                void CabinetOverride(string setting, string argument, string[] values)
+                {
+                    var selectedValue = Setting(setting, "Game Default");
+                    if (selectedValue == "Game Default") return;
+                    var index = Array.IndexOf(values, selectedValue);
+                    if (index < 0) throw new ArgumentException("Unknown " + setting + ": " + selectedValue);
+                    parameters.Add(argument);
+                    parameters.Add(index.ToString(CultureInfo.InvariantCulture));
+                }
+                CabinetOverride("Shifter Type", "--thrill-shifter",
+                    new[] { "5 + Reverse", "Sequential", "4 Position" });
+                // Motor protocol is selected automatically by TeknoHornet.
+            }
             // Match the other standalone emulators: publish lamps/meters on every launch.
             parameters.Add("--ffb-device");
             parameters.Add(TeknoParrotUi.Helpers.HornetFfbDeviceProbe.GetLaunchSelection(

@@ -7,7 +7,7 @@
   <ExtraParameters />
   <TestMenuExtraParameters />
   <EmulationProfile>TeknoHornet</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>10</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoHornet</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -25,6 +25,19 @@
   <Patreon>true</Patreon>
   <DevOnly>false</DevOnly>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Shifter Type</FieldName>
+      <FieldValue>Game Default</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Game Default</string>
+        <string>Sequential</string>
+        <string>4 Position</string>
+        <string>5 + Reverse</string>
+      </FieldOptions>
+      <Hint>Overrides the arcade shifter type on every launch.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Force Feedback Device</FieldName>
@@ -270,16 +283,40 @@
       <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 1</ButtonName>
-      <InputMapping>P1Button1</InputMapping>
+      <ButtonName>Gear 1</ButtonName>
+      <InputMapping>P2ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 2</ButtonName>
-      <InputMapping>P1Button2</InputMapping>
+      <ButtonName>Gear 2</ButtonName>
+      <InputMapping>P2ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Button 3</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
+      <ButtonName>Gear 3</ButtonName>
+      <InputMapping>P2ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 4</ButtonName>
+      <InputMapping>P2ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 5</ButtonName>
+      <InputMapping>P2Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Reverse</ButtonName>
+      <InputMapping>P2Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Neutral</ButtonName>
+      <InputMapping>P2Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shift Up</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shift Down</ButtonName>
+      <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
