@@ -169,6 +169,10 @@
                                         FontSize="12" Visibility="Collapsed"
                                         ToolTip="Adjust force feedback effects for this game."
                                         Loaded="ForceFeedbackButtonLoaded" Click="OpenForceFeedbackSettings" />
+                                <Button x:Name="OutputSettingsButton" Content="Settings" Height="24" Padding="10,0" Margin="8,0,8,4"
+                                        FontSize="12" Visibility="Collapsed"
+                                        ToolTip="Configure the network output port and message format."
+                                        Loaded="OutputSettingsButtonLoaded" Click="OpenOutputSettings" />
                                 <StackPanel.ToolTip>
                                     <ToolTip Style="{StaticResource teknoHint}" />
                                 </StackPanel.ToolTip>

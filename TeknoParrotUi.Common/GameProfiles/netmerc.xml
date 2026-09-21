@@ -7,7 +7,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>TeknoModel1</EmulationProfile>
-  <GameProfileRevision>12</GameProfileRevision>
+  <GameProfileRevision>13</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel1</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -40,6 +40,17 @@
       <FieldValue>off</FieldValue>
       <FieldType>DynamicDropdown</FieldType>
       <Hint>Select direct SDL3 wheel force feedback or controller vibration. Requires model1haptic.exe from the TeknoModel1 package.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Outputs</FieldName>
+      <FieldValue>Windows Outputs</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windows Outputs</string>
+        <string>Network Outputs</string>
+      </FieldOptions>
+      <Hint>Choose how game outputs are sent. Select Network Outputs to configure its settings.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>VR</CategoryName>
@@ -316,12 +327,6 @@
         <string>off</string>
       </FieldOptions>
       <Hint>Virtua Fighter is the default donor-assisted recovery bank. Donor ROMs are read from your own merged ROM directory; off uses the procedural fallback.</Hint>
-    </FieldInformation>    <FieldInformation>
-      <CategoryName>Cabinet</CategoryName>
-      <FieldName>Cabinet Outputs</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <Hint>Publish the emulated output latch to compatible Windows cabinet-output clients.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Storage</CategoryName>

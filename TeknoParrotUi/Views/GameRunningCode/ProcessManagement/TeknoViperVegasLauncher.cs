@@ -31,6 +31,13 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
         public static ProcessStartInfo Build(GameProfile profile, string gameLocation, Action<string> log)
         {
+            var info = BuildEmulator(profile, gameLocation, log);
+            CabinetOutputSettings.Apply(profile, info);
+            return info;
+        }
+
+        private static ProcessStartInfo BuildEmulator(GameProfile profile, string gameLocation, Action<string> log)
+        {
             switch (profile.EmulatorType)
             {
                 case EmulatorType.TeknoAir:

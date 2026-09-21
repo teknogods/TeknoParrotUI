@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>GTI Club: Rally Cote D’Azur (EAA)</GameNameInternal>
   <EmulationProfile>TeknoGClub</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <EmulatorType>TeknoGClub</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>gticlub.zip</ExecutableName>
@@ -56,6 +56,17 @@
 			<FieldMax>100</FieldMax>
 			<Hint>Strength of torque and impacts sent by the game.</Hint>
 		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Outputs</FieldName>
+      <FieldValue>Windows Outputs</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windows Outputs</string>
+        <string>Network Outputs</string>
+      </FieldOptions>
+      <Hint>Choose how game outputs are sent. Select Network Outputs to configure its settings.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>

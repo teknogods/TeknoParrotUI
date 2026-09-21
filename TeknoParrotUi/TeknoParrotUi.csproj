@@ -477,6 +477,9 @@
     <Compile Include="EmuBlacklist.cs" />
     <Compile Include="GameVersion.cs" />
     <Compile Include="Helpers\DiscordRPC.cs" />
+    <Compile Include="UserControls\OutputSettingsControl.xaml.cs">
+      <DependentUpon>OutputSettingsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ForceFeedbackSettingsControl.xaml.cs">
       <DependentUpon>ForceFeedbackSettingsControl.xaml</DependentUpon>
     </Compile>
@@ -593,6 +596,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DownloadWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\OutputSettingsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

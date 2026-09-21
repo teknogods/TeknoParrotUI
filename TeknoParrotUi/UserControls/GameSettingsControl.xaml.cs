@@ -106,15 +106,38 @@ namespace TeknoParrotUi.UserControls
                     ? Visibility.Visible : Visibility.Collapsed;
         }
 
+        private void OutputSettingsButtonLoaded(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            button.Visibility = CabinetOutputSettings.Supports(_gameProfile) &&
+                button.DataContext is FieldInformation field && CabinetOutputSettings.IsOutputField(field) &&
+                field.FieldValue == "Network Outputs" ? Visibility.Visible : Visibility.Collapsed;
+        }
+
         private void SettingSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!(e.OriginalSource is ComboBox combo) || !(combo.DataContext is FieldInformation field) ||
-                combo.SelectedValue == null || e.RemovedItems.Count == 0 ||
+                combo.SelectedValue == null || _gameProfile == null)
+                return;
+            if (CabinetOutputSettings.Supports(_gameProfile) && CabinetOutputSettings.IsOutputField(field))
+            {
+                combo.GetBindingExpression(ComboBox.SelectedValueProperty)?.UpdateSource();
+                var container = ItemsControl.ContainerFromElement(GameSettingsList, combo) as ContentPresenter;
+                var button = container?.ContentTemplate?.FindName("OutputSettingsButton", container) as Button;
+                if (button != null) OutputSettingsButtonLoaded(button, new RoutedEventArgs());
+            }
+            if (e.RemovedItems.Count == 0 ||
                 !_gameProfile.ConfigValues.Any(setting => setting.VisibleWhen == field.FieldName))
                 return;
             combo.GetBindingExpression(ComboBox.SelectedValueProperty)?.UpdateSource();
             Dispatcher.BeginInvoke(new Action(() =>
                 System.Windows.Data.CollectionViewSource.GetDefaultView(GameSettingsList.ItemsSource).Refresh()));
+        }
+
+        private void OpenOutputSettings(object sender, RoutedEventArgs e)
+        {
+            _contentControl.Content = new OutputSettingsControl(_gameProfile,
+                () => _contentControl.Content = this);
         }
 
         private void OpenForceFeedbackSettings(object sender, RoutedEventArgs e)

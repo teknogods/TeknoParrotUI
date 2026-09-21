@@ -115,9 +115,14 @@ namespace TeknoParrotUi.Common
         public string GameVersion { get; set; } = "";
         public bool AllowSettingSync { get; set; } = false;
         public bool Use16BitAnalog { get; set; } = false;
+        public CabinetOutputSettings CabinetOutputSettings { get; set; } = new CabinetOutputSettings();
+
+        public bool ShouldSerializeCabinetOutputSettings() => TeknoParrotUi.Common.CabinetOutputSettings.Supports(this);
+
         public GameProfile Clone()
         {
             var copy = (GameProfile)MemberwiseClone();
+            copy.CabinetOutputSettings = CabinetOutputSettings?.Clone();
             copy.ConfigValues = ConfigValues?.Select(field => field?.Clone()).ToList();
             copy.JoystickButtons = JoystickButtons?.Select(button => button?.Clone()).ToList();
             if (RPCS3Config != null)

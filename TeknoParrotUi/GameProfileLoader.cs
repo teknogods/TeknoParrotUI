@@ -164,6 +164,11 @@ namespace TeknoParrotUi.Common
                 else if (uncenteringMode?.FieldValue == "Push away from centre")
                     uncenteringMode.FieldValue = "Push away from center";
 
+                var outputs = gameProfile.ConfigValues.FirstOrDefault(CabinetOutputSettings.IsOutputField);
+                if (outputs != null && !other.ConfigValues.Any(CabinetOutputSettings.IsOutputField))
+                    outputs.FieldValue = CabinetOutputSettings.GetRoute(other);
+
+                gameProfile.CabinetOutputSettings = other.CabinetOutputSettings?.Clone() ?? new CabinetOutputSettings();
                 gameProfile.GamePath = other.GamePath;
                 gameProfile.GamePath2 = other.GamePath2;
             }
