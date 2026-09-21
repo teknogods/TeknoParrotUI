@@ -112,6 +112,14 @@ namespace TeknoParrotUi.Common.Pipes
                 InputCode.AnalogBytes[2] = 0x80;
                 InputCode.AnalogBytes[4] = 0x80;
             }
+            else if (IsProfile("sfrush") || IsProfile("sfrushrk") ||
+                     IsProfile("sf2049") || IsProfile("sf2049se") ||
+                     IsProfile("sf2049te"))
+            {
+                // Rush uses AN7 for steering. Initialize it before publishing
+                // the lease; zero is a valid full-left position once active.
+                InputCode.AnalogBytes[14] = 0x80;
+            }
             else if (IsProfile("cartfury"))
             {
                 // CART's wheel is centred while its independent gas/brake
