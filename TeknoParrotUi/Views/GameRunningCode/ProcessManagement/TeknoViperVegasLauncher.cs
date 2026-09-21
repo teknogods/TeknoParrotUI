@@ -759,7 +759,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             // TeknoHornet.exe owns first-run setup after its license gate.
             var parameters = new List<string> { Quote(game), "--rom-root", Quote(romRoot),
                 "--nvram", Quote(nvram), "--renderer", "vulkan", "--upscale", Setting("Internal Resolution", "4"),
-                "--filter", Setting("Presentation Resampling", "area"), "--parallel-graphics", "-outputs" };
+                "--filter", Setting("Presentation Resampling", "area"),
+                "--ppc-jit", "--sharc-native", "--sharc-ir-interpreter",
+                "--parallel-graphics", "--high-performance", "-outputs" };
             parameters.Add("--pacing");
             parameters.Add(Enabled("Disable VSync") ? "--no-vsync" : "--vsync");
             // Match the other standalone emulators: publish lamps/meters on every launch.
