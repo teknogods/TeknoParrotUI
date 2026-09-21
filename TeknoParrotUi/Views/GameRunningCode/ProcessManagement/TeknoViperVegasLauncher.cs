@@ -387,6 +387,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 parameters.Add("--smooth-geometry");
             if ((gameId == "vr" || gameId == "vformula") && Enabled("Extended Draw Distance"))
                 parameters.Add("--vr-extended-draw-distance");
+            if ((gameId == "swa" || gameId == "swaj" || gameId.StartsWith("wingwar", StringComparison.Ordinal)) &&
+                Enabled("Invert Y axis"))
+                parameters.Add("--invert-y");
             if (gameId == "wingwar" && Enabled("Extended Draw Distance"))
                 parameters.Add("--wingwar-extended-draw-distance");
             if (gameId == "vformula" && !vrEnabled && Enabled("Widescreen hack"))
