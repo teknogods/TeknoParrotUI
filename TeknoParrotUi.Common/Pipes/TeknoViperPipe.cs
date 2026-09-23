@@ -31,7 +31,7 @@ namespace TeknoParrotUi.Common.Pipes
         }
 
         private static bool GunProfile() =>
-            IsProfile("jpark3u") || IsProfile("wcombatu") || IsProfile("p911ud") || IsProfile("p9112");
+            InputCode.GameProfile?.EmulationProfile == EmulationProfile.TeknoTPJC || IsProfile("jpark3u") || IsProfile("wcombatu") || IsProfile("p911ud") || IsProfile("p9112");
 
         private static byte PlayerByte(int index)
         {

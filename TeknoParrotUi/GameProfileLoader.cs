@@ -104,7 +104,11 @@ namespace TeknoParrotUi.Common
             {
                 for (int i = 0; i < other.JoystickButtons.Count; i++)
                 {
-                    var button = gameProfile.JoystickButtons.FirstOrDefault(x => x.ButtonName == other.JoystickButtons[i].ButtonName);
+                    var oldButton = other.JoystickButtons[i];
+                    var button = gameProfile.JoystickButtons.FirstOrDefault(x => x.ButtonName == oldButton.ButtonName);
+                    if (button == null && gameProfile.EmulatorType == EmulatorType.TeknoModel2 &&
+                        gameProfile.ExecutableName == "desert.zip" && oldButton.ButtonName == "Brake")
+                        button = gameProfile.JoystickButtons.FirstOrDefault(x => x.ButtonName == "Turret");
 
                     if (button != null)
                     {

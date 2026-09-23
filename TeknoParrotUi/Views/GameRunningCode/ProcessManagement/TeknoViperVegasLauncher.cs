@@ -66,6 +66,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     return TeknoVUnitLauncher.Build(profile, gameLocation, log);
                 case EmulatorType.TeknoM2:
                     return TeknoM2Launcher.Build(profile, gameLocation, log);
+                case EmulatorType.TeknoTPJC:
+                    return TeknoTPJCLauncher.Build(profile, gameLocation, log);
                 case EmulatorType.TeknoS11:
                     return TeknoS11Launcher.Build(profile, gameLocation, log);
                 case EmulatorType.TeknoViper:
@@ -930,6 +932,28 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 parameters.Add(Quote(chdRoot));
             }
 
+            if (gameId == "sscopex" || gameId == "sogeki" || gameId == "sscopefh")
+            {
+                var layout = Setting("Screen Layout", "Dual Screen");
+                if (layout == "Single Screen Scope")
+                {
+                    parameters.Add("--layout single-screen-scope");
+                    parameters.Add(Setting("Scope Button Mode", "Hold") == "Toggle"
+                        ? "--scope-button toggle" : "--scope-button hold");
+                    if (!int.TryParse(Setting("Scope Scale (%)", "100"),
+                            NumberStyles.Integer, CultureInfo.InvariantCulture,
+                            out var scopeScale) || scopeScale < 25 || scopeScale > 150)
+                        scopeScale = 100;
+                    parameters.Add("--scope-scale " +
+                        scopeScale.ToString(CultureInfo.InvariantCulture));
+                }
+                else if (layout == "Scope Screen")
+                    parameters.Add("--layout secondary");
+                else if (layout == "Main Screen")
+                    parameters.Add("--layout primary");
+                else
+                    parameters.Add("--layout side-by-side");
+            }
             if (Setting("DisplayMode", "Fullscreen") == "Fullscreen")
                 parameters.Add("--fullscreen");
             if (Enabled("Stretch to Fullscreen"))

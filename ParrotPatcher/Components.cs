@@ -304,6 +304,15 @@ namespace ParrotPatcher
                     manualVersion = false,
                     folderOverride = "TeknoS11"
                 },
+                new UpdaterComponent
+                {
+                    name = "TeknoTPJC",
+                    location = Path.Combine("TeknoTPJC", "TeknoTPJC.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "TeknoTPJC"
+                },
             new UpdaterComponent
                 {
                     name = "TeknoS21",

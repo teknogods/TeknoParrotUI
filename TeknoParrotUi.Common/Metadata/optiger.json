@@ -1,0 +1,14 @@
+{
+  "game_name": "Operation Tiger (Ver 2.14 O)",
+  "game_genre": "Shooter",
+  "icon_name": "optiger.png",
+  "platform": "Taito Power JC",
+  "release_year": "1998",
+  "nvidia": "NO_INFO",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": "Development only. Select optiger.zip (Ver 2.14 O). No CHD required. Uses experimental geometry workarounds. First boot may require Test and cabinet calibration. Full gameplay and VR validation remain incomplete."
+}

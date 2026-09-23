@@ -40,6 +40,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _isTeknoVUnit;
         private bool _isTeknoViper;
         private bool _isTeknoS11;
+        private bool _isTeknoTPJC;
         private bool _isTeknoM2;
         private bool _isTeknoAGX;
         private bool _isTeknoHornet;
@@ -57,7 +58,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _isBoneEater;
         private bool _boneEaterSingleScreen;
         private DateTime _nextBoneEaterCanvasAttempt;
-        private bool UsesPublishedCanvas => _isBoneEater || _isPlay || _isTeknoVegas || _isTeknoHNG64 || _isTeknoViper || _isTeknoS11 || _isTeknoM2 || _isTeknoAGX || _isTeknoS22 || _isTeknoGClub || _isTeknoS23 || _isTeknoHornet || _isTeknoModel1 || _isTeknoModel2 || _isTeknoZeus;
+        private bool UsesPublishedCanvas => _isBoneEater || _isPlay || _isTeknoVegas || _isTeknoHNG64 || _isTeknoViper || _isTeknoTPJC || _isTeknoS11 || _isTeknoM2 || _isTeknoAGX || _isTeknoS22 || _isTeknoGClub || _isTeknoS23 || _isTeknoHornet || _isTeknoModel1 || _isTeknoModel2 || _isTeknoZeus;
         // Rotary encoder button states
         private static bool Rotary1LeftPressed = false;
         private static bool Rotary1RightPressed = false;
@@ -217,6 +218,7 @@ namespace TeknoParrotUi.Common.InputListening
                 if (_isTeknoAGX && windowTitle.StartsWith("TeknoAGX", StringComparison.Ordinal)) return true;
                 if (_isTeknoM2 && windowTitle.StartsWith("TeknoM2 - ", StringComparison.Ordinal))
                     return true;
+                if (_isTeknoTPJC && windowTitle.StartsWith("TeknoTPJC", StringComparison.Ordinal)) return true;
                 if (_isTeknoS11 && windowTitle.StartsWith("TeknoS11", StringComparison.Ordinal)) return true;
                 if (_isTeknoViper && windowTitle.StartsWith("TeknoViper - ", StringComparison.Ordinal))
                 {
@@ -282,6 +284,7 @@ namespace TeknoParrotUi.Common.InputListening
             _isTeknoS22 = gameProfile.EmulationProfile == EmulationProfile.TeknoS22;
             _isTeknoVUnit = gameProfile.EmulationProfile == EmulationProfile.TeknoVUnit;
             _isTeknoM2 = gameProfile.EmulationProfile == EmulationProfile.TeknoM2;
+            _isTeknoTPJC = gameProfile.EmulationProfile == EmulationProfile.TeknoTPJC;
             _isTeknoS11 = gameProfile.EmulationProfile == EmulationProfile.TeknoS11;
             _isTeknoViper = gameProfile.EmulationProfile == EmulationProfile.TeknoViper;
             _isTeknoAGX = gameProfile.EmulationProfile == EmulationProfile.TeknoAGX;
@@ -433,6 +436,10 @@ namespace TeknoParrotUi.Common.InputListening
                 else if (_isTeknoM2)
                 {
                     canvasName = "TeknoM2CanvasInfo";
+                }
+                else if (_isTeknoTPJC)
+                {
+                    canvasName = "TeknoTPJCCanvasInfo";
                 }
                 else if (_isTeknoS11)
                 {
