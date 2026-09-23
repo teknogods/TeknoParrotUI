@@ -7,7 +7,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TeknoViper</EmulationProfile>
-	<GameProfileRevision>14</GameProfileRevision>
+	<GameProfileRevision>15</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoViper</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -17,6 +17,17 @@
 	<Patreon>true</Patreon>
 	<DevOnly>false</DevOnly>
 	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ROM Set Name</FieldName>
+			<FieldValue>gticlub2</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>gticlub2</string>
+				<string>gticlub2ea</string>
+			</FieldOptions>
+			<Hint>Select the ROM set to run. Choose the matching CHD in Game Path 2.</Hint>
+		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Input API</FieldName>

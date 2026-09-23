@@ -897,7 +897,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 chdRoot = ResolveUiPath(selectedChd, workDir);
             }
 
-            var gameId = profile.ProfileName;
+            var gameId = Setting("ROM Set Name", profile.ProfileName).Trim();
+            if (string.IsNullOrWhiteSpace(gameId))
+                gameId = profile.ProfileName;
             var stateRoot = ResolveUiPath(
                 Setting("State Root"), Path.Combine(workDir, "state"));
             var shaderRoot = Path.Combine(stateRoot, "shader-cache", gameId);
