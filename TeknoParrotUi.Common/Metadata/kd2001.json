@@ -3,5 +3,5 @@
   "game_genre": "Action",
   "platform": "NamcoSystem10",
   "icon_name": "",
-  "general_issues": "Development profile. Game compatibility varies; see TeknoS11 STATUS.md. Select a merged ROM ZIP and, where requested, a CHD from the game disc directory. Controls: Knock Down 2001 uses a punching mechanism. Gameplay sensor wiring is not documented in the frozen driver and has no TPUI mapping."
+  "general_issues": " Select a merged ROM ZIP and, where requested, a CHD from the game disc directory. Controls: Knock Down 2001 uses a punching mechanism. Gameplay sensor wiring is not documented in the frozen driver and has no TPUI mapping."
 }

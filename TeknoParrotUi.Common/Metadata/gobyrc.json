@@ -3,5 +3,5 @@
   "game_genre": "Racing",
   "platform": "TaitoGNet",
   "icon_name": "",
-  "general_issues": "Development profile. Game compatibility varies; see TeknoS11 STATUS.md. Select coh3002t.zip as the first game path and the game CHD as the second. No separate game ROM ZIP is required. Controls: For keyboard controls, select DirectInput and enable Use Keyboard/Button For Axis, then bind Wheel Axis Left/Right and Gas (plus Brake where fitted)."
+  "general_issues": " Select coh3002t.zip as the first game path and the game CHD as the second. No separate game ROM ZIP is required. Controls: For keyboard controls, select DirectInput and enable Use Keyboard/Button For Axis, then bind Wheel Axis Left/Right and Gas (plus Brake where fitted)."
 }

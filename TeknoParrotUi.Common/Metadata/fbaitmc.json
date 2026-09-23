@@ -3,5 +3,5 @@
   "game_genre": "Action",
   "platform": "KonamiSystem573",
   "icon_name": "",
-  "general_issues": "Development profile. Game compatibility varies; see TeknoS11 STATUS.md. Select a merged ROM ZIP and, where requested, a CHD from the game disc directory. Controls: Hold Reel Forward/Reverse for continuous reeling. Reel Switch is separate. Marlin Challenge uses Player 1 Joystick X/Y for its rod, with DirectInput keyboard/button axes enabled by default."
+  "general_issues": " Select a merged ROM ZIP and, where requested, a CHD from the game disc directory. Controls: Hold Reel Forward/Reverse for continuous reeling. Reel Switch is separate. Marlin Challenge uses Player 1 Joystick X/Y for its rod, with DirectInput keyboard/button axes enabled by default."
 }

@@ -3,5 +3,5 @@
   "game_genre": "Action",
   "platform": "KonamiSystem573",
   "icon_name": "",
-  "general_issues": "Development profile. Game compatibility varies; see TeknoS11 STATUS.md. Select a merged ROM ZIP and, where requested, a CHD from the game disc directory. Controls: For keyboard controls, select DirectInput and enable Use Keyboard/Button For Axis, then bind Wheel Axis Left/Right and Gas (plus Brake where fitted). Two wheels and gas pedals; no brake pedal."
+  "general_issues": " Select a merged ROM ZIP and, where requested, a CHD from the game disc directory. Controls: For keyboard controls, select DirectInput and enable Use Keyboard/Button For Axis, then bind Wheel Axis Left/Right and Gas (plus Brake where fitted). Two wheels and gas pedals; no brake pedal."
 }

@@ -10,5 +10,5 @@
   "amd_issues": null,
   "intel": "NO_INFO",
   "intel_issues": null,
-  "general_issues": "Development only. Select optiger.zip (Ver 2.14 O). No CHD required. Uses experimental geometry workarounds. First boot may require Test and cabinet calibration. Full gameplay and VR validation remain incomplete."
+  "general_issues": "Select optiger.zip (Ver 2.14 O)"
 }
