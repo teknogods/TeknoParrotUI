@@ -41,6 +41,8 @@ namespace InputMethodAudit
                 return LegacyBindingsImportTest.Run();
             if (args.Length > 0 && args[0] == "sdl2-test")
                 return Sdl2SmokeTest.Run();
+            if (args.Length > 0 && args[0] == "sdl2-virtual-test")
+                return Sdl2VirtualGamepadTest.Run();
             if (args.Length > 0 && args[0] == "sdl2-cycle-test")
                 return Sdl2CycleTest.Run();
             if (args.Length > 0 && args[0] == "pipeline-test")

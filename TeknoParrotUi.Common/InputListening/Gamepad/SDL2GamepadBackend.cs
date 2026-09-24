@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Threading;
 using SDL2;
 
@@ -33,6 +34,34 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
         private static Thread _pollThread;
         private static volatile bool _running;
         private static int _refCount;
+        private static bool _linuxResolverConfigured;
+        private static string _nativeSource = "bundled SDL2";
+        private static string _backendStatus = "SDL2 has not started";
+
+        public static string BackendStatus => _backendStatus;
+
+        private static void ConfigureLinuxNativeLibrary()
+        {
+            if (!OperatingSystem.IsLinux() || _linuxResolverConfigured)
+                return;
+
+            // SDL2-CS ships SDL 2.0.14 for Linux, older than the Steam Deck.
+            // Prefer the distribution's current SDL2 before the first P/Invoke;
+            // retain the bundled library for systems without a system SDL2.
+            NativeLibrary.SetDllImportResolver(typeof(SDL).Assembly, (name, _, _) =>
+            {
+                if (name != "SDL2")
+                    return IntPtr.Zero;
+                if (NativeLibrary.TryLoad("libSDL2-2.0.so.0", out var library))
+                {
+                    _nativeSource = "system SDL2";
+                    return library;
+                }
+                _nativeSource = "bundled SDL2 (system SDL2 unavailable)";
+                return IntPtr.Zero;
+            });
+            _linuxResolverConfigured = true;
+        }
 
         // Android has no SDL2 native library in the APK. Its Activity supplies
         // physical gamepad events through these same slot snapshots.
@@ -166,21 +195,26 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
 
                 try
                 {
+                    ConfigureLinuxNativeLibrary();
                     // Allow gamepad input while the game window (not ours) has focus.
                     SDL.SDL_SetHint(SDL.SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS, "1");
 
                     if (SDL.SDL_InitSubSystem(SDL.SDL_INIT_GAMECONTROLLER) != 0)
                     {
-                        Trace($"SDL_InitSubSystem FAILED: {SDL.SDL_GetError()}");
+                        _backendStatus = $"SDL2 initialization failed: {SDL.SDL_GetError()}";
+                        Trace(_backendStatus);
                         return;
                     }
-                    Trace("SDL_InitSubSystem ok");
+                    SDL.SDL_GetVersion(out var version);
+                    _backendStatus = $"{_nativeSource}: {version.major}.{version.minor}.{version.patch}";
+                    Trace($"SDL_InitSubSystem ok ({_backendStatus})");
                 }
-                catch (DllNotFoundException)
+                catch (DllNotFoundException error)
                 {
                     // Native SDL2 not available on this platform/package (e.g. Android
                     // head without SDL natives) — gamepad input disabled, no crash.
-                    Trace("native SDL2 library not found, gamepad input disabled");
+                    _backendStatus = "SDL2 unavailable; install libSDL2-2.0.so.0";
+                    Trace(_backendStatus + ": " + error.Message);
                     return;
                 }
 
@@ -275,6 +309,7 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
             }
             catch (Exception ex)
             {
+                _backendStatus = "SDL2 polling stopped: " + ex.Message;
                 Trace($"PollLoop DIED: {ex}");
             }
             finally

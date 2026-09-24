@@ -997,6 +997,10 @@ public partial class MainView : UserControl
 
     private void PerformNavAction(UiNavAction action)
     {
+        // SDL keeps receiving gamepads while the game owns focus. Only let
+        // those presses drive TPUI when its own window is active.
+        if (TopLevel.GetTopLevel(this) is Window { IsActive: false })
+            return;
         switch (action)
         {
             case UiNavAction.ToggleFullscreen:

@@ -14,6 +14,7 @@ public sealed class UiOptions
 {
     public bool StartFullscreen { get; set; }
     public bool EnableControllerNavigation { get; set; }
+    public bool ControllerNavigationConfigured { get; set; }
 
     /// <summary>UI theme: "System" (follow OS), "Light" or "Dark".</summary>
     public string Theme { get; set; } = ThemeManager.System;
@@ -31,13 +32,24 @@ public sealed class UiOptions
         try
         {
             if (File.Exists(FileName))
-                return JsonSerializer.Deserialize<UiOptions>(File.ReadAllText(FileName)) ?? new UiOptions();
+            {
+                var options = JsonSerializer.Deserialize<UiOptions>(File.ReadAllText(FileName)) ?? new UiOptions();
+                options.NavigationBindings ??= new Dictionary<string, string>();
+                // Older Linux installs saved the disabled default even when
+                // the user had never configured controller navigation.
+                if (OperatingSystem.IsLinux() && !options.ControllerNavigationConfigured &&
+                    options.NavigationBindings.Count == 0)
+                    options.EnableControllerNavigation = true;
+                return options;
+            }
         }
         catch
         {
             // corrupt file — fall back to defaults
         }
-        return new UiOptions();
+        // A fresh Linux install should be operable with a standard gamepad.
+        // An existing options file still preserves the user's explicit choice.
+        return new UiOptions { EnableControllerNavigation = OperatingSystem.IsLinux() };
     }
 
     public void Save()

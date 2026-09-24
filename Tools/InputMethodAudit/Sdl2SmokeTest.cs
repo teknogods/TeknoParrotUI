@@ -15,6 +15,7 @@ namespace InputMethodAudit
         {
             Console.WriteLine("SDL2 gamepad smoke test — press buttons/move sticks; Ctrl+C to quit.");
             SDL2GamepadBackend.Acquire();
+            Console.WriteLine(SDL2GamepadBackend.BackendStatus);
             try
             {
                 var end = DateTime.UtcNow.AddSeconds(15);

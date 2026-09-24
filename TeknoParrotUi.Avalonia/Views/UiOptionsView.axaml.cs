@@ -89,7 +89,9 @@ public partial class UiOptionsView : UserControl
         ChkStartFullscreen.Content = Services.Loc.T("UiOptionsStartFullscreen", "Start in fullscreen");
         FullscreenHint.Text = Services.Loc.T("UiOptionsFullscreenHint", "Press F11 (or Alt+Enter) at any time to toggle fullscreen.");
         HdrNav.Text = Services.Loc.T("UiOptionsControllerNav", "Controller navigation");
-        NavHint.Text = Services.Loc.T("UiOptionsControllerNavHint", "Drive the interface with any gamepad, joystick or keyboard (merged input) — ideal for arcade cabinets. Bind the actions below, enable navigation and save.");
+        NavHint.Text = OperatingSystem.IsLinux()
+            ? Services.Loc.T("UiOptionsControllerNavLinuxHint", "Standard gamepad navigation is enabled by default: D-pad or left stick to move, A to select, B to go back. Bind actions below to customize it.")
+            : Services.Loc.T("UiOptionsControllerNavHint", "Drive the interface with any gamepad, joystick or keyboard (merged input) — ideal for arcade cabinets. Bind the actions below, enable navigation and save.");
         ChkEnableNav.Content = Services.Loc.T("UiOptionsEnableNav", "Enable controller navigation");
         BtnSave.Content = Services.Loc.T("SettingsSaveSettings", "Save");
         foreach (var (action, key, fallback) in Actions)
@@ -191,6 +193,7 @@ public partial class UiOptionsView : UserControl
     {
         _options.StartFullscreen = ChkStartFullscreen.IsChecked == true;
         _options.EnableControllerNavigation = ChkEnableNav.IsChecked == true;
+        _options.ControllerNavigationConfigured = true;
         _options.Theme = SelectedTheme();
         _options.UiScale = SelectedScale();
         _options.Save();
