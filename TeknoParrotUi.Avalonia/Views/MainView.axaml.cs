@@ -310,48 +310,7 @@ public partial class MainView : UserControl
                 TopLevel.GetTopLevel(this) is not Window owner)
                 return;
 
-            var open = new Button { Content = Loc.T("AnnouncementOpenBrowser", "Open in browser") };
-            var close = new Button { Content = Loc.T("AnnouncementClose", "Close") };
-            var dialog = new Window
-            {
-                Title = Loc.T("AnnouncementTitle", "TeknoParrot announcement"),
-                Width = 520,
-                SizeToContent = SizeToContent.Height,
-                CanResize = false,
-                WindowStartupLocation = WindowStartupLocation.CenterOwner,
-                Content = new StackPanel
-                {
-                    Margin = new Thickness(24),
-                    Spacing = 18,
-                    Children =
-                    {
-                        new TextBlock
-                        {
-                            Text = Loc.T("AnnouncementNetwork", "New TeknoParrot announcement"),
-                            FontSize = 18,
-                            FontWeight = global::Avalonia.Media.FontWeight.Bold
-                        },
-                        new TextBlock
-                        {
-                            Text = announcement.PageUrl.AbsoluteUri,
-                            TextWrapping = global::Avalonia.Media.TextWrapping.Wrap
-                        },
-                        new StackPanel
-                        {
-                            Orientation = global::Avalonia.Layout.Orientation.Horizontal,
-                            Spacing = 8,
-                            HorizontalAlignment = global::Avalonia.Layout.HorizontalAlignment.Right,
-                            Children = { close, open }
-                        }
-                    }
-                }
-            };
-            close.Click += (_, _) => dialog.Close();
-            open.Click += async (_, _) =>
-            {
-                await Services.ExternalUrlLauncher.OpenAsync(this, announcement.PageUrl.AbsoluteUri);
-                dialog.Close();
-            };
+            var dialog = new AnnouncementWindow(announcement.PageUrl, IsPatreon());
             dialog.Opened += (_, _) =>
             {
                 var previous = Lazydata.ParrotData.LastAnnouncementContent;
