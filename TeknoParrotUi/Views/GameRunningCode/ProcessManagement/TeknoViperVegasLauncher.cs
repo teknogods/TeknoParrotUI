@@ -968,6 +968,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 if (!Enabled("Use VR Controls", true))
                     parameters.Add("--no-vr-controls");
             }
+            if ((gameId == "gticlub2" || gameId == "gticlub2ea") &&
+                Enabled("Steering Smoothing"))
+                parameters.Add("--steering-smoothing");
             if (profile.GunGame && !Enabled("Crosshairs", true))
                 parameters.Add("--no-crosshairs");
             if (Enabled("Mute Audio"))
