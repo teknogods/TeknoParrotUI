@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaRacingClassic</EmulationProfile>
-	<GameProfileRevision>34</GameProfileRevision>
+	<GameProfileRevision>35</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<HasTpoSupport>true</HasTpoSupport>
@@ -61,19 +61,9 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Red Road Fix</FieldName>
+      <FieldName>NVIDIA Fix</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Red Road Fix Version</FieldName>
-      <FieldValue>2</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>1</string>
-        <string>2</string>
-      </FieldOptions>
     </FieldInformation>
 		<FieldInformation>
 			<CategoryName>FFB Blaster</CategoryName>

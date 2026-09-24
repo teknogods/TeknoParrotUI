@@ -1,0 +1,11 @@
+{
+  "game_name": "Fatal Fury: Wild Ambition (ver 1.14)",
+  "game_genre": "Fighting",
+  "icon_name": "fatfurwa.png",
+  "platform": "SNK Hyper Neo Geo 64",
+  "release_year": "1998",
+  "nvidia": "NO_INFO",
+  "amd": "NO_INFO",
+  "intel": "NO_INFO",
+  "general_issues": "Requires the selected ROM set and hng64.zip BIOS in the same folder. Emulation remains in development. Linked cabinets are not supported."
+}

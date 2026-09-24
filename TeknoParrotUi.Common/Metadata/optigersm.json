@@ -1,0 +1,14 @@
+{
+  "game_name": "Operation Tiger Second Mission (Ver 2.02 J)",
+  "game_genre": "Shooter",
+  "icon_name": "optiger.png",
+  "platform": "Taito Power JC",
+  "release_year": "1999",
+  "nvidia": "NO_INFO",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": "Select optigersm.zip (Ver 2.02 J)."
+}

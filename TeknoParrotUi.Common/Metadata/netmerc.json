@@ -1,0 +1,14 @@
+{
+  "game_name": "Sega NetMerc",
+  "game_genre": "Shooter",
+  "icon_name": "netmerc.png",
+  "platform": "Sega Model 1",
+  "release_year": "1993",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": "User-supplied merged ROMs and required Model 1 firmware archives are required."
+}

@@ -1,0 +1,14 @@
+{
+    "game_name":  "War: Final Assault",
+    "game_genre":  "Action",
+    "icon_name":  "warfa.png",
+    "platform":  "Atari Vegas / Voodoo 2",
+    "release_year":  "1999",
+    "nvidia":  "OK",
+    "nvidia_issues":  null,
+    "amd":  "OK",
+    "amd_issues":  null,
+    "intel":  "OK",
+    "intel_issues":  null,
+    "general_issues":  "User-supplied MAME ROM/CHD required."
+}

@@ -1,0 +1,14 @@
+{
+    "game_name":  "San Francisco Rush The Rock: Alcatraz Edition",
+    "game_genre":  "Racing",
+    "icon_name":  "sfrushrk.png",
+    "platform":  "Atari Flagstaff",
+    "release_year":  "1997",
+    "nvidia":  "OK",
+    "nvidia_issues":  null,
+    "amd":  "OK",
+    "amd_issues":  null,
+    "intel":  "OK",
+    "intel_issues":  null,
+    "general_issues":  "User-supplied MAME ROM/CHD required. LAN linking uses the same non-zero Network Port and a unique Cabinet Id per machine."
+}

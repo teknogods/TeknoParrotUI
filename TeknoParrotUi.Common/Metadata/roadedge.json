@@ -1,0 +1,11 @@
+{
+  "game_name": "Roads Edge / Round Trip RV (ver 1.10)",
+  "game_genre": "Racing",
+  "icon_name": "roadedge.png",
+  "platform": "SNK Hyper Neo Geo 64",
+  "release_year": "1997",
+  "nvidia": "NO_INFO",
+  "amd": "NO_INFO",
+  "intel": "NO_INFO",
+  "general_issues": "Requires the selected ROM set and hng64.zip BIOS in the same folder. Emulation remains in development. Linked cabinets are not supported."
+}

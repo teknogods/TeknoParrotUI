@@ -1,0 +1,14 @@
+{
+    "game_name":  "NBA Showtime: NBA on NBC",
+    "game_genre":  "Sports",
+    "icon_name":  "nbashowt.png",
+    "platform":  "Midway Vegas / Banshee",
+    "release_year":  "1999",
+    "nvidia":  "OK",
+    "nvidia_issues":  null,
+    "amd":  "OK",
+    "amd_issues":  null,
+    "intel":  "OK",
+    "intel_issues":  null,
+    "general_issues":  "User-supplied MAME ROM/CHD required."
+}

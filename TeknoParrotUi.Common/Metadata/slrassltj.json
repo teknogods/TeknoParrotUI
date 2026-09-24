@@ -1,0 +1,8 @@
+{
+  "game_name": "Solar Assault Revised (JAA)",
+  "game_genre": "Shooter",
+  "icon_name": "slrassltj.png",
+  "platform": "Konami GTI Club",
+  "release_year": "1997",
+  "general_issues": "Select the merged slrasslt.zip ROM archive. Optional artwork goes in TeknoGClub/bezels and TeknoGClub/crosshairs."
+}

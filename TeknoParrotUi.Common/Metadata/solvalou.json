@@ -1,0 +1,7 @@
+{
+  "game_name": "Solvalou",
+  "game_genre": "Shooter",
+  "icon_name": "",
+  "platform": "Namco System 21",
+  "general_issues": "User-supplied merged ROM ZIP and shared Namco firmware required. See TeknoS21 documentation for emulation status."
+}

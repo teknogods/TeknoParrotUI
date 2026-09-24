@@ -1,0 +1,156 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GameProfile>
+  <GamePath />
+  <GameNameInternal>Pacman BALL (PMB2 Ver.A.)</GameNameInternal>
+  <EmulationProfile>TeknoS11</EmulationProfile>
+  <GameProfileRevision>2</GameProfileRevision>
+  <EmulatorType>TeknoS11</EmulatorType>
+  <Is64Bit>true</Is64Bit>
+  <ExecutableName>pacmball.zip</ExecutableName>
+  <HasTwoExecutables>false</HasTwoExecutables>
+  <Patreon>true</Patreon>
+  <DevOnly>true</DevOnly>
+  <HasTpoSupport>false</HasTpoSupport>
+  <GunGame>false</GunGame>
+  <Use16BitAnalog>false</Use16BitAnalog>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Input API</FieldName>
+      <FieldValue>DirectInput</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>DirectInput</string>
+        <string>XInput</string>
+        <string>RawInput</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>DisplayMode</FieldName>
+      <FieldValue>Fullscreen</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windowed</string>
+        <string>Fullscreen</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Internal Resolution</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>2</string>
+        <string>3</string>
+        <string>4</string>
+        <string>5</string>
+        <string>6</string>
+        <string>7</string>
+        <string>8</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Presentation Filter</FieldName>
+      <FieldValue>area</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>nearest</string>
+        <string>linear</string>
+        <string>area</string>
+        <string>bicubic</string>
+        <string>lanczos</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>CRT Shader</FieldName>
+      <FieldValue>none</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>none</string>
+        <string>lottes</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Stretch To Fullscreen</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Use Bezel</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Fullscreen overlay: TeknoS11/bezels/pacmball.png or default.png. Use transparent pixels over the game.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>VSync</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Audio</CategoryName>
+      <FieldName>Mute Audio</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>VR</CategoryName>
+      <FieldName>Enable VR</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>OpenXR. Hold the left menu button for 650 ms for the in-game menu.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>VR</CategoryName>
+      <FieldName>Use VR Controls</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>VR</CategoryName>
+      <FieldName>Stereo Strength</FieldName>
+      <FieldValue>150</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>100</string>
+        <string>125</string>
+        <string>150</string>
+        <string>175</string>
+        <string>200</string>
+      </FieldOptions>
+    </FieldInformation>
+  </ConfigValues>
+  <JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Test</ButtonName>
+      <InputMapping>Test</InputMapping>
+      <Hint>Press once to enable the test switch; press again to disable it. Resets on each game launch.</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service</ButtonName>
+      <InputMapping>Service1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Coin</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Select Down</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Select Up</ButtonName>
+      <InputMapping>P1Button6</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Enter</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+  </JoystickButtons>
+</GameProfile>

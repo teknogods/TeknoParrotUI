@@ -1,0 +1,11 @@
+{
+  "game_name": "Police 911 (UAD)",
+  "game_genre": "Motion Shooter",
+  "icon_name": "p911ud.png",
+  "platform": "Konami Viper",
+  "release_year": "2000",
+  "nvidia": "OK", "nvidia_issues": null,
+  "amd": "OK", "amd_issues": null,
+  "intel": "OK", "intel_issues": null,
+  "general_issues": "User-supplied MAME ROM/CHD required. Mouse/light-gun input emulates aiming; full cabinet body sensing remains in development."
+}

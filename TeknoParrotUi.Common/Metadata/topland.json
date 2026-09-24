@@ -1,0 +1,11 @@
+{
+  "game_name": "Top Landing (World)",
+  "game_genre": "Simulation",
+  "icon_name": "topland.png",
+  "platform": "Taito Air System",
+  "release_year": "1988",
+  "nvidia": "OK",
+  "amd": "OK",
+  "intel": "OK",
+  "general_issues": "Experimental emulation with imperfect graphics. User-supplied merged MAME ROM ZIP required; no CHD."
+}

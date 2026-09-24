@@ -1,0 +1,14 @@
+{
+    "game_name":  "Mace: The Dark Age",
+    "game_genre":  "Fighting",
+    "icon_name":  "mace.png",
+    "platform":  "Atari Seattle",
+    "release_year":  "1997",
+    "nvidia":  "OK",
+    "nvidia_issues":  null,
+    "amd":  "OK",
+    "amd_issues":  null,
+    "intel":  "OK",
+    "intel_issues":  null,
+    "general_issues":  "User-supplied MAME ROM/CHD required."
+}

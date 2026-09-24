@@ -1,0 +1,11 @@
+{
+  "game_name": "Beast Busters: Second Nightmare (ver 1.11)",
+  "game_genre": "Shooter",
+  "icon_name": "bbust2.png",
+  "platform": "SNK Hyper Neo Geo 64",
+  "release_year": "1998",
+  "nvidia": "NO_INFO",
+  "amd": "NO_INFO",
+  "intel": "NO_INFO",
+  "general_issues": "Requires the selected ROM set and hng64.zip BIOS in the same folder. Emulation remains in development. Linked cabinets are not supported."
+}

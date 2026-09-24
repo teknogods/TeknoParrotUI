@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoMkdx</EmulationProfile>
-	<GameProfileRevision>34</GameProfileRevision>
+	<GameProfileRevision>35</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<RequiresAdmin>false</RequiresAdmin>
@@ -106,7 +106,7 @@
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
 			<FieldName>ServerAddress</FieldName>
-			<FieldValue>185.218.89.67</FieldValue>
+			<FieldValue>164.132.246.154</FieldValue>
 			<FieldType>Text</FieldType>
 		</FieldInformation>
 		<FieldInformation>

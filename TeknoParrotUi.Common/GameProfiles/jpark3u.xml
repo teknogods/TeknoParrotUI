@@ -7,7 +7,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TeknoViper</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>18</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoViper</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -36,6 +36,102 @@
 			</FieldOptions>
 		</FieldInformation>
 		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Force Feedback Device</FieldName>
+			<FieldValue>off</FieldValue>
+			<FieldType>DynamicDropdown</FieldType>
+			<Hint>Select Player 1 recoil output through an SDL3 wheel or controller. Requires TeknoViper\viperhaptic.exe.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Force Feedback Strength</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<SettingsPage>ForceFeedback</SettingsPage>
+			<FieldMin>0</FieldMin>
+			<FieldMax>100</FieldMax>
+			<Hint>Overall effect strength. 100% keeps the normal full strength.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Enable Recoil Effect</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<SettingsPage>ForceFeedback</SettingsPage>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Recoil Effect Strength</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<SettingsPage>ForceFeedback</SettingsPage>
+			<EnabledBy>Enable Recoil Effect</EnabledBy>
+			<FieldMin>0</FieldMin>
+			<FieldMax>100</FieldMax>
+			<Hint>Recoil strength for player 1 when firing.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Player 2 Enable Recoil Effect</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<SettingsPage>ForceFeedback</SettingsPage>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Player 2 Recoil Effect Strength</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<SettingsPage>ForceFeedback</SettingsPage>
+			<EnabledBy>Player 2 Enable Recoil Effect</EnabledBy>
+			<FieldMin>0</FieldMin>
+			<FieldMax>100</FieldMax>
+			<Hint>Recoil strength for player 2 when firing.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Player 2 Force Feedback Device</FieldName>
+			<FieldValue>off</FieldValue>
+			<FieldType>DynamicDropdown</FieldType>
+			<Hint>Select Player 2 recoil output through an SDL3 wheel or controller. Requires TeknoViper\viperhaptic.exe.</Hint>
+		</FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Outputs</FieldName>
+      <FieldValue>Windows Outputs</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windows Outputs</string>
+        <string>Network Outputs</string>
+      </FieldOptions>
+      <Hint>Choose how game outputs are sent. Select Network Outputs to configure its settings.</Hint>
+    </FieldInformation>
+		<FieldInformation>
+			<CategoryName>VR</CategoryName>
+			<FieldName>Enable VR</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Present the game through OpenXR. The desktop window remains available as a spectator view.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>VR</CategoryName>
+			<FieldName>Use VR Controls</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>When VR is enabled, use OpenXR headset controllers. Turn this off to keep using TPUI shared-pipe or Xbox controls in VR.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>VR</CategoryName>
+			<FieldName>VR Depth</FieldName>
+			<FieldValue>150</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>100</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldOptions />
+			<FieldStep>5</FieldStep>
+			<Hint>Adjust OpenXR stereo depth from 100% to 200%. Only used when VR is enabled.</Hint>
+		</FieldInformation>
+		<FieldInformation>
 			<CategoryName>Video</CategoryName>
 			<FieldName>DisplayMode</FieldName>
 			<FieldValue>Fullscreen</FieldValue>
@@ -44,6 +140,13 @@
 				<string>Windowed</string>
 				<string>Fullscreen</string>
 			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>Stretch to Fullscreen</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Stretch fullscreen output to fill the display, ignoring the game's original aspect ratio.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Video</CategoryName>
@@ -64,6 +167,7 @@
 			<FieldType>Dropdown</FieldType>
 			<FieldOptions>
 				<string>original</string>
+				<string>nearest</string>
 				<string>trilinear</string>
 				<string>max</string>
 			</FieldOptions>
@@ -74,9 +178,22 @@
 			<FieldValue>bicubic</FieldValue>
 			<FieldType>Dropdown</FieldType>
 			<FieldOptions>
+				<string>nearest</string>
 				<string>linear</string>
 				<string>bicubic</string>
 			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>CRT Shader</FieldName>
+			<FieldValue>None</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>None</string>
+				<string>Lottes</string>
+				<string>Lottes Downsample</string>
+			</FieldOptions>
+			<Hint>The downsample option will scale down the 2x/4x/8x image down to CRT res before applying the shader.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Video</CategoryName>
@@ -84,6 +201,20 @@
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
 			<Hint>Draw P1/P2 sights using crosshairs\P1.png and P2.png, with built-in sights as fallback. Disable for an external light-gun overlay.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>Hide Crosshairs after Inactivity</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>If enabled, will automatically hide eaach players crosshair after 5 seconds of inactivity. Ideal to hide P2 if you're playing alone.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>Use Bezel</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Put either jpark3u.png or default.png into the bezels folder in the TeknoViper folder. Only enabled in fullscreen mode.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Audio</CategoryName>
@@ -96,6 +227,32 @@
 			<FieldName>Prefer High Performance</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Textures</CategoryName>
+			<FieldName>Load Texture Packs</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Will replace textures during runtime with custom ones you supplied. Can be expensive to enable CPU wise.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Textures</CategoryName>
+			<FieldName>Texture Pack Root</FieldName>
+			<FieldValue>.\TeknoViper\texture-packs</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Textures</CategoryName>
+			<FieldName>Dump Textures</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Save every texture the game loads into the texture dump root folder, for editing and reapplying via texture-packs</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Textures</CategoryName>
+			<FieldName>Texture Dump Root</FieldName>
+			<FieldValue>.\TeknoViper\texture-dumps</FieldValue>
+			<FieldType>Text</FieldType>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
@@ -136,7 +293,7 @@
 		<JoystickButtons>
 			<ButtonName>Player 1 Gun Y</ButtonName>
 			<InputMapping>Analog2</InputMapping>
-			<AnalogType>AnalogJoystick</AnalogType>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
 			<HideWithRawInput>true</HideWithRawInput>
 		</JoystickButtons>
 		<JoystickButtons>
@@ -174,7 +331,7 @@
 		<JoystickButtons>
 			<ButtonName>Player 2 Gun Y</ButtonName>
 			<InputMapping>Analog6</InputMapping>
-			<AnalogType>AnalogJoystick</AnalogType>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
 			<HideWithRawInput>true</HideWithRawInput>
 		</JoystickButtons>
 		<JoystickButtons>

@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>AfterBurnerClimax</EmulationProfile>
-	<GameProfileRevision>6</GameProfileRevision>
+	<GameProfileRevision>7</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<ExecutableName>abc</ExecutableName>
 	<EmulatorType>ElfLdr2</EmulatorType>
@@ -149,26 +149,6 @@
 			<HideWithXInput>true</HideWithXInput>
 			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
 			<AnalogType>AnalogJoystickReverse</AnalogType>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Up (Digital)</ButtonName>
-			<InputMapping>Analog0Special2</InputMapping>
-			<AnalogType>Maximum</AnalogType>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Down (Digital)</ButtonName>
-			<InputMapping>Analog0Special1</InputMapping>
-			<AnalogType>Minimum</AnalogType>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Left (Digital)</ButtonName>
-			<InputMapping>Analog2Special1</InputMapping>
-			<AnalogType>Minimum</AnalogType>
-		</JoystickButtons>
-		<JoystickButtons>
-			<ButtonName>Right (Digital)</ButtonName>
-			<InputMapping>Analog2Special2</InputMapping>
-			<AnalogType>Maximum</AnalogType>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Throttle Lever</ButtonName>

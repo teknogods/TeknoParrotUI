@@ -1,0 +1,14 @@
+{
+    "game_name":  "CarnEvil",
+    "game_genre":  "Shooter",
+    "icon_name":  "carnevil.png",
+    "platform":  "Midway Seattle / CarnEvil",
+    "release_year":  "1998",
+    "nvidia":  "OK",
+    "nvidia_issues":  null,
+    "amd":  "OK",
+    "amd_issues":  null,
+    "intel":  "OK",
+    "intel_issues":  null,
+    "general_issues":  "User-supplied MAME ROM/CHD required."
+}
