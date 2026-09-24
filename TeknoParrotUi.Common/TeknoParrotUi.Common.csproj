@@ -51,6 +51,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- SDL2-CS provides the C# API but bundles SDL 2.0.14. Copy current
+         official Windows SDL2 runtimes alongside consumers of this project. -->
+    <Content Include="Native\SDL2\win-*\SDL2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Native\SDL2\LICENSE.txt;Native\SDL2\README-SDL.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Metadata\*.json" />
     <None Remove="AndroidLaunchRecipes\*.json" />
     <None Remove="GameProfiles\*.xml" />

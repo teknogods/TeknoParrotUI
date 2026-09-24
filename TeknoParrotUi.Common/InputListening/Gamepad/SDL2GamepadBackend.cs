@@ -34,33 +34,55 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
         private static Thread _pollThread;
         private static volatile bool _running;
         private static int _refCount;
-        private static bool _linuxResolverConfigured;
+        private static bool _nativeResolverConfigured;
         private static string _nativeSource = "bundled SDL2";
         private static string _backendStatus = "SDL2 has not started";
 
         public static string BackendStatus => _backendStatus;
 
-        private static void ConfigureLinuxNativeLibrary()
+        private static void ConfigureNativeLibrary()
         {
-            if (!OperatingSystem.IsLinux() || _linuxResolverConfigured)
+            if ((!OperatingSystem.IsLinux() && !OperatingSystem.IsWindows()) || _nativeResolverConfigured)
                 return;
 
-            // SDL2-CS ships SDL 2.0.14 for Linux, older than the Steam Deck.
-            // Prefer the distribution's current SDL2 before the first P/Invoke;
-            // retain the bundled library for systems without a system SDL2.
+            // SDL2-CS ships SDL 2.0.14. Prefer the current system SDL2 on Linux
+            // and the official SDL2 runtime packaged with TPUI on Windows.
             NativeLibrary.SetDllImportResolver(typeof(SDL).Assembly, (name, _, _) =>
             {
                 if (name != "SDL2")
                     return IntPtr.Zero;
-                if (NativeLibrary.TryLoad("libSDL2-2.0.so.0", out var library))
+                if (OperatingSystem.IsLinux())
                 {
-                    _nativeSource = "system SDL2";
-                    return library;
+                    if (NativeLibrary.TryLoad("libSDL2-2.0.so.0", out var library))
+                    {
+                        _nativeSource = "system SDL2";
+                        return library;
+                    }
+                    _nativeSource = "bundled SDL2 (system SDL2 unavailable)";
                 }
-                _nativeSource = "bundled SDL2 (system SDL2 unavailable)";
+                else if (OperatingSystem.IsWindows())
+                {
+                    var architecture = RuntimeInformation.ProcessArchitecture switch
+                    {
+                        Architecture.X64 => "win-x64",
+                        Architecture.X86 => "win-x86",
+                        _ => null
+                    };
+                    if (architecture != null)
+                    {
+                        var path = System.IO.Path.Combine(AppContext.BaseDirectory,
+                            "Native", "SDL2", architecture, "SDL2.dll");
+                        if (NativeLibrary.TryLoad(path, out var library))
+                        {
+                            _nativeSource = "TPUI SDL2";
+                            return library;
+                        }
+                    }
+                    _nativeSource = "bundled SDL2 (TPUI SDL2 unavailable)";
+                }
                 return IntPtr.Zero;
             });
-            _linuxResolverConfigured = true;
+            _nativeResolverConfigured = true;
         }
 
         // Android has no SDL2 native library in the APK. Its Activity supplies
@@ -94,6 +116,8 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
                         Array.Empty<byte>());
                     Connected[slot] = true;
                 }
+                if (OperatingSystem.IsAndroid())
+                    _backendStatus = $"Android controller API: {devices.Count} detected, {Array.FindAll(PlatformSlots, connected => connected).Length} available";
             }
         }
 
@@ -128,6 +152,28 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
                 var state = States[slot];
                 state.PacketNumber++;
                 States[slot] = state;
+            }
+        }
+
+        public static void UpdatePlatformGamepad(int deviceId, XiGamepad gamepad)
+        {
+            lock (Sync)
+            {
+                var slot = FindPlatformSlot(deviceId);
+                if (slot < 0 || States[slot].Gamepad.Equals(gamepad)) return;
+                var state = States[slot];
+                state.Gamepad = gamepad;
+                state.PacketNumber++;
+                States[slot] = state;
+            }
+        }
+
+        public static XiGamepad GetPlatformGamepad(int deviceId)
+        {
+            lock (Sync)
+            {
+                var slot = FindPlatformSlot(deviceId);
+                return slot >= 0 ? States[slot].Gamepad : default;
             }
         }
 
@@ -195,7 +241,7 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
 
                 try
                 {
-                    ConfigureLinuxNativeLibrary();
+                    ConfigureNativeLibrary();
                     // Allow gamepad input while the game window (not ours) has focus.
                     SDL.SDL_SetHint(SDL.SDL_HINT_JOYSTICK_ALLOW_BACKGROUND_EVENTS, "1");
 

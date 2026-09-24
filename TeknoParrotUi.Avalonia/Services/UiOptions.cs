@@ -35,9 +35,10 @@ public sealed class UiOptions
             {
                 var options = JsonSerializer.Deserialize<UiOptions>(File.ReadAllText(FileName)) ?? new UiOptions();
                 options.NavigationBindings ??= new Dictionary<string, string>();
-                // Older Linux installs saved the disabled default even when
+                // Older Linux/Android installs saved the disabled default even when
                 // the user had never configured controller navigation.
-                if (OperatingSystem.IsLinux() && !options.ControllerNavigationConfigured &&
+                if ((OperatingSystem.IsLinux() || OperatingSystem.IsAndroid()) &&
+                    !options.ControllerNavigationConfigured &&
                     options.NavigationBindings.Count == 0)
                     options.EnableControllerNavigation = true;
                 return options;
@@ -47,9 +48,9 @@ public sealed class UiOptions
         {
             // corrupt file — fall back to defaults
         }
-        // A fresh Linux install should be operable with a standard gamepad.
+        // Fresh Linux/Android installs should be operable with a standard gamepad.
         // An existing options file still preserves the user's explicit choice.
-        return new UiOptions { EnableControllerNavigation = OperatingSystem.IsLinux() };
+        return new UiOptions { EnableControllerNavigation = OperatingSystem.IsLinux() || OperatingSystem.IsAndroid() };
     }
 
     public void Save()

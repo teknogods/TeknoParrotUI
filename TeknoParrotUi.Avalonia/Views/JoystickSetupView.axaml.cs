@@ -125,7 +125,7 @@ public partial class JoystickSetupView : UserControl
         var pointers = _rawCapture.GetMouseDeviceList();
         DeviceText.Text = $"Controllers: {(controllers.Count == 0 ? "none detected" : string.Join(", ", controllers))}" +
                           $"  ·  Pointer devices: {(pointers.Count == 0 ? "none detected" : string.Join(", ", pointers))}" +
-                          (OperatingSystem.IsLinux() ? $"  ·  {TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.BackendStatus}" : "");
+                          $"  ·  {TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.BackendStatus}";
         if (OperatingSystem.IsLinux() && controllers.Count == 0)
             DeviceText.Text += "  ·  Steam Deck Desktop Mode: choose a gamepad controller layout or launch TPUI through Steam.";
     }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Hardware.Input;
 using Android.Provider;
 using Android.Runtime;
 using Avalonia;
@@ -312,6 +313,15 @@ public class MainActivity : AvaloniaMainActivity
     private TaskCompletionSource<bool>? _dolphinGameImport;
     private TaskCompletionSource<bool>? _rpcs3x6GameImport;
     private TaskCompletionSource<string?>? _gameExecutablePicker;
+    private InputManager? _inputManager;
+    private ControllerDeviceListener? _controllerDeviceListener;
+
+    private sealed class ControllerDeviceListener : Java.Lang.Object, InputManager.IInputDeviceListener
+    {
+        public void OnInputDeviceAdded(int deviceId) => AndroidGamepads.Refresh();
+        public void OnInputDeviceChanged(int deviceId) => AndroidGamepads.Refresh();
+        public void OnInputDeviceRemoved(int deviceId) => AndroidGamepads.Refresh();
+    }
 
     protected override void OnResume()
     {
@@ -334,6 +344,10 @@ public class MainActivity : AvaloniaMainActivity
     protected override void OnCreate(Bundle? savedInstanceState)
     {
         base.OnCreate(savedInstanceState);
+        _inputManager = GetSystemService(InputService) as InputManager;
+        _controllerDeviceListener = new ControllerDeviceListener();
+        _inputManager?.RegisterInputDeviceListener(_controllerDeviceListener, null);
+        AndroidGamepads.Refresh();
         _current = new WeakReference<MainActivity>(this);
 #if DEBUG
         if (Intent?.GetBooleanExtra(WinlatorBridgeProbeActivity.LaunchExtra, false) == true ||
@@ -609,6 +623,11 @@ public class MainActivity : AvaloniaMainActivity
 
     protected override void OnDestroy()
     {
+        if (_inputManager != null && _controllerDeviceListener != null)
+            _inputManager.UnregisterInputDeviceListener(_controllerDeviceListener);
+        _controllerDeviceListener?.Dispose();
+        _controllerDeviceListener = null;
+        _inputManager = null;
         if (_current != null &&
             _current.TryGetTarget(out var activity) &&
             ReferenceEquals(activity, this))

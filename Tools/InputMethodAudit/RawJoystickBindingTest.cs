@@ -65,7 +65,27 @@ internal static class RawJoystickBindingTest
             SDL2GamepadBackend.UpdatePlatformButton(73, 31, false);
             if (DigitalHelper.GetButtonPressXinput(button, SDL2GamepadBackend.GetState(0), 0) != false)
                 throw new Exception("Button release was not observed.");
+            var mapped = new XiGamepad
+            {
+                Buttons = AndroidGamepadMapping.Button(96) | AndroidGamepadMapping.Hat(0, -1),
+                LeftThumbY = AndroidGamepadMapping.Stick(-1, -1, 1, invert: true),
+                LeftTrigger = AndroidGamepadMapping.Trigger(1, 0, 1)
+            };
+            SDL2GamepadBackend.UpdatePlatformGamepad(73, mapped);
+            var mappedState = SDL2GamepadBackend.GetState(0);
+            if (mappedState.Gamepad.Buttons != (GamepadButtonFlags.A | GamepadButtonFlags.DPadUp) ||
+                mappedState.Gamepad.LeftThumbY < 30000 || mappedState.Gamepad.LeftTrigger != 255 ||
+                DigitalHelper.GetButtonPressXinput(new XInputButton
+                {
+                    XInputIndex = 0, IsButton = true, ButtonCode = (short)GamepadButtonFlags.A
+                }, mappedState, 0) != true)
+                throw new Exception("Android controller mapping did not reach shared XInput bindings.");
+            if (AndroidGamepadMapping.Button(0) != GamepadButtonFlags.None ||
+                AndroidGamepadMapping.Hat(1, 1) !=
+                (GamepadButtonFlags.DPadRight | GamepadButtonFlags.DPadDown))
+                throw new Exception("Android controller mapping produced an unexpected button.");
             Console.WriteLine("Generic joystick buttons, axes, hats and binding persistence: PASS");
+            Console.WriteLine("Android controller button, stick, trigger and D-pad mapping: PASS");
             if (!OperatingSystem.IsAndroid()) RunVirtualSdlDevice();
             return 0;
         }

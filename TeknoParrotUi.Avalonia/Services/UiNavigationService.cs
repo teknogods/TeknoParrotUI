@@ -57,7 +57,7 @@ public sealed class UiNavigationService : IDisposable
                 _map[pair.Value] = action;
         }
 
-        _useDefaultGamepadBindings = OperatingSystem.IsLinux() && _map.Count == 0;
+        _useDefaultGamepadBindings = (OperatingSystem.IsLinux() || OperatingSystem.IsAndroid()) && _map.Count == 0;
 
         if (_map.Count > 0 || _useDefaultGamepadBindings)
             _capture.Start(InputApi.MergedInput);
