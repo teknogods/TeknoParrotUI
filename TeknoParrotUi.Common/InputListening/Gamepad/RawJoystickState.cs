@@ -27,7 +27,8 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
             return binding.SdlControl switch
             {
                 SdlControlKind.Button => Button(binding.SdlControlIndex),
-                SdlControlKind.Hat => (Hat(binding.SdlControlIndex) & binding.SdlDirection) != 0,
+                SdlControlKind.Hat => binding.SdlDirection != 0 &&
+                    (Hat(binding.SdlControlIndex) & binding.SdlDirection) == binding.SdlDirection,
                 SdlControlKind.Axis => binding.SdlDirection < 0
                     ? Axis(binding.SdlControlIndex) <= -15000
                     : Axis(binding.SdlControlIndex) >= 15000,

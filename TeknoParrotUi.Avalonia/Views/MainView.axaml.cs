@@ -212,6 +212,11 @@ public partial class MainView : UserControl
             }
         };
         _settings.SavedNotification += () => StatusBar.Text = "Settings saved";
+        _settings.BindingsImported += result =>
+        {
+            _library.Refresh();
+            StatusBar.Text = $"Imported 1.0 controls for {result.ProfilesSaved} game(s)";
+        };
         _settings.MultiButtonConfigRequested += () =>
         {
             _multiButton.Refresh();

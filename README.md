@@ -4,6 +4,12 @@ Open Source JVS / other I/O emulator with Windows and Linux frontends. The exper
 
 [TeknoParrot Discord](https://discord.gg/kmWgGDe), development discussion is in the ``#openparrot-dev`` channel.
 
+## Importing 1.0 button bindings
+
+In 2.0, open **Settings → Input → Import 1.0 Button Bindings** and select the 1.0 installation folder or its `UserProfiles` folder. The importer matches games by XML filename and buttons by input mapping, then writes missing bindings to `InputBindings/<game>.json`. Existing 2.0 bindings and game settings are preserved.
+
+XInput bindings carry over to SDL's normalized controller layout. To convert DirectInput bindings, connect the controller and choose its current SDL device for each legacy DirectInput GUID. Verify button and axis order after importing, since different drivers can enumerate physical controls differently. Windows RawInput mouse paths only carry over on Windows; keyboard keys can also move to Linux. Android's Winlator controls editor uses a separate layout and is not populated by this importer.
+
 ## Notes for contributors
 
 When adding a new GameProfile, create a metadata file and fill in as much details as possible.

@@ -37,6 +37,8 @@ namespace InputMethodAudit
         {
             if (args.Length > 0 && args[0] == "raw-joystick-test")
                 return RawJoystickBindingTest.Run();
+            if (args.Length > 0 && args[0] == "legacy-bindings-import-test")
+                return LegacyBindingsImportTest.Run();
             if (args.Length > 0 && args[0] == "sdl2-test")
                 return Sdl2SmokeTest.Run();
             if (args.Length > 0 && args[0] == "sdl2-cycle-test")

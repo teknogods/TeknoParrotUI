@@ -117,9 +117,15 @@ namespace TeknoParrotUi.Common.InputListening.ProfileStorage
         /// <summary>Write the profile's bindings as the authoritative JSON.</summary>
         public static void Save(GameProfile profile)
         {
+            TrySave(profile);
+        }
+
+        /// <summary>Save bindings and report write failures to import callers.</summary>
+        public static bool TrySave(GameProfile profile)
+        {
             var path = PathFor(profile);
             if (path == null)
-                return;
+                return false;
 
             try
             {
@@ -138,11 +144,22 @@ namespace TeknoParrotUi.Common.InputListening.ProfileStorage
                         BindNameRi = b.BindNameRi
                     })
                     .ToList();
-                File.WriteAllText(path, JsonConvert.SerializeObject(entries, Formatting.Indented));
+                var temporaryPath = path + "." + Guid.NewGuid().ToString("N") + ".tmp";
+                try
+                {
+                    File.WriteAllText(temporaryPath, JsonConvert.SerializeObject(entries, Formatting.Indented));
+                    File.Move(temporaryPath, path, true);
+                }
+                finally
+                {
+                    if (File.Exists(temporaryPath)) File.Delete(temporaryPath);
+                }
+                return true;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"BindingsStore: failed to save {path}: {ex.Message}");
+                return false;
             }
         }
 

@@ -1,12 +1,16 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Platform.Storage;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Common.InputListening.Gamepad;
+using TeknoParrotUi.Common.InputListening.ProfileStorage;
 
 namespace TeknoParrotUi.Avalonia.Views;
 
@@ -22,6 +26,7 @@ public partial class SettingsView : UserControl
 
     public event Action? SavedNotification;
     public event Action? MultiButtonConfigRequested;
+    public event Action<LegacyBindingsImporter.Result>? BindingsImported;
 
     public SettingsView()
     {
@@ -108,6 +113,7 @@ public partial class SettingsView : UserControl
         ChkFullAxisBrake.Content = Services.Loc.T("SettingsFullBrake", "Full axis brake");
         ChkReverseAxisGas.Content = Services.Loc.T("SettingsReverseGas", "Reverse gas axis");
         ChkReverseAxisBrake.Content = Services.Loc.T("SettingsReverseBrake", "Reverse brake axis");
+        BtnImportLegacyBindings.Content = Services.Loc.T("SettingsImportLegacyBindings", "Import 1.0 Button Bindings...");
         ChkElf2LogToFile.Content = Services.Loc.T("SettingsElf2LogToFile", "Log to file");
         HdrHotkeys.Text = Services.Loc.T("SettingsGlobalHotkeys", "Global Hotkeys");
         HdrScore.Text = Services.Loc.T("SettingsScoreSubmission", "Score Submission");
@@ -184,6 +190,100 @@ public partial class SettingsView : UserControl
 
     private void BtnMultiButton_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
         MultiButtonConfigRequested?.Invoke();
+
+    private async void BtnImportLegacyBindings_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (TopLevel.GetTopLevel(this) is not Window owner) return;
+        var folders = await owner.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+        {
+            Title = "Select a TeknoParrotUI 1.0 installation or UserProfiles folder",
+            AllowMultiple = false
+        });
+        var folder = folders.FirstOrDefault()?.TryGetLocalPath();
+        if (folder == null)
+        {
+            if (folders.Count > 0)
+                await Services.Dialogs.InfoAsync(owner, "Import 1.0 Bindings",
+                    "This folder cannot be read as a local path. Copy the 1.0 UserProfiles folder to local storage and select it there.");
+            return;
+        }
+
+        try
+        {
+            var preview = LegacyBindingsImporter.Scan(folder);
+            if (preview.ProfileCount == 0)
+            {
+                await Services.Dialogs.InfoAsync(owner, "Import 1.0 Bindings", "No game profile XML files were found in UserProfiles.");
+                return;
+            }
+
+            SDL2GamepadBackend.Acquire();
+            try
+            {
+                await Task.Delay(350); // Allow the first SDL enumeration to finish.
+                var devices = Enumerable.Range(0, SDL2GamepadBackend.MaxSlots)
+                    .Where(SDL2GamepadBackend.IsConnected)
+                    .Select(i => (Slot: i, Name: SDL2GamepadBackend.GetDeviceName(i) ?? "Joystick"))
+                    .ToList();
+                var choices = new Dictionary<Guid, ComboBox>();
+                var panel = new StackPanel { Spacing = 8, Margin = new Thickness(16) };
+                panel.Children.Add(new TextBlock
+                {
+                    Text = $"Found {preview.ProfileCount} legacy game profiles. Existing 2.0 bindings will be kept. Choose the current device for each old DirectInput GUID. Unselected devices are skipped.",
+                    TextWrapping = global::Avalonia.Media.TextWrapping.Wrap
+                });
+                if (OperatingSystem.IsAndroid())
+                    panel.Children.Add(new TextBlock
+                    {
+                        Text = "Winlator uses its own controls editor. This imports only TeknoParrot's shared bindings, not Winlator touch/gamepad layouts.",
+                        TextWrapping = global::Avalonia.Media.TextWrapping.Wrap
+                    });
+                foreach (var guid in preview.DirectInputDevices)
+                {
+                    panel.Children.Add(new TextBlock { Text = $"DirectInput device {guid}", TextWrapping = global::Avalonia.Media.TextWrapping.Wrap });
+                    var combo = new ComboBox { ItemsSource = new[] { "Skip this device" }
+                        .Concat(devices.Select(d => $"Device {d.Slot}: {d.Name}")).ToList(), SelectedIndex = 0 };
+                    choices[guid] = combo;
+                    panel.Children.Add(combo);
+                }
+                if (preview.DirectInputDevices.Count > 0)
+                    panel.Children.Add(new TextBlock
+                    {
+                        Text = "DirectInput control numbers usually correspond to SDL raw controls, but their order can differ by driver. Check imported bindings before play.",
+                        TextWrapping = global::Avalonia.Media.TextWrapping.Wrap
+                    });
+                var importButton = new Button { Content = "Import missing bindings", HorizontalAlignment = HorizontalAlignment.Right };
+                panel.Children.Add(importButton);
+                var dialog = new Window
+                {
+                    Title = "Import 1.0 Button Bindings", Width = 580, Height = 480,
+                    Content = new ScrollViewer { Content = panel }
+                };
+                importButton.Click += (_, _) => dialog.Close(true);
+                if (await dialog.ShowDialog<bool>(owner) != true) return;
+
+                var selected = new Dictionary<Guid, int>();
+                foreach (var (guid, combo) in choices)
+                {
+                    var index = combo.SelectedIndex - 1;
+                    if (index >= 0 && index < devices.Count &&
+                        SDL2GamepadBackend.IsConnected(devices[index].Slot) &&
+                        (SDL2GamepadBackend.GetDeviceName(devices[index].Slot) ?? "Joystick") == devices[index].Name)
+                        selected[guid] = devices[index].Slot;
+                }
+                var result = LegacyBindingsImporter.Import(preview, GameProfileLoader.GameProfiles, selected);
+                BindingsImported?.Invoke(result);
+                await Services.Dialogs.InfoAsync(owner, "Import 1.0 Bindings",
+                    $"Matched {result.ProfilesMatched} games; saved {result.ProfilesSaved}. Imported {result.GamepadBindings} XInput, {result.DirectInputBindings} DirectInput, and {result.PointerBindings} RawInput bindings. Skipped {result.Skipped}." +
+                    (result.Warnings.Count > 0 ? "\n\n" + string.Join("\n", result.Warnings.Take(15)) : ""));
+            }
+            finally { SDL2GamepadBackend.Release(); }
+        }
+        catch (Exception ex)
+        {
+            await Services.Dialogs.InfoAsync(owner, "Import 1.0 Bindings", $"Import failed: {ex.Message}");
+        }
+    }
 
     private void BtnSave_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
