@@ -20,6 +20,7 @@ public partial class GameRunningView : UserControl
     private IGameSession? _session;
     private GameProfile? _profile;
     private bool _forceQuitRequested;
+    private bool _logVisible = true;
 
     public event Action? BackRequested;
 
@@ -33,7 +34,7 @@ public partial class GameRunningView : UserControl
         {
             ActionsPanel.Orientation = Orientation.Vertical;
             ActionsPanel.HorizontalAlignment = HorizontalAlignment.Stretch;
-            foreach (var button in new[] { BtnForceQuit, BtnBack })
+            foreach (var button in new[] { BtnShowLog, BtnForceQuit, BtnBack })
             {
                 button.Width = double.NaN;
                 button.MinHeight = 48;
@@ -48,6 +49,7 @@ public partial class GameRunningView : UserControl
     {
         BtnForceQuit.Content = Services.Loc.T("GameRunningForceQuit", "Force Quit Game");
         BtnBack.Content = Services.Loc.T("Back", "Back");
+        UpdateLogButton();
     }
 
     public void StartGame(GameProfile profile, bool testMode, bool emuOnly = false)
@@ -57,6 +59,8 @@ public partial class GameRunningView : UserControl
         _forceQuitRequested = false;
         _consoleBuffer.Clear();
         ConsoleText.Text = "";
+        BtnShowLog.IsVisible = Lazydata.ParrotData.SilentMode;
+        SetLogVisible(!Lazydata.ParrotData.SilentMode);
         Header.Text = (profile.GameNameInternal ?? profile.ProfileName) + (emuOnly ? " (emulator only)" : "");
         StatusText.ClearValue(TextBlock.ForegroundProperty);
         BtnForceQuit.IsEnabled = true;
@@ -84,6 +88,7 @@ public partial class GameRunningView : UserControl
             BtnBack.IsEnabled = true;
             if (code != 0 && !_forceQuitRequested)
             {
+                SetLogVisible(true);
                 // Error exit: stay on this screen so the user can read the log,
                 // and return only when they press Back.
                 if (_profile != null && ExternalEmulatorLauncher.IsStandaloneEmulator(_profile))
@@ -122,6 +127,7 @@ public partial class GameRunningView : UserControl
         }
         if (!started)
         {
+            SetLogVisible(true);
             // Launch failed before the game process even started — the reason is
             // already in StatusText (via StateChanged); stay here until Back.
             BtnForceQuit.IsEnabled = false;
@@ -136,6 +142,19 @@ public partial class GameRunningView : UserControl
         _forceQuitRequested = true;
         _session?.ForceQuit();
     }
+
+    private void BtnShowLog_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+        => SetLogVisible(!_logVisible);
+
+    private void SetLogVisible(bool visible)
+    {
+        _logVisible = visible;
+        ConsoleScroll.IsVisible = visible;
+        UpdateLogButton();
+    }
+
+    private void UpdateLogButton()
+        => BtnShowLog.Content = _logVisible ? "Hide launch log" : "Show launch log";
 
     private void AppendConsoleLine(string line)
     {

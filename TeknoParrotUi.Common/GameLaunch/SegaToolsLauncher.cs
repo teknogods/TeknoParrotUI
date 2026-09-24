@@ -148,7 +148,9 @@ namespace TeknoParrotUi.Common.GameLaunch
                 FileName = "cmd",
                 RedirectStandardInput = true,
                 WorkingDirectory = ".\\SegaTools\\minime",
-                UseShellExecute = false
+                UseShellExecute = false,
+                CreateNoWindow = Lazydata.ParrotData.SilentMode,
+                WindowStyle = Lazydata.ParrotData.SilentMode ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal
             };
             var pNpmRunDist = Process.Start(psiNpmRunDist);
             pNpmRunDist.StandardInput.WriteLine("start.bat");
@@ -162,7 +164,9 @@ namespace TeknoParrotUi.Common.GameLaunch
                 FileName = gameDir + "\\inject.exe",
                 WorkingDirectory = gameDir,
                 Arguments = "-d -k .\\idzhook.dll .\\amdaemon.exe -c configDHCP_Final_Common.json configDHCP_Final_JP.json configDHCP_Final_JP_ST1.json configDHCP_Final_JP_ST2.json configDHCP_Final_EX.json configDHCP_Final_EX_ST1.json configDHCP_Final_EX_ST2.json",
-                UseShellExecute = false
+                UseShellExecute = false,
+                CreateNoWindow = Lazydata.ParrotData.SilentMode,
+                WindowStyle = Lazydata.ParrotData.SilentMode ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal
             };
             var pNpmRunDist = Process.Start(psiNpmRunDist);
             pNpmRunDist.WaitForExit();
@@ -175,7 +179,9 @@ namespace TeknoParrotUi.Common.GameLaunch
                 FileName = gameDir + "\\inject.exe",
                 WorkingDirectory = gameDir,
                 Arguments = "-d -k .\\idzhook.dll .\\ServerBoxD8_Nu_x64.exe",
-                UseShellExecute = false
+                UseShellExecute = false,
+                CreateNoWindow = Lazydata.ParrotData.SilentMode,
+                WindowStyle = Lazydata.ParrotData.SilentMode ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal
             };
             var pNpmRunDist = Process.Start(psiNpmRunDist);
             pNpmRunDist.WaitForExit();

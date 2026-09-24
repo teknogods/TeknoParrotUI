@@ -38,6 +38,15 @@ public partial class SettingsView : UserControl
             if (e.Property == Slider.ValueProperty)
                 StoozValue.Text = $"{(int)StoozSlider.Value}%";
         };
+        ChkSilentMode.PropertyChanged += (_, e) =>
+        {
+            if (_loadingSettings || e.Property != CheckBox.IsCheckedProperty)
+                return;
+            // This setting affects the next launch, so apply it even if the
+            // user leaves Settings without pressing the general Save button.
+            Lazydata.ParrotData.SilentMode = ChkSilentMode.IsChecked == true;
+            JoystickHelper.Serialize();
+        };
 
         LanguageSelector.ItemsSource = Languages.Select(l => l.Name).ToList();
         // Live language switching — no restart required

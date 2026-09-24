@@ -535,16 +535,24 @@ namespace TeknoParrotUi.Common.GameLaunch
 
                 info.WindowStyle = _profile.LaunchMinimized ? ProcessWindowStyle.Minimized : ProcessWindowStyle.Normal;
 
-                bool silent = Lazydata.ParrotData.SilentMode &&
-                              _profile.EmulatorType != EmulatorType.Lindbergh &&
-                              _profile.EmulatorType != EmulatorType.N2 &&
-                              _profile.EmulatorType != EmulatorType.ElfLdr2;
+                bool silent = Lazydata.ParrotData.SilentMode;
+                bool redirectOutput = silent &&
+                    _profile.EmulatorType != EmulatorType.Lindbergh &&
+                    _profile.EmulatorType != EmulatorType.N2 &&
+                    _profile.EmulatorType != EmulatorType.ElfLdr2;
                 if (silent)
                 {
-                    info.WindowStyle = ProcessWindowStyle.Hidden;
-                    info.RedirectStandardError = true;
-                    info.RedirectStandardOutput = true;
+                    // External emulators own the game's visible window. Suppress
+                    // only their console allocation, not the emulator GUI.
+                    if (!ExternalEmulatorLauncher.IsExternalEmulator(_profile))
+                        info.WindowStyle = ProcessWindowStyle.Hidden;
+                    info.UseShellExecute = false;
                     info.CreateNoWindow = true;
+                    if (redirectOutput)
+                    {
+                        info.RedirectStandardError = true;
+                        info.RedirectStandardOutput = true;
+                    }
                 }
 
                 GameWindowTracker.AddExecutable(info.FileName);
@@ -615,7 +623,7 @@ namespace TeknoParrotUi.Common.GameLaunch
                 }
 
                 GameWindowTracker.GameProcessId = _process.Id;
-                if (silent)
+                if (redirectOutput)
                     _process.BeginOutputReadLine();
 
                 StateChanged?.Invoke("Game running");
@@ -926,6 +934,11 @@ namespace TeknoParrotUi.Common.GameLaunch
             };
             GameLaunchArguments.ApplyOpenSslFix(_profile, info);
             info.WindowStyle = _profile.LaunchSecondExecutableMinimized ? ProcessWindowStyle.Minimized : ProcessWindowStyle.Normal;
+            if (Lazydata.ParrotData.SilentMode)
+            {
+                info.WindowStyle = ProcessWindowStyle.Hidden;
+                info.CreateNoWindow = true;
+            }
 
             // Auxiliary/second Windows executables need the exact same
             // Wine/Proton prefix and environment as the primary loader. A

@@ -8,6 +8,7 @@
             <SelectableTextBlock Name="ConsoleText" FontFamily="Consolas,monospace" FontSize="11" TextWrapping="Wrap" />
         </ScrollViewer>
         <StackPanel Name="ActionsPanel" Grid.Row="3" Orientation="Horizontal" Spacing="8" Margin="0,12,0,0" HorizontalAlignment="Center">
+            <Button Name="BtnShowLog" Content="Show launch log" Width="180" Click="BtnShowLog_Click" IsVisible="False" />
             <Button Name="BtnForceQuit" Content="Force Quit Game" Width="180" Click="BtnForceQuit_Click" />
             <Button Name="BtnBack" Content="Back to Library" Width="180" Click="BtnBack_Click" IsEnabled="False" />
         </StackPanel>
