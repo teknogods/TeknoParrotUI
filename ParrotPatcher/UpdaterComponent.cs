@@ -16,6 +16,8 @@ namespace ParrotPatcher
         public string name { get; set; }
         // location of file to check version from, i.e TeknoParrot\TeknoParrot.dll
         public string location { get; set; }
+        // Additional paths where the same versioned file must be installed.
+        public List<string> additionalLocations { get; set; } = new List<string>();
         // repository name, if not set it will use name as the repo name
         public string reponame { get; set; }
         // if set, the changelog button will link to the commits page, if not it will link to the release directly
@@ -44,9 +46,8 @@ namespace ParrotPatcher
                     {
                         if (manualVersion)
                         {
-                            var versionFile = Path.Combine(Path.GetDirectoryName(location) ?? ".", ".version");
-                            if (File.Exists(versionFile))
-                                _localVersion = File.ReadAllText(versionFile);
+                            if (File.Exists(Path.GetDirectoryName(location) + "\\.version"))
+                                _localVersion = File.ReadAllText(Path.GetDirectoryName(location) + "\\.version");
                             else
                                 _localVersion = "unknown";
                         }
@@ -60,6 +61,20 @@ namespace ParrotPatcher
                     else
                     {
                         _localVersion = "Not Installed";
+                    }
+
+                    foreach (var additionalLocation in additionalLocations)
+                    {
+                        var additionalVersion = new UpdaterComponent
+                        {
+                            location = additionalLocation,
+                            manualVersion = manualVersion
+                        }.localVersion;
+                        if (additionalVersion != _localVersion)
+                        {
+                            _localVersion = additionalVersion == "Not Installed" ? additionalVersion : "unknown";
+                            break;
+                        }
                     }
                 }
 

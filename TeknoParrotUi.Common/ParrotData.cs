@@ -24,6 +24,8 @@ namespace TeknoParrotUi.Common
         public bool UseDiscordRPC { get; set; }
         public bool SilentMode { get; set; }
         public bool CheckForUpdates { get; set; } = true;
+        public string AnnouncementSourceUrl { get; set; } = "https://teknoparrot.com/Home/NewsPostUrl";
+        public string LastAnnouncementContent { get; set; } = "";
 
         public bool ConfirmExit { get; set; } = true;
         public bool DownloadIcons { get; set; } = true;

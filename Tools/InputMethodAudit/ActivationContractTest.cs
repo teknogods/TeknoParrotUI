@@ -29,6 +29,35 @@ namespace InputMethodAudit
                     header + "\"PatreonSerialKey\"=dword:00000001\r\n"),
                     "unsupported registry type rejected");
 
+                True(WindowsBudgieDeactivation.TryParseResultCode(
+                    new[] { "Deactivation exited with code: 0" }, out var successCode) && successCode == 0,
+                    "Budgie success result parsed");
+                True(WindowsBudgieDeactivation.TryParseResultCode(
+                    new[] { "Deactivation exited with code: A" }, out var cooldownCode) && cooldownCode == 10,
+                    "Budgie hexadecimal result parsed");
+                False(WindowsBudgieDeactivation.TryParseResultCode(
+                    new[] { "Deactivation exited with code: 0", "Deactivation exited with code: 8" }, out _),
+                    "conflicting Budgie results rejected");
+                False(WindowsBudgieDeactivation.TryParseResultCode(
+                    new[] { "unrelated text" }, out _),
+                    "missing Budgie result rejected");
+                var original = new byte[] { 1, 2, 3 };
+                var current = new byte[] { 1, 2, 3 };
+                WindowsBudgieDeactivation.RemoveLocalActivation(original, () => current,
+                    () => current = null);
+                True(current == null, "unchanged activation removed after success");
+                current = new byte[] { 4, 5, 6 };
+                try
+                {
+                    WindowsBudgieDeactivation.RemoveLocalActivation(original, () => current,
+                        () => current = null);
+                    throw new InvalidOperationException("changed activation was removed");
+                }
+                catch (InvalidOperationException error) when (error.Message.Contains("changed during deactivation"))
+                {
+                    True(current != null, "changed activation preserved");
+                }
+
                 Console.WriteLine("TeknoParrot activation seed contract: PASS");
                 return 0;
             }

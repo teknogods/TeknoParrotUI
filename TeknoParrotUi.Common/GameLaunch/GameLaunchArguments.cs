@@ -191,8 +191,21 @@ namespace TeknoParrotUi.Common.GameLaunch
                 (loaderExe.IndexOf("x64", StringComparison.OrdinalIgnoreCase) >= 0 ||
                  loaderExe.IndexOf("_64", StringComparison.OrdinalIgnoreCase) >= 0);
 
+            bool apmTest = isTest && profile.TestMenuIsExecutable &&
+                profile.EmulatorType == EmulatorType.TeknoParrot &&
+                !string.IsNullOrWhiteSpace(profile.ApmTestGameId);
+            var loaderArguments = $"{loaderDll} {gameArguments}";
+            if (apmTest)
+            {
+                var gameId = profile.ApmTestGameId.Trim().ToUpperInvariant();
+                if (!profile.TestExecIs64Bit || !Regex.IsMatch(gameId, @"\A[A-Z0-9]{4}\z"))
+                    throw new InvalidOperationException(
+                        "APM test mode requires an x64 menu and a four-character game ID.");
+                loaderArguments = $"--apm-test {gameId} {loaderArguments}";
+            }
+
             var exePath = isElfldr2X64 ? Path.GetFullPath(loaderExe) : loaderExe;
-            var info = new ProcessStartInfo(exePath, $"{loaderDll} {gameArguments}");
+            var info = new ProcessStartInfo(exePath, loaderArguments);
 
             void SetEnv(string key, string value)
             {
@@ -212,7 +225,7 @@ namespace TeknoParrotUi.Common.GameLaunch
             }
 
             SetEnv("TP_DIRECTHOOK",
-                profile.EmulationProfile == EmulationProfile.APM3Direct && isTest ? "1" : null);
+                !apmTest && profile.EmulationProfile == EmulationProfile.APM3Direct && isTest ? "1" : null);
             SetEnv("TP_REMOTETHREAD", profile.UseRemoteThread ? "1" : null);
             SetEnv("tp_msysType", profile.msysType > 0 ? profile.msysType.ToString() : null);
 

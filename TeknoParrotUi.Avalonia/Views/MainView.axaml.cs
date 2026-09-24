@@ -49,6 +49,8 @@ public partial class MainView : UserControl
     private readonly TroubleshootingView _troubleshooting = new();
     private readonly UiNavigationService _uiNav = new();
     private bool _androidLaunchPreflightBusy;
+    private readonly System.Threading.CancellationTokenSource _announcementCancellation = new();
+    private bool _announcementChecked;
 
     private static bool WizardActive => !Lazydata.ParrotData.FirstTimeSetupComplete;
 
@@ -236,10 +238,11 @@ public partial class MainView : UserControl
         };
         _wizard.AccountRequested += () => Show(_account, "Account");
         _wizard.SubscriptionRequested += () => Show(_subscription, "Subscription");
-        _wizard.Finished += () =>
+        _wizard.Finished += async () =>
         {
             StatusBar.Text = "Setup complete — welcome to TeknoParrot!";
             ShowLibrary();
+            await CheckForAnnouncementAsync();
         };
 
         // Privacy policy gate (first run) — after we're attached so dialogs have an owner
@@ -253,6 +256,7 @@ public partial class MainView : UserControl
             await ShowPendingChangelogAsync();
             if (Lazydata.ParrotData.HasReadPoliciesNew)
             {
+                await CheckForAnnouncementAsync();
                 var resumed = TryResumeActivePlatformSession();
                 if (!resumed && OperatingSystem.IsAndroid())
                     await CheckAndroidStartupUpdatesAsync();
@@ -283,7 +287,89 @@ public partial class MainView : UserControl
     }
 
     /// <summary>Stops background services (controller nav). Called by the desktop host on window close.</summary>
-    public void Shutdown() => _uiNav.Dispose();
+    public void Shutdown()
+    {
+        _announcementCancellation.Cancel();
+        _uiNav.Dispose();
+    }
+
+    private async System.Threading.Tasks.Task CheckForAnnouncementAsync()
+    {
+        if (_announcementChecked || OperatingSystem.IsAndroid() ||
+            !AnnouncementService.ShouldCheckAtStartup(
+                Environment.GetCommandLineArgs(), System.Diagnostics.Debugger.IsAttached))
+            return;
+        _announcementChecked = true;
+        try
+        {
+            var announcement = await AnnouncementService.CheckAsync(
+                Lazydata.ParrotData.AnnouncementSourceUrl,
+                Lazydata.ParrotData.LastAnnouncementContent,
+                _announcementCancellation.Token);
+            if (announcement == null || _announcementCancellation.IsCancellationRequested ||
+                TopLevel.GetTopLevel(this) is not Window owner)
+                return;
+
+            var open = new Button { Content = Loc.T("AnnouncementOpenBrowser", "Open in browser") };
+            var close = new Button { Content = Loc.T("AnnouncementClose", "Close") };
+            var dialog = new Window
+            {
+                Title = Loc.T("AnnouncementTitle", "TeknoParrot announcement"),
+                Width = 520,
+                SizeToContent = SizeToContent.Height,
+                CanResize = false,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Content = new StackPanel
+                {
+                    Margin = new Thickness(24),
+                    Spacing = 18,
+                    Children =
+                    {
+                        new TextBlock
+                        {
+                            Text = Loc.T("AnnouncementNetwork", "New TeknoParrot announcement"),
+                            FontSize = 18,
+                            FontWeight = global::Avalonia.Media.FontWeight.Bold
+                        },
+                        new TextBlock
+                        {
+                            Text = announcement.PageUrl.AbsoluteUri,
+                            TextWrapping = global::Avalonia.Media.TextWrapping.Wrap
+                        },
+                        new StackPanel
+                        {
+                            Orientation = global::Avalonia.Layout.Orientation.Horizontal,
+                            Spacing = 8,
+                            HorizontalAlignment = global::Avalonia.Layout.HorizontalAlignment.Right,
+                            Children = { close, open }
+                        }
+                    }
+                }
+            };
+            close.Click += (_, _) => dialog.Close();
+            open.Click += async (_, _) =>
+            {
+                await Services.ExternalUrlLauncher.OpenAsync(this, announcement.PageUrl.AbsoluteUri);
+                dialog.Close();
+            };
+            dialog.Opened += (_, _) =>
+            {
+                var previous = Lazydata.ParrotData.LastAnnouncementContent;
+                Lazydata.ParrotData.LastAnnouncementContent = announcement.Content;
+                try { JoystickHelper.Serialize(); }
+                catch (Exception error)
+                {
+                    Lazydata.ParrotData.LastAnnouncementContent = previous;
+                    System.Diagnostics.Debug.WriteLine($"Failed to save announcement: {error.Message}");
+                }
+            };
+            await dialog.ShowDialog(owner);
+        }
+        catch (Exception error)
+        {
+            System.Diagnostics.Debug.WriteLine($"Failed to show announcement: {error.Message}");
+        }
+    }
 
     private bool TryResumeActivePlatformSession()
     {

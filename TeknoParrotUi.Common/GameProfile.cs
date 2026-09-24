@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 
 namespace TeknoParrotUi.Common
@@ -51,6 +52,8 @@ namespace TeknoParrotUi.Common
         public bool TestMenuIsExecutable { get; set; }
         public string ExtraParameters { get; set; }
         public string TestMenuExtraParameters { get; set; }
+        /// <summary>Four-character title ID for the native managed-APM test loader (x64).</summary>
+        public string ApmTestGameId { get; set; }
         public string IconName { get; set; }
         public string ValidMd5 { get; set; }
         public bool ResetHint { get; set; }
@@ -191,6 +194,31 @@ namespace TeknoParrotUi.Common
         public string GameVersion { get; set; } = "";
         public bool AllowSettingSync { get; set; } = false;
         public bool Use16BitAnalog { get; set; } = false;
+        public CabinetOutputSettings CabinetOutputSettings { get; set; } = new CabinetOutputSettings();
+
+        public bool ShouldSerializeCabinetOutputSettings() => TeknoParrotUi.Common.CabinetOutputSettings.Supports(this);
+
+        public GameProfile Clone()
+        {
+            var copy = (GameProfile)MemberwiseClone();
+            copy.CabinetOutputSettings = CabinetOutputSettings?.Clone();
+            copy.ConfigValues = ConfigValues?.Select(field => field?.Clone()).ToList();
+            copy.JoystickButtons = JoystickButtons?.Select(button => button?.Clone()).ToList();
+            if (RPCS3Config != null)
+            {
+                copy.RPCS3Config = new RPCS3Config
+                {
+                    ConfigItems = RPCS3Config.ConfigItems?.Select(item => item == null ? null : new RPCS3ConfigItem
+                    {
+                        Category = item.Category,
+                        Name = item.Name,
+                        Value = item.Value
+                    }).ToList()
+                };
+            }
+            copy.GameInfo = GameInfo?.Clone();
+            return copy;
+        }
         public override string ToString()
         {
             return GameNameInternal;

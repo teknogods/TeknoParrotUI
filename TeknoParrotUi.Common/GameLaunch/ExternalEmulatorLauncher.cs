@@ -16,8 +16,38 @@ namespace TeknoParrotUi.Common.GameLaunch
     /// </summary>
     public static class ExternalEmulatorLauncher
     {
+        public static bool IsStandaloneEmulator(GameProfile profile)
+        {
+            switch (profile.EmulatorType)
+            {
+                case EmulatorType.TeknoVegas:
+                case EmulatorType.TeknoViper:
+                case EmulatorType.TeknoModel1:
+                case EmulatorType.TeknoModel2:
+                case EmulatorType.TeknoCobra:
+                case EmulatorType.TeknoHNG64:
+                case EmulatorType.TeknoHornet:
+                case EmulatorType.TeknoS22:
+                case EmulatorType.TeknoAGX:
+                case EmulatorType.TeknoVUnit:
+                case EmulatorType.TeknoM2:
+                case EmulatorType.TeknoS23:
+                case EmulatorType.TeknoGClub:
+                case EmulatorType.TeknoAir:
+                case EmulatorType.TeknoS21:
+                case EmulatorType.TeknoS11:
+                case EmulatorType.TeknoTPJC:
+                case EmulatorType.TeknoZeus:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         public static bool IsExternalEmulator(GameProfile profile)
         {
+            if (IsStandaloneEmulator(profile))
+                return true;
             switch (profile.EmulatorType)
             {
                 case EmulatorType.Dolphin:
@@ -41,6 +71,8 @@ namespace TeknoParrotUi.Common.GameLaunch
 
         public static ProcessStartInfo Build(GameProfile profile, string gameLocation, Action<string> log)
         {
+            if (IsStandaloneEmulator(profile))
+                return TeknoViperVegasLauncher.Build(profile, gameLocation, log);
             bool windowed = IsWindowed(profile);
 
             switch (profile.EmulatorType)

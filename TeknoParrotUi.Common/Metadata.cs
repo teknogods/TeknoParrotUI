@@ -51,6 +51,13 @@ namespace TeknoParrotUi.Common
         [JsonProperty("tpo_version")]
         public string tpo_version;
 
+        internal Metadata Clone()
+        {
+            var copy = (Metadata)MemberwiseClone();
+            copy.supported_versions = (string[])supported_versions?.Clone();
+            return copy;
+        }
+
         public override string ToString()
         {
             var wheelRotation = !string.IsNullOrEmpty(wheel_rotation) ? $"Wheel Rotation: {wheel_rotation}\n" : string.Empty;

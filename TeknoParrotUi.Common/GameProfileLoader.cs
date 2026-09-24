@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -6,36 +7,17 @@ using System.Threading.Tasks;
 
 namespace TeknoParrotUi.Common
 {
-    /// <summary>
-    /// The ONE place stock-profile Linux compatibility metadata propagation
-    /// lives - used by every load path (same-revision UserProfiles merge, the
-    /// installed-games list pass, and the CLI --profile= path).
-    ///
-    /// Deliberately a SIBLING of <see cref="GameProfileLoader"/> rather than a
-    /// method on it: GameProfileLoader has a static constructor that itself
-    /// runs LoadProfiles, so calling any GameProfileLoader static member from
-    /// inside LoadProfiles' Parallel.ForEach workers deadlocks (the workers
-    /// block on the class-init lock the main thread holds while it waits for
-    /// them). This class has no static state and a trivial initializer.
-    /// </summary>
+    // Stock compatibility data remains authoritative when loading an older user copy.
+    // Keep this outside GameProfileLoader: its parallel workers must never wait on
+    // the GameProfileLoader class-initialization lock.
     public static class StockProfileMetadata
     {
-        /// <summary>
-        /// Copies Linux compatibility metadata that is authoritative in the
-        /// STOCK profile onto a profile object loaded from a user copy (user
-        /// profiles saved before these fields existed - or saved by older
-        /// versions - never carry them). Never touches user settings such as
-        /// the Windowed config field.
-        /// </summary>
         public static void Apply(GameProfile target, GameProfile stock)
         {
             if (target == null || stock == null || ReferenceEquals(target, stock))
                 return;
-            // Linux support flags live in the stock profile, not in user copies.
             target.LinuxOk = stock.LinuxOk;
             target.ProtonVersion ??= stock.ProtonVersion;
-            // Gamescope window compatibility policy is verified per-game stock
-            // metadata (e.g. RequireWindowed), never a user setting.
             target.GamescopeGameWindowCompatibility = stock.GamescopeGameWindowCompatibility;
         }
     }
@@ -48,258 +30,169 @@ namespace TeknoParrotUi.Common
         public static void LoadProfiles(bool onlyUserProfiles)
         {
             Directory.CreateDirectory("GameProfiles");
-            var origProfiles = Directory.GetFiles("GameProfiles", "*.xml");
             Directory.CreateDirectory("UserProfiles");
-            var userProfiles = Directory.GetFiles("UserProfiles", "*.xml");
+            var stockFiles = Directory.GetFiles("GameProfiles", "*.xml")
+                .ToDictionary(Path.GetFileName, StringComparer.OrdinalIgnoreCase);
+            var userFiles = Directory.GetFiles("UserProfiles", "*.xml")
+                .ToDictionary(Path.GetFileName, StringComparer.OrdinalIgnoreCase);
+            var loaded = new List<GameProfile>();
+            var installed = new List<GameProfile>();
+            var metadataCatalog = JoystickHelper.LoadMetadataCatalog();
+            var files = onlyUserProfiles
+                ? userFiles.Keys.Where(stockFiles.ContainsKey).Select(name => stockFiles[name])
+                : stockFiles.Values.AsEnumerable();
+            var sync = new object();
 
-            var profileList = new List<GameProfile>();
-            var userprofileList = new List<GameProfile>();
-
-            if (!onlyUserProfiles)
+            Parallel.ForEach(files, file =>
             {
-                var lockObject = new object();
-                Parallel.ForEach(origProfiles, file =>
+                var stock = JoystickHelper.DeSerializeGameProfile(file, false);
+                if (stock == null)
+                    return;
+
+                GameProfile profile = stock;
+                var hasUser = userFiles.TryGetValue(Path.GetFileName(file), out var userFile);
+                var migrated = false;
+                if (hasUser)
                 {
-                    var gameProfile = JoystickHelper.DeSerializeGameProfile(file, false);
-
-                    if (gameProfile == null)
+                    var user = JoystickHelper.DeSerializeGameProfile(userFile, true);
+                    if (user == null)
                         return;
-
-                    var isThereOther = userProfiles.FirstOrDefault(x => Path.GetFileName(x) == Path.GetFileName(file));
-                    if (!string.IsNullOrWhiteSpace(isThereOther))
+                    if (user.GameProfileRevision == stock.GameProfileRevision)
                     {
-                        var other = JoystickHelper.DeSerializeGameProfile(isThereOther, true);
-
-                        if (other == null)
-                            return;
-
-                        if (other.GameProfileRevision == gameProfile.GameProfileRevision)
-                        {
-                            other.FileName = isThereOther;
-                            other.ProfileName = Path.GetFileNameWithoutExtension(file);
-                            other.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
-                            StockProfileMetadata.Apply(other, gameProfile);
-                            other.GameInfo = JoystickHelper.DeSerializeMetadata(file);
-                            if (other.GameInfo != null)
-                            {
-                                other.GameNameInternal = other.GameInfo.game_name;
-                                other.GameGenreInternal = other.GameInfo.game_genre;
-                                if (other.GameInfo.icon_name != "")
-                                {
-                                    other.IconName = "Icons/" + other.GameInfo.icon_name;
-                                }
-                            }
-                            else
-                            {
-                                other.GameNameInternal = Path.GetFileNameWithoutExtension(file) + " (Metadata Missing)";
-                            }
-
-                            lock (lockObject)
-                            {
-                                profileList.Add(other);
-                            }
-                            return;
-                        }
-                        else
-                        {
-                            //woah automapper
-                            Debug.WriteLine("gameprofile " + gameProfile.GameProfileRevision + " userprofile " + other.GameProfileRevision);
-
-                            for (int i = 0; i < other.JoystickButtons.Count; i++)
-                            {
-                                var button = gameProfile.JoystickButtons.FirstOrDefault(x => x.ButtonName == other.JoystickButtons[i].ButtonName);
-
-                                if (button != null)
-                                {
-                                    button.DirectInputButton = other.JoystickButtons[i].DirectInputButton;
-                                    button.XInputButton = other.JoystickButtons[i].XInputButton;
-                                    button.RawInputButton = other.JoystickButtons[i].RawInputButton;
-                                    button.BindNameDi = other.JoystickButtons[i].BindNameDi;
-                                    button.BindNameXi = other.JoystickButtons[i].BindNameXi;
-                                    button.BindNameRi = other.JoystickButtons[i].BindNameRi;
-                                    button.BindName = other.JoystickButtons[i].BindName;
-
-                                    // Clear DolphinBar binds without DevicePath
-                                    if (button.BindNameRi != null && button.BindNameRi.Contains("DolphinBar") && string.IsNullOrWhiteSpace(button.RawInputButton?.DevicePath))
-                                    {
-                                        var riButton = new RawInputButton
-                                        {
-                                            DevicePath = "",
-                                            DeviceType = RawDeviceType.None,
-                                            MouseButton = RawMouseButton.None,
-                                            KeyboardKey = Keys.None
-                                        };
-
-                                        button.RawInputButton = riButton;
-                                        button.BindNameRi = "";
-                                    }
-                                }
-                            }
-
-                            for (int i = 0; i < gameProfile.ConfigValues.Count; i++)
-                            {
-                                for (int j = 0; j < other.ConfigValues.Count; j++)
-                                {
-                                    if (gameProfile.ConfigValues[i].FieldName == other.ConfigValues[j].FieldName)
-                                    {
-                                        gameProfile.ConfigValues[i].FieldValue = other.ConfigValues[j].FieldValue;
-                                    }
-                                }
-                            }
-
-                            gameProfile.FileName = isThereOther;
-                            gameProfile.ProfileName = Path.GetFileNameWithoutExtension(file);
-                            gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
-                            gameProfile.GameInfo = JoystickHelper.DeSerializeMetadata(file);
-                            if (gameProfile.GameInfo != null)
-                            {
-                                gameProfile.GameNameInternal = gameProfile.GameInfo.game_name;
-                                gameProfile.GameGenreInternal = gameProfile.GameInfo.game_genre;
-                                if (gameProfile.GameInfo.icon_name != "")
-                                {
-                                    gameProfile.IconName = "Icons/" + gameProfile.GameInfo.icon_name;
-                                }
-                            }
-                            gameProfile.GamePath = other.GamePath;
-                            gameProfile.GamePath2 = other.GamePath2;
-                            // Old-profile migration keeps the STOCK object, so the
-                            // stock Linux metadata (incl. GamescopeGameWindowCompatibility)
-                            // is present by construction - no propagation needed here.
-                            JoystickHelper.SerializeGameProfile(gameProfile);
-                            lock (lockObject)
-                            {
-                                profileList.Add(gameProfile);
-                            }
-                            return;
-                        }
-                    }
-                    gameProfile.FileName = file;
-                    gameProfile.ProfileName = Path.GetFileNameWithoutExtension(file);
-                    gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
-                    gameProfile.GameInfo = JoystickHelper.DeSerializeMetadata(file);
-                    if (gameProfile.GameInfo != null)
-                    {
-                        if (gameProfile.GameInfo.icon_name != "")
-                        {
-                            gameProfile.IconName = "Icons/" + gameProfile.GameInfo.icon_name;
-                        }
-                        gameProfile.GameNameInternal = gameProfile.GameInfo.game_name;
-                        gameProfile.GameGenreInternal = gameProfile.GameInfo.game_genre;
+                        profile = user;
+                        StockProfileMetadata.Apply(profile, stock);
                     }
                     else
                     {
-                        gameProfile.GameNameInternal = Path.GetFileNameWithoutExtension(file) + " (Metadata Missing)";
-                    }
-
-                    lock (lockObject)
-                    {
-                        profileList.Add(gameProfile);
-                    }
-
-                    if (!File.Exists(gameProfile.IconName))
-                    {
-                        Debug.WriteLine($"{gameProfile.FileName} icon is missing! - {gameProfile.IconName}");
-                    }
-                });
-
-                GameProfiles = profileList
-                    .Where(IsVisibleOnThisPlatform)
-                    .OrderBy(x => x.GameNameInternal)
-                    .ToList();
-            }
-
-            Parallel.ForEach(userProfiles, file =>
-            {
-                var gameProfile = JoystickHelper.DeSerializeGameProfile(file, false);
-                if (gameProfile == null) return;
-                var isThereOther = origProfiles.FirstOrDefault(x => Path.GetFileName(x) == Path.GetFileName(file));
-                if (!string.IsNullOrWhiteSpace(isThereOther))
-                {
-                    var other = JoystickHelper.DeSerializeGameProfile(isThereOther, true);
-                    if (other == null) return;
-
-                    if (other.GameProfileRevision == gameProfile.GameProfileRevision)
-                    {
-                        gameProfile.FileName = file;
-                        gameProfile.ProfileName = Path.GetFileNameWithoutExtension(file);
-                        gameProfile.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
-                        // Stock profile ('other' here) is authoritative for Linux metadata.
-                        StockProfileMetadata.Apply(gameProfile, other);
-                        gameProfile.GameInfo = JoystickHelper.DeSerializeMetadata(file);
-                        if (gameProfile.GameInfo != null)
-                        {
-                            if (gameProfile.GameInfo.icon_name != "")
-                            {
-                                gameProfile.IconName = "Icons/" + gameProfile.GameInfo.icon_name;
-                            }
-                            gameProfile.GameNameInternal = gameProfile.GameInfo.game_name;
-                            gameProfile.GameGenreInternal = gameProfile.GameInfo.game_genre;
-                        }
-                        else
-                        {
-                            gameProfile.GameNameInternal = Path.GetFileNameWithoutExtension(file) + " (Metadata Missing)";
-                        }
-                        lock (userprofileList)
-                        {
-                            userprofileList.Add(gameProfile);
-                        }
-                    }
-                    else
-                    {
-                        other.FileName = isThereOther;
-                        other.ProfileName = Path.GetFileNameWithoutExtension(file);
-                        other.IconName = "Icons/" + Path.GetFileNameWithoutExtension(file) + ".png";
-                        other.GameInfo = JoystickHelper.DeSerializeMetadata(file);
-                        if (other.GameInfo != null)
-                        {
-                            if (other.GameInfo.icon_name != "")
-                            {
-                                other.IconName = "Icons/" + other.GameInfo.icon_name;
-                            }
-                            other.GameNameInternal = other.GameInfo.game_name;
-                            other.GameGenreInternal = other.GameInfo.game_genre;
-                        }
-                        else
-                        {
-                            other.GameNameInternal = Path.GetFileNameWithoutExtension(file) + " (Metadata Missing)";
-                        }
-                        lock (userprofileList)
-                        {
-                            userprofileList.Add(other);
-                        }
-                        return;
+                        MergeUserSettings(stock, user);
+                        stock.FileName = userFile;
+                        migrated = !onlyUserProfiles;
                     }
                 }
-            });
-            UserProfiles = userprofileList
-                .Where(IsVisibleOnThisPlatform)
-                .OrderBy(x => x.GameNameInternal)
-                .ToList();
 
-            // Controls live in InputBindings/<profile>.json (single source of
-            // truth); when a JSON exists it replaces whatever bindings the XML
-            // carried. Profiles without a JSON keep XML bindings (migration).
+                PopulateMetadata(profile, file, metadataCatalog);
+                if (migrated)
+                    JoystickHelper.SerializeGameProfile(profile);
+
+                // The library and installed lists must not share mutable bindings.
+                var libraryProfile = hasUser && !onlyUserProfiles ? profile.Clone() : profile;
+                lock (sync)
+                {
+                    if (!onlyUserProfiles)
+                        loaded.Add(profile);
+                    if (hasUser)
+                        installed.Add(libraryProfile);
+                }
+
+                if (!hasUser && !File.Exists(profile.IconName))
+                    Debug.WriteLine($"{profile.FileName} icon is missing! - {profile.IconName}");
+            });
+
+            if (!onlyUserProfiles)
+                GameProfiles = loaded.Where(IsVisibleOnThisPlatform)
+                    .OrderBy(x => x.GameNameInternal).ToList();
+            UserProfiles = installed.Where(IsVisibleOnThisPlatform)
+                .OrderBy(x => x.GameNameInternal).ToList();
+
+            // JSON bindings are the single source of truth after profile migration.
             foreach (var profile in UserProfiles)
-                TeknoParrotUi.Common.InputListening.ProfileStorage.BindingsStore.Apply(profile);
+                InputListening.ProfileStorage.BindingsStore.Apply(profile);
             foreach (var profile in GameProfiles)
-                TeknoParrotUi.Common.InputListening.ProfileStorage.BindingsStore.Apply(profile);
+                InputListening.ProfileStorage.BindingsStore.Apply(profile);
         }
 
-        /// <summary>
-        /// Windows and Linux see the complete catalog. LinuxOk remains
-        /// compatibility metadata only; it must not hide games while Linux users
-        /// are actively testing and expanding the working-game set. Android
-        /// exposes only profiles whose runtime is shipped by the Android release.
-        /// </summary>
-        private static bool IsVisibleOnThisPlatform(GameProfile profile) =>
-            !System.OperatingSystem.IsAndroid() ||
-            PlatformCapabilities.IsAndroidGameProfileSupported(profile);
+        private static void PopulateMetadata(GameProfile profile, string file,
+            IReadOnlyDictionary<string, Metadata> catalog)
+        {
+            profile.ProfileName = Path.GetFileNameWithoutExtension(file);
+            profile.IconName = "Icons/" + profile.ProfileName + ".png";
+            profile.GameInfo = catalog != null &&
+                catalog.TryGetValue(profile.ProfileName, out var metadata) && metadata != null
+                ? metadata.Clone()
+                : JoystickHelper.DeSerializeMetadata(file);
+            if (profile.GameInfo == null)
+            {
+                profile.GameNameInternal = profile.ProfileName + " (Metadata Missing)";
+                return;
+            }
 
-        // Do not load profiles from a static constructor. LoadProfiles uses
-        // Parallel.ForEach, and any worker that reaches another member on this
-        // type must wait for the class-initialization lock held by the caller.
-        // The caller is simultaneously waiting for every worker, producing a
-        // permanent startup deadlock. UI entry points already load explicitly
-        // when their catalog-backed view is shown.
+            profile.GameNameInternal = profile.GameInfo.game_name;
+            profile.GameGenreInternal = profile.GameInfo.game_genre;
+            if (!string.IsNullOrEmpty(profile.GameInfo.icon_name))
+                profile.IconName = "Icons/" + profile.GameInfo.icon_name;
+        }
+
+        private static void MergeUserSettings(GameProfile stock, GameProfile user)
+        {
+            foreach (var oldButton in user.JoystickButtons ?? Enumerable.Empty<JoystickButtons>())
+            {
+                var button = stock.JoystickButtons?.FirstOrDefault(x => x.ButtonName == oldButton.ButtonName);
+                if (button == null && stock.EmulatorType == EmulatorType.TeknoModel2 &&
+                    stock.ExecutableName == "desert.zip" && oldButton.ButtonName == "Brake")
+                    button = stock.JoystickButtons?.FirstOrDefault(x => x.ButtonName == "Turret");
+                if (button == null)
+                    continue;
+
+                button.DirectInputButton = oldButton.DirectInputButton;
+                button.XInputButton = oldButton.XInputButton;
+                button.RawInputButton = oldButton.RawInputButton;
+                button.BindNameDi = oldButton.BindNameDi;
+                button.BindNameXi = oldButton.BindNameXi;
+                button.BindNameRi = oldButton.BindNameRi;
+                button.BindName = oldButton.BindName;
+                if (button.BindNameRi?.Contains("DolphinBar") == true &&
+                    string.IsNullOrWhiteSpace(button.RawInputButton?.DevicePath))
+                {
+                    button.RawInputButton = new RawInputButton
+                    {
+                        DevicePath = "",
+                        DeviceType = RawDeviceType.None,
+                        MouseButton = RawMouseButton.None,
+                        KeyboardKey = Keys.None
+                    };
+                    button.BindNameRi = "";
+                }
+            }
+
+            var previousFields = (user.ConfigValues ?? new List<FieldInformation>())
+                .GroupBy(x => x.FieldName)
+                .ToDictionary(g => g.Key, g => g.First(), StringComparer.Ordinal);
+            foreach (var field in stock.ConfigValues ?? Enumerable.Empty<FieldInformation>())
+                if (previousFields.TryGetValue(field.FieldName, out var previous))
+                    field.FieldValue = previous.FieldValue;
+
+            var layout = stock.ConfigValues?.FirstOrDefault(f => f.FieldName == "Screen Layout");
+            if (stock.EmulatorType == EmulatorType.TeknoHornet && layout?.FieldValue == "Original" &&
+                layout.FieldOptions?.Contains("Dual Screen") == true)
+                layout.FieldValue = "Dual Screen";
+
+            var uncentering = stock.ConfigValues?.FirstOrDefault(f => f.FieldName == "Enable Uncentering Effect");
+            if (uncentering != null && !previousFields.ContainsKey("Enable Uncentering Effect") &&
+                previousFields.TryGetValue("Enable Spring Effect", out var spring))
+                uncentering.FieldValue = spring.FieldValue;
+
+            var mode = stock.ConfigValues?.FirstOrDefault(f => f.FieldName == "Uncentering Effect Mode");
+            if (mode?.FieldValue == "Sine vibration (experimental)")
+                mode.FieldValue = "Sine vibration";
+            else if (mode?.FieldValue == "Push away from centre")
+                mode.FieldValue = "Push away from center";
+
+            var outputs = stock.ConfigValues?.FirstOrDefault(CabinetOutputSettings.IsOutputField);
+            if (outputs != null && !previousFields.Values.Any(CabinetOutputSettings.IsOutputField))
+                outputs.FieldValue = CabinetOutputSettings.GetRoute(user);
+
+            stock.CabinetOutputSettings = user.CabinetOutputSettings?.Clone() ?? new CabinetOutputSettings();
+            stock.GamePath = user.GamePath;
+            stock.GamePath2 = user.GamePath2;
+            stock.WineRunnerPath = user.WineRunnerPath;
+            stock.WinePrefixMode = user.WinePrefixMode;
+            stock.FullscreenScalingMode = user.FullscreenScalingMode;
+            stock.AndroidDebugLogging = user.AndroidDebugLogging;
+            stock.AndroidDisplayMode = user.AndroidDisplayMode;
+        }
+
+        // Android only exposes profiles backed by its shipped runtime.
+        private static bool IsVisibleOnThisPlatform(GameProfile profile) =>
+            !OperatingSystem.IsAndroid() || PlatformCapabilities.IsAndroidGameProfileSupported(profile);
     }
 }

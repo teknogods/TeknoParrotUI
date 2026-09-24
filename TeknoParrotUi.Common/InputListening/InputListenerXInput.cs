@@ -177,7 +177,8 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.AnalogBytes[6] = 0x80;
                 }
 
-                if (_gameProfile.EmulationProfile == EmulationProfile.Harley)
+                if (_gameProfile.EmulationProfile == EmulationProfile.Harley ||
+                    _gameProfile.EmulationProfile == EmulationProfile.cxbxr)
                 {
                     InputCode.AnalogBytes[2] = 0x80;
                 }
@@ -681,6 +682,9 @@ namespace TeknoParrotUi.Common.InputListening
 
         private void HandleXinput(JoystickButtons joystickButtons, State state, State previousState, int index)
         {
+            if ((KeyboardOrButtonAxis && joystickButtons.HideWithKeyboardForAxis) ||
+                (!KeyboardOrButtonAxis && joystickButtons.HideWithoutKeyboardForAxis))
+                return;
             var button = joystickButtons.XInputButton;
             switch (joystickButtons.InputMapping)
             {
@@ -1402,16 +1406,28 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[2].Button6 = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.JvsTwoP1ButtonUp:
-                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[2], button, state, Direction.Up, index);
+                    if (_gameProfile.UseDirectionalPresses)
+                        DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[2], button, state, Direction.Up, index);
+                    else
+                        InputCode.PlayerDigitalButtons[2].Up = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.JvsTwoP1ButtonDown:
-                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[2], button, state, Direction.Down, index);
+                    if (_gameProfile.UseDirectionalPresses)
+                        DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[2], button, state, Direction.Down, index);
+                    else
+                        InputCode.PlayerDigitalButtons[2].Down = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.JvsTwoP1ButtonLeft:
-                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[2], button, state, Direction.Left, index);
+                    if (_gameProfile.UseDirectionalPresses)
+                        DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[2], button, state, Direction.Left, index);
+                    else
+                        InputCode.PlayerDigitalButtons[2].Left = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.JvsTwoP1ButtonRight:
-                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[2], button, state, Direction.Right, index);
+                    if (_gameProfile.UseDirectionalPresses)
+                        DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[2], button, state, Direction.Right, index);
+                    else
+                        InputCode.PlayerDigitalButtons[2].Right = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.JvsTwoP1ButtonStart:
                     InputCode.PlayerDigitalButtons[2].Start = DigitalHelper.GetButtonPressXinput(button, state, index);
@@ -1435,16 +1451,28 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[3].Button6 = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.JvsTwoP2ButtonUp:
-                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[3], button, state, Direction.Up, index);
+                    if (_gameProfile.UseDirectionalPresses)
+                        DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[3], button, state, Direction.Up, index);
+                    else
+                        InputCode.PlayerDigitalButtons[3].Up = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.JvsTwoP2ButtonDown:
-                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[3], button, state, Direction.Down, index);
+                    if (_gameProfile.UseDirectionalPresses)
+                        DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[3], button, state, Direction.Down, index);
+                    else
+                        InputCode.PlayerDigitalButtons[3].Down = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.JvsTwoP2ButtonLeft:
-                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[3], button, state, Direction.Left, index);
+                    if (_gameProfile.UseDirectionalPresses)
+                        DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[3], button, state, Direction.Left, index);
+                    else
+                        InputCode.PlayerDigitalButtons[3].Left = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.JvsTwoP2ButtonRight:
-                    DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[3], button, state, Direction.Right, index);
+                    if (_gameProfile.UseDirectionalPresses)
+                        DigitalHelper.GetDirectionPressXinput(InputCode.PlayerDigitalButtons[3], button, state, Direction.Right, index);
+                    else
+                        InputCode.PlayerDigitalButtons[3].Right = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
                 case InputMapping.JvsTwoP2ButtonStart:
                     InputCode.PlayerDigitalButtons[3].Start = DigitalHelper.GetButtonPressXinput(button, state, index);

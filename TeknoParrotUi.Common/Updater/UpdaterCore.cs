@@ -27,6 +27,7 @@ namespace TeknoParrotUi.Common.Updater
     {
         public string name { get; set; }
         public string location { get; set; }
+        public List<string> additionalLocations { get; set; } = new List<string>();
         public string reponame { get; set; }
         public bool opensource { get; set; } = true;
         public string folderOverride { get; set; }
@@ -132,6 +133,20 @@ namespace TeknoParrotUi.Common.Updater
                     {
                         _localVersion = NotInstalled;
                     }
+                    foreach (var additionalLocation in additionalLocations)
+                    {
+                        var additionalVersion = new UpdaterComponent
+                        {
+                            location = additionalLocation,
+                            manualVersion = manualVersion,
+                            isManagedAssembly = isManagedAssembly
+                        }.localVersion;
+                        if (additionalVersion != _localVersion)
+                        {
+                            _localVersion = additionalVersion == NotInstalled ? NotInstalled : "unknown";
+                            break;
+                        }
+                    }
                 }
                 return _localVersion;
             }
@@ -160,7 +175,7 @@ namespace TeknoParrotUi.Common.Updater
             // Linux/Wine, and Android all consume these exact same release assets.
             new UpdaterComponent { name = "OpenParrotWin32", location = Path.Combine("OpenParrotWin32", "OpenParrot.dll"), reponame = "OpenParrot", assetNameExact = "OpenParrotWin32.zip" },
             new UpdaterComponent { name = "OpenParrotx64", location = Path.Combine("OpenParrotx64", "OpenParrot64.dll"), reponame = "OpenParrot", assetNameExact = "OpenParrotx64.zip" },
-            new UpdaterComponent { name = "OpenSegaAPI", location = Path.Combine("TeknoParrot", "Opensegaapi.dll"), folderOverride = "TeknoParrot" },
+            new UpdaterComponent { name = "SegaApi", location = Path.Combine("TeknoParrot", "SegaApi.dll"), additionalLocations = new List<string> { Path.Combine("ElfLdr2", "libs", "SegaApi.dll") }, reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoParrot" },
             // These versioned Windows runtime archives are also shared with
             // Linux/Wine; their published names do not have platform suffixes.
             new UpdaterComponent { name = "TeknoParrot", location = Path.Combine("TeknoParrot", "TeknoParrot.dll"), opensource = false, assetNamePrefix = "TeknoParrotCore_" },
@@ -178,6 +193,22 @@ namespace TeknoParrotUi.Common.Updater
             new UpdaterComponent { name = "pcsx2x6", location = Path.Combine("pcsx2x6", "pcsx2-qtx64.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "pcsx2x6", assetNamePrefix = "pcsx2x6_" },
             new UpdaterComponent { name = "TeknoViper", location = Path.Combine("TeknoViper", "TeknoViper.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoViper" },
             new UpdaterComponent { name = "TeknoVegas", location = Path.Combine("TeknoVegas", "TeknoVegas.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoVegas" },
+            new UpdaterComponent { name = "TeknoCobra", location = Path.Combine("TeknoCobra", "TeknoCobra.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoCobra" },
+            new UpdaterComponent { name = "TeknoModel1", location = Path.Combine("TeknoModel1", "TeknoModel1.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoModel1" },
+            new UpdaterComponent { name = "TeknoZeus", location = Path.Combine("TeknoZeus", "TeknoZeus.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoZeus" },
+            new UpdaterComponent { name = "TeknoModel2", location = Path.Combine("TeknoModel2", "TeknoModel2.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoModel2" },
+            new UpdaterComponent { name = "TeknoHNG64", location = Path.Combine("TeknoHNG64", "TeknoHNG64.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoHNG64" },
+            new UpdaterComponent { name = "TeknoHornet", location = Path.Combine("TeknoHornet", "TeknoHornet.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoHornet" },
+            new UpdaterComponent { name = "TeknoS22", location = Path.Combine("TeknoS22", "TeknoS22.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoS22" },
+            new UpdaterComponent { name = "TeknoAGX", location = Path.Combine("TeknoAGX", "TeknoAGX.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoAGX" },
+            new UpdaterComponent { name = "TeknoVUnit", location = Path.Combine("TeknoVUnit", "TeknoVUnit.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoVUnit" },
+            new UpdaterComponent { name = "TeknoM2", location = Path.Combine("TeknoM2", "TeknoM2.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoM2" },
+            new UpdaterComponent { name = "TeknoS23", location = Path.Combine("TeknoS23", "TeknoS23.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoS23" },
+            new UpdaterComponent { name = "TeknoGClub", location = Path.Combine("TeknoGClub", "TeknoGClub.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoGClub" },
+            new UpdaterComponent { name = "TeknoAir", location = Path.Combine("TeknoAir", "TeknoAir.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoAir" },
+            new UpdaterComponent { name = "TeknoS11", location = Path.Combine("TeknoS11", "TeknoS11.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoS11" },
+            new UpdaterComponent { name = "TeknoTPJC", location = Path.Combine("TeknoTPJC", "TeknoTPJC.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoTPJC" },
+            new UpdaterComponent { name = "TeknoS21", location = Path.Combine("TeknoS21", "TeknoS21.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoS21" },
             });
 
             return components;

@@ -162,6 +162,21 @@ public partial class MainWindow : Window
             : Path.Combine(_baseDirectory, destinationFolder));
         Directory.CreateDirectory(extractionRoot);
 
+        // A component can require its versioned DLL in more than one runtime
+        // directory (SegaApi is shared with ElfLdr2). Validate the archive
+        // before extracting so a missing primary file cannot leave a partial
+        // update behind.
+        string? mirroredSource = null;
+        if (component.additionalLocations.Count > 0)
+        {
+            mirroredSource = SafeArchivePath.Resolve(_baseDirectory, component.location);
+            bool present = zip.Entries.Any(entry => !string.IsNullOrEmpty(entry.Name) &&
+                string.Equals(SafeArchivePath.Resolve(extractionRoot, entry.FullName),
+                    mirroredSource, StringComparison.OrdinalIgnoreCase));
+            if (!present)
+                throw new InvalidDataException($"Update archive is missing {Path.GetFileName(component.location)}.");
+        }
+
         foreach (var entry in zip.Entries)
         {
             var destination = SafeArchivePath.Resolve(extractionRoot, entry.FullName);
@@ -174,6 +189,15 @@ public partial class MainWindow : Window
             }
 
             ExtractSingleFile(entry, destination, component);
+            if (mirroredSource != null &&
+                string.Equals(destination, mirroredSource, StringComparison.OrdinalIgnoreCase))
+            {
+                foreach (var additionalLocation in component.additionalLocations)
+                {
+                    var mirror = SafeArchivePath.Resolve(_baseDirectory, additionalLocation);
+                    ExtractSingleFile(entry, mirror, component);
+                }
+            }
         }
     }
 

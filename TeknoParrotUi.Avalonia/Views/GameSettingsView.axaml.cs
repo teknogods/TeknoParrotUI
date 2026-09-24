@@ -8,6 +8,7 @@ using Avalonia.Platform.Storage;
 using TeknoParrotUi.Avalonia.Controls;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.Android;
+using TeknoParrotUi.Common.GameLaunch;
 using TeknoParrotUi.Common.Proton;
 
 namespace TeknoParrotUi.Avalonia.Views;
@@ -17,6 +18,13 @@ public partial class GameSettingsView : UserControl
     private GameProfile? _profile;
     private readonly Dictionary<FieldInformation, Func<string>> _valueReaders = new();
     private readonly Dictionary<FieldInformation, string> _baseline = new();
+    private readonly Dictionary<FieldInformation, Control> _fieldRows = new();
+    private StackPanel? _outputPanel;
+    private NumericUpDown? _outputPort;
+    private NumericUpDown? _outputDiscoveryPort;
+    private ComboBox? _outputLineEnding;
+    private CheckBox? _outputDiscovery;
+    private string _baselineOutput = "";
     private string _baselinePath = "";
     private string _baselinePath2 = "";
     private TextBox? _gamePathBox;
@@ -73,6 +81,8 @@ public partial class GameSettingsView : UserControl
         _profile = profile;
         Header.Text = $"{profile.GameNameInternal ?? profile.ProfileName} — Settings";
         _valueReaders.Clear();
+        _fieldRows.Clear();
+        _outputPanel = null;
         FieldsPanel.Children.Clear();
 
         _gamePathBox = null;
@@ -164,10 +174,10 @@ public partial class GameSettingsView : UserControl
             if (profile.HasTwoExecutables)
                 _gamePath2Box = AddPathRow(
                     BuildExecutableLabel(
-                        profile.EmulatorType is EmulatorType.TeknoVegas or EmulatorType.TeknoViper
+                        ExternalEmulatorLauncher.IsStandaloneEmulator(profile)
                             ? "GameSettingsTeknoVegasChdLabel"
                             : "GameSettingsSecondGameExecutableLabel",
-                        profile.EmulatorType is EmulatorType.TeknoVegas or EmulatorType.TeknoViper
+                        ExternalEmulatorLauncher.IsStandaloneEmulator(profile)
                             ? "Game CHD"
                             : "Second Game Executable",
                         profile.ExecutableName2),
@@ -193,12 +203,21 @@ public partial class GameSettingsView : UserControl
             AddAndroidDiagnosticsSection(profile);
         }
 
-        foreach (var category in profile.ConfigValues.Select(c => c.CategoryName).Distinct())
+        foreach (var page in profile.ConfigValues.GroupBy(c => c.SettingsPage ?? ""))
         {
-            AddCategoryHeader(category);
-            foreach (var field in profile.ConfigValues.Where(c => c.CategoryName == category))
-                AddFieldEditor(field);
+            if (!string.IsNullOrEmpty(page.Key))
+                AddCategoryHeader(page.Key == "ForceFeedback" ? "Force Feedback" : page.Key);
+            foreach (var category in page.Select(c => c.CategoryName).Distinct())
+            {
+                if (string.IsNullOrEmpty(page.Key))
+                    AddCategoryHeader(category);
+                foreach (var field in page.Where(c => c.CategoryName == category))
+                    AddFieldEditor(field);
+            }
         }
+        if (CabinetOutputSettings.Supports(profile))
+            AddOutputSettings(profile);
+        UpdateConditionalRows();
 
         // Baseline for unsaved-change detection (editor values normalize e.g. "" -> "0",
         // so compare against the editors' initial output rather than raw FieldValues)
@@ -213,7 +232,48 @@ public partial class GameSettingsView : UserControl
         _baselineFullscreenScaling = _fullscreenScalingCombo?.SelectedItem as string ?? "";
         _baselineAndroidDebugLogging = _androidDebugLoggingCheck?.IsChecked == true;
         _baselineAndroidDisplayMode = _androidDisplayModeCombo?.SelectedItem as string ?? "";
+        _baselineOutput = OutputSnapshot();
     }
+
+    private void AddOutputSettings(GameProfile profile)
+    {
+        var settings = profile.CabinetOutputSettings ?? new CabinetOutputSettings();
+        _outputPanel = new StackPanel { Spacing = 4 };
+        _outputPanel.Children.Add(new TextBlock
+        {
+            Text = "Network Outputs",
+            FontSize = 15,
+            FontWeight = global::Avalonia.Media.FontWeight.Bold,
+            Margin = new global::Avalonia.Thickness(0, 12, 0, 4)
+        });
+        _outputPort = new NumericUpDown
+        {
+            Minimum = 1, Maximum = 65535,
+            Value = settings.ListenerPort is >= 1 and <= 65535 ? settings.ListenerPort : 8000,
+            MinWidth = 140
+        };
+        _outputPanel.Children.Add(Row("Listener port", _outputPort));
+        _outputLineEnding = new ComboBox
+        {
+            ItemsSource = new[] { "CR", "LF", "CRLF" },
+            SelectedItem = settings.LineEnding is "LF" or "CRLF" ? settings.LineEnding : "CR",
+            MinWidth = 140
+        };
+        _outputPanel.Children.Add(Row("Line ending", _outputLineEnding));
+        _outputDiscovery = new CheckBox { IsChecked = settings.Discovery };
+        _outputPanel.Children.Add(Row("Discovery", _outputDiscovery));
+        _outputDiscoveryPort = new NumericUpDown
+        {
+            Minimum = 1, Maximum = 65535,
+            Value = settings.DiscoveryPort is >= 1 and <= 65535 ? settings.DiscoveryPort : 8001,
+            MinWidth = 140
+        };
+        _outputPanel.Children.Add(Row("Discovery port", _outputDiscoveryPort));
+        FieldsPanel.Children.Add(_outputPanel);
+    }
+
+    private string OutputSnapshot() => _outputPanel == null ? "" :
+        $"{_outputPort?.Value}|{_outputLineEnding?.SelectedItem}|{_outputDiscovery?.IsChecked}|{_outputDiscoveryPort?.Value}";
 
     private void AddAndroidDiagnosticsSection(GameProfile profile)
     {
@@ -728,6 +788,7 @@ public partial class GameSettingsView : UserControl
             case FieldType.Bool:
                 var cb = new CheckBox { IsChecked = field.FieldValue == "1" };
                 _valueReaders[field] = () => cb.IsChecked == true ? "1" : "0";
+                cb.IsCheckedChanged += (_, _) => UpdateConditionalRows();
                 editor = cb;
                 break;
 
@@ -757,7 +818,23 @@ public partial class GameSettingsView : UserControl
                 if (combo.SelectedItem == null && options.Count > 0)
                     combo.SelectedIndex = 0;
                 _valueReaders[field] = () => combo.SelectedItem as string ?? field.FieldValue;
+                combo.SelectionChanged += (_, _) => UpdateConditionalRows();
                 editor = combo;
+                break;
+
+            case FieldType.DynamicDropdown:
+                var dynamicOptions = ForceFeedbackDeviceCatalog.GetOptions(
+                    _profile ?? throw new InvalidOperationException("No profile loaded"), field.FieldValue);
+                var deviceCombo = new ComboBox
+                {
+                    ItemsSource = dynamicOptions,
+                    SelectedItem = dynamicOptions.FirstOrDefault(x => x.Value == field.FieldValue)
+                        ?? dynamicOptions.FirstOrDefault(),
+                    MinWidth = 220
+                };
+                _valueReaders[field] = () =>
+                    (deviceCombo.SelectedItem as DynamicDropdownOption)?.Value ?? field.FieldValue;
+                editor = deviceCombo;
                 break;
 
             case FieldType.Slider:
@@ -777,7 +854,10 @@ public partial class GameSettingsView : UserControl
                 slider.PropertyChanged += (_, e) =>
                 {
                     if (e.Property == Slider.ValueProperty)
+                    {
                         valueLabel.Text = ((int)slider.Value).ToString();
+                        UpdateConditionalRows();
+                    }
                 };
                 _valueReaders[field] = () => ((int)slider.Value).ToString();
                 editor = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 8, Children = { slider, valueLabel } };
@@ -829,7 +909,31 @@ public partial class GameSettingsView : UserControl
         if (!string.IsNullOrWhiteSpace(field.Hint))
             ToolTip.SetTip(editor, field.Hint);
 
-        FieldsPanel.Children.Add(Row(field.FieldName, editor));
+        var row = Row(field.FieldName, editor);
+        _fieldRows[field] = row;
+        FieldsPanel.Children.Add(row);
+    }
+
+    private void UpdateConditionalRows()
+    {
+        if (_profile?.ConfigValues == null)
+            return;
+        string? ValueOf(string name)
+        {
+            var setting = _profile.ConfigValues.FirstOrDefault(x => x.FieldName == name);
+            return setting == null ? null :
+                _valueReaders.TryGetValue(setting, out var read) ? read() : setting.FieldValue;
+        }
+        foreach (var (field, row) in _fieldRows)
+        {
+            row.IsVisible = string.IsNullOrEmpty(field.VisibleWhen) ||
+                ValueOf(field.VisibleWhen) == field.VisibleWhenValue;
+            var enabledBy = ValueOf(field.EnabledBy);
+            row.IsEnabled = string.IsNullOrEmpty(field.EnabledBy) ||
+                enabledBy == "1" || string.Equals(enabledBy, "true", StringComparison.OrdinalIgnoreCase);
+        }
+        if (_outputPanel != null)
+            _outputPanel.IsVisible = ValueOf("Outputs") == "Network Outputs";
     }
 
     private static Control Row(string label, Control editor)
@@ -900,6 +1004,8 @@ public partial class GameSettingsView : UserControl
             return true;
         if (_androidDisplayModeCombo != null &&
             (_androidDisplayModeCombo.SelectedItem as string ?? "") != _baselineAndroidDisplayMode)
+            return true;
+        if (OutputSnapshot() != _baselineOutput)
             return true;
         foreach (var (field, read) in _valueReaders)
         {
@@ -978,6 +1084,15 @@ public partial class GameSettingsView : UserControl
 
         foreach (var (field, read) in _valueReaders)
             field.FieldValue = read();
+
+        if (_outputPanel != null)
+        {
+            var settings = _profile.CabinetOutputSettings ??= new CabinetOutputSettings();
+            settings.ListenerPort = (int)(_outputPort?.Value ?? 8000);
+            settings.LineEnding = _outputLineEnding?.SelectedItem as string ?? "CR";
+            settings.Discovery = _outputDiscovery?.IsChecked == true;
+            settings.DiscoveryPort = (int)(_outputDiscoveryPort?.Value ?? 8001);
+        }
 
         Directory.CreateDirectory("UserProfiles");
         JoystickHelper.SerializeGameProfile(_profile);

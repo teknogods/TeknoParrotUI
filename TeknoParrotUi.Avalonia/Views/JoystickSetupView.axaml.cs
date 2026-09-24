@@ -113,6 +113,8 @@ public partial class JoystickSetupView : UserControl
 
     private bool IsVisibleForApi(JoystickButtons b)
     {
+        if (!SettingVisibility.IsVisible(_profile?.ConfigValues, b.VisibleWhen, b.VisibleWhenValue))
+            return false;
         // Classic conditional-visibility chain: option-dependent rows only
         // appear when the matching game option is enabled.
         if (_bg4ProMode && b.HideWithProMode) return false;

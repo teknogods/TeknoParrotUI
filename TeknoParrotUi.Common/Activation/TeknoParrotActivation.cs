@@ -17,7 +17,11 @@ namespace TeknoParrotUi.Common.Activation
         bool Success,
         bool IsActivated,
         string Message,
-        IReadOnlyList<string> Output);
+        IReadOnlyList<string> Output)
+    {
+        public bool CanRemoveLocalActivation { get; init; }
+        internal object LocalActivationSnapshot { get; init; }
+    }
 
     /// <summary>
     /// Cross-platform owner of the TeknoParrot subscription activation. The
@@ -158,6 +162,23 @@ namespace TeknoParrotUi.Common.Activation
         }
 
         /// <summary>
+        /// Forget an invalid local Windows activation only after the UI has
+        /// explicitly confirmed recovery with the user. This does not release
+        /// a server activation and refuses to erase a key changed meanwhile.
+        /// </summary>
+        public static bool TryRemoveInvalidLocalActivation(TeknoParrotActivationResult result)
+        {
+            if (!OperatingSystem.IsWindows() || result?.CanRemoveLocalActivation != true ||
+                result.LocalActivationSnapshot == null)
+                return false;
+            WindowsBudgieDeactivation.RemoveLocalActivation(
+                result.LocalActivationSnapshot,
+                WindowsBudgieDeactivation.ReadLocalActivation,
+                WindowsBudgieDeactivation.DeleteLocalActivation);
+            return !WindowsRegistryValueExists();
+        }
+
+        /// <summary>
         /// Imports the private central activation export into the exact prefix
         /// about to host a game. This preserves TeknoParrot.dll unchanged and
         /// works for shared and isolated Wine/Proton environments.
@@ -238,7 +259,37 @@ namespace TeknoParrotUi.Common.Activation
             info.ArgumentList.Add(operation);
             if (secret != null)
                 info.ArgumentList.Add(secret);
+            var localActivation = expectedActive ? null : WindowsBudgieDeactivation.ReadLocalActivation();
             var process = await RunProcessAsync(info, secret, cancellationToken).ConfigureAwait(false);
+            if (!expectedActive)
+            {
+                var activeBeforeRemoval = WindowsRegistryValueExists();
+                if (process.ExitCode != 0)
+                    return BuildOperationResult(process, activeBeforeRemoval, false);
+                if (!WindowsBudgieDeactivation.TryParseResultCode(process.Output, out var code))
+                    return new TeknoParrotActivationResult(false, activeBeforeRemoval,
+                        "BudgieLoader did not confirm deactivation; the local activation was retained.",
+                        process.Output);
+                if (code != 0)
+                    return new TeknoParrotActivationResult(false, activeBeforeRemoval,
+                        WindowsBudgieDeactivation.FailureMessage(code), process.Output)
+                    {
+                        CanRemoveLocalActivation = localActivation != null &&
+                            WindowsBudgieDeactivation.CanForgetInvalidActivation(code),
+                        LocalActivationSnapshot = localActivation
+                    };
+                try
+                {
+                    WindowsBudgieDeactivation.RemoveLocalActivation(localActivation,
+                        WindowsBudgieDeactivation.ReadLocalActivation,
+                        WindowsBudgieDeactivation.DeleteLocalActivation);
+                }
+                catch (Exception error)
+                {
+                    return new TeknoParrotActivationResult(false, WindowsRegistryValueExists(),
+                        error.Message, process.Output);
+                }
+            }
             var active = WindowsRegistryValueExists();
             return BuildOperationResult(process, active, expectedActive);
         }

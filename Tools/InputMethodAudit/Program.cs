@@ -128,6 +128,8 @@ namespace InputMethodAudit
                 }
                 return InputProfileTest.Run(dir);
             }
+            if (args.Length > 0 && args[0] == "profile-migration-test")
+                return ProfileMigrationTest.Run();
 
             var profilesDir = args.Length > 0 ? args[0] : FindProfilesDir();
             if (profilesDir == null || !Directory.Exists(profilesDir))

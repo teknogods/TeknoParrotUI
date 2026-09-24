@@ -95,6 +95,9 @@ namespace TeknoParrotUi.Common
 
         public void WndProcReceived(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
+            if (KillMe)
+                return;
+
             if (_mergedIncludesRawInput)
                 _inputListenerRawInput.WndProcReceived(hwnd, msg, wParam, lParam, ref handled);
 

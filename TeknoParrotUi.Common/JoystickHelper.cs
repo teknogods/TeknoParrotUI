@@ -11,6 +11,9 @@ namespace TeknoParrotUi.Common
 {
     public class JoystickHelper
     {
+        private static readonly bool showDevOnlyProfiles =
+            Environment.GetEnvironmentVariable("TPUI_SHOW_DEVONLY_PROFILES") is string flag &&
+            (flag == "1" || bool.TryParse(flag, out var enabled) && enabled);
         /// <summary>
         /// UI hooks so this library stays free of UI framework dependencies.
         /// The frontend (WPF, future Avalonia, headless) wires these at startup.
@@ -36,11 +39,7 @@ namespace TeknoParrotUi.Common
         /// </summary>
         public static void Serialize()
         {
-            var serializer = new XmlSerializer(typeof(ParrotData));
-            using (var writer = XmlWriter.Create("ParrotData.xml"))
-            {
-                serializer.Serialize(writer, Lazydata.ParrotData);
-            }
+            ParrotDataSerializer.Save(Lazydata.ParrotData, "ParrotData.xml");
         }
 
         /// <summary>
@@ -110,7 +109,7 @@ namespace TeknoParrotUi.Common
                     profile = (GameSetup)gameSetupSerializer.Deserialize(reader);
                 }
 #if !DEBUG
-                if (profile.DevOnly)
+                if (profile.DevOnly && !showDevOnlyProfiles)
                 {
                     Debug.WriteLine($"Skipping loading dev profile {fileName}");
                     return null;
@@ -135,12 +134,14 @@ namespace TeknoParrotUi.Common
             {
                 GameProfile profile;
 
-                using (XmlReader reader = XmlReader.Create(fileName, readerSettings))
+                using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read,
+                    FileShare.Read, 64 * 1024, FileOptions.SequentialScan))
+                using (XmlReader reader = XmlReader.Create(stream, readerSettings))
                 {
                     profile = (GameProfile)gameProfileSerializer.Deserialize(reader);
                 }
 #if !DEBUG
-                if (profile.DevOnly)
+                if (profile.DevOnly && !showDevOnlyProfiles)
                 {
                     Debug.WriteLine($"Skipping loading dev profile {fileName}");
                     return null;
@@ -177,6 +178,46 @@ namespace TeknoParrotUi.Common
                 }
                 return null;
             }
+        }
+
+        public static IReadOnlyDictionary<string, Metadata> LoadMetadataCatalog()
+        {
+            const string catalogPath = "Metadata.catalog.json";
+            try
+            {
+                var catalog = Utf8Json.JsonSerializer.Deserialize<Dictionary<string, Metadata>>(
+                    File.ReadAllBytes(catalogPath));
+                return catalog == null ? null :
+                    new Dictionary<string, Metadata>(catalog, StringComparer.OrdinalIgnoreCase);
+            }
+            catch (FileNotFoundException)
+            {
+                // Older installations still ship individual metadata files.
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error loading metadata catalog: {ex.Message}");
+            }
+
+            // The net8 distribution still ships individual JSON files. Read
+            // them once per catalog load, then reuse the parsed metadata for
+            // both the stock and installed profile lists.
+            if (!Directory.Exists("Metadata"))
+                return null;
+            var entries = new Dictionary<string, Metadata>(StringComparer.OrdinalIgnoreCase);
+            foreach (var file in Directory.EnumerateFiles("Metadata", "*.json"))
+            {
+                var name = Path.GetFileNameWithoutExtension(file);
+                try
+                {
+                    entries.Add(name, Utf8Json.JsonSerializer.Deserialize<Metadata>(File.ReadAllBytes(file)));
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Error loading metadata file {file}: {ex.Message}");
+                }
+            }
+            return entries.Count == 0 ? null : entries;
         }
 
         public static Metadata DeSerializeMetadata(string fileName)

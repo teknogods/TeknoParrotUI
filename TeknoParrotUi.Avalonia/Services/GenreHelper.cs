@@ -17,6 +17,7 @@ public static class GenreHelper
         "Installed" => Loc.T("AddGameInstalledFilter", genre),
         "Not Installed" => Loc.T("AddGameNotInstalledFilter", genre),
         "Subscription" => Loc.T("LibraryGenreSubscription", genre),
+        "Konami Viper" => Loc.T("LibraryGenreKonamiViper", genre),
         "Action" => Loc.T("LibraryGenreAction", genre),
         "Card" => Loc.T("LibraryGenreCard", genre),
         "Compilation" => Loc.T("LibraryGenreCompilation", genre),
@@ -63,6 +64,8 @@ public static class GenreHelper
     {
         var genres = new List<string> { "All" };
         genres.AddRange(GetStatusFilters(includeNotInstalled));
+        if (profiles.Any(p => p.EmulatorType == EmulatorType.TeknoViper))
+            genres.Add("Konami Viper");
         genres.AddRange(GetGenreNames(profiles));
         return genres;
     }
@@ -76,6 +79,8 @@ public static class GenreHelper
                 return true;
             case "Subscription":
                 return gameProfile.Patreon;
+            case "Konami Viper":
+                return gameProfile.EmulatorType == EmulatorType.TeknoViper;
             case "Installed":
                 return GameProfileLoader.UserProfiles.Any(p => p.ProfileName == gameProfile.ProfileName);
             case "Not Installed":

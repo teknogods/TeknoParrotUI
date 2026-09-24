@@ -109,9 +109,36 @@ namespace InputMethodAudit
                 foreach (var variable in OptionalLaunchVariables)
                     ExpectMissing(cleanStartInfo, variable, failures);
 
+                var apmProfile = new GameProfile
+                {
+                    EmulatorType = EmulatorType.TeknoParrot,
+                    EmulationProfile = EmulationProfile.APM3Direct,
+                    TestMenuIsExecutable = true,
+                    TestExecIs64Bit = true,
+                    TestMenuParameter = "testmenu.exe",
+                    ApmTestGameId = "sdfd",
+                    ConfigValues = new List<FieldInformation>()
+                };
+                var apmInfo = GameLaunchArguments.BuildProcessStartInfo(
+                    apmProfile, game, isTest: true, loader, "TeknoParrot64");
+                if (!apmInfo.Arguments.StartsWith("--apm-test SDFD ", StringComparison.Ordinal))
+                    failures.Add("APM x64 test menu did not receive the game ID before the loader DLL.");
+                ExpectMissing(apmInfo, "TP_DIRECTHOOK", failures);
+                apmProfile.ApmTestGameId = "BAD!";
+                try
+                {
+                    GameLaunchArguments.BuildProcessStartInfo(
+                        apmProfile, game, isTest: true, loader, "TeknoParrot64");
+                    failures.Add("Invalid APM game ID was accepted.");
+                }
+                catch (InvalidOperationException)
+                {
+                    // Invalid IDs must fail before a child process is started.
+                }
+
                 if (failures.Count == 0)
                 {
-                    Console.WriteLine("Launch environment isolation: PASS (14/14)");
+                    Console.WriteLine("Launch environment and APM test mode: PASS");
                     return 0;
                 }
             }

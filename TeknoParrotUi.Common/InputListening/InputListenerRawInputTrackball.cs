@@ -338,16 +338,28 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[0].Button6 = pressed;
                     break;
                 case InputMapping.P1ButtonUp:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Up : Direction.VerticalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[0].Up = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Up : Direction.VerticalCenter);
                     break;
                 case InputMapping.P1ButtonDown:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Down : Direction.VerticalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[0].Down = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Down : Direction.VerticalCenter);
                     break;
                 case InputMapping.P1ButtonLeft:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Left : Direction.HorizontalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[0].Left = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Left : Direction.HorizontalCenter);
                     break;
                 case InputMapping.P1ButtonRight:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Right : Direction.HorizontalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[0].Right = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Right : Direction.HorizontalCenter);
                     break;
                 // P2
                 case InputMapping.P2ButtonStart:
@@ -372,16 +384,28 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[1].Button6 = pressed;
                     break;
                 case InputMapping.P2ButtonUp:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Up : Direction.VerticalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[1].Up = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Up : Direction.VerticalCenter);
                     break;
                 case InputMapping.P2ButtonDown:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Down : Direction.VerticalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[1].Down = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Down : Direction.VerticalCenter);
                     break;
                 case InputMapping.P2ButtonLeft:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Left : Direction.HorizontalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[1].Left = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Left : Direction.HorizontalCenter);
                     break;
                 case InputMapping.P2ButtonRight:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Right : Direction.HorizontalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[1].Right = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Right : Direction.HorizontalCenter);
                     break;
                 // Jvs Board 2
                 case InputMapping.JvsTwoService1:
@@ -417,16 +441,28 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[2].Button6 = pressed;
                     break;
                 case InputMapping.JvsTwoP1ButtonUp:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Up : Direction.VerticalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[2].Up = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Up : Direction.VerticalCenter);
                     break;
                 case InputMapping.JvsTwoP1ButtonDown:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Down : Direction.VerticalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[2].Down = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Down : Direction.VerticalCenter);
                     break;
                 case InputMapping.JvsTwoP1ButtonLeft:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Left : Direction.HorizontalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[2].Left = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Left : Direction.HorizontalCenter);
                     break;
                 case InputMapping.JvsTwoP1ButtonRight:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Right : Direction.HorizontalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[2].Right = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Right : Direction.HorizontalCenter);
                     break;
                 case InputMapping.JvsTwoP1ButtonStart:
                     InputCode.PlayerDigitalButtons[2].Start = pressed;
@@ -450,16 +486,28 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[3].Button6 = pressed;
                     break;
                 case InputMapping.JvsTwoP2ButtonUp:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Up : Direction.VerticalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[3].Up = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[3], pressed ? Direction.Up : Direction.VerticalCenter);
                     break;
                 case InputMapping.JvsTwoP2ButtonDown:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Down : Direction.VerticalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[3].Down = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[3], pressed ? Direction.Down : Direction.VerticalCenter);
                     break;
                 case InputMapping.JvsTwoP2ButtonLeft:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Left : Direction.HorizontalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[3].Left = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[3], pressed ? Direction.Left : Direction.HorizontalCenter);
                     break;
                 case InputMapping.JvsTwoP2ButtonRight:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Right : Direction.HorizontalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[3].Right = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[3], pressed ? Direction.Right : Direction.HorizontalCenter);
                     break;
                 case InputMapping.JvsTwoP2ButtonStart:
                     InputCode.PlayerDigitalButtons[3].Start = pressed;

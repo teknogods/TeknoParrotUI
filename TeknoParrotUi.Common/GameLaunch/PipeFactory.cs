@@ -129,6 +129,22 @@ namespace TeknoParrotUi.Common.GameLaunch
                 case EmulationProfile.pcsx2x6: return new Pcsx2x6Pipe();
                 case EmulationProfile.TeknoVegas: return new TeknoVegasPipe();
                 case EmulationProfile.TeknoViper: return new TeknoViperPipe();
+                case EmulationProfile.TeknoGClub: return new TeknoGClubPipe();
+                case EmulationProfile.TeknoS23: return new TeknoS23Pipe();
+                case EmulationProfile.TeknoS21: return new TeknoS21Pipe();
+                case EmulationProfile.TeknoS22: return new TeknoS22Pipe();
+                case EmulationProfile.TeknoZeus: return new TeknoZeusPipe();
+                case EmulationProfile.TeknoHNG64: return new TeknoHNG64Pipe();
+                case EmulationProfile.TeknoCobra: return new TeknoCobraPipe();
+                case EmulationProfile.TeknoHornet: return new TeknoHornetPipe();
+                case EmulationProfile.TeknoAGX: return new TeknoAGXPipe();
+                case EmulationProfile.TeknoVUnit:
+                case EmulationProfile.TeknoM2: return new TeknoM2Pipe();
+                case EmulationProfile.TeknoAir: return new TeknoAirPipe();
+                case EmulationProfile.TeknoS11: return new TeknoS11Pipe();
+                case EmulationProfile.TeknoTPJC: return new TeknoViperPipe();
+                case EmulationProfile.TeknoModel2: return new TeknoModel2Pipe();
+                case EmulationProfile.TeknoModel1: return new TeknoModel1Pipe();
                 case EmulationProfile.RPCS3: return new RPCS3Pipe();
                 case EmulationProfile.LadyLuck: return new LadyLuckPipe();
                 case EmulationProfile.KonamiAcio:

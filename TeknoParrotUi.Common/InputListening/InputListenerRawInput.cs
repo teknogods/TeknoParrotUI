@@ -31,13 +31,31 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _isGunslinger;
         private bool _isPlay;
         private bool _isTeknoVegas;
+        private bool _isTeknoS22;
+        private bool _isTeknoGClub;
+        private bool _isTeknoS23;
+        private bool _isTeknoVUnit;
         private bool _isTeknoViper;
+        private bool _isTeknoS11;
+        private bool _isTeknoTPJC;
+        private bool _isTeknoM2;
+        private bool _isTeknoAGX;
+        private bool _isTeknoHornet;
+        private bool _isTeknoHNG64;
+        private bool _isTeknoZeus;
+        private bool _isTeknoModel1;
+        private bool _isTeknoModel2;
+        private bool _isNetMerc;
         private bool _isPCSX2;
         private bool _swapdisplay;
         private bool _onedisplay;
         private bool _bg4Key;
         private bool _16bit;
         private bool _boneEaterLandscape;
+        private bool _isBoneEater;
+        private bool _boneEaterSingleScreen;
+        private DateTime _nextBoneEaterCanvasAttempt;
+        private bool UsesPublishedCanvas => _isBoneEater || _isPlay || _isTeknoVegas || _isTeknoHNG64 || _isTeknoViper || _isTeknoTPJC || _isTeknoS11 || _isTeknoM2 || _isTeknoAGX || _isTeknoS22 || _isTeknoGClub || _isTeknoS23 || _isTeknoHornet || _isTeknoModel1 || _isTeknoModel2 || _isTeknoZeus;
         // Rotary encoder button states
         private static bool Rotary1LeftPressed = false;
         private static bool Rotary1RightPressed = false;
@@ -103,6 +121,10 @@ namespace TeknoParrotUi.Common.InputListening
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool ClipCursor(ref RECT lpRect);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool ClipCursor(IntPtr lpRect);
 
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -179,19 +201,6 @@ namespace TeknoParrotUi.Common.InputListening
         private const int LOGPIXELSX = 88;
         private const int LOGPIXELSY = 90;
 
-        private void UpdateDpiScaling()
-        {
-            IntPtr desktop = GetDC(IntPtr.Zero);
-            if (desktop != IntPtr.Zero)
-            {
-                int dpiX = GetDeviceCaps(desktop, LOGPIXELSX);
-                int dpiY = GetDeviceCaps(desktop, LOGPIXELSY);
-                _dpiScaleX = dpiX / 96.0;
-                _dpiScaleY = dpiY / 96.0;
-                ReleaseDC(IntPtr.Zero, desktop);
-            }
-        }
-
         public InputListenerRawInput()
         {
             _hookedWindows = File.Exists("HookedWindows.txt") ? File.ReadAllLines("HookedWindows.txt").ToList() : new List<string>();
@@ -199,11 +208,44 @@ namespace TeknoParrotUi.Common.InputListening
 
         private bool isHookableWindow(string windowTitle)
         {
+            if (_isTeknoVUnit && windowTitle.StartsWith("TeknoVUnit - ", StringComparison.Ordinal)) return true;
+            if (_isTeknoModel2 && windowTitle.StartsWith("TeknoModel2 - ", StringComparison.Ordinal))
+                return true;
+
+            if (_isTeknoZeus && windowTitle.StartsWith("TeknoZeus - ", StringComparison.Ordinal))
+                return true;
+
             for (int i = 0; i < _hookedWindows.Count; i++)
             {
                 // PCSX2 bases the name on the acgame file, and everyone has a different game name in there it seems
                 // so let's just prefix it, and then check for the prefix i think?
                 if (_isPCSX2 && windowTitle.StartsWith("PCSX2 on TP:"))
+                {
+                    return true;
+                }
+
+                if (_isTeknoHNG64 && windowTitle.StartsWith("TeknoHNG64 - ", StringComparison.Ordinal)) return true;
+
+                if (_isTeknoHornet && windowTitle.StartsWith("TeknoHornet", StringComparison.Ordinal))
+                    return true;
+
+                if (_isTeknoGClub && windowTitle.StartsWith("TeknoGClub", StringComparison.Ordinal)) return true;
+                if (_isTeknoS23 && windowTitle.StartsWith("TeknoS23 - ", StringComparison.Ordinal)) return true;
+                if (_isTeknoS22 && windowTitle.StartsWith("TeknoS22 - ", StringComparison.Ordinal)) return true;
+
+                if (_isTeknoAGX && windowTitle.StartsWith("TeknoAGX", StringComparison.Ordinal)) return true;
+                if (_isTeknoM2 && windowTitle.StartsWith("TeknoM2 - ", StringComparison.Ordinal))
+                    return true;
+                if (_isTeknoTPJC && windowTitle.StartsWith("TeknoTPJC", StringComparison.Ordinal)) return true;
+                if (_isTeknoS11 && windowTitle.StartsWith("TeknoS11", StringComparison.Ordinal)) return true;
+                if (_isTeknoViper && windowTitle.StartsWith("TeknoViper - ", StringComparison.Ordinal))
+                {
+                    return true;
+                }
+                if (_isTeknoVegas &&
+                     windowTitle.StartsWith("TeknoVegas [", StringComparison.Ordinal))
+                    return true;
+                if (_isTeknoModel1 && windowTitle.StartsWith("TeknoModel1 - ", StringComparison.Ordinal))
                 {
                     return true;
                 }
@@ -217,6 +259,12 @@ namespace TeknoParrotUi.Common.InputListening
 
         private IntPtr GetWindowInformation()
         {
+            if (_isBoneEater && _canvasInfoAccessor != null)
+            {
+                var output = new IntPtr(unchecked((int)_canvasInfoAccessor.ReadInt64(48)));
+                if (output != IntPtr.Zero && IsWindow(output))
+                    return output;
+            }
             foreach (Process pList in Process.GetProcesses())
             {
                 // TODO: Find a better way to find game window handle
@@ -254,7 +302,21 @@ namespace TeknoParrotUi.Common.InputListening
             _isGunslinger = gameProfile.EmulationProfile == EmulationProfile.GunslingerStratos3;
             _isPlay = gameProfile.EmulationProfile == EmulationProfile.PlayInput;
             _isTeknoVegas = gameProfile.EmulationProfile == EmulationProfile.TeknoVegas;
+            _isTeknoZeus = gameProfile.EmulationProfile == EmulationProfile.TeknoZeus;
+            _isTeknoHNG64 = gameProfile.EmulationProfile == EmulationProfile.TeknoHNG64;
+            _isTeknoHornet = gameProfile.EmulationProfile == EmulationProfile.TeknoHornet;
+            _isTeknoGClub = gameProfile.EmulationProfile == EmulationProfile.TeknoGClub;
+            _isTeknoS23 = gameProfile.EmulationProfile == EmulationProfile.TeknoS23;
+            _isTeknoS22 = gameProfile.EmulationProfile == EmulationProfile.TeknoS22;
+            _isTeknoVUnit = gameProfile.EmulationProfile == EmulationProfile.TeknoVUnit;
+            _isTeknoM2 = gameProfile.EmulationProfile == EmulationProfile.TeknoM2;
+            _isTeknoTPJC = gameProfile.EmulationProfile == EmulationProfile.TeknoTPJC;
+            _isTeknoS11 = gameProfile.EmulationProfile == EmulationProfile.TeknoS11;
             _isTeknoViper = gameProfile.EmulationProfile == EmulationProfile.TeknoViper;
+            _isTeknoAGX = gameProfile.EmulationProfile == EmulationProfile.TeknoAGX;
+            _isTeknoModel2 = gameProfile.EmulationProfile == EmulationProfile.TeknoModel2;
+            _isTeknoModel1 = gameProfile.EmulationProfile == EmulationProfile.TeknoModel1;
+            _isNetMerc = _isTeknoModel1 && string.Equals(gameProfile.ExecutableName, "netmerc.zip", StringComparison.OrdinalIgnoreCase);
             _isPCSX2 = gameProfile.EmulationProfile == EmulationProfile.pcsx2x6;
             _16bit = gameProfile.Use16BitAnalog;
             _gameProfile = gameProfile;
@@ -310,10 +372,10 @@ namespace TeknoParrotUi.Common.InputListening
 
             _windowed = gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1") || gameProfile.ConfigValues.Any(x => x.FieldName == "DisplayMode" && x.FieldValue == "Windowed");
 
-            if (gameProfile.ConfigValues.Any(x => x.FieldName == "Render As Landscape" && x.FieldValue == "1"))
-            {
-                _boneEaterLandscape = true;
-            }
+            _isBoneEater = string.Equals(gameProfile.ExecutableName, "arkndd.dll", StringComparison.OrdinalIgnoreCase);
+            _boneEaterLandscape = _isBoneEater && gameProfile.ConfigValues.Any(x => x.FieldName == "Render As Landscape" && x.FieldValue == "1");
+            _boneEaterSingleScreen = _isBoneEater && gameProfile.ConfigValues.Any(x => x.FieldName == "Screen Layout" && x.FieldValue == "Single Screen Scope");
+            _nextBoneEaterCanvasAttempt = DateTime.MinValue;
 
             // Initialize rotary encoder mode flag
             UseButtonModeRotary = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Buttons For Rotary Encoders" && x.FieldValue == "1");
@@ -354,24 +416,85 @@ namespace TeknoParrotUi.Common.InputListening
             // for use with Play
             bool hasCanvasInfo = false;
 
-            // Play and TeknoVegas publish the exact screen-space content
-            // viewport. This matters even in borderless fullscreen: a 4:3
-            // CarnEvil image is letterboxed inside a widescreen desktop, so
-            // mapping the gun against the whole monitor swaps/scales its axes.
-            if (_isPlay || _isTeknoVegas || _isTeknoViper)
+            // These emulators publish their exact screen-space content viewport.
+            // This keeps absolute and relative gun input aligned with letterboxed output.
+            if (UsesPublishedCanvas && !_isBoneEater)
             {
-                string canvasName = _isTeknoViper
-                    ? "TeknoViperCanvasInfo"
-                    : (_isTeknoVegas ? "TeknoVegasCanvasInfo" : "PlayCanvasInfo");
+                string canvasName = "TeknoparrotCanvas";
+                if (_isPlay)
+                {
+                    canvasName = "PlayCanvasInfo";
+                }
+                else if (_isTeknoVegas)
+                {
+                    canvasName = "TeknoVegasCanvasInfo";
+                }
+                else if (_isTeknoZeus)
+                {
+                    canvasName = "TeknoZeusCanvasInfo";
+                }
+                else if (_isTeknoHNG64)
+                {
+                    canvasName = "TeknoHNG64CanvasInfo";
+                }
+                else if (_isTeknoHornet)
+                {
+                    canvasName = "TeknoHornetCanvasInfo";
+                }
+                else if (_isTeknoGClub)
+                {
+                    canvasName = "TeknoGClubCanvasInfo";
+                }
+                else if (_isTeknoS23)
+                {
+                    canvasName = "TeknoS23CanvasInfo";
+                }
+                else if (_isTeknoS22)
+                {
+                    canvasName = "TeknoS22CanvasInfo";
+                }
+                else if (_isTeknoAGX)
+                {
+                    canvasName = "TeknoAGXCanvasInfo";
+                }
+                else if (_isTeknoM2)
+                {
+                    canvasName = "TeknoM2CanvasInfo";
+                }
+                else if (_isTeknoTPJC)
+                {
+                    canvasName = "TeknoTPJCCanvasInfo";
+                }
+                else if (_isTeknoS11)
+                {
+                    canvasName = "TeknoS11CanvasInfo";
+                }
+                else if (_isTeknoViper)
+                {
+                    canvasName = "TeknoViperCanvasInfo";
+                }
+                else if (_isTeknoModel2)
+                {
+                    canvasName = "TeknoModel2CanvasInfo";
+                }
+                else if (_isTeknoModel1)
+                {
+                    canvasName = "TeknoModel1CanvasInfo";
+                }
+
                 while (!KillMe && _canvasInfoMMF == null)
                 {
                     try
                     {
-                        _canvasInfoMMF = MemoryMappedFile.OpenExisting(canvasName);
-                        _canvasInfoAccessor = _canvasInfoMMF.CreateViewAccessor();
+                        _canvasInfoMMF = MemoryMappedFile.OpenExisting(canvasName, MemoryMappedFileRights.Read);
+                        _canvasInfoAccessor = _canvasInfoMMF.CreateViewAccessor(0, 0, MemoryMappedFileAccess.Read);
                     }
                     catch
                     {
+                        _canvasInfoAccessor?.Dispose();
+                        _canvasInfoAccessor = null;
+                        _canvasInfoMMF?.Dispose();
+                        _canvasInfoMMF = null;
                         Thread.Sleep(100);
                     }
                 }
@@ -379,6 +502,25 @@ namespace TeknoParrotUi.Common.InputListening
 
             while (!KillMe)
             {
+                // Wait for the renderer's canvas bounds without blocking
+                // window discovery or input during startup.
+                if (_isBoneEater && _canvasInfoAccessor == null && DateTime.UtcNow >= _nextBoneEaterCanvasAttempt)
+                {
+                    _nextBoneEaterCanvasAttempt = DateTime.UtcNow.AddMilliseconds(250);
+                    try
+                    {
+                        _canvasInfoMMF = MemoryMappedFile.OpenExisting("TeknoBoneEaterCanvasInfo", MemoryMappedFileRights.Read);
+                        _canvasInfoAccessor = _canvasInfoMMF.CreateViewAccessor(0, 56, MemoryMappedFileAccess.Read);
+                        _windowFound = false;
+                    }
+                    catch
+                    {
+                        _canvasInfoAccessor?.Dispose();
+                        _canvasInfoAccessor = null;
+                        _canvasInfoMMF?.Dispose();
+                        _canvasInfoMMF = null;
+                    }
+                }
                 if (!_windowFound)
                 {
                     // Look for hookable window
@@ -407,7 +549,7 @@ namespace TeknoParrotUi.Common.InputListening
                     // Only update when we are on the foreground
                     if (_windowHandle == GetForegroundWindow())
                     {
-                        if ((_isPlay || _isTeknoVegas || _isTeknoViper) &&
+                        if ((UsesPublishedCanvas) &&
                             _canvasInfoAccessor != null)
                         {
                             try
@@ -419,7 +561,8 @@ namespace TeknoParrotUi.Common.InputListening
                                 try
                                 {
                                     canvasInfo = Marshal.PtrToStructure<CanvasInfo>(handle.AddrOfPinnedObject());
-                                    hasCanvasInfo = true;
+                                    hasCanvasInfo = canvasInfo.viewportRight > canvasInfo.viewportLeft &&
+                                        canvasInfo.viewportBottom > canvasInfo.viewportTop;
                                 }
                                 finally
                                 {
@@ -574,13 +717,17 @@ namespace TeknoParrotUi.Common.InputListening
 
                             if (_boneEaterLandscape)
                             {
-                                // The landscape window renders the portrait (projector 16:9) content in the left column,
-                                // letterboxed. Calculate the exact portrait content rect to clip and map inputs correctly.
+                                // Estimate the fitted gameplay area when published
+                                // canvas bounds are unavailable.
                                 const float PortraitAspect = 5f / 8f;
-
-                                //_windowLocationX = 0;
-                                //_windowLocationY = 0;
-                                _windowWidth = (int)(_windowHeight * PortraitAspect);
+                                int columnWidth = _boneEaterSingleScreen ? _windowWidth :
+                                    Math.Min((int)(_windowHeight * PortraitAspect), (int)(_windowWidth * 0.75f));
+                                int imageWidth = Math.Min(columnWidth, (int)(_windowHeight * PortraitAspect));
+                                int imageHeight = Math.Min(_windowHeight, (int)(imageWidth / PortraitAspect));
+                                _windowLocationX += (columnWidth - imageWidth) / 2;
+                                _windowLocationY += (_windowHeight - imageHeight) / 2;
+                                _windowWidth = imageWidth;
+                                _windowHeight = imageHeight;
                             }
 
                             RECT clipRect = new RECT();
@@ -838,7 +985,7 @@ namespace TeknoParrotUi.Common.InputListening
                                 else if (gun.InputMapping == InputMapping.P4LightGun)
                                     player = 3;
 
-                                if (_isPlay || _isTeknoVegas || _isTeknoViper)
+                                if (UsesPublishedCanvas)
                                 {
                                     int scaledDeltaX = (int)(mouse.Mouse.LastX * _dpiScaleX);
                                     int scaledDeltaY = (int)(mouse.Mouse.LastY * _dpiScaleY);
@@ -919,6 +1066,9 @@ namespace TeknoParrotUi.Common.InputListening
 
         private void HandleRawInputButton(JoystickButtons joystickButton, bool pressed)
         {
+            if ((KeyboardorButtonAxis && joystickButton.HideWithKeyboardForAxis) ||
+                (!KeyboardorButtonAxis && joystickButton.HideWithoutKeyboardForAxis))
+                return;
             // Ignore when alt+tabbed
             if (!_windowFocus && pressed)
             {
@@ -1054,7 +1204,7 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.P1ButtonUp:
                     {
-                        if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
+                        if (!_gameProfile.UseDirectionalPresses || _gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
                             InputCode.PlayerDigitalButtons[0].Up = pressed;
                         else
                             InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Up : Direction.VerticalCenter);
@@ -1062,7 +1212,7 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.P1ButtonDown:
                     {
-                        if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
+                        if (!_gameProfile.UseDirectionalPresses || _gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
                             InputCode.PlayerDigitalButtons[0].Down = pressed;
                         else
                             InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Down : Direction.VerticalCenter);
@@ -1070,7 +1220,7 @@ namespace TeknoParrotUi.Common.InputListening
                     break;
                 case InputMapping.P1ButtonLeft:
                     {
-                        if (_gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
+                        if (!_gameProfile.UseDirectionalPresses || _gameProfile.EmulationProfile == EmulationProfile.TaitoTypeXBattleGear)
                             InputCode.PlayerDigitalButtons[0].Left = pressed;
                         else
                             InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Left : Direction.HorizontalCenter);
@@ -1086,6 +1236,8 @@ namespace TeknoParrotUi.Common.InputListening
                                 _bg4Key = !_bg4Key;
                             }
                         }
+                        else if (!_gameProfile.UseDirectionalPresses)
+                            InputCode.PlayerDigitalButtons[0].Right = pressed;
                         else
                             InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[0], pressed ? Direction.Right : Direction.HorizontalCenter);
                     }
@@ -1147,16 +1299,28 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[1].Button6 = pressed;
                     break;
                 case InputMapping.P2ButtonUp:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Up : Direction.VerticalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[1].Up = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Up : Direction.VerticalCenter);
                     break;
                 case InputMapping.P2ButtonDown:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Down : Direction.VerticalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[1].Down = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Down : Direction.VerticalCenter);
                     break;
                 case InputMapping.P2ButtonLeft:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Left : Direction.HorizontalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[1].Left = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Left : Direction.HorizontalCenter);
                     break;
                 case InputMapping.P2ButtonRight:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Right : Direction.HorizontalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[1].Right = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[1], pressed ? Direction.Right : Direction.HorizontalCenter);
                     break;
                 // Jvs Board 2
                 case InputMapping.JvsTwoService1:
@@ -1192,16 +1356,28 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[2].Button6 = pressed;
                     break;
                 case InputMapping.JvsTwoP1ButtonUp:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Up : Direction.VerticalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[2].Up = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Up : Direction.VerticalCenter);
                     break;
                 case InputMapping.JvsTwoP1ButtonDown:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Down : Direction.VerticalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[2].Down = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Down : Direction.VerticalCenter);
                     break;
                 case InputMapping.JvsTwoP1ButtonLeft:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Left : Direction.HorizontalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[2].Left = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Left : Direction.HorizontalCenter);
                     break;
                 case InputMapping.JvsTwoP1ButtonRight:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Right : Direction.HorizontalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[2].Right = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Right : Direction.HorizontalCenter);
                     break;
                 case InputMapping.JvsTwoP1ButtonStart:
                     InputCode.PlayerDigitalButtons[2].Start = pressed;
@@ -1225,16 +1401,28 @@ namespace TeknoParrotUi.Common.InputListening
                     InputCode.PlayerDigitalButtons[3].Button6 = pressed;
                     break;
                 case InputMapping.JvsTwoP2ButtonUp:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Up : Direction.VerticalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[3].Up = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[3], pressed ? Direction.Up : Direction.VerticalCenter);
                     break;
                 case InputMapping.JvsTwoP2ButtonDown:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Down : Direction.VerticalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[3].Down = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[3], pressed ? Direction.Down : Direction.VerticalCenter);
                     break;
                 case InputMapping.JvsTwoP2ButtonLeft:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Left : Direction.HorizontalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[3].Left = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[3], pressed ? Direction.Left : Direction.HorizontalCenter);
                     break;
                 case InputMapping.JvsTwoP2ButtonRight:
-                    InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[2], pressed ? Direction.Right : Direction.HorizontalCenter);
+                    if (!_gameProfile.UseDirectionalPresses)
+                        InputCode.PlayerDigitalButtons[3].Right = pressed;
+                    else
+                        InputCode.SetPlayerDirection(InputCode.PlayerDigitalButtons[3], pressed ? Direction.Right : Direction.HorizontalCenter);
                     break;
                 case InputMapping.JvsTwoP2ButtonStart:
                     InputCode.PlayerDigitalButtons[3].Start = pressed;
@@ -1507,13 +1695,26 @@ namespace TeknoParrotUi.Common.InputListening
             float factorY = 0.0f;
 
             // Windowed
-            if (_windowed || _isPlay || _isTeknoVegas || _isTeknoViper)
+            if (_windowed || UsesPublishedCanvas)
             {
                 // Translate absolute units to pixels
                 if (moveAbsolute)
                 {
-                    inputX = (int)((float)inputX / (float)0xFFFF * GetSystemMetrics(SM_CXSCREEN));
-                    inputY = (int)((float)inputY / (float)0xFFFF * GetSystemMetrics(SM_CYSCREEN));
+                    if ((UsesPublishedCanvas) &&
+                        canvasInfo.windowWidth > 0 && canvasInfo.windowHeight > 0)
+                    {
+                        // Canvas publishers use physical pixels. Map normalized RawInput
+                        // coordinates into that same space without DPI-sensitive WPF metrics.
+                        inputX = canvasInfo.windowLocationX +
+                            (int)((long)inputX * canvasInfo.windowWidth / 0xFFFF);
+                        inputY = canvasInfo.windowLocationY +
+                            (int)((long)inputY * canvasInfo.windowHeight / 0xFFFF);
+                    }
+                    else
+                    {
+                        inputX = (int)((float)inputX / (float)0xFFFF * GetSystemMetrics(SM_CXSCREEN));
+                        inputY = (int)((float)inputY / (float)0xFFFF * GetSystemMetrics(SM_CYSCREEN));
+                    }
                 }
 
                 // X
@@ -1547,6 +1748,11 @@ namespace TeknoParrotUi.Common.InputListening
                     factorY = (float)inputY / (float)GetSystemMetrics(SM_CYSCREEN);
                 }
             }
+
+            // NetMerc's STICKY input is reversed by the cabinet/game. Keep the
+            // normal TPUI lightgun byte layout, but flip its screen-space Y value.
+            if (_isNetMerc)
+                factorY = 1.0f - factorY;
 
             float minX = _minX;
             float maxX = _maxX;
@@ -1786,12 +1992,18 @@ namespace TeknoParrotUi.Common.InputListening
 
         public void Dispose()
         {
+            _windowFocus = false;
+            _windowFound = false;
+            _windowHandle = IntPtr.Zero;
             _canvasInfoAccessor?.Dispose();
-            _canvasInfoMMF?.Dispose();
             _canvasInfoAccessor = null;
+            _canvasInfoMMF?.Dispose();
             _canvasInfoMMF = null;
             _gameProfile = null;
             _joystickButtons = null;
+            // Let the desktop and the next game establish their own cursor bounds.
+            if (OperatingSystem.IsWindows())
+                ClipCursor(IntPtr.Zero);
         }
     }
 }

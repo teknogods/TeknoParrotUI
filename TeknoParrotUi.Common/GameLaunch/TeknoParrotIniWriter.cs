@@ -59,6 +59,8 @@ namespace TeknoParrotUi.Common.GameLaunch
 
         public static void WriteConfigIni(GameProfile gameProfile, string gameLocation, string gameLocation2, bool twoExes)
         {
+            if (ExternalEmulatorLauncher.IsStandaloneEmulator(gameProfile))
+                return;
             var lameFile = BuildConfigIni(gameProfile);
 
             var gameDir = Path.GetDirectoryName(gameLocation) ?? throw new InvalidOperationException();

@@ -60,11 +60,10 @@ namespace TeknoParrotUi.Common.GameLaunch
             _emuOnly = emuOnly;
             _gameLocation = SafeFullPath(profile.GamePath);
             _gameLocation2 = SafeFullPath(profile.GamePath2);
-            // TeknoVegas reuses TPUI's second-file picker for the CHD. It is
-            // launch data passed to the emulator, not an auxiliary process.
+            // Standalone emulators use the second picker for a CHD or other
+            // media; their launchers handle it instead of starting a second process.
             _twoExes = profile.HasTwoExecutables &&
-                       profile.EmulatorType != EmulatorType.TeknoVegas &&
-                       profile.EmulatorType != EmulatorType.TeknoViper;
+                       !ExternalEmulatorLauncher.IsStandaloneEmulator(profile);
             _secondExeFirst = profile.LaunchSecondExecutableFirst;
             _secondExeArguments = profile.SecondExecutableArguments;
 
@@ -422,6 +421,10 @@ namespace TeknoParrotUi.Common.GameLaunch
             // External emulators launch their own exe — the loader is not used.
             if (ExternalEmulatorLauncher.IsExternalEmulator(_profile))
             {
+                // Each standalone launcher validates its own ROM/CHD paths.
+                // Some families accept a ROM directory rather than a file.
+                if (ExternalEmulatorLauncher.IsStandaloneEmulator(_profile))
+                    return true;
                 if (string.IsNullOrEmpty(_gameLocation) || !File.Exists(_gameLocation))
                 {
                     StateChanged?.Invoke("Game executable not found — set the game path first.");
@@ -601,6 +604,15 @@ namespace TeknoParrotUi.Common.GameLaunch
                     if (!string.IsNullOrEmpty(e.Data))
                         OutputReceived?.Invoke(e.Data);
                 };
+                if (_process.StartInfo.RedirectStandardError)
+                {
+                    _process.ErrorDataReceived += (_, e) =>
+                    {
+                        if (!string.IsNullOrEmpty(e.Data))
+                            OutputReceived?.Invoke(e.Data);
+                    };
+                    _process.BeginErrorReadLine();
+                }
 
                 GameWindowTracker.GameProcessId = _process.Id;
                 if (silent)
@@ -634,7 +646,22 @@ namespace TeknoParrotUi.Common.GameLaunch
                     {
                         if (_forceQuit)
                         {
-                            try { _process.Kill(); } catch { }
+                            try
+                            {
+                                // Hornet writes cabinet settings and gun calibration
+                                // during normal shutdown. Give its window time to close.
+                                if (_profile.EmulatorType == EmulatorType.TeknoHornet &&
+                                    _process.CloseMainWindow())
+                                {
+                                    if (!_process.WaitForExit(5000))
+                                        _process.Kill();
+                                }
+                                else
+                                {
+                                    _process.Kill();
+                                }
+                            }
+                            catch { /* game may have exited between checks */ }
                         }
                         Thread.Sleep(500);
                     }
@@ -684,6 +711,13 @@ namespace TeknoParrotUi.Common.GameLaunch
 
                 if (_profile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
                     SegaToolsLauncher.KillIDZ();
+
+                // The process has exited, but redirected output callbacks can
+                // still have queued diagnostic lines. Drain them before the UI
+                // formats the exit error from the console tail.
+                if (!launchResult.UsedGamescopeWrapper &&
+                    (_process.StartInfo.RedirectStandardOutput || _process.StartInfo.RedirectStandardError))
+                    _process.WaitForExit();
 
                 // ExitCode is only ever read AFTER process exit is confirmed
                 // (ProcessExitSafety guards HasExited + disposal races). For a

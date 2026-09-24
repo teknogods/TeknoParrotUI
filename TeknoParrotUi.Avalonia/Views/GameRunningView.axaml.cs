@@ -18,6 +18,7 @@ public partial class GameRunningView : UserControl
         MaxConsoleCharacters,
         MaxConsoleLineCharacters);
     private IGameSession? _session;
+    private GameProfile? _profile;
     private bool _forceQuitRequested;
 
     public event Action? BackRequested;
@@ -52,6 +53,7 @@ public partial class GameRunningView : UserControl
     public void StartGame(GameProfile profile, bool testMode, bool emuOnly = false)
     {
         _session?.Dispose();
+        _profile = profile;
         _forceQuitRequested = false;
         _consoleBuffer.Clear();
         ConsoleText.Text = "";
@@ -84,8 +86,20 @@ public partial class GameRunningView : UserControl
             {
                 // Error exit: stay on this screen so the user can read the log,
                 // and return only when they press Back.
-                StatusText.Text = string.Format(
-                    Services.Loc.T("GameRunningExitedWithError", "The game exited with an error (exit code {0}) — press Back to return"), code);
+                if (_profile != null && ExternalEmulatorLauncher.IsStandaloneEmulator(_profile))
+                {
+                    var console = _consoleBuffer.GetText();
+                    var recent = console.Length > 4096 ? console[^4096..] : console;
+                    var message = Services.GameErrorFormatter.Format(_profile.EmulatorType, code, recent);
+                    StatusText.Text = message.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)[0] +
+                                      " See the log below; press Back to return.";
+                    AppendConsoleLine("ERROR: " + message);
+                }
+                else
+                {
+                    StatusText.Text = string.Format(
+                        Services.Loc.T("GameRunningExitedWithError", "The game exited with an error (exit code {0}) — press Back to return"), code);
+                }
                 StatusText.Foreground = global::Avalonia.Media.Brushes.OrangeRed;
                 BtnBack.Focus();
                 return;
@@ -133,6 +147,7 @@ public partial class GameRunningView : UserControl
     {
         _session?.Dispose();
         _session = null;
+        _profile = null;
         BackRequested?.Invoke();
     }
 }

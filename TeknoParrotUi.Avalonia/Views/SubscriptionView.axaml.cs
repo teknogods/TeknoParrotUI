@@ -132,6 +132,22 @@ public partial class SubscriptionView : UserControl
             ConsoleText.Text = result.Message;
             foreach (var line in result.Output)
                 Log(line);
+            if (deactivate && result.CanRemoveLocalActivation &&
+                TopLevel.GetTopLevel(this) is Window owner &&
+                await Services.Dialogs.ConfirmAsync(owner, "Remove local activation?",
+                    result.Message + "\n\nRemove the invalid activation stored on this computer? " +
+                    "This does not release an activation on the server."))
+            {
+                try
+                {
+                    if (TeknoParrotActivation.TryRemoveInvalidLocalActivation(result))
+                        ConsoleText.Text = "The invalid local activation was removed.";
+                }
+                catch (Exception error)
+                {
+                    ConsoleText.Text = "The local activation was not removed: " + error.Message;
+                }
+            }
         }
         catch (OperationCanceledException)
         {

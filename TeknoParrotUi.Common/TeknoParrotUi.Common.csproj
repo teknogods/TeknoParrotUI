@@ -57,6 +57,7 @@
     <None Remove="GameSetup\*.xml" />
     <None Remove="HookedWindows.txt" />
     <None Remove="Icons\TeknoVegas.png" />
+    <None Remove="Icons\TeknoViper.png" />
     <Content Include="Metadata\*.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -73,6 +74,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Icons\TeknoVegas.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Icons\TeknoViper.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

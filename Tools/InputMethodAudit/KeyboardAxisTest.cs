@@ -1,4 +1,7 @@
 using System;
+using System.IO;
+using System.Linq;
+using System.Xml.Serialization;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.InputListening;
 
@@ -122,8 +125,36 @@ namespace InputMethodAudit
             Check(InputCode.AnalogBytes[2] > 0x00, $"Konami racing gas byte 2 ramped up (0x{InputCode.AnalogBytes[2]:X2})", ref failures);
             Check(InputCode.AnalogBytes[4] > 0x00, $"Konami racing brake byte 4 ramped up (0x{InputCode.AnalogBytes[4]:X2})", ref failures);
 
+            // A newly imported System 22 flight profile has four independently
+            // mapped keyboard axes. The old 2.0 engine only recognized 4/6.
+            var flight = LoadStockProfile("airco22b.xml");
+            flight.ConfigValues.First(f => f.FieldName == "Use Keyboard/Button For Axis").FieldValue = "1";
+            var flightEngine = new KeyboardAxisEngine();
+            flightEngine.Initialize(flight);
+            var stickLeft = flight.JoystickButtons.First(b => b.ButtonName == "Analog X Left");
+            var rudderRight = flight.JoystickButtons.First(b => b.ButtonName == "Analog Z Right");
+            Check(flightEngine.HandleButton(stickLeft, true), "System 22 stick row consumed", ref failures);
+            Check(flightEngine.HandleButton(rudderRight, true), "System 22 rudder row consumed", ref failures);
+            flightEngine.Tick();
+            Check(InputCode.AnalogBytes[0] < 128, "System 22 stick ramps left on profile axis 0", ref failures);
+            Check(InputCode.AnalogBytes[4] > 128, "System 22 rudder ramps right on profile axis 4", ref failures);
+
+            // System 21 profiles use Minimum/Maximum button rows and a
+            // profile-selected step while the analog stick row is hidden.
+            var s21 = LoadStockProfile("aircomb.xml");
+            s21.ConfigValues.First(f => f.FieldName == "Use Keyboard/Button For Axis").FieldValue = "1";
+            var s21Engine = new KeyboardAxisEngine();
+            s21Engine.Initialize(s21);
+            var s21Left = s21.JoystickButtons.First(b => b.ButtonName == "Stick X Left");
+            Check(s21Engine.HandleButton(s21Left, true), "System 21 direction row consumed", ref failures);
+            s21Engine.Tick();
+            Check(InputCode.AnalogBytes[0] < 128, "System 21 stick ramps left", ref failures);
+            s21Engine.HandleButton(s21Left, false);
+            for (int i = 0; i < 30; i++) s21Engine.Tick();
+            Check(InputCode.AnalogBytes[0] == 128, "System 21 stick returns to center", ref failures);
+
             Console.WriteLine(failures == 0
-                ? "\nKeyboard-axis engine (Sega Rally 3 + Cxbx + Konami racing layouts): ALL CHECKS PASSED"
+                ? "\nKeyboard-axis engine (legacy + System 21/22 layouts): ALL CHECKS PASSED"
                 : $"\nKeyboard-axis engine: {failures} FAILURE(S)");
             return failures == 0 ? 0 : 1;
         }
@@ -133,6 +164,12 @@ namespace InputMethodAudit
             Console.WriteLine($"  [{(ok ? "PASS" : "FAIL")}] {what}");
             if (!ok)
                 failures++;
+        }
+
+        private static GameProfile LoadStockProfile(string fileName)
+        {
+            using var stream = File.OpenRead(Path.Combine("TeknoParrotUi.Common", "GameProfiles", fileName));
+            return (GameProfile)new XmlSerializer(typeof(GameProfile)).Deserialize(stream);
         }
     }
 }
