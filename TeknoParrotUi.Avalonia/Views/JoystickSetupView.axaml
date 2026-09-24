@@ -4,6 +4,10 @@
     <DockPanel Margin="12">
         <TextBlock Name="Header" DockPanel.Dock="Top" FontSize="18" FontWeight="Bold" Margin="0,0,0,4" />
         <TextBlock Name="ApiText" DockPanel.Dock="Top" Opacity="0.7" Margin="0,0,0,8" />
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
+            <TextBlock Name="DeviceText" VerticalAlignment="Center" TextWrapping="Wrap" MaxWidth="650" />
+            <Button Name="BtnRefreshDevices" Content="Refresh devices" Click="BtnRefreshDevices_Click" />
+        </StackPanel>
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,12,0,0" HorizontalAlignment="Center">
             <Button Name="BtnBack" Content="Back" Width="180" Click="BtnBack_Click" />
             <Button Name="BtnSave" Content="Save Bindings" Width="180" Click="BtnSave_Click" />

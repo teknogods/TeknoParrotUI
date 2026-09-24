@@ -360,6 +360,14 @@ namespace TeknoParrotUi.Common
         public Guid JoystickGuid { get; set; }
     }
 
+    public enum SdlControlKind
+    {
+        None,
+        Button,
+        Axis,
+        Hat
+    }
+
     public class XInputButton
     {
         internal XInputButton Clone() => (XInputButton)MemberwiseClone();
@@ -375,6 +383,16 @@ namespace TeknoParrotUi.Common
         public bool IsButton { get; set; }
         public int ButtonIndex { get; set; }
         public int XInputIndex { get; set; }
+        // SDL's GameController API has a fixed XInput-sized layout. Keep the
+        // physical control for generic HID joysticks, wheels and arcade boards.
+        public SdlControlKind SdlControl { get; set; }
+        public int SdlControlIndex { get; set; }
+        // Axis: -1/0/+1. Hat: SDL direction bitmask.
+        public int SdlDirection { get; set; }
+
+        public bool ShouldSerializeSdlControl() => SdlControl != SdlControlKind.None;
+        public bool ShouldSerializeSdlControlIndex() => SdlControl != SdlControlKind.None;
+        public bool ShouldSerializeSdlDirection() => SdlControl != SdlControlKind.None;
     }
 
     public class RawInputButton

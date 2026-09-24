@@ -321,6 +321,9 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
             if (button?.XInputIndex != index)
                 return null;
 
+            if (button.SdlControl != SdlControlKind.None)
+                return InputListening.Gamepad.SDL2GamepadBackend.GetRawState(index).IsPressed(button);
+
             if (button.IsLeftTrigger)
                 return state.Gamepad.LeftTrigger != 0;
 
@@ -363,6 +366,34 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
         {
             if (button?.XInputIndex != index)
                 return;
+
+            if (button.SdlControl != SdlControlKind.None)
+            {
+                if (GetButtonPressXinput(button, state, index) == true)
+                    InputCode.SetPlayerDirection(playerButtons, direction);
+                else
+                {
+                    if (direction == Direction.Left && !playerButtons.RightPressed() ||
+                        direction == Direction.Right && !playerButtons.LeftPressed())
+                        InputCode.SetPlayerDirection(playerButtons, Direction.HorizontalCenter);
+                    if (direction == Direction.Up && !playerButtons.DownPressed() ||
+                        direction == Direction.Down && !playerButtons.UpPressed())
+                        InputCode.SetPlayerDirection(playerButtons, Direction.VerticalCenter);
+                    if (direction == Direction.FFLeft && !playerButtons.FFRightPressed() ||
+                        direction == Direction.FFRight && !playerButtons.FFLeftPressed())
+                        InputCode.SetPlayerDirection(playerButtons, Direction.FFHoriCenter);
+                    if (direction == Direction.FFUp && !playerButtons.FFDownPressed() ||
+                        direction == Direction.FFDown && !playerButtons.FFUpPressed())
+                        InputCode.SetPlayerDirection(playerButtons, Direction.FFVertCenter);
+                    if (direction == Direction.RelativeLeft && !playerButtons.RelativeRightPressed() ||
+                        direction == Direction.RelativeRight && !playerButtons.RelativeLeftPressed())
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeHoriCenter);
+                    if (direction == Direction.RelativeUp && !playerButtons.RelativeDownPressed() ||
+                        direction == Direction.RelativeDown && !playerButtons.RelativeUpPressed())
+                        InputCode.SetPlayerDirection(playerButtons, Direction.RelativeVertCenter);
+                }
+                return;
+            }
 
             // Analog Axis, we expect that the both direction are on same axis!!!!
             if (button.IsLeftThumbX || button.IsLeftThumbY || button.IsRightThumbX || button.IsRightThumbY)

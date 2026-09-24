@@ -27,6 +27,7 @@ public partial class JoystickSetupView : UserControl
     private bool _useAnalogAxisToAimGun2;
     private readonly InputCaptureService _capture = new();
     private readonly RawInputCaptureService _rawCapture = new();
+    private readonly DispatcherTimer _deviceRefreshTimer = new() { Interval = TimeSpan.FromSeconds(2) };
     private Button? _armedButton;
     private JoystickButtons? _armedBinding;
 
@@ -41,6 +42,7 @@ public partial class JoystickSetupView : UserControl
         _capture.BindingCaptured += captured => Dispatcher.UIThread.Post(() => OnCaptured(captured));
         _rawCapture.BindingCaptured += (name, button, isEscape) =>
             Dispatcher.UIThread.Post(() => OnRawCaptured(name, button, isEscape));
+        _deviceRefreshTimer.Tick += (_, _) => RefreshDeviceText();
         Unloaded += (_, _) => StopCapture();
     }
 
@@ -48,12 +50,14 @@ public partial class JoystickSetupView : UserControl
     {
         _capture.Stop();
         _rawCapture.Stop();
+        _deviceRefreshTimer.Stop();
     }
 
     private void Localize()
     {
         BtnBack.Content = Services.Loc.T("Back", "Back");
         BtnSave.Content = Services.Loc.T("SettingsSaveSettings", "Save Bindings");
+        BtnRefreshDevices.Content = Services.Loc.T("Refresh", "Refresh devices");
     }
 
     public void LoadProfile(GameProfile profile)
@@ -109,6 +113,32 @@ public partial class JoystickSetupView : UserControl
         // Always merged: SDL2 for controllers, RawInput for keyboards and mice
         _capture.Start(InputApi.MergedInput);
         _rawCapture.Start(registerKeyboard: true);
+        RefreshDeviceText();
+        _deviceRefreshTimer.Start();
+    }
+
+    private void RefreshDeviceText()
+    {
+        if (OperatingSystem.IsAndroid())
+            TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.PlatformDeviceRefresh?.Invoke();
+        var controllers = _capture.GetConnectedDevices();
+        var pointers = _rawCapture.GetMouseDeviceList();
+        DeviceText.Text = $"Controllers: {(controllers.Count == 0 ? "none detected" : string.Join(", ", controllers))}" +
+                          $"  ·  Pointer devices: {(pointers.Count == 0 ? "none detected" : string.Join(", ", pointers))}";
+    }
+
+    private void BtnRefreshDevices_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        if (_profile == null) return;
+        RowsPanel.Children.Clear();
+        foreach (var button in _profile.JoystickButtons.Where(IsVisibleForApi))
+        {
+            var row = BuildRow(button);
+            if (row != null) RowsPanel.Children.Add(row);
+        }
+        _armedButton = null;
+        _armedBinding = null;
+        RefreshDeviceText();
     }
 
     private bool IsVisibleForApi(JoystickButtons b)

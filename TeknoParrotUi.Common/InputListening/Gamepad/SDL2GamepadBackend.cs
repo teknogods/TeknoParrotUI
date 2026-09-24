@@ -1,33 +1,129 @@
 using System;
 using System.Diagnostics;
+using System.Collections.Generic;
 using System.Threading;
 using SDL2;
 
 namespace TeknoParrotUi.Common.InputListening.Gamepad
 {
     /// <summary>
-    /// Cross-platform gamepad backend built on SDL2's GameController API, which
-    /// deliberately mirrors XInput semantics (same button set, same 16-bit stick
-    /// range, independent analog triggers). Maintains XInput-shaped
-    /// <see cref="State"/> snapshots for up to 4 player slots so the existing
-    /// game-mapping logic in <see cref="InputListenerXInput"/> runs unchanged.
+    /// Cross-platform gamepad backend. SDL GameController devices retain their
+    /// XInput-shaped state; every SDL joystick also exposes its physical
+    /// buttons, axes and hats so unmapped arcade controllers are usable.
+    /// Android supplies the same snapshots through its native input events.
     ///
     /// SDL calls are confined to a single poll thread; consumers read cached
     /// state via <see cref="GetState"/> / <see cref="IsConnected"/>.
     /// </summary>
     public static class SDL2GamepadBackend
     {
-        public const int MaxSlots = 4;
+        public const int MaxSlots = 8;
 
         private static readonly object Sync = new object();
         private static readonly IntPtr[] Controllers = new IntPtr[MaxSlots];
+        private static readonly IntPtr[] Joysticks = new IntPtr[MaxSlots];
+        private static readonly bool[] OwnsJoystick = new bool[MaxSlots];
+        private static readonly bool[] PlatformSlots = new bool[MaxSlots];
+        private static readonly string[] Names = new string[MaxSlots];
         private static readonly int[] InstanceIds = new int[MaxSlots];
         private static readonly State[] States = new State[MaxSlots];
+        private static readonly RawJoystickState[] RawStates = new RawJoystickState[MaxSlots];
         private static readonly bool[] Connected = new bool[MaxSlots];
 
         private static Thread _pollThread;
         private static volatile bool _running;
         private static int _refCount;
+
+        // Android has no SDL2 native library in the APK. Its Activity supplies
+        // physical gamepad events through these same slot snapshots.
+        public static Action PlatformDeviceRefresh { get; set; }
+
+        public readonly record struct PlatformGamepadDevice(int Id, string Name, short[] AxisRest);
+
+        public static void UpdatePlatformDevices(IReadOnlyList<PlatformGamepadDevice> devices)
+        {
+            lock (Sync)
+            {
+                for (int slot = 0; slot < MaxSlots; slot++)
+                {
+                    if (!PlatformSlots[slot]) continue;
+                    var found = false;
+                    foreach (var device in devices)
+                        if (device.Id == InstanceIds[slot]) { found = true; break; }
+                    if (!found) ClearPlatformSlot(slot);
+                }
+                foreach (var device in devices)
+                {
+                    if (FindPlatformSlot(device.Id) >= 0) continue;
+                    var slot = Array.FindIndex(Connected, connected => !connected);
+                    if (slot < 0) break;
+                    PlatformSlots[slot] = true;
+                    InstanceIds[slot] = device.Id;
+                    Names[slot] = device.Name;
+                    RawStates[slot] = new RawJoystickState(new bool[256],
+                        device.AxisRest is { Length: 64 } ? (short[])device.AxisRest.Clone() : new short[64],
+                        Array.Empty<byte>());
+                    Connected[slot] = true;
+                }
+            }
+        }
+
+        public static void UpdatePlatformButton(int deviceId, int code, bool pressed)
+        {
+            lock (Sync)
+            {
+                var slot = FindPlatformSlot(deviceId);
+                if (slot < 0 || code < 0 || code >= 256) return;
+                var old = RawStates[slot];
+                if (old.Button(code) == pressed) return;
+                var buttons = (bool[])old.Buttons.Clone();
+                buttons[code] = pressed;
+                RawStates[slot] = new RawJoystickState(buttons, old.Axes, old.Hats);
+                var state = States[slot];
+                state.PacketNumber++;
+                States[slot] = state;
+            }
+        }
+
+        public static void UpdatePlatformAxis(int deviceId, int code, short value)
+        {
+            lock (Sync)
+            {
+                var slot = FindPlatformSlot(deviceId);
+                if (slot < 0 || code < 0 || code >= 64) return;
+                var old = RawStates[slot];
+                if (old.Axis(code) == value) return;
+                var axes = (short[])old.Axes.Clone();
+                axes[code] = value;
+                RawStates[slot] = new RawJoystickState(old.Buttons, axes, old.Hats);
+                var state = States[slot];
+                state.PacketNumber++;
+                States[slot] = state;
+            }
+        }
+
+        private static int FindPlatformSlot(int deviceId)
+        {
+            for (int slot = 0; slot < MaxSlots; slot++)
+                if (PlatformSlots[slot] && InstanceIds[slot] == deviceId) return slot;
+            return -1;
+        }
+
+        public static bool HasPlatformDevice(int deviceId)
+        {
+            lock (Sync)
+                return FindPlatformSlot(deviceId) >= 0;
+        }
+
+        private static void ClearPlatformSlot(int slot)
+        {
+            PlatformSlots[slot] = false;
+            Connected[slot] = false;
+            Names[slot] = null;
+            InstanceIds[slot] = 0;
+            States[slot] = default;
+            RawStates[slot] = RawJoystickState.Empty;
+        }
 
         // Temporary lifecycle tracing: set TP_SDL2_TRACE=1 to log to %TEMP%\tp-sdl2-trace.log
         private static readonly bool TraceEnabled = Environment.GetEnvironmentVariable("TP_SDL2_TRACE") == "1";
@@ -60,6 +156,11 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
             {
                 _refCount++;
                 Trace($"Acquire -> refCount={_refCount} running={_running}");
+                if (OperatingSystem.IsAndroid())
+                {
+                    PlatformDeviceRefresh?.Invoke();
+                    return;
+                }
                 if (_running)
                     return;
 
@@ -108,6 +209,18 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
             return slot >= 0 && slot < MaxSlots && Connected[slot];
         }
 
+        public static string GetDeviceName(int slot)
+        {
+            lock (Sync)
+                return slot >= 0 && slot < MaxSlots ? Names[slot] : null;
+        }
+
+        public static RawJoystickState GetRawState(int slot)
+        {
+            lock (Sync)
+                return slot >= 0 && slot < MaxSlots ? RawStates[slot] ?? RawJoystickState.Empty : RawJoystickState.Empty;
+        }
+
         public static State GetState(int slot)
         {
             lock (Sync)
@@ -124,20 +237,24 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
                 while (_running)
                 {
                     SDL.SDL_GameControllerUpdate();
+                    SDL.SDL_JoystickUpdate();
                     RefreshDeviceSlots();
 
                     lock (Sync)
                     {
                         for (int slot = 0; slot < MaxSlots; slot++)
                         {
-                            if (Controllers[slot] == IntPtr.Zero)
+                            if (Joysticks[slot] == IntPtr.Zero)
                             {
                                 Connected[slot] = false;
                                 continue;
                             }
 
-                            var gamepad = ReadGamepad(Controllers[slot]);
-                            if (!gamepad.Equals(States[slot].Gamepad))
+                            var gamepad = Controllers[slot] != IntPtr.Zero
+                                ? ReadGamepad(Controllers[slot]) : default;
+                            var raw = ReadRawJoystick(Joysticks[slot]);
+                            if (!gamepad.Equals(States[slot].Gamepad) ||
+                                !raw.SameControls(RawStates[slot] ?? RawJoystickState.Empty))
                             {
                                 if (gamepad.Buttons != States[slot].Gamepad.Buttons)
                                     Trace($"slot {slot} buttons {States[slot].Gamepad.Buttons} -> {gamepad.Buttons} (pkt {States[slot].PacketNumber + 1})");
@@ -145,6 +262,7 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
                                 state.PacketNumber++;
                                 state.Gamepad = gamepad;
                                 States[slot] = state;
+                                RawStates[slot] = raw;
                             }
                             Connected[slot] = true;
                         }
@@ -165,11 +283,7 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
                 {
                     for (int slot = 0; slot < MaxSlots; slot++)
                     {
-                        if (Controllers[slot] != IntPtr.Zero)
-                        {
-                            SDL.SDL_GameControllerClose(Controllers[slot]);
-                            Controllers[slot] = IntPtr.Zero;
-                        }
+                        CloseSlot(slot);
                         Connected[slot] = false;
                     }
                 }
@@ -186,13 +300,10 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
                 // Drop controllers that went away.
                 for (int slot = 0; slot < MaxSlots; slot++)
                 {
-                    if (Controllers[slot] != IntPtr.Zero &&
-                        SDL.SDL_GameControllerGetAttached(Controllers[slot]) == SDL.SDL_bool.SDL_FALSE)
+                    if (Joysticks[slot] != IntPtr.Zero &&
+                        SDL.SDL_JoystickGetAttached(Joysticks[slot]) == SDL.SDL_bool.SDL_FALSE)
                     {
-                        SDL.SDL_GameControllerClose(Controllers[slot]);
-                        Controllers[slot] = IntPtr.Zero;
-                        Connected[slot] = false;
-                        States[slot] = default;
+                        CloseSlot(slot);
                         Trace($"slot {slot} detached");
                     }
                 }
@@ -201,27 +312,38 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
                 int numJoysticks = SDL.SDL_NumJoysticks();
                 for (int deviceIndex = 0; deviceIndex < numJoysticks; deviceIndex++)
                 {
-                    if (SDL.SDL_IsGameController(deviceIndex) == SDL.SDL_bool.SDL_FALSE)
-                        continue;
-
                     int instanceId = SDL.SDL_JoystickGetDeviceInstanceID(deviceIndex);
                     if (IsInstanceAssigned(instanceId))
                         continue;
 
-                    int freeSlot = Array.IndexOf(Controllers, IntPtr.Zero);
+                    int freeSlot = Array.FindIndex(Connected, connected => !connected);
                     if (freeSlot < 0)
                         break;
 
-                    var handle = SDL.SDL_GameControllerOpen(deviceIndex);
-                    if (handle == IntPtr.Zero)
+                    if (SDL.SDL_IsGameController(deviceIndex) == SDL.SDL_bool.SDL_TRUE)
                     {
-                        Trace($"SDL_GameControllerOpen({deviceIndex}) FAILED: {SDL.SDL_GetError()}");
+                        var controller = SDL.SDL_GameControllerOpen(deviceIndex);
+                        if (controller != IntPtr.Zero)
+                        {
+                            Controllers[freeSlot] = controller;
+                            Joysticks[freeSlot] = SDL.SDL_GameControllerGetJoystick(controller);
+                        }
+                    }
+                    if (Joysticks[freeSlot] == IntPtr.Zero)
+                    {
+                        Joysticks[freeSlot] = SDL.SDL_JoystickOpen(deviceIndex);
+                        OwnsJoystick[freeSlot] = Joysticks[freeSlot] != IntPtr.Zero;
+                    }
+                    if (Joysticks[freeSlot] == IntPtr.Zero)
+                    {
+                        Trace($"SDL_JoystickOpen({deviceIndex}) FAILED: {SDL.SDL_GetError()}");
                         continue;
                     }
-
-                    Controllers[freeSlot] = handle;
                     InstanceIds[freeSlot] = instanceId;
-                    Trace($"attached '{SDL.SDL_GameControllerName(handle)}' (instance {instanceId}) to slot {freeSlot}");
+                    Names[freeSlot] = SDL.SDL_JoystickNameForIndex(deviceIndex);
+                    RawStates[freeSlot] = ReadRawJoystick(Joysticks[freeSlot]);
+                    Connected[freeSlot] = true;
+                    Trace($"attached '{Names[freeSlot]}' (instance {instanceId}) to slot {freeSlot}, mapped={Controllers[freeSlot] != IntPtr.Zero}");
                 }
             }
         }
@@ -230,10 +352,37 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
         {
             for (int slot = 0; slot < MaxSlots; slot++)
             {
-                if (Controllers[slot] != IntPtr.Zero && InstanceIds[slot] == instanceId)
+                if (Joysticks[slot] != IntPtr.Zero && InstanceIds[slot] == instanceId)
                     return true;
             }
             return false;
+        }
+
+        private static void CloseSlot(int slot)
+        {
+            if (OwnsJoystick[slot] && Joysticks[slot] != IntPtr.Zero)
+                SDL.SDL_JoystickClose(Joysticks[slot]);
+            if (Controllers[slot] != IntPtr.Zero)
+                SDL.SDL_GameControllerClose(Controllers[slot]);
+            Controllers[slot] = IntPtr.Zero;
+            Joysticks[slot] = IntPtr.Zero;
+            OwnsJoystick[slot] = false;
+            Names[slot] = null;
+            InstanceIds[slot] = 0;
+            Connected[slot] = false;
+            States[slot] = default;
+            RawStates[slot] = RawJoystickState.Empty;
+        }
+
+        private static RawJoystickState ReadRawJoystick(IntPtr joystick)
+        {
+            var buttons = new bool[Math.Max(0, SDL.SDL_JoystickNumButtons(joystick))];
+            var axes = new short[Math.Max(0, SDL.SDL_JoystickNumAxes(joystick))];
+            var hats = new byte[Math.Max(0, SDL.SDL_JoystickNumHats(joystick))];
+            for (int i = 0; i < buttons.Length; i++) buttons[i] = SDL.SDL_JoystickGetButton(joystick, i) != 0;
+            for (int i = 0; i < axes.Length; i++) axes[i] = SDL.SDL_JoystickGetAxis(joystick, i);
+            for (int i = 0; i < hats.Length; i++) hats[i] = SDL.SDL_JoystickGetHat(joystick, i);
+            return new RawJoystickState(buttons, axes, hats);
         }
 
         private static XiGamepad ReadGamepad(IntPtr controller)

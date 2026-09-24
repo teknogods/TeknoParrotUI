@@ -10,7 +10,8 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
     /// Windows) by feeding SDL2 controller state through the existing
     /// XInput mapping logic — so all game-specific behaviour (WMMT gears,
     /// Initial D, rotary encoders, sto0z, gun centering) and existing user
-    /// XInputButton bindings work unchanged.
+    /// XInputButton bindings work unchanged. Generic HID controls retain their
+    /// physical button/axis/hat identifiers in the same binding model.
     /// </summary>
     public class SDL2JoystickListener : IInputListener
     {

@@ -14,6 +14,7 @@ using TeknoParrotUi.Avalonia.Services;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.Android;
 using TeknoParrotUi.Common.GameLaunch;
+using TeknoParrotUi.Common.InputListening.Gamepad;
 using Bundle = Android.OS.Bundle;
 using AndroidUri = Android.Net.Uri;
 
@@ -36,6 +37,7 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
 
     public override void OnCreate()
     {
+        SDL2GamepadBackend.PlatformDeviceRefresh = AndroidGamepads.Refresh;
         // The shared code reads/writes its data (ParrotData.xml, GameProfiles/,
         // UserProfiles/, Metadata/, Icons/) relative to the current directory —
         // on desktop AppEnvironment.Initialize() points CWD at the TeknoParrot
@@ -310,6 +312,24 @@ public class MainActivity : AvaloniaMainActivity
     private TaskCompletionSource<bool>? _dolphinGameImport;
     private TaskCompletionSource<bool>? _rpcs3x6GameImport;
     private TaskCompletionSource<string?>? _gameExecutablePicker;
+
+    protected override void OnResume()
+    {
+        base.OnResume();
+        AndroidGamepads.Refresh();
+    }
+
+    public override bool DispatchKeyEvent(global::Android.Views.KeyEvent? e)
+    {
+        if (e != null) AndroidGamepads.OnKey(e);
+        return base.DispatchKeyEvent(e);
+    }
+
+    public override bool DispatchGenericMotionEvent(global::Android.Views.MotionEvent? e)
+    {
+        if (e != null) AndroidGamepads.OnMotion(e);
+        return base.DispatchGenericMotionEvent(e);
+    }
 
     protected override void OnCreate(Bundle? savedInstanceState)
     {

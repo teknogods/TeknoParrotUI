@@ -7,9 +7,16 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
     {
         public static byte CalculateSWThrottleXinput(XInputButton button, State state)
         {
+            if (button.SdlControl != SdlControlKind.None)
+            {
+                if (button.SdlControl == SdlControlKind.Axis)
+                    return JvsHelper.CalculateGasPos(32767 +
+                        InputListening.Gamepad.SDL2GamepadBackend.GetRawState(button.XInputIndex).Axis(button.SdlControlIndex), true, false);
+                return DigitalHelper.GetButtonPressXinput(button, state, button.XInputIndex) == true ? (byte)255 : (byte)0;
+            }
             if (button.IsButton)
             {
-                var btnPress = DigitalHelper.GetButtonPressXinput(button, state, 0);
+                var btnPress = DigitalHelper.GetButtonPressXinput(button, state, button.XInputIndex);
                 if (btnPress == true)
                     return 0xFF;
                 return 0x00;
@@ -40,9 +47,17 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
         }
         public static byte CalculateAxisOrTriggerGasBrakeXinput(XInputButton button, State state, byte minVal = 0, byte maxVal = 255)
         {
+            if (button.SdlControl != SdlControlKind.None)
+            {
+                if (button.SdlControl == SdlControlKind.Axis)
+                    return JvsHelper.CalculateGasPos(
+                        InputListening.Gamepad.SDL2GamepadBackend.GetRawState(button.XInputIndex).Axis(button.SdlControlIndex),
+                        true, false, minVal, maxVal);
+                return DigitalHelper.GetButtonPressXinput(button, state, button.XInputIndex) == true ? maxVal : minVal;
+            }
             if (button.IsButton)
             {
-                var btnPress = DigitalHelper.GetButtonPressXinput(button, state, 0);
+                var btnPress = DigitalHelper.GetButtonPressXinput(button, state, button.XInputIndex);
                 if (btnPress == true)
                     return 0xFF;
                 return 0x00;
@@ -125,6 +140,13 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                     minValWheel = 0x14;
                     maxValWheel = 0xEC;
                     break;
+            }
+
+            if (button.SdlControl == SdlControlKind.Axis)
+            {
+                var value = InputListening.Gamepad.SDL2GamepadBackend.GetRawState(button.XInputIndex).Axis(button.SdlControlIndex);
+                return useSto0Z ? JvsHelper.CalculateSto0ZWheelPos(value, stoozPercent, true) :
+                    JvsHelper.CalculateWheelPos(value, true, false, minValWheel, maxValWheel);
             }
 
             if (button.IsLeftThumbX)

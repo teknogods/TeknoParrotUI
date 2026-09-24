@@ -14,8 +14,8 @@ namespace TeknoParrotUi.Avalonia.Services;
 public sealed record CapturedBinding(string DisplayName, XInputButton? XInput);
 
 /// <summary>
-/// Polls SDL2 gamepads (the only gamepad backend on every platform) and
-/// reports the first input event as an XInput-shaped binding.
+/// Polls the shared gamepad backend and captures mapped SDL controller input
+/// or physical controls from generic SDL/Android joysticks.
 /// </summary>
 public sealed class InputCaptureService : IDisposable
 {
@@ -24,6 +24,17 @@ public sealed class InputCaptureService : IDisposable
     private bool _sdlAcquired;
 
     public event Action<CapturedBinding>? BindingCaptured;
+
+    public IReadOnlyList<string> GetConnectedDevices()
+    {
+        var names = new List<string>();
+        for (int slot = 0; slot < SDL2GamepadBackend.MaxSlots; slot++)
+        {
+            if (SDL2GamepadBackend.IsConnected(slot))
+                names.Add($"Input Device {slot}: {SDL2GamepadBackend.GetDeviceName(slot) ?? "Joystick"}");
+        }
+        return names;
+    }
 
     public void Start(InputApi api)
     {
@@ -58,19 +69,42 @@ public sealed class InputCaptureService : IDisposable
         {
             const int maxSlots = SDL2GamepadBackend.MaxSlots;
             var previous = new State[maxSlots];
+            var previousRaw = new RawJoystickState[maxSlots];
+            var wasConnected = new bool[maxSlots];
             for (int slot = 0; slot < maxSlots; slot++)
+            {
                 previous[slot] = SDL2GamepadBackend.GetState(slot);
+                previousRaw[slot] = SDL2GamepadBackend.GetRawState(slot);
+                wasConnected[slot] = SDL2GamepadBackend.IsConnected(slot);
+            }
 
             while (!_stop)
             {
                 for (int slot = 0; slot < maxSlots; slot++)
                 {
                     if (!SDL2GamepadBackend.IsConnected(slot))
+                    {
+                        previous[slot] = default;
+                        previousRaw[slot] = RawJoystickState.Empty;
+                        wasConnected[slot] = false;
                         continue;
+                    }
                     var state = SDL2GamepadBackend.GetState(slot);
+                    var raw = SDL2GamepadBackend.GetRawState(slot);
+                    if (!wasConnected[slot])
+                    {
+                        previous[slot] = state;
+                        previousRaw[slot] = raw;
+                        wasConnected[slot] = true;
+                        continue;
+                    }
                     if (state.PacketNumber != previous[slot].PacketNumber)
-                        DetectXInput(state, previous[slot], slot);
+                    {
+                        if (!DetectXInput(state, previous[slot], slot))
+                            DetectRawJoystick(raw, previousRaw[slot], slot);
+                    }
                     previous[slot] = state;
+                    previousRaw[slot] = raw;
                 }
                 Thread.Sleep(10);
             }
@@ -79,7 +113,7 @@ public sealed class InputCaptureService : IDisposable
         _threads.Add(thread);
     }
 
-    private void DetectXInput(State ns, State os, int index)
+    private bool DetectXInput(State ns, State os, int index)
     {
         var prefix = $"Input Device {index} ";
 
@@ -91,7 +125,7 @@ public sealed class InputCaptureService : IDisposable
                 if (flag == GamepadButtonFlags.None || ns.Gamepad.Buttons != flag)
                     continue;
                 Raise(prefix + flag, new XInputButton { IsButton = true, ButtonCode = (short)flag, XInputIndex = index });
-                return;
+                return true;
             }
         }
 
@@ -103,17 +137,58 @@ public sealed class InputCaptureService : IDisposable
                 out var thumbName))
         {
             Raise(prefix + thumbName, thumbBinding);
-            return;
+            return true;
         }
 
         if (ns.Gamepad.LeftTrigger != os.Gamepad.LeftTrigger && ns.Gamepad.LeftTrigger > 30)
         {
             Raise(prefix + "LeftTrigger", new XInputButton { IsLeftTrigger = true, XInputIndex = index });
-            return;
+            return true;
         }
         if (ns.Gamepad.RightTrigger != os.Gamepad.RightTrigger && ns.Gamepad.RightTrigger > 30)
         {
             Raise(prefix + "RightTrigger", new XInputButton { IsRightTrigger = true, XInputIndex = index });
+            return true;
+        }
+        return false;
+    }
+
+    private void DetectRawJoystick(RawJoystickState now, RawJoystickState before, int slot)
+    {
+        var prefix = $"Input Device {slot} ({SDL2GamepadBackend.GetDeviceName(slot) ?? "Joystick"}) ";
+        for (int i = 0; i < now.Buttons.Length; i++)
+        {
+            if (!now.Button(i) || before.Button(i)) continue;
+            Raise(prefix + $"Button {i + 1}", new XInputButton
+            {
+                XInputIndex = slot, IsButton = true,
+                SdlControl = SdlControlKind.Button, SdlControlIndex = i
+            });
+            return;
+        }
+        for (int i = 0; i < now.Hats.Length; i++)
+        {
+            var added = now.Hat(i) & ~before.Hat(i);
+            if (added == 0) continue;
+            var direction = added & -added;
+            Raise(prefix + $"Hat {i + 1} direction {direction}", new XInputButton
+            {
+                XInputIndex = slot, IsButton = true,
+                SdlControl = SdlControlKind.Hat, SdlControlIndex = i, SdlDirection = direction
+            });
+            return;
+        }
+        for (int i = 0; i < now.Axes.Length; i++)
+        {
+            var value = now.Axis(i);
+            if (Math.Abs(value - before.Axis(i)) < 12000 || Math.Abs((int)value) < 15000)
+                continue;
+            Raise(prefix + $"Axis {i + 1} {(value < 0 ? "-" : "+")}", new XInputButton
+            {
+                XInputIndex = slot, SdlControl = SdlControlKind.Axis,
+                SdlControlIndex = i, SdlDirection = value < 0 ? -1 : 1
+            });
+            return;
         }
     }
 
