@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 using SDL2;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.InputListening.Gamepad;
@@ -57,6 +58,9 @@ internal static class RawJoystickBindingTest
             var restored = (XInputButton)serializer.Deserialize(reader)!;
             if (restored.SdlControl != SdlControlKind.Button || restored.SdlControlIndex != 31)
                 throw new Exception("Generic binding did not survive XML serialization.");
+            var jsonRestored = JsonConvert.DeserializeObject<XInputButton>(JsonConvert.SerializeObject(button));
+            if (jsonRestored?.SdlControl != SdlControlKind.Button || jsonRestored.SdlControlIndex != 31)
+                throw new Exception("Generic binding did not survive authoritative JSON serialization.");
 
             SDL2GamepadBackend.UpdatePlatformButton(73, 31, false);
             if (DigitalHelper.GetButtonPressXinput(button, SDL2GamepadBackend.GetState(0), 0) != false)
