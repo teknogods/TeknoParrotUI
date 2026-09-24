@@ -4,7 +4,7 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
 {
     /// <summary>
     /// XInput-shaped gamepad state types, previously provided by SharpDX.XInput.
-    /// SDL2 is the only gamepad backend on all platforms; these types keep the
+    /// SDL3 on desktop and the Android input API use these types to keep the
     /// battle-tested XInput mapping logic (and every existing user XInputButton
     /// binding) working unchanged without any SharpDX dependency.
     /// Field names, bit values and ranges are identical to XINPUT_GAMEPAD.

@@ -5,27 +5,27 @@ using TeknoParrotUi.Common.InputListening.Gamepad;
 namespace InputMethodAudit
 {
     /// <summary>
-    /// Manual verification for the SDL2 gamepad backend (Phase 1 testing).
+    /// Manual verification for the SDL3 gamepad backend (Phase 1 testing).
     /// Prints connected pads and live XInput-shaped state for 15 seconds.
-    /// Usage: dotnet run --project Tools/InputMethodAudit -- sdl2-test
+    /// Usage: dotnet run --project Tools/InputMethodAudit -- sdl3-test
     /// </summary>
-    internal static class Sdl2SmokeTest
+    internal static class Sdl3SmokeTest
     {
         public static int Run()
         {
-            Console.WriteLine("SDL2 gamepad smoke test — press buttons/move sticks; Ctrl+C to quit.");
-            SDL2GamepadBackend.Acquire();
-            Console.WriteLine(SDL2GamepadBackend.BackendStatus);
+            Console.WriteLine("SDL3 gamepad smoke test — press buttons/move sticks; Ctrl+C to quit.");
+            SDL3GamepadBackend.Acquire();
+            Console.WriteLine(SDL3GamepadBackend.BackendStatus);
             try
             {
                 var end = DateTime.UtcNow.AddSeconds(15);
                 while (DateTime.UtcNow < end)
                 {
-                    for (int slot = 0; slot < SDL2GamepadBackend.MaxSlots; slot++)
+                    for (int slot = 0; slot < SDL3GamepadBackend.MaxSlots; slot++)
                     {
-                        if (!SDL2GamepadBackend.IsConnected(slot))
+                        if (!SDL3GamepadBackend.IsConnected(slot))
                             continue;
-                        var s = SDL2GamepadBackend.GetState(slot);
+                        var s = SDL3GamepadBackend.GetState(slot);
                         Console.WriteLine(
                             $"[{slot}] pkt={s.PacketNumber} btn={s.Gamepad.Buttons} " +
                             $"LX={s.Gamepad.LeftThumbX} LY={s.Gamepad.LeftThumbY} " +
@@ -37,7 +37,7 @@ namespace InputMethodAudit
             }
             finally
             {
-                SDL2GamepadBackend.Release();
+                SDL3GamepadBackend.Release();
             }
             Console.WriteLine("Done.");
             return 0;

@@ -8,6 +8,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using TeknoParrotUi.Avalonia.Views;
 using TeknoParrotUi.Common;
+using TeknoParrotUi.Common.InputListening.Gamepad;
 
 namespace TeknoParrotUi.Avalonia;
 
@@ -60,6 +61,11 @@ public partial class App : Application
                 desktop.Shutdown();
                 return;
             }
+
+            // SDL3's gamepad subsystem must be initialized on the UI thread.
+            // The listener and capture services may subsequently start from
+            // background threads, including direct --profile launches.
+            SDL3GamepadBackend.InitializeOnMainThread();
 
             JoystickHelper.DeSerialize();
 

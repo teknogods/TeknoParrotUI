@@ -134,7 +134,7 @@ namespace TeknoParrotUi.Common.InputListening.ProfileStorage
                                 !legacyName.StartsWith("Mouse", StringComparison.OrdinalIgnoreCase) &&
                                 Guid.TryParse(Value(legacyDi, "JoystickGuid"), out var guid) &&
                                 directInputSlots.TryGetValue(guid, out var slot) &&
-                                slot >= 0 && slot < InputListening.Gamepad.SDL2GamepadBackend.MaxSlots &&
+                                slot >= 0 && slot < InputListening.Gamepad.SDL3GamepadBackend.MaxSlots &&
                                 TryConvertDirectInput(legacyDi, slot, out var converted))
                             {
                                 targetRow.XInputButton = converted;

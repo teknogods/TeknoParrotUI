@@ -1,0 +1,33 @@
+<Project>
+  <!-- Desktop heads opt into the native SDL3 binary for their target RID.
+       The shared Common library and Android project must not carry these ELF
+       or Mach-O binaries through transitive NuGet runtime assets. -->
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'linux-x64'">
+    <Content Include="$(MSBuildThisFileDirectory)linux-x64\libSDL3.so"
+             Link="Native\SDL3\linux-x64\libSDL3.so"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest"
+             ExcludeFromSingleFile="true" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'linux-arm64'">
+    <Content Include="$(MSBuildThisFileDirectory)linux-arm64\libSDL3.so"
+             Link="Native\SDL3\linux-arm64\libSDL3.so"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest"
+             ExcludeFromSingleFile="true" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'osx-x64'">
+    <Content Include="$(MSBuildThisFileDirectory)osx-x64\libSDL3.dylib"
+             Link="Native\SDL3\osx-x64\libSDL3.dylib"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest"
+             ExcludeFromSingleFile="true" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(RuntimeIdentifier)' == 'osx-arm64'">
+    <Content Include="$(MSBuildThisFileDirectory)osx-arm64\libSDL3.dylib"
+             Link="Native\SDL3\osx-arm64\libSDL3.dylib"
+             CopyToOutputDirectory="PreserveNewest"
+             CopyToPublishDirectory="PreserveNewest"
+             ExcludeFromSingleFile="true" />
+  </ItemGroup>
+</Project>

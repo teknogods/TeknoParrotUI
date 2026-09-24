@@ -8,8 +8,8 @@ namespace TeknoParrotUi.Avalonia.Services;
 
 /// <summary>
 /// A captured input event ready to be assigned to a JoystickButtons entry.
-/// XInput-shaped bindings (produced by the SDL2 backend) are interpreted
-/// identically by the SDL2 game listener, so bindings survive unchanged.
+/// XInput-shaped bindings (produced by SDL3 on desktop or native Android
+/// controller events) are interpreted identically by the game listener.
 /// </summary>
 public sealed record CapturedBinding(string DisplayName, XInputButton? XInput);
 
@@ -28,10 +28,10 @@ public sealed class InputCaptureService : IDisposable
     public IReadOnlyList<string> GetConnectedDevices()
     {
         var names = new List<string>();
-        for (int slot = 0; slot < SDL2GamepadBackend.MaxSlots; slot++)
+        for (int slot = 0; slot < SDL3GamepadBackend.MaxSlots; slot++)
         {
-            if (SDL2GamepadBackend.IsConnected(slot))
-                names.Add($"Input Device {slot}: {SDL2GamepadBackend.GetDeviceName(slot) ?? "Joystick"}");
+            if (SDL3GamepadBackend.IsConnected(slot))
+                names.Add($"Input Device {slot}: {SDL3GamepadBackend.GetDeviceName(slot) ?? "Joystick"}");
         }
         return names;
     }
@@ -40,9 +40,9 @@ public sealed class InputCaptureService : IDisposable
     {
         Stop();
         _stop = false;
-        // Every gamepad API selection captures via SDL2 — legacy DirectInput/
-        // XInput selections produce the same XInput-shaped bindings.
-        SpawnSdl2Capture();
+        // Every gamepad API selection captures through the shared backend;
+        // legacy DirectInput/XInput selections keep XInput-shaped bindings.
+        SpawnSdl3Capture();
     }
 
     public void Stop()
@@ -53,44 +53,44 @@ public sealed class InputCaptureService : IDisposable
         _threads.Clear();
         if (_sdlAcquired)
         {
-            SDL2GamepadBackend.Release();
+            SDL3GamepadBackend.Release();
             _sdlAcquired = false;
         }
     }
 
     public void Dispose() => Stop();
 
-    private void SpawnSdl2Capture()
+    private void SpawnSdl3Capture()
     {
-        SDL2GamepadBackend.Acquire();
+        SDL3GamepadBackend.Acquire();
         _sdlAcquired = true;
 
         var thread = new Thread(() =>
         {
-            const int maxSlots = SDL2GamepadBackend.MaxSlots;
+            const int maxSlots = SDL3GamepadBackend.MaxSlots;
             var previous = new State[maxSlots];
             var previousRaw = new RawJoystickState[maxSlots];
             var wasConnected = new bool[maxSlots];
             for (int slot = 0; slot < maxSlots; slot++)
             {
-                previous[slot] = SDL2GamepadBackend.GetState(slot);
-                previousRaw[slot] = SDL2GamepadBackend.GetRawState(slot);
-                wasConnected[slot] = SDL2GamepadBackend.IsConnected(slot);
+                previous[slot] = SDL3GamepadBackend.GetState(slot);
+                previousRaw[slot] = SDL3GamepadBackend.GetRawState(slot);
+                wasConnected[slot] = SDL3GamepadBackend.IsConnected(slot);
             }
 
             while (!_stop)
             {
                 for (int slot = 0; slot < maxSlots; slot++)
                 {
-                    if (!SDL2GamepadBackend.IsConnected(slot))
+                    if (!SDL3GamepadBackend.IsConnected(slot))
                     {
                         previous[slot] = default;
                         previousRaw[slot] = RawJoystickState.Empty;
                         wasConnected[slot] = false;
                         continue;
                     }
-                    var state = SDL2GamepadBackend.GetState(slot);
-                    var raw = SDL2GamepadBackend.GetRawState(slot);
+                    var state = SDL3GamepadBackend.GetState(slot);
+                    var raw = SDL3GamepadBackend.GetRawState(slot);
                     if (!wasConnected[slot])
                     {
                         previous[slot] = state;
@@ -155,7 +155,7 @@ public sealed class InputCaptureService : IDisposable
 
     private void DetectRawJoystick(RawJoystickState now, RawJoystickState before, int slot)
     {
-        var prefix = $"Input Device {slot} ({SDL2GamepadBackend.GetDeviceName(slot) ?? "Joystick"}) ";
+        var prefix = $"Input Device {slot} ({SDL3GamepadBackend.GetDeviceName(slot) ?? "Joystick"}) ";
         for (int i = 0; i < now.Buttons.Length; i++)
         {
             if (!now.Button(i) || before.Button(i)) continue;
@@ -194,7 +194,7 @@ public sealed class InputCaptureService : IDisposable
 
     private void Raise(string name, XInputButton? xi)
     {
-        TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.Trace($"capture raised '{name}'");
+        TeknoParrotUi.Common.InputListening.Gamepad.SDL3GamepadBackend.Trace($"capture raised '{name}'");
         BindingCaptured?.Invoke(new CapturedBinding(name, xi));
     }
 }

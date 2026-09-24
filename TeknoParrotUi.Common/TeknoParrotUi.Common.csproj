@@ -39,7 +39,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="ppy.SDL2-CS" Version="1.0.82" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="8.0.0" />
     <PackageReference Include="RawInput.Sharp" Version="0.1.3" />
     <!-- 10.x still targets net8.0, while shipping Android-16-compatible native
@@ -51,13 +50,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- SDL2-CS provides the C# API but bundles SDL 2.0.14. Copy current
-         official Windows SDL2 runtimes alongside consumers of this project. -->
-    <Content Include="Native\SDL2\win-*\SDL2.dll">
+    <!-- Official Windows SDL3 binaries are distributed with desktop consumers.
+         Linux/macOS native content is selected in SDL3.Native.targets by the
+         desktop and audit heads, never by the Android app. -->
+    <Content Include="Native\SDL3\win-*\SDL3.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="Native\SDL2\LICENSE.txt;Native\SDL2\README-SDL.txt">
+    <Content Include="Native\SDL3\LICENSE.txt;Native\SDL3\README-SDL.txt;Native\SDL3\LICENSE-Native-Packages.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

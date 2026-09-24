@@ -23,6 +23,8 @@ namespace TeknoParrotUi.Common.InputListening.ProfileStorage
         /// <summary>Well-known input method names.</summary>
         public static class Methods
         {
+            public const string SDL3Gamepad = "SDL3Gamepad";
+            /// <summary>Legacy key in profiles saved before the SDL3 migration.</summary>
             public const string SDL2Gamepad = "SDL2Gamepad";
             public const string DirectInput = "DirectInput";
             public const string XInput = "XInput";
@@ -85,7 +87,7 @@ namespace TeknoParrotUi.Common.InputListening.ProfileStorage
                 {
                     var profile = JsonConvert.DeserializeObject<InputProfile>(File.ReadAllText(path));
                     if (profile != null)
-                        return profile;
+                        return UpgradeLegacyGamepadMethod(profile);
                 }
                 catch (Exception ex)
                 {
@@ -97,6 +99,7 @@ namespace TeknoParrotUi.Common.InputListening.ProfileStorage
 
         public static void Save(InputProfile profile)
         {
+            UpgradeLegacyGamepadMethod(profile);
             Directory.CreateDirectory(FolderName);
             profile.Metadata.LastModified = DateTime.UtcNow;
             var path = Path.Combine(FolderName, profile.GameProfileName + ".json");
@@ -106,7 +109,7 @@ namespace TeknoParrotUi.Common.InputListening.ProfileStorage
         /// <summary>
         /// Derive input-method availability from the legacy GameProfile:
         /// the "Input API" ConfigValues dropdown lists supported APIs, and
-        /// SDL2Gamepad is available everywhere DirectInput/XInput were.
+        /// SDL3Gamepad is available everywhere DirectInput/XInput were.
         /// </summary>
         public static InputProfile GenerateFromGameProfile(GameProfile gameProfile)
         {
@@ -130,10 +133,10 @@ namespace TeknoParrotUi.Common.InputListening.ProfileStorage
                 }
             };
 
-            profile.InputMethods[InputProfile.Methods.SDL2Gamepad] = new InputMethodInfo
+            profile.InputMethods[InputProfile.Methods.SDL3Gamepad] = new InputMethodInfo
             {
                 Enabled = true,
-                Description = "Gamepad/joystick via SDL2 (cross-platform; replaces DirectInput/XInput)",
+                Description = "Gamepad/joystick via SDL3 (Android uses native controller input)",
                 Platforms = new List<string> { "windows", "linux", "android", "macos" }
             };
             profile.InputMethods[InputProfile.Methods.DirectInput] = new InputMethodInfo
@@ -183,11 +186,27 @@ namespace TeknoParrotUi.Common.InputListening.ProfileStorage
             {
                 "RawInputTrackball" => InputProfile.Methods.RawInputTrackball,
                 "RawInput" => InputProfile.Methods.RawInput,
-                _ => InputProfile.Methods.SDL2Gamepad
+                _ => InputProfile.Methods.SDL3Gamepad
             };
             if (profile.InputMethods.TryGetValue(profile.DefaultInputMethod, out var def))
                 def.IsDefault = true;
 
+            return profile;
+        }
+
+        private static InputProfile UpgradeLegacyGamepadMethod(InputProfile profile)
+        {
+            profile.InputMethods ??= new Dictionary<string, InputMethodInfo>();
+            if (profile.InputMethods.Remove(InputProfile.Methods.SDL2Gamepad, out var legacy))
+            {
+                if (!profile.InputMethods.ContainsKey(InputProfile.Methods.SDL3Gamepad))
+                {
+                    legacy.Description = "Gamepad/joystick via SDL3 (Android uses native controller input)";
+                    profile.InputMethods[InputProfile.Methods.SDL3Gamepad] = legacy;
+                }
+            }
+            if (profile.DefaultInputMethod == InputProfile.Methods.SDL2Gamepad)
+                profile.DefaultInputMethod = InputProfile.Methods.SDL3Gamepad;
             return profile;
         }
     }

@@ -38,7 +38,7 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
 
     public override void OnCreate()
     {
-        SDL2GamepadBackend.PlatformDeviceRefresh = AndroidGamepads.Refresh;
+        SDL3GamepadBackend.PlatformDeviceRefresh = AndroidGamepads.Refresh;
         // The shared code reads/writes its data (ParrotData.xml, GameProfiles/,
         // UserProfiles/, Metadata/, Icons/) relative to the current directory —
         // on desktop AppEnvironment.Initialize() points CWD at the TeknoParrot

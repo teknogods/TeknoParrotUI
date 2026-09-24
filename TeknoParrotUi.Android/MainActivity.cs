@@ -59,7 +59,7 @@ namespace TeknoParrotUi.Android
                 JoystickButtons = new System.Collections.Generic.List<JoystickButtons>()
             };
 
-            _manager.Start(profile, profile.JoystickButtons, InputApi.SDL2);
+            _manager.Start(profile, profile.JoystickButtons, InputApi.SDL3);
             if (_touchListener != null)
                 root.SetOnTouchListener(_touchListener);
 

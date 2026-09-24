@@ -1243,7 +1243,7 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                     break;
                 // Relative gun-direction buttons (consumed by the relative-input
-                // timer in the SDL2 mapper) — keyboards can drive them too
+                // timer in the SDL3 mapper) — keyboards can drive them too
                 case InputMapping.P1RelativeUp:
                     InputCode.PlayerDigitalButtons[0].RelativeUp = pressed;
                     break;

@@ -47,7 +47,7 @@ public partial class MultiButtonConfigView : UserControl
     {
         InitializeComponent();
 
-        InputApiSelector.ItemsSource = new[] { "Merged Input (Gamepad + Gun)", "SDL2 Gamepad", "RawInput (Mouse/Keyboard)" };
+        InputApiSelector.ItemsSource = new[] { "Merged Input (Gamepad + Gun)", GamepadApiLabel, "RawInput (Mouse/Keyboard)" };
         CategorySelector.ItemsSource = new[] { "All Games", "Racing Games", "Shooting Games", "Arcade Games" };
         Localize();
         Services.Loc.LanguageChanged += Localize;
@@ -59,6 +59,7 @@ public partial class MultiButtonConfigView : UserControl
     }
 
     private Window? OwnerWindow => TopLevel.GetTopLevel(this) as Window;
+    private static string GamepadApiLabel => OperatingSystem.IsAndroid() ? "Android Gamepad" : "SDL3 Gamepad";
 
     private void Localize()
     {
@@ -66,7 +67,7 @@ public partial class MultiButtonConfigView : UserControl
         InputApiSelector.ItemsSource = new[]
         {
             Services.Loc.T("MultiGameButtonConfigMergedInput", "Merged Input (Gamepad + Gun)"),
-            "SDL2 Gamepad", "RawInput (Mouse/Keyboard)"
+            GamepadApiLabel, "RawInput (Mouse/Keyboard)"
         };
         InputApiSelector.SelectedIndex = apiIndex >= 0 ? apiIndex : 0;
 
@@ -122,11 +123,12 @@ public partial class MultiButtonConfigView : UserControl
     /// <summary>
     /// APIs a game can actually read, from the "Input API" ConfigValue FieldOptions
     /// (same source the runtime input listener uses). Gamepad input is always
-    /// SDL2; legacy DirectInput/XInput options count as SDL2.
+    /// the shared gamepad backend; legacy DirectInput/XInput options count
+    /// as the same gamepad mode.
     /// </summary>
     private static HashSet<InputApi> GetSupportedApis(GameProfile profile)
     {
-        var result = new HashSet<InputApi> { InputApi.SDL2 };
+        var result = new HashSet<InputApi> { InputApi.SDL3 };
         var field = profile.ConfigValues?.Find(cv => cv.FieldName == "Input API");
         if (field?.FieldOptions != null)
         {
@@ -142,8 +144,8 @@ public partial class MultiButtonConfigView : UserControl
     private HashSet<InputApi> GetApisForCurrentMode() =>
         _currentInputApi switch
         {
-            InputApi.MergedInput => new HashSet<InputApi> { InputApi.SDL2, InputApi.RawInput, InputApi.RawInputTrackball },
-            InputApi.SDL2 => new HashSet<InputApi> { InputApi.SDL2 },
+            InputApi.MergedInput => new HashSet<InputApi> { InputApi.SDL3, InputApi.RawInput, InputApi.RawInputTrackball },
+            InputApi.SDL3 => new HashSet<InputApi> { InputApi.SDL3 },
             _ => new HashSet<InputApi> { _currentInputApi }
         };
 
@@ -172,8 +174,9 @@ public partial class MultiButtonConfigView : UserControl
                 _ => true
             };
             // Specific API modes only show games that actually support that API
-            // SDL2 works for every game (it replaces DirectInput/XInput cross-platform)
-            bool matchesApi = _currentInputApi is InputApi.MergedInput or InputApi.SDL2 || GetSupportedApis(profile).Contains(_currentInputApi);
+            // The gamepad backend works for every game, regardless of the
+            // legacy DirectInput/XInput option recorded by its profile.
+            bool matchesApi = _currentInputApi is InputApi.MergedInput or InputApi.SDL3 || GetSupportedApis(profile).Contains(_currentInputApi);
 
             if (!matchesSearch || !matchesCategory || !matchesApi)
                 continue;
@@ -220,8 +223,8 @@ public partial class MultiButtonConfigView : UserControl
     {
         button.BindName = _currentInputApi switch
         {
-            // SDL2 bindings are XInput-shaped and share XInput storage
-            InputApi.SDL2 => button.BindNameXi,
+            // SDL3 bindings are XInput-shaped and share XInput storage
+            InputApi.SDL3 => button.BindNameXi,
             InputApi.RawInput or InputApi.RawInputTrackball => button.BindNameRi,
             InputApi.MergedInput => BuildMergedBindName(button.BindNameXi, button.BindNameRi),
             _ => button.BindName
@@ -236,7 +239,7 @@ public partial class MultiButtonConfigView : UserControl
     {
         bool changed = false;
 
-        if (apis.Contains(InputApi.SDL2))
+        if (apis.Contains(InputApi.SDL3))
         {
             if (target.XInputButton != source.XInputButton || target.BindNameXi != source.BindNameXi)
                 changed = true;
@@ -456,8 +459,8 @@ public partial class MultiButtonConfigView : UserControl
 
         switch (_currentInputApi)
         {
-            case InputApi.SDL2:
-                _capture.Start(InputApi.SDL2);
+            case InputApi.SDL3:
+                _capture.Start(InputApi.SDL3);
                 break;
             case InputApi.RawInput:
             case InputApi.RawInputTrackball:
@@ -465,7 +468,7 @@ public partial class MultiButtonConfigView : UserControl
                 _rawCapture.Start(registerKeyboard: true);
                 break;
             case InputApi.MergedInput:
-                _capture.Start(InputApi.SDL2);
+                _capture.Start(InputApi.SDL3);
                 // Keyboards/mice always bind via RawInput in Merged mode
                 _rawCapture.Start(registerKeyboard: true);
                 break;
@@ -494,9 +497,9 @@ public partial class MultiButtonConfigView : UserControl
 
         switch (_currentInputApi)
         {
-            case InputApi.SDL2 when captured.XInput != null:
+            case InputApi.SDL3 when captured.XInput != null:
             case InputApi.MergedInput when captured.XInput != null:
-                // SDL2 capture produces XInput-shaped bindings; one binding per
+                // Gamepad capture produces XInput-shaped bindings; one binding per
                 // row — replaces any keyboard/mouse binding
                 master.XInputButton = captured.XInput;
                 master.BindNameXi = captured.DisplayName;
@@ -749,7 +752,8 @@ public partial class MultiButtonConfigView : UserControl
                     gameChanges++;
             }
 
-            // Input is always merged at runtime (SDL2 + RawInput) — no need to
+            // Input is always merged at runtime (gamepad + platform pointer
+            // input) — no need to
             // rewrite the game's Input API, which now only stores gun flavour.
             totalChanges += gameChanges;
         }
@@ -931,7 +935,7 @@ public partial class MultiButtonConfigView : UserControl
         StopListening();
         _currentInputApi = InputApiSelector.SelectedIndex switch
         {
-            1 => InputApi.SDL2,
+            1 => InputApi.SDL3,
             2 => InputApi.RawInput,
             _ => InputApi.MergedInput
         };

@@ -17,7 +17,7 @@ namespace InputMethodAudit
     /// user profile, runs InputListenerXInput against scripted XInput-shaped
     /// state (no hardware needed), and verifies the presses land in InputCode
     /// and in the JVS shared-memory bytes the game-side hook reads
-    /// (Pcsx2x6Pipe layout). Isolates "mapping/pipe broken" from "SDL2 device
+    /// (Pcsx2x6Pipe layout). Isolates "mapping/pipe broken" from "SDL3 device
     /// not delivering input".
     ///
     /// Usage: dotnet run --project Tools/InputMethodAudit -- pipeline-test [userprofile.xml]
@@ -73,7 +73,7 @@ namespace InputMethodAudit
             sender?.Start();
             Console.WriteLine($"ControlSender: {sender?.GetType().Name ?? "(none)"}");
 
-            // The XInput mapper with a scripted source instead of SDL2 slot 0
+            // The XInput mapper with a scripted source instead of SDL3 slot 0
             var source = new ScriptedSource();
             var mapper = new InputListenerXInput();
             InputListenerXInput.KillMe = false;
@@ -129,7 +129,7 @@ namespace InputMethodAudit
                 }
             }
 
-            failures += TestSdl2Analog(profile, source);
+            failures += TestSdl3Analog(profile, source);
             failures += TestKeyboardAxis(profile);
             failures += TestRawInputDigital(profile);
             failures += TestSecondRunKeyboardAxis(profile);
@@ -151,8 +151,8 @@ namespace InputMethodAudit
             return combined;
         }
 
-        /// <summary>SDL2 analog: drive stick/trigger values through XInputButton axis bindings and verify AnalogBytes move.</summary>
-        private static int TestSdl2Analog(GameProfile profile, ScriptedSource source)
+        /// <summary>SDL3 analog: drive stick/trigger values through XInputButton axis bindings and verify AnalogBytes move.</summary>
+        private static int TestSdl3Analog(GameProfile profile, ScriptedSource source)
         {
             int failures = 0;
 
@@ -175,7 +175,7 @@ namespace InputMethodAudit
                 .Where(b => b.XInputButton != null && !b.XInputButton.IsButton &&
                             b.AnalogType is AnalogType.Wheel or AnalogType.Gas or AnalogType.Brake or AnalogType.AnalogJoystick or AnalogType.AnalogJoystickReverse)
                 .ToList();
-            Console.WriteLine($"Testing {analogRows.Count} analog SDL2 binding(s)...");
+            Console.WriteLine($"Testing {analogRows.Count} analog SDL3 binding(s)...");
 
             foreach (var row in analogRows)
             {
@@ -188,7 +188,7 @@ namespace InputMethodAudit
                     row.AnalogType is AnalogType.AnalogJoystick or AnalogType.AnalogJoystickReverse &&
                     (row.XInputButton.IsLeftTrigger || row.XInputButton.IsRightTrigger))
                 {
-                    Console.WriteLine($"  SKIP  SDL2 analog {row.ButtonName,-22} — trigger bound to gun aim (never supported; rebind to a stick or use Relative Input)");
+                    Console.WriteLine($"  SKIP  SDL3 analog {row.ButtonName,-22} — trigger bound to gun aim (never supported; rebind to a stick or use Relative Input)");
                     continue;
                 }
 
@@ -198,7 +198,7 @@ namespace InputMethodAudit
                     row.AnalogType is AnalogType.AnalogJoystick or AnalogType.AnalogJoystickReverse &&
                     profile.ConfigValues.Any(cv => cv.FieldName == "Use Relative Input" && cv.FieldValue == "1"))
                 {
-                    Console.WriteLine($"  SKIP  SDL2 analog {row.ButtonName,-22} — Use Relative Input is on (relative aim owns this byte)");
+                    Console.WriteLine($"  SKIP  SDL3 analog {row.ButtonName,-22} — Use Relative Input is on (relative aim owns this byte)");
                     continue;
                 }
 
@@ -220,7 +220,7 @@ namespace InputMethodAudit
 
                 bool ok = during != before;
                 if (!ok) failures++;
-                Console.WriteLine($"  {(ok ? "PASS" : "FAIL")}  SDL2 analog {row.ButtonName,-22} ({row.AnalogType}) byte[{byteIndex}] {before:X2} -> {during:X2}");
+                Console.WriteLine($"  {(ok ? "PASS" : "FAIL")}  SDL3 analog {row.ButtonName,-22} ({row.AnalogType}) byte[{byteIndex}] {before:X2} -> {during:X2}");
             }
 
             InputListenerXInput.KillMe = true;

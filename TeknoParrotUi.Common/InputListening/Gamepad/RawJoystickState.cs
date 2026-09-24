@@ -2,7 +2,7 @@ using System;
 
 namespace TeknoParrotUi.Common.InputListening.Gamepad
 {
-    /// <summary>Immutable snapshot of controls SDL's GameController mapping does not expose.</summary>
+    /// <summary>Immutable snapshot of physical controls the SDL3 gamepad mapping may not expose.</summary>
     public sealed class RawJoystickState
     {
         public static readonly RawJoystickState Empty = new RawJoystickState(Array.Empty<bool>(), Array.Empty<short>(), Array.Empty<byte>());

@@ -19,9 +19,11 @@ When you launch TeknoParrotUI for the first time:
    - The app looks for system wine: `/usr/bin/wine` or `/usr/local/bin/wine`
    - If not found, you'll see an error in the game-running console: `No wine binary found`
 
-2. **Check SDL2 (for input/keyboard):**
-   - Required for keyboard input binding
-   - System packages: `libsdl2-2.0-0` (Ubuntu/Debian) or `SDL2` (Fedora)
+2. **Check gamepad access:**
+   - The published app ships SDL3 for gamepads. Keyboard and gun input use the
+     separate evdev/X11 path described below.
+   - If controllers are not detected, open Controller Setup and inspect the
+     SDL3 backend status and device list.
 
 3. **Game profiles load automatically** from the files shipped beside the application
 
@@ -53,14 +55,14 @@ sudo apt install -y wine-staging wine-staging-dev winetricks
 sudo dnf install -y wine winetricks
 ```
 
-### 3. Install SDL2 & Graphics
+### 3. Install Graphics Libraries
 
 ```bash
 # Ubuntu/Debian
-sudo apt install -y libsdl2-2.0-0 libvulkan1 libgl1-mesa-glx libxkbcommon0
+sudo apt install -y libvulkan1 libgl1-mesa-glx libxkbcommon0
 
 # Fedora
-sudo dnf install -y SDL2 vulkan-loader mesa-libGL libxkbcommon
+sudo dnf install -y vulkan-loader mesa-libGL libxkbcommon
 ```
 
 ### 4. Install 32-bit Support (for 32-bit games)
@@ -147,7 +149,7 @@ rm ~/.local/share/icons/hicolor/256x256/apps/teknoparrot.png
 
 ## Input Device Permissions (Guns, Mice, Keyboards)
 
-Gamepads always work out of the box (SDL2). For **light guns, mice and
+Gamepads use SDL3 without `/dev/input` permission setup. For **light guns, mice and
 keyboards** in gun games there are three tiers:
 
 ### Tier 1 — Zero setup (X11 fallback, automatic)
@@ -182,7 +184,7 @@ Verify with: `dotnet run --project Tools/InputMethodAudit -- evdev-test`
 ## First-Run Checklist
 
 - [ ] Wine installed and working: `wine --version`
-- [ ] SDL2 installed: `pkg-config --modversion SDL2`
+- [ ] SDL3 backend status shows a loaded library in Controller Setup
 - [ ] Game `.exe` files accessible and readable
 - [ ] TeknoParrotUI built: `dotnet build`
 - [ ] Test with CLI mode first (see below)

@@ -322,7 +322,7 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                 return null;
 
             if (button.SdlControl != SdlControlKind.None)
-                return InputListening.Gamepad.SDL2GamepadBackend.GetRawState(index).IsPressed(button);
+                return InputListening.Gamepad.SDL3GamepadBackend.GetRawState(index).IsPressed(button);
 
             if (button.IsLeftTrigger)
                 return state.Gamepad.LeftTrigger != 0;

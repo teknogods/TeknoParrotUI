@@ -248,9 +248,8 @@ namespace TeknoParrotUi.Common.GameLaunch
             }
 
             // --- input listening ---
-            // Platform-aware: legacy Windows listeners for DirectInput/XInput/RawInput,
-            // SDL2 gamepad everywhere else (and when SDL2 is selected explicitly).
-            // Gun games get a mouse listener alongside SDL2 (RawInput on Windows, evdev on Linux).
+            // Gamepads use SDL3 on desktop and native controller events on
+            // Android. Gun games also get the platform mouse/touch listener.
             _inputListeners.Start(_profile, _profile.JoystickButtons, _inputApi);
 
             LogInputSetup();
@@ -297,14 +296,18 @@ namespace TeknoParrotUi.Common.GameLaunch
         /// <summary>
         /// Logs the input setup and warns when the game has no bindings the
         /// active listeners can read — the #1 cause of "controls don't work".
-        /// Input is always merged: gamepads via SDL2 (XInputButton bindings),
-        /// keyboard/mouse/guns via RawInput; the saved Input API only selects
+        /// Input is always merged: gamepads via SDL3 or Android native events
+        /// (XInputButton bindings), plus platform keyboard/mouse/gun input.
+        /// The saved Input API only selects
         /// the gun flavour (RawInput vs Trackball).
         /// </summary>
         private void LogInputSetup()
         {
             bool trackball = _inputApi == InputApi.RawInputTrackball;
-            OutputReceived?.Invoke($"Input: SDL2 gamepads + RawInput keyboard/mouse{(trackball ? " + trackball" : "")} (merged)");
+            var gamepads = OperatingSystem.IsAndroid() ? "Android gamepads" : "SDL3 gamepads";
+            var pointers = OperatingSystem.IsWindows() ? "RawInput keyboard/mouse" :
+                           OperatingSystem.IsAndroid() ? "touch/keyboard" : "evdev keyboard/mouse";
+            OutputReceived?.Invoke($"Input: {gamepads} + {pointers}{(trackball ? " + trackball" : "")} (merged)");
 
             // Linux: /dev/input readability is per-device — vendor udev ACLs can
             // make mice work while keyboards silently don't. Say so loudly,

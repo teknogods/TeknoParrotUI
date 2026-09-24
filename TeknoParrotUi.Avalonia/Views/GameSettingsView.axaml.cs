@@ -798,8 +798,8 @@ public partial class GameSettingsView : UserControl
                 var selected = field.FieldValue;
                 if (field.FieldName == "Input API")
                 {
-                    // Input is always merged (SDL2 gamepads + RawInput keyboard/
-                    // mouse) — no input-system selection anymore. The dropdown
+                    // Input is always merged (gamepads + platform keyboard/
+                    // pointer input) — no input-system selection anymore. The dropdown
                     // survives only as a gun-flavour picker for games offering
                     // both RawInput and RawInputTrackball.
                     var gunOptions = options.FindAll(o => o is "RawInput" or "RawInputTrackball");

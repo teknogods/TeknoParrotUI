@@ -196,6 +196,12 @@ else
     echo -e "${GREEN}Moved $MOVED_COUNT dependency file(s) into libs/${NC}"
 fi
 
+# The SDL3 native runtime is explicit content so both framework-dependent and
+# single-file publishes carry the same known-good library for Steam Deck/Linux.
+if [ ! -s "$OUTPUT_DIR/Native/SDL3/linux-x64/libSDL3.so" ]; then
+    error_exit "Linux publish is missing its SDL3 gamepad runtime in Native/SDL3/linux-x64/"
+fi
+
 # Copy Linux-specific assets (icon and desktop file)
 echo -e "${CYAN}Adding Linux desktop integration...${NC}"
 ASSETS_DIR="$SCRIPT_DIR/TeknoParrotUi.Avalonia/Assets"

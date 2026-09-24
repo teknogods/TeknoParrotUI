@@ -1,5 +1,9 @@
 # Cross-Platform Input Refactor Plan
 
+> Historical SDL2 implementation plan. The current gamepad runtime uses SDL3;
+> the SDL2 names below describe the original migration and any persisted
+> profile identifiers that need compatibility handling.
+
 ## Executive Summary
 
 **Goal:** Replace Windows-only input handling (SharpDX.XInput, SharpDX.DirectInput) with cross-platform SDL2 + platform-specific raw input backends. Enable TeknoParrotUI to run on Windows, Linux, and Android with unified input logic.

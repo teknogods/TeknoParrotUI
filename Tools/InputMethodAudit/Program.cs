@@ -10,7 +10,7 @@ namespace InputMethodAudit
     /// <summary>
     /// Phase 0 of the cross-platform input refactor: scans all GameProfiles/*.xml
     /// and reports the input-method distribution so we know which games need
-    /// which listeners (SDL2 gamepad, RawInput mouse, trackball, etc.).
+    /// which listeners (SDL3 gamepad, RawInput mouse, trackball, etc.).
     ///
     /// Usage: dotnet run --project Tools/InputMethodAudit [path-to-GameProfiles]
     /// </summary>
@@ -39,12 +39,18 @@ namespace InputMethodAudit
                 return RawJoystickBindingTest.Run();
             if (args.Length > 0 && args[0] == "legacy-bindings-import-test")
                 return LegacyBindingsImportTest.Run();
-            if (args.Length > 0 && args[0] == "sdl2-test")
-                return Sdl2SmokeTest.Run();
-            if (args.Length > 0 && args[0] == "sdl2-virtual-test")
-                return Sdl2VirtualGamepadTest.Run();
-            if (args.Length > 0 && args[0] == "sdl2-cycle-test")
-                return Sdl2CycleTest.Run();
+            if (args.Length > 0 && args[0] == "sdl3-profile-compat-test")
+                return Sdl3ProfileCompatibilityTest.Run();
+            if (args.Length > 0 && args[0] == "sdl3-test")
+                return Sdl3SmokeTest.Run();
+            if (args.Length > 0 && args[0] == "sdl3-virtual-test")
+                return Sdl3VirtualGamepadTest.Run();
+            if (args.Length > 0 && args[0] == "sdl3-cycle-test")
+                return Sdl3CycleTest.Run();
+            if (args.Length > 0 && args[0] == "sdl3-listener-lifecycle-test")
+                return Sdl3ListenerLifecycleTest.Run();
+            if (args.Length > 0 && args[0] == "sdl3-capacity-test")
+                return Sdl3CapacityTest.Run();
             if (args.Length > 0 && args[0] == "pipeline-test")
             {
                 if (args.Length < 2)

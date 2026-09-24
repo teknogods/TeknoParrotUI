@@ -152,7 +152,7 @@ XWayland IPC introduces **5-15ms extra latency per call** compared to native X11
 ### Known Steam Deck Quirks
 1. **Gamescope fullscreen**: XQueryPointer coordinates are screen-relative (good for gun games)
 2. **Alt-Tab or suspend**: X session may briefly stall; our thread handles this gracefully
-3. **Multiple controllers**: SDL2 gamepad backend works (not affected by our changes)
+3. **Multiple controllers**: SDL3 gamepad backend is separate from the evdev/X11 mouse permission path
 4. **Trackpad/touch**: Not exposed via X11 (separate evdev path) — OK, we only need mouse/gun
 
 ### Recommended Steam Deck Setup
@@ -256,7 +256,7 @@ sudo ./setup/install-udev-rules.sh   # Writes to /etc/udev/rules.d/
 
 - **Tier 1 (udev rule)**: Preferred, 2-5ms latency, requires one-time `sudo`
 - **Tier 2 (X11 fallback)**: Always available, 10-20ms latency, zero setup
-- **Windows**: Unchanged (SDL2 + RawInput, no impact from Linux changes)
+- **Windows**: SDL3 + RawInput; Linux permission changes do not affect it
 
 **Steam Deck specific**: Works best when user installs udev rule in Desktop Mode; fallback provides acceptable latency for casual games if not.
 

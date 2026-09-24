@@ -10,7 +10,7 @@ namespace TeknoParrotUi.Common.InputListening
     /// <summary>
     /// Cross-platform input orchestrator. Every game always runs MERGED input:
     ///
-    /// - Gamepad input: SDL2 listener, always (the only gamepad backend).
+    /// - Gamepad input: SDL3 listener, always (the only gamepad backend).
     /// - Keyboard/mouse/gun input: Win32 RawInput on Windows, always; evdev on
     ///   Linux and touch on Android for gun games.
     ///
@@ -40,13 +40,13 @@ namespace TeknoParrotUi.Common.InputListening
         public void Start(GameProfile gameProfile, List<JoystickButtons> joystickButtons, InputApi requestedApi)
         {
             Stop();
-            EffectiveApi = InputApi.SDL2; // the one and only gamepad backend
+            EffectiveApi = InputApi.SDL3; // the one and only gamepad backend
 
             // Per-game input-method availability: generated from the GameProfile,
             // or overridden by a user-provided InputProfiles/<game>.json.
             var inputProfile = InputProfileLoader.Load(gameProfile);
 
-            _listeners.Add(new SDL2JoystickListener());
+            _listeners.Add(new SDL3JoystickListener());
 
             if (OperatingSystem.IsWindows())
             {

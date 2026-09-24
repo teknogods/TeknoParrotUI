@@ -12,7 +12,7 @@ namespace TeknoParrotUi.Common.InputListening
     ///
     /// NOT handled here (state-engine mappings owned by other components):
     /// Analog*Positive/Negative (keyboard-axis ramp engine, Windows RawInput
-    /// listener only) and Rotary*Left/Right (encoder timer in the SDL2 gamepad
+    /// listener only) and Rotary*Left/Right (encoder timer in the SDL3 gamepad
     /// mapper).
     /// </summary>
     public static class MappingDispatch

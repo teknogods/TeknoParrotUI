@@ -72,6 +72,11 @@ if (Test-Path (Join-Path $OutputDir 'runtimes')) {
     Remove-Item (Join-Path $OutputDir 'runtimes') -Recurse -Force
 }
 
+$sdl3Runtime = Join-Path $OutputDir 'Native\SDL3\win-x64\SDL3.dll'
+if (-not (Test-Path -LiteralPath $sdl3Runtime -PathType Leaf)) {
+    throw "The Windows publish is missing its SDL3 gamepad runtime: $sdl3Runtime"
+}
+
 Write-Host "Moved $($moved.Count) dependency file(s) into libs\" -ForegroundColor Green
 
 $exe = Join-Path $OutputDir 'TeknoParrotUi.exe'

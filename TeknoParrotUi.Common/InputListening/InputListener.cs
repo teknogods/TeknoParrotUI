@@ -8,10 +8,10 @@ namespace TeknoParrotUi.Common
 {
     /// <summary>
     /// Windows gun/mouse/keyboard listener host (RawInput + RawInputTrackball).
-    /// Gamepad input is handled exclusively by the SDL2 listener on all
+    /// Gamepad input is handled exclusively by the SDL3 listener on all
     /// platforms — the old XInput/DirectInput polling paths are gone.
     /// For MergedInput selections this starts whichever RawInput flavours the
-    /// game's Input API options declare (the SDL2 gamepad listener runs
+    /// game's Input API options declare (the SDL3 gamepad listener runs
     /// alongside, started separately by <see cref="InputListening.InputListenersManager"/>).
     /// </summary>
     public class InputListener
@@ -65,7 +65,7 @@ namespace TeknoParrotUi.Common
                 {
                     // Merged (default for every game): keyboard, mouse and gun
                     // input all through the RawInput listener. Gamepads run in
-                    // the SDL2 listener alongside (started by the manager).
+                    // the SDL3 listener alongside (started by the manager).
                     _mergedIncludesRawInput = true;
                     _mergedIncludesRawInputTrackball = false;
 

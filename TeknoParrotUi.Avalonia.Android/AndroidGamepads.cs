@@ -36,9 +36,9 @@ internal static class AndroidGamepads
 
     public static void Refresh()
     {
-        var devices = new List<SDL2GamepadBackend.PlatformGamepadDevice>();
+        var devices = new List<SDL3GamepadBackend.PlatformGamepadDevice>();
         var liveIds = new HashSet<int>();
-        foreach (var deviceId in InputDevice.GetDeviceIds())
+        foreach (var deviceId in InputDevice.GetDeviceIds() ?? Array.Empty<int>())
         {
             var device = InputDevice.GetDevice(deviceId);
             if (device == null) continue;
@@ -46,14 +46,14 @@ internal static class AndroidGamepads
             if (!IsController(device)) continue;
 
             var rest = new short[64];
-            foreach (var range in device.MotionRanges)
+            foreach (var range in device.MotionRanges ?? Array.Empty<InputDevice.MotionRange>())
             {
                 if (!IsControllerRange(range)) continue;
                 var axis = (int)range.Axis;
                 if (axis >= 0 && axis < rest.Length && range.Min >= 0 && range.Max > range.Min)
                     rest[axis] = short.MinValue;
             }
-            devices.Add(new SDL2GamepadBackend.PlatformGamepadDevice(
+            devices.Add(new SDL3GamepadBackend.PlatformGamepadDevice(
                 deviceId, device.Name ?? "Android controller", rest));
         }
         ButtonOnlyDevices.IntersectWith(liveIds);
@@ -61,7 +61,7 @@ internal static class AndroidGamepads
             if (!liveIds.Contains(id)) KeyButtons.Remove(id);
         foreach (var id in new List<int>(HatButtons.Keys))
             if (!liveIds.Contains(id)) HatButtons.Remove(id);
-        SDL2GamepadBackend.UpdatePlatformDevices(devices);
+        SDL3GamepadBackend.UpdatePlatformDevices(devices);
     }
 
     public static void OnKey(KeyEvent keyEvent)
@@ -77,38 +77,38 @@ internal static class AndroidGamepads
                 return;
             ButtonOnlyDevices.Add(device.Id);
         }
-        if (!SDL2GamepadBackend.HasPlatformDevice(device.Id)) Refresh();
-        if (!SDL2GamepadBackend.HasPlatformDevice(device.Id)) return;
+        if (!SDL3GamepadBackend.HasPlatformDevice(device.Id)) Refresh();
+        if (!SDL3GamepadBackend.HasPlatformDevice(device.Id)) return;
 
         var pressed = keyEvent.Action == KeyEventActions.Down;
-        SDL2GamepadBackend.UpdatePlatformButton(device.Id, (int)keyEvent.KeyCode, pressed);
+        SDL3GamepadBackend.UpdatePlatformButton(device.Id, (int)keyEvent.KeyCode, pressed);
         if (flag == GamepadButtonFlags.None) return;
         KeyButtons.TryGetValue(device.Id, out var keyFlags);
         keyFlags = pressed ? keyFlags | flag : keyFlags & ~flag;
         KeyButtons[device.Id] = keyFlags;
         HatButtons.TryGetValue(device.Id, out var hatFlags);
-        var gamepad = SDL2GamepadBackend.GetPlatformGamepad(device.Id);
+        var gamepad = SDL3GamepadBackend.GetPlatformGamepad(device.Id);
         gamepad.Buttons = keyFlags | hatFlags;
-        SDL2GamepadBackend.UpdatePlatformGamepad(device.Id, gamepad);
+        SDL3GamepadBackend.UpdatePlatformGamepad(device.Id, gamepad);
     }
 
     public static void OnMotion(MotionEvent motionEvent)
     {
         var device = motionEvent.Device;
-        if (!IsController(device) || motionEvent.ActionMasked != MotionEventActions.Move)
+        if (device is null || !IsController(device) || motionEvent.ActionMasked != MotionEventActions.Move)
             return;
-        if (!SDL2GamepadBackend.HasPlatformDevice(device!.Id)) Refresh();
-        if (!SDL2GamepadBackend.HasPlatformDevice(device.Id)) return;
+        if (!SDL3GamepadBackend.HasPlatformDevice(device.Id)) Refresh();
+        if (!SDL3GamepadBackend.HasPlatformDevice(device.Id)) return;
 
-        var gamepad = SDL2GamepadBackend.GetPlatformGamepad(device.Id);
-        foreach (var range in device.MotionRanges)
+        var gamepad = SDL3GamepadBackend.GetPlatformGamepad(device.Id);
+        foreach (var range in device.MotionRanges ?? Array.Empty<InputDevice.MotionRange>())
         {
             if (!IsControllerRange(range) || range.Max <= range.Min) continue;
             var axis = (int)range.Axis;
             if (axis < 0 || axis >= 64) continue;
             var value = motionEvent.GetAxisValue(range.Axis);
             var scaled = (value - range.Min) / (range.Max - range.Min) * 65535f - 32768f;
-            SDL2GamepadBackend.UpdatePlatformAxis(device.Id, axis,
+            SDL3GamepadBackend.UpdatePlatformAxis(device.Id, axis,
                 (short)Math.Clamp((int)Math.Round(scaled), short.MinValue, short.MaxValue));
 
             switch (range.Axis)
@@ -137,6 +137,6 @@ internal static class AndroidGamepads
         HatButtons[device.Id] = hat;
         KeyButtons.TryGetValue(device.Id, out var keyButtons);
         gamepad.Buttons = keyButtons | hat;
-        SDL2GamepadBackend.UpdatePlatformGamepad(device.Id, gamepad);
+        SDL3GamepadBackend.UpdatePlatformGamepad(device.Id, gamepad);
     }
 }

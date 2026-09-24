@@ -11,7 +11,7 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
             {
                 if (button.SdlControl == SdlControlKind.Axis)
                     return JvsHelper.CalculateGasPos(32767 +
-                        InputListening.Gamepad.SDL2GamepadBackend.GetRawState(button.XInputIndex).Axis(button.SdlControlIndex), true, false);
+                        InputListening.Gamepad.SDL3GamepadBackend.GetRawState(button.XInputIndex).Axis(button.SdlControlIndex), true, false);
                 return DigitalHelper.GetButtonPressXinput(button, state, button.XInputIndex) == true ? (byte)255 : (byte)0;
             }
             if (button.IsButton)
@@ -51,7 +51,7 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
             {
                 if (button.SdlControl == SdlControlKind.Axis)
                     return JvsHelper.CalculateGasPos(
-                        InputListening.Gamepad.SDL2GamepadBackend.GetRawState(button.XInputIndex).Axis(button.SdlControlIndex),
+                        InputListening.Gamepad.SDL3GamepadBackend.GetRawState(button.XInputIndex).Axis(button.SdlControlIndex),
                         true, false, minVal, maxVal);
                 return DigitalHelper.GetButtonPressXinput(button, state, button.XInputIndex) == true ? maxVal : minVal;
             }
@@ -144,7 +144,7 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
 
             if (button.SdlControl == SdlControlKind.Axis)
             {
-                var value = InputListening.Gamepad.SDL2GamepadBackend.GetRawState(button.XInputIndex).Axis(button.SdlControlIndex);
+                var value = InputListening.Gamepad.SDL3GamepadBackend.GetRawState(button.XInputIndex).Axis(button.SdlControlIndex);
                 return useSto0Z ? JvsHelper.CalculateSto0ZWheelPos(value, stoozPercent, true) :
                     JvsHelper.CalculateWheelPos(value, true, false, minValWheel, maxValWheel);
             }

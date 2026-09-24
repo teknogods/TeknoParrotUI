@@ -92,7 +92,7 @@ sudo usermod -aG input $USER
 
 ### ❌ Not Supported
 - Wayland without XWayland (theoretical; Wine won't run)
-- Windows (not affected; SDL2 + RawInput unchanged)
+- Windows (not affected by Linux input permissions; SDL3 + RawInput)
 - macOS (not affected; not a target platform)
 
 ---

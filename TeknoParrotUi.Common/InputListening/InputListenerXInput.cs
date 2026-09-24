@@ -96,7 +96,7 @@ namespace TeknoParrotUi.Common.InputListening
                 return;
             try
             {
-                // SDL2 is the only gamepad backend (all platforms); it presents
+                // SDL3 is the only gamepad backend (all platforms); it presents
                 // XInput-shaped state so this game-mapping logic runs unchanged.
                 var controller = source;
                 if (!controller.IsConnected)
@@ -441,7 +441,7 @@ namespace TeknoParrotUi.Common.InputListening
         /// Session teardown (the classic KillMe cleanup): stops the static
         /// relative-aim/encoder timers, unhooks the session's handlers and
         /// resets the shared static ramp state so the next run starts clean.
-        /// Called by <see cref="Gamepad.SDL2JoystickListener.Stop"/>.
+        /// Called by <see cref="Gamepad.SDL3JoystickListener.Stop"/>.
         /// </summary>
         public static void StopTimers()
         {

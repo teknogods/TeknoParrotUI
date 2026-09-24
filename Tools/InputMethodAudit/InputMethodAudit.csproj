@@ -13,4 +13,5 @@
     <Compile Include="..\..\TeknoParrotUi.AndroidBridge\WinlatorSessionContract.cs"
              Link="AndroidBridge\WinlatorSessionContract.cs" />
   </ItemGroup>
+  <Import Project="..\..\TeknoParrotUi.Common\Native\SDL3\SDL3.Native.targets" />
 </Project>

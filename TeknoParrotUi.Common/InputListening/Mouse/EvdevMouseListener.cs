@@ -99,7 +99,7 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
             // Merged always: this listener runs for every game, but gun analog
             // writes (centering + aim) must only happen for games that actually
             // have light-gun mappings — otherwise mouse movement would fight the
-            // SDL2 gamepad listener over the same analog bytes (wheel games etc).
+            // SDL3 gamepad listener over the same analog bytes (wheel games etc).
             _isGunGame = _gunMappings.Count > 0 || gameProfile.GunGame;
 
             if (_isGunGame)
@@ -314,7 +314,7 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
                     if (moved)
                     {
                         // Aim analog writes only for gun games — in other games
-                        // the SDL2 listener owns the analog bytes.
+                        // the SDL3 listener owns the analog bytes.
                         if (_isGunGame)
                             UpdateGunPosition(player, posX / CanvasWidth, posY / CanvasHeight);
                         moved = false;

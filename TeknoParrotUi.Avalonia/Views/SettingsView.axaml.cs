@@ -228,13 +228,13 @@ public partial class SettingsView : UserControl
                 return;
             }
 
-            SDL2GamepadBackend.Acquire();
+            SDL3GamepadBackend.Acquire();
             try
             {
                 await Task.Delay(350); // Allow the first SDL enumeration to finish.
-                var devices = Enumerable.Range(0, SDL2GamepadBackend.MaxSlots)
-                    .Where(SDL2GamepadBackend.IsConnected)
-                    .Select(i => (Slot: i, Name: SDL2GamepadBackend.GetDeviceName(i) ?? "Joystick"))
+                var devices = Enumerable.Range(0, SDL3GamepadBackend.MaxSlots)
+                    .Where(SDL3GamepadBackend.IsConnected)
+                    .Select(i => (Slot: i, Name: SDL3GamepadBackend.GetDeviceName(i) ?? "Joystick"))
                     .ToList();
                 var choices = new Dictionary<Guid, ComboBox>();
                 var panel = new StackPanel { Spacing = 8, Margin = new Thickness(16) };
@@ -282,8 +282,8 @@ public partial class SettingsView : UserControl
                 {
                     var index = combo.SelectedIndex - 1;
                     if (index >= 0 && index < devices.Count &&
-                        SDL2GamepadBackend.IsConnected(devices[index].Slot) &&
-                        (SDL2GamepadBackend.GetDeviceName(devices[index].Slot) ?? "Joystick") == devices[index].Name)
+                        SDL3GamepadBackend.IsConnected(devices[index].Slot) &&
+                        (SDL3GamepadBackend.GetDeviceName(devices[index].Slot) ?? "Joystick") == devices[index].Name)
                         selected[guid] = devices[index].Slot;
                 }
                 var result = LegacyBindingsImporter.Import(preview, GameProfileLoader.GameProfiles, selected);
@@ -292,7 +292,7 @@ public partial class SettingsView : UserControl
                     $"Matched {result.ProfilesMatched} games; saved {result.ProfilesSaved}. Imported {result.GamepadBindings} XInput, {result.DirectInputBindings} DirectInput, and {result.PointerBindings} RawInput bindings. Skipped {result.Skipped}." +
                     (result.Warnings.Count > 0 ? "\n\n" + string.Join("\n", result.Warnings.Take(15)) : ""));
             }
-            finally { SDL2GamepadBackend.Release(); }
+            finally { SDL3GamepadBackend.Release(); }
         }
         catch (Exception ex)
         {

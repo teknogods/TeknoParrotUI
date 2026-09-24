@@ -46,4 +46,5 @@
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+  <Import Project="..\TeknoParrotUi.Common\Native\SDL3\SDL3.Native.targets" />
 </Project>

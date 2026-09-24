@@ -16,7 +16,7 @@ namespace InputMethodAudit
     {
         public static int Run(string profilesDir)
         {
-            int total = 0, failures = 0, gunDefaults = 0, sdl2Defaults = 0, trackballDefaults = 0;
+            int total = 0, failures = 0, gunDefaults = 0, sdl3Defaults = 0, trackballDefaults = 0;
 
             foreach (var file in Directory.GetFiles(profilesDir, "*.xml").OrderBy(f => f))
             {
@@ -39,7 +39,7 @@ namespace InputMethodAudit
                 {
                     case InputProfile.Methods.RawInput: gunDefaults++; break;
                     case InputProfile.Methods.RawInputTrackball: trackballDefaults++; break;
-                    case InputProfile.Methods.SDL2Gamepad: sdl2Defaults++; break;
+                    case InputProfile.Methods.SDL3Gamepad: sdl3Defaults++; break;
                 }
             }
 
@@ -59,7 +59,7 @@ namespace InputMethodAudit
                 if (!ok) failures++;
             }
 
-            Console.WriteLine($"\nGenerated {total} input profiles: {sdl2Defaults} default SDL2Gamepad, " +
+            Console.WriteLine($"\nGenerated {total} input profiles: {sdl3Defaults} default SDL3Gamepad, " +
                               $"{gunDefaults} default RawInput, {trackballDefaults} default Trackball, {failures} failures");
             return failures == 0 ? 0 : 1;
         }
@@ -70,8 +70,8 @@ namespace InputMethodAudit
 
             if (profile.GameProfileName != game.ProfileName)
                 errors.Add("GameProfileName mismatch");
-            if (!profile.InputMethods.TryGetValue(InputProfile.Methods.SDL2Gamepad, out var sdl2) || !sdl2.Enabled)
-                errors.Add("SDL2Gamepad must always be enabled");
+            if (!profile.InputMethods.TryGetValue(InputProfile.Methods.SDL3Gamepad, out var sdl3) || !sdl3.Enabled)
+                errors.Add("SDL3Gamepad must always be enabled");
             if (string.IsNullOrEmpty(profile.DefaultInputMethod) || !profile.InputMethods.ContainsKey(profile.DefaultInputMethod))
                 errors.Add($"DefaultInputMethod '{profile.DefaultInputMethod}' not in InputMethods");
 

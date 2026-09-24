@@ -69,7 +69,7 @@ public partial class JoystickSetupView : UserControl
         var apiField = profile.ConfigValues.FirstOrDefault(c => c.FieldName == "Input API");
         var savedValue = apiField?.FieldValue;
 
-        // Input is always merged: SDL2 gamepads + RawInput keyboard/mouse.
+        // Input is always merged: gamepads + platform keyboard/mouse input.
         // The saved Input API only selects the gun flavour for games that
         // offer trackball input.
         _api = InputApi.MergedInput;
@@ -110,7 +110,8 @@ public partial class JoystickSetupView : UserControl
         }
 
         StopCapture();
-        // Always merged: SDL2 for controllers, RawInput for keyboards and mice
+        // Always merged: SDL3 controllers on desktop (native on Android),
+        // plus the platform keyboard and pointer listener.
         _capture.Start(InputApi.MergedInput);
         _rawCapture.Start(registerKeyboard: true);
         RefreshDeviceText();
@@ -120,12 +121,12 @@ public partial class JoystickSetupView : UserControl
     private void RefreshDeviceText()
     {
         if (OperatingSystem.IsAndroid())
-            TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.PlatformDeviceRefresh?.Invoke();
+            TeknoParrotUi.Common.InputListening.Gamepad.SDL3GamepadBackend.PlatformDeviceRefresh?.Invoke();
         var controllers = _capture.GetConnectedDevices();
         var pointers = _rawCapture.GetMouseDeviceList();
         DeviceText.Text = $"Controllers: {(controllers.Count == 0 ? "none detected" : string.Join(", ", controllers))}" +
                           $"  ·  Pointer devices: {(pointers.Count == 0 ? "none detected" : string.Join(", ", pointers))}" +
-                          $"  ·  {TeknoParrotUi.Common.InputListening.Gamepad.SDL2GamepadBackend.BackendStatus}";
+                          $"  ·  {TeknoParrotUi.Common.InputListening.Gamepad.SDL3GamepadBackend.BackendStatus}";
         if (OperatingSystem.IsLinux() && controllers.Count == 0)
             DeviceText.Text += "  ·  Steam Deck Desktop Mode: choose a gamepad controller layout or launch TPUI through Steam.";
     }
@@ -179,7 +180,7 @@ public partial class JoystickSetupView : UserControl
 
     private string CurrentBindName(JoystickButtons b) => _api switch
     {
-        InputApi.SDL2 => b.BindNameXi ?? b.BindName ?? "",
+        InputApi.SDL3 => b.BindNameXi ?? b.BindName ?? "",
         InputApi.RawInput or InputApi.RawInputTrackball => b.BindNameRi ?? b.BindName ?? "",
         _ => b.BindName ?? ""
     };
@@ -332,9 +333,9 @@ public partial class JoystickSetupView : UserControl
 
         switch (_api)
         {
-            case InputApi.SDL2 when captured.XInput != null:
+            case InputApi.SDL3 when captured.XInput != null:
             case InputApi.MergedInput when captured.XInput != null:
-                // SDL2 capture produces XInput-shaped bindings (shared storage).
+                // Gamepad capture produces XInput-shaped bindings (shared storage).
                 // One binding per row: the controller binding replaces any
                 // keyboard/mouse binding so the two listeners never fight.
                 _armedBinding.XInputButton = captured.XInput;
@@ -387,7 +388,7 @@ public partial class JoystickSetupView : UserControl
     {
         switch (_api)
         {
-            case InputApi.SDL2:
+            case InputApi.SDL3:
                 binding.XInputButton = null;
                 binding.BindNameXi = null;
                 break;

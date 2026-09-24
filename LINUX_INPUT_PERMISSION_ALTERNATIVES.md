@@ -2,9 +2,9 @@
 
 > **STATUS (2026-07-12): EXECUTED.** See "Implemented Solution" at the bottom.
 > Shipped: udev `uaccess` rule + installer (`setup/`) **and** a zero-setup X11
-> fallback (`X11FallbackInputListener`). SDL2/SDL3 migration was rejected —
-> analysis kept below for the record. SDL2 stays as the gamepad backend on all
-> platforms; Windows input is unchanged.
+> fallback (`X11FallbackInputListener`). The rejected proposal below was to
+> replace cross-process mouse/keyboard capture with SDL; the gamepad backend
+> has since migrated from SDL2 to SDL3. The historical analysis remains below.
 
 ## Current Issue
 - **Root cause:** Direct `/dev/input/event*` access via evdev requires:
