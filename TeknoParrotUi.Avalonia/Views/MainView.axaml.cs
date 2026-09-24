@@ -51,6 +51,8 @@ public partial class MainView : UserControl
     private bool _androidLaunchPreflightBusy;
     private readonly System.Threading.CancellationTokenSource _announcementCancellation = new();
     private bool _announcementChecked;
+    private bool _newsShowing;
+    private bool _newsLoading;
 
     private static bool WizardActive => !Lazydata.ParrotData.FirstTimeSetupComplete;
 
@@ -300,7 +302,7 @@ public partial class MainView : UserControl
 
     private async System.Threading.Tasks.Task CheckForAnnouncementAsync()
     {
-        if (_announcementChecked || OperatingSystem.IsAndroid() ||
+        if (_announcementChecked ||
             !AnnouncementService.ShouldCheckAtStartup(
                 Environment.GetCommandLineArgs(), System.Diagnostics.Debugger.IsAttached))
             return;
@@ -311,12 +313,48 @@ public partial class MainView : UserControl
                 Lazydata.ParrotData.AnnouncementSourceUrl,
                 Lazydata.ParrotData.LastAnnouncementContent,
                 _announcementCancellation.Token);
-            if (announcement == null || _announcementCancellation.IsCancellationRequested ||
-                TopLevel.GetTopLevel(this) is not Window owner)
+            if (announcement == null || _announcementCancellation.IsCancellationRequested)
                 return;
+            await ShowAnnouncementAsync(announcement);
+        }
+        catch (Exception error)
+        {
+            System.Diagnostics.Debug.WriteLine($"Failed to show announcement: {error.Message}");
+        }
+    }
 
-            var dialog = new AnnouncementWindow(announcement.PageUrl, IsPatreon());
-            dialog.Opened += (_, _) =>
+    private async System.Threading.Tasks.Task ShowLatestNewsAsync()
+    {
+        if (_newsLoading || _newsShowing)
+            return;
+        _newsLoading = true;
+        try
+        {
+            var announcement = await AnnouncementService.CheckAsync(
+                Lazydata.ParrotData.AnnouncementSourceUrl, "", _announcementCancellation.Token);
+            if (announcement == null)
+            {
+                StatusBar.Text = Loc.T("AnnouncementLoadError", "Could not load the announcement.");
+                return;
+            }
+            await ShowAnnouncementAsync(announcement);
+        }
+        catch (Exception error)
+        {
+            StatusBar.Text = Loc.T("AnnouncementLoadError", "Could not load the announcement.");
+            System.Diagnostics.Debug.WriteLine($"Failed to show news: {error.Message}");
+        }
+        finally { _newsLoading = false; }
+    }
+
+    private async System.Threading.Tasks.Task ShowAnnouncementAsync(Announcement announcement)
+    {
+        if (_newsShowing)
+            return;
+        _newsShowing = true;
+        try
+        {
+            void RememberAnnouncement()
             {
                 var previous = Lazydata.ParrotData.LastAnnouncementContent;
                 Lazydata.ParrotData.LastAnnouncementContent = announcement.Content;
@@ -326,13 +364,37 @@ public partial class MainView : UserControl
                     Lazydata.ParrotData.LastAnnouncementContent = previous;
                     System.Diagnostics.Debug.WriteLine($"Failed to save announcement: {error.Message}");
                 }
-            };
-            await dialog.ShowDialog(owner);
+            }
+
+            if (TopLevel.GetTopLevel(this) is Window owner)
+            {
+                var dialog = new AnnouncementWindow(announcement.PageUrl, IsPatreon());
+                dialog.Opened += (_, _) => RememberAnnouncement();
+                await dialog.ShowDialog(owner);
+            }
+            else
+            {
+                // Android has a single-view lifetime: show the same news page
+                // inside the shell and restore the previous page when closed.
+                var previous = ContentHost.Content;
+                var previousTitle = PageTitle.Text;
+                var news = new AnnouncementView(announcement.PageUrl, IsPatreon());
+                var closed = new System.Threading.Tasks.TaskCompletionSource(
+                    System.Threading.Tasks.TaskCreationOptions.RunContinuationsAsynchronously);
+                news.AttachedToVisualTree += (_, _) => RememberAnnouncement();
+                news.CloseRequested += (_, _) => closed.TrySetResult();
+                news.DetachedFromVisualTree += (_, _) => closed.TrySetResult();
+                PageTitle.Text = Loc.T("AnnouncementTitle", "TeknoParrot News");
+                ContentHost.Content = news;
+                await closed.Task;
+                if (ReferenceEquals(ContentHost.Content, news))
+                {
+                    ContentHost.Content = previous;
+                    PageTitle.Text = previousTitle;
+                }
+            }
         }
-        catch (Exception error)
-        {
-            System.Diagnostics.Debug.WriteLine($"Failed to show announcement: {error.Message}");
-        }
+        finally { _newsShowing = false; }
     }
 
     private bool TryResumeActivePlatformSession()
@@ -1055,6 +1117,7 @@ public partial class MainView : UserControl
         // Localized navigation labels (classic translation keys) — icons are
         // fixed PathIcons in XAML; only the text is localized.
         NavLibraryText.Text = Loc.T("MainLibrary", "Library");
+        NavNewsText.Text = Loc.T("AnnouncementTitle", "TeknoParrot News");
         NavOnlineText.Text = OperatingSystem.IsAndroid()
             ? Loc.T("MainTPOnlineDisabledAndroid", "TP Online (Disabled)")
             : Loc.T("MainTPOnlineNew", "TeknoParrot Online");
@@ -1131,7 +1194,7 @@ public partial class MainView : UserControl
 
     private void SetActiveNav(Button active)
     {
-        foreach (var button in new[] { NavLibrary, NavOnline, NavUpdates, NavMods, NavSubscription, NavAccount, NavSettings, NavUiOptions, NavAbout, NavLinuxSetup, NavTroubleshooting })
+        foreach (var button in new[] { NavLibrary, NavNews, NavOnline, NavUpdates, NavMods, NavSubscription, NavAccount, NavSettings, NavUiOptions, NavAbout, NavLinuxSetup, NavTroubleshooting })
             button.Classes.Remove("active");
         active.Classes.Add("active");
     }
@@ -1142,6 +1205,12 @@ public partial class MainView : UserControl
     private void NavLibrary_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
         ShowLibrary();
+    }
+
+    private async void NavNews_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        Sidebar.IsVisible = false;
+        await ShowLatestNewsAsync();
     }
 
     private void NavOnline_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)

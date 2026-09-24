@@ -1,34 +1,8 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:TeknoParrotUi.Avalonia.Views"
         x:Class="TeknoParrotUi.Avalonia.Views.AnnouncementWindow"
         Width="1120" Height="820" MinWidth="760" MinHeight="540"
         WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
-    <Grid RowDefinitions="Auto,*,Auto">
-        <TextBlock Name="Heading" Margin="20,14" FontSize="18" FontWeight="SemiBold" />
-        <Grid Grid.Row="1" Margin="20,0,20,0">
-            <NativeWebView Name="Browser"
-                           NavigationStarted="Browser_NavigationStarted"
-                           NavigationCompleted="Browser_NavigationCompleted"
-                           NewWindowRequested="Browser_NewWindowRequested" />
-            <Border Name="MessagePanel" Background="{DynamicResource TpSurface2}" IsVisible="False">
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"
-                            MaxWidth="520" Spacing="14" Margin="20">
-                    <TextBlock Name="MessageText" TextWrapping="Wrap" TextAlignment="Center" />
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
-                        <Button Name="RetryButton" Click="Retry_Click" />
-                        <Button Name="OpenBrowserButton" Click="OpenBrowser_Click" />
-                    </StackPanel>
-                </StackPanel>
-            </Border>
-        </Grid>
-        <Grid Grid.Row="2" Margin="20,16,20,20" ColumnDefinitions="*,Auto,Auto,Auto">
-            <StackPanel Name="SupportPanel" Grid.Column="0" Spacing="4" VerticalAlignment="Center">
-                <TextBlock Name="SupportTitle" FontWeight="Bold" />
-                <TextBlock Name="SupportDescription" TextWrapping="Wrap" />
-            </StackPanel>
-            <Button Name="CloseButton" Grid.Column="1" Margin="8,0" Click="Close_Click" />
-            <Button Name="SubscribeButton" Grid.Column="2" Margin="8,0" Click="Subscribe_Click" />
-            <Button Name="ExternalButton" Grid.Column="3" Margin="8,0" Click="OpenBrowser_Click" />
-        </Grid>
-    </Grid>
+    <views:AnnouncementView Name="NewsContent" />
 </Window>

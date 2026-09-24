@@ -50,6 +50,12 @@
                         <TextBlock Name="NavLibraryText" Text="Library" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
+                <Button Name="NavNews" Classes="nav" Click="NavNews_Click">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <PathIcon Data="{StaticResource IconInfo}" Width="16" Height="16" />
+                        <TextBlock Name="NavNewsText" Text="News" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
                 <Button Name="NavOnline" Classes="nav" Click="NavOnline_Click">
                     <StackPanel Orientation="Horizontal" Spacing="10">
                         <PathIcon Data="{StaticResource IconGlobe}" Width="16" Height="16" />
