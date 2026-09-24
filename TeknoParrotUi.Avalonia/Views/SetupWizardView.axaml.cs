@@ -42,14 +42,8 @@ public partial class SetupWizardView : UserControl
         InitializeComponent();
         if (OperatingSystem.IsAndroid())
         {
-            NavigationActions.Orientation = Orientation.Vertical;
-            NavigationActions.HorizontalAlignment = HorizontalAlignment.Stretch;
             foreach (var button in new[] { BtnBack, BtnSkip, BtnNext })
-            {
-                button.Width = double.NaN;
                 button.MinHeight = 48;
-                button.HorizontalAlignment = HorizontalAlignment.Stretch;
-            }
             ControlsDescription.Text =
                 "Every imported game receives a tested on-screen layout. Select a game in the Library and tap Set Up Controls to move its controls or bind a physical controller.";
             BtnOpenButtonConfig.IsVisible = false;

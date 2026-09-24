@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
@@ -193,27 +194,28 @@ public partial class SettingsView : UserControl
 
     private async void BtnImportLegacyBindings_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
-        if (TopLevel.GetTopLevel(this) is not Window owner) return;
-        var folders = await owner.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
+        if (TopLevel.GetTopLevel(this) is not { } top) return;
+        var owner = top as Window;
+        var folders = await top.StorageProvider.OpenFolderPickerAsync(new FolderPickerOpenOptions
         {
             Title = "Select a TeknoParrotUI 1.0 installation or UserProfiles folder",
             AllowMultiple = false
         });
-        var folder = folders.FirstOrDefault()?.TryGetLocalPath();
-        if (folder == null)
-        {
-            if (folders.Count > 0)
-                await Services.Dialogs.InfoAsync(owner, "Import 1.0 Bindings",
-                    "This folder cannot be read as a local path. Copy the 1.0 UserProfiles folder to local storage and select it there.");
-            return;
-        }
-
+        var selectedFolder = folders.FirstOrDefault();
+        if (selectedFolder == null) return;
+        string? temporaryFolder = null;
         try
         {
+            var folder = selectedFolder.TryGetLocalPath();
+            if (OperatingSystem.IsAndroid() || folder == null)
+            {
+                temporaryFolder = await CopyLegacyProfilesAsync(selectedFolder);
+                folder = temporaryFolder;
+            }
             var preview = LegacyBindingsImporter.Scan(folder);
             if (preview.ProfileCount == 0)
             {
-                await Services.Dialogs.InfoAsync(owner, "Import 1.0 Bindings", "No game profile XML files were found in UserProfiles.");
+                await ShowImportInfoAsync(owner, "No game profile XML files were found in UserProfiles.");
                 return;
             }
 
@@ -254,13 +256,17 @@ public partial class SettingsView : UserControl
                     });
                 var importButton = new Button { Content = "Import missing bindings", HorizontalAlignment = HorizontalAlignment.Right };
                 panel.Children.Add(importButton);
-                var dialog = new Window
+                if (owner != null)
                 {
-                    Title = "Import 1.0 Button Bindings", Width = 580, Height = 480,
-                    Content = new ScrollViewer { Content = panel }
-                };
-                importButton.Click += (_, _) => dialog.Close(true);
-                if (await dialog.ShowDialog<bool>(owner) != true) return;
+                    var dialog = new Window
+                    {
+                        Title = "Import 1.0 Button Bindings", Width = 580, Height = 480,
+                        Content = new ScrollViewer { Content = panel }
+                    };
+                    importButton.Click += (_, _) => dialog.Close(true);
+                    if (await dialog.ShowDialog<bool>(owner) != true) return;
+                }
+                else if (!await ShowAndroidImportPanelAsync(panel, importButton)) return;
 
                 var selected = new Dictionary<Guid, int>();
                 foreach (var (guid, combo) in choices)
@@ -273,7 +279,7 @@ public partial class SettingsView : UserControl
                 }
                 var result = LegacyBindingsImporter.Import(preview, GameProfileLoader.GameProfiles, selected);
                 BindingsImported?.Invoke(result);
-                await Services.Dialogs.InfoAsync(owner, "Import 1.0 Bindings",
+                await ShowImportInfoAsync(owner,
                     $"Matched {result.ProfilesMatched} games; saved {result.ProfilesSaved}. Imported {result.GamepadBindings} XInput, {result.DirectInputBindings} DirectInput, and {result.PointerBindings} RawInput bindings. Skipped {result.Skipped}." +
                     (result.Warnings.Count > 0 ? "\n\n" + string.Join("\n", result.Warnings.Take(15)) : ""));
             }
@@ -281,8 +287,110 @@ public partial class SettingsView : UserControl
         }
         catch (Exception ex)
         {
-            await Services.Dialogs.InfoAsync(owner, "Import 1.0 Bindings", $"Import failed: {ex.Message}");
+            await ShowImportInfoAsync(owner, $"Import failed: {ex.Message}");
         }
+        finally
+        {
+            selectedFolder.Dispose();
+            if (temporaryFolder != null)
+                DeleteTemporaryProfiles(temporaryFolder);
+        }
+    }
+
+    private static async Task<string> CopyLegacyProfilesAsync(IStorageFolder selectedFolder)
+    {
+        var source = selectedFolder;
+        if (!selectedFolder.Name.Equals("UserProfiles", StringComparison.OrdinalIgnoreCase))
+        {
+            source = null!;
+            await foreach (var item in selectedFolder.GetItemsAsync())
+            {
+                if (source == null && item is IStorageFolder child &&
+                    child.Name.Equals("UserProfiles", StringComparison.OrdinalIgnoreCase))
+                    source = child;
+                else
+                    item.Dispose();
+            }
+            if (source == null)
+                throw new DirectoryNotFoundException("Select a 1.0 installation or its UserProfiles folder.");
+        }
+
+        var destination = Path.Combine(Path.GetTempPath(), "tpui-legacy-" + Guid.NewGuid().ToString("N"), "UserProfiles");
+        Directory.CreateDirectory(destination);
+        try
+        {
+            await foreach (var item in source.GetItemsAsync())
+            {
+                try
+                {
+                    if (item is not IStorageFile file ||
+                        !file.Name.EndsWith(".xml", StringComparison.OrdinalIgnoreCase))
+                        continue;
+                    await using var input = await file.OpenReadAsync();
+                    await using var output = File.Create(Path.Combine(destination, Path.GetFileName(file.Name)));
+                    await input.CopyToAsync(output);
+                }
+                finally { item.Dispose(); }
+            }
+            return destination;
+        }
+        catch
+        {
+            DeleteTemporaryProfiles(destination);
+            throw;
+        }
+        finally
+        {
+            if (!ReferenceEquals(source, selectedFolder)) source.Dispose();
+        }
+    }
+
+    private static void DeleteTemporaryProfiles(string folder)
+    {
+        foreach (var file in Directory.EnumerateFiles(folder))
+            File.Delete(file);
+        Directory.Delete(folder);
+        Directory.Delete(Path.GetDirectoryName(folder)!);
+    }
+
+    private async Task<bool> ShowAndroidImportPanelAsync(StackPanel panel, Button importButton)
+    {
+        var cancel = new Button { Content = "Cancel", HorizontalAlignment = HorizontalAlignment.Right };
+        panel.Children.Add(cancel);
+        var previous = Content;
+        var done = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        importButton.Click += (_, _) => done.TrySetResult(true);
+        cancel.Click += (_, _) => done.TrySetResult(false);
+        Content = new ScrollViewer { Content = panel };
+        try { return await done.Task; }
+        finally { Content = previous; }
+    }
+
+    private async Task ShowImportInfoAsync(Window? owner, string message)
+    {
+        if (owner != null)
+        {
+            await Services.Dialogs.InfoAsync(owner, "Import 1.0 Bindings", message);
+            return;
+        }
+        var ok = new Button { Content = "OK", HorizontalAlignment = HorizontalAlignment.Right };
+        var panel = new StackPanel
+        {
+            Spacing = 16,
+            Margin = new Thickness(16),
+            Children =
+            {
+                new TextBlock { Text = "Import 1.0 Bindings", FontSize = 18 },
+                new TextBlock { Text = message, TextWrapping = global::Avalonia.Media.TextWrapping.Wrap },
+                ok
+            }
+        };
+        var previous = Content;
+        var done = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+        ok.Click += (_, _) => done.TrySetResult();
+        Content = new ScrollViewer { Content = panel };
+        try { await done.Task; }
+        finally { Content = previous; }
     }
 
     private void BtnSave_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)

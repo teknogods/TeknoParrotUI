@@ -727,11 +727,9 @@ public partial class MainView : UserControl
                 done.TrySetResult();
             };
             cancel.Click += (_, _) => done.TrySetResult();
-            ContentHost.Content = new Border
-            {
-                Child = body,
-                VerticalAlignment = VerticalAlignment.Center
-            };
+            // Long component lists can exceed the Fold's landscape content area.
+            // Keep the decision buttons reachable instead of centering a clipped body.
+            ContentHost.Content = new ScrollViewer { Content = body };
             await done.Task;
             ContentHost.Content = previous;
         }
