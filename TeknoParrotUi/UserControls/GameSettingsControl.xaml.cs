@@ -202,7 +202,8 @@ namespace TeknoParrotUi.UserControls
 
         private static void PopulateViperFfbDevices(GameProfile gameProfile)
         {
-            if (gameProfile.EmulatorType != EmulatorType.TeknoViper)
+            if (gameProfile.EmulatorType != EmulatorType.TeknoViper &&
+                gameProfile.EmulatorType != EmulatorType.TeknoHDrive)
                 return;
 
             var fields = gameProfile.ConfigValues?.Where(cv =>
@@ -212,7 +213,9 @@ namespace TeknoParrotUi.UserControls
             if (fields == null || fields.Count == 0)
                 return;
 
-            var devices = ViperFfbDeviceProbe.GetDevices();
+            var devices = gameProfile.EmulatorType == EmulatorType.TeknoHDrive
+                ? ViperFfbDeviceProbe.GetDevices("TeknoHDrive", "hdrivehaptic.exe")
+                : ViperFfbDeviceProbe.GetDevices();
             foreach (var field in fields)
             {
                 field.DynamicOptions = devices.Select(option => new DynamicDropdownOption

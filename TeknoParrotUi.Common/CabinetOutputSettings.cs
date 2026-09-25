@@ -33,6 +33,7 @@ namespace TeknoParrotUi.Common
                 case EmulatorType.TeknoZeus:
                 case EmulatorType.TeknoViper:
                 case EmulatorType.TeknoVegas:
+                case EmulatorType.TeknoHDrive:
                 case EmulatorType.TeknoVUnit:
                     return true;
                 default:

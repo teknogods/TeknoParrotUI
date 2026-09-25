@@ -4,9 +4,9 @@
   <GamePath2 />
   <EmulationProfile>TeknoHDrive</EmulationProfile>
   <EmulatorType>TeknoHDrive</EmulatorType>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
-  <ExecutableName>steeltal.zip</ExecutableName>
+  <ExecutableName>harddriv.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
   <Patreon>true</Patreon>
   <DevOnly>false</DevOnly>
@@ -85,7 +85,7 @@
       <FieldName>Use Bezel</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>Place steeltal.png or default.png in TeknoHDrive/bezels. PNG transparency defines the opening. Desktop only.</Hint>
+      <Hint>Place harddrivc.png or default.png in TeknoHDrive/bezels. PNG transparency defines the opening. Desktop only.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Audio</CategoryName>
@@ -115,22 +115,19 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Input</CategoryName>
-      <FieldName>Keyboard/Button Axis Sensitivity</FieldName>
+      <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
       <FieldValue>10</FieldValue>
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
     </FieldInformation>
     <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Outputs</FieldName>
-      <FieldValue>Windows Outputs</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Windows Outputs</string>
-        <string>Network Outputs</string>
-      </FieldOptions>
-      <Hint>Choose how game outputs are sent. Select Network Outputs to configure its settings.</Hint>
+      <CategoryName>Input</CategoryName>
+      <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>255</FieldMax>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
@@ -151,47 +148,63 @@
       <InputMapping>Coin2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Gun / Start</ButtonName>
+      <ButtonName>Start / Ignition</ButtonName>
+      <InputMapping>P1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Abort</ButtonName>
+      <InputMapping>P1Button6</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Shift Up</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Missiles</ButtonName>
+      <ButtonName>Shift Down</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Zoom</ButtonName>
+      <ButtonName>Gear 1</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Real Helicopter Flight</ButtonName>
+      <ButtonName>Gear 2</ButtonName>
       <InputMapping>P1Button4</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Cyclic X</ButtonName>
+      <ButtonName>Clutch</ButtonName>
+      <InputMapping>P1Button5</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 3</ButtonName>
+      <InputMapping>P1ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Gear 4</ButtonName>
+      <InputMapping>P1ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Neutral</ButtonName>
+      <InputMapping>P1ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Wheel Axis</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Wheel</AnalogType>
       <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Cyclic Y</ButtonName>
-      <InputMapping>Analog2</InputMapping>
-      <AnalogType>Wheel</AnalogType>
-      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Collective</ButtonName>
+      <ButtonName>Gas</ButtonName>
       <InputMapping>Analog4</InputMapping>
-      <AnalogType>Wheel</AnalogType>
-      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <AnalogType>Gas</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Rudder</ButtonName>
-      <InputMapping>Analog8</InputMapping>
-      <AnalogType>Wheel</AnalogType>
-      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <ButtonName>Brake</ButtonName>
+      <InputMapping>Analog6</InputMapping>
+      <AnalogType>Brake</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Cyclic X Left</ButtonName>
+      <ButtonName>Wheel Axis Left</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Minimum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
@@ -200,62 +213,8 @@
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Cyclic X Right</ButtonName>
+      <ButtonName>Wheel Axis Right</ButtonName>
       <InputMapping>Analog0</InputMapping>
-      <AnalogType>Maximum</AnalogType>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithRawInput>true</HideWithRawInput>
-      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Cyclic Y Up</ButtonName>
-      <InputMapping>Analog2</InputMapping>
-      <AnalogType>Minimum</AnalogType>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithRawInput>true</HideWithRawInput>
-      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Cyclic Y Down</ButtonName>
-      <InputMapping>Analog2</InputMapping>
-      <AnalogType>Maximum</AnalogType>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithRawInput>true</HideWithRawInput>
-      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Rudder Left</ButtonName>
-      <InputMapping>Analog8</InputMapping>
-      <AnalogType>Minimum</AnalogType>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithRawInput>true</HideWithRawInput>
-      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Rudder Right</ButtonName>
-      <InputMapping>Analog8</InputMapping>
-      <AnalogType>Maximum</AnalogType>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithRawInput>true</HideWithRawInput>
-      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Collective Lower</ButtonName>
-      <InputMapping>Analog4</InputMapping>
-      <AnalogType>Minimum</AnalogType>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithRawInput>true</HideWithRawInput>
-      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Collective Raise</ButtonName>
-      <InputMapping>Analog4</InputMapping>
       <AnalogType>Maximum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>

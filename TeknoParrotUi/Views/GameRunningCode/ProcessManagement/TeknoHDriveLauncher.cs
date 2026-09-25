@@ -53,6 +53,20 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 if (File.Exists(bezel)) { args.Add("--bezel"); args.Add(Quote(bezel)); }
             }
             if (!Enabled("VSync", true)) { args.Add("--vsync"); args.Add("off"); }
+            // HDrive exposes one combined steering-force channel on driving cabinets.
+            if (set != "steeltal" && set != "stunrunj")
+            {
+                var device = Setting("Force Feedback Device", "off").Trim();
+                if (!System.Text.RegularExpressions.Regex.IsMatch(device, @"\A(?:off|(?:wheel|gamepad):[0-9]+)\z"))
+                    device = "off";
+                int Strength(string name) => int.TryParse(Setting(name, "100"), out var value) &&
+                    value >= 0 && value <= 100 ? value : 100;
+                args.AddRange(new[] { "--ffb-device", device, "--ffb-gain",
+                    Strength("Force Feedback Strength").ToString(System.Globalization.CultureInfo.InvariantCulture),
+                    "--ffb-constant-gain", (Enabled("Enable Constant Effect", true)
+                        ? Strength("Constant Effect Strength") : 0).ToString(System.Globalization.CultureInfo.InvariantCulture) });
+                if (Enabled("Invert Force Feedback")) args.Add("--ffb-invert");
+            }
             var exe=Path.Combine(root,"TeknoHDrive.exe");
             if (!File.Exists(exe)) throw new FileNotFoundException("TeknoHDrive executable is missing",exe);
             log?.Invoke($"TeknoHDrive: {set}, {scale}x, {filter}");

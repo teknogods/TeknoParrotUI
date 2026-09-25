@@ -4,7 +4,7 @@
   <GamePath2 />
   <EmulationProfile>TeknoHDrive</EmulationProfile>
   <EmulatorType>TeknoHDrive</EmulatorType>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>steeltal.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
@@ -120,17 +120,6 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Outputs</FieldName>
-      <FieldValue>Windows Outputs</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Windows Outputs</string>
-        <string>Network Outputs</string>
-      </FieldOptions>
-      <Hint>Choose how game outputs are sent. Select Network Outputs to configure its settings.</Hint>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

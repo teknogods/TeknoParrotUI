@@ -11,7 +11,7 @@ namespace TeknoParrotUi.Helpers
     {
         private const int ProbeTimeoutMilliseconds = 5000;
 
-        public static List<DynamicDropdownOption> GetDevices()
+        public static List<DynamicDropdownOption> GetDevices(string emulatorDirectory = "TeknoViper", string executableName = "viperhaptic.exe")
         {
             var devices = new List<DynamicDropdownOption>
             {
@@ -22,8 +22,8 @@ namespace TeknoParrotUi.Helpers
                 }
             };
 
-            var viperDirectory = Path.Combine(Directory.GetCurrentDirectory(), "TeknoViper");
-            var probePath = Path.Combine(viperDirectory, "viperhaptic.exe");
+            var viperDirectory = Path.Combine(Directory.GetCurrentDirectory(), emulatorDirectory);
+            var probePath = Path.Combine(viperDirectory, executableName);
             if (!File.Exists(probePath))
                 return devices;
 

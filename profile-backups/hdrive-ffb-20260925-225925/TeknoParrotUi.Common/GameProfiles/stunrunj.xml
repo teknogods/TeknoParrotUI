@@ -4,9 +4,9 @@
   <GamePath2 />
   <EmulationProfile>TeknoHDrive</EmulationProfile>
   <EmulatorType>TeknoHDrive</EmulatorType>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
-  <ExecutableName>steeltal.zip</ExecutableName>
+  <ExecutableName>stunrun.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
   <Patreon>true</Patreon>
   <DevOnly>false</DevOnly>
@@ -85,7 +85,7 @@
       <FieldName>Use Bezel</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>Place steeltal.png or default.png in TeknoHDrive/bezels. PNG transparency defines the opening. Desktop only.</Hint>
+      <Hint>Place stunrunj.png or default.png in TeknoHDrive/bezels. PNG transparency defines the opening. Desktop only.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Audio</CategoryName>
@@ -121,17 +121,6 @@
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
     </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Outputs</FieldName>
-      <FieldValue>Windows Outputs</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>Windows Outputs</string>
-        <string>Network Outputs</string>
-      </FieldOptions>
-      <Hint>Choose how game outputs are sent. Select Network Outputs to configure its settings.</Hint>
-    </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
@@ -151,47 +140,31 @@
       <InputMapping>Coin2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Gun / Start</ButtonName>
+      <ButtonName>Start</ButtonName>
+      <InputMapping>P1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Left Trigger</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Missiles</ButtonName>
+      <ButtonName>Right Trigger</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Zoom</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Real Helicopter Flight</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Cyclic X</ButtonName>
+      <ButtonName>Yoke X</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Wheel</AnalogType>
       <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Cyclic Y</ButtonName>
+      <ButtonName>Yoke Y</ButtonName>
       <InputMapping>Analog2</InputMapping>
       <AnalogType>Wheel</AnalogType>
       <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Collective</ButtonName>
-      <InputMapping>Analog4</InputMapping>
-      <AnalogType>Wheel</AnalogType>
-      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Rudder</ButtonName>
-      <InputMapping>Analog8</InputMapping>
-      <AnalogType>Wheel</AnalogType>
-      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Cyclic X Left</ButtonName>
+      <ButtonName>Yoke X Left</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Minimum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
@@ -200,7 +173,7 @@
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Cyclic X Right</ButtonName>
+      <ButtonName>Yoke X Right</ButtonName>
       <InputMapping>Analog0</InputMapping>
       <AnalogType>Maximum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
@@ -209,7 +182,7 @@
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Cyclic Y Up</ButtonName>
+      <ButtonName>Yoke Y Up</ButtonName>
       <InputMapping>Analog2</InputMapping>
       <AnalogType>Minimum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
@@ -218,44 +191,8 @@
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Cyclic Y Down</ButtonName>
+      <ButtonName>Yoke Y Down</ButtonName>
       <InputMapping>Analog2</InputMapping>
-      <AnalogType>Maximum</AnalogType>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithRawInput>true</HideWithRawInput>
-      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Rudder Left</ButtonName>
-      <InputMapping>Analog8</InputMapping>
-      <AnalogType>Minimum</AnalogType>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithRawInput>true</HideWithRawInput>
-      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Rudder Right</ButtonName>
-      <InputMapping>Analog8</InputMapping>
-      <AnalogType>Maximum</AnalogType>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithRawInput>true</HideWithRawInput>
-      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Collective Lower</ButtonName>
-      <InputMapping>Analog4</InputMapping>
-      <AnalogType>Minimum</AnalogType>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithRawInput>true</HideWithRawInput>
-      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Collective Raise</ButtonName>
-      <InputMapping>Analog4</InputMapping>
       <AnalogType>Maximum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>
