@@ -7,7 +7,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>TeknoVegas</EmulationProfile>
-  <GameProfileRevision>20</GameProfileRevision>
+  <GameProfileRevision>21</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoVegas</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -389,31 +389,23 @@
       <InputMapping>P2ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Menu Up</ButtonName>
+      <ButtonName>Volume Up</ButtonName>
       <InputMapping>P1ButtonUp</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Menu Down</ButtonName>
+      <ButtonName>Volume Down</ButtonName>
       <InputMapping>P1ButtonDown</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Menu Left</ButtonName>
-      <InputMapping>P1ButtonLeft</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Menu Right</ButtonName>
-      <InputMapping>P1ButtonRight</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>View 1</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>View 2 / Brake</ButtonName>
+      <ButtonName>View 2</ButtonName>
       <InputMapping>P1Button2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>View 3 / Music</ButtonName>
+      <ButtonName>View 3</ButtonName>
       <InputMapping>P1Button3</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
