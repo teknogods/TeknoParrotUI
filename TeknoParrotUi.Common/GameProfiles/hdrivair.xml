@@ -4,7 +4,7 @@
   <GamePath2 />
   <EmulationProfile>TeknoHDrive</EmulationProfile>
   <EmulatorType>TeknoHDrive</EmulatorType>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>hdrivair.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
