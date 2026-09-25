@@ -65,7 +65,6 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     Strength("Force Feedback Strength").ToString(System.Globalization.CultureInfo.InvariantCulture),
                     "--ffb-constant-gain", (Enabled("Enable Constant Effect", true)
                         ? Strength("Constant Effect Strength") : 0).ToString(System.Globalization.CultureInfo.InvariantCulture) });
-                if (Enabled("Invert Force Feedback")) args.Add("--ffb-invert");
             }
             var exe=Path.Combine(root,"TeknoHDrive.exe");
             if (!File.Exists(exe)) throw new FileNotFoundException("TeknoHDrive executable is missing",exe);

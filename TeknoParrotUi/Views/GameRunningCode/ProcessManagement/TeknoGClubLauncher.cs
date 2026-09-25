@@ -52,7 +52,6 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 ffbGain = 100;
             args.Add("--ffb-device"); args.Add(ffbDevice);
             args.Add("--ffb-gain"); args.Add(ffbGain.ToString(CultureInfo.InvariantCulture));
-            if (supportsFeedback && Enabled("Invert Force Feedback")) args.Add("--ffb-invert-x");
             var fullscreen = Setting("DisplayMode", "Fullscreen").Equals("Fullscreen", StringComparison.OrdinalIgnoreCase);
             if (fullscreen) args.Add("--fullscreen");
             if (fullscreen && Enabled("Stretch to Fullscreen")) args.Add("--stretch");

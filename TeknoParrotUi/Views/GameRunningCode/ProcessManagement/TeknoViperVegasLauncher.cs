@@ -280,7 +280,6 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 ffbGain = 100;
             parameters.Add("--ffb-gain");
             parameters.Add(ffbGain.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            if (Enabled("Invert Force Feedback")) parameters.Add("--ffb-invert-x");
             parameters.Add("--ffb-spring-mode");
             var springMode = Setting("Force Feedback Spring Effect", "Spring");
             parameters.Add(springMode == "Spring using Constant Force" || springMode == "Constant Spring"

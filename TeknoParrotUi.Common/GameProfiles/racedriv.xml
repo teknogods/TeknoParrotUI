@@ -175,13 +175,6 @@
       <FieldMax>100</FieldMax>
       <Hint>Strength of the combined steering force sent by the game.</Hint>
     </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Invert Force Feedback</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <SettingsPage>ForceFeedback</SettingsPage>
-    </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
