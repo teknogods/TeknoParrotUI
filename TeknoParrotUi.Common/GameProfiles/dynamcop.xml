@@ -6,7 +6,7 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -15,6 +15,20 @@
   <Patreon>true</Patreon>
   <DevOnly>false</DevOnly>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Version</FieldName>
+      <FieldValue>dynamcop</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>dynamcop</string>
+        <string>dyndeka2</string>
+        <string>dynamcopb</string>
+        <string>dyndeka2b</string>
+        <string>dynamcopc</string>
+      </FieldOptions>
+      <Hint>dynamcop: Export Model 2A; dyndeka2: Japan Model 2A; dynamcopb: Export Model 2B; dyndeka2b: Japan Model 2B; dynamcopc: USA Model 2C. All use the merged dynamcop.zip archive. Each version uses separate saves.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
