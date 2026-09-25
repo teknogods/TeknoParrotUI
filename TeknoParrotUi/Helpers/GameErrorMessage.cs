@@ -26,6 +26,11 @@ namespace TeknoParrotUi.Helpers
             EmulatorType? emulatorType,
             string diagnostics)
         {
+            if (emulatorType == EmulatorType.TeknoHDrive && errorCode != 0)
+            {
+                MessageBox.Show("TeknoHDrive exited with code " + errorCode + Environment.NewLine + diagnostics, "TeknoHDrive error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             if (emulatorType == EmulatorType.TeknoTPJC && errorCode != 0)
             {
                 MessageBox.Show("TeknoTPJC exited with code " + errorCode + Environment.NewLine + diagnostics, "TeknoTPJC error", MessageBoxButton.OK, MessageBoxImage.Error);

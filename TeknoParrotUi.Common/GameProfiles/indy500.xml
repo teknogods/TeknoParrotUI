@@ -6,7 +6,7 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>16</GameProfileRevision>
+  <GameProfileRevision>18</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>

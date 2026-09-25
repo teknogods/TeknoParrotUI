@@ -6,7 +6,7 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>16</GameProfileRevision>
+  <GameProfileRevision>18</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -25,8 +25,12 @@
         <string>daytona93</string>
         <string>daytonas</string>
         <string>daytonase</string>
+        <string>daytonat</string>
+        <string>daytonata</string>
+        <string>daytonam</string>
+        <string>daytonagtx</string>
       </FieldOptions>
-      <Hint>daytona: Revision A; daytona93: original; daytonas: Saturn advertisements; daytonase: Special Edition Revision A. All use the merged daytona.zip archive. Each version uses separate saves.</Hint>
+      <Hint>daytona: Revision A; daytona93: original; daytonas: Saturn advertisements; daytonase: Special Edition Revision A; daytonat/daytonata: Turbo hacks (sets 1/2); daytonam: To The MAXX; daytonagtx: GTX 2004 Edition. Hack versions are experimental. All use the merged daytona.zip archive. Each version uses separate saves.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -236,7 +240,7 @@
       <FieldName>Extended Draw Distance</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>Experimental: draws omitted static course scenery in all supported Daytona versions, reducing distant terrain pop-in. Works with 4:3 and widescreen. May reduce performance; game timing is unchanged. Off preserves the original terrain selection.</Hint>
+      <Hint>Experimental: draws omitted static course scenery in all eight Daytona versions, including Turbo, MAXX and GTX, reducing distant terrain pop-in. Works with 4:3 and widescreen. May reduce performance; game timing is unchanged. Off preserves the original terrain selection.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Video</CategoryName>

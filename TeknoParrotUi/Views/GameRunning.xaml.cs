@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using System.Windows;
 using System.Diagnostics;
@@ -103,7 +103,7 @@ namespace TeknoParrotUi.Views
             // second process for TPUI to start.
             _twoExes = gameProfile.HasTwoExecutables &&
                        gameProfile.EmulatorType != EmulatorType.TeknoVegas &&
-                       (((gameProfile.EmulatorType != EmulatorType.TeknoViper && (gameProfile.EmulatorType != EmulatorType.TeknoS11 && gameProfile.EmulatorType != EmulatorType.TeknoTPJC)) && gameProfile.EmulatorType != EmulatorType.TeknoM2) && gameProfile.EmulatorType != EmulatorType.TeknoAGX) &&
+                       (((gameProfile.EmulatorType != EmulatorType.TeknoViper && (gameProfile.EmulatorType != EmulatorType.TeknoS11 && (gameProfile.EmulatorType != EmulatorType.TeknoTPJC && gameProfile.EmulatorType != EmulatorType.TeknoHDrive))) && gameProfile.EmulatorType != EmulatorType.TeknoM2) && gameProfile.EmulatorType != EmulatorType.TeknoAGX) &&
                        gameProfile.EmulatorType != EmulatorType.TeknoHNG64 && (gameProfile.EmulatorType != EmulatorType.TeknoHornet && gameProfile.EmulatorType != EmulatorType.TeknoVUnit) && gameProfile.EmulatorType != EmulatorType.TeknoCobra &&
                        (gameProfile.EmulatorType != EmulatorType.TeknoZeus && ((gameProfile.EmulatorType != EmulatorType.TeknoS22 && gameProfile.EmulatorType != EmulatorType.TeknoS21) && (gameProfile.EmulatorType != EmulatorType.TeknoS23 && gameProfile.EmulatorType != EmulatorType.TeknoGClub)));
             _secondExeFirst = gameProfile.LaunchSecondExecutableFirst;
@@ -758,6 +758,7 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.TeknoS11:
                     _controlSender = new TeknoS11Pipe();
                     break;
+                case EmulationProfile.TeknoHDrive:
                 case EmulationProfile.TeknoTPJC:
                 case EmulationProfile.TeknoViper:
                     _controlSender = new TeknoViperPipe();
@@ -825,7 +826,7 @@ namespace TeknoParrotUi.Views
                 _gameProfile.EmulatorType != EmulatorType.Play &&
                 _gameProfile.EmulatorType != EmulatorType.RPCS3 &&
                 _gameProfile.EmulatorType != EmulatorType.TeknoVegas &&
-                (((_gameProfile.EmulatorType != EmulatorType.TeknoViper && (_gameProfile.EmulatorType != EmulatorType.TeknoS11 && _gameProfile.EmulatorType != EmulatorType.TeknoTPJC)) && _gameProfile.EmulatorType != EmulatorType.TeknoM2) && _gameProfile.EmulatorType != EmulatorType.TeknoAGX) &&
+                (((_gameProfile.EmulatorType != EmulatorType.TeknoViper && (_gameProfile.EmulatorType != EmulatorType.TeknoS11 && (_gameProfile.EmulatorType != EmulatorType.TeknoTPJC && _gameProfile.EmulatorType != EmulatorType.TeknoHDrive))) && _gameProfile.EmulatorType != EmulatorType.TeknoM2) && _gameProfile.EmulatorType != EmulatorType.TeknoAGX) &&
                 _gameProfile.EmulatorType != EmulatorType.TeknoHNG64 && (_gameProfile.EmulatorType != EmulatorType.TeknoHornet && _gameProfile.EmulatorType != EmulatorType.TeknoVUnit) && _gameProfile.EmulatorType != EmulatorType.TeknoCobra &&
                 _gameProfile.EmulatorType != EmulatorType.TeknoModel1 &&
                 _gameProfile.EmulatorType != EmulatorType.TeknoModel2 &&

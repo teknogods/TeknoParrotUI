@@ -66,6 +66,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     return TeknoVUnitLauncher.Build(profile, gameLocation, log);
                 case EmulatorType.TeknoM2:
                     return TeknoM2Launcher.Build(profile, gameLocation, log);
+                case EmulatorType.TeknoHDrive:
+                    return TeknoHDriveLauncher.Build(profile, gameLocation, log);
                 case EmulatorType.TeknoTPJC:
                     return TeknoTPJCLauncher.Build(profile, gameLocation, log);
                 case EmulatorType.TeknoS11:
@@ -197,18 +199,21 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             if (Setting("DisplayMode", "Fullscreen").Equals("Fullscreen", StringComparison.OrdinalIgnoreCase))
                 parameters.Add("--fullscreen");
             if (Enabled("Stretch to Fullscreen")) parameters.Add("--stretch");
-            if (Enabled("Widescreen") && !Enabled("Enable VR") &&
-                new[] { "srallyc", "schamp", "vf2", "vf2a", "vf2b", "vf2o",
-                        "stcc", "stcca", "stccb", "stcco", "doa", "doab", "doaa", "doaab", "doaae",
-                        "daytona", "daytonase", "daytona93", "daytonas", "sgt24h",
-                        "overrevb", "overrevba", "overrev",
-                        "vcop", "vcopa", "vcop2", "hotd", "hotdo", "hotdp" }
-                    .Contains(gameId, StringComparer.OrdinalIgnoreCase))
+            if (Enabled("Widescreen") && !Enabled("Enable VR"))
                 parameters.Add("--widescreen");
             if (Enabled("Extended Draw Distance") &&
-                new[] { "daytona", "daytona93", "daytonas", "daytonase" }
+                new[] { "daytona", "daytona93", "daytonas", "daytonase",
+                        "daytonat", "daytonata", "daytonam", "daytonagtx" }
                     .Contains(gameId, StringComparer.OrdinalIgnoreCase))
                 parameters.Add("--daytona-extended-draw-distance");
+            if (Enabled("Enhance Draw Distance") &&
+                gameId.Equals("waverunr", StringComparison.OrdinalIgnoreCase))
+                parameters.Add("--enhance-draw-distance");
+            if (gameId.Equals("skytargt", StringComparison.OrdinalIgnoreCase))
+            {
+                if (Enabled("Enhanced Draw Distance")) parameters.Add("--enhance-draw-distance");
+                if (Enabled("Invert Y", true)) parameters.Add("--invert-y");
+            }
             if (Enabled("Use Bezel")) parameters.Add("--bezels");
             if (profile.GunGame)
             {

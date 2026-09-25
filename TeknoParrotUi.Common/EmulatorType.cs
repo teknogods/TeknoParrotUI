@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -54,6 +54,7 @@ namespace TeknoParrotUi.Common
         TeknoAir,
         TeknoS21,
         TeknoS11,
-        TeknoTPJC
+        TeknoTPJC,
+        TeknoHDrive
     }
 }

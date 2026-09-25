@@ -6,14 +6,14 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>11</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>desert.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
+  <DevOnly>false</DevOnly>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -147,6 +147,22 @@
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
     </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Widescreen</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Experimental 16:9 view with a wider 3D render target and centered 4:3 HUD. Desktop only; ignored when VR is enabled. Some scenes may have missing side geometry or menu layout issues.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Input</CategoryName>
+      <FieldName>Keyboard/Button Axis X/Y Sensitivity</FieldName>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>127</FieldMax>
+      <Hint>Turret movement and return-to-center speed when using keyboard keys or buttons.</Hint>
+    </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
@@ -221,7 +237,27 @@
     <JoystickButtons>
       <ButtonName>Turret</ButtonName>
       <InputMapping>Analog4</InputMapping>
-      <AnalogType>Brake</AnalogType>
+      <AnalogType>AnalogJoystickY</AnalogType>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <Hint>Bind a vertical stick axis. Center holds the gun level.</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Turret Up</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>AnalogJoystickY</AnalogType>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Turret Down</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>AnalogJoystickY</AnalogType>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

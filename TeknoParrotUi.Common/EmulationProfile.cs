@@ -1,4 +1,4 @@
-namespace TeknoParrotUi.Common
+﻿namespace TeknoParrotUi.Common
 {
     public enum EmulationProfile
     {
@@ -167,6 +167,7 @@ namespace TeknoParrotUi.Common
         TeknoAir,
         TeknoS21,
         TeknoS11,
-        TeknoTPJC
+        TeknoTPJC,
+        TeknoHDrive
     }
 }

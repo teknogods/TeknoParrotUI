@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using TeknoParrotUi.Common.Jvs;
 
@@ -73,6 +73,13 @@ namespace TeknoParrotUi.Common.Pipes
             }
 
             InputCode.AnalogBytes[0] = 0x80;
+            if (InputCode.GameProfile?.EmulationProfile == EmulationProfile.TeknoHDrive)
+            {
+                InputCode.AnalogBytes[2] = 0x80;
+                InputCode.AnalogBytes[8] = 0x80;
+                InputCode.AnalogBytes[4] = IsProfile("steeltal") ? (byte)0x80 : (byte)0;
+                InputCode.AnalogBytes[6] = 0;
+            }
             if (GunProfile())
             {
                 InputCode.AnalogBytes[2] = 0x80;

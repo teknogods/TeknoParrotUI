@@ -6,15 +6,26 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>von.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
+  <DevOnly>false</DevOnly>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Version</FieldName>
+      <FieldValue>vonu</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>vonu</string>
+        <string>von</string>
+      </FieldOptions>
+      <Hint>vonu: Twin (USA, Revision B); von: Twin (Export). Both use the merged von.zip archive. Each version uses separate saves.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
@@ -184,6 +195,13 @@
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
       <Hint>Print LAN or TPOnline peer and frame statistics every five seconds. TPO lobby launches automatically use direct peers and override the LAN settings.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Widescreen</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Experimental 16:9 view with a wider 3D render target and centered 4:3 HUD. Desktop only; ignored when VR is enabled. Some scenes may have missing side geometry or menu layout issues.</Hint>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

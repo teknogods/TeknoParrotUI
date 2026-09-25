@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Costura.Fody.6.0.0\build\Costura.Fody.props" Condition="Exists('..\packages\Costura.Fody.6.0.0\build\Costura.Fody.props')" />
   <Import Project="..\packages\Resource.Embedder.2.2.0\build\Resource.Embedder.props" Condition="Exists('..\packages\Resource.Embedder.2.2.0\build\Resource.Embedder.props')" />
@@ -444,6 +444,7 @@
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoS21Launcher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoS11Launcher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoTPJCLauncher.cs" />
+    <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoHDriveLauncher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoS23Launcher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoGClubLauncher.cs" />
     <Compile Include="Views\GameRunningCode\ControlHandlers\GunControlHandler.cs" />

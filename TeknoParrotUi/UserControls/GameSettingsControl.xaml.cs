@@ -77,7 +77,7 @@ namespace TeknoParrotUi.UserControls
                     exeName = $" ({_gameProfile.ExecutableName2})".Replace(";", Properties.Resources.GameSettingsExecutableOr);
 
                 var secondPathLabel = (_gameProfile.EmulatorType == EmulatorType.TeknoAir || _gameProfile.EmulatorType == EmulatorType.TeknoVegas) ||
-                                      ((_gameProfile.EmulatorType == EmulatorType.TeknoViper || (_gameProfile.EmulatorType == EmulatorType.TeknoS11 || _gameProfile.EmulatorType == EmulatorType.TeknoTPJC)) || _gameProfile.EmulatorType == EmulatorType.TeknoM2) ||
+                                      ((_gameProfile.EmulatorType == EmulatorType.TeknoViper || (_gameProfile.EmulatorType == EmulatorType.TeknoS11 || (_gameProfile.EmulatorType == EmulatorType.TeknoTPJC || _gameProfile.EmulatorType == EmulatorType.TeknoHDrive))) || _gameProfile.EmulatorType == EmulatorType.TeknoM2) ||
                                       _gameProfile.EmulatorType == EmulatorType.TeknoAGX ||
                                       (_gameProfile.EmulatorType == EmulatorType.TeknoHornet || _gameProfile.EmulatorType == EmulatorType.TeknoVUnit) || _gameProfile.EmulatorType == EmulatorType.TeknoCobra ||
                                       _gameProfile.EmulatorType == EmulatorType.TeknoZeus

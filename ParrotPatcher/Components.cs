@@ -180,6 +180,15 @@ namespace ParrotPatcher
                 },
                 new UpdaterComponent
                 {
+                    name = "TeknoHDrive",
+                    location = Path.Combine("TeknoHDrive", "TeknoHDrive.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "TeknoHDrive"
+                },
+                new UpdaterComponent
+                {
                     name = "TeknoVegas",
                     location = Path.Combine("TeknoVegas", "TeknoVegas.exe"),
                     reponame = "TeknoParrot",

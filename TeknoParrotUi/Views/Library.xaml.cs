@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -623,6 +623,9 @@ namespace TeknoParrotUi.Views
                     break;
                 case EmulatorType.TeknoAir:
                     loaderExe = ".\\TeknoAir\\TeknoAir.exe";
+                    break;
+                case EmulatorType.TeknoHDrive:
+                    loaderExe = ".\\TeknoHDrive\\TeknoHDrive.exe";
                     break;
                 case EmulatorType.TeknoTPJC:
                     loaderExe = ".\\TeknoTPJC\\TeknoTPJC.exe";

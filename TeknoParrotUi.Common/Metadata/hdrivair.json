@@ -1,0 +1,10 @@
+{
+  "game_name": "Hard Drivin's Airborne (prototype, rev 2.7)",
+  "game_genre": "Simulation",
+  "platform": "Atari Hard Drivin'",
+  "release_year": "1993",
+  "nvidia": "NO_INFO",
+  "amd": "NO_INFO",
+  "intel": "NO_INFO",
+  "general_issues": "Development only. Select hdrivair.zip. Latest revision for this cabinet; older revisions are intentionally omitted. Cabinet networking is not implemented."
+}

@@ -6,14 +6,14 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>10</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>waverunr.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
+  <DevOnly>false</DevOnly>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -97,6 +97,20 @@
       <FieldName>Save Root</FieldName>
       <FieldValue>.\TeknoModel2\nvram</FieldValue>
       <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Widescreen</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Experimental 16:9 view with a wider 3D render target and centered 4:3 HUD. Desktop only; ignored when VR is enabled. Enable Enhance Draw Distance to reduce missing scenery at the edges.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Enhance Draw Distance</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Draw omitted static course scenery to reduce distant pop-in. Works in 4:3 and widescreen. May reduce performance; game timing is unchanged. Off preserves the original scenery selection.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Video</CategoryName>

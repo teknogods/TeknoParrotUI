@@ -121,11 +121,14 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool KeyboardHandlebarLeft = false;
         private static bool KeyboardHandlebarRight = false;
         private static bool KeyboardorButtonAxis = false;
-        private static readonly bool[] _s21AxisNegative = new bool[16];
-        private static readonly bool[] _s21AxisPositive = new bool[16];
-        private static readonly bool[] _s21KeyboardAxis = new bool[16];
-        private static readonly byte[] _s21AxisRest = new byte[16];
-        private static int _s21AxisStep = 10;
+        private static readonly bool[] _keyboardAxisNegative = new bool[16];
+        private static readonly bool[] _keyboardAxisPositive = new bool[16];
+        private static readonly bool[] _keyboardAxisEnabled = new bool[16];
+        private static readonly byte[] _keyboardAxisRest = new byte[16];
+        private static int _keyboardAxisStep = 10;
+        private static bool UsesIndependentKeyboardAxes =>
+            _gameProfile?.EmulationProfile == EmulationProfile.TeknoS21 ||
+            _gameProfile?.EmulationProfile == EmulationProfile.TeknoHDrive;
         private static bool ReverseYAxis = false;
         private static bool ReverseSWThrottleAxis = false;
         
@@ -520,7 +523,7 @@ namespace TeknoParrotUi.Common.InputListening
             if (_gameProfile.EmulationProfile == EmulationProfile.Daytona3 || _gameProfile.EmulationProfile == EmulationProfile.EuropaRFordRacing || _gameProfile.EmulationProfile == EmulationProfile.EuropaRSegaRally3 || _gameProfile.EmulationProfile == EmulationProfile.FNFDrift || _gameProfile.EmulationProfile == EmulationProfile.GRID || _gameProfile.EmulationProfile == EmulationProfile.DeadHeat || _gameProfile.EmulationProfile == EmulationProfile.Nirin ||
                 _gameProfile.EmulationProfile == EmulationProfile.GtiClub3 || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdx || _gameProfile.EmulationProfile == EmulationProfile.NamcoMkdxUsa || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt5 || _gameProfile.EmulationProfile == EmulationProfile.DeadHeatRiders || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPX || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNF || _gameProfile.EmulationProfile == EmulationProfile.RawThrillsFNFH2O ||
                 _gameProfile.EmulationProfile == EmulationProfile.SegaInitialD || _gameProfile.EmulationProfile == EmulationProfile.SegaInitialDLindbergh || _gameProfile.EmulationProfile == EmulationProfile.SegaRTuned || _gameProfile.EmulationProfile == EmulationProfile.SegaRacingClassic || _gameProfile.EmulationProfile == EmulationProfile.SegaRtv || _gameProfile.EmulationProfile == EmulationProfile.SegaSonicAllStarsRacing || _gameProfile.EmulationProfile == EmulationProfile.SegaToolsIDZ ||
-                _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3 || _gameProfile.EmulationProfile == EmulationProfile.IDZ || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt6RR || _gameProfile.EmulationProfile == EmulationProfile.PlayInput || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPXElf2 || _gameProfile.EmulationProfile == EmulationProfile.KonamiAcioRacing || ((_gameProfile.EmulationProfile == EmulationProfile.TeknoViper || (_gameProfile.EmulationProfile == EmulationProfile.TeknoS11 || _gameProfile.EmulationProfile == EmulationProfile.TeknoTPJC)) || _gameProfile.EmulationProfile == EmulationProfile.TeknoM2) || _gameProfile.EmulationProfile == EmulationProfile.TeknoAGX || _gameProfile.EmulationProfile == EmulationProfile.TeknoHNG64 || (_gameProfile.EmulationProfile == EmulationProfile.TeknoHornet || _gameProfile.EmulationProfile == EmulationProfile.TeknoVUnit) || _gameProfile.EmulationProfile == EmulationProfile.TeknoCobra || (_gameProfile.EmulationProfile == EmulationProfile.TeknoZeus || ((_gameProfile.EmulationProfile == EmulationProfile.TeknoS22 || _gameProfile.EmulationProfile == EmulationProfile.TeknoS21) || (_gameProfile.EmulationProfile == EmulationProfile.TeknoS23 || _gameProfile.EmulationProfile == EmulationProfile.TeknoGClub))))
+                _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt3 || _gameProfile.EmulationProfile == EmulationProfile.IDZ || _gameProfile.EmulationProfile == EmulationProfile.NamcoWmmt6RR || _gameProfile.EmulationProfile == EmulationProfile.PlayInput || _gameProfile.EmulationProfile == EmulationProfile.Outrun2SPXElf2 || _gameProfile.EmulationProfile == EmulationProfile.KonamiAcioRacing || ((_gameProfile.EmulationProfile == EmulationProfile.TeknoViper || (_gameProfile.EmulationProfile == EmulationProfile.TeknoS11 || (_gameProfile.EmulationProfile == EmulationProfile.TeknoTPJC || _gameProfile.EmulationProfile == EmulationProfile.TeknoHDrive))) || _gameProfile.EmulationProfile == EmulationProfile.TeknoM2) || _gameProfile.EmulationProfile == EmulationProfile.TeknoAGX || _gameProfile.EmulationProfile == EmulationProfile.TeknoHNG64 || (_gameProfile.EmulationProfile == EmulationProfile.TeknoHornet || _gameProfile.EmulationProfile == EmulationProfile.TeknoVUnit) || _gameProfile.EmulationProfile == EmulationProfile.TeknoCobra || (_gameProfile.EmulationProfile == EmulationProfile.TeknoZeus || ((_gameProfile.EmulationProfile == EmulationProfile.TeknoS22 || _gameProfile.EmulationProfile == EmulationProfile.TeknoS21) || (_gameProfile.EmulationProfile == EmulationProfile.TeknoS23 || _gameProfile.EmulationProfile == EmulationProfile.TeknoGClub))))
             {
                 InputCode.AnalogBytes[0] = 0x80;
                 WheelAnalogByteValue = 0;
@@ -702,7 +705,7 @@ namespace TeknoParrotUi.Common.InputListening
                 (_gameProfile.EmulationProfile == EmulationProfile.TeknoModel1 ||
                  _gameProfile.EmulationProfile == EmulationProfile.TeknoModel2 ||
                  _gameProfile.EmulationProfile == EmulationProfile.TeknoVegas ||
-                 (_gameProfile.EmulationProfile == EmulationProfile.TeknoViper || (_gameProfile.EmulationProfile == EmulationProfile.TeknoS11 || _gameProfile.EmulationProfile == EmulationProfile.TeknoTPJC)) ||
+                 (_gameProfile.EmulationProfile == EmulationProfile.TeknoViper || (_gameProfile.EmulationProfile == EmulationProfile.TeknoS11 || (_gameProfile.EmulationProfile == EmulationProfile.TeknoTPJC || _gameProfile.EmulationProfile == EmulationProfile.TeknoHDrive))) ||
                  _gameProfile.EmulationProfile == EmulationProfile.TeknoZeus ||
                  _gameProfile.EmulationProfile == EmulationProfile.TeknoCobra ||
                  _gameProfile.EmulationProfile == EmulationProfile.TeknoHNG64 ||
@@ -734,6 +737,7 @@ namespace TeknoParrotUi.Common.InputListening
                         case "P2 Wheel Axis": P2WheelAnalogByteValue = axis; break;
                         case "Analog X":
                         case "Player 1 Joystick X": AnalogXAnalogByteValue = axis; break;
+                        case "Turret":
                         case "Analog Y":
                         case "Player 1 Joystick Y": AnalogYAnalogByteValue = axis; break;
                         case "Analog Z":
@@ -926,27 +930,27 @@ namespace TeknoParrotUi.Common.InputListening
                 }
             }
 
-            if (_gameProfile.EmulationProfile == EmulationProfile.TeknoS21)
+            if (UsesIndependentKeyboardAxes)
             {
-                Array.Clear(_s21AxisNegative, 0, _s21AxisNegative.Length);
-                Array.Clear(_s21AxisPositive, 0, _s21AxisPositive.Length);
-                Array.Clear(_s21KeyboardAxis, 0, _s21KeyboardAxis.Length);
-                var s21Sensitivity = gameProfile.ConfigValues.FirstOrDefault(
+                Array.Clear(_keyboardAxisNegative, 0, _keyboardAxisNegative.Length);
+                Array.Clear(_keyboardAxisPositive, 0, _keyboardAxisPositive.Length);
+                Array.Clear(_keyboardAxisEnabled, 0, _keyboardAxisEnabled.Length);
+                var axisSensitivity = gameProfile.ConfigValues.FirstOrDefault(
                     x => x.FieldName == "Keyboard/Button Axis Sensitivity")?.FieldValue ??
                     gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Wheel Sensitivity")?.FieldValue;
-                _s21AxisStep = int.TryParse(s21Sensitivity, out var step) ? Math.Max(1, Math.Min(255, step)) : 10;
+                _keyboardAxisStep = int.TryParse(axisSensitivity, out var step) ? Math.Max(1, Math.Min(255, step)) : 10;
                 foreach (var binding in joystickButtons)
                 {
                     int axis = (int)binding.InputMapping - (int)InputMapping.Analog0;
-                    if (axis < 0 || axis >= _s21KeyboardAxis.Length ||
+                    if (axis < 0 || axis >= _keyboardAxisEnabled.Length ||
                         binding.AnalogType == AnalogType.Minimum || binding.AnalogType == AnalogType.Maximum)
                         continue;
-                    _s21AxisRest[axis] = binding.AnalogType == AnalogType.Gas || binding.AnalogType == AnalogType.Brake
+                    _keyboardAxisRest[axis] = binding.AnalogType == AnalogType.Gas || binding.AnalogType == AnalogType.Brake
                         ? (byte)0 : (byte)128;
-                    // Pedals use the regular Gas/Brake bindings and sensitivity, like other racers.
-                    _s21KeyboardAxis[axis] = KeyboardorButtonAxis &&
+                    // Pedals use the standard Gas/Brake bindings and pedal sensitivity.
+                    _keyboardAxisEnabled[axis] = KeyboardorButtonAxis &&
                         binding.AnalogType != AnalogType.Gas && binding.AnalogType != AnalogType.Brake;
-                    if (KeyboardorButtonAxis) InputCode.AnalogBytes[axis] = _s21AxisRest[axis];
+                    if (KeyboardorButtonAxis) InputCode.AnalogBytes[axis] = _keyboardAxisRest[axis];
                 }
             }
 
@@ -1106,16 +1110,16 @@ namespace TeknoParrotUi.Common.InputListening
 
         private void ListenKeyboardButton(object sender, ElapsedEventArgs e)
         {
-            if (_gameProfile.EmulationProfile == EmulationProfile.TeknoS21 && !KillMe)
+            if (UsesIndependentKeyboardAxes && !KillMe)
             {
-                for (int axis = 0; axis < _s21KeyboardAxis.Length; ++axis)
+                for (int axis = 0; axis < _keyboardAxisEnabled.Length; ++axis)
                 {
-                    if (!_s21KeyboardAxis[axis]) continue;
-                    int target = _s21AxisNegative[axis] == _s21AxisPositive[axis]
-                        ? _s21AxisRest[axis] : _s21AxisNegative[axis] ? 0 : 255;
+                    if (!_keyboardAxisEnabled[axis]) continue;
+                    int target = _keyboardAxisNegative[axis] == _keyboardAxisPositive[axis]
+                        ? _keyboardAxisRest[axis] : _keyboardAxisNegative[axis] ? 0 : 255;
                     int value = InputCode.AnalogBytes[axis];
                     InputCode.AnalogBytes[axis] = (byte)(value < target
-                        ? Math.Min(target, value + _s21AxisStep) : Math.Max(target, value - _s21AxisStep));
+                        ? Math.Min(target, value + _keyboardAxisStep) : Math.Max(target, value - _keyboardAxisStep));
                 }
             }
             if (WheelAnalogByteValue >= 0 && KeyboardWheelActivate)
@@ -3239,7 +3243,7 @@ namespace TeknoParrotUi.Common.InputListening
                 (!KeyboardorButtonAxis && joystickButtons.HideWithoutKeyboardForAxis))
                 return null;
 
-            if (_gameProfile.EmulationProfile == EmulationProfile.TeknoS21 &&
+            if (UsesIndependentKeyboardAxes &&
                 joystickButtons.AnalogType != AnalogType.Gas && joystickButtons.AnalogType != AnalogType.Brake)
             {
                 bool direction = joystickButtons.AnalogType == AnalogType.Minimum ||
@@ -3247,11 +3251,11 @@ namespace TeknoParrotUi.Common.InputListening
                 if (KeyboardorButtonAxis)
                 {
                     int axis = (int)joystickButtons.InputMapping - (int)InputMapping.Analog0;
-                    if (direction && axis >= 0 && axis < _s21KeyboardAxis.Length)
+                    if (direction && axis >= 0 && axis < _keyboardAxisEnabled.Length)
                     {
                         bool down = DigitalHelper.GetButtonPressDirectInput(joystickButtons.DirectInputButton, state) == true;
-                        if (joystickButtons.AnalogType == AnalogType.Minimum) _s21AxisNegative[axis] = down;
-                        else _s21AxisPositive[axis] = down;
+                        if (joystickButtons.AnalogType == AnalogType.Minimum) _keyboardAxisNegative[axis] = down;
+                        else _keyboardAxisPositive[axis] = down;
                     }
                     return null;
                 }
@@ -3556,7 +3560,7 @@ namespace TeknoParrotUi.Common.InputListening
 
                         if (KeyboardorButtonAxis)
                         {
-                            string[] baseAnalogButtons = { "Joystick Analog X", "Analog X", "Joystick Analog Y", "Analog Y" };
+                            string[] baseAnalogButtons = { "Joystick Analog X", "Analog X", "Joystick Analog Y", "Analog Y", "Turret" };
                             if (baseAnalogButtons.Contains(joystickButtons.ButtonName))
                                 break;
 
@@ -3598,7 +3602,7 @@ namespace TeknoParrotUi.Common.InputListening
                         }
                         else
                         {
-                            string[] analogDirectionalButtons = { "Joystick Analog X Left", "Joystick Analog X Right", "Analog X Left", "Analog X Right", "Joystick Analog Y Up", "Joystick Analog Y Down", "Analog Y Up", "Analog Y Down" };
+                            string[] analogDirectionalButtons = { "Joystick Analog X Left", "Joystick Analog X Right", "Analog X Left", "Analog X Right", "Joystick Analog Y Up", "Joystick Analog Y Down", "Analog Y Up", "Analog Y Down", "Turret Up", "Turret Down" };
 
                             if (analogDirectionalButtons.Contains(joystickButtons.ButtonName))
                                 break;

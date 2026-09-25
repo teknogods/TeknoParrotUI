@@ -6,14 +6,14 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>10</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>topskatr.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
+  <DevOnly>false</DevOnly>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -139,6 +139,13 @@
       <FieldMin>1</FieldMin>
       <FieldMax>127</FieldMax>
     </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Widescreen</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Experimental 16:9 view with a wider 3D render target and centered 4:3 HUD. Desktop only; ignored when VR is enabled. Some scenes may have missing side geometry or menu layout issues.</Hint>
+    </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
@@ -156,22 +163,27 @@
     <JoystickButtons>
       <ButtonName>P1 Start</ButtonName>
       <InputMapping>P1ButtonStart</InputMapping>
+      <Hint>Dedicated Start switch; separate from Select Right.</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Jump Front</ButtonName>
       <InputMapping>P1Button1</InputMapping>
+      <Hint>Front jump switch.</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Jump Tail</ButtonName>
       <InputMapping>P1Button2</InputMapping>
+      <Hint>Tail jump switch.</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Select Left</ButtonName>
       <InputMapping>P1Button3</InputMapping>
+      <Hint>Left selection switch.</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Select Right</ButtonName>
       <InputMapping>P1Button4</InputMapping>
+      <Hint>Right selection switch; separate from Start.</Hint>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Analog X</ButtonName>
