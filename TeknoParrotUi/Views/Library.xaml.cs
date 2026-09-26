@@ -1904,6 +1904,18 @@ namespace TeknoParrotUi.Views
         }
 
         /// <summary>
+        /// Double clicking a game in the list launches it, same as the launch button
+        /// </summary>
+        private void GameListItem_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton != System.Windows.Input.MouseButton.Left)
+                return;
+
+            e.Handled = true;
+            BtnLaunchGame(sender, e);
+        }
+
+        /// <summary>
         /// This starts the MD5 verifier that checks whether a game is a clean dump
         /// </summary>
         /// <param name="sender"></param>

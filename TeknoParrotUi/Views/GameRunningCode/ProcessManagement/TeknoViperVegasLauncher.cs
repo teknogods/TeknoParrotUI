@@ -436,6 +436,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 parameters.Add("--fullscreen");
             if (Enabled("Stretch to Fullscreen"))
                 parameters.Add("--stretch-to-fullscreen");
+            if (Enabled("Integer Scaling"))
+                parameters.Add("--integer-scaling");
             if (vrEnabled)
             {
                 parameters.Add("--vr");

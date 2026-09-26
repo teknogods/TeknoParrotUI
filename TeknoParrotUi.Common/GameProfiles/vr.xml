@@ -7,7 +7,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>TeknoModel1</EmulationProfile>
-  <GameProfileRevision>19</GameProfileRevision>
+  <GameProfileRevision>20</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel1</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -207,6 +207,13 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
       <Hint>Stretch fullscreen output to fill the display, ignoring the game's original aspect ratio.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Integer Scaling</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Scale the picture by whole multiples of the native 496x384 frame instead of filling the display height, leaving borders where needed. The size does not depend on Internal Resolution. Ignored with Stretch to Fullscreen, 4:3/16:9 monitor modes, widescreen hacks, and VR.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Video</CategoryName>

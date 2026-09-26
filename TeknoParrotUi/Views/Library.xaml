@@ -166,6 +166,8 @@
                        TargetType="ListBoxItem">
                     <Setter Property="Padding"
                             Value="7" />
+                    <EventSetter Event="MouseDoubleClick"
+                                 Handler="GameListItem_MouseDoubleClick" />
                 </Style>
             </ListBox.ItemContainerStyle>
         </ListBox>
