@@ -298,48 +298,40 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 sinePeriod = 40;
             parameters.Add("--ffb-sine-period");
             parameters.Add(sinePeriod.ToString(CultureInfo.InvariantCulture));
-            // TeknoModel2 loads Score Submission itself (there is no loader DLL), so it
-            // needs the same teknoparrot.ini the loader games get, beside the emulator.
-            if (Enabled("Enable Submission"))
-            {
-                WriteScoreSubmissionIni(profile, workDir, log);
-                parameters.Add("--score-submission");
-            }
+            // TeknoModel2 loads Score Submission itself (there is no loader DLL).
+            var scoreSubmission = Enabled("Enable Submission");
+            if (scoreSubmission) parameters.Add("--score-submission");
             var executable = Path.Combine(workDir, "TeknoModel2.exe");
             log?.Invoke($"TeknoModel2: {gameId}, renderer=vulkan, widescreen={(parameters.Contains("--widescreen") ? "on" : "off")}");
             if (!File.Exists(executable)) log?.Invoke($"TeknoModel2 executable was not found at {executable}");
             if (!Directory.Exists(romRoot)) log?.Invoke($"TeknoModel2 ROM root was not found at {romRoot}");
-            return new ProcessStartInfo(executable, string.Join(" ", parameters))
+            var info = new ProcessStartInfo(executable, string.Join(" ", parameters))
             {
                 UseShellExecute = false,
                 WorkingDirectory = workDir,
                 RedirectStandardError = true
             };
+            if (scoreSubmission) AddScoreSubmissionEnvironment(profile, info);
+            return info;
         }
 
-        // Mirrors ConfigurationWriter's [GlobalScore] block and Score category for emulators
-        // that host Score Submission in-process.
-        private static void WriteScoreSubmissionIni(GameProfile profile, string workDir, Action<string> log)
+        // TeknoModel2 has no teknoparrot.ini, so the [GlobalScore] values and the Score category
+        // ConfigurationWriter writes for the loader games reach Score Submission (loaded inside
+        // TeknoModel2) as environment variables instead: TP_SCORE_SUBMISSION_ID,
+        // TP_SCORE_COLLAPSE_GUI_KEY and TP_SCORE_<FIELD NAME>, e.g. TP_SCORE_ENABLE_CAPTURE.
+        private static void AddScoreSubmissionEnvironment(GameProfile profile, ProcessStartInfo info)
         {
-            var ini = new System.Text.StringBuilder();
-            ini.Append("[GlobalScore]").Append(Environment.NewLine);
-            ini.Append("Submission ID=").Append(Lazydata.ParrotData.ScoreSubmissionID).Append(Environment.NewLine);
-            ini.Append("CollapseGUIKey=").Append(Lazydata.ParrotData.ScoreCollapseGUIKey).Append(Environment.NewLine);
-            ini.Append("[Score]").Append(Environment.NewLine);
+            info.EnvironmentVariables["TP_SCORE_SUBMISSION_ID"] = Lazydata.ParrotData.ScoreSubmissionID ?? "";
+            info.EnvironmentVariables["TP_SCORE_COLLAPSE_GUI_KEY"] = Lazydata.ParrotData.ScoreCollapseGUIKey ?? "";
             foreach (var field in profile.ConfigValues.Where(x => x.CategoryName == "Score"))
             {
                 var value = field.FieldType == FieldType.DropdownIndex
                     ? field.FieldOptions.IndexOf(field.FieldValue).ToString(CultureInfo.InvariantCulture)
                     : field.FieldValue;
-                ini.Append(field.FieldName).Append('=').Append(value).Append(Environment.NewLine);
-            }
-            try
-            {
-                File.WriteAllText(Path.Combine(workDir, "teknoparrot.ini"), ini.ToString());
-            }
-            catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException)
-            {
-                log?.Invoke($"Could not write Score Submission settings to {workDir}: {ex.Message}");
+                var name = new System.Text.StringBuilder("TP_SCORE_");
+                foreach (var c in field.FieldName.ToUpperInvariant())
+                    name.Append(char.IsLetterOrDigit(c) ? c : '_');
+                info.EnvironmentVariables[name.ToString()] = value ?? "";
             }
         }
 
