@@ -6,7 +6,7 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -130,6 +130,65 @@
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
       <Hint>Experimental 16:9 view with a wider 3D render target and centered 4:3 HUD. Desktop only; ignored when VR is enabled. Some scenes may have missing side geometry or menu layout issues.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable Submission</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Submit finished tournaments (no continues or versus) to the TeknoParrot.com high scores. Requires your Score Submission ID in Settings.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable GUI</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable Capture</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable YouTube Upload</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>YouTube Upload Customization</FieldName>
+      <FieldValue>Confirm Before Upload</FieldValue>
+      <FieldType>DropdownIndex</FieldType>
+      <FieldOptions>
+        <string>Confirm Before Upload</string>
+        <string>Always Upload</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>YouTube Upload Browser</FieldName>
+      <FieldValue>Chrome</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Chrome</string>
+        <string>Firefox</string>
+        <string>Edge</string>
+        <string>Opera</string>
+        <string>Brave</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>YouTube Upload Privacy</FieldName>
+      <FieldValue>Public</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Public</string>
+        <string>Unlisted</string>
+        <string>Private</string>
+      </FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

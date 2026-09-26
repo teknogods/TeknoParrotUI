@@ -298,6 +298,13 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 sinePeriod = 40;
             parameters.Add("--ffb-sine-period");
             parameters.Add(sinePeriod.ToString(CultureInfo.InvariantCulture));
+            // TeknoModel2 loads Score Submission itself (there is no loader DLL), so it
+            // needs the same teknoparrot.ini the loader games get, beside the emulator.
+            if (Enabled("Enable Submission"))
+            {
+                WriteScoreSubmissionIni(profile, workDir, log);
+                parameters.Add("--score-submission");
+            }
             var executable = Path.Combine(workDir, "TeknoModel2.exe");
             log?.Invoke($"TeknoModel2: {gameId}, renderer=vulkan, widescreen={(parameters.Contains("--widescreen") ? "on" : "off")}");
             if (!File.Exists(executable)) log?.Invoke($"TeknoModel2 executable was not found at {executable}");
@@ -308,6 +315,32 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 WorkingDirectory = workDir,
                 RedirectStandardError = true
             };
+        }
+
+        // Mirrors ConfigurationWriter's [GlobalScore] block and Score category for emulators
+        // that host Score Submission in-process.
+        private static void WriteScoreSubmissionIni(GameProfile profile, string workDir, Action<string> log)
+        {
+            var ini = new System.Text.StringBuilder();
+            ini.Append("[GlobalScore]").Append(Environment.NewLine);
+            ini.Append("Submission ID=").Append(Lazydata.ParrotData.ScoreSubmissionID).Append(Environment.NewLine);
+            ini.Append("CollapseGUIKey=").Append(Lazydata.ParrotData.ScoreCollapseGUIKey).Append(Environment.NewLine);
+            ini.Append("[Score]").Append(Environment.NewLine);
+            foreach (var field in profile.ConfigValues.Where(x => x.CategoryName == "Score"))
+            {
+                var value = field.FieldType == FieldType.DropdownIndex
+                    ? field.FieldOptions.IndexOf(field.FieldValue).ToString(CultureInfo.InvariantCulture)
+                    : field.FieldValue;
+                ini.Append(field.FieldName).Append('=').Append(value).Append(Environment.NewLine);
+            }
+            try
+            {
+                File.WriteAllText(Path.Combine(workDir, "teknoparrot.ini"), ini.ToString());
+            }
+            catch (Exception ex) when (ex is IOException || ex is UnauthorizedAccessException)
+            {
+                log?.Invoke($"Could not write Score Submission settings to {workDir}: {ex.Message}");
+            }
         }
 
         private static ProcessStartInfo BuildTeknoModel1(
