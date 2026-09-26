@@ -7,7 +7,7 @@
   <ExtraParameters />
   <TestMenuExtraParameters />
   <EmulationProfile>TeknoHornet</EmulationProfile>
-  <GameProfileRevision>10</GameProfileRevision>
+  <GameProfileRevision>11</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoHornet</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -351,15 +351,6 @@
       <ButtonName>Brake</ButtonName>
       <InputMapping>Analog4</InputMapping>
       <AnalogType>Brake</AnalogType>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Handbrake</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Clutch</ButtonName>
-      <InputMapping>Analog8</InputMapping>
-      <AnalogType>Gas</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
