@@ -43,7 +43,8 @@ namespace TeknoParrotUi.UserControls
                                                      f.FieldValue == "Constant Spring"))
                 field.FieldValue = "Spring using Constant Force";
             var inlineFields = new HashSet<string>(_fields.Where(f => !string.IsNullOrEmpty(f.EnabledBy))
-                .Select(f => f.EnabledBy));
+                .GroupBy(f => f.EnabledBy).Where(group => group.Count() == 1)
+                .Select(group => group.Key));
             var enableBoxes = new Dictionary<string, CheckBox>();
             foreach (var field in _fields.Where(f => !inlineFields.Contains(f.FieldName)))
             {
@@ -101,6 +102,7 @@ namespace TeknoParrotUi.UserControls
                 {
                     var check = new CheckBox { Content = "Enabled" };
                     check.SetBinding(ToggleButton.IsCheckedProperty, ValueBinding(field, true));
+                    enableBoxes[field.FieldName] = check;
                     editor = check;
                 }
                 else

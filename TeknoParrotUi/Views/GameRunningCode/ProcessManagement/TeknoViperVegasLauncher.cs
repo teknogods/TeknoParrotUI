@@ -650,6 +650,15 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             parameters.Add((ffbStrength / 100.0).ToString("0.00", CultureInfo.InvariantCulture));
             ForceFeedbackArguments.Add(profile, parameters, "Constant");
 
+            if (gameId == "sfrush" || gameId == "sfrushrk")
+            {
+                parameters.Add("--ffb-rush-mode");
+                parameters.Add(Enabled("Enhanced Force Feedback", true) ? "enhanced" : "original");
+                ForceFeedbackArguments.Add(profile, parameters, "Friction", "Damping");
+                parameters.Add("--ffb-damping-smoothing");
+                parameters.Add(Enabled("Smooth Damping", true) ? "on" : "off");
+            }
+
             var widescreen = Setting("True Widescreen", "off");
             if (widescreen != "16:9")
                 widescreen = "off";
