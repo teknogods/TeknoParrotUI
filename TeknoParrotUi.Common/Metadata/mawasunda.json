@@ -1,7 +1,7 @@
 {
   "game_name": "Mawasunda!! (V2.08J 2000/02/01 11:02:54)",
   "game_genre": "Action",
-  "platform": "TaitoGNet",
+  "platform": "Taito G-NET",
   "icon_name": "",
   "general_issues": " Select coh1002t.zip as the first game path and the game CHD as the second. No separate game ROM ZIP is required."
 }

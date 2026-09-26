@@ -361,6 +361,9 @@
   <data name="AddGameGenre" xml:space="preserve">
     <value>ジャンル</value>
   </data>
+  <data name="AddGamePlatformFilter" xml:space="preserve">
+    <value>プラットフォーム</value>
+  </data>
   <data name="AddGameInstalled" xml:space="preserve">
     <value>インストール済み</value>
   </data>
@@ -1312,6 +1315,12 @@ TeknoParrotを再展開してください。</value>
   </data>
   <data name="LibraryGenreLabel" xml:space="preserve">
     <value>ジャンル:</value>
+  </data>
+  <data name="LibraryPlatformLabel" xml:space="preserve">
+    <value>プラットフォーム:</value>
+  </data>
+  <data name="LibraryResetFilters" xml:space="preserve">
+    <value>フィルターをリセット</value>
   </data>
   <data name="LibraryGenrePlatform" xml:space="preserve">
     <value>プラットフォーム</value>

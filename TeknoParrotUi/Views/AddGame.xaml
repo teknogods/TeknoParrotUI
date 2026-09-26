@@ -96,6 +96,24 @@
                 SelectionChanged="UserControl_Loaded">
             </ComboBox>
             <Label
+                Width="248"
+                Height="26"
+                Margin="10,10,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="{x:Static p:Resources.AddGamePlatformFilter}"
+                FontSize="16" />
+            <ComboBox
+                x:Name="PlatformBox"
+                Width="246"
+                Height="30"
+                Margin="20,4,0,0"
+                DisplayMemberPath="DisplayName"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                SelectionChanged="UserControl_Loaded">
+            </ComboBox>
+            <Label
                 Grid.Row="2"
                 Grid.Column="2"
                 Width="248"

@@ -1,7 +1,7 @@
 {
   "game_name": "Taiko no Tatsujin 5 (Japan, TK51 Ver.A)",
   "game_genre": "Action",
-  "platform": "NamcoSystem10",
+  "platform": "Namco System 10",
   "icon_name": "",
   "general_issues": " Select a merged ROM ZIP and, where requested, a CHD from the game disc directory. Controls: Both players have independent Left Rim, Left Center, Right Center and Right Rim buttons driving the EXIO drum sensors. Select Down, Select Up and Enter are separate operator controls."
 }

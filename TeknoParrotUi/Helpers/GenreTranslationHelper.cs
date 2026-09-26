@@ -13,10 +13,6 @@ namespace TeknoParrotUi.Helpers
             { "Installed", nameof(Resources.AddGameInstalledFilter) },
             { "Not Installed", nameof(Resources.AddGameNotInstalledFilter) },
             { "Subscription", nameof(Resources.LibraryGenreSubscription) },
-            { "Konami Viper", nameof(Resources.LibraryGenreKonamiViper) },
-            { "System 246/256", nameof(Resources.LibraryGenreSystem246) },
-            { "System 357/359/369", nameof(Resources.LibraryGenreSystem357) },
-            { "Triforce", nameof(Resources.LibraryGenreTriforce) },
             { "Action", nameof(Resources.LibraryGenreAction) },
             { "Card", nameof(Resources.LibraryGenreCard) },
             { "Compilation", nameof(Resources.LibraryGenreCompilation) },
@@ -31,21 +27,22 @@ namespace TeknoParrotUi.Helpers
             { "Sports", nameof(Resources.LibraryGenreSports) }
         };
 
-        public static List<GenreItem> GetGenreItems(bool includeNotInstalled = false)
+        public static List<GenreItem> GetGenreItems(bool includeInstallFilters = false)
         {
             var items = new List<GenreItem>();
 
             var orderedKeys = new List<string>
             {
-                "All", "Installed", "Subscription", "Konami Viper", "System 246/256", "System 357/359/369", "Triforce",
+                "All", "Subscription",
                 "Action", "Card", "Compilation", "Fighting", "Flying",
                 "Platform", "Puzzle", "Racing", "Rhythm", "Shoot 'Em Up",
                 "Shooter", "Sports"
             };
 
-            if (includeNotInstalled)
+            // The library only lists installed games, so these filters only make sense when adding games
+            if (includeInstallFilters)
             {
-                orderedKeys.Insert(2, "Not Installed");
+                orderedKeys.InsertRange(1, new[] { "Installed", "Not Installed" });
             }
 
             foreach (var key in orderedKeys)
@@ -73,7 +70,6 @@ namespace TeknoParrotUi.Helpers
         public static bool DoesGameMatchGenre(string internalGenreName, TeknoParrotUi.Common.GameProfile gameProfile)
         {
             string gameGenre = gameProfile.GameInfo?.game_genre ?? gameProfile.GameGenreInternal ?? "Unknown";
-            var emulatorType = gameProfile.EmulatorType;
             Debug.WriteLine($"Game: {gameProfile.GameNameInternal} | GameGenre: {gameGenre} | Filter: {internalGenreName}");
 
             if (internalGenreName == "All")
@@ -94,33 +90,42 @@ namespace TeknoParrotUi.Helpers
                 return !existing;
             }
 
-            if (internalGenreName == "Triforce")
-            {
-                bool isTriforce = emulatorType == Common.EmulatorType.Dolphin;
-                return isTriforce;
-            }
-
-            if (internalGenreName == "System 246/256")
-            {
-                bool is246 = emulatorType == Common.EmulatorType.Play;
-                return is246;
-            }
-
-            if (internalGenreName == "System 357/359/369")
-            {
-                bool is357 = emulatorType == Common.EmulatorType.RPCS3;
-                return is357;
-            }
-
-            if (internalGenreName == "Konami Viper")
-            {
-                bool isViper = emulatorType == Common.EmulatorType.TeknoViper;
-                return isViper;
-            }
-
             bool matches = internalGenreName.Equals(gameGenre, System.StringComparison.OrdinalIgnoreCase);
             Debug.WriteLine($"  -> Matches: {matches}");
             return matches;
+        }
+
+        public static List<GenreItem> GetPlatformItems(IEnumerable<TeknoParrotUi.Common.GameProfile> gameProfiles)
+        {
+            var items = new List<GenreItem>
+            {
+                new GenreItem { InternalName = "All", DisplayName = Resources.LibraryGenreAll }
+            };
+
+            var platforms = (gameProfiles ?? Enumerable.Empty<TeknoParrotUi.Common.GameProfile>())
+                .Select(profile => profile.GameInfo?.platform)
+                .Where(platform => !string.IsNullOrWhiteSpace(platform))
+                .Distinct(System.StringComparer.OrdinalIgnoreCase)
+                .OrderBy(platform => platform, System.StringComparer.OrdinalIgnoreCase);
+
+            foreach (var platform in platforms)
+            {
+                items.Add(new GenreItem
+                {
+                    InternalName = platform,
+                    DisplayName = platform
+                });
+            }
+
+            return items;
+        }
+
+        public static bool DoesGameMatchPlatform(string platform, TeknoParrotUi.Common.GameProfile gameProfile)
+        {
+            if (string.IsNullOrEmpty(platform) || platform == "All")
+                return true;
+
+            return platform.Equals(gameProfile.GameInfo?.platform, System.StringComparison.OrdinalIgnoreCase);
         }
     }
 

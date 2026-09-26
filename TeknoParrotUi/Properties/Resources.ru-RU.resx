@@ -361,6 +361,9 @@
   <data name="AddGameGenre" xml:space="preserve">
     <value>Жанр</value>
   </data>
+  <data name="AddGamePlatformFilter" xml:space="preserve">
+    <value>Платформа</value>
+  </data>
   <data name="AddGameInstalled" xml:space="preserve">
     <value>Установленные</value>
   </data>
@@ -1312,6 +1315,12 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
   </data>
   <data name="LibraryGenreLabel" xml:space="preserve">
     <value>Жанр:</value>
+  </data>
+  <data name="LibraryPlatformLabel" xml:space="preserve">
+    <value>Платформа:</value>
+  </data>
+  <data name="LibraryResetFilters" xml:space="preserve">
+    <value>Сбросить фильтры</value>
   </data>
   <data name="LibraryGenrePlatform" xml:space="preserve">
     <value>Платформеры</value>

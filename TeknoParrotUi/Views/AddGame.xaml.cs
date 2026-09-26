@@ -37,6 +37,10 @@ namespace TeknoParrotUi.Views
             var genreItems = TeknoParrotUi.Helpers.GenreTranslationHelper.GetGenreItems(true);
             GenreBox.ItemsSource = genreItems;
             GenreBox.SelectedIndex = 0;
+
+            var platformItems = TeknoParrotUi.Helpers.GenreTranslationHelper.GetPlatformItems(GameProfileLoader.GameProfiles);
+            PlatformBox.ItemsSource = platformItems;
+            PlatformBox.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -85,6 +89,8 @@ namespace TeknoParrotUi.Views
                     selectedInternalGenre = genreItem?.InternalName ?? "All";
                 }
 
+                string selectedPlatform = (PlatformBox?.SelectedItem as TeknoParrotUi.Helpers.GenreItem)?.InternalName ?? "All";
+
                 string searchName = "";
                 if (GameSearchBox != null)
                 {
@@ -94,8 +100,9 @@ namespace TeknoParrotUi.Views
                 if (gameProfile.GameNameInternal.IndexOf(searchName, 0, StringComparison.OrdinalIgnoreCase) != -1 || string.IsNullOrWhiteSpace(searchName))
                 {
                     bool matchesGenre = TeknoParrotUi.Helpers.GenreTranslationHelper.DoesGameMatchGenre(selectedInternalGenre, gameProfile);
+                    bool matchesPlatform = TeknoParrotUi.Helpers.GenreTranslationHelper.DoesGameMatchPlatform(selectedPlatform, gameProfile);
 
-                    if (matchesGenre)
+                    if (matchesGenre && matchesPlatform)
                     {
                         stockGameList.Items.Add(item);
                     }

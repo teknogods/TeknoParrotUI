@@ -361,6 +361,9 @@
   <data name="AddGameGenre" xml:space="preserve">
     <value>النوع</value>
   </data>
+  <data name="AddGamePlatformFilter" xml:space="preserve">
+    <value>المنصة</value>
+  </data>
   <data name="AddGameInstalled" xml:space="preserve">
     <value>مثبت</value>
   </data>
@@ -1316,6 +1319,12 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
   </data>
   <data name="LibraryGenreLabel" xml:space="preserve">
     <value>النوع:</value>
+  </data>
+  <data name="LibraryPlatformLabel" xml:space="preserve">
+    <value>المنصة:</value>
+  </data>
+  <data name="LibraryResetFilters" xml:space="preserve">
+    <value>إعادة تعيين عوامل التصفية</value>
   </data>
   <data name="LibraryGenrePlatform" xml:space="preserve">
     <value>منصات</value>

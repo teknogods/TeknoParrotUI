@@ -65,6 +65,8 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <TextBlock Text="{x:Static p:Resources.LibraryGenreLabel}"
                        Grid.Column="0"
@@ -76,7 +78,18 @@
                       Height="30"
                       VerticalAlignment="Center"
                       DisplayMemberPath="DisplayName"
-                      SelectionChanged="GenreBox_SelectionChanged" />
+                      SelectionChanged="FilterBox_SelectionChanged" />
+            <TextBlock Text="{x:Static p:Resources.LibraryPlatformLabel}"
+                       Grid.Column="2"
+                       VerticalAlignment="Center"
+                       Margin="12,0,8,0"
+                       FontSize="14" />
+            <ComboBox x:Name="PlatformBox"
+                      Grid.Column="3"
+                      Height="30"
+                      VerticalAlignment="Center"
+                      DisplayMemberPath="DisplayName"
+                      SelectionChanged="FilterBox_SelectionChanged" />
         </Grid>
         <Grid Grid.Row="1"
               Grid.Column="0"
@@ -84,6 +97,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <materialDesign:PackIcon Grid.Column="0"
                                      Height="25"
@@ -96,6 +110,21 @@
                      Height="30"
                      VerticalAlignment="Center"
                      TextChanged="SearchBox_TextChanged" />
+            <Button x:Name="ResetFiltersButton"
+                    Grid.Column="2"
+                    Width="30"
+                    Height="30"
+                    Margin="4,0,0,0"
+                    Padding="0"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource MaterialDesignIconButton}"
+                    ToolTip="{x:Static p:Resources.LibraryResetFilters}"
+                    AutomationProperties.Name="{x:Static p:Resources.LibraryResetFilters}"
+                    Click="ResetFiltersButton_Click">
+                <materialDesign:PackIcon Kind="FilterRemove"
+                                         Width="20"
+                                         Height="20" />
+            </Button>
         </Grid>
         <Image Grid.Row="1"
                Grid.Column="1"

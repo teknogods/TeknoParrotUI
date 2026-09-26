@@ -43,6 +43,7 @@ namespace TeknoParrotUi.Views
         private string _searchText = string.Empty;
         private DispatcherTimer _searchDebounceTimer;
         private bool _isSearchUpdate = false;
+        private bool _suppressFilterUpdates = false;
         private string _savedSelection = null;
         private Window _highScoreWindow;
 
@@ -94,6 +95,27 @@ namespace TeknoParrotUi.Views
             var genreItems = TeknoParrotUi.Helpers.GenreTranslationHelper.GetGenreItems(false);
             GenreBox.ItemsSource = genreItems;
             GenreBox.SelectedIndex = 0;
+        }
+
+        /// <summary>
+        /// Rebuilds the platform list from the installed games, keeping the current selection if it still exists.
+        /// </summary>
+        private void RefreshPlatformComboBox()
+        {
+            if (PlatformBox == null || GameProfileLoader.UserProfiles == null)
+                return;
+
+            var platformItems = TeknoParrotUi.Helpers.GenreTranslationHelper.GetPlatformItems(GameProfileLoader.UserProfiles);
+            var currentItems = PlatformBox.ItemsSource as List<TeknoParrotUi.Helpers.GenreItem>;
+            if (currentItems != null && currentItems.Select(i => i.InternalName).SequenceEqual(platformItems.Select(i => i.InternalName)))
+                return;
+
+            var selectedPlatform = (PlatformBox.SelectedItem as TeknoParrotUi.Helpers.GenreItem)?.InternalName ?? "All";
+
+            _suppressFilterUpdates = true;
+            PlatformBox.ItemsSource = platformItems;
+            PlatformBox.SelectedItem = platformItems.FirstOrDefault(i => i.InternalName == selectedPlatform) ?? platformItems[0];
+            _suppressFilterUpdates = false;
         }
 
         static BitmapSource LoadImage(string filename)
@@ -417,14 +439,18 @@ namespace TeknoParrotUi.Views
                     selectedInternalGenre = genreItem?.InternalName ?? "All";
                 }
 
+                RefreshPlatformComboBox();
+                string selectedPlatform = (PlatformBox?.SelectedItem as TeknoParrotUi.Helpers.GenreItem)?.InternalName ?? "All";
+
                 foreach (var gameProfile in GameProfileLoader.UserProfiles)
                 {
                     var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
 
-                    // Use the translation helper to check if the game matches the selected genre
+                    // Use the translation helper to check if the game matches the selected genre and platform
                     bool matchesGenre = TeknoParrotUi.Helpers.GenreTranslationHelper.DoesGameMatchGenre(selectedInternalGenre, gameProfile);
+                    bool matchesPlatform = TeknoParrotUi.Helpers.GenreTranslationHelper.DoesGameMatchPlatform(selectedPlatform, gameProfile);
 
-                    if (!matchesGenre)
+                    if (!matchesGenre || !matchesPlatform)
                         continue;
 
                     // Filter by search text if present
@@ -2040,13 +2066,40 @@ namespace TeknoParrotUi.Views
             app.BtnTPOnline2(null, null);
         }
 
-        private void GenreBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void FilterBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (_suppressFilterUpdates)
+                return;
+
             ListUpdate();
+        }
+
+        private void ResetFiltersButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Keep the current game selected (or the one selected before searching) once the full list is back
+            var selectedGame = _savedSelection;
+            if (selectedGame == null && gameList.SelectedIndex >= 0 && gameList.SelectedIndex < _gameNames.Count)
+            {
+                selectedGame = _gameNames[gameList.SelectedIndex].GameNameInternal;
+            }
+
+            _searchDebounceTimer.Stop();
+            _suppressFilterUpdates = true;
+            GenreBox.SelectedIndex = 0;
+            PlatformBox.SelectedIndex = 0;
+            SearchBox.Text = string.Empty;
+            _searchText = string.Empty;
+            _savedSelection = null;
+            _suppressFilterUpdates = false;
+
+            ListUpdate(selectedGame);
         }
 
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if (_suppressFilterUpdates)
+                return;
+
             var newSearchText = SearchBox.Text;
 
             if (string.IsNullOrWhiteSpace(_searchText) && !string.IsNullOrWhiteSpace(newSearchText))

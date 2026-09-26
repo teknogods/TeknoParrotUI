@@ -835,6 +835,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Platform.
+        /// </summary>
+        public static string AddGamePlatformFilter {
+            get {
+                return ResourceManager.GetString("AddGamePlatformFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Puzzle.
         /// </summary>
         public static string AddGamePuzzle {
@@ -3998,6 +4007,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Platform:.
+        /// </summary>
+        public static string LibraryPlatformLabel {
+            get {
+                return ResourceManager.GetString("LibraryPlatformLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PLAY.
         /// </summary>
         public static string LibraryPlay {
@@ -4030,6 +4048,15 @@ namespace TeknoParrotUi.Properties {
         public static string LibraryReplaceFollowingFiles {
             get {
                 return ResourceManager.GetString("LibraryReplaceFollowingFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset filters.
+        /// </summary>
+        public static string LibraryResetFilters {
+            get {
+                return ResourceManager.GetString("LibraryResetFilters", resourceCulture);
             }
         }
         

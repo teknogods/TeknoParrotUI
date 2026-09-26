@@ -361,6 +361,9 @@
   <data name="AddGameGenre" xml:space="preserve">
     <value>Gatunek</value>
   </data>
+  <data name="AddGamePlatformFilter" xml:space="preserve">
+    <value>Platforma</value>
+  </data>
   <data name="AddGameInstalled" xml:space="preserve">
     <value>Zainstalowane</value>
   </data>
@@ -1312,6 +1315,12 @@ Proszę wyodrębnij TeknoParrot ponownie.</value>
   </data>
   <data name="LibraryGenreLabel" xml:space="preserve">
     <value>Gatunek:</value>
+  </data>
+  <data name="LibraryPlatformLabel" xml:space="preserve">
+    <value>Platforma:</value>
+  </data>
+  <data name="LibraryResetFilters" xml:space="preserve">
+    <value>Resetuj filtry</value>
   </data>
   <data name="LibraryGenrePlatform" xml:space="preserve">
     <value>Platformowe</value>
