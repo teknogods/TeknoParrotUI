@@ -119,7 +119,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var filter = Setting("Presentation Resampling", "bicubic");
             if (filter != "nearest" && filter != "linear" && filter != "bicubic" && filter != "lanczos") filter = "bicubic";
             var args = new List<string> { "--set", "a51site4", "--rom-root", Quote(Path.GetDirectoryName(rom)),
-                "--disk", Quote(disk), "--state-root", Quote(state), "--vulkan", "--filter", filter };
+                "--disk", Quote(disk), "--state-root", Quote(state), "--vulkan", "--filter", filter, "--outputs" };
             if (Setting("DisplayMode", "Fullscreen") == "Fullscreen") args.Add("--fullscreen");
             if (Enabled("Stretch to Fullscreen")) args.Add("--stretch-to-fullscreen");
             if (!Enabled("Crosshairs", true)) args.Add("--no-crosshairs");
