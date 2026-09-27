@@ -4,7 +4,7 @@
   <GamePath2 />
   <EmulationProfile>TeknoHDrive</EmulationProfile>
   <EmulatorType>TeknoHDrive</EmulatorType>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>racedriv.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
@@ -228,10 +228,6 @@
     <JoystickButtons>
       <ButtonName>Gear 4</ButtonName>
       <InputMapping>P1ButtonRight</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Neutral</ButtonName>
-      <InputMapping>P1ButtonDown</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>
