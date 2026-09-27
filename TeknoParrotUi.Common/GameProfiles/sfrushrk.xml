@@ -7,7 +7,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>TeknoVegas</EmulationProfile>
-  <GameProfileRevision>23</GameProfileRevision>
+  <GameProfileRevision>25</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoVegas</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -70,7 +70,7 @@
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
       <SettingsPage>ForceFeedback</SettingsPage>
-      <Hint>Adjust driving friction and damping before they are combined with steering torque. Save and restart the game to apply changes. Turn off to compare the original cabinet output.</Hint>
+      <Hint>Use fresh wheel movement for smoother driving forces, with adjustable game friction and damping. Save and restart the game to apply changes. Turn off to compare the original cabinet output.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -101,7 +101,7 @@
       <FieldType>Bool</FieldType>
       <SettingsPage>ForceFeedback</SettingsPage>
       <EnabledBy>Enhanced Force Feedback</EnabledBy>
-      <Hint>Reduce rapid changes in damping while preserving steering torque and impacts.</Hint>
+      <Hint>Soften increases in game damping and release it promptly when steering reverses. Steering torque and impacts remain unchanged. Save and restart the game to apply changes.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

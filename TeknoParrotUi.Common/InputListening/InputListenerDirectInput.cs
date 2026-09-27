@@ -1874,6 +1874,10 @@ namespace TeknoParrotUi.Common.InputListening
         }
         private void ListenJoystick(List<JoystickButtons> joystickButtons, Joystick joystick)
         {
+            var wheel = !KeyboardorButtonAxis && Pipes.TeknoVegasPipe.UsesEnhancedWheel(_gameProfile)
+                ? joystickButtons.FirstOrDefault(x => x.InputMapping == InputMapping.Analog14 &&
+                    x.AnalogType == AnalogType.Wheel && x.DirectInputButton?.IsAxis == true)
+                : null;
             // Poll events from joystick
             try
             {
@@ -1888,7 +1892,33 @@ namespace TeknoParrotUi.Common.InputListening
                             HandleDirectInput(t, state);
                         }
                     }
-                    Thread.Sleep(10);
+                    if (wheel != null)
+                    {
+                        // Buffered events still preserve button edges. Read the
+                        // current axis separately, including stationary polls.
+                        var current = joystick.GetCurrentState();
+                        if (TryReadWheelAxis(current, (JoystickOffset)wheel.DirectInputButton.Button, out var raw))
+                        {
+                            var timestamp = Stopwatch.GetTimestamp();
+                            double position = minValWheel + Math.Max(0, Math.Min(65535, raw)) /
+                                (double)(ushort.MaxValue / (maxValWheel - minValWheel));
+                            if (Lazydata.ParrotData.UseSto0ZDrivingHack)
+                            {
+                                var x = Math.Max(-1.0, Math.Min(1.0, (raw - 32767.0) / 32767.0));
+                                var deadzone = Math.Max(0, Math.Min(1, Lazydata.ParrotData.StoozPercent / 100.0));
+                                position = 127.5;
+                                if (Math.Abs(x) > deadzone)
+                                    position *= 1 + Math.Sign(x) * (Math.Abs(x) - deadzone) / (1 - deadzone);
+                            }
+                            // Keep the cabinet input current too, without
+                            // changing its established byte representation.
+                            InputCode.AnalogBytes[14] = Lazydata.ParrotData.UseSto0ZDrivingHack
+                                ? JvsHelper.CalculateSto0ZWheelPos(raw, Lazydata.ParrotData.StoozPercent)
+                                : JvsHelper.CalculateWheelPos(raw, false, false, minValWheel, maxValWheel);
+                            Pipes.TeknoVegasPipe.PublishWheel(position, timestamp);
+                        }
+                    }
+                    Thread.Sleep(wheel != null ? 2 : 10);
                 }
                 joystick.Unacquire();
             }
@@ -1896,6 +1926,22 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 // ignored
                 joystick.Unacquire();
+            }
+        }
+
+        private static bool TryReadWheelAxis(JoystickState state, JoystickOffset offset, out int value)
+        {
+            switch (offset)
+            {
+                case JoystickOffset.X: value = state.X; return true;
+                case JoystickOffset.Y: value = state.Y; return true;
+                case JoystickOffset.Z: value = state.Z; return true;
+                case JoystickOffset.RotationX: value = state.RotationX; return true;
+                case JoystickOffset.RotationY: value = state.RotationY; return true;
+                case JoystickOffset.RotationZ: value = state.RotationZ; return true;
+                case JoystickOffset.Sliders0: value = state.Sliders[0]; return true;
+                case JoystickOffset.Sliders1: value = state.Sliders[1]; return true;
+                default: value = 0; return false;
             }
         }
 
