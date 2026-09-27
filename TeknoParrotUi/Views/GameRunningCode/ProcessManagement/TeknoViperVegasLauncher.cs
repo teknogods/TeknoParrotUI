@@ -33,7 +33,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
         // operator menu on request (TeknoMagic) act on it, others ignore it.
         public static ProcessStartInfo Build(GameProfile profile, string gameLocation, Action<string> log, bool isTest = false)
         {
-            var info = BuildEmulator(profile, gameLocation, log);
+            var info = BuildEmulator(profile, gameLocation, log, isTest);
             CabinetOutputSettings.Apply(profile, info);
             return info;
         }
