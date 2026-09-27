@@ -500,7 +500,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                             textBoxConsole.Dispatcher.Invoke(
                                 () => textBoxConsole.AppendText(message + Environment.NewLine),
                                 DispatcherPriority.Background);
-                        });
+                        },
+                        _isTest);
                 }
                 else if (_gameProfile.EmulatorType == EmulatorType.RPCS3)
                 {

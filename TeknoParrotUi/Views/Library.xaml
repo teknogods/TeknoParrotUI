@@ -298,12 +298,14 @@
             <StackPanel Width="Auto"
                         HorizontalAlignment="Left"
                         Orientation="Horizontal">
-                <materialDesign:PackIcon Margin="0,0,0,0"
+                <materialDesign:PackIcon x:Name="testMenuIcon"
+                                         Margin="0,0,8,0"
                                          VerticalAlignment="Center"
                                          Kind="TestTube"
                                          Height="24"
                                          Width="24" />
-                <TextBlock FontSize="14"
+                <TextBlock x:Name="testMenuText"
+                           FontSize="14"
                            VerticalAlignment="Center"
                            Text="{x:Static p:Resources.LibraryTestMode}" />
             </StackPanel>

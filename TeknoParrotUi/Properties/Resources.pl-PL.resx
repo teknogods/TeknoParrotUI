@@ -1415,6 +1415,12 @@ Następujące pliki mogą wymagać usunięcia z katalogu gry, chyba że wiesz, c
   <data name="LibraryTestMode" xml:space="preserve">
     <value>TRYB TESTOWY</value>
   </data>
+  <data name="LibraryTerminalMode" xml:space="preserve">
+    <value>TERMINAL</value>
+  </data>
+  <data name="LibraryLaunchTerminalMode" xml:space="preserve">
+    <value>Uruchom w trybie terminala bez zmiany zapisanych ustawień gry.</value>
+  </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
     <value> (Osoba trzecia)</value>
   </data>

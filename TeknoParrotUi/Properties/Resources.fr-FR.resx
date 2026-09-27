@@ -1415,6 +1415,12 @@ Les fichiers suivants peuvent nécessiter d'être supprimés du répertoire du j
   <data name="LibraryTestMode" xml:space="preserve">
     <value>MODE TEST</value>
   </data>
+  <data name="LibraryTerminalMode" xml:space="preserve">
+    <value>TERMINAL</value>
+  </data>
+  <data name="LibraryLaunchTerminalMode" xml:space="preserve">
+    <value>Lancer en mode terminal sans modifier les paramètres de jeu enregistrés.</value>
+  </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
     <value> (Tiers)</value>
   </data>

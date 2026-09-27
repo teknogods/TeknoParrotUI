@@ -1415,6 +1415,12 @@ TeknoParrot을 다시 압축 해제해주세요.</value>
   <data name="LibraryTestMode" xml:space="preserve">
     <value>테스트 모드</value>
   </data>
+  <data name="LibraryTerminalMode" xml:space="preserve">
+    <value>터미널</value>
+  </data>
+  <data name="LibraryLaunchTerminalMode" xml:space="preserve">
+    <value>저장된 게임 설정을 변경하지 않고 터미널 모드로 실행합니다.</value>
+  </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
     <value> (서드파티)</value>
   </data>

@@ -1415,6 +1415,12 @@ Seuraavat tiedostot on ehkä poistettava pelin hakemistosta, ellet tiedä mitä 
   <data name="LibraryTestMode" xml:space="preserve">
     <value>TESTITILA</value>
   </data>
+  <data name="LibraryTerminalMode" xml:space="preserve">
+    <value>PÄÄTE</value>
+  </data>
+  <data name="LibraryLaunchTerminalMode" xml:space="preserve">
+    <value>Käynnistä päätetilassa muuttamatta tallennettuja peliasetuksia.</value>
+  </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
     <value> (Kolmannen osapuolen)</value>
   </data>

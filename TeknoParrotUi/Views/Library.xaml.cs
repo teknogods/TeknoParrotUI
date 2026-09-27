@@ -261,6 +261,7 @@ namespace TeknoParrotUi.Views
             if (gameList.SelectedIndex < 0)
             {
                 ResetIcon(gameIcon);
+                testMenuButton.IsEnabled = false;
                 return;
             }
 
@@ -273,7 +274,15 @@ namespace TeknoParrotUi.Views
 
             var profile = _gameNames[gameList.SelectedIndex];
             _ = UpdateIconAsync(Path.GetFileName(profile.IconName), profile.EmulatorType, gameIcon);
-            if (!profile.HasSeparateTestMode)
+            bool hasTerminalMode = GetTerminalModeField(profile) != null;
+            testMenuText.Text = hasTerminalMode ? Properties.Resources.LibraryTerminalMode : Properties.Resources.LibraryTestMode;
+            testMenuIcon.Kind = hasTerminalMode ? MaterialDesignThemes.Wpf.PackIconKind.Monitor : MaterialDesignThemes.Wpf.PackIconKind.TestTube;
+            if (hasTerminalMode)
+            {
+                testMenuButton.IsEnabled = true;
+                testMenuButton.ToolTip = Properties.Resources.LibraryLaunchTerminalMode;
+            }
+            else if (!profile.HasSeparateTestMode)
             {
                 testMenuButton.IsEnabled = false;
                 testMenuButton.ToolTip = "Test menu accessed ingame via buttons or not available";
@@ -1856,8 +1865,15 @@ namespace TeknoParrotUi.Views
             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = Joystick;
         }
 
+        private static FieldInformation GetTerminalModeField(GameProfile profile)
+        {
+            return profile.ConfigValues?.FirstOrDefault(field => field.CategoryName == "General" &&
+                field.FieldType == FieldType.Bool &&
+                (field.FieldName == "TerminalMode" || field.FieldName == "Terminal Mode"));
+        }
+
         /// <summary>
-        /// This button actually launches the game selected in test mode, if available
+        /// Launches the selected game in terminal mode or its separate test mode, if available.
         /// </summary>
         private void BtnLaunchTestMenu(object sender, RoutedEventArgs e)
         {
@@ -1868,13 +1884,33 @@ namespace TeknoParrotUi.Views
 
             var gameProfile = (GameProfile)((ListBoxItem)gameList.SelectedItem).Tag;
 
+            bool isTerminal = GetTerminalModeField(gameProfile) != null;
+            if (!isTerminal && !gameProfile.HasSeparateTestMode)
+                return;
+
             Lazydata.ParrotData.LastPlayed = gameProfile.GameNameInternal;
             JoystickHelper.Serialize();
 
-            // Launch with test menu enabled
-            if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this, true))
+            // Terminal mode uses the normal game executable and architecture.
+            bool isTest = !isTerminal;
+            if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this, isTest))
             {
-                var gameRunning = new GameRunning(gameProfile, loader, dll, true, false, false, this);
+                if (isTerminal)
+                {
+                    // Validation can save input repairs, so apply launch-only settings afterwards.
+                    gameProfile = gameProfile.Clone();
+                    GetTerminalModeField(gameProfile).FieldValue = "1";
+                    foreach (var field in gameProfile.ConfigValues.Where(field => field.CategoryName == "General" &&
+                        field.FieldType == FieldType.Bool &&
+                        (field.FieldName == "TerminalEmulator" || field.FieldName == "Terminal Emu")))
+            {
+                        field.FieldValue = "0";
+                    }
+                    // Prevent settings synchronization from saving this temporary profile.
+                    gameProfile.AllowSettingSync = false;
+                }
+
+                var gameRunning = new GameRunning(gameProfile, loader, dll, isTest, false, false, this);
                 Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
             }
         }

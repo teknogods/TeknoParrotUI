@@ -1415,6 +1415,12 @@ The following files may need to be removed from the game directory, unless you k
   <data name="LibraryTestMode" xml:space="preserve">
     <value>Test Mode</value>
   </data>
+  <data name="LibraryTerminalMode" xml:space="preserve">
+    <value>TERMINAL</value>
+  </data>
+  <data name="LibraryLaunchTerminalMode" xml:space="preserve">
+    <value>Launch in terminal mode without changing saved game settings.</value>
+  </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
     <value> (Third Party)</value>
   </data>

@@ -1415,6 +1415,12 @@ Die folgenden Dateien müssen möglicherweise aus dem Spielverzeichnis entfernt 
   <data name="LibraryTestMode" xml:space="preserve">
     <value>TESTMODUS</value>
   </data>
+  <data name="LibraryTerminalMode" xml:space="preserve">
+    <value>TERMINAL</value>
+  </data>
+  <data name="LibraryLaunchTerminalMode" xml:space="preserve">
+    <value>Im Terminalmodus starten, ohne die gespeicherten Spieleinstellungen zu ändern.</value>
+  </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
     <value> (Drittanbieter)</value>
   </data>

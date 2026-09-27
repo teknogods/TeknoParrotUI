@@ -1415,6 +1415,12 @@ De volgende bestanden moeten mogelijk worden verwijderd uit de game map, tenzij 
   <data name="LibraryTestMode" xml:space="preserve">
     <value>TEST MODUS</value>
   </data>
+  <data name="LibraryTerminalMode" xml:space="preserve">
+    <value>TERMINAL</value>
+  </data>
+  <data name="LibraryLaunchTerminalMode" xml:space="preserve">
+    <value>Start in terminalmodus zonder de opgeslagen spelinstellingen te wijzigen.</value>
+  </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
     <value> (Derde Partij)</value>
   </data>

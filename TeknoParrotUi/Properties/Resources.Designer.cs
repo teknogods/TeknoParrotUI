@@ -4095,6 +4095,24 @@ namespace TeknoParrotUi.Properties {
                 return ResourceManager.GetString("LibraryTestMode", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to TERMINAL.
+        /// </summary>
+        public static string LibraryTerminalMode {
+            get {
+                return ResourceManager.GetString("LibraryTerminalMode", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Launch in terminal mode without changing saved game settings..
+        /// </summary>
+        public static string LibraryLaunchTerminalMode {
+            get {
+                return ResourceManager.GetString("LibraryLaunchTerminalMode", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to  (Third Party).
