@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Winning Run '91</GameNameInternal>
   <EmulationProfile>TeknoS21</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <EmulatorType>TeknoS21</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>winrun91.zip</ExecutableName>
@@ -184,28 +184,12 @@
       <InputMapping>P1ButtonStart</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Button 1</ButtonName>
+      <ButtonName>Shift Up</ButtonName>
       <InputMapping>P1Button1</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Button 2</ButtonName>
+      <ButtonName>Shift Down</ButtonName>
       <InputMapping>P1Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button 3</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button 4</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button 5</ButtonName>
-      <InputMapping>P1Button5</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button 6</ButtonName>
-      <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Wheel Axis</ButtonName>

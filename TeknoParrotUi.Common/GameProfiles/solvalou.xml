@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Solvalou</GameNameInternal>
   <EmulationProfile>TeknoS21</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <EmulatorType>TeknoS21</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>solvalou.zip</ExecutableName>
@@ -150,22 +150,6 @@
     <JoystickButtons>
       <ButtonName>Button 2</ButtonName>
       <InputMapping>P1Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button 3</ButtonName>
-      <InputMapping>P1Button3</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button 4</ButtonName>
-      <InputMapping>P1Button4</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button 5</ButtonName>
-      <InputMapping>P1Button5</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Button 6</ButtonName>
-      <InputMapping>P1Button6</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Aim X</ButtonName>
