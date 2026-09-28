@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<GamePath2></GamePath2>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>TeknoMagic</EmulationProfile>
+	<GameProfileRevision>4</GameProfileRevision>
+	<HasSeparateTestMode>true</HasSeparateTestMode>
+	<EmulatorType>TeknoMagic</EmulatorType>
+	<Is64Bit>true</Is64Bit>
+	<TestExecIs64Bit>true</TestExecIs64Bit>
+	<ExecutableName>magictg.zip</ExecutableName>
+	<HasTwoExecutables>false</HasTwoExecutables>
+	<Patreon>false</Patreon>
+	<DevOnly>false</DevOnly>
+	<UseDirectionalPresses>false</UseDirectionalPresses>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+				<string>RawInputTrackball</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>Trackball Sensitivity X</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>400</FieldMax>
+			<FieldStep>5</FieldStep>
+			<Hint>RawInputTrackball only. Scales the trackballs' X input. Percent, so 100 = 100%, 25 = 25%</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Controls</CategoryName>
+			<FieldName>Trackball Sensitivity Y</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>400</FieldMax>
+			<FieldStep>5</FieldStep>
+			<Hint>RawInputTrackball only. Scales the trackballs' Y input. Percent, so 100 = 100%, 25 = 25%</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>VR</CategoryName>
+			<FieldName>Enable VR</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Present the game through OpenXR. The desktop window remains available as a spectator view.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>VR</CategoryName>
+			<FieldName>Use VR Controls</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>When VR is enabled, use OpenXR headset controllers. Turn this off to keep using TPUI shared-pipe or Xbox controls in VR.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>VR</CategoryName>
+			<FieldName>VR Depth</FieldName>
+			<FieldValue>150</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>100</FieldMin>
+			<FieldMax>200</FieldMax>
+			<FieldStep>5</FieldStep>
+			<Hint>Adjust OpenXR stereo depth from 100% to 200%. Only used when VR is enabled.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>DisplayMode</FieldName>
+			<FieldValue>Fullscreen</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Windowed</string>
+				<string>Fullscreen</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>Stretch to Fullscreen</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Stretch fullscreen output to fill the display, ignoring the game's original aspect ratio.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>Internal Resolution</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>1</string>
+				<string>2</string>
+				<string>4</string>
+				<string>8</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>Presentation Resampling</FieldName>
+			<FieldValue>bicubic</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>nearest</string>
+				<string>linear</string>
+				<string>bicubic</string>
+			</FieldOptions>
+			<Hint>Reconstruction filter used when the game is not presented at an exact integer size. Downscaling always uses an area filter.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>CRT Shader</FieldName>
+			<FieldValue>None</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>None</string>
+				<string>Lottes</string>
+			</FieldOptions>
+			<Hint>Apply Timothy Lottes' CRT filter to the presented image.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>Presentation Sharpening</FieldName>
+			<FieldValue>0.15</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>0</string>
+				<string>0.15</string>
+				<string>0.30</string>
+				<string>0.50</string>
+			</FieldOptions>
+			<Hint>Display-only unsharp masking after resampling. It cannot affect emulation or framebuffer reads.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>Display Gamma</FieldName>
+			<FieldValue>1.0</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>Display Saturation</FieldName>
+			<FieldValue>1.0</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>Display Contrast</FieldName>
+			<FieldValue>1.0</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Video</CategoryName>
+			<FieldName>Use Bezel</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Put either magictg.png or default.png into the bezels folder in the TeknoMagic folder. Only used when not stretching to fullscreen.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Audio</CategoryName>
+			<FieldName>Mute Audio</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Performance</CategoryName>
+			<FieldName>Prefer High Performance</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Start</ButtonName>
+			<InputMapping>P1ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Blast</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Creature</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Teleport</ButtonName>
+			<InputMapping>P1Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Trackball</ButtonName>
+			<InputMapping>P1Trackball</InputMapping>
+			<HideWithDirectInput>true</HideWithDirectInput>
+			<HideWithXInput>true</HideWithXInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Trackball X</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Trackball Y</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Trackball Up</ButtonName>
+			<InputMapping>P1ButtonUp</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Trackball Down</ButtonName>
+			<InputMapping>P1ButtonDown</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Trackball Left</ButtonName>
+			<InputMapping>P1ButtonLeft</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 1 Trackball Right</ButtonName>
+			<InputMapping>P1ButtonRight</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Coin</ButtonName>
+			<InputMapping>Coin2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Start</ButtonName>
+			<InputMapping>P2ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Blast</ButtonName>
+			<InputMapping>P2Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Creature</ButtonName>
+			<InputMapping>P2Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Teleport</ButtonName>
+			<InputMapping>P2Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Trackball</ButtonName>
+			<InputMapping>P2Trackball</InputMapping>
+			<HideWithDirectInput>true</HideWithDirectInput>
+			<HideWithXInput>true</HideWithXInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Trackball X</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Trackball Y</ButtonName>
+			<InputMapping>Analog6</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Trackball Up</ButtonName>
+			<InputMapping>P2ButtonUp</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Trackball Down</ButtonName>
+			<InputMapping>P2ButtonDown</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Trackball Left</ButtonName>
+			<InputMapping>P2ButtonLeft</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Player 2 Trackball Right</ButtonName>
+			<InputMapping>P2ButtonRight</InputMapping>
+		</JoystickButtons>
+	</JoystickButtons>
+</GameProfile>

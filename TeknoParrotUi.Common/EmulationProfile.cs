@@ -168,6 +168,7 @@
         TeknoS21,
         TeknoS11,
         TeknoTPJC,
-        TeknoHDrive
+        TeknoHDrive,
+        TeknoMagic
     }
 }

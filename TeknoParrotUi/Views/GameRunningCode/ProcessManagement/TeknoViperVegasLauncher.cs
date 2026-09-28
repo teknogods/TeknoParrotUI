@@ -70,6 +70,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     return TeknoM2Launcher.Build(profile, gameLocation, log);
                 case EmulatorType.TeknoHDrive:
                     return TeknoHDriveLauncher.Build(profile, gameLocation, log);
+                case EmulatorType.TeknoMagic:
+                    return TeknoMagicLauncher.Build(profile, gameLocation, log, isTest);
                 case EmulatorType.TeknoTPJC:
                     return TeknoTPJCLauncher.Build(profile, gameLocation, log);
                 case EmulatorType.TeknoS11:

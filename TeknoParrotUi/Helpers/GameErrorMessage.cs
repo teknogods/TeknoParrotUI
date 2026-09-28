@@ -127,7 +127,8 @@ namespace TeknoParrotUi.Helpers
                 return;
             }
             var viperVegas = emulatorType == EmulatorType.TeknoViper ||
-                             emulatorType == EmulatorType.TeknoVegas;
+                             emulatorType == EmulatorType.TeknoVegas ||
+                             emulatorType == EmulatorType.TeknoMagic;
             if (viperVegas && errorCode != 0)
             {
                 string resourceName;

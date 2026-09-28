@@ -33,6 +33,11 @@ namespace TeknoParrotUi.Common.Pipes
         private static bool GunProfile() =>
             InputCode.GameProfile?.EmulationProfile == EmulationProfile.TeknoTPJC || IsProfile("jpark3u") || IsProfile("wcombatu") || IsProfile("p911ud") || IsProfile("p9112");
 
+        // TeknoMagic drives two trackballs from the four analog axes; all four
+        // rest at 0x80 centre so an unbound axis produces no drift.
+        private static bool MagicProfile() =>
+            InputCode.GameProfile?.EmulationProfile == EmulationProfile.TeknoMagic;
+
         private static byte PlayerByte(int index)
         {
             var input = InputCode.PlayerDigitalButtons[index];
@@ -80,7 +85,7 @@ namespace TeknoParrotUi.Common.Pipes
                 InputCode.AnalogBytes[4] = IsProfile("steeltal") ? (byte)0x80 : (byte)0;
                 InputCode.AnalogBytes[6] = 0;
             }
-            if (GunProfile())
+            if (GunProfile() || MagicProfile())
             {
                 InputCode.AnalogBytes[2] = 0x80;
                 InputCode.AnalogBytes[4] = 0x80;

@@ -668,6 +668,9 @@ namespace TeknoParrotUi.Views
                 case EmulatorType.TeknoS11:
                     loaderExe = ".\\TeknoS11\\TeknoS11.exe";
                     break;
+                case EmulatorType.TeknoMagic:
+                    loaderExe = ".\\TeknoMagic\\teknomagic.exe";
+                    break;
                 case EmulatorType.TeknoViper:
                     loaderExe = File.Exists(".\\TeknoViper\\TeknoViper.exe")
                         ? ".\\TeknoViper\\TeknoViper.exe"
@@ -1903,7 +1906,7 @@ namespace TeknoParrotUi.Views
                     foreach (var field in gameProfile.ConfigValues.Where(field => field.CategoryName == "General" &&
                         field.FieldType == FieldType.Bool &&
                         (field.FieldName == "TerminalEmulator" || field.FieldName == "Terminal Emu")))
-            {
+                    {
                         field.FieldValue = "0";
                     }
                     // Prevent settings synchronization from saving this temporary profile.

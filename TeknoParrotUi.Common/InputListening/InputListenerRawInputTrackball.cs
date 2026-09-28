@@ -27,13 +27,21 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _invertX = false;
         private bool _invertY = false;
 
-        private static short _currentDeltaX;
-        private static short _currentDeltaY;
+        // Index 0 is P1Trackball, index 1 is P2Trackball. P1 keeps the classic
+        // page name every trackball game reads; P2 gets its own page so a
+        // two-trackball cabinet (TeknoMagic) can bind a second device.
+        private static readonly short[] _currentDeltaX = new short[2];
+        private static readonly short[] _currentDeltaY = new short[2];
         private readonly object _stateLock = new object();
         private const int MaxShortValue = 32767;
         private const int MinShortValue = -32768;
-        private MemoryMappedFile _mmf;
-        private MemoryMappedViewAccessor _accessor;
+        private static readonly string[] SharedMemoryNames =
+        {
+            "RawInputTrackballSharedMemory",
+            "RawInputTrackballSharedMemory2"
+        };
+        private readonly MemoryMappedFile[] _mmf = new MemoryMappedFile[2];
+        private readonly MemoryMappedViewAccessor[] _accessor = new MemoryMappedViewAccessor[2];
 
         [StructLayout(LayoutKind.Sequential)]
         private struct RECT
@@ -73,11 +81,14 @@ namespace TeknoParrotUi.Common.InputListening
         public InputListenerRawInputTrackball()
         {
             _hookedWindows = File.Exists("HookedWindows.txt") ? File.ReadAllLines("HookedWindows.txt").ToList() : new List<string>();
-            _mmf = MemoryMappedFile.CreateOrOpen("RawInputTrackballSharedMemory", 12);
-            _accessor = _mmf.CreateViewAccessor();
-            _accessor.Write(0, 0); // deltaX
-            _accessor.Write(4, 0); // deltaY
-            _accessor.Write(8, 0); // reset flag
+            for (var player = 0; player < SharedMemoryNames.Length; ++player)
+            {
+                _mmf[player] = MemoryMappedFile.CreateOrOpen(SharedMemoryNames[player], 12);
+                _accessor[player] = _mmf[player].CreateViewAccessor();
+                _accessor[player].Write(0, 0); // deltaX
+                _accessor[player].Write(4, 0); // deltaY
+                _accessor[player].Write(8, 0); // reset flag
+            }
         }
 
         private bool isHookableWindow(string windowTitle)
@@ -582,11 +593,13 @@ namespace TeknoParrotUi.Common.InputListening
 
         private void HandleRawInputTrackball(JoystickButtons joystickButton, int deltaX, int deltaY)
         {
+            var player = joystickButton.InputMapping == InputMapping.P2Trackball ? 1 : 0;
+            var accessor = _accessor[player];
             lock (_stateLock)
             {
                 int signedDeltaX = _invertX ? -deltaX : deltaX;
                 int signedDeltaY = _invertY ? -deltaY : deltaY;
-                int resetFlag = _accessor.ReadInt32(8);
+                int resetFlag = accessor.ReadInt32(8);
 
                 if (resetFlag == 1)
                 {
@@ -594,16 +607,16 @@ namespace TeknoParrotUi.Common.InputListening
                     // Game has read the accumulated delta, so we can reset and start over
                     // Note: we do also clear the delta from memory if the game does it, to get rid of leftover deltas
                     // Although we could also just read the reset flag on the game to see if there has been an update.
-                    _currentDeltaX = 0;
-                    _currentDeltaY = 0;
-                    _accessor.Write(8, 0);
+                    _currentDeltaX[player] = 0;
+                    _currentDeltaY[player] = 0;
+                    accessor.Write(8, 0);
                 }
 
-                _currentDeltaX += (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaX));
-                _currentDeltaY += (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaY));
-                //Trace.WriteLine($"DeltaX: {_currentDeltaX}, DeltaY: {_currentDeltaY}");
-                _accessor.Write(0, _currentDeltaX);
-                _accessor.Write(4, _currentDeltaY);
+                _currentDeltaX[player] += (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaX));
+                _currentDeltaY[player] += (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaY));
+                //Trace.WriteLine($"DeltaX: {_currentDeltaX[player]}, DeltaY: {_currentDeltaY[player]}");
+                accessor.Write(0, _currentDeltaX[player]);
+                accessor.Write(4, _currentDeltaY[player]);
             }
         }
     }

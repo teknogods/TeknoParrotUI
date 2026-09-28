@@ -189,6 +189,15 @@ namespace ParrotPatcher
                 },
                 new UpdaterComponent
                 {
+                    name = "TeknoMagic",
+                    location = Path.Combine("TeknoMagic", "teknomagic.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "TeknoMagic"
+                },
+                new UpdaterComponent
+                {
                     name = "TeknoVegas",
                     location = Path.Combine("TeknoVegas", "TeknoVegas.exe"),
                     reponame = "TeknoParrot",
