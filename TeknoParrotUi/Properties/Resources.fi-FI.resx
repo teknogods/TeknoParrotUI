@@ -2736,6 +2736,39 @@ Nyt suljetaan...</value>
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>Tallenna tiedot tekstitiedostoon</value>
   </data>
+  <data name="GameErrorViperVegasInvalidConfiguration" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas vastaanotti virheelliset käynnistysasetukset.</value>
+  </data>
+  <data name="GameErrorViperVegasUnsupportedGame" xml:space="preserve">
+    <value>Tämä peli on tuntematon tai sitä ei ole otettu käyttöön tässä TeknoViper/TeknoVegas-versiossa.</value>
+  </data>
+  <data name="GameErrorViperVegasLicense" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas ei voinut valtuuttaa tätä käynnistystä.</value>
+  </data>
+  <data name="GameErrorViperVegasMedia" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas ei voinut ladata tarvittavia ROM-tiedostoja tai levykuvia.</value>
+  </data>
+  <data name="GameErrorViperVegasState" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas ei voinut ladata asetuksissa määritettyjä tallennus- tai NVRAM-tietoja.</value>
+  </data>
+  <data name="GameErrorViperVegasNetwork" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas ei voinut alustaa peliautomaattien välistä verkkoyhteyttä.</value>
+  </data>
+  <data name="GameErrorViperVegasPlayerDisconnected" xml:space="preserve">
+    <value>Pelaajan yhteys verkko-otteluun katkesi, joten peli suljettiin.</value>
+  </data>
+  <data name="GameErrorViperVegasHostInitialization" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas ei voinut alustaa ikkunaansa tai näyttöjärjestelmäänsä.</value>
+  </data>
+  <data name="GameErrorViperVegasUnexpected" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas sulkeutui odottamatta.</value>
+  </data>
+  <data name="GameErrorViperVegasDetails" xml:space="preserve">
+    <value>{0}
+
+Lisätiedot:
+{1}</value>
+  </data>
   <data name="AnnouncementTitle" xml:space="preserve">
     <value>TeknoParrot-uutiset</value>
   </data>

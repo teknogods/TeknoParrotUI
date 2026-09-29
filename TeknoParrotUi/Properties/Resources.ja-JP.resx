@@ -2736,6 +2736,39 @@ TeknoParrotを再展開してください。</value>
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>情報をテキストファイルに保存</value>
   </data>
+  <data name="GameErrorViperVegasInvalidConfiguration" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas が無効な起動設定を受け取りました。</value>
+  </data>
+  <data name="GameErrorViperVegasUnsupportedGame" xml:space="preserve">
+    <value>このゲームは不明であるか、このバージョンの TeknoViper/TeknoVegas では有効になっていません。</value>
+  </data>
+  <data name="GameErrorViperVegasLicense" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas は今回の起動を承認できませんでした。</value>
+  </data>
+  <data name="GameErrorViperVegasMedia" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas は必要な ROM またはディスクイメージを読み込めませんでした。</value>
+  </data>
+  <data name="GameErrorViperVegasState" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas は設定されたセーブデータまたは NVRAM データを読み込めませんでした。</value>
+  </data>
+  <data name="GameErrorViperVegasNetwork" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas は筐体間のネットワーク接続を初期化できませんでした。</value>
+  </data>
+  <data name="GameErrorViperVegasPlayerDisconnected" xml:space="preserve">
+    <value>プレイヤーがオンライン対戦から切断されたため、ゲームを終了しました。</value>
+  </data>
+  <data name="GameErrorViperVegasHostInitialization" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas はウィンドウまたは表示システムを初期化できませんでした。</value>
+  </data>
+  <data name="GameErrorViperVegasUnexpected" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas が予期せず終了しました。</value>
+  </data>
+  <data name="GameErrorViperVegasDetails" xml:space="preserve">
+    <value>{0}
+
+詳細:
+{1}</value>
+  </data>
   <data name="AnnouncementTitle" xml:space="preserve">
     <value>TeknoParrot ニュース</value>
   </data>

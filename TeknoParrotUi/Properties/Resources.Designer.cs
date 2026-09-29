@@ -2778,6 +2778,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A player disconnected from the online match, so the game was closed..
+        /// </summary>
+        public static string GameErrorViperVegasPlayerDisconnected {
+            get {
+                return ResourceManager.GetString("GameErrorViperVegasPlayerDisconnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TeknoViper/TeknoVegas could not load the configured save or NVRAM data..
         /// </summary>
         public static string GameErrorViperVegasState {
@@ -3917,6 +3926,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Launch in terminal mode without changing saved game settings..
+        /// </summary>
+        public static string LibraryLaunchTerminalMode {
+            get {
+                return ResourceManager.GetString("LibraryLaunchTerminalMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The game might experience issues without the 4GB patch. Continue anyway?.
         /// </summary>
         public static string LibraryMightHaveIssues {
@@ -4079,6 +4097,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TERMINAL.
+        /// </summary>
+        public static string LibraryTerminalMode {
+            get {
+                return ResourceManager.GetString("LibraryTerminalMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Test Menu.
         /// </summary>
         public static string LibraryTestMenu {
@@ -4088,29 +4115,11 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Test Mode.
+        ///   Looks up a localized string similar to TEST MODE.
         /// </summary>
         public static string LibraryTestMode {
             get {
                 return ResourceManager.GetString("LibraryTestMode", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to TERMINAL.
-        /// </summary>
-        public static string LibraryTerminalMode {
-            get {
-                return ResourceManager.GetString("LibraryTerminalMode", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Launch in terminal mode without changing saved game settings..
-        /// </summary>
-        public static string LibraryLaunchTerminalMode {
-            get {
-                return ResourceManager.GetString("LibraryLaunchTerminalMode", resourceCulture);
             }
         }
         

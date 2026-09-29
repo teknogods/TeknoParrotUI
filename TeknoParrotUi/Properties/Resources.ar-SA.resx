@@ -2740,6 +2740,39 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>حفظ المعلومات في ملف نصي</value>
   </data>
+  <data name="GameErrorViperVegasInvalidConfiguration" xml:space="preserve">
+    <value>تلقى TeknoViper/TeknoVegas إعدادات تشغيل غير صالحة.</value>
+  </data>
+  <data name="GameErrorViperVegasUnsupportedGame" xml:space="preserve">
+    <value>هذه اللعبة غير معروفة أو غير مفعّلة في هذا الإصدار من TeknoViper/TeknoVegas.</value>
+  </data>
+  <data name="GameErrorViperVegasLicense" xml:space="preserve">
+    <value>تعذر على TeknoViper/TeknoVegas السماح بهذا التشغيل.</value>
+  </data>
+  <data name="GameErrorViperVegasMedia" xml:space="preserve">
+    <value>تعذر على TeknoViper/TeknoVegas تحميل ملفات ROM أو وسائط القرص المطلوبة.</value>
+  </data>
+  <data name="GameErrorViperVegasState" xml:space="preserve">
+    <value>تعذر على TeknoViper/TeknoVegas تحميل بيانات الحفظ أو بيانات NVRAM المحددة في الإعدادات.</value>
+  </data>
+  <data name="GameErrorViperVegasNetwork" xml:space="preserve">
+    <value>تعذر على TeknoViper/TeknoVegas تهيئة الاتصال الشبكي بين أجهزة الأركيد.</value>
+  </data>
+  <data name="GameErrorViperVegasPlayerDisconnected" xml:space="preserve">
+    <value>انقطع اتصال أحد اللاعبين بالمباراة عبر الإنترنت، لذا تم إغلاق اللعبة.</value>
+  </data>
+  <data name="GameErrorViperVegasHostInitialization" xml:space="preserve">
+    <value>تعذر على TeknoViper/TeknoVegas تهيئة نافذته أو نظام العرض.</value>
+  </data>
+  <data name="GameErrorViperVegasUnexpected" xml:space="preserve">
+    <value>تم إنهاء TeknoViper/TeknoVegas بشكل غير متوقع.</value>
+  </data>
+  <data name="GameErrorViperVegasDetails" xml:space="preserve">
+    <value>{0}
+
+التفاصيل:
+{1}</value>
+  </data>
   <data name="AnnouncementTitle" xml:space="preserve">
     <value>أخبار TeknoParrot</value>
   </data>

@@ -2736,6 +2736,39 @@ TeknoParrot 로딩을 계속하려면 "확인"을 클릭하세요.</value>
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>정보를 텍스트 파일로 저장</value>
   </data>
+  <data name="GameErrorViperVegasInvalidConfiguration" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas가 잘못된 실행 설정을 받았습니다.</value>
+  </data>
+  <data name="GameErrorViperVegasUnsupportedGame" xml:space="preserve">
+    <value>이 게임은 알 수 없는 게임이거나 이 TeknoViper/TeknoVegas 빌드에서 활성화되지 않았습니다.</value>
+  </data>
+  <data name="GameErrorViperVegasLicense" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas가 이번 실행을 승인하지 못했습니다.</value>
+  </data>
+  <data name="GameErrorViperVegasMedia" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas가 필요한 ROM 또는 디스크 이미지를 불러오지 못했습니다.</value>
+  </data>
+  <data name="GameErrorViperVegasState" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas가 설정된 저장 데이터 또는 NVRAM 데이터를 불러오지 못했습니다.</value>
+  </data>
+  <data name="GameErrorViperVegasNetwork" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas가 아케이드 기기 간 네트워크 연결을 초기화하지 못했습니다.</value>
+  </data>
+  <data name="GameErrorViperVegasPlayerDisconnected" xml:space="preserve">
+    <value>플레이어의 온라인 대전 연결이 끊어져 게임이 종료되었습니다.</value>
+  </data>
+  <data name="GameErrorViperVegasHostInitialization" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas가 창 또는 화면 표시 시스템을 초기화하지 못했습니다.</value>
+  </data>
+  <data name="GameErrorViperVegasUnexpected" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas가 예기치 않게 종료되었습니다.</value>
+  </data>
+  <data name="GameErrorViperVegasDetails" xml:space="preserve">
+    <value>{0}
+
+세부 정보:
+{1}</value>
+  </data>
   <data name="AnnouncementTitle" xml:space="preserve">
     <value>TeknoParrot 소식</value>
   </data>

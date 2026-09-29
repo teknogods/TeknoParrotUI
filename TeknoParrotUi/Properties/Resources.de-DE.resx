@@ -2736,6 +2736,39 @@ Jetzt wird geschlossen...</value>
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>Informationen als Textdatei speichern</value>
   </data>
+  <data name="GameErrorViperVegasInvalidConfiguration" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas hat eine ungültige Startkonfiguration erhalten.</value>
+  </data>
+  <data name="GameErrorViperVegasUnsupportedGame" xml:space="preserve">
+    <value>Dieses Spiel ist unbekannt oder in dieser Version von TeknoViper/TeknoVegas nicht aktiviert.</value>
+  </data>
+  <data name="GameErrorViperVegasLicense" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas konnte diesen Start nicht autorisieren.</value>
+  </data>
+  <data name="GameErrorViperVegasMedia" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas konnte die erforderlichen ROM- oder Datenträgerabbilder nicht laden.</value>
+  </data>
+  <data name="GameErrorViperVegasState" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas konnte die konfigurierten Speicherstand- oder NVRAM-Daten nicht laden.</value>
+  </data>
+  <data name="GameErrorViperVegasNetwork" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas konnte die Netzwerkverbindung zwischen den Arcade-Automaten nicht initialisieren.</value>
+  </data>
+  <data name="GameErrorViperVegasPlayerDisconnected" xml:space="preserve">
+    <value>Ein Spieler hat die Verbindung zum Online-Match getrennt, daher wurde das Spiel geschlossen.</value>
+  </data>
+  <data name="GameErrorViperVegasHostInitialization" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas konnte sein Fenster oder Anzeigesystem nicht initialisieren.</value>
+  </data>
+  <data name="GameErrorViperVegasUnexpected" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas wurde unerwartet beendet.</value>
+  </data>
+  <data name="GameErrorViperVegasDetails" xml:space="preserve">
+    <value>{0}
+
+Details:
+{1}</value>
+  </data>
   <data name="AnnouncementTitle" xml:space="preserve">
     <value>TeknoParrot-Neuigkeiten</value>
   </data>

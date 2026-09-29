@@ -2736,6 +2736,39 @@ Agora a fechar...</value>
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>Guardar informações num ficheiro de texto</value>
   </data>
+  <data name="GameErrorViperVegasInvalidConfiguration" xml:space="preserve">
+    <value>O TeknoViper/TeknoVegas recebeu uma configuração de arranque inválida.</value>
+  </data>
+  <data name="GameErrorViperVegasUnsupportedGame" xml:space="preserve">
+    <value>Este jogo é desconhecido ou não está ativado nesta versão do TeknoViper/TeknoVegas.</value>
+  </data>
+  <data name="GameErrorViperVegasLicense" xml:space="preserve">
+    <value>O TeknoViper/TeknoVegas não conseguiu autorizar este arranque.</value>
+  </data>
+  <data name="GameErrorViperVegasMedia" xml:space="preserve">
+    <value>O TeknoViper/TeknoVegas não conseguiu carregar as ROM ou as imagens de disco necessárias.</value>
+  </data>
+  <data name="GameErrorViperVegasState" xml:space="preserve">
+    <value>O TeknoViper/TeknoVegas não conseguiu carregar os dados de gravação ou de NVRAM configurados.</value>
+  </data>
+  <data name="GameErrorViperVegasNetwork" xml:space="preserve">
+    <value>O TeknoViper/TeknoVegas não conseguiu inicializar a ligação de rede entre as máquinas de arcade.</value>
+  </data>
+  <data name="GameErrorViperVegasPlayerDisconnected" xml:space="preserve">
+    <value>Um jogador desligou-se da partida online, pelo que o jogo foi fechado.</value>
+  </data>
+  <data name="GameErrorViperVegasHostInitialization" xml:space="preserve">
+    <value>O TeknoViper/TeknoVegas não conseguiu inicializar a sua janela ou o sistema de apresentação.</value>
+  </data>
+  <data name="GameErrorViperVegasUnexpected" xml:space="preserve">
+    <value>O TeknoViper/TeknoVegas terminou inesperadamente.</value>
+  </data>
+  <data name="GameErrorViperVegasDetails" xml:space="preserve">
+    <value>{0}
+
+Detalhes:
+{1}</value>
+  </data>
   <data name="AnnouncementTitle" xml:space="preserve">
     <value>Notícias do TeknoParrot</value>
   </data>

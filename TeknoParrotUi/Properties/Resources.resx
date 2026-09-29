@@ -1413,7 +1413,7 @@ The following files may need to be removed from the game directory, unless you k
     <value>Test Menu</value>
   </data>
   <data name="LibraryTestMode" xml:space="preserve">
-    <value>Test Mode</value>
+    <value>TEST MODE</value>
   </data>
   <data name="LibraryTerminalMode" xml:space="preserve">
     <value>TERMINAL</value>
@@ -2755,6 +2755,9 @@ Now closing...</value>
   </data>
   <data name="GameErrorViperVegasNetwork" xml:space="preserve">
     <value>TeknoViper/TeknoVegas could not initialize cabinet networking.</value>
+  </data>
+  <data name="GameErrorViperVegasPlayerDisconnected" xml:space="preserve">
+    <value>A player disconnected from the online match, so the game was closed.</value>
   </data>
   <data name="GameErrorViperVegasHostInitialization" xml:space="preserve">
     <value>TeknoViper/TeknoVegas could not initialize its window or presentation system.</value>

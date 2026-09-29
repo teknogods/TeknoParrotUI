@@ -2736,6 +2736,39 @@ Nu sluiten...</value>
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>Info opslaan als tekstbestand</value>
   </data>
+  <data name="GameErrorViperVegasInvalidConfiguration" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas heeft een ongeldige opstartconfiguratie ontvangen.</value>
+  </data>
+  <data name="GameErrorViperVegasUnsupportedGame" xml:space="preserve">
+    <value>Dit spel is onbekend of is niet ingeschakeld in deze versie van TeknoViper/TeknoVegas.</value>
+  </data>
+  <data name="GameErrorViperVegasLicense" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas kon deze start niet autoriseren.</value>
+  </data>
+  <data name="GameErrorViperVegasMedia" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas kon de vereiste ROM-bestanden of schijfkopieën niet laden.</value>
+  </data>
+  <data name="GameErrorViperVegasState" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas kon de ingestelde opgeslagen spelgegevens of NVRAM-gegevens niet laden.</value>
+  </data>
+  <data name="GameErrorViperVegasNetwork" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas kon de netwerkverbinding tussen de arcadekasten niet initialiseren.</value>
+  </data>
+  <data name="GameErrorViperVegasPlayerDisconnected" xml:space="preserve">
+    <value>Een speler heeft de verbinding met de onlinewedstrijd verbroken, waardoor het spel is afgesloten.</value>
+  </data>
+  <data name="GameErrorViperVegasHostInitialization" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas kon het venster of weergavesysteem niet initialiseren.</value>
+  </data>
+  <data name="GameErrorViperVegasUnexpected" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas is onverwacht afgesloten.</value>
+  </data>
+  <data name="GameErrorViperVegasDetails" xml:space="preserve">
+    <value>{0}
+
+Details:
+{1}</value>
+  </data>
   <data name="AnnouncementTitle" xml:space="preserve">
     <value>TeknoParrot-nieuws</value>
   </data>

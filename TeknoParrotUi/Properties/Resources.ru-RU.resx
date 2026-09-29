@@ -2736,6 +2736,39 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>Сохранить информацию в текстовый файл</value>
   </data>
+  <data name="GameErrorViperVegasInvalidConfiguration" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas получил недопустимую конфигурацию запуска.</value>
+  </data>
+  <data name="GameErrorViperVegasUnsupportedGame" xml:space="preserve">
+    <value>Эта игра неизвестна или не включена в этой сборке TeknoViper/TeknoVegas.</value>
+  </data>
+  <data name="GameErrorViperVegasLicense" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas не удалось авторизовать этот запуск.</value>
+  </data>
+  <data name="GameErrorViperVegasMedia" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas не удалось загрузить необходимые файлы ROM или образы дисков.</value>
+  </data>
+  <data name="GameErrorViperVegasState" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas не удалось загрузить указанные в настройках данные сохранения или NVRAM.</value>
+  </data>
+  <data name="GameErrorViperVegasNetwork" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas не удалось инициализировать сетевое соединение между аркадными автоматами.</value>
+  </data>
+  <data name="GameErrorViperVegasPlayerDisconnected" xml:space="preserve">
+    <value>Игрок отключился от сетевого матча, поэтому игра была закрыта.</value>
+  </data>
+  <data name="GameErrorViperVegasHostInitialization" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas не удалось инициализировать окно или систему отображения.</value>
+  </data>
+  <data name="GameErrorViperVegasUnexpected" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas неожиданно завершил работу.</value>
+  </data>
+  <data name="GameErrorViperVegasDetails" xml:space="preserve">
+    <value>{0}
+
+Подробности:
+{1}</value>
+  </data>
   <data name="AnnouncementTitle" xml:space="preserve">
     <value>Новости TeknoParrot</value>
   </data>

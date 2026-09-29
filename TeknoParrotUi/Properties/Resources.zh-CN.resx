@@ -2738,6 +2738,39 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
   <data name="SaveInfoToTextFile" xml:space="preserve">
     <value>将信息保存到文本文件</value>
   </data>
+  <data name="GameErrorViperVegasInvalidConfiguration" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas 收到了无效的启动配置。</value>
+  </data>
+  <data name="GameErrorViperVegasUnsupportedGame" xml:space="preserve">
+    <value>此游戏无法识别，或未在此 TeknoViper/TeknoVegas 版本中启用。</value>
+  </data>
+  <data name="GameErrorViperVegasLicense" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas 无法授权此次启动。</value>
+  </data>
+  <data name="GameErrorViperVegasMedia" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas 无法加载所需的 ROM 或磁盘镜像。</value>
+  </data>
+  <data name="GameErrorViperVegasState" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas 无法加载配置的存档或 NVRAM 数据。</value>
+  </data>
+  <data name="GameErrorViperVegasNetwork" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas 无法初始化街机机台之间的网络连接。</value>
+  </data>
+  <data name="GameErrorViperVegasPlayerDisconnected" xml:space="preserve">
+    <value>一名玩家与在线对局断开连接，因此游戏已关闭。</value>
+  </data>
+  <data name="GameErrorViperVegasHostInitialization" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas 无法初始化窗口或显示系统。</value>
+  </data>
+  <data name="GameErrorViperVegasUnexpected" xml:space="preserve">
+    <value>TeknoViper/TeknoVegas 意外退出。</value>
+  </data>
+  <data name="GameErrorViperVegasDetails" xml:space="preserve">
+    <value>{0}
+
+详细信息：
+{1}</value>
+  </data>
   <data name="AnnouncementTitle" xml:space="preserve">
     <value>TeknoParrot 新闻</value>
   </data>

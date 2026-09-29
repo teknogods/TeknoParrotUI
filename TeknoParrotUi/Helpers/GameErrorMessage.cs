@@ -15,6 +15,7 @@ namespace TeknoParrotUi.Helpers
         private const int ViperVegasNetwork = 0x05650006;
         private const int ViperVegasHostInitialization = 0x05650007;
         private const int ViperVegasUnexpected = 0x05650008;
+        private const int ViperVegasPlayerDisconnected = 0x05650009;
 
         public static void ShowGameError(int errorCode)
         {
@@ -129,6 +130,12 @@ namespace TeknoParrotUi.Helpers
             var viperVegas = emulatorType == EmulatorType.TeknoViper ||
                              emulatorType == EmulatorType.TeknoVegas ||
                              emulatorType == EmulatorType.TeknoMagic;
+            if (viperVegas && errorCode == ViperVegasPlayerDisconnected)
+            {
+                // A normal end to an online match, so the emulator log isn't worth showing.
+                MessageBox.Show(Properties.Resources.GameErrorViperVegasPlayerDisconnected);
+                return;
+            }
             if (viperVegas && errorCode != 0)
             {
                 string resourceName;
