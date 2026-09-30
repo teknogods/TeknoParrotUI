@@ -260,6 +260,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             }
             if ((tpOnline || Enabled("Enable LAN")) && Enabled("Network Diagnostics", true))
                 parameters.Add("--network-diagnostics");
+            // allow people to set stuff manually in the test menu
+            if (!Enabled("Set Game Link Settings", true))
+                parameters.Add("--no-link-settings");
             var volumeSetting = Setting("Volume (%)");
             if (!string.IsNullOrWhiteSpace(volumeSetting))
             {
