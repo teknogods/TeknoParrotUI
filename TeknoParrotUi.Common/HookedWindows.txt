@@ -136,4 +136,5 @@ Technic Beat [boot]
 Cobra The Arcade (CBR2 Ver. B)
 TeknoParrot (ElfLoader64) - Centipede Chaos
 TeknoParrot - Hog Wild - Chase Up
-TeknoParrot - Sea Wolf - The Next Mission
+TeknoParrot - Sea Wolf - The Next Mission
+TeknoBudgie - Rockin Bowl-O-Rama
