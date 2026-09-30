@@ -36,6 +36,8 @@ namespace TeknoParrotUi.Common
                 case EmulatorType.TeknoHDrive:
                 case EmulatorType.TeknoVUnit:
                 case EmulatorType.TeknoAGX:
+                case EmulatorType.TeknoS22:
+                case EmulatorType.TeknoS23:
                     return true;
                 default:
                     return false;

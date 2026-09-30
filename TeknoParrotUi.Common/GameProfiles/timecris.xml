@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Time Crisis (World, TS2 Ver.B)</GameNameInternal>
   <EmulationProfile>TeknoS22</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <EmulatorType>TeknoS22</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>timecris.zip</ExecutableName>
@@ -19,6 +19,17 @@
   <yAxisMin>0</yAxisMin>
   <yAxisMax>255</yAxisMax>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Outputs</FieldName>
+      <FieldValue>Windows Outputs</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windows Outputs</string>
+        <string>Network Outputs</string>
+      </FieldOptions>
+      <Hint>Choose how game outputs are sent. Select Network Outputs to configure its settings.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>Video</CategoryName>
       <FieldName>Crosshairs</FieldName>

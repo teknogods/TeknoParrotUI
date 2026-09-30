@@ -38,7 +38,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             Directory.CreateDirectory(root);
             Directory.CreateDirectory(Path.Combine(root, "state"));
             Directory.CreateDirectory(Path.Combine(root, "bezels"));
-            var args = new List<string> { "--game", Quote(set), "--rom-root", Quote(romRoot), "--state-dir", Quote(Path.Combine(root, "state")), "--render-scale", scale, "--present-filter", filter };
+            var args = new List<string> { "--game", Quote(set), "--rom-root", Quote(romRoot), "--state-dir", Quote(Path.Combine(root, "state")), "--render-scale", scale, "--present-filter", filter, "--outputs" };
             var fullscreen = Setting("DisplayMode", "Fullscreen").Equals("Fullscreen", StringComparison.OrdinalIgnoreCase);
             if (fullscreen) args.Add("--fullscreen");
             if (fullscreen && Enabled("Stretch to Fullscreen")) args.Add("--stretch");
