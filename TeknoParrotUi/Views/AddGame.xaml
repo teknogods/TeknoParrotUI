@@ -20,126 +20,140 @@
     </UserControl.Resources>
     <Grid x:Name="MainAddGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="10" />
-            <RowDefinition Height="28" />
-            <RowDefinition Height="24*" />
-            <RowDefinition Height="10" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10" />
-            <ColumnDefinition Width="490*" />
-            <ColumnDefinition Width="272" />
-            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="280" />
         </Grid.ColumnDefinitions>
+        <TextBlock
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="16,12,0,4"
+            FontSize="16"
+            FontWeight="SemiBold"
+            Text="{x:Static p:Resources.GameList}" />
         <ListBox
             x:Name="stockGameList"
-            Grid.Row="2"
-            Grid.Column="1"
-            Margin="4"
-            SelectionChanged="StockGameList_SelectionChanged">
-            <ListBox.ItemContainerStyle>
-                <Style BasedOn="{StaticResource MaterialDesignListBoxItem}" TargetType="ListBoxItem">
-                    <Setter Property="Padding" Value="7" />
-                </Style>
-            </ListBox.ItemContainerStyle>
-        </ListBox>
-        <Label
             Grid.Row="1"
+            Grid.Column="0"
+            Margin="4,0,4,4"
+            ItemContainerStyle="{StaticResource AccentListBoxItem}"
+            SelectionChanged="StockGameList_SelectionChanged" />
+
+        <DockPanel
+            Grid.Row="0"
             Grid.RowSpan="2"
-            Grid.ColumnSpan="2"
-            Width="260"
-            Height="32"
-            Margin="8,0,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Content="{x:Static p:Resources.GameList}"
-            FontSize="18"
-            FontWeight="Bold"
-            RenderTransformOrigin="0.704,1.118" />
-        <StackPanel
-            Grid.Row="1"
-            Grid.RowSpan="4"
-            Grid.Column="2"
-            Orientation="Vertical">
-            <Label
-                Grid.Row="1"
-                Grid.RowSpan="2"
-                Grid.Column="2"
-                Width="68"
-                Height="32"
-                Margin="10,1,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Content="{x:Static p:Resources.AddGameFilters}"
-                FontSize="18"
-                FontWeight="Bold" />
-            <Label
-                Grid.Row="2"
-                Grid.Column="2"
-                Width="68"
-                Height="26"
-                Margin="10,5,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Content="{x:Static p:Resources.AddGameGenre}"
-                FontSize="16" />
-            <ComboBox
-                x:Name="GenreBox"
-                Grid.Row="2"
-                Grid.Column="2"
-                Width="246"
-                Height="30"
-                Margin="20,10,0,0"
-                DisplayMemberPath="DisplayName"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                SelectionChanged="UserControl_Loaded">
-            </ComboBox>
-            <Label
-                Width="248"
-                Height="26"
-                Margin="10,10,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Content="{x:Static p:Resources.AddGamePlatformFilter}"
-                FontSize="16" />
-            <ComboBox
-                x:Name="PlatformBox"
-                Width="246"
-                Height="30"
-                Margin="20,4,0,0"
-                DisplayMemberPath="DisplayName"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                SelectionChanged="UserControl_Loaded">
-            </ComboBox>
-            <Label
-                Grid.Row="2"
-                Grid.Column="2"
-                Width="248"
-                Height="26"
-                Margin="10,10,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Content="{x:Static p:Resources.AddGameSearch}"
+            Grid.Column="1"
+            Margin="12,12,16,12"
+            LastChildFill="False">
+            <TextBlock
+                DockPanel.Dock="Top"
+                Margin="0,0,0,4"
                 FontSize="16"
-                RenderTransformOrigin="0.704,1.118" />
+                FontWeight="SemiBold"
+                Text="{x:Static p:Resources.AddGameFilters}" />
             <TextBox
                 x:Name="GameSearchBox"
-                Grid.Row="2"
-                Grid.Column="2"
-                Width="246"
-                Height="28"
-                Margin="20,4,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
+                DockPanel.Dock="Top"
+                Margin="0,8,0,0"
+                materialDesign:HintAssist.Hint="{x:Static p:Resources.AddGameSearch}"
+                materialDesign:TextFieldAssist.HasClearButton="True"
+                materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                materialDesign:TextFieldAssist.LeadingIcon="Magnify"
                 Text=""
                 TextChanged="UserControl_Loaded" />
+            <ComboBox
+                x:Name="GenreBox"
+                DockPanel.Dock="Top"
+                Margin="0,12,0,0"
+                materialDesign:HintAssist.Hint="{x:Static p:Resources.AddGameGenre}"
+                materialDesign:HintAssist.IsFloating="True"
+                DisplayMemberPath="DisplayName"
+                SelectionChanged="UserControl_Loaded" />
+            <ComboBox
+                x:Name="PlatformBox"
+                DockPanel.Dock="Top"
+                Margin="0,12,0,0"
+                materialDesign:HintAssist.Hint="{x:Static p:Resources.AddGamePlatformFilter}"
+                materialDesign:HintAssist.IsFloating="True"
+                DisplayMemberPath="DisplayName"
+                SelectionChanged="UserControl_Loaded" />
+            <Label
+                x:Name="GameCountLabel"
+                DockPanel.Dock="Top"
+                Margin="0,8,0,0"
+                Padding="0"
+                Content="Games shown: 0/0"
+                FontSize="12"
+                Foreground="{DynamicResource MaterialDesign.Brush.ForegroundLight}" />
+
+            <materialDesign:Snackbar
+                x:Name="AddGameSnackbar"
+                DockPanel.Dock="Bottom"
+                Panel.ZIndex="999" />
+            <Button
+                x:Name="DeleteButton"
+                DockPanel.Dock="Bottom"
+                Margin="0,6,0,0"
+                Click="DeleteGameButton"
+                IsEnabled="False">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                        <Setter Property="Foreground" Value="#E53935" />
+                        <Style.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Width="18" Height="18" Margin="0,0,8,0" VerticalAlignment="Center" Kind="TrashCanOutline" />
+                    <TextBlock VerticalAlignment="Center" Text="{x:Static p:Resources.DeleteGame}" />
+                </StackPanel>
+            </Button>
+            <Button
+                x:Name="AddContinueButton"
+                DockPanel.Dock="Bottom"
+                Margin="0,8,0,0"
+                Click="AddGameAndContinueButton"
+                Content="{x:Static p:Resources.AddGameAndContinue}"
+                IsEnabled="False">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignOutlinedButton}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsEnabled, ElementName=DeleteButton}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button
+                x:Name="AddButton"
+                DockPanel.Dock="Bottom"
+                Height="40"
+                Margin="0,12,0,0"
+                Click="AddGameButton"
+                Content="{x:Static p:Resources.AddGameAndReturn}"
+                IsEnabled="False">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsEnabled, ElementName=DeleteButton}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
             <Image
                 x:Name="gameIcon"
-                Height="244"
-                Margin="14,10,2,0"
-                VerticalAlignment="Top"
+                DockPanel.Dock="Bottom"
+                MaxHeight="220"
+                Margin="0,16,0,0"
                 RenderOptions.BitmapScalingMode="Fant"
                 Source="/TeknoParrotUi;component/Resources/teknoparrot_by_pooterman-db9erxd.png">
                 <Image.Style>
@@ -152,59 +166,6 @@
                     </Style>
                 </Image.Style>
             </Image>
-            <Button
-                x:Name="AddButton"
-                Grid.Row="2"
-                Grid.Column="2"
-                Width="246"
-                Margin="13,10,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Click="AddGameButton"
-                Content="{x:Static p:Resources.AddGameAndReturn}"
-                IsEnabled="False" />
-            <Button
-                x:Name="AddContinueButton"
-                Grid.Row="2"
-                Grid.Column="2"
-                Width="246"
-                Margin="13,10,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Click="AddGameAndContinueButton"
-                Content="{x:Static p:Resources.AddGameAndContinue}"
-                IsEnabled="False" />
-            <Button
-                x:Name="DeleteButton"
-                Grid.Row="2"
-                Grid.Column="2"
-                Width="246"
-                Margin="13,10,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Background="#B00020"
-                BorderBrush="#B00020"
-                Click="DeleteGameButton"
-                Content="{x:Static p:Resources.DeleteGame}"
-                Foreground="White"
-                IsEnabled="False" />
-            <materialDesign:Snackbar
-                x:Name="AddGameSnackbar"
-                Grid.Row="2"
-                Grid.Column="2"
-                Margin="13,10,0,0"
-                Panel.ZIndex="999" />
-            <Label
-                x:Name="GameCountLabel"
-                Width="248"
-                Height="26"
-                Margin="10,10,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Content="Games shown: 0/0"
-                FontSize="16"
-                RenderTransformOrigin="0.704,1.118" />
-
-        </StackPanel>
+        </DockPanel>
     </Grid>
 </UserControl>

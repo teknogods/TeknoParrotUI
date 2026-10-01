@@ -37,183 +37,131 @@
             <Style BasedOn="{StaticResource {x:Type materialDesign:SnackbarMessage}}" TargetType="{x:Type materialDesign:SnackbarMessage}">
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
             </Style>
+            <Style x:Key="CaptionButton" TargetType="Button">
+                <Setter Property="Width" Value="44" />
+                <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid Background="Transparent">
+                                <Border x:Name="Hover" Background="{TemplateBinding Foreground}" Opacity="0" />
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Hover" Property="Opacity" Value="0.15" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="Hover" Property="Opacity" Value="0.25" />
+                                </Trigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="Tag" Value="Close" />
+                                        <Condition Property="IsMouseOver" Value="True" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter TargetName="Hover" Property="Background" Value="#E81123" />
+                                    <Setter TargetName="Hover" Property="Opacity" Value="1" />
+                                    <Setter Property="Foreground" Value="White" />
+                                </MultiTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </Window.Resources>
 
     <materialDesign:DialogHost>
         <materialDesign:DrawerHost x:Name="DrawerHost" LeftDrawerBackground="{DynamicResource MaterialDesignPaper}" d:IsLeftDrawerOpen="True">
             <materialDesign:DrawerHost.LeftDrawerContent>
-                <DockPanel Width="340">
-                    <Grid DockPanel.Dock="Top" Margin="5,5,5,0">
+                <DockPanel Width="300">
+                    <DockPanel.Resources>
+                        <!-- Drawer navigation item: icon kind comes from Tag, label from Content. -->
+                        <Style x:Key="DrawerItem" TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatButton}">
+                            <Setter Property="Height" Value="40" />
+                            <Setter Property="Margin" Value="8,1" />
+                            <Setter Property="Padding" Value="12,0" />
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Foreground}" />
+                            <Setter Property="FontWeight" Value="Normal" />
+                            <Setter Property="Command" Value="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}" />
+                            <Setter Property="CommandParameter" Value="{x:Static Dock.Left}" />
+                            <Setter Property="ContentTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Width="20" Height="20" Margin="0,0,16,0" VerticalAlignment="Center"
+                                                                     Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                                                                     Kind="{Binding Tag, RelativeSource={RelativeSource AncestorType=Button}}" />
+                                            <TextBlock VerticalAlignment="Center" FontSize="14" Text="{Binding}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                        <Style x:Key="DrawerDivider" TargetType="Separator" BasedOn="{StaticResource {x:Type Separator}}">
+                            <Setter Property="Margin" Value="16,6" />
+                        </Style>
+                    </DockPanel.Resources>
+
+                    <Grid DockPanel.Dock="Top" Margin="0,4,4,4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-
                         <Button
-                Grid.Column="0"
-                x:Name="LoginButton"
-                Margin="5,0,5,0"
-                Click="BtnLogin"
-                Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
-                CommandParameter="{x:Static Dock.Left}"
-                Content="{x:Static p:Resources.MainAccount}">
-                            <Button.ContentTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Kind="AccountCircle" Margin="0,0,8,0" />
-                                        <TextBlock Text="{Binding}" />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </Button.ContentTemplate>
-                        </Button>
-
+                            x:Name="LoginButton"
+                            Grid.Column="0"
+                            Style="{StaticResource DrawerItem}"
+                            Tag="AccountCircle"
+                            Click="BtnLogin"
+                            Content="{x:Static p:Resources.MainAccount}" />
                         <ToggleButton
-                Grid.Column="1"
-                HorizontalAlignment="Right"
-                IsChecked="{Binding IsLeftDrawerOpen, ElementName=DrawerHost}"
-                Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            IsChecked="{Binding IsLeftDrawerOpen, ElementName=DrawerHost}"
+                            Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
                     </Grid>
                     <Button
-            DockPanel.Dock="Top"
-            x:Name="updateButton"
-            Margin="10,10,10,0"
-            Background="{DynamicResource MaterialDesign.Brush.Primary.Light}"
-            Click="Button_Click_1"
-            Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
-            CommandParameter="{x:Static Dock.Left}"
-            Content="{x:Static p:Resources.MainInstallUpdates}"
-            Foreground="{DynamicResource MaterialDesign.Brush.Primary.Light.Foreground}"
-            Visibility="Collapsed" />
+                        DockPanel.Dock="Top"
+                        x:Name="updateButton"
+                        Margin="16,4,16,4"
+                        Background="{DynamicResource MaterialDesign.Brush.Primary.Light}"
+                        Click="Button_Click_1"
+                        Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
+                        CommandParameter="{x:Static Dock.Left}"
+                        Content="{x:Static p:Resources.MainInstallUpdates}"
+                        Foreground="{DynamicResource MaterialDesign.Brush.Primary.Light.Foreground}"
+                        Visibility="Collapsed" />
 
-                    <Separator DockPanel.Dock="Top" Margin="10,15,10,15" />
+                    <Separator DockPanel.Dock="Top" Style="{StaticResource DrawerDivider}" />
 
-                    <!-- Main menu buttons grid -->
-                    <Grid DockPanel.Dock="Top" Margin="5,0,5,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
+                    <!-- Bottom items -->
+                    <Button DockPanel.Dock="Bottom" Margin="8,1,8,8" Style="{StaticResource DrawerItem}" Tag="Power" Click="BtnQuit" Content="{x:Static p:Resources.MainQuit}" />
+                    <Button DockPanel.Dock="Bottom" Style="{StaticResource DrawerItem}" Tag="Update" Click="BtnCheckUpdates" Content="{x:Static p:Resources.MainCheckUpdates}" />
+                    <Separator DockPanel.Dock="Bottom" Style="{StaticResource DrawerDivider}" />
 
-                        <!-- Left column buttons (Library and settings stuff) -->
-                        <Button
-                     Grid.Column="0"
-                     Grid.Row="2"
-                     Margin="5,0,5,10"
-                     Click="BtnLibrary"
-                     Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
-                     CommandParameter="{x:Static Dock.Left}"
-                     Content="{x:Static p:Resources.MainLibrary}" />
-
-                        <Button
-                     Grid.Column="0"
-                     Grid.Row="3"
-                     Margin="5,0,5,10"
-                     Click="BtnSettings"
-                     Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
-                     CommandParameter="{x:Static Dock.Left}"
-                     Content="{x:Static p:Resources.MainSettings}" />
-
-                        <Button
-                     Grid.Column="0"
-                     Grid.Row="4"
-                     Margin="5,0,5,10"
-                     Click="BtnPatreon"
-                     Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
-                     CommandParameter="{x:Static Dock.Left}"
-                     Content="{x:Static p:Resources.MainSubscription}" />
-                        
-                        <Button
-                     Grid.Column="0"
-                     Grid.Row="5"
-                     Margin="5,0,5,10"
-                     Click="BtnDownloadMissingIcons"
-                     Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
-                     CommandParameter="{x:Static Dock.Left}"
-                     Content="{x:Static p:Resources.MainDownloadMissingIcons}" />
-
-                        <Button
-                     Grid.Column="0"
-                     Grid.Row="6"
-                     Margin="5,0,5,10"
-                     Click="BtnAbout"
-                     Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
-                     CommandParameter="{x:Static Dock.Left}"
-                     Content="{x:Static p:Resources.MainAbout}" />
-
-                        <!-- Right column buttons (Game stuff)-->
-                        <Button
-                     Grid.Column="1"
-                     Grid.Row="2"
-                     Margin="5,0,5,10"
-                     Click="BtnAddGame"
-                     Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
-                     CommandParameter="{x:Static Dock.Left}"
-                     Content="{x:Static p:Resources.AddGame}" />
-
-                        <Button
-                     Grid.Column="1"
-                     Grid.Row="3"
-                     Margin="5,0,5,10"
-                     Click="BtnTPOnline2"
-                     Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
-                     CommandParameter="{x:Static Dock.Left}"
-                     Content="{x:Static p:Resources.MainTPOnlineNew}" />
-
-                        <Button
-                     Grid.Column="1"
-                     Grid.Row="4"
-                     Margin="5,0,5,10"
-                     Click="BtnDebug"
-                     Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
-                     CommandParameter="{x:Static Dock.Left}"
-                     Content="{x:Static p:Resources.MainMods}" />
-
-                        <Button
-                     Grid.Column="1" 
-                     Grid.Row="5"
-                     Margin="5,0,5,10"
-                     Click="BtnRomScanner"
-                     Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
-                     CommandParameter="{x:Static Dock.Left}"
-                     Content="{x:Static p:Resources.MainRomScanner}" />
-                        
-                        <Button
-                     Grid.Column="1" 
-                     Grid.Row="6"
-                     Margin="5,0,5,10"
-                     Click="BtnTroubleshooting"
-                     Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
-                     CommandParameter="{x:Static Dock.Left}"
-                     Content="{x:Static p:Resources.Troubleshooting}" />
-                    </Grid>
-
-                    <!-- Bottom buttons. Not sure if we should make em smaller now. -->
-                    <Button
-                 Margin="5,0,5,10"
-                 VerticalAlignment="Bottom"
-                 Click="BtnQuit"
-                 Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
-                 CommandParameter="{x:Static Dock.Left}"
-                 Content="{x:Static p:Resources.MainQuit}"
-                 DockPanel.Dock="Bottom" />
-                    <Button
-                 Margin="5,0,5,10"
-                 VerticalAlignment="Bottom"
-                 Click="BtnCheckUpdates"
-                 Command="{x:Static materialDesign:DrawerHost.CloseDrawerCommand}"
-                 CommandParameter="{x:Static Dock.Left}"
-                 Content="{x:Static p:Resources.MainCheckUpdates}"
-                 DockPanel.Dock="Bottom" />
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <!-- Games -->
+                            <Button Style="{StaticResource DrawerItem}" Tag="Bookshelf" Click="BtnLibrary" Content="{x:Static p:Resources.MainLibrary}" />
+                            <Button Style="{StaticResource DrawerItem}" Tag="PlusBoxOutline" Click="BtnAddGame" Content="{x:Static p:Resources.AddGame}" />
+                            <Button Style="{StaticResource DrawerItem}" Tag="FolderSearchOutline" Click="BtnRomScanner" Content="{x:Static p:Resources.MainRomScanner}" />
+                            <Button Style="{StaticResource DrawerItem}" Tag="ImageMultipleOutline" Click="BtnDownloadMissingIcons" Content="{x:Static p:Resources.MainDownloadMissingIcons}" />
+                            <Separator Style="{StaticResource DrawerDivider}" />
+                            <!-- Online -->
+                            <Button Style="{StaticResource DrawerItem}" Tag="Web" Click="BtnTPOnline2" Content="{x:Static p:Resources.MainTPOnlineNew}" />
+                            <Button Style="{StaticResource DrawerItem}" Tag="PuzzleOutline" Click="BtnDebug" Content="{x:Static p:Resources.MainMods}" />
+                            <Separator Style="{StaticResource DrawerDivider}" />
+                            <!-- App -->
+                            <Button Style="{StaticResource DrawerItem}" Tag="CogOutline" Click="BtnSettings" Content="{x:Static p:Resources.MainSettings}" />
+                            <Button Style="{StaticResource DrawerItem}" Tag="Crown" Click="BtnPatreon" Content="{x:Static p:Resources.MainSubscription}" />
+                            <Button Style="{StaticResource DrawerItem}" Tag="Lifebuoy" Click="BtnTroubleshooting" Content="{x:Static p:Resources.Troubleshooting}" />
+                            <Button Style="{StaticResource DrawerItem}" Tag="InformationOutline" Click="BtnAbout" Content="{x:Static p:Resources.MainAbout}" />
+                        </StackPanel>
+                    </ScrollViewer>
                 </DockPanel>
             </materialDesign:DrawerHost.LeftDrawerContent>
             <Grid>
@@ -253,32 +201,21 @@
                         <Button
                             x:Name="exitButton"
                             Grid.Column="3"
-                            Width="35"
-                            Height="Auto"
-                            Margin="0,4,4,4"
-                            Padding="5"
+                            Margin="0,-1,-1,-1"
                             HorizontalAlignment="Right"
-                            Background="#FFB73A3A"
-                            BorderBrush="#FFB73A3A"
+                            Style="{StaticResource CaptionButton}"
+                            Tag="Close"
                             Click="BtnQuit">
-                            <DockPanel>
-                                <Image Source="/Resources/exit.png" />
-                            </DockPanel>
+                            <materialDesign:PackIcon Kind="WindowClose" Width="16" Height="16" />
                         </Button>
                         <Button
                             x:Name="minimizeButton"
                             Grid.Column="3"
-                            Width="35"
-                            Height="Auto"
-                            Margin="0,4,46,4"
-                            Padding="5"
+                            Margin="0,-1,43,-1"
                             HorizontalAlignment="Right"
-                            Background="#FF2E9CCF"
-                            BorderBrush="#FF2E9CCF"
+                            Style="{StaticResource CaptionButton}"
                             Click="BtnMinimize">
-                            <DockPanel>
-                                <Image Source="/Resources/minimize.png" />
-                            </DockPanel>
+                            <materialDesign:PackIcon Kind="WindowMinimize" Width="16" Height="16" />
                         </Button>
                         <TextBlock
                             x:Name="UpdateAvailableText"

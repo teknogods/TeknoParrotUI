@@ -293,33 +293,10 @@ namespace TeknoParrotUi.Views
                 testMenuButton.ToolTip = TeknoParrotUi.Properties.Resources.LibraryToggleTestMode;
             }
             var selectedGame = _gameNames[gameList.SelectedIndex];
-            if (selectedGame.OnlineProfileURL != "")
-            {
-                gameOnlineProfileButton.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                gameOnlineProfileButton.Visibility = Visibility.Hidden;
-            }
+            gameOnlineProfileButton.Visibility = selectedGame.OnlineProfileURL != "" ? Visibility.Visible : Visibility.Collapsed;
 
             // Check online titles and show button if required
-            if (selectedGame.HasTpoSupport)
-            {
-                playOnlineButton.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                playOnlineButton.Visibility = Visibility.Hidden;
-            }
-
-            if (selectedGame.HasTpoSupport && selectedGame.OnlineProfileURL == "")
-            {
-                Grid.SetRow(playOnlineButton, 5);
-            }
-            else
-            {
-                Grid.SetRow(playOnlineButton, 4);
-            }
+            playOnlineButton.Visibility = selectedGame.HasTpoSupport ? Visibility.Visible : Visibility.Collapsed;
 
             if (selectedGame.IsTpoExclusive)
             {
@@ -330,36 +307,7 @@ namespace TeknoParrotUi.Views
                 gameLaunchButton.IsEnabled = true;
             }
 
-            string arch = selectedGame.Is64Bit ? "x64" : "x86";
-            string emulatorLabel = $"{selectedGame.EmulatorType} ({arch})";
-
-            gameInfoText.Inlines.Clear();
-            gameInfoText.Inlines.Add(new Run($"{Properties.Resources.LibraryEmulator}: "));
-
-            if (_emulatorUrls.TryGetValue(selectedGame.EmulatorType, out string emulatorUrl) && !string.IsNullOrEmpty(emulatorUrl))
-            {
-                var link = new Hyperlink(new Run(emulatorLabel));
-                link.NavigateUri = new Uri(emulatorUrl);
-                link.RequestNavigate += (s, e) => Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
-                gameInfoText.Inlines.Add(link);
-            }
-            else
-            {
-                gameInfoText.Inlines.Add(new Run(emulatorLabel));
-            }
-
-            gameInfoText.Inlines.Add(new Run("\n"));
-
-            if (selectedGame.GameInfo != null)
-            {
-                gameInfoText.Inlines.Add(new Run(selectedGame.GameInfo.ToString()));
-                gpuCompatibilityDisplay.SetGpuStatus(selectedGame.GameInfo.nvidia, selectedGame.GameInfo.amd, selectedGame.GameInfo.intel);
-            }
-            else
-            {
-                gameInfoText.Inlines.Add(new Run(Properties.Resources.LibraryNoInfo));
-                gpuCompatibilityDisplay.SetGpuStatus(GPUSTATUS.NO_INFO, GPUSTATUS.NO_INFO, GPUSTATUS.NO_INFO);
-            }
+            ShowGameInfo(selectedGame);
             delGame.IsEnabled = true;
 
             if (!string.IsNullOrWhiteSpace(_searchText) && !_isSearchUpdate)
@@ -382,6 +330,130 @@ namespace TeknoParrotUi.Views
                 highScoreButton.Visibility = Visibility.Collapsed;
                 highScoreButton.ToolTip = null;
             }
+
+            LayoutActionRows();
+        }
+
+        /// <summary>
+        /// Fills the label/value grid and notes box in the details panel for the selected game.
+        /// </summary>
+        private void ShowGameInfo(GameProfile game)
+        {
+            gameInfoGrid.Children.Clear();
+            gameInfoGrid.RowDefinitions.Clear();
+
+            string arch = game.Is64Bit ? "x64" : "x86";
+            var emulatorValue = new TextBlock();
+            string emulatorLabel = $"{game.EmulatorType} ({arch})";
+            if (_emulatorUrls.TryGetValue(game.EmulatorType, out string emulatorUrl) && !string.IsNullOrEmpty(emulatorUrl))
+            {
+                var link = new Hyperlink(new Run(emulatorLabel)) { NavigateUri = new Uri(emulatorUrl) };
+                link.RequestNavigate += (s, e) => Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
+                emulatorValue.Inlines.Add(link);
+            }
+            else
+            {
+                emulatorValue.Text = emulatorLabel;
+            }
+            AddGameInfoRow(Properties.Resources.LibraryEmulator, emulatorValue);
+
+            var info = game.GameInfo;
+            string notes = null;
+            if (info != null)
+            {
+                AddGameInfoRow("Platform", info.platform);
+                AddGameInfoRow("Release year", info.release_year);
+                AddGameInfoRow("Wheel rotation", info.wheel_rotation);
+                if (info.supported_versions != null && info.supported_versions.Length > 0)
+                    AddGameInfoRow("Versions", string.Join(", ", info.supported_versions));
+                AddGameInfoRow("TPO version", info.tpo_version);
+                notes = info.general_issues;
+                gpuCompatibilityDisplay.SetGpuStatus(info);
+            }
+            else
+            {
+                notes = Properties.Resources.LibraryNoInfo;
+                gpuCompatibilityDisplay.SetGpuStatus(GPUSTATUS.NO_INFO, GPUSTATUS.NO_INFO, GPUSTATUS.NO_INFO);
+            }
+
+            gameNotesText.Text = notes?.Trim() ?? "";
+            gameNotesPanel.Visibility = string.IsNullOrWhiteSpace(notes) ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        private void AddGameInfoRow(string label, string value)
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+                AddGameInfoRow(label, new TextBlock { Text = value });
+        }
+
+        private void AddGameInfoRow(string label, TextBlock value)
+        {
+            int row = gameInfoGrid.RowDefinitions.Count;
+            gameInfoGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+            var labelBlock = new TextBlock
+            {
+                Text = label,
+                Margin = new Thickness(0, 1, 12, 1),
+                HorizontalAlignment = HorizontalAlignment.Right,
+                FontSize = 13
+            };
+            labelBlock.SetResourceReference(TextBlock.ForegroundProperty, "MaterialDesign.Brush.ForegroundLight");
+            Grid.SetRow(labelBlock, row);
+
+            value.Margin = new Thickness(0, 1, 0, 1);
+            value.FontSize = 13;
+            value.TextWrapping = TextWrapping.Wrap;
+            Grid.SetRow(value, row);
+            Grid.SetColumn(value, 1);
+
+            gameInfoGrid.Children.Add(labelBlock);
+            gameInfoGrid.Children.Add(value);
+        }
+
+        /// <summary>
+        /// Stacks the visible action rows from the bottom of the grid up, so hidden rows don't leave gaps.
+        /// </summary>
+        private void LayoutActionRows()
+        {
+            bool hasExtras = gameOnlineProfileButton.Visibility == Visibility.Visible ||
+                             highScoreButton.Visibility == Visibility.Visible;
+            extrasRow.Visibility = hasExtras ? Visibility.Visible : Visibility.Collapsed;
+
+            // Paired buttons sit side by side only when the panel is wide enough for both labels.
+            double panelWidth = MainLibraryGrid.ColumnDefinitions[1].ActualWidth + MainLibraryGrid.ColumnDefinitions[2].ActualWidth;
+            bool narrow = panelWidth < 400;
+
+            var rows = new List<FrameworkElement> { playRow, gameSettingsButton, controllerSetupButton, wikiButton };
+            if (hasExtras)
+                rows.Add(extrasRow);
+            rows.Add(secondaryActionsRow);
+
+            // Row 11 is the last action row; row 12 is bottom padding.
+            var spans = rows.Select(element => element is System.Windows.Controls.Primitives.UniformGrid pair ? LayoutButtonPair(pair, narrow) : 1).ToList();
+            int row = 12 - spans.Sum();
+            for (int i = 0; i < rows.Count; i++)
+            {
+                Grid.SetRow(rows[i], row);
+                row += spans[i];
+            }
+        }
+
+        private static int LayoutButtonPair(System.Windows.Controls.Primitives.UniformGrid pair, bool narrow)
+        {
+            int visible = pair.Children.OfType<UIElement>().Count(c => c.Visibility != Visibility.Collapsed);
+            bool stack = narrow && visible > 1;
+            pair.Rows = stack ? visible : 1;
+            pair.Columns = stack ? 1 : 0;
+            int span = stack ? visible : 1;
+            Grid.SetRowSpan(pair, span);
+            return span;
+        }
+
+        private void MainLibraryGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.WidthChanged)
+                LayoutActionRows();
         }
 
         public bool ReloadGameProfile(GameProfile profile)
@@ -418,7 +490,9 @@ namespace TeknoParrotUi.Views
             ResetIcon(gameIcon);
             _gameSettings.InitializeComponent();
             Joystick.InitializeComponent();
-            gameInfoText.Text = "";
+            gameInfoGrid.Children.Clear();
+            gameInfoGrid.RowDefinitions.Clear();
+            gameNotesPanel.Visibility = Visibility.Collapsed;
         }
 
         /// <summary>
@@ -470,13 +544,37 @@ namespace TeknoParrotUi.Views
                             continue;
                     }
 
+                    var row = new DockPanel { LastChildFill = true };
+                    if (gameProfile.Patreon)
+                    {
+                        var subscriptionIcon = new MaterialDesignThemes.Wpf.PackIcon
+                        {
+                            Kind = MaterialDesignThemes.Wpf.PackIconKind.Crown,
+                            Width = 16,
+                            Height = 16,
+                            Margin = new Thickness(8, 0, 0, 0),
+                            Opacity = 0.8,
+                            VerticalAlignment = VerticalAlignment.Center,
+                            ToolTip = TeknoParrotUi.Properties.Resources.LibrarySubscriptionSuffix.Trim().Trim('(', ')')
+                        };
+                        subscriptionIcon.SetResourceReference(Control.ForegroundProperty, "MaterialDesign.Brush.Primary");
+                        DockPanel.SetDock(subscriptionIcon, Dock.Right);
+                        row.Children.Add(subscriptionIcon);
+                    }
+                    row.Children.Add(new TextBlock
+                    {
+                        Text = gameProfile.GameNameInternal +
+                               (thirdparty ? string.Format(TeknoParrotUi.Properties.Resources.LibraryThirdPartySuffix, gameProfile.EmulatorType) : ""),
+                        TextTrimming = TextTrimming.CharacterEllipsis,
+                        VerticalAlignment = VerticalAlignment.Center
+                    });
+
                     var item = new ListBoxItem
                     {
-                        Content = gameProfile.GameNameInternal +
-                                    (gameProfile.Patreon ? TeknoParrotUi.Properties.Resources.LibrarySubscriptionSuffix : "") +
-                                    (thirdparty ? string.Format(TeknoParrotUi.Properties.Resources.LibraryThirdPartySuffix, gameProfile.EmulatorType) : ""),
+                        Content = row,
                         Tag = gameProfile
                     };
+                    TextSearch.SetText(item, gameProfile.GameNameInternal);
 
                     _gameNames.Add(gameProfile);
                     gameList.Items.Add(item);

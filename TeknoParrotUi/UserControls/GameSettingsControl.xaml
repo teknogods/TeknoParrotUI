@@ -33,63 +33,7 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="teknoHint" TargetType="{x:Type ToolTip}">
-            <Setter Property="Visibility" Value="Visible" />
-            <Setter Property="Width" Value="350" />
-            <Setter Property="Height" Value="auto" />
-            <Setter Property="HasDropShadow" Value="True" />
-            <Setter Property="HorizontalOffset" Value="100px" />
-            <Setter Property="VerticalOffset" Value="-20px" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ToolTip}">
-                        <Border
-                            Name="Border"
-                            Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}"
-                            BorderBrush="WhiteSmoke"
-                            BorderThickness="1"
-                            CornerRadius="2">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                    <GradientStop Offset="0.0" Color="Snow" />
-                                    <GradientStop Offset="1.0" Color="WhiteSmoke" />
-                                </LinearGradientBrush>
-                            </Border.Background>
-                            <StackPanel>
-                                <TextBlock
-                                    Margin="5"
-                                    FontSize="18"
-                                    FontStyle="Normal"
-                                    FontWeight="UltraBold"
-                                    Foreground="#FF000000"
-                                    Text="TeknoHint"
-                                    TextAlignment="Center" />
-                                <TextBlock
-                                    Margin="5"
-                                    FontSize="18"
-                                    Foreground="#FF000000"
-                                    Text="{Binding Hint}"
-                                    TextAlignment="Center"
-                                    TextWrapping="Wrap" />
-                                <StackPanel.Background>
-                                    <ImageBrush
-                                        AlignmentX="Right"
-                                        ImageSource="../Resources/teknoparrot_by_pooterman-db9erxd.png"
-                                        Opacity="0.1"
-                                        Stretch="Uniform" />
-                                </StackPanel.Background>
-                            </StackPanel>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Hint}" Value="{x:Null}">
-                    <Setter Property="Visibility" Value="Hidden" />
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
+        <Style x:Key="teknoHint" TargetType="{x:Type ToolTip}" BasedOn="{StaticResource TeknoHintToolTip}" />
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -118,9 +62,12 @@
             x:Name="GamePathBox"
             Grid.Row="2"
             Grid.Column="1"
-            Height="24"
+            Height="28"
             Margin="0,6,0,0"
             VerticalAlignment="Top"
+            Cursor="Hand"
+            materialDesign:TextFieldAssist.HasTrailingIcon="True"
+            materialDesign:TextFieldAssist.TrailingIcon="FolderOpenOutline"
             IsReadOnly="true"
             PreviewMouseDown="SelectExecutableForTextBox"
             Tag="SettingsTxt"
@@ -136,9 +83,12 @@
             x:Name="GamePathBox2"
             Grid.Row="4"
             Grid.Column="1"
-            Height="24"
+            Height="28"
             Margin="0,6,0,0"
             VerticalAlignment="Top"
+            Cursor="Hand"
+            materialDesign:TextFieldAssist.HasTrailingIcon="True"
+            materialDesign:TextFieldAssist.TrailingIcon="FolderOpenOutline"
             IsReadOnly="true"
             PreviewMouseDown="SelectExecutable2ForTextBox"
             Tag="SettingsTxt"
@@ -152,18 +102,26 @@
             Margin="0,10,0,0"
             VerticalScrollBarVisibility="Auto">
             <ItemsControl Name="GameSettingsList">
+                <ItemsControl.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock
+                                    Margin="2,18,0,6"
+                                    FontSize="13"
+                                    FontWeight="SemiBold"
+                                    Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                                    Text="{Binding Name}" />
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ItemsControl.GroupStyle>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
+                        <Border Padding="0,5,0,0" BorderBrush="{DynamicResource MaterialDesign.Brush.Separator.Background}" BorderThickness="0,0,0,1">
                         <UniformGrid Columns="2">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Height="{StaticResource fieldHeight}" Padding="2,4,2,2">
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}{0} - {1}">
-                                            <Binding Path="CategoryName" />
-                                            <Binding Path="FieldName" />
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
+                                <TextBlock Height="{StaticResource fieldHeight}" Padding="2,4,2,2" Text="{Binding FieldName}" />
                                 <materialDesign:PackIcon Kind="InformationOutline" Style="{StaticResource hintIcon}" />
                                 <Button Content="Settings" Height="24" Padding="10,0" Margin="8,0,8,4"
                                         FontSize="12" Visibility="Collapsed"
@@ -227,15 +185,16 @@
                                                 <Setter Property="ContentTemplate">
                                                     <Setter.Value>
                                                         <DataTemplate>
-                                                        <CheckBox
+                                                        <ToggleButton
                                             Height="{StaticResource fieldHeight}"
                                             Margin="0,0,0,5"
-                                            Foreground="{DynamicResource MaterialDesignBody}"
+                                            HorizontalAlignment="Left"
+                                            Style="{StaticResource MaterialDesignSwitchToggleButton}"
                                             IsChecked="{Binding FieldValue, Mode=TwoWay, Converter={StaticResource stringToBoolConverter}}">
-                                                            <CheckBox.ToolTip>
+                                                            <ToggleButton.ToolTip>
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
-                                                            </CheckBox.ToolTip>
-                                                        </CheckBox>
+                                                            </ToggleButton.ToolTip>
+                                                        </ToggleButton>
                                                         </DataTemplate>
                                                     </Setter.Value>
                                                 </Setter>
@@ -304,11 +263,19 @@
                                                 <Setter Property="ContentTemplate">
                                                     <Setter.Value>
                                                         <DataTemplate>
+                                                        <DockPanel Margin="0,0,0,5">
+                                                        <TextBlock
+                                            MinWidth="44"
+                                            Margin="10,0,0,0"
+                                            VerticalAlignment="Center"
+                                            DockPanel.Dock="Right"
+                                            Opacity="0.8"
+                                            Text="{Binding Value, ElementName=SettingSlider, StringFormat={}{0:0.##}}"
+                                            TextAlignment="Right" />
                                                         <Slider
+                                            x:Name="SettingSlider"
                                             Height="{StaticResource fieldHeight}"
-                                            Margin="0,0,0,5"
                                             AutoToolTipPlacement="TopLeft"
-                                            Foreground="{DynamicResource MaterialDesignBody}"
                                             IsSnapToTickEnabled="True"
                                             Maximum="{Binding FieldMax, Mode=TwoWay}"
                                             Minimum="{Binding FieldMin, Mode=TwoWay}"
@@ -335,6 +302,7 @@
                                                                 <ToolTip Style="{StaticResource teknoHint}" />
                                                             </Slider.ToolTip>
                                                         </Slider>
+                                                        </DockPanel>
                                                         </DataTemplate>
                                                     </Setter.Value>
                                                 </Setter>
@@ -379,6 +347,7 @@
                                 </ContentControl.Style>
                             </ContentControl>
                         </UniformGrid>
+                        </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -396,22 +365,23 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button
-                Grid.RowSpan="2"
-                Grid.Column="1"
-                Height="Auto"
-                MaxHeight="40"
-                Margin="5"
-                Click="BtnSaveSettings"
-                Content="{x:Static p:Resources.SettingsSaveSettings}" />
-            <Button
-                Grid.RowSpan="2"
-                Grid.Column="0"
-                Height="Auto"
-                MaxHeight="40"
-                Margin="5"
-                Click="BtnGoBack"
-                Content="{x:Static p:Resources.Back}" />
+            <StackPanel
+                Grid.ColumnSpan="2"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    MinWidth="120"
+                    Margin="5"
+                    Click="BtnGoBack"
+                    Content="{x:Static p:Resources.Back}"
+                    Style="{StaticResource MaterialDesignOutlinedButton}" />
+                <Button
+                    MinWidth="160"
+                    Margin="5"
+                    Click="BtnSaveSettings"
+                    Content="{x:Static p:Resources.SettingsSaveSettings}" />
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

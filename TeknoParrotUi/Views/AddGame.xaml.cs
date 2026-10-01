@@ -67,20 +67,62 @@ namespace TeknoParrotUi.Views
                 }
 
                 fullGameCount += 1;
-                var item = new ListBoxItem
-                {
-                    Content = gameProfile.GameNameInternal +
-                                (gameProfile.Patreon ? TeknoParrotUi.Properties.Resources.AddGameSubscriptionSuffix : "") +
-                                (thirdparty ? string.Format(TeknoParrotUi.Properties.Resources.AddGameThirdPartySuffix, gameProfile.EmulatorType) : "") +
-                                (existing ? TeknoParrotUi.Properties.Resources.AddGameAddedSuffix : ""),
-                    Tag = gameProfile
-                };
-
-
+                var row = new DockPanel { LastChildFill = true };
                 if (existing)
                 {
-                    item.SetResourceReference(ForegroundProperty, "MaterialDesign.Brush.Primary.Dark");
+                    var addedBadge = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(8, 0, 0, 0) };
+                    var check = new MaterialDesignThemes.Wpf.PackIcon
+                    {
+                        Kind = MaterialDesignThemes.Wpf.PackIconKind.CheckCircle,
+                        Width = 16,
+                        Height = 16,
+                        Margin = new Thickness(0, 0, 4, 0),
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+                    check.SetResourceReference(Control.ForegroundProperty, "MaterialDesign.Brush.Primary");
+                    addedBadge.Children.Add(check);
+                    var addedText = new TextBlock
+                    {
+                        Text = TeknoParrotUi.Properties.Resources.AddGameAddedSuffix.Trim().Trim('(', ')'),
+                        FontSize = 12,
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+                    addedText.SetResourceReference(TextBlock.ForegroundProperty, "MaterialDesign.Brush.Primary");
+                    addedBadge.Children.Add(addedText);
+                    DockPanel.SetDock(addedBadge, Dock.Right);
+                    row.Children.Add(addedBadge);
                 }
+                if (gameProfile.Patreon)
+                {
+                    var subscriptionIcon = new MaterialDesignThemes.Wpf.PackIcon
+                    {
+                        Kind = MaterialDesignThemes.Wpf.PackIconKind.Crown,
+                        Width = 16,
+                        Height = 16,
+                        Margin = new Thickness(8, 0, 0, 0),
+                        Opacity = 0.8,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        ToolTip = TeknoParrotUi.Properties.Resources.AddGameSubscriptionSuffix.Trim().Trim('(', ')')
+                    };
+                    subscriptionIcon.SetResourceReference(Control.ForegroundProperty, "MaterialDesign.Brush.Primary");
+                    DockPanel.SetDock(subscriptionIcon, Dock.Right);
+                    row.Children.Add(subscriptionIcon);
+                }
+                row.Children.Add(new TextBlock
+                {
+                    Text = gameProfile.GameNameInternal +
+                           (thirdparty ? string.Format(TeknoParrotUi.Properties.Resources.AddGameThirdPartySuffix, gameProfile.EmulatorType) : ""),
+                    TextTrimming = TextTrimming.CharacterEllipsis,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Opacity = existing ? 0.6 : 1.0
+                });
+
+                var item = new ListBoxItem
+                {
+                    Content = row,
+                    Tag = gameProfile
+                };
+                TextSearch.SetText(item, gameProfile.GameNameInternal);
 
                 string selectedInternalGenre = "All";
                 if (GenreBox != null && GenreBox.SelectedItem != null)
@@ -148,7 +190,7 @@ namespace TeknoParrotUi.Views
             //_selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
             _ = Library.UpdateIconAsync(Path.GetFileName(_selected.IconName), _selected.EmulatorType, gameIcon);
 
-            var added = ((ListBoxItem)stockGameList.SelectedItem).Content.ToString().Contains(TeknoParrotUi.Properties.Resources.AddGameAddedSuffix);
+            var added = GameProfileLoader.UserProfiles.Any(profile => profile.ProfileName == _selected.ProfileName);
             AddButton.IsEnabled = !added;
             AddContinueButton.IsEnabled = !added;
             DeleteButton.IsEnabled = added;

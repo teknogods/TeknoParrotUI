@@ -16,6 +16,43 @@
     FontFamily="pack://application:,,,/Resources/#Inter"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="SettingsSectionLabel" TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+            <Setter Property="Margin" Value="0,16,0,4" />
+            <Setter Property="Padding" Value="2,0" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Primary}" />
+        </Style>
+        <!-- Checkboxes render as a switch followed by their label. -->
+        <Style TargetType="CheckBox">
+            <Setter Property="Margin" Value="2,5" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Foreground}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <StackPanel Background="Transparent" Orientation="Horizontal">
+                            <ToggleButton
+                                VerticalAlignment="Center"
+                                Focusable="False"
+                                IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
+                                IsHitTestVisible="False"
+                                Style="{StaticResource MaterialDesignSwitchToggleButton}" />
+                            <ContentPresenter Margin="10,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -38,7 +75,7 @@
                     <Label
                         HorizontalAlignment="Left"
                         Content="{x:Static p:Resources.SettingsCommon}"
-                        FontSize="20" />
+                        Style="{StaticResource SettingsSectionLabel}" />
                     <CheckBox
                         Name="ChkSaveLastPlayed"
                         HorizontalAlignment="Left"
@@ -91,7 +128,7 @@
                         Margin="0,3,0,0"
                         HorizontalAlignment="Left"
                         Content="{x:Static p:Resources.SettingsSto0zZoneTitle}"
-                        FontSize="20" />
+                        Style="{StaticResource SettingsSectionLabel}" />
                     <CheckBox
                         Name="ChkUseSto0ZCheckBox"
                         Margin="0,2,0,0"
@@ -116,7 +153,7 @@
                     <Label
                         HorizontalAlignment="Left"
                         Content="{x:Static p:Resources.SettingsDInputWheel}"
-                        FontSize="20" />
+                        Style="{StaticResource SettingsSectionLabel}" />
                     <CheckBox
                         Name="ChkFullAxisGas"
                         HorizontalAlignment="Left"
@@ -136,12 +173,13 @@
                     <Label
                         HorizontalAlignment="Left"
                         Content="{x:Static p:Resources.SettingsAdvancedControls}"
-                        FontSize="20" />
+                        Style="{StaticResource SettingsSectionLabel}" />
                     <Button
                         x:Name="BtnMultiGameButtonConfig"
                         Margin="0,5,0,0"
                         HorizontalAlignment="Left"
                         Click="BtnMultiGameButtonConfig_Click"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
                         Content="{x:Static p:Resources.SettingsMultiGameButtonConfig}" />
                     <TextBlock><Run Text=" " /><Run Text=" " /><Run Text=" " /></TextBlock>
                 </StackPanel>
@@ -155,7 +193,7 @@
                     <Label
         HorizontalAlignment="Left"
         Content="{x:Static p:Resources.SettingsScoreSubmission}"
-        FontSize="20" />
+        Style="{StaticResource SettingsSectionLabel}" />
                     <Grid Margin="0,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
@@ -167,7 +205,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Content="{x:Static p:Resources.SettingsScoreSubmissionID}"
-            FontSize="15" />
+            FontSize="14" />
                         <TextBox
             Grid.Column="2"
             x:Name="textBoxScoreSubmissionID"
@@ -186,7 +224,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Content="{x:Static p:Resources.SettingsGUICollapseKey}"
-            FontSize="15" />
+            FontSize="14" />
                         <userControls:KeyCaptureTextBox
             Grid.Column="2"
             x:Name="keyCaptureScoreCollapseKey"
@@ -198,7 +236,7 @@
                     <Label
         HorizontalAlignment="Left"
         Content="{x:Static p:Resources.SettingsGameScanner}"
-        FontSize="20" />
+        Style="{StaticResource SettingsSectionLabel}" />
                     <Grid Margin="0,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
@@ -210,7 +248,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Content="{x:Static p:Resources.SettingsDefaultDATXMLFile}"
-            FontSize="15" />
+            FontSize="14" />
                         <Grid Grid.Column="2">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -228,6 +266,7 @@
                 Grid.Column="1"
                 Content="{x:Static p:Resources.SettingsBrowse}"
                 Margin="5,0,0,0"
+                Style="{StaticResource MaterialDesignOutlinedButton}"
                 Click="BtnBrowseDatXml_Click" />
                         </Grid>
                     </Grid>
@@ -235,7 +274,7 @@
                     <Label
         HorizontalAlignment="Left"
         Content="{x:Static p:Resources.SettingsGlobalHotkeys}"
-        FontSize="20" />
+        Style="{StaticResource SettingsSectionLabel}" />
                     <Grid Margin="0,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
@@ -247,7 +286,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Content="{x:Static p:Resources.SettingsExitGameKey}"
-            FontSize="15" />
+            FontSize="14" />
                         <userControls:KeyCaptureTextBox
             Grid.Column="2"
             x:Name="keyExitGameKey"
@@ -266,7 +305,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Content="{x:Static p:Resources.SettingsPauseGameKey}"
-            FontSize="15" />
+            FontSize="14" />
                         <userControls:KeyCaptureTextBox
             Grid.Column="2"
             x:Name="keyPauseGameKey"
@@ -279,7 +318,7 @@
                         <Label
             HorizontalAlignment="Left"
             Content="{x:Static p:Resources.SettingsUICustomization}"
-            FontSize="20" />
+            Style="{StaticResource SettingsSectionLabel}" />
                         <Grid Margin="0,5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
@@ -291,7 +330,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Content="{x:Static p:Resources.SettingsUIColour}"
-                FontSize="15" />
+                FontSize="14" />
                             <ComboBox
                 Grid.Column="2"
                 Name="UiColour"
@@ -303,7 +342,7 @@
                     <Label
         HorizontalAlignment="Left"
         Content="{x:Static p:Resources.SettingsLanguageSelection}"
-        FontSize="20" />
+        Style="{StaticResource SettingsSectionLabel}" />
                     <Grid Margin="0,5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" MinWidth="170" SharedSizeGroup="LabelColumn" />
@@ -315,7 +354,7 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Content="{x:Static p:Resources.SettingsLanguage}"
-            FontSize="15" />
+            FontSize="14" />
                         <ComboBox
             Grid.Column="2"
             Name="LanguageSelector"
@@ -341,7 +380,7 @@
                         <Label
             HorizontalAlignment="Left"
             Content="{x:Static p:Resources.SettingsElfldr2}"
-            FontSize="20" />
+            Style="{StaticResource SettingsSectionLabel}" />
                         <CheckBox
             Name="ChkUiElf2LogToFile"
             HorizontalAlignment="Left"
@@ -359,7 +398,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Content="{x:Static p:Resources.SettingsElfldr2NetworkAdapter}"
-                FontSize="15" />
+                FontSize="14" />
                             <userControls:NetworkAdapterDropdown 
                 Grid.Column="2"
                 x:Name="Elfldr2NetworkAdapterCombobox" />
@@ -370,7 +409,7 @@
                         <Label
             HorizontalAlignment="Left"
             Content="{x:Static p:Resources.SettingsDolphin}"
-            FontSize="20" />
+            Style="{StaticResource SettingsSectionLabel}" />
                         <CheckBox
             Name="ChkHideDolphinGUI"
             HorizontalAlignment="Left"
@@ -386,38 +425,31 @@
                BorderBrush="{DynamicResource MaterialDesignDivider}" 
                BorderThickness="0,1,0,0" 
                Padding="10">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <WrapPanel Grid.Row="0" HorizontalAlignment="Center">
-                    <Button
-                Width="250"
-                Margin="10,0,10,10"
-                Click="BtnVKCPage"
-                Content="{x:Static p:Resources.SettingsVirtualKeyCodes}" />
-                    <Button
-                Width="250"
-                Margin="0,0,10,10"
-                Click="BtnFfbProfiles"
-                Content="{x:Static p:Resources.SettingsDownloadFFB}" />
-                </WrapPanel>
-
-                <WrapPanel Grid.Row="1" HorizontalAlignment="Center">
-                    <Button
-                Width="250"
-                Margin="10,0,10,0"
-                Click="BtnGoBack"
-                Content="{x:Static p:Resources.Back}" />
-                    <Button
-                Width="250"
-                Margin="0,0,10,0"
-                Click="BtnSaveSettings"
-                Content="{x:Static p:Resources.SettingsSaveSettings}" />
-                </WrapPanel>
-            </Grid>
+            <DockPanel LastChildFill="False">
+                <Button
+                    DockPanel.Dock="Left"
+                    Margin="0,0,4,0"
+                    Click="BtnVKCPage"
+                    Content="{x:Static p:Resources.SettingsVirtualKeyCodes}"
+                    Style="{StaticResource MaterialDesignFlatButton}" />
+                <Button
+                    DockPanel.Dock="Left"
+                    Click="BtnFfbProfiles"
+                    Content="{x:Static p:Resources.SettingsDownloadFFB}"
+                    Style="{StaticResource MaterialDesignFlatButton}" />
+                <Button
+                    DockPanel.Dock="Right"
+                    MinWidth="160"
+                    Margin="8,0,0,0"
+                    Click="BtnSaveSettings"
+                    Content="{x:Static p:Resources.SettingsSaveSettings}" />
+                <Button
+                    DockPanel.Dock="Right"
+                    MinWidth="120"
+                    Click="BtnGoBack"
+                    Content="{x:Static p:Resources.Back}"
+                    Style="{StaticResource MaterialDesignOutlinedButton}" />
+            </DockPanel>
         </Border>
     </Grid>
 </UserControl>

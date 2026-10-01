@@ -2,20 +2,32 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-        <StackPanel x:Name="NvidiaPanel" Orientation="Vertical" Margin="10,0" HorizontalAlignment="Center">
-            <TextBlock Text="NVIDIA" FontSize="14" HorizontalAlignment="Center"/>
-            <materialDesign:PackIcon x:Name="NvidiaIcon" Width="28" Height="28" HorizontalAlignment="Center" Margin="0,4"/>
+    <StackPanel HorizontalAlignment="Center">
+        <TextBlock Text="GPU Compatibility"
+                   FontSize="12"
+                   Foreground="{DynamicResource MaterialDesign.Brush.ForegroundLight}"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,4" />
+        <StackPanel x:Name="VendorPanel" Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel x:Name="NvidiaPanel" Orientation="Horizontal" Margin="6,0" Background="Transparent">
+                <materialDesign:PackIcon x:Name="NvidiaIcon" Width="18" Height="18" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                <TextBlock Text="NVIDIA" FontSize="13" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel x:Name="AmdPanel" Orientation="Horizontal" Margin="6,0" Background="Transparent">
+                <materialDesign:PackIcon x:Name="AmdIcon" Width="18" Height="18" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                <TextBlock Text="AMD" FontSize="13" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel x:Name="IntelPanel" Orientation="Horizontal" Margin="6,0" Background="Transparent">
+                <materialDesign:PackIcon x:Name="IntelIcon" Width="18" Height="18" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                <TextBlock Text="Intel" FontSize="13" VerticalAlignment="Center"/>
+            </StackPanel>
         </StackPanel>
-
-        <StackPanel x:Name="AmdPanel" Orientation="Vertical" Margin="10,0" HorizontalAlignment="Center">
-            <TextBlock Text="AMD" FontSize="14" HorizontalAlignment="Center"/>
-            <materialDesign:PackIcon x:Name="AmdIcon" Width="28" Height="28" HorizontalAlignment="Center" Margin="0,4"/>
-        </StackPanel>
-
-        <StackPanel x:Name="IntelPanel" Orientation="Vertical" Margin="10,0" HorizontalAlignment="Center">
-            <TextBlock Text="Intel" FontSize="14" HorizontalAlignment="Center"/>
-            <materialDesign:PackIcon x:Name="IntelIcon" Width="28" Height="28" HorizontalAlignment="Center" Margin="0,4"/>
-        </StackPanel>
+        <TextBlock x:Name="UntestedText"
+                   Text="Untested"
+                   FontSize="13"
+                   FontStyle="Italic"
+                   Foreground="{DynamicResource MaterialDesign.Brush.ForegroundLight}"
+                   HorizontalAlignment="Center"
+                   Visibility="Collapsed" />
     </StackPanel>
 </UserControl>

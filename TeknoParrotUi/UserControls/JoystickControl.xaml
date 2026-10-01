@@ -13,60 +13,7 @@
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <Style TargetType="{x:Type ToolTip}">
-            <Setter Property="Width" Value="250" />
-            <Setter Property="Height" Value="auto" />
-            <Setter Property="HasDropShadow" Value="True" />
-            <Setter Property="OverridesDefaultStyle" Value="True" />
-            <Setter Property="HorizontalOffset" Value="100px" />
-            <Setter Property="VerticalOffset" Value="-20px" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ToolTip}">
-                        <Border
-                            Name="Border"
-                            Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}"
-                            BorderBrush="DarkGray"
-                            BorderThickness="1"
-                            CornerRadius="8">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                    <GradientStop Offset="0.0" Color="Snow" />
-                                    <GradientStop Offset="1.0" Color="DarkGray" />
-                                </LinearGradientBrush>
-                            </Border.Background>
-                            <StackPanel>
-                                <TextBlock
-                                    Margin="5"
-                                    FontSize="18"
-                                    FontStyle="Italic"
-                                    FontWeight="UltraBold"
-                                    Foreground="#FF000000"
-                                    Text="{x:Static p:Resources.JoystickControlTeknoHint}"
-                                    TextAlignment="Center"
-                                    TextDecorations="Underline" />
-                                <TextBlock
-                                    Margin="5"
-                                    FontSize="18"
-                                    FontStretch="UltraExpanded"
-                                    Foreground="#FF000000"
-                                    Text="{Binding Hint}"
-                                    TextAlignment="Center"
-                                    TextWrapping="Wrap" />
-                                <StackPanel.Background>
-                                    <ImageBrush
-                                        AlignmentX="Right"
-                                        ImageSource="../Resources/teknoparrot_by_pooterman-db9erxd.png"
-                                        Opacity="0.2"
-                                        Stretch="Uniform" />
-                                </StackPanel.Background>
-                            </StackPanel>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <Style TargetType="{x:Type ToolTip}" BasedOn="{StaticResource TeknoHintToolTip}" />
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -88,16 +35,18 @@
             <HeaderedItemsControl Name="JoystickMappingItems" Grid.Row="1">
                 <HeaderedItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <UniformGrid Margin="0,0,0,13" Columns="2">
+                        <UniformGrid Columns="2">
                             <StackPanel Margin="0,0,0,0">
                                 <TextBlock
+                                    x:Name="ButtonLabel"
+                                    Margin="2,10,12,0"
                                     FontSize="14"
-                                    FontWeight="SemiBold"
                                     Loaded="Control_Loaded"
                                     Tag="{Binding}"
                                     Text="{Binding ButtonName}"
                                     TextWrapping="Wrap" />
                                 <TextBlock
+                                    Margin="2,0,12,4"
                                     FontSize="11"
                                     FontWeight="Light"
                                     Opacity="0.6"
@@ -112,6 +61,9 @@
                                                 <DataTrigger Binding="{Binding Hint}" Value="{x:Null}">
                                                     <Setter Property="Visibility" Value="Collapsed" />
                                                 </DataTrigger>
+                                                <DataTrigger Binding="{Binding Visibility, ElementName=ButtonLabel}" Value="Collapsed">
+                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                </DataTrigger>
                                             </Style.Triggers>
                                         </Style>
                                     </TextBlock.Style>
@@ -119,6 +71,7 @@
                             </StackPanel>
                             <StackPanel Margin="0,0,0,0">
                                 <TextBox
+                                    Margin="0,6"
                                     ContextMenu="{x:Null}"
                                     GotFocus="TextBox_GotFocus"
                                     IsReadOnly="true"
@@ -129,7 +82,7 @@
                                     Text="{Binding BindName}"
                                     Unloaded="TextBox_Unloaded" />
                                 <ComboBox
-                                    Margin="0,4,0,0"
+                                    Margin="0,6"
                                     IsEditable="False"
                                     IsReadOnly="True"
                                     Loaded="Control_Loaded"
@@ -148,24 +101,22 @@
             Grid.ColumnSpan="1"
             Height="49"
             VerticalAlignment="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Button
-                Grid.Column="1"
-                Height="Auto"
-                MaxHeight="40"
-                Margin="5"
-                Click="ButtonBase_OnClick"
-                Content="{x:Static p:Resources.SettingsSaveSettings}" />
-            <Button
-                Grid.Column="0"
-                Height="Auto"
-                MaxHeight="40"
-                Margin="5"
-                Click="JoystickGoBack_OnClick"
-                Content="{x:Static p:Resources.Back}" />
+            <StackPanel
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    MinWidth="120"
+                    Margin="5"
+                    Click="JoystickGoBack_OnClick"
+                    Content="{x:Static p:Resources.Back}"
+                    Style="{StaticResource MaterialDesignOutlinedButton}" />
+                <Button
+                    MinWidth="160"
+                    Margin="5"
+                    Click="ButtonBase_OnClick"
+                    Content="{x:Static p:Resources.SettingsSaveSettings}" />
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

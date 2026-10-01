@@ -50,8 +50,9 @@ namespace TeknoParrotUi.UserControls
             PopulateGClubFfbDevices(gameProfile);
             GameSettingsList.ItemsSource = gameProfile.ConfigValues.Where(f =>
                 f.SettingsPage != ForceFeedbackSettingsControl.PageName).ToList();
-            System.Windows.Data.CollectionViewSource.GetDefaultView(GameSettingsList.ItemsSource).Filter =
-                item => ((FieldInformation)item).IsVisible(_gameProfile.ConfigValues);
+            var settingsView = System.Windows.Data.CollectionViewSource.GetDefaultView(GameSettingsList.ItemsSource);
+            settingsView.Filter = item => ((FieldInformation)item).IsVisible(_gameProfile.ConfigValues);
+            settingsView.GroupDescriptions.Add(new System.Windows.Data.PropertyGroupDescription(nameof(FieldInformation.CategoryName)));
             _contentControl = contentControl;
             _library = library;
 
@@ -65,7 +66,7 @@ namespace TeknoParrotUi.UserControls
             string exeName = "";
 
             if (!string.IsNullOrEmpty(_gameProfile.ExecutableName))
-                exeName = $" ({_gameProfile.ExecutableName})".Replace(";", Properties.Resources.GameSettingsExecutableOr);
+                exeName = $" ({_gameProfile.ExecutableName})".Replace(";", Properties.Resources.GameSettingsExecutableOr).Replace("|", " / ");
 
             GameExecutableText.Text = $"{Properties.Resources.GameSettingsGameExecutableLabel}{exeName}:";
 
@@ -74,7 +75,7 @@ namespace TeknoParrotUi.UserControls
                 exeName = "";
 
                 if (!string.IsNullOrEmpty(_gameProfile.ExecutableName2))
-                    exeName = $" ({_gameProfile.ExecutableName2})".Replace(";", Properties.Resources.GameSettingsExecutableOr);
+                    exeName = $" ({_gameProfile.ExecutableName2})".Replace(";", Properties.Resources.GameSettingsExecutableOr).Replace("|", " / ");
 
                 var secondPathLabel = (_gameProfile.EmulatorType == EmulatorType.TeknoAir || _gameProfile.EmulatorType == EmulatorType.TeknoVegas) ||
                                       ((_gameProfile.EmulatorType == EmulatorType.TeknoViper || (_gameProfile.EmulatorType == EmulatorType.TeknoS11 || (_gameProfile.EmulatorType == EmulatorType.TeknoTPJC || _gameProfile.EmulatorType == EmulatorType.TeknoHDrive))) || _gameProfile.EmulatorType == EmulatorType.TeknoM2) ||

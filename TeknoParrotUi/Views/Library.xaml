@@ -19,8 +19,29 @@
     <UserControl.Resources>
         <converters:IsLessThanConverter x:Key="IsLessThan" />
         <converters:MathConverter x:Key="MathConverter" />
+        <Style x:Key="LibraryActionButton"
+               TargetType="Button"
+               BasedOn="{StaticResource MaterialDesignOutlinedButton}">
+            <Setter Property="Height"
+                    Value="Auto" />
+            <Setter Property="HorizontalContentAlignment"
+                    Value="Left" />
+        </Style>
+        <Style x:Key="SecondaryActionButton"
+               TargetType="Button"
+               BasedOn="{StaticResource MaterialDesignFlatButton}">
+            <Setter Property="Height"
+                    Value="Auto" />
+            <Setter Property="Margin"
+                    Value="2,4,2,2" />
+            <Setter Property="Padding"
+                    Value="8,0" />
+            <Setter Property="Foreground"
+                    Value="{DynamicResource MaterialDesign.Brush.ForegroundLight}" />
+        </Style>
     </UserControl.Resources>
     <Grid x:Name="MainLibraryGrid"
+          SizeChanged="MainLibraryGrid_SizeChanged"
           Margin="0,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="40" />
@@ -63,55 +84,20 @@
               Grid.Column="0"
               Margin="4,4,4,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="{x:Static p:Resources.LibraryGenreLabel}"
-                       Grid.Column="0"
-                       VerticalAlignment="Center"
-                       Margin="4,0,8,0"
-                       FontSize="14" />
-            <ComboBox x:Name="GenreBox"
-                      Grid.Column="1"
-                      Height="30"
-                      VerticalAlignment="Center"
-                      DisplayMemberPath="DisplayName"
-                      SelectionChanged="FilterBox_SelectionChanged" />
-            <TextBlock Text="{x:Static p:Resources.LibraryPlatformLabel}"
-                       Grid.Column="2"
-                       VerticalAlignment="Center"
-                       Margin="12,0,8,0"
-                       FontSize="14" />
-            <ComboBox x:Name="PlatformBox"
-                      Grid.Column="3"
-                      Height="30"
-                      VerticalAlignment="Center"
-                      DisplayMemberPath="DisplayName"
-                      SelectionChanged="FilterBox_SelectionChanged" />
-        </Grid>
-        <Grid Grid.Row="1"
-              Grid.Column="0"
-              Margin="4,4,4,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <materialDesign:PackIcon Grid.Column="0"
-                                     Height="25"
-                                     Width="25"
-                                     Margin="0,0,5,0"
-                                     VerticalAlignment="Center"
-                                     Kind="TextSearch" />
             <TextBox x:Name="SearchBox"
-                     Grid.Column="1"
+                     Grid.Column="0"
                      Height="30"
+                     Margin="4,0,0,0"
                      VerticalAlignment="Center"
+                     materialDesign:TextFieldAssist.HasLeadingIcon="True"
+                     materialDesign:TextFieldAssist.LeadingIcon="Magnify"
+                     materialDesign:TextFieldAssist.HasClearButton="True"
                      TextChanged="SearchBox_TextChanged" />
             <Button x:Name="ResetFiltersButton"
-                    Grid.Column="2"
+                    Grid.Column="1"
                     Width="30"
                     Height="30"
                     Margin="4,0,0,0"
@@ -126,6 +112,77 @@
                                          Height="20" />
             </Button>
         </Grid>
+        <StackPanel Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="8,4,4,0"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style x:Key="FilterChip"
+                       TargetType="Border">
+                    <Setter Property="Height"
+                            Value="30" />
+                    <Setter Property="Margin"
+                            Value="0,0,8,0" />
+                    <Setter Property="Padding"
+                            Value="12,0,4,0" />
+                    <Setter Property="CornerRadius"
+                            Value="15" />
+                    <Setter Property="BorderThickness"
+                            Value="1" />
+                    <Setter Property="BorderBrush"
+                            Value="{DynamicResource MaterialDesign.Brush.TextBox.OutlineInactiveBorder}" />
+                    <Setter Property="Background"
+                            Value="{DynamicResource MaterialDesign.Brush.TextBox.FilledBackground}" />
+                </Style>
+                <Style x:Key="FilterChipComboBox"
+                       TargetType="ComboBox"
+                       BasedOn="{StaticResource MaterialDesignComboBox}">
+                    <Setter Property="MinWidth"
+                            Value="60" />
+                    <Setter Property="MaxWidth"
+                            Value="240" />
+                    <Setter Property="Margin"
+                            Value="6,0,0,0" />
+                    <Setter Property="Padding"
+                            Value="0,0,0,0" />
+                    <Setter Property="VerticalAlignment"
+                            Value="Center" />
+                    <Setter Property="FontWeight"
+                            Value="SemiBold" />
+                    <Setter Property="materialDesign:TextFieldAssist.DecorationVisibility"
+                            Value="Collapsed" />
+                    <Setter Property="materialDesign:TextFieldAssist.UnderlineBrush"
+                            Value="Transparent" />
+                    <Setter Property="BorderThickness"
+                            Value="0" />
+                </Style>
+            </StackPanel.Resources>
+            <Border Style="{StaticResource FilterChip}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{x:Static p:Resources.LibraryGenreLabel}"
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               Foreground="{DynamicResource MaterialDesign.Brush.ForegroundLight}" />
+                    <ComboBox x:Name="GenreBox"
+                              Style="{StaticResource FilterChipComboBox}"
+                              DisplayMemberPath="DisplayName"
+                              SelectionChanged="FilterBox_SelectionChanged" />
+                </StackPanel>
+            </Border>
+            <Border Style="{StaticResource FilterChip}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{x:Static p:Resources.LibraryPlatformLabel}"
+                               VerticalAlignment="Center"
+                               FontSize="13"
+                               Foreground="{DynamicResource MaterialDesign.Brush.ForegroundLight}" />
+                    <ComboBox x:Name="PlatformBox"
+                              Style="{StaticResource FilterChipComboBox}"
+                              DisplayMemberPath="DisplayName"
+                              SelectionChanged="FilterBox_SelectionChanged" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
         <Image Grid.Row="1"
                Grid.Column="1"
                Width="8"
@@ -159,13 +216,11 @@
                  Grid.Row="2"
                  Grid.RowSpan="10"
                  Margin="4"
-                 BorderThickness="1"
+                 BorderThickness="0"
                  SelectionChanged="ListBox_SelectionChanged">
             <ListBox.ItemContainerStyle>
-                <Style BasedOn="{StaticResource MaterialDesignListBoxItem}"
+                <Style BasedOn="{StaticResource AccentListBoxItem}"
                        TargetType="ListBoxItem">
-                    <Setter Property="Padding"
-                            Value="7" />
                     <EventSetter Event="MouseDoubleClick"
                                  Handler="GameListItem_MouseDoubleClick" />
                 </Style>
@@ -194,133 +249,89 @@
                     </Style.Triggers>
                 </Style>
             </StackPanel.Style>
-            <ScrollViewer Margin="10,0">
-                <TextBlock x:Name="gameInfoText"
-                           Grid.Row="2"
-                           Grid.Column="1"
-                           Width="Auto"
-                           HorizontalAlignment="Stretch"
-                           FontSize="14"
-                           TextAlignment="Center"
-                           TextWrapping="Wrap" />
-            </ScrollViewer>
-            <TextBlock Text="GPU Compatibility"
-                           FontSize="14"
-                           FontWeight="Bold"
-                           HorizontalAlignment="Center"
-                           Margin="0,2,0,5" />
+            <!-- Filled in by ShowGameInfo() in the code-behind. -->
+            <Grid x:Name="gameInfoGrid"
+                  Margin="10,0"
+                  HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <Border x:Name="gameNotesPanel"
+                    Margin="10,10,10,0"
+                    Padding="10,8"
+                    BorderBrush="{DynamicResource MaterialDesign.Brush.TextBox.OutlineInactiveBorder}"
+                    BorderThickness="1"
+                    CornerRadius="6"
+                    Visibility="Collapsed">
+                <DockPanel>
+                    <materialDesign:PackIcon Width="18"
+                                             Height="18"
+                                             Margin="0,1,8,0"
+                                             VerticalAlignment="Top"
+                                             DockPanel.Dock="Left"
+                                             Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                                             Kind="InformationOutline" />
+                    <TextBlock x:Name="gameNotesText"
+                               FontSize="13"
+                               TextWrapping="Wrap" />
+                </DockPanel>
+            </Border>
             <uc:GpuCompatibilityDisplay x:Name="gpuCompatibilityDisplay"
-                                            HorizontalAlignment="Center" />
+                                        Margin="0,12,0,0"
+                                        HorizontalAlignment="Center" />
 
         </StackPanel>
-        <Button x:Name="playOnlineButton"
-                Grid.Row="4"
+        <!-- Action rows are stacked from the bottom up by LayoutActionRows() in the code-behind. -->
+        <UniformGrid x:Name="playRow"
+                     Grid.Row="7"
+                     Grid.Column="1"
+                     Grid.ColumnSpan="2"
+                     Margin="6,0"
+                     Rows="1">
+            <Button x:Name="gameLaunchButton"
+                    Height="Auto"
+                    Margin="4,4,4,2"
+                    Click="BtnLaunchGame">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Margin="0,0,8,0"
+                                             VerticalAlignment="Center"
+                                             Kind="Play"
+                                             Height="26"
+                                             Width="26" />
+                    <TextBlock FontSize="16"
+                               FontWeight="SemiBold"
+                               VerticalAlignment="Center"
+                               Text="{x:Static p:Resources.LibraryPlay}" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="playOnlineButton"
+                    Margin="4,4,4,2"
+                    Style="{StaticResource LibraryActionButton}"
+                    Visibility="Collapsed"
+                    Click="BtnPlayOnlineClick">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Margin="0,0,8,0"
+                                             VerticalAlignment="Center"
+                                             Kind="Web"
+                                             Height="24"
+                                             Width="24" />
+                    <TextBlock FontSize="14"
+                               VerticalAlignment="Center"
+                               TextTrimming="CharacterEllipsis"
+                               Text="{x:Static p:Resources.LibraryPlayOnline}" />
+                </StackPanel>
+            </Button>
+        </UniformGrid>
+        <Button x:Name="gameSettingsButton"
+                Grid.Row="8"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
-                Width="Auto"
-                Height="Auto"
                 Margin="10,4,10,2"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Left"
-                Background="#FAFAFA"
-                BorderBrush="#E0E0E0"
-                Click="BtnPlayOnlineClick"
-                Foreground="#212121">
-            <StackPanel Width="Auto"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal">
-                <materialDesign:PackIcon Margin="0,0,8,0"
-                                         VerticalAlignment="Center"
-                                         Kind="Web"
-                                         Height="24"
-                                         Width="24" />
-                <TextBlock FontSize="14"
-                           VerticalAlignment="Center"
-                           Text="{x:Static p:Resources.LibraryPlayOnline}" />
-            </StackPanel>
-        </Button>
-        <Button x:Name="gameOnlineProfileButton"
-                Grid.Row="5"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                Width="Auto"
-                Height="Auto"
-                Margin="10,4,10,2"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Left"
-                Click="BtnOnlineProfile">
-            <StackPanel Width="Auto"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal">
-                <materialDesign:PackIcon Margin="0,0,8,0"
-                                         VerticalAlignment="Center"
-                                         Kind="AccountCircle"
-                                         Height="24"
-                                         Width="24" />
-                <TextBlock FontSize="14"
-                           VerticalAlignment="Center"
-                           Text="{x:Static p:Resources.LibraryOnlineProfile}" />
-            </StackPanel>
-        </Button>
-        <Button x:Name="gameLaunchButton"
-                Grid.Row="6"
-                Grid.Column="1"
-                Width="Auto"
-                Height="Auto"
-                Margin="10,4,6,2"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Left"
-                materialDesign:ShadowAssist.Darken="True"
-                Click="BtnLaunchGame">
-            <StackPanel Width="Auto"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal">
-                <materialDesign:PackIcon Margin="0,0,8,0"
-                                         VerticalAlignment="Center"
-                                         Kind="PlayCircle"
-                                         Height="24"
-                                         Width="24" />
-                <TextBlock FontSize="14"
-                           VerticalAlignment="Center"
-                           Text="{x:Static p:Resources.LibraryPlay}" />
-            </StackPanel>
-        </Button>
-        <Button x:Name="testMenuButton"
-                Grid.Row="6"
-                Grid.Column="2"
-                Width="Auto"
-                Height="Auto"
-                Margin="0,4,10,2"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Left"
-                Click="BtnLaunchTestMenu"
-                Padding="2,0,0,0">
-            <StackPanel Width="Auto"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal">
-                <materialDesign:PackIcon x:Name="testMenuIcon"
-                                         Margin="0,0,8,0"
-                                         VerticalAlignment="Center"
-                                         Kind="TestTube"
-                                         Height="24"
-                                         Width="24" />
-                <TextBlock x:Name="testMenuText"
-                           FontSize="14"
-                           VerticalAlignment="Center"
-                           Text="{x:Static p:Resources.LibraryTestMode}" />
-            </StackPanel>
-        </Button>
-        <Button Grid.Row="7"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                Height="Auto"
-                Margin="10,4,10,2"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Left"
+                Style="{StaticResource LibraryActionButton}"
                 Click="BtnGameSettings">
-            <StackPanel Width="Auto"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon Margin="0,0,8,0"
                                          VerticalAlignment="Center"
                                          Kind="Settings"
@@ -331,17 +342,14 @@
                            Text="{x:Static p:Resources.LibraryGameSettings}" />
             </StackPanel>
         </Button>
-        <Button Grid.Row="8"
+        <Button x:Name="controllerSetupButton"
+                Grid.Row="9"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
-                Height="Auto"
                 Margin="10,4,10,2"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Left"
+                Style="{StaticResource LibraryActionButton}"
                 Click="BtnControllerSettings">
-            <StackPanel Width="Auto"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon Margin="0,0,8,0"
                                          VerticalAlignment="Center"
                                          Kind="ControllerClassic"
@@ -353,17 +361,13 @@
             </StackPanel>
         </Button>
         <Button x:Name="wikiButton"
-                Grid.Row="9"
+                Grid.Row="10"
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
-                Height="Auto"
                 Margin="10,4,10,2"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Left"
+                Style="{StaticResource LibraryActionButton}"
                 Click="BtnMoreInfo">
-            <StackPanel Width="Auto"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon Margin="0,0,8,0"
                                          VerticalAlignment="Center"
                                          Kind="Information"
@@ -374,112 +378,107 @@
                            Text="{x:Static p:Resources.LibraryMoreInfo}" />
             </StackPanel>
         </Button>
-        <Button x:Name="highScoreButton"
-                Grid.Row="10"
-                Grid.Column="1"
-                Grid.ColumnSpan="2"
-                Height="Auto"
-                Margin="10,4,10,2"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Left"
-                Click="BtnHighScores"
-                Visibility="Collapsed">
-            <Button.Style>
-                <Style TargetType="Button"
-                       BasedOn="{StaticResource MaterialDesignRaisedButton}">
-                    <Style.Triggers>
-                        <Trigger Property="Visibility"
-                                 Value="Collapsed">
-                            <Setter Property="Height"
-                                    Value="0" />
-                            <Setter Property="Margin"
-                                    Value="0" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-            <StackPanel Width="Auto"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal">
-                <materialDesign:PackIcon Margin="0,0,8,0"
-                                         VerticalAlignment="Center"
-                                         Kind="TrophyVariant"
-                                         Height="24"
-                                         Width="24" />
-                <TextBlock FontSize="14"
-                           VerticalAlignment="Center"
-                           Text="HIGH SCORES" />
-            </StackPanel>
-        </Button>
-        <Button Grid.Column="1"
-                Width="Auto"
-                Height="Auto"
-                Margin="10,4,6,2"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Left"
-                Click="BtnVerifyGame">
-            <Button.Style>
-                <Style TargetType="Button"
-                       BasedOn="{StaticResource MaterialDesignRaisedButton}">
-                    <Setter Property="Grid.Row"
-                            Value="10" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Visibility, ElementName=highScoreButton}"
-                                     Value="Visible">
-                            <Setter Property="Grid.Row"
-                                    Value="11" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-            <StackPanel Width="Auto"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal">
-                <materialDesign:PackIcon Margin="0,0,2,0"
-                                         VerticalAlignment="Center"
-                                         Kind="FileCheck"
-                                         Height="24"
-                                         Width="24" />
-                <TextBlock FontSize="14"
-                           VerticalAlignment="Center"
-                           Text="{x:Static p:Resources.LibraryVerifyGame}" />
-            </StackPanel>
-        </Button>
-        <Button x:Name="delGame"
-                Grid.Column="2"
-                Width="Auto"
-                Height="Auto"
-                Margin="0,4,10,2"
-                HorizontalAlignment="Stretch"
-                HorizontalContentAlignment="Left"
-                Click="BtnDeleteGame"
-                IsEnabled="False">
-            <Button.Style>
-                <Style TargetType="Button"
-                       BasedOn="{StaticResource MaterialDesignRaisedButton}">
-                    <Setter Property="Grid.Row"
-                            Value="10" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Visibility, ElementName=highScoreButton}"
-                                     Value="Visible">
-                            <Setter Property="Grid.Row"
-                                    Value="11" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-            <StackPanel Width="Auto"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal">
-                <materialDesign:PackIcon Margin="0,0,2,0"
-                                         VerticalAlignment="Center"
-                                         Kind="TrashCan"
-                                         Height="24"
-                                         Width="24" />
-                <TextBlock FontSize="14"
-                           VerticalAlignment="Center"
-                           Text="{x:Static p:Resources.LibraryDeleteGame}" />
-            </StackPanel>
-        </Button>
+        <UniformGrid x:Name="extrasRow"
+                     Grid.Row="10"
+                     Grid.Column="1"
+                     Grid.ColumnSpan="2"
+                     Margin="6,0"
+                     Rows="1"
+                     Visibility="Collapsed">
+            <Button x:Name="gameOnlineProfileButton"
+                    Margin="4,4,4,2"
+                    Style="{StaticResource LibraryActionButton}"
+                    Visibility="Collapsed"
+                    Click="BtnOnlineProfile">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Margin="0,0,8,0"
+                                             VerticalAlignment="Center"
+                                             Kind="AccountCircle"
+                                             Height="24"
+                                             Width="24" />
+                    <TextBlock FontSize="14"
+                               VerticalAlignment="Center"
+                               TextTrimming="CharacterEllipsis"
+                               Text="{x:Static p:Resources.LibraryOnlineProfile}" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="highScoreButton"
+                    Margin="4,4,4,2"
+                    Style="{StaticResource LibraryActionButton}"
+                    Visibility="Collapsed"
+                    Click="BtnHighScores">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Margin="0,0,8,0"
+                                             VerticalAlignment="Center"
+                                             Kind="TrophyVariant"
+                                             Height="24"
+                                             Width="24" />
+                    <TextBlock FontSize="14"
+                               VerticalAlignment="Center"
+                               TextTrimming="CharacterEllipsis"
+                               Text="HIGH SCORES" />
+                </StackPanel>
+            </Button>
+        </UniformGrid>
+        <StackPanel x:Name="secondaryActionsRow"
+                    Grid.Row="11"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    Margin="6,0,6,0"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+            <Button x:Name="testMenuButton"
+                    Style="{StaticResource SecondaryActionButton}"
+                    Click="BtnLaunchTestMenu">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon x:Name="testMenuIcon"
+                                             Margin="0,0,6,0"
+                                             VerticalAlignment="Center"
+                                             Kind="TestTube"
+                                             Height="20"
+                                             Width="20" />
+                    <TextBlock x:Name="testMenuText"
+                               FontSize="13"
+                               VerticalAlignment="Center"
+                               Text="{x:Static p:Resources.LibraryTestMode}" />
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource SecondaryActionButton}"
+                    Click="BtnVerifyGame">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Margin="0,0,6,0"
+                                             VerticalAlignment="Center"
+                                             Kind="FileCheck"
+                                             Height="20"
+                                             Width="20" />
+                    <TextBlock FontSize="13"
+                               VerticalAlignment="Center"
+                               Text="{x:Static p:Resources.LibraryVerifyGame}" />
+                </StackPanel>
+            </Button>
+            <Button x:Name="delGame"
+                    Click="BtnDeleteGame"
+                    IsEnabled="False">
+                <Button.Style>
+                    <Style TargetType="Button"
+                           BasedOn="{StaticResource SecondaryActionButton}">
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="Foreground"
+                                        Value="#E53935" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.ToolTip>
+                    <TextBlock Text="{x:Static p:Resources.LibraryDeleteGame}" />
+                </Button.ToolTip>
+                <materialDesign:PackIcon VerticalAlignment="Center"
+                                         Kind="TrashCanOutline"
+                                         Height="20"
+                                         Width="20" />
+            </Button>
+        </StackPanel>
     </Grid>
 </UserControl>

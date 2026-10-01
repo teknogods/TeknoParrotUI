@@ -13,15 +13,39 @@ namespace TeknoParrotUi.UserControls
             InitializeComponent();
         }
 
-        public void SetGpuStatus(GPUSTATUS nvidia, GPUSTATUS amd, GPUSTATUS intel)
+        public void SetGpuStatus(Metadata info)
         {
-            SetIconForStatus(NvidiaIcon, nvidia);
-            SetIconForStatus(AmdIcon, amd);
-            SetIconForStatus(IntelIcon, intel);
+            SetGpuStatus(info.nvidia, info.amd, info.intel, info.nvidia_issues, info.amd_issues, info.intel_issues);
         }
 
-        private void SetIconForStatus(PackIcon icon, GPUSTATUS status)
+        public void SetGpuStatus(GPUSTATUS nvidia, GPUSTATUS amd, GPUSTATUS intel,
+            string nvidiaIssues = null, string amdIssues = null, string intelIssues = null)
         {
+            bool untested = nvidia == GPUSTATUS.NO_INFO && amd == GPUSTATUS.NO_INFO && intel == GPUSTATUS.NO_INFO;
+            VendorPanel.Visibility = untested ? Visibility.Collapsed : Visibility.Visible;
+            UntestedText.Visibility = untested ? Visibility.Visible : Visibility.Collapsed;
+
+            SetIconForStatus(NvidiaPanel, NvidiaIcon, nvidia, nvidiaIssues);
+            SetIconForStatus(AmdPanel, AmdIcon, amd, amdIssues);
+            SetIconForStatus(IntelPanel, IntelIcon, intel, intelIssues);
+        }
+
+        private static string StatusText(GPUSTATUS status)
+        {
+            switch (status)
+            {
+                case GPUSTATUS.OK: return "Works";
+                case GPUSTATUS.WITH_FIX: return "Works with a fix";
+                case GPUSTATUS.HAS_ISSUES: return "Runs with issues";
+                case GPUSTATUS.NO: return "Not working";
+                default: return "Untested";
+            }
+        }
+
+        private void SetIconForStatus(FrameworkElement panel, PackIcon icon, GPUSTATUS status, string issues)
+        {
+            panel.ToolTip = string.IsNullOrWhiteSpace(issues) ? StatusText(status) : $"{StatusText(status)}: {issues.Trim()}";
+
             switch (status)
             {
                 case GPUSTATUS.OK:
@@ -42,7 +66,7 @@ namespace TeknoParrotUi.UserControls
                     break;
                 case GPUSTATUS.NO_INFO:
                 default:
-                    icon.Kind = PackIconKind.HelpCircle;
+                    icon.Kind = PackIconKind.HelpCircleOutline;
                     icon.Foreground = (SolidColorBrush)new BrushConverter().ConvertFrom("#737373");
                     break;
             }

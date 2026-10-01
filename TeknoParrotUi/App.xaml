@@ -15,6 +15,76 @@
                 <Setter Property="HorizontalContentAlignment" Value="Left" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
             </Style>
+            <Style TargetType="ScrollBar" BasedOn="{StaticResource MaterialDesignScrollBarMinimal}" />
+            <!-- Game list rows: primary-tinted hover/selection with an accent bar on the selected row. -->
+            <Style x:Key="AccentListBoxItem" TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                <Setter Property="Padding" Value="12,7,10,7" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <Grid Background="Transparent" SnapsToDevicePixels="True">
+                                <Border x:Name="Tint" Background="{DynamicResource MaterialDesign.Brush.Primary}" Opacity="0" />
+                                <Border x:Name="Accent" Width="3" HorizontalAlignment="Left" Background="{DynamicResource MaterialDesign.Brush.Primary}" Visibility="Collapsed" />
+                                <ContentPresenter Margin="{TemplateBinding Padding}"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Tint" Property="Opacity" Value="0.07" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="Tint" Property="Opacity" Value="0.18" />
+                                    <Setter TargetName="Accent" Property="Visibility" Value="Visible" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <!-- Section heading used on settings-style pages. -->
+            <Style x:Key="SectionHeader" TargetType="TextBlock">
+                <Setter Property="Margin" Value="2,18,0,6" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="Foreground" Value="{DynamicResource MaterialDesign.Brush.Primary}" />
+            </Style>
+            <!-- Hover tooltip for settings and control hints. -->
+            <Style x:Key="TeknoHintToolTip" TargetType="ToolTip">
+                <Setter Property="MaxWidth" Value="360" />
+                <Setter Property="HasDropShadow" Value="True" />
+                <Setter Property="Placement" Value="Mouse" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToolTip">
+                            <Border Margin="4"
+                                    Padding="12,10"
+                                    Background="{DynamicResource MaterialDesign.Brush.Background}"
+                                    BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}"
+                                    BorderThickness="1"
+                                    CornerRadius="6">
+                                <StackPanel>
+                                    <StackPanel Margin="0,0,0,4" Orientation="Horizontal">
+                                        <materialDesign:PackIcon Width="16" Height="16" Margin="0,0,6,0" VerticalAlignment="Center"
+                                                                 Foreground="{DynamicResource MaterialDesign.Brush.Primary}" Kind="LightbulbOnOutline" />
+                                        <TextBlock FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource MaterialDesign.Brush.Primary}" Text="TeknoHint" />
+                                    </StackPanel>
+                                    <TextBlock FontSize="13" Foreground="{DynamicResource MaterialDesign.Brush.Foreground}" Text="{Binding Hint}" TextWrapping="Wrap" />
+                                </StackPanel>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding Hint}" Value="{x:Null}">
+                        <Setter Property="Visibility" Value="Hidden" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding Hint}" Value="">
+                        <Setter Property="Visibility" Value="Hidden" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
             <Style TargetType="{x:Type Control}">
                 <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
                 <Setter Property="TextOptions.TextRenderingMode" Value="ClearType" />
