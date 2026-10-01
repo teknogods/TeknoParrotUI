@@ -9,66 +9,88 @@
     xmlns:p="clr-namespace:TeknoParrotUi.Properties"
     d:DesignHeight="706"
     d:DesignWidth="800"
+    Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="pack://application:,,,/Resources/#Inter"
     Loaded="UserControl_Loaded"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     Unloaded="UserControl_Unloaded"
     mc:Ignorable="d">
-    <Grid Margin="20">
+    <Grid Margin="20,16,20,16">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock
-            Grid.Row="0"
-            Text="{x:Static p:Resources.UpdaterNewUpdatesAvailable}"
-            FontSize="28"
-            TextWrapping="Wrap"
-            Margin="0,0,0,15"
-            VerticalAlignment="Center" />
+        <StackPanel Grid.Row="0" Margin="0,0,0,12" Orientation="Horizontal">
+            <materialDesign:PackIcon
+                Width="28"
+                Height="28"
+                Margin="0,0,12,0"
+                VerticalAlignment="Center"
+                Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                Kind="Update" />
+            <TextBlock
+                VerticalAlignment="Center"
+                FontSize="20"
+                FontWeight="SemiBold"
+                Text="{x:Static p:Resources.UpdaterNewUpdatesAvailable}"
+                TextWrapping="Wrap" />
+        </StackPanel>
 
-        <Border 
-            Grid.Row="1" 
-            BorderBrush="#DDDDDD" 
-            BorderThickness="0" 
-            Margin="0,0,0,15">
-            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <StackPanel x:Name="updaterList" Margin="10" />
+        <DockPanel Grid.Row="1" Margin="4,0,4,4">
+            <TextBlock
+                x:Name="selectedCountText"
+                VerticalAlignment="Center"
+                DockPanel.Dock="Right"
+                FontSize="13"
+                Foreground="{DynamicResource MaterialDesign.Brush.ForegroundLight}" />
+            <CheckBox
+                x:Name="selectAllBox"
+                VerticalAlignment="Center"
+                Click="SelectAllBox_Click"
+                Content="{x:Static p:Resources.MultiGameButtonConfigSelectAll}"
+                IsThreeState="True" />
+        </DockPanel>
+
+        <Border
+            Grid.Row="2"
+            Margin="0,0,0,16"
+            BorderBrush="{DynamicResource MaterialDesign.Brush.TextBox.OutlineInactiveBorder}"
+            BorderThickness="1"
+            CornerRadius="6">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="updaterList" Margin="0,4" />
             </ScrollViewer>
         </Border>
 
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
+        <StackPanel
+            Grid.Row="3"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
             <Button
                 x:Name="buttonCancel"
-                Grid.Column="0"
-                Margin="0,0,10,0"
-                Height="40"
-                MinWidth="150"
-                MaxWidth="250"
-                HorizontalAlignment="Right"
-                Background="#B00020"
-                BorderBrush="#B00020"
+                MinWidth="120"
+                Margin="0,0,8,0"
                 Click="buttonCancel_Click"
                 Content="{x:Static p:Resources.Cancel}"
-                Foreground="#DDFFFFFF"
-                IsCancel="True" />
-
+                IsCancel="True"
+                Style="{StaticResource MaterialDesignOutlinedButton}" />
             <Button
                 x:Name="buttonBeginUpdate"
-                Grid.Column="1"
-                Margin="10,0,0,0"
-                Height="40"
-                MinWidth="150"
-                MaxWidth="250"
-                HorizontalAlignment="Left"
-                Click="buttonBeginUpdate_Click"
-                Content="{x:Static p:Resources.UpdaterUpdate}" />
-        </Grid>
+                MinWidth="160"
+                Click="buttonBeginUpdate_Click">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon
+                        Width="20"
+                        Height="20"
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Center"
+                        Kind="Download" />
+                    <TextBlock VerticalAlignment="Center" Text="{x:Static p:Resources.UpdaterUpdate}" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
     </Grid>
 </UserControl>

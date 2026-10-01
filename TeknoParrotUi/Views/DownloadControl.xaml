@@ -6,26 +6,21 @@
     xmlns:local="clr-namespace:TeknoParrotUi"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="clr-namespace:TeknoParrotUi.Properties"
-    Width="650"
-    Height="90"
-    Background="{DynamicResource MaterialDesignPaper}"
+    d:DesignWidth="650"
     BorderThickness="0"
     FontFamily="pack://application:,,,/Resources/#Inter"
     Loaded="UserControl_Loaded"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
-    <Grid Margin="0,0,0,0">
-        <ProgressBar
-            x:Name="progressBar"
-            Width="650"
-            Margin="0,39,0,21"
-            HorizontalAlignment="Left" />
+    <StackPanel Margin="16,12">
         <TextBlock
             x:Name="statusText"
-            Width="640"
-            Margin="0,0,0,56"
-            HorizontalAlignment="Left"
-            FontSize="18"
-            Text="{x:Static p:Resources.DownloadControlDownloading}" />
-    </Grid>
+            FontSize="14"
+            Text="{x:Static p:Resources.DownloadControlDownloading}"
+            TextTrimming="CharacterEllipsis" />
+        <ProgressBar
+            x:Name="progressBar"
+            Height="6"
+            Margin="0,8,0,0" />
+    </StackPanel>
 </UserControl>

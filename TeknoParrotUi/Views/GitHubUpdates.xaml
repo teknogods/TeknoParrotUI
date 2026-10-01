@@ -7,48 +7,78 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:p="clr-namespace:TeknoParrotUi.Properties"
-    Height="90"
-    Background="{DynamicResource MaterialDesignPaper}"
     FontFamily="pack://application:,,,/Resources/#Inter"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     mc:Ignorable="d">
-    <Grid>
+    <Grid
+        x:Name="rowRoot"
+        Background="Transparent"
+        Cursor="Hand"
+        MouseLeftButtonUp="Row_MouseLeftButtonUp">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" MinWidth="30"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
+        <Border
+            x:Name="hoverTint"
+            Grid.ColumnSpan="3"
+            Background="{DynamicResource MaterialDesign.Brush.Primary}"
+            Opacity="0" />
         <CheckBox
             x:Name="isSelectedForUpdate"
             Grid.Column="0"
+            Margin="14,0,8,0"
             VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            Margin="5,0,5,0"
             IsChecked="True" />
 
-        <StackPanel Grid.Column="1" Margin="5,10,10,10">
-            <TextBlock 
+        <StackPanel Grid.Column="1" Margin="4,10,12,10" VerticalAlignment="Center">
+            <TextBlock
                 x:Name="labelUpdated"
+                FontSize="15"
+                FontWeight="SemiBold"
                 Text="{x:Static p:Resources.GitHubUpdatesDefaultComponent}"
-                TextTrimming="CharacterEllipsis"
-                FontSize="18" />
-            <TextBlock 
+                TextTrimming="CharacterEllipsis" />
+            <TextBlock
                 x:Name="labelVersion"
+                Margin="0,2,0,0"
+                FontSize="13"
+                Foreground="{DynamicResource MaterialDesign.Brush.ForegroundLight}"
                 Text="{x:Static p:Resources.GitHubUpdatesDefaultVersion}"
-                TextTrimming="CharacterEllipsis"
-                FontSize="14"
-                Opacity="0.8" />
+                TextTrimming="CharacterEllipsis" />
         </StackPanel>
 
         <Button
             Grid.Column="2"
-            MinWidth="120"
-            Height="32"
-            Margin="0,0,10,0"
+            Margin="0,0,8,0"
             VerticalAlignment="Center"
-            HorizontalAlignment="Right"
             Click="BtnChangelog"
-            Content="{x:Static p:Resources.UpdaterOpenChangelog}" />
-
+            Style="{StaticResource MaterialDesignFlatButton}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Center" Text="{x:Static p:Resources.UpdaterOpenChangelog}" />
+                <materialDesign:PackIcon
+                    Width="16"
+                    Height="16"
+                    Margin="6,0,0,0"
+                    VerticalAlignment="Center"
+                    Kind="OpenInNew" />
+            </StackPanel>
+        </Button>
     </Grid>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="MouseEnter">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="hoverTint" Storyboard.TargetProperty="Opacity" To="0.07" Duration="0:0:0.1" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="MouseLeave">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="hoverTint" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.1" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </UserControl.Triggers>
 </UserControl>

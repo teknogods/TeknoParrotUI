@@ -46,7 +46,7 @@ namespace TeknoParrotUi.Views
                 labelUpdated.Text = componentUpdated.name;
             }
 
-            labelVersion.Text = $"{(local != TeknoParrotUi.Properties.Resources.UpdaterNotInstalled ? $"{local} to " : "")}{online}";
+            labelVersion.Text = $"{(local != TeknoParrotUi.Properties.Resources.UpdaterNotInstalled ? $"{local}  →  " : "")}{online}";
             _latestRelease = latestRelease;
             onlineVersion = online;
         }
@@ -54,6 +54,11 @@ namespace TeknoParrotUi.Views
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
             //this.Close();
+        }
+
+        private void Row_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            isSelectedForUpdate.IsChecked = isSelectedForUpdate.IsChecked != true;
         }
 
         private void BtnChangelog(object sender, RoutedEventArgs e)

@@ -754,11 +754,11 @@ namespace TeknoParrotUi
         /// <summary>
         /// Fetches release info for all components from teknoparrot.com in a single
         /// request. The response payload per component is wire-compatible with
-        /// GitHub's releases API. Result is cached for 5 minutes.
+        /// GitHub's releases API. Result is cached for 30 seconds.
         /// </summary>
         async Task<Dictionary<string, GithubRelease>> GetServerUpdates()
         {
-            if (_serverUpdateCache != null && (DateTime.UtcNow - _serverUpdateCacheTime) < TimeSpan.FromMinutes(5))
+            if (_serverUpdateCache != null && (DateTime.UtcNow - _serverUpdateCacheTime) < TimeSpan.FromSeconds(30))
                 return _serverUpdateCache;
 
             using (var client = new HttpClient())
@@ -957,7 +957,8 @@ namespace TeknoParrotUi
 
             if (Lazydata.ParrotData.CheckForUpdates || manual)
             {
-                Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(TeknoParrotUi.Properties.Resources.MainCheckingForUpdates);
+                SaveCompleteSnackbar.MessageQueue.Enqueue(TeknoParrotUi.Properties.Resources.MainCheckingForUpdates, null, null, null, false, true, TimeSpan.FromSeconds(60));
+                var errors = new List<string>();
                 foreach (UpdaterComponent component in components)
                 {
                     try
@@ -967,9 +968,12 @@ namespace TeknoParrotUi
                     catch (Exception ex)
                     {
                         exception = true;
-                        Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(string.Format(TeknoParrotUi.Properties.Resources.MainErrorCheckingUpdatesFor, component.name, ex.Message));
+                        errors.Add(string.Format(TeknoParrotUi.Properties.Resources.MainErrorCheckingUpdatesFor, component.name, ex.Message));
                     }
                 }
+                SaveCompleteSnackbar.MessageQueue.Clear();
+                foreach (string error in errors)
+                    ShowMessage(error);
             }
             else if (!Lazydata.ParrotData.CheckForUpdates && !manual)
             {

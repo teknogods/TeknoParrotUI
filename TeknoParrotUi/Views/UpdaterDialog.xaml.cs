@@ -42,8 +42,35 @@ namespace TeknoParrotUi.Views
             foreach (GitHubUpdates g in updatesToDo)
             {
                 updaterList.Children.Add(g);
-
+                g.isSelectedForUpdate.Checked -= UpdateSelection_Changed;
+                g.isSelectedForUpdate.Unchecked -= UpdateSelection_Changed;
+                g.isSelectedForUpdate.Checked += UpdateSelection_Changed;
+                g.isSelectedForUpdate.Unchecked += UpdateSelection_Changed;
             }
+            RefreshSelectAllState();
+        }
+
+        private void UpdateSelection_Changed(object sender, RoutedEventArgs e)
+        {
+            RefreshSelectAllState();
+        }
+
+        /// <summary>
+        /// Mirrors the component checkboxes in the "Select all" box: checked, unchecked, or indeterminate for a partial selection.
+        /// </summary>
+        private void RefreshSelectAllState()
+        {
+            int selected = updatesToDo.Count(g => g.isSelectedForUpdate.IsChecked == true);
+            selectAllBox.IsChecked = selected == updatesToDo.Count ? true : selected == 0 ? (bool?)false : null;
+            selectedCountText.Text = $"{selected} / {updatesToDo.Count}";
+        }
+
+        private void SelectAllBox_Click(object sender, RoutedEventArgs e)
+        {
+            bool selectAll = updatesToDo.Any(g => g.isSelectedForUpdate.IsChecked != true);
+            foreach (GitHubUpdates g in updatesToDo)
+                g.isSelectedForUpdate.IsChecked = selectAll;
+            RefreshSelectAllState();
         }
 
         private async Task checkIfDone()
@@ -98,6 +125,7 @@ namespace TeknoParrotUi.Views
             }
             if (downloads.Count > 0)
             {
+                selectAllBox.IsEnabled = false;
                 updaterList.Children.Clear();
                 foreach (DownloadControl d in downloads)
                 {
