@@ -118,8 +118,9 @@
                 </ItemsControl.GroupStyle>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Padding="0,5,0,0" BorderBrush="{DynamicResource MaterialDesign.Brush.Separator.Background}" BorderThickness="0,0,0,1">
-                        <UniformGrid Columns="2">
+                        <Grid Margin="0,5,0,0">
+                            <Border Height="1" VerticalAlignment="Bottom" Background="{DynamicResource MaterialDesign.Brush.Foreground}" Opacity="0.08" />
+                        <UniformGrid Margin="0,0,0,1" Columns="2">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Height="{StaticResource fieldHeight}" Padding="2,4,2,2" Text="{Binding FieldName}" />
                                 <materialDesign:PackIcon Kind="InformationOutline" Style="{StaticResource hintIcon}" />
@@ -347,7 +348,7 @@
                                 </ContentControl.Style>
                             </ContentControl>
                         </UniformGrid>
-                        </Border>
+                        </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

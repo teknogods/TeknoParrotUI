@@ -293,13 +293,14 @@
             <Button x:Name="gameLaunchButton"
                     Height="Auto"
                     Margin="4,4,4,2"
+                    HorizontalContentAlignment="Left"
                     Click="BtnLaunchGame">
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Margin="0,0,8,0"
                                              VerticalAlignment="Center"
                                              Kind="Play"
-                                             Height="26"
-                                             Width="26" />
+                                             Height="24"
+                                             Width="24" />
                     <TextBlock FontSize="16"
                                FontWeight="SemiBold"
                                VerticalAlignment="Center"
