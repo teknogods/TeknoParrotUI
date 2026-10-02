@@ -1147,7 +1147,7 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
     <value>Demo Pad</value>
   </data>
   <data name="GameSettingsExecutableOr" xml:space="preserve">
-    <value>Uitvoerbaar bestand of</value>
+    <value>of</value>
   </data>
   <data name="GameSettingsGameExecutable" xml:space="preserve">
     <value>Game Uitvoerbaar Bestand:</value>

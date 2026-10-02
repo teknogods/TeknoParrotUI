@@ -1147,7 +1147,7 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
     <value>デモパス</value>
   </data>
   <data name="GameSettingsExecutableOr" xml:space="preserve">
-    <value>実行ファイルまたは</value>
+    <value>または</value>
   </data>
   <data name="GameSettingsGameExecutable" xml:space="preserve">
     <value>ゲーム実行ファイル:</value>

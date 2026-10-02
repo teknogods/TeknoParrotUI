@@ -1151,7 +1151,7 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
     <value>مسار التجريبي</value>
   </data>
   <data name="GameSettingsExecutableOr" xml:space="preserve">
-    <value>ملف تنفيذي أو</value>
+    <value>أو</value>
   </data>
   <data name="GameSettingsGameExecutable" xml:space="preserve">
     <value>ملف اللعبة التنفيذي:</value>

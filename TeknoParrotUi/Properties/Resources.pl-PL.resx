@@ -1147,7 +1147,7 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
     <value>Ścieżka demo</value>
   </data>
   <data name="GameSettingsExecutableOr" xml:space="preserve">
-    <value>Plik wykonywalny lub</value>
+    <value>lub</value>
   </data>
   <data name="GameSettingsGameExecutable" xml:space="preserve">
     <value>Plik wykonywalny gry:</value>

@@ -1409,7 +1409,7 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
     <value>Demon polku</value>
   </data>
   <data name="GameSettingsExecutableOr" xml:space="preserve">
-    <value>Ohjelmatiedosto tai</value>
+    <value>tai</value>
   </data>
   <data name="GameSettingsGameExecutableLabel" xml:space="preserve">
     <value>Pelin ohjelmatiedosto</value>

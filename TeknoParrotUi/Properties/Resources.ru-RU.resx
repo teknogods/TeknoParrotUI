@@ -1147,7 +1147,7 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
     <value>Путь к демо</value>
   </data>
   <data name="GameSettingsExecutableOr" xml:space="preserve">
-    <value>Исполняемый файл или</value>
+    <value>или</value>
   </data>
   <data name="GameSettingsGameExecutable" xml:space="preserve">
     <value>Исполняемый файл игры:</value>

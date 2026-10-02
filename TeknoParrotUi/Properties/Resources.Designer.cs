@@ -3291,7 +3291,7 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Executable or.
+        ///   Looks up a localized string similar to or.
         /// </summary>
         public static string GameSettingsExecutableOr {
             get {

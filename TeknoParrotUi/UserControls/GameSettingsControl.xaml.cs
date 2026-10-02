@@ -66,7 +66,7 @@ namespace TeknoParrotUi.UserControls
             string exeName = "";
 
             if (!string.IsNullOrEmpty(_gameProfile.ExecutableName))
-                exeName = $" ({_gameProfile.ExecutableName})".Replace(";", Properties.Resources.GameSettingsExecutableOr).Replace("|", " / ");
+                exeName = $" ({_gameProfile.ExecutableName})".Replace(";", $" {Properties.Resources.GameSettingsExecutableOr} ").Replace("|", " / ");
 
             GameExecutableText.Text = $"{Properties.Resources.GameSettingsGameExecutableLabel}{exeName}:";
 
@@ -75,7 +75,7 @@ namespace TeknoParrotUi.UserControls
                 exeName = "";
 
                 if (!string.IsNullOrEmpty(_gameProfile.ExecutableName2))
-                    exeName = $" ({_gameProfile.ExecutableName2})".Replace(";", Properties.Resources.GameSettingsExecutableOr).Replace("|", " / ");
+                    exeName = $" ({_gameProfile.ExecutableName2})".Replace(";", $" {Properties.Resources.GameSettingsExecutableOr} ").Replace("|", " / ");
 
                 var secondPathLabel = (_gameProfile.EmulatorType == EmulatorType.TeknoAir || _gameProfile.EmulatorType == EmulatorType.TeknoVegas) ||
                                       ((_gameProfile.EmulatorType == EmulatorType.TeknoViper || (_gameProfile.EmulatorType == EmulatorType.TeknoS11 || (_gameProfile.EmulatorType == EmulatorType.TeknoTPJC || _gameProfile.EmulatorType == EmulatorType.TeknoHDrive))) || _gameProfile.EmulatorType == EmulatorType.TeknoM2) ||

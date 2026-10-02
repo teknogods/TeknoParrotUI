@@ -1147,7 +1147,7 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
     <value>演示路径</value>
   </data>
   <data name="GameSettingsExecutableOr" xml:space="preserve">
-    <value>可执行文件或</value>
+    <value>或</value>
   </data>
   <data name="GameSettingsGameExecutable" xml:space="preserve">
     <value>游戏可执行文件：</value>

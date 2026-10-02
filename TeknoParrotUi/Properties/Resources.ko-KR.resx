@@ -1147,7 +1147,7 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
     <value>데모 경로</value>
   </data>
   <data name="GameSettingsExecutableOr" xml:space="preserve">
-    <value>실행 파일 또는</value>
+    <value>또는</value>
   </data>
   <data name="GameSettingsGameExecutable" xml:space="preserve">
     <value>게임 실행 파일:</value>
