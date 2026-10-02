@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <GamePath />
+  <GamePath2 />
+  <TestMenuParameter />
+  <TestMenuIsExecutable>false</TestMenuIsExecutable>
+  <ExtraParameters />
+  <EmulationProfile>TeknoModel3</EmulationProfile>
+  <GameProfileRevision>6</GameProfileRevision>
+  <HasSeparateTestMode>false</HasSeparateTestMode>
+  <EmulatorType>TeknoModel3</EmulatorType>
+  <Is64Bit>true</Is64Bit>
+  <ExecutableName>swtrilgy.zip</ExecutableName>
+  <HasTwoExecutables>false</HasTwoExecutables>
+  <Patreon>true</Patreon>
+  <DevOnly>false</DevOnly>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Outputs</FieldName>
+      <FieldValue>Windows Outputs</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windows Outputs</string>
+        <string>Network Outputs</string>
+      </FieldOptions>
+      <Hint>Choose how game outputs are sent. Select Network Outputs to configure its settings.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Input API</FieldName>
+      <FieldValue>DirectInput</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>DirectInput</string>
+        <string>XInput</string>
+        <string>RawInput</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Region</FieldName>
+      <FieldValue>Default</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Default</string>
+        <string>Japan</string>
+        <string>USA</string>
+        <string>Export</string>
+        <string>Australia</string>
+        <string>Korea</string>
+      </FieldOptions>
+      <Hint>Country saved in the game's own test-menu settings. It sets the language where the game has one (Japan shows Japanese text; Export or USA show English), the warning and rating screens, and regional attract. Default keeps the country already saved. Only this setting changes; calibration, bookkeeping and other test-menu settings are kept.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>DisplayMode</FieldName>
+      <FieldValue>Fullscreen</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windowed</string>
+        <string>Fullscreen</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Internal Resolution</FieldName>
+      <FieldValue>4</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>2</string>
+        <string>4</string>
+        <string>8</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Presentation Filter</FieldName>
+      <FieldValue>linear</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>nearest</string>
+        <string>linear</string>
+        <string>bicubic</string>
+        <string>lanczos</string>
+        <string>ssaa</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>VSync</FieldName>
+      <FieldValue>On (recommended)</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>On (recommended)</string>
+        <string>G-Sync / FreeSync monitor</string>
+        <string>Off (may tear)</string>
+      </FieldOptions>
+      <Hint>How each finished frame reaches your monitor. On (recommended): no tearing; each frame appears at the monitor's next refresh. Best for ordinary 60 Hz and high-refresh monitors. G-Sync / FreeSync monitor: choose this only if variable refresh is enabled in your graphics driver, and play in Fullscreen. The monitor then refreshes exactly when each frame is ready (57.5 times a second, like the arcade), so there's no tearing, no stutter and no waiting for a refresh. Off (may tear): frames appear the instant they're ready. This is a few milliseconds quicker than On, but shows tearing lines on monitors without G-Sync/FreeSync. Desktop only; ignored in VR.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Audio</CategoryName>
+      <FieldName>Mute Audio</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Stretch to Fullscreen</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Fill the entire display area. Off preserves the cabinet 4:3 aspect ratio.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Widescreen</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>16:9 view: the 3D scene is rendered wider while the HUD and menus keep their original 4:3 layout. Desktop only; ignored when VR is enabled.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Use Bezel</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Load TeknoModel3/bezels/ROMSET.png, falling back to default.png. PNG alpha defines the game opening.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>CRT Shader</FieldName>
+      <FieldValue>None</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>None</string>
+        <string>Lottes</string>
+        <string>Lottes Downsample</string>
+      </FieldOptions>
+      <Hint>Lottes retains enhanced resolution; Lottes Downsample resolves to native CRT pixels first.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Input</CategoryName>
+      <FieldName>Use Keyboard/Button For Axis</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>DirectInput only. Bind the separate axis directions in Controller Setup to use keyboard keys or controller buttons.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Input</CategoryName>
+      <FieldName>Keyboard/Button Axis X/Y Sensitivity</FieldName>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>127</FieldMax>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>VR</CategoryName>
+      <FieldName>Enable VR</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Present the game through OpenXR with geometric stereo on a virtual cabinet screen. The desktop window remains available as a spectator view.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>VR</CategoryName>
+      <FieldName>Use VR Controls</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>When VR is enabled, use the OpenXR headset controllers. Turn this off to keep using TPUI bindings in VR. Hold controller Menu for VR settings; a short Menu press is Test.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>VR</CategoryName>
+      <FieldName>VR Depth</FieldName>
+      <FieldValue>150</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>100</FieldMin>
+      <FieldMax>200</FieldMax>
+      <FieldOptions />
+      <FieldStep>5</FieldStep>
+      <Hint>Adjust OpenXR stereo depth from 100% to 200%. Only used when VR is enabled.</Hint>
+    </FieldInformation>
+  </ConfigValues>
+  <JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Test Menu</ButtonName>
+      <InputMapping>Test</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service</ButtonName>
+      <InputMapping>Service1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P1 Coin</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P1 Start</ButtonName>
+      <InputMapping>P1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog X</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <Hint>Yoke left/right</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog X Left</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Yoke left/right</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog X Right</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Yoke left/right</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog Y</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>AnalogJoystickY</AnalogType>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <Hint>Yoke push/pull</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog Y Up</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>AnalogJoystickY</AnalogType>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Yoke push/pull</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Analog Y Down</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>AnalogJoystickY</AnalogType>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+      <Hint>Yoke push/pull</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Trigger</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Event</ButtonName>
+      <InputMapping>P1Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Trigger 2</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
+      <Hint>Optional second trigger.</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Event 2</ButtonName>
+      <InputMapping>P1Button4</InputMapping>
+      <Hint>Optional second event button.</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Volume Up</ButtonName>
+      <InputMapping>TPSystem1</InputMapping>
+      <Hint>Emulator hotkey</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Volume Down</ButtonName>
+      <InputMapping>TPSystem2</InputMapping>
+      <Hint>Emulator hotkey</Hint>
+    </JoystickButtons>
+  </JoystickButtons>
+</GameProfile>

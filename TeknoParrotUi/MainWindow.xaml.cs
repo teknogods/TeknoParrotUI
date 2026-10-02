@@ -636,6 +636,15 @@ namespace TeknoParrotUi
             },
             new UpdaterComponent
             {
+                name = "TeknoModel3",
+                location = Path.Combine("TeknoModel3", "TeknoModel3.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "TeknoModel3"
+            },
+            new UpdaterComponent
+            {
                 name = "TeknoHNG64",
                 location = Path.Combine("TeknoHNG64", "TeknoHNG64.exe"),
                 reponame = "TeknoParrot",

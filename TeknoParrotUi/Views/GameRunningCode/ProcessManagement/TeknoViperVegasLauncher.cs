@@ -80,6 +80,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     return BuildTeknoViper(profile, gameLocation, log);
                 case EmulatorType.TeknoModel2:
                     return BuildTeknoModel2(profile, gameLocation, log);
+                case EmulatorType.TeknoModel3:
+                    return TeknoModel3Launcher.Build(profile, gameLocation, log);
                 case EmulatorType.TeknoModel1:
                     return BuildTeknoModel1(profile, gameLocation, log);
                 default:

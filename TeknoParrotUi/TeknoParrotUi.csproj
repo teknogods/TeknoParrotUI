@@ -316,6 +316,7 @@
     <Compile Include="Helpers\GameErrorMessage.cs" />
     <Compile Include="Helpers\Model1FfbDeviceProbe.cs" />
     <Compile Include="Helpers\Model2FfbDeviceProbe.cs" />
+    <Compile Include="Helpers\Model3FfbDeviceProbe.cs" />
     <Compile Include="Helpers\Hng64FfbDeviceProbe.cs" />
     <Compile Include="Helpers\GClubFfbDeviceProbe.cs" />
     <Compile Include="Helpers\ViperFfbDeviceProbe.cs" />
@@ -434,6 +435,7 @@
     <Compile Include="Views\GameRunningCode\ProcessManagement\GameProcessManager.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoVUnitLauncher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoViperVegasLauncher.cs" />
+    <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoModel3Launcher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoAirLauncher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoM2Launcher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoCobraLauncher.cs" />

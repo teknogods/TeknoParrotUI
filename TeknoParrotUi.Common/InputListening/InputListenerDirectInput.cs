@@ -704,6 +704,7 @@ namespace TeknoParrotUi.Common.InputListening
             bool teknoAxisProfile = !GunGame &&
                 (_gameProfile.EmulationProfile == EmulationProfile.TeknoModel1 ||
                  _gameProfile.EmulationProfile == EmulationProfile.TeknoModel2 ||
+                 _gameProfile.EmulationProfile == EmulationProfile.TeknoModel3 ||
                  _gameProfile.EmulationProfile == EmulationProfile.TeknoVegas ||
                  (_gameProfile.EmulationProfile == EmulationProfile.TeknoViper || (_gameProfile.EmulationProfile == EmulationProfile.TeknoS11 || (_gameProfile.EmulationProfile == EmulationProfile.TeknoTPJC || (_gameProfile.EmulationProfile == EmulationProfile.TeknoHDrive || _gameProfile.EmulationProfile == EmulationProfile.TeknoMagic)))) ||
                  _gameProfile.EmulationProfile == EmulationProfile.TeknoZeus ||
@@ -3614,18 +3615,40 @@ namespace TeknoParrotUi.Common.InputListening
 
                             if (isKeyboardOrButton)
                             {
-                                if (!KeyboardAnalogXActivate)
-                                    KeyboardAnalogXActivate = true;
-                                if (!KeyboardAnalogYActivate)
-                                    KeyboardAnalogYActivate = true;
-
-                                var analogDirections = new Dictionary<string, (Func<bool> getter, Action<bool> setter)>
+                                // "Analog R" is the second stick's Y; its X ("Analog Z") is
+                                // already routed to the P2 slot by the AnalogJoystick case.
+                                // Sega Bass Fishing's location stick sits beside the rod.
+                                bool secondStick = joystickButtons.ButtonName.StartsWith("Analog R ");
+                                if (secondStick)
                                 {
-                                    ["Right"] = (() => KeyboardAnalogYRight, val => KeyboardAnalogYRight = val),
-                                    ["Left"] = (() => KeyboardAnalogYLeft, val => KeyboardAnalogYLeft = val),
-                                    ["Down"] = (() => KeyboardAnalogYDown, val => KeyboardAnalogYDown = val),
-                                    ["Up"] = (() => KeyboardAnalogYUp, val => KeyboardAnalogYUp = val)
-                                };
+                                    if (!KeyboardAnalogXActivate2P)
+                                        KeyboardAnalogXActivate2P = true;
+                                    if (!KeyboardAnalogYActivate2P)
+                                        KeyboardAnalogYActivate2P = true;
+                                }
+                                else
+                                {
+                                    if (!KeyboardAnalogXActivate)
+                                        KeyboardAnalogXActivate = true;
+                                    if (!KeyboardAnalogYActivate)
+                                        KeyboardAnalogYActivate = true;
+                                }
+
+                                var analogDirections = secondStick
+                                    ? new Dictionary<string, (Func<bool> getter, Action<bool> setter)>
+                                    {
+                                        ["Right"] = (() => P2KeyboardAnalogYRight, val => P2KeyboardAnalogYRight = val),
+                                        ["Left"] = (() => P2KeyboardAnalogYLeft, val => P2KeyboardAnalogYLeft = val),
+                                        ["Down"] = (() => P2KeyboardAnalogYDown, val => P2KeyboardAnalogYDown = val),
+                                        ["Up"] = (() => P2KeyboardAnalogYUp, val => P2KeyboardAnalogYUp = val)
+                                    }
+                                    : new Dictionary<string, (Func<bool> getter, Action<bool> setter)>
+                                    {
+                                        ["Right"] = (() => KeyboardAnalogYRight, val => KeyboardAnalogYRight = val),
+                                        ["Left"] = (() => KeyboardAnalogYLeft, val => KeyboardAnalogYLeft = val),
+                                        ["Down"] = (() => KeyboardAnalogYDown, val => KeyboardAnalogYDown = val),
+                                        ["Up"] = (() => KeyboardAnalogYUp, val => KeyboardAnalogYUp = val)
+                                    };
 
                                 foreach (var direction in analogDirections.Keys)
                                 {

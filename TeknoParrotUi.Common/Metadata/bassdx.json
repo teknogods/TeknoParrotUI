@@ -1,0 +1,14 @@
+{
+  "game_name": "Sega Bass Fishing Deluxe",
+  "game_genre": "Sports",
+  "icon_name": "bassdx.png",
+  "platform": "SEGA Model 3",
+  "release_year": "1997",
+  "nvidia": "OK",
+  "nvidia_issues": "",
+  "amd": "NO_INFO",
+  "amd_issues": "",
+  "intel": "NO_INFO",
+  "intel_issues": "",
+  "general_issues": ""
+}

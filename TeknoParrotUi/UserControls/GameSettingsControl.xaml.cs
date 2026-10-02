@@ -150,7 +150,8 @@ namespace TeknoParrotUi.UserControls
         private static void PopulateModelFfbDevices(GameProfile gameProfile)
         {
             if (gameProfile.EmulatorType != EmulatorType.TeknoModel1 &&
-                gameProfile.EmulatorType != EmulatorType.TeknoModel2)
+                gameProfile.EmulatorType != EmulatorType.TeknoModel2 &&
+                gameProfile.EmulatorType != EmulatorType.TeknoModel3)
                 return;
 
             var field = gameProfile.ConfigValues?.Find(cv =>
@@ -159,8 +160,10 @@ namespace TeknoParrotUi.UserControls
             if (field == null)
                 return;
 
-            field.DynamicOptions = gameProfile.EmulatorType == EmulatorType.TeknoModel2
-                ? Model2FfbDeviceProbe.GetDevices() : Model1FfbDeviceProbe.GetDevices();
+            field.DynamicOptions = gameProfile.EmulatorType == EmulatorType.TeknoModel3
+                ? Model3FfbDeviceProbe.GetDevices()
+                : gameProfile.EmulatorType == EmulatorType.TeknoModel2
+                    ? Model2FfbDeviceProbe.GetDevices() : Model1FfbDeviceProbe.GetDevices();
             if (!field.DynamicOptions.Any(option => option.Value == field.FieldValue) &&
                 !string.IsNullOrWhiteSpace(field.FieldValue))
             {

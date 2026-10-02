@@ -26,6 +26,7 @@ namespace TeknoParrotUi.Common
             {
                 case EmulatorType.TeknoModel1:
                 case EmulatorType.TeknoModel2:
+                case EmulatorType.TeknoModel3:
                 case EmulatorType.TeknoHornet:
                 case EmulatorType.TeknoHNG64:
                 case EmulatorType.TeknoGClub:

@@ -66,11 +66,34 @@ namespace TeknoParrotUi.Helpers
                 return;
             }
 
+            if (emulatorType == EmulatorType.TeknoModel3 && errorCode == 5)
+            {
+                var summary = "TeknoModel3 could not authorize the stored TeknoParrot serial.";
+                if (!string.IsNullOrWhiteSpace(diagnostics))
+                    summary += Environment.NewLine + Environment.NewLine + diagnostics;
+                MessageBox.Show(summary);
+                return;
+            }
+            // TeknoModel3 reuses TeknoViper's network exit codes for LAN and TPOnline sessions.
+            if (emulatorType == EmulatorType.TeknoModel3 && errorCode == ViperVegasPlayerDisconnected)
+            {
+                MessageBox.Show(Properties.Resources.GameErrorViperVegasPlayerDisconnected);
+                return;
+            }
+            if (emulatorType == EmulatorType.TeknoModel3 && errorCode == ViperVegasNetwork)
+            {
+                var summary = "TeknoModel3 could not start or keep its LAN/TPOnline cabinet link.";
+                if (!string.IsNullOrWhiteSpace(diagnostics))
+                    summary += Environment.NewLine + Environment.NewLine + diagnostics;
+                MessageBox.Show(summary);
+                return;
+            }
+
             // TeknoModel2 hosts Score Submission in-process, so these exit codes come from
             // Score Submission and use its usual messages below.
             var scoreSubmissionExit = emulatorType == EmulatorType.TeknoModel2 &&
                 (errorCode == 3820 || errorCode == 3821 || errorCode == 3822 || errorCode == 3823 || errorCode == 7688);
-            if (!scoreSubmissionExit && (emulatorType == EmulatorType.TeknoVUnit || emulatorType == EmulatorType.TeknoHornet || emulatorType == EmulatorType.TeknoModel1 || emulatorType == EmulatorType.TeknoModel2 || emulatorType == EmulatorType.TeknoZeus || emulatorType == EmulatorType.TeknoHNG64 || emulatorType == EmulatorType.TeknoCobra) && errorCode != 0)
+            if (!scoreSubmissionExit && (emulatorType == EmulatorType.TeknoVUnit || emulatorType == EmulatorType.TeknoHornet || emulatorType == EmulatorType.TeknoModel1 || emulatorType == EmulatorType.TeknoModel2 || emulatorType == EmulatorType.TeknoModel3 || emulatorType == EmulatorType.TeknoZeus || emulatorType == EmulatorType.TeknoHNG64 || emulatorType == EmulatorType.TeknoCobra) && errorCode != 0)
             {
                 var summary = errorCode == 2
                     ? $"{emulatorType} received an invalid launch configuration."

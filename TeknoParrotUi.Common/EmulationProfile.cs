@@ -169,6 +169,8 @@
         TeknoS11,
         TeknoTPJC,
         TeknoHDrive,
-        TeknoMagic
+        TeknoMagic,
+        // Sega Model 3
+        TeknoModel3
     }
 }
