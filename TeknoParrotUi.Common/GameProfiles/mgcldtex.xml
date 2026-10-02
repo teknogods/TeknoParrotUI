@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Magical Date EX / Magical Date - Sotsugyou Kokuhaku Daisakusen (Ver 2.01J)</GameNameInternal>
   <EmulationProfile>TeknoS11</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <EmulatorType>TeknoS11</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>mgcldtex.zip</ExecutableName>
@@ -14,6 +14,17 @@
   <GunGame>false</GunGame>
   <Use16BitAnalog>false</Use16BitAnalog>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Outputs</FieldName>
+      <FieldValue>Windows Outputs</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windows Outputs</string>
+        <string>Network Outputs</string>
+      </FieldOptions>
+      <Hint>Choose how game outputs are sent. Select Network Outputs to configure its settings.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>

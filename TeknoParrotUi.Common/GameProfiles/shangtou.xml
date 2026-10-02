@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Shanghai Sangokuhai Tougi (Ver 2.01J 2002/01/18 18:26:58)</GameNameInternal>
   <EmulationProfile>TeknoS11</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <EmulatorType>TeknoS11</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>coh3002t.zip</ExecutableName>
@@ -16,6 +16,17 @@
   <GamePath2 />
   <ExecutableName2>*.chd</ExecutableName2>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Outputs</FieldName>
+      <FieldValue>Windows Outputs</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windows Outputs</string>
+        <string>Network Outputs</string>
+      </FieldOptions>
+      <Hint>Choose how game outputs are sent. Select Network Outputs to configure its settings.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>

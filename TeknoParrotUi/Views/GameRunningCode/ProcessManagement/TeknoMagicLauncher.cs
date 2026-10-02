@@ -87,6 +87,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var args = new List<string>
             {
                 "--game", set,
+                "--outputs",
                 "--rom", Quote(game),
                 "--state-dir", Quote(stateRoot),
                 "--shader-cache-dir", Quote(shaderRoot),

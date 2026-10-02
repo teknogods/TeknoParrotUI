@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Winning Run '91</GameNameInternal>
   <EmulationProfile>TeknoS21</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <EmulatorType>TeknoS21</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>winrun91.zip</ExecutableName>
@@ -11,6 +11,17 @@
   <Patreon>true</Patreon>
   <HasTpoSupport>true</HasTpoSupport>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Outputs</FieldName>
+      <FieldValue>Windows Outputs</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windows Outputs</string>
+        <string>Network Outputs</string>
+      </FieldOptions>
+      <Hint>Choose how game outputs are sent. Select Network Outputs to configure its settings.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>

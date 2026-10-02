@@ -2,7 +2,7 @@
 <GameProfile>
   <GamePath />
   <EmulationProfile>TeknoAir</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <EmulatorType>TeknoAir</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>ainferno.zip</ExecutableName>
@@ -10,6 +10,17 @@
   <Patreon>true</Patreon>
   <HasTpoSupport>false</HasTpoSupport>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Outputs</FieldName>
+      <FieldValue>Windows Outputs</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windows Outputs</string>
+        <string>Network Outputs</string>
+      </FieldOptions>
+      <Hint>Choose how game outputs are sent. Select Network Outputs to configure its settings.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
