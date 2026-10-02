@@ -7,7 +7,7 @@
   <ExtraParameters></ExtraParameters>
   <TestMenuExtraParameters></TestMenuExtraParameters>
   <EmulationProfile>TeknoModel1</EmulationProfile>
-  <GameProfileRevision>19</GameProfileRevision>
+  <GameProfileRevision>20</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel1</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -337,13 +337,6 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
-      <FieldName>Link Server</FieldName>
-      <FieldValue>127.0.0.1:17602</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Address of a running model1linkd relay. Leave Link Role off for a standalone cabinet.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Network</CategoryName>
       <FieldName>Link Role</FieldName>
       <FieldValue>Off</FieldValue>
       <FieldType>Dropdown</FieldType>
@@ -352,7 +345,21 @@
         <string>Master</string>
         <string>Slave</string>
       </FieldOptions>
-      <Hint>Linked cabinets need opposite roles and unique persistent save slots.</Hint>
+      <Hint>Direct LAN play, no relay required. Set one cabinet to Master and the other to Slave. Leave Off for a standalone cabinet. Ignored when playing through TPOnline.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Network Port</FieldName>
+      <FieldValue>17602</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Both cabinets use the same UDP port (1-65535). Allow TeknoModel1.exe through the Windows firewall on private networks.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Network Interface</FieldName>
+      <FieldValue>auto</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>auto or the local IPv4 address of your LAN adapter. Set this if a VPN or multiple network adapters stop the cabinets from finding each other.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Storage</CategoryName>

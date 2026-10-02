@@ -513,15 +513,27 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 parameters.Add(donor);
             }
 
-            var linkRole = Setting("Link Role", "Off").ToLowerInvariant();
-            var linkServer = Setting("Link Server").Trim();
-            if ((linkRole == "master" || linkRole == "slave") &&
-                !string.IsNullOrWhiteSpace(linkServer))
+            var linkRole = Setting("Link Role", "Off").Trim().ToLowerInvariant();
+            var tpOnline = !string.IsNullOrWhiteSpace(
+                Environment.GetEnvironmentVariable("TP_TPONLINE2"));
+            if (!tpOnline && (linkRole == "master" || linkRole == "slave"))
             {
-                parameters.Add("--link-server");
-                parameters.Add(Quote(linkServer));
-                parameters.Add("--link-role");
-                parameters.Add(linkRole);
+                if (!int.TryParse(Setting("Network Port", "17602"), out var networkPort) ||
+                    networkPort < 1 || networkPort > 65535)
+                    throw new ArgumentException("Network Port must be between 1 and 65535.");
+                var networkInterface = Setting("Network Interface", "auto").Trim();
+                if (networkInterface.Length == 0 ||
+                    networkInterface.Equals("auto", StringComparison.OrdinalIgnoreCase))
+                    networkInterface = "auto";
+                else if (!System.Net.IPAddress.TryParse(networkInterface, out var address) ||
+                         address.AddressFamily != System.Net.Sockets.AddressFamily.InterNetwork)
+                    throw new ArgumentException("Network Interface must be auto or a local IPv4 address.");
+                parameters.Add("--network-port");
+                parameters.Add(networkPort.ToString(CultureInfo.InvariantCulture));
+                parameters.Add("--network-node");
+                parameters.Add(linkRole == "master" ? "1" : "2");
+                parameters.Add("--network-interface");
+                parameters.Add(Quote(networkInterface));
             }
 
             if (!File.Exists(executable))
