@@ -143,10 +143,15 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var ffbDevice = HasSetting("Force Feedback Device")
                 ? TeknoParrotUi.Helpers.Model3FfbDeviceProbe.GetLaunchSelection(Setting("Force Feedback Device", "off"))
                 : "off";
-            if (!string.IsNullOrWhiteSpace(ffbDevice) &&
-                !ffbDevice.Equals("off", StringComparison.OrdinalIgnoreCase))
+            var ffbDevice2 = HasSetting("Player 2 Force Feedback Device")
+                ? TeknoParrotUi.Helpers.Model3FfbDeviceProbe.GetLaunchSelection(Setting("Player 2 Force Feedback Device", "off"))
+                : "off";
+            bool Selected(string device) => !string.IsNullOrWhiteSpace(device) &&
+                !device.Equals("off", StringComparison.OrdinalIgnoreCase);
+            if (Selected(ffbDevice) || Selected(ffbDevice2))
             {
-                parameters.Add("--ffb-device=" + ffbDevice);
+                if (Selected(ffbDevice)) parameters.Add("--ffb-device=" + ffbDevice);
+                if (Selected(ffbDevice2)) parameters.Add("--ffb-device2=" + ffbDevice2);
                 parameters.Add("--ffb-gain=" + Number(Percent("Force Feedback Strength")));
                 if (HasSetting("Enable Spring Effect"))
                 {
@@ -160,6 +165,15 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 if (HasSetting("Enable Constant Effect"))
                     parameters.Add("--ffb-constant-gain=" + Number(
                         Enabled("Enable Constant Effect", true) ? Percent("Constant Effect Strength") : 0));
+                if (HasSetting("Enable Friction Effect"))
+                    parameters.Add("--ffb-friction-gain=" + Number(
+                        Enabled("Enable Friction Effect", true) ? Percent("Friction Effect Strength", 0, 100, 30) : 0));
+                if (HasSetting("Enable Recoil Effect"))
+                    parameters.Add("--ffb-recoil-gain=" + Number(
+                        Enabled("Enable Recoil Effect", true) ? Percent("Recoil Effect Strength") : 0));
+                if (HasSetting("Player 2 Enable Recoil Effect"))
+                    parameters.Add("--ffb-recoil-gain-p2=" + Number(
+                        Enabled("Player 2 Enable Recoil Effect", true) ? Percent("Player 2 Recoil Effect Strength") : 0));
                 if (HasSetting("Enable Sine Effect"))
                 {
                     parameters.Add("--ffb-vibration-gain=" + Number(

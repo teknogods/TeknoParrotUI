@@ -19,6 +19,66 @@
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
+      <FieldName>Force Feedback Device</FieldName>
+      <FieldValue>off</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select a force feedback wheel or controller vibration. Reopen Game Settings to refresh connected devices.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 2 Force Feedback Device</FieldName>
+      <FieldValue>off</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select a force feedback wheel or controller vibration. Reopen Game Settings to refresh connected devices.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Force Feedback Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Overall effect strength. 100% keeps the normal full strength.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Recoil Effect</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Recoil Effect Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Recoil Effect</EnabledBy>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Strength of the player 1 gun reaction.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 2 Enable Recoil Effect</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Player 2 Recoil Effect Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Player 2 Enable Recoil Effect</EnabledBy>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Strength of the player 2 gun reaction.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
       <FieldName>Outputs</FieldName>
       <FieldValue>Windows Outputs</FieldValue>
       <FieldType>Dropdown</FieldType>

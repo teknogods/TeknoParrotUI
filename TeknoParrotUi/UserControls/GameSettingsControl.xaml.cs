@@ -154,24 +154,35 @@ namespace TeknoParrotUi.UserControls
                 gameProfile.EmulatorType != EmulatorType.TeknoModel3)
                 return;
 
-            var field = gameProfile.ConfigValues?.Find(cv =>
-                cv.FieldName == "Force Feedback Device" &&
-                cv.FieldType == FieldType.DynamicDropdown);
-            if (field == null)
+            // Model 3's Ocean Hunter has a second gun-reaction device.
+            var fields = gameProfile.ConfigValues?.Where(cv =>
+                (cv.FieldName == "Force Feedback Device" ||
+                 (cv.FieldName == "Player 2 Force Feedback Device" &&
+                  gameProfile.EmulatorType == EmulatorType.TeknoModel3)) &&
+                cv.FieldType == FieldType.DynamicDropdown).ToList();
+            if (fields == null || fields.Count == 0)
                 return;
 
-            field.DynamicOptions = gameProfile.EmulatorType == EmulatorType.TeknoModel3
+            var devices = gameProfile.EmulatorType == EmulatorType.TeknoModel3
                 ? Model3FfbDeviceProbe.GetDevices()
                 : gameProfile.EmulatorType == EmulatorType.TeknoModel2
                     ? Model2FfbDeviceProbe.GetDevices() : Model1FfbDeviceProbe.GetDevices();
-            if (!field.DynamicOptions.Any(option => option.Value == field.FieldValue) &&
-                !string.IsNullOrWhiteSpace(field.FieldValue))
+            foreach (var field in fields)
             {
-                field.DynamicOptions.Add(new DynamicDropdownOption
+                field.DynamicOptions = devices.Select(option => new DynamicDropdownOption
                 {
-                    DisplayName = $"Previously selected device (unavailable) - {field.FieldValue}",
-                    Value = field.FieldValue
-                });
+                    DisplayName = option.DisplayName,
+                    Value = option.Value
+                }).ToList();
+                if (!field.DynamicOptions.Any(option => option.Value == field.FieldValue) &&
+                    !string.IsNullOrWhiteSpace(field.FieldValue))
+                {
+                    field.DynamicOptions.Add(new DynamicDropdownOption
+                    {
+                        DisplayName = $"Previously selected device (unavailable) - {field.FieldValue}",
+                        Value = field.FieldValue
+                    });
+                }
             }
         }
 

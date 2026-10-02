@@ -18,6 +18,52 @@
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
+      <FieldName>Force Feedback Device</FieldName>
+      <FieldValue>off</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select a force feedback wheel or controller vibration. Reopen Game Settings to refresh connected devices.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Force Feedback Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Overall effect strength. 100% keeps the normal full strength.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Sine Effect</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Sine Effect Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Sine Effect</EnabledBy>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Strength of the ski vibration requested by the game.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Sine Effect Period</FieldName>
+      <FieldValue>40</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Sine Effect</EnabledBy>
+      <FieldMin>10</FieldMin>
+      <FieldMax>200</FieldMax>
+      <Hint>Time per vibration cycle in milliseconds. Lower values vibrate faster. Default: 40 ms (25 Hz).</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
       <FieldName>Outputs</FieldName>
       <FieldValue>Windows Outputs</FieldValue>
       <FieldType>Dropdown</FieldType>
