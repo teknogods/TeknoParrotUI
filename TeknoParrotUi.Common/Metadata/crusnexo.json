@@ -4,5 +4,11 @@
   "icon_name": "crusnexo.png",
   "platform": "Midway Zeus II",
   "release_year": "1999",
-  "general_issues": "User-supplied MAME media required. Emulation is under active development."
+  "general_issues": "User-supplied MAME media required. Emulation is under active development.",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null
 }

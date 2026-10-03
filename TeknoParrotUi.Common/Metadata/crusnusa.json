@@ -4,5 +4,11 @@
   "platform": "Midway V Unit",
   "release_year": "1994",
   "general_issues": "User-supplied MAME media required. Latest revision only.",
-  "icon_name": ""
+  "icon_name": "crusnusa.png",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "OK",
+  "amd_issues": null,
+  "intel": "OK",
+  "intel_issues": null
 }
