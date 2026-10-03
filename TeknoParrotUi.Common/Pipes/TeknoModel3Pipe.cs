@@ -10,7 +10,8 @@ namespace TeknoParrotUi.Common.Pipes
     /// return to its native keyboard/mouse input when TPUI stops publishing.
     /// The layout is identical to TeknoModel2's M2IN page; gear latching and
     /// the per-game bit/channel mapping are done by the emulator. Byte 36
-    /// carries the Volume Up/Down emulator hotkeys (TPSystem1/TPSystem2).
+    /// carries the emulator hotkeys: Volume Up/Down (TPSystem1/TPSystem2),
+    /// Menu (TPSystem3) and Menu Up/Down/Left/Right/Select (TPSystem4..8).
     /// </summary>
     public sealed class TeknoModel3Pipe : ControlSender
     {
@@ -135,10 +136,18 @@ namespace TeknoParrotUi.Common.Pipes
                 JvsHelper.WriteStateByte(
                     13 + analog, InputCode.AnalogBytes[analog * 2]);
 
-            // Emulator hotkeys (player volume), never routed to the cabinet.
+            // Emulator hotkeys (player volume, in-game menu), never routed
+            // to the cabinet. The emulator holds every cabinet control while
+            // its menu is open, so menu bindings may share game buttons.
             byte hotkeys = 0;
             if (Down(InputCode.TPSystem1)) hotkeys |= 0x01;
             if (Down(InputCode.TPSystem2)) hotkeys |= 0x02;
+            if (Down(InputCode.TPSystem3)) hotkeys |= 0x04;
+            if (Down(InputCode.TPSystem4)) hotkeys |= 0x08;
+            if (Down(InputCode.TPSystem5)) hotkeys |= 0x10;
+            if (Down(InputCode.TPSystem6)) hotkeys |= 0x20;
+            if (Down(InputCode.TPSystem7)) hotkeys |= 0x40;
+            if (Down(InputCode.TPSystem8)) hotkeys |= 0x80;
             JvsHelper.WriteStateByte(36, hotkeys);
 
             ++_sequence;

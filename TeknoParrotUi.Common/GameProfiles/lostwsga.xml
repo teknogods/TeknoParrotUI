@@ -6,7 +6,7 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel3</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel3</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -324,6 +324,36 @@
       <ButtonName>Volume Down</ButtonName>
       <InputMapping>TPSystem2</InputMapping>
       <Hint>Emulator hotkey</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Menu</ButtonName>
+      <InputMapping>TPSystem3</InputMapping>
+      <Hint>Emulator menu</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Menu Up</ButtonName>
+      <InputMapping>TPSystem4</InputMapping>
+      <Hint>Emulator menu</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Menu Down</ButtonName>
+      <InputMapping>TPSystem5</InputMapping>
+      <Hint>Emulator menu</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Menu Left</ButtonName>
+      <InputMapping>TPSystem6</InputMapping>
+      <Hint>Emulator menu</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Menu Right</ButtonName>
+      <InputMapping>TPSystem7</InputMapping>
+      <Hint>Emulator menu</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Menu Select</ButtonName>
+      <InputMapping>TPSystem8</InputMapping>
+      <Hint>Emulator menu</Hint>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

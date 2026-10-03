@@ -1556,6 +1556,21 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.TPSystem3:
                     InputCode.TPSystem3 = pressed;
                     break;
+                case InputMapping.TPSystem4:
+                    InputCode.TPSystem4 = pressed;
+                    break;
+                case InputMapping.TPSystem5:
+                    InputCode.TPSystem5 = pressed;
+                    break;
+                case InputMapping.TPSystem6:
+                    InputCode.TPSystem6 = pressed;
+                    break;
+                case InputMapping.TPSystem7:
+                    InputCode.TPSystem7 = pressed;
+                    break;
+                case InputMapping.TPSystem8:
+                    InputCode.TPSystem8 = pressed;
+                    break;
                 default:
                     break;
             }

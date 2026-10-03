@@ -666,6 +666,11 @@ namespace TeknoParrotUi.Common
         public static bool? TPSystem1 { get; set; }
         public static bool? TPSystem2 { get; set; }
         public static bool? TPSystem3 { get; set; }
+        public static bool? TPSystem4 { get; set; }
+        public static bool? TPSystem5 { get; set; }
+        public static bool? TPSystem6 { get; set; }
+        public static bool? TPSystem7 { get; set; }
+        public static bool? TPSystem8 { get; set; }
 
         public static PlayerButtons[] PlayerDigitalButtons = new PlayerButtons[4]
         {

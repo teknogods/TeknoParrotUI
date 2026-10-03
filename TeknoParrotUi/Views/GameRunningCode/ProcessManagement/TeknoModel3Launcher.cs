@@ -133,6 +133,13 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             }
 
             if (Enabled("Mute Audio")) parameters.Add("--mute");
+            // The global Pause key (Settings) toggles TeknoModel3's pause screen.
+            var pauseKey = Lazydata.ParrotData?.PauseGameKey;
+            if (!string.IsNullOrWhiteSpace(pauseKey) &&
+                int.TryParse(pauseKey.Trim().Replace("0x", "").Replace("0X", ""),
+                    NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var pauseVirtualKey) &&
+                pauseVirtualKey >= 0 && pauseVirtualKey <= 0xFF)
+                parameters.Add("--pause-key=0x" + pauseVirtualKey.ToString("X2"));
             if (vr)
             {
                 parameters.Add("--vr-depth=" + VrDepth(Percent("VR Depth", 100, 200, 150)));
