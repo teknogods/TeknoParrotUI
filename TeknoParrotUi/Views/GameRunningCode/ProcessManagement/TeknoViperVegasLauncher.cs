@@ -324,11 +324,11 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             return info;
         }
 
-        // TeknoModel2 has no teknoparrot.ini, so the [GlobalScore] values and the Score category
-        // ConfigurationWriter writes for the loader games reach Score Submission (loaded inside
-        // TeknoModel2) as environment variables instead: TP_SCORE_SUBMISSION_ID,
+        // TeknoModel2 and TeknoModel3 have no teknoparrot.ini, so the [GlobalScore] values and the
+        // Score category ConfigurationWriter writes for the loader games reach Score Submission
+        // (loaded inside the emulator) as environment variables instead: TP_SCORE_SUBMISSION_ID,
         // TP_SCORE_COLLAPSE_GUI_KEY and TP_SCORE_<FIELD NAME>, e.g. TP_SCORE_ENABLE_CAPTURE.
-        private static void AddScoreSubmissionEnvironment(GameProfile profile, ProcessStartInfo info)
+        internal static void AddScoreSubmissionEnvironment(GameProfile profile, ProcessStartInfo info)
         {
             info.EnvironmentVariables["TP_SCORE_SUBMISSION_ID"] = Lazydata.ParrotData.ScoreSubmissionID ?? "";
             info.EnvironmentVariables["TP_SCORE_COLLAPSE_GUI_KEY"] = Lazydata.ParrotData.ScoreCollapseGUIKey ?? "";

@@ -209,18 +209,23 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 parameters.Add("--network-diagnostics");
             if (HasSetting("Set Game Link Settings") && !Enabled("Set Game Link Settings", true))
                 parameters.Add("--no-link-settings");
+            // TeknoModel3 loads Score Submission itself (there is no loader DLL).
+            var scoreSubmission = Enabled("Enable Submission");
+            if (scoreSubmission) parameters.Add("--score-submission");
 
             var executable = Path.Combine(workDir, "TeknoModel3.exe");
             log?.Invoke($"TeknoModel3: {set}, rom root={romRoot}, renderer={(vr ? "openxr" : "vulkan")}");
             if (!File.Exists(executable)) log?.Invoke($"TeknoModel3 executable was not found at {executable}");
             if (!File.Exists(romPath) && !Directory.Exists(romPath))
                 log?.Invoke($"TeknoModel3 ROM was not found at {romPath}");
-            return new ProcessStartInfo(executable, string.Join(" ", parameters))
+            var info = new ProcessStartInfo(executable, string.Join(" ", parameters))
             {
                 UseShellExecute = false,
                 WorkingDirectory = workDir,
                 RedirectStandardError = true
             };
+            if (scoreSubmission) TeknoViperVegasLauncher.AddScoreSubmissionEnvironment(profile, info);
+            return info;
         }
     }
 }

@@ -2460,6 +2460,32 @@ namespace TeknoParrotUi.Views
                 { "vstriker", "VirtuaStriker" },
                 { "waverunr", "WaveRunner" },
                 { "zerogun", "ZeroGunner" },
+
+                // TeknoModel3 profile names map to the website's leaderboard identifiers.
+                { "bassdx", "SegaBassFishing" },
+                { "dayto2pe", "DaytonaUSA2PE" },
+                { "daytona2", "DaytonaUSA2" },
+                { "dirtdvls", "DirtDevils" },
+                { "eca", "EmergencyCallAmbulance" },
+                { "fvipers2", "FightingVipers2" },
+                { "harley_m3", "HarleyDavidson" },
+                { "lamachin", "LAMachineguns" },
+                { "lemans24", "LeMans24" },
+                { "lostwsga", "LostWorld" },
+                { "magtruck", "MagicalTruckAdventure" },
+                { "oceanhun", "OceanHunter" },
+                { "scudplus", "ScudRace" },
+                { "skichamp", "SkiChamp" },
+                { "spikeofe", "SpikeoutFE" },
+                { "spikeout", "Spikeout" },
+                { "srally2", "SegaRally2" },
+                { "swtrilgy", "StarWarsTrilogy" },
+                { "vf3", "VirtuaFighter3" },
+                { "vf3tb_m3", "VirtuaFighter3" },
+                { "von2", "VirtualOnOT" },
+                { "vs2", "VirtuaStriker2" },
+                { "vs298", "VirtuaStriker298" },
+                { "vs2v991", "VirtuaStriker299" },
             };
 
             // Check if this game has high scores

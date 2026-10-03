@@ -89,9 +89,9 @@ namespace TeknoParrotUi.Helpers
                 return;
             }
 
-            // TeknoModel2 hosts Score Submission in-process, so these exit codes come from
-            // Score Submission and use its usual messages below.
-            var scoreSubmissionExit = emulatorType == EmulatorType.TeknoModel2 &&
+            // TeknoModel2 and TeknoModel3 host Score Submission in-process, so these exit codes
+            // come from Score Submission and use its usual messages below.
+            var scoreSubmissionExit = (emulatorType == EmulatorType.TeknoModel2 || emulatorType == EmulatorType.TeknoModel3) &&
                 (errorCode == 3820 || errorCode == 3821 || errorCode == 3822 || errorCode == 3823 || errorCode == 7688);
             if (!scoreSubmissionExit && (emulatorType == EmulatorType.TeknoVUnit || emulatorType == EmulatorType.TeknoHornet || emulatorType == EmulatorType.TeknoModel1 || emulatorType == EmulatorType.TeknoModel2 || emulatorType == EmulatorType.TeknoModel3 || emulatorType == EmulatorType.TeknoZeus || emulatorType == EmulatorType.TeknoHNG64 || emulatorType == EmulatorType.TeknoCobra) && errorCode != 0)
             {
