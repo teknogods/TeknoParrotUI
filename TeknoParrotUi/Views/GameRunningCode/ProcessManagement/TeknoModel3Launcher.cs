@@ -14,7 +14,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
         private static readonly Dictionary<string, int> MaxLinkNodes =
             new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase)
             {
-                { "daytona2", 8 }, { "dayto2pe", 8 }, { "scudplus", 8 },
+                { "daytona2", 8 }, { "dayto2pe", 8 }, { "scud", 8 }, { "scudplus", 8 },
                 { "lemans24", 6 },
                 { "harley", 4 }, { "skichamp", 4 }, { "srally2", 4 },
                 { "dirtdvls", 4 }, { "spikeout", 4 }, { "spikeofe", 4 },

@@ -2474,6 +2474,7 @@ namespace TeknoParrotUi.Views
                 { "lostwsga", "LostWorld" },
                 { "magtruck", "MagicalTruckAdventure" },
                 { "oceanhun", "OceanHunter" },
+                { "scud", "ScudRace" },
                 { "scudplus", "ScudRace" },
                 { "skichamp", "SkiChamp" },
                 { "spikeofe", "SpikeoutFE" },
