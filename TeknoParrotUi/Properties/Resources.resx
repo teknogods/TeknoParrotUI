@@ -2856,4 +2856,440 @@ Only the key saved on this PC will be removed. This will not release an activati
   <data name="DeactivationRejected" xml:space="preserve">
     <value>The activation server rejected deactivation with code {0}. The local activation was retained.</value>
   </data>
+  <data name="InitialDOnlineTitle" xml:space="preserve">
+    <value>Initial D Online</value>
+  </data>
+  <data name="InitialDOnlineIntro" xml:space="preserve">
+    <value>Nationwide online play of Initial D 4 (Japan), 5, 6, 7 and 8 on the official TeknoParrot server needs an Online ID for this PC. TeknoParrotUI gets it from your teknoparrot.com account and writes it into your Initial D game profiles (OnlineID and OnlineSecret). Offline and LAN play do not need it.</value>
+  </data>
+  <data name="InitialDOnlineYourRank" xml:space="preserve">
+    <value>Your rank:</value>
+  </data>
+  <data name="InitialDOnlineKingAura" xml:space="preserve">
+    <value>ID7: King aura 覇王 on your car</value>
+  </data>
+  <data name="InitialDOnlinePeasantNotice" xml:space="preserve">
+    <value>Free accounts race as PEASANT. Supporters can show their rank instead.</value>
+  </data>
+  <data name="InitialDOnlineWearYourStars" xml:space="preserve">
+    <value>Wear your stars</value>
+  </data>
+  <data name="InitialDOnlinePcbId" xml:space="preserve">
+    <value>Online ID</value>
+  </data>
+  <data name="InitialDOnlineNotRegistered" xml:space="preserve">
+    <value>This PC is not registered for Initial D Online yet.</value>
+  </data>
+  <data name="InitialDOnlineRegisteredHere" xml:space="preserve">
+    <value>Registered on this PC and written to your Initial D game profiles.</value>
+  </data>
+  <data name="InitialDOnlineRegisteredElsewhere" xml:space="preserve">
+    <value>Your account has an Online ID, but it is not on this PC yet.</value>
+  </data>
+  <data name="InitialDOnlineMachineSuspended" xml:space="preserve">
+    <value>This Online ID is suspended.</value>
+  </data>
+  <data name="InitialDOnlineLastSeen" xml:space="preserve">
+    <value>Last seen online: {0}.</value>
+  </data>
+  <data name="InitialDOnlineMachineChanged" xml:space="preserve">
+    <value>Used from another PC or Windows installation: {0}.</value>
+  </data>
+  <data name="InitialDOnlineVisibilityTitle" xml:space="preserve">
+    <value>Who sees your rank? Choose one:</value>
+  </data>
+  <data name="InitialDOnlineVisibilityPublic" xml:space="preserve">
+    <value>Show my rank to rivals</value>
+  </data>
+  <data name="InitialDOnlineVisibilityOwn" xml:space="preserve">
+    <value>Only on my own cabinet (rivals see me as PEASANT)</value>
+  </data>
+  <data name="InitialDOnlineVisibilityOff" xml:space="preserve">
+    <value>Hide it (rivals see me as PEASANT, my own screens stay plain)</value>
+  </data>
+  <data name="InitialDOnlinePreviewCaption" xml:space="preserve">
+    <value>Rivals see:</value>
+  </data>
+  <data name="InitialDOnlineVisibilityNote" xml:space="preserve">
+    <value>You can change this at any time. Replays and rankings already recorded on other players' PCs keep what they showed.</value>
+  </data>
+  <data name="InitialDOnlineSaveVisibility" xml:space="preserve">
+    <value>Save choice</value>
+  </data>
+  <data name="InitialDOnlineChooseVisibilityFirst" xml:space="preserve">
+    <value>Choose who sees your rank first.</value>
+  </data>
+  <data name="InitialDOnlineRegisterButton" xml:space="preserve">
+    <value>Register this PC</value>
+  </data>
+  <data name="InitialDOnlineUseHereButton" xml:space="preserve">
+    <value>Use on this PC</value>
+  </data>
+  <data name="InitialDOnlineRegenerateButton" xml:space="preserve">
+    <value>Regenerate</value>
+  </data>
+  <data name="InitialDOnlineRemoveButton" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="InitialDOnlineOnePcPerAccount" xml:space="preserve">
+    <value>One PC per account, free or paid. For another PC, create another account (you can gift it a key). Keep the Online ID and its secret private: whoever has them can play as you.</value>
+  </data>
+  <data name="InitialDOnlineLastStatus" xml:space="preserve">
+    <value>Last online status ({0}, {1}): {2}</value>
+  </data>
+  <data name="InitialDOnlineNoStatus" xml:space="preserve">
+    <value>No online session recorded on this PC yet.</value>
+  </data>
+  <data name="InitialDOnlineConfirmUseHere" xml:space="preserve">
+    <value>Your account's Online ID will be used on this PC. One PC per account: if another PC plays with the same ID, the newest session wins and the other PC is disconnected. Continue?</value>
+  </data>
+  <data name="InitialDOnlineConfirmRegenerate" xml:space="preserve">
+    <value>Regenerate gives your account a new Online ID and secret. The old ID stops working at once on every PC. Continue?</value>
+  </data>
+  <data name="InitialDOnlineConfirmRemove" xml:space="preserve">
+    <value>Remove this Online ID? It stops working at once, and online play needs a new registration. Continue?</value>
+  </data>
+  <data name="InitialDOnlineFreshLoginPrompt" xml:space="preserve">
+    <value>For your security, confirm your teknoparrot.com password in the browser window that opens now.</value>
+  </data>
+  <data name="InitialDOnlineWorking" xml:space="preserve">
+    <value>Please wait...</value>
+  </data>
+  <data name="InitialDOnlineSaved" xml:space="preserve">
+    <value>Online ID saved. Initial D game profiles updated: {0}.</value>
+  </data>
+  <data name="InitialDOnlineRemoved" xml:space="preserve">
+    <value>Online ID removed.</value>
+  </data>
+  <data name="InitialDOnlineVisibilitySaved" xml:space="preserve">
+    <value>Choice saved.</value>
+  </data>
+  <data name="InitialDOnlineErrorNotLoggedIn" xml:space="preserve">
+    <value>Please log in first.</value>
+  </data>
+  <data name="InitialDOnlineErrorFreshLogin" xml:space="preserve">
+    <value>The password confirmation was not completed. Please try again.</value>
+  </data>
+  <data name="InitialDOnlineErrorFeatureOff" xml:space="preserve">
+    <value>Initial D Online is not available yet.</value>
+  </data>
+  <data name="InitialDOnlineErrorBanned" xml:space="preserve">
+    <value>This account is banned from Initial D Online. See the Online Profile page on teknoparrot.com for the reason and the appeal form.</value>
+  </data>
+  <data name="InitialDOnlineErrorRateLimited" xml:space="preserve">
+    <value>Too many requests. Please try again later.</value>
+  </data>
+  <data name="InitialDOnlineErrorUnavailable" xml:space="preserve">
+    <value>teknoparrot.com cannot be reached right now. Please try again later.</value>
+  </data>
+  <data name="InitialDOnlineErrorGeneric" xml:space="preserve">
+    <value>The request failed ({0}).</value>
+  </data>
+  <data name="InitialDOnlineStateOnline" xml:space="preserve">
+    <value>online.</value>
+  </data>
+  <data name="InitialDOnlineStateConnecting" xml:space="preserve">
+    <value>connecting.</value>
+  </data>
+  <data name="InitialDOnlineStateEnded" xml:space="preserve">
+    <value>session ended.</value>
+  </data>
+  <data name="InitialDOnlineStateNoCredential" xml:space="preserve">
+    <value>this PC has no Online ID. Register it on the Account page.</value>
+  </data>
+  <data name="InitialDOnlineStateBadCredential" xml:space="preserve">
+    <value>the OnlineID or OnlineSecret in the game profile is not valid. Register this PC again on the Account page.</value>
+  </data>
+  <data name="InitialDOnlineStateRealmMismatch" xml:space="preserve">
+    <value>the server is not the official server, so the Online ID was not used.</value>
+  </data>
+  <data name="InitialDOnlineStateServerLegacy" xml:space="preserve">
+    <value>this server does not use Online IDs; the game ran as before.</value>
+  </data>
+  <data name="InitialDOnlineStateUnreachable" xml:space="preserve">
+    <value>the server could not be reached.</value>
+  </data>
+  <data name="InitialDOnlineStateBadReply" xml:space="preserve">
+    <value>the server's answers could not be verified.</value>
+  </data>
+  <data name="InitialDOnlineStateDenied" xml:space="preserve">
+    <value>the server did not accept this Online ID. Register this PC again on the Account page.</value>
+  </data>
+  <data name="InitialDOnlineStateBanned" xml:space="preserve">
+    <value>this account is banned.</value>
+  </data>
+  <data name="InitialDOnlineStateRevoked" xml:space="preserve">
+    <value>this Online ID was removed or replaced. Register this PC again on the Account page.</value>
+  </data>
+  <data name="InitialDOnlineStateSuspended" xml:space="preserve">
+    <value>this Online ID is suspended.</value>
+  </data>
+  <data name="InitialDOnlineStateSuperseded" xml:space="preserve">
+    <value>another PC signed in with this account's Online ID (one PC per account).</value>
+  </data>
+  <data name="InitialDOnlineStateVersion" xml:space="preserve">
+    <value>please update TeknoParrot.</value>
+  </data>
+  <data name="InitialDOnlineStateBusy" xml:space="preserve">
+    <value>the server is busy. Please try again in a moment.</value>
+  </data>
+  <data name="InitialDOnlineStateUnavailable" xml:space="preserve">
+    <value>the online service is temporarily unavailable.</value>
+  </data>
+  <data name="InitialDOnlineStateOther" xml:space="preserve">
+    <value>online sign-in failed ({0}).</value>
+  </data>
+  <data name="InitialDOnlineServerSays" xml:space="preserve">
+    <value>Server: "{0}"</value>
+  </data>
+  <data name="InitialDOnlineToast" xml:space="preserve">
+    <value>Initial D Online ({0}): {1}</value>
+  </data>
+  <data name="InitialDOnlineToastAction" xml:space="preserve">
+    <value>ACCOUNT</value>
+  </data>
+  <data name="InitialDUnifiedPanelTitle" xml:space="preserve">
+    <value>Initial D Online</value>
+  </data>
+  <data name="InitialDUnifiedOnline" xml:space="preserve">
+    <value>Online.</value>
+  </data>
+  <data name="InitialDUnifiedNoAdapter" xml:space="preserve">
+    <value>Offline: no network adapter.</value>
+  </data>
+  <data name="InitialDUnifiedNoGateway" xml:space="preserve">
+    <value>Offline (LAN only): this network has no Internet gateway.</value>
+  </data>
+  <data name="InitialDUnifiedUnreachable" xml:space="preserve">
+    <value>Offline: the online server could not be reached. Online play returns at the next start.</value>
+  </data>
+  <data name="InitialDUnifiedMaintenance" xml:space="preserve">
+    <value>Offline: the online server is under maintenance.</value>
+  </data>
+  <data name="InitialDUnifiedRollout" xml:space="preserve">
+    <value>Offline: online play is being switched on gradually.</value>
+  </data>
+  <data name="InitialDUnifiedVersion" xml:space="preserve">
+    <value>Offline: please update TeknoParrot to play online.</value>
+  </data>
+  <data name="InitialDUnifiedNoCredential" xml:space="preserve">
+    <value>Offline: this PC is not registered for online play. Register it on the Account page.</value>
+  </data>
+  <data name="InitialDUnifiedUnavailable" xml:space="preserve">
+    <value>Offline: the online server could not confirm this PC. Try again later.</value>
+  </data>
+  <data name="InitialDUnifiedVpnAdapter" xml:space="preserve">
+    <value>Offline: online play needs your normal network adapter. LAN play over the VPN works.</value>
+  </data>
+  <data name="InitialDUnifiedForcedNoServer" xml:space="preserve">
+    <value>Offline: online connection switched off in settings.</value>
+  </data>
+  <data name="InitialDUnifiedLegacyForced" xml:space="preserve">
+    <value>Offline: the old network mode is set for this game (NetworkMode=Legacy).</value>
+  </data>
+  <data name="InitialDUnifiedLegacyPair" xml:space="preserve">
+    <value>Offline (LAN pair): this game uses your classic LAN pair settings until automatic LAN linking replaces them.</value>
+  </data>
+  <data name="InitialDUnifiedOfflineBecause" xml:space="preserve">
+    <value>Offline: {0}</value>
+  </data>
+  <data name="InitialDUnifiedOfflineOther" xml:space="preserve">
+    <value>Offline ({0}).</value>
+  </data>
+  <data name="InitialDUnifiedChecking" xml:space="preserve">
+    <value>Checking the online server...</value>
+  </data>
+  <data name="InitialDUnifiedNoStatus" xml:space="preserve">
+    <value>No online status from the game (an offline start).</value>
+  </data>
+  <data name="InitialDUnifiedLinked" xml:space="preserve">
+    <value>Linked with {0} as {1}.</value>
+  </data>
+  <data name="InitialDUnifiedLanWarning" xml:space="preserve">
+    <value>LAN: {0}</value>
+  </data>
+  <data name="InitialDUnifiedPartyActive" xml:space="preserve">
+    <value>Friends code active.</value>
+  </data>
+  <data name="InitialDUnifiedOnlineBack" xml:space="preserve">
+    <value>Online is back: restart the game to play online.</value>
+  </data>
+  <data name="InitialDUnifiedFrameLockOn" xml:space="preserve">
+    <value>60 fps lock: on.</value>
+  </data>
+  <data name="InitialDUnifiedFrameLockOther" xml:space="preserve">
+    <value>Frame lock: {0}.</value>
+  </data>
+  <data name="InitialDFirstRunTitle" xml:space="preserve">
+    <value>Initial D: online by default</value>
+  </data>
+  <data name="InitialDFirstRunText" xml:space="preserve">
+    <value>Initial D 4 (Japan), 5, 6, 7 and 8 now start online by default. At every start TeknoParrot makes a short check with the Initial D online server. With this PC registered you get nationwide matchmaking, events and rankings; without registration, or when the server cannot be reached, the game starts offline as before, within seconds.
+
+Cards you play online become online cards. Progress you make offline is merged the next time you play online.</value>
+  </data>
+  <data name="InitialDConnectToServer" xml:space="preserve">
+    <value>Connect to the online server</value>
+  </data>
+  <data name="InitialDConnectToServerNote" xml:space="preserve">
+    <value>On: every start of Initial D 4 (Japan), 5, 6, 7 and 8 checks the online server, and a registered PC plays online. Off: these games never contact the online server and always start offline / LAN. You can change it here at any time.</value>
+  </data>
+  <data name="InitialDChatNote" xml:space="preserve">
+    <value>In online matches text chat is on (F2 to type, /mute silences a player; the Chat setting of each game turns it off). Voice chat stays off until you choose listen or talk in the game's settings. Chat and voice go through the server you play on; nothing is stored or recorded.</value>
+  </data>
+  <data name="InitialDConnectCardTitle" xml:space="preserve">
+    <value>Initial D online play</value>
+  </data>
+  <data name="InitialDRegisterTitle" xml:space="preserve">
+    <value>Play Initial D online?</value>
+  </data>
+  <data name="InitialDRegisterText" xml:space="preserve">
+    <value>This PC is not registered for Initial D online play, so {0} starts offline (story, time attack and LAN play work as before).
+
+Online play is free: sign in with a teknoparrot.com account on the Account page and register this PC (one PC per account). From then on nationwide matchmaking, events and rankings start by themselves.</value>
+  </data>
+  <data name="InitialDRegisterPlayOnline" xml:space="preserve">
+    <value>Play online (register this PC)</value>
+  </data>
+  <data name="InitialDRegisterPlayOffline" xml:space="preserve">
+    <value>Play offline for now</value>
+  </data>
+  <data name="InitialDRegisterDontAsk" xml:space="preserve">
+    <value>Don't ask again</value>
+  </data>
+  <data name="InitialDMaintenanceText" xml:space="preserve">
+    <value>The Initial D online server is under maintenance. {0} starts offline this time.</value>
+  </data>
+  <data name="InitialDStartOffline" xml:space="preserve">
+    <value>Start offline</value>
+  </data>
+  <data name="InitialDOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="InitialDCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="LibraryPlayWithFriends" xml:space="preserve">
+    <value>Play with friends</value>
+  </data>
+  <data name="InitialDFriendsTitle" xml:space="preserve">
+    <value>Play with friends</value>
+  </data>
+  <data name="InitialDFriendsIntro" xml:space="preserve">
+    <value>Race your friends nationwide: everyone who starts {0} with the same friends code is matched only with each other. The code is valid for this start only and is never saved.</value>
+  </data>
+  <data name="InitialDFriendsNew" xml:space="preserve">
+    <value>Start a new group with this code:</value>
+  </data>
+  <data name="InitialDFriendsJoin" xml:space="preserve">
+    <value>Join a friend's group with their code:</value>
+  </data>
+  <data name="InitialDFriendsNote" xml:space="preserve">
+    <value>Every player needs a registered PC and a game card. Codes ignore case, spaces and dashes.</value>
+  </data>
+  <data name="InitialDFriendsStart" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="InitialDFriendsBadCode" xml:space="preserve">
+    <value>A friends code has 6 to 16 letters or digits.</value>
+  </data>
+  <data name="InitialDFriendsWeakCode" xml:space="preserve">
+    <value>"{0}" is easy to guess: strangers who type it join your group. Start with it anyway?</value>
+  </data>
+  <data name="InitialDFriendsInvite" xml:space="preserve">
+    <value>Race me in {0} on TeknoParrot: choose "Play with friends" and enter the friends code {1}</value>
+  </data>
+  <data name="InitialDFriendsCopyInvite" xml:space="preserve">
+    <value>Copy invite</value>
+  </data>
+  <data name="InitialDFriendsCopied" xml:space="preserve">
+    <value>Copied</value>
+  </data>
+  <data name="InitialDFriendsCodeLine" xml:space="preserve">
+    <value>Friends code for this start: {0}</value>
+  </data>
+  <data name="InitialDFriendsNeedsRegistration" xml:space="preserve">
+    <value>Play with friends needs this PC to be registered for Initial D online play (a free teknoparrot.com account, one PC per account).</value>
+  </data>
+  <data name="InitialDFriendsNeedsConnect" xml:space="preserve">
+    <value>Play with friends needs the online connection, which is switched off ("Connect to the online server"). Switch it on and start?</value>
+  </data>
+  <data name="InitialDSwitchOnAndStart" xml:space="preserve">
+    <value>Switch on and start</value>
+  </data>
+  <data name="InitialDFriendsLegacy" xml:space="preserve">
+    <value>Play with friends is not available: the old network mode is set for this game (NetworkMode=Legacy).</value>
+  </data>
+  <data name="InitialDFriendsOff" xml:space="preserve">
+    <value>Friends codes are switched off on the online server right now. Please try again later, or use Play.</value>
+  </data>
+  <data name="InitialDTpoRetired" xml:space="preserve">
+    <value>{0}: this Initial D game has built-in online matchmaking now and is not played through TeknoParrot Online any more. Start it from the library: Play for nationwide matches, or Play with friends with a friends code (share the code in this room's chat).</value>
+  </data>
+  <data name="InitialDMovedTo" xml:space="preserve">
+    <value>Moved: this game now runs as "{0}" in your library (online play by default, the newest fixes). Your settings were copied there. This entry stays for one more release.</value>
+  </data>
+  <data name="InitialDLanReadyOne" xml:space="preserve">
+    <value>{0} is ready for {1}.</value>
+  </data>
+  <data name="InitialDLanReadyMany" xml:space="preserve">
+    <value>{0} and {1} more PCs are ready for {2}.</value>
+  </data>
+  <data name="InitialDLanStartTogether" xml:space="preserve">
+    <value>Start together</value>
+  </data>
+  <data name="InitialDLanStartAlone" xml:space="preserve">
+    <value>Start alone</value>
+  </data>
+  <data name="InitialDLanPublicNetwork" xml:space="preserve">
+    <value>This network is marked Public in Windows: LAN linking is off. Mark it Private, or set a LAN group in the game's Advanced network settings.</value>
+  </data>
+  <data name="InitialDLanPortBusy" xml:space="preserve">
+    <value>LAN linking is off: another program on this PC is using the Initial D LAN port.</value>
+  </data>
+  <data name="InitialDLanLinkTitle" xml:space="preserve">
+    <value>Link with another PC?</value>
+  </data>
+  <data name="InitialDLanLinkText" xml:space="preserve">
+    <value>Link with {0} for {1}?
+
+Linked PCs play as two cabinets in one arcade: in-store VS, TAG against the computer and a shared store ranking. They exchange the display name, the seat and the race data of that game, nothing else.</value>
+  </data>
+  <data name="InitialDLanLinkAlways" xml:space="preserve">
+    <value>Always</value>
+  </data>
+  <data name="InitialDLanLinkOnce" xml:space="preserve">
+    <value>This time</value>
+  </data>
+  <data name="InitialDLanLinkNever" xml:space="preserve">
+    <value>Never</value>
+  </data>
+  <data name="InitialDFirewallTitle" xml:space="preserve">
+    <value>Allow Initial D LAN play through the firewall?</value>
+  </data>
+  <data name="InitialDFirewallText" xml:space="preserve">
+    <value>Two TeknoParrot PCs link over the LAN only when Windows lets the game receive. TeknoParrot can add the inbound rules now, for your private network; Windows asks for administrator rights once.
+
+{0}
+
+Without the rules the games still start, they just do not find each other.</value>
+  </data>
+  <data name="InitialDFirewallAdd" xml:space="preserve">
+    <value>Add the rules</value>
+  </data>
+  <data name="InitialDFirewallSkip" xml:space="preserve">
+    <value>Not now</value>
+  </data>
+  <data name="InitialDFirewallFailed" xml:space="preserve">
+    <value>The firewall rules were not added. Start TeknoParrotUI as administrator to add them, or allow the game when Windows asks.</value>
+  </data>
+  <data name="InitialDUnifiedLanPeerOne" xml:space="preserve">
+    <value>LAN: one other TeknoParrot PC on this network, not linked.</value>
+  </data>
+  <data name="InitialDUnifiedLanPeerMany" xml:space="preserve">
+    <value>LAN: {0} other TeknoParrot PCs on this network, not linked.</value>
+  </data>
+  <data name="InitialDUnifiedLanGroup" xml:space="preserve">
+    <value>LAN group: {0}.</value>
+  </data>
 </root>

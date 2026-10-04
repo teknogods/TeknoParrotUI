@@ -212,6 +212,10 @@ namespace TeknoParrotUi.Common
             if (profile == null || string.IsNullOrEmpty(profile.OnlineIdFieldName) || profile.OnlineIdType == OnlineIdType.None)
                 return false;
 
+            // Initial D Online: a PCB ID + secret pair (both fields), plain text from ParrotData.
+            if (profile.OnlineIdType == OnlineIdType.InitialD)
+                return InitialDOnlineHelper.AutoFill(profile);
+
             var configField = profile.ConfigValues?.FirstOrDefault(x => x.FieldName == profile.OnlineIdFieldName);
             if (configField == null || (!string.IsNullOrEmpty(configField.FieldValue) && configField.FieldValue != "1234567890"))
                 return false;

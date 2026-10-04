@@ -19,7 +19,9 @@ namespace TeknoParrotUi.Views
 {
     public partial class Troubleshooting
     {
-        private static readonly string[] filteredGameConfigValues = { "APM3ID", "OnlineId", "PlayerId", "Pass", "PCB ID", "Card ID", "Card ID P1", "Card ID P2" };
+        // "OnlineId" also masks the Initial D OnlineID (case-insensitive); OnlineSecret is its secret and CabinetSerial
+        // identifies the cabinet on the Initial D server.
+        private static readonly string[] filteredGameConfigValues = { "APM3ID", "OnlineId", "PlayerId", "Pass", "PCB ID", "Card ID", "Card ID P1", "Card ID P2", "OnlineSecret", "CabinetSerial" };
         private static readonly int[] commonAudioSampleRates = { 8000, 11025, 16000, 22050, 32000, 44100, 48000, 88200, 96000, 176400, 192000 };
         private static readonly PROPERTYKEY PKEY_Device_FriendlyName = new PROPERTYKEY
         {
@@ -726,6 +728,7 @@ namespace TeknoParrotUi.Views
 
             // This bloats the size quite a bit, making it hard to just copy paste into discord.
             // For now, might be better to ask for the xml seperately if really needed
+            // Do not re-enable without masking filteredGameConfigValues: the raw XML holds e.g. the Initial D OnlineSecret.
             /*            systemInfo.AppendLine();
                         systemInfo.AppendLine("=== Last Played Game Profile (Raw XML) ===");
                         systemInfo.Append(GetLastPlayedRawXml());*/

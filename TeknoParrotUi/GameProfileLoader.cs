@@ -18,6 +18,8 @@ namespace TeknoParrotUi.Common
             var origProfiles = Directory.GetFiles("GameProfiles\\", "*.xml")
                 .ToDictionary(Path.GetFileName, StringComparer.Ordinal);
             Directory.CreateDirectory("UserProfiles");
+            // Initial D: once, copy an installed old-loader profile (ID5 / ID4Jap) into its ElfLoader 2 profile.
+            TeknoParrotUi.Helpers.InitialDUnifiedMode.MigrateOldLoaderProfiles();
             var userProfiles = Directory.GetFiles("UserProfiles\\", "*.xml")
                 .ToDictionary(Path.GetFileName, StringComparer.Ordinal);
             var profileList = new List<GameProfile>();
@@ -74,6 +76,8 @@ namespace TeknoParrotUi.Common
             if (!onlyUserProfiles)
                 GameProfiles = profileList.OrderBy(x => x.GameNameInternal).ToList();
             UserProfiles = userProfileList.OrderBy(x => x.GameNameInternal).ToList();
+            // Initial D P3: hide the old-loader entry (ID5 / ID4Jap) of a game whose ElfLoader 2 profile is installed.
+            TeknoParrotUi.Helpers.InitialDUnifiedMode.HideReplacedOldLoaderProfiles(UserProfiles);
         }
 
         private static class ProfileOperations
@@ -102,6 +106,10 @@ namespace TeknoParrotUi.Common
 
             public static void MergeUserSettings(GameProfile gameProfile, GameProfile other)
             {
+                // Initial D: the first move of a user profile to the unified network fields (self-hosters keep their
+                // server, AllNetPort folds into host:port, SINGLE -> AUTO); null for every other profile.
+                var initialDMigration = TeknoParrotUi.Helpers.InitialDUnifiedMode.PrepareRevisionMigration(gameProfile, other);
+
                 for (int i = 0; i < other.JoystickButtons.Count; i++)
                 {
                     var oldButton = other.JoystickButtons[i];
@@ -175,8 +183,13 @@ namespace TeknoParrotUi.Common
                 gameProfile.CabinetOutputSettings = other.CabinetOutputSettings?.Clone() ?? new CabinetOutputSettings();
                 gameProfile.GamePath = other.GamePath;
                 gameProfile.GamePath2 = other.GamePath2;
+                initialDMigration?.Invoke();
             }
         }
+
+        /// <summary>The revision merge (user values into a fresh base profile), for the Initial D old-loader migration.</summary>
+        internal static void MergeUserSettings(GameProfile gameProfile, GameProfile other) =>
+            ProfileOperations.MergeUserSettings(gameProfile, other);
 
         static GameProfileLoader()
         {

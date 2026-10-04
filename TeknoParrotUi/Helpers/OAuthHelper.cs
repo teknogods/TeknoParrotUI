@@ -88,7 +88,17 @@ namespace TeknoParrotUi.Helpers
             }
         }
 
-        public async Task<bool> AuthenticateAsync()
+        public Task<bool> AuthenticateAsync()
+        {
+            return AuthenticateAsync(false);
+        }
+
+        /// <summary>
+        /// The browser login. <paramref name="freshLogin"/> adds prompt=login: the website asks for the password again even
+        /// with a live website session, and the token then carries auth_time (the "fresh login" that the Initial D Online
+        /// secret reads need). Without it the flow is unchanged.
+        /// </summary>
+        public async Task<bool> AuthenticateAsync(bool freshLogin)
         {
             try
             {
@@ -103,7 +113,8 @@ namespace TeknoParrotUi.Helpers
                     $"redirect_uri={Uri.EscapeDataString(RedirectUri)}&" +
                     $"code_challenge={codeChallenge}&" +
                     $"code_challenge_method=S256&" +
-                    $"state={state}";
+                    $"state={state}" +
+                    (freshLogin ? "&prompt=login" : "");
 
                 Process.Start(new ProcessStartInfo
                 {

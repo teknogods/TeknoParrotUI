@@ -1902,6 +1902,14 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.TPSystem8:
                     InputCode.TPSystem8 = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
+                case InputMapping.ChatQuick1:
+                case InputMapping.ChatQuick2:
+                case InputMapping.ChatQuick3:
+                case InputMapping.ChatQuick4:
+                case InputMapping.ChatPushToTalk:
+                case InputMapping.ChatVoiceMode:
+                    ChatButtonBlock.Set(joystickButtons.InputMapping, DigitalHelper.GetButtonPressXinput(button, state, index));
+                    break;
                 default:
                     break;
                     //throw new ArgumentOutOfRangeException();

@@ -62,6 +62,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.Utilities
                         var fieldValue = fieldInformation.FieldType == FieldType.DropdownIndex
                             ? fieldInformation.FieldOptions.IndexOf(fieldInformation.FieldValue).ToString()
                             : fieldInformation.FieldValue;
+                        // Initial D: "Connect to the online server" off -> [Network] NetworkMode=NoServer (every other field as is)
+                        fieldValue = Helpers.InitialDUnifiedMode.IniValue(_gameProfile, fieldInformation, fieldValue);
                         return current + $"{fieldInformation.FieldName}={fieldValue}{Environment.NewLine}";
                     });
             }

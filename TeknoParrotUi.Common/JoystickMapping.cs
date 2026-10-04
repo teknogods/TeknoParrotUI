@@ -264,7 +264,15 @@ namespace TeknoParrotUi.Common
         TPSystem5,
         TPSystem6,
         TPSystem7,
-        TPSystem8
+        TPSystem8,
+        // Initial D online chat (InitialDServer docs/CHAT_VOICE.md 2.4): not JVS switches, they go to the DLL through
+        // the TeknoParrot_Chat block (Jvs/ChatButtonBlock.cs)
+        ChatQuick1,
+        ChatQuick2,
+        ChatQuick3,
+        ChatQuick4,
+        ChatPushToTalk,
+        ChatVoiceMode
     }
 
     public enum RotaryInputMode

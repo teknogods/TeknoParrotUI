@@ -327,6 +327,10 @@
     <Compile Include="Helpers\VegasFfbDeviceProbe.cs" />
     <Compile Include="Helpers\GenreTranslationHelper.cs" />
     <Compile Include="Helpers\IniFile.cs" />
+    <Compile Include="Helpers\InitialDFirewall.cs" />
+    <Compile Include="Helpers\InitialDLanPresence.cs" />
+    <Compile Include="Helpers\InitialDOnlineHelper.cs" />
+    <Compile Include="Helpers\InitialDUnifiedMode.cs" />
     <Compile Include="Helpers\NativeMethods.cs" />
     <Compile Include="Helpers\OAuthHelper.cs" />
     <Compile Include="Helpers\PEPatcher.cs" />
@@ -506,6 +510,13 @@
     <Compile Include="Converters\StringToBoolConverter.cs" />
     <Compile Include="Views\GameRunning.xaml.cs">
       <DependentUpon>GameRunning.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GameRunning.InitialDOnline.cs">
+      <DependentUpon>GameRunning.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InitialDLaunchFlow.cs" />
+    <Compile Include="Views\Library.InitialDLan.cs">
+      <DependentUpon>Library.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\GitHubUpdates.xaml.cs">
       <DependentUpon>GitHubUpdates.xaml</DependentUpon>

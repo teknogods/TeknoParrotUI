@@ -174,6 +174,16 @@ namespace TeknoParrotUi
         }
 
         /// <summary>
+        /// Initial D Online: the non-modal "why online play failed" toast after an Initial D game exits (from the DLL's
+        /// idonline_status.json), shown longer than a save notice, with a button to the Account page.
+        /// </summary>
+        public void ShowInitialDOnlineMessage(string message)
+        {
+            SaveCompleteSnackbar.MessageQueue.Enqueue(message, TeknoParrotUi.Properties.Resources.InitialDOnlineToastAction,
+                _ => BtnLogin(null, null), null, false, true, TimeSpan.FromSeconds(12));
+        }
+
+        /// <summary>
         /// Loads the about screen
         /// </summary>
         /// <param name="sender"></param>

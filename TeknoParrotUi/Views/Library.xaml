@@ -14,6 +14,7 @@
              Background="{DynamicResource MaterialDesignPaper}"
              FontFamily="pack://application:,,,/Resources/#Inter"
              Loaded="UserControl_Loaded"
+             Unloaded="UserControl_Unloaded"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
              mc:Ignorable="d">
     <UserControl.Resources>
@@ -282,6 +283,36 @@
                                         Margin="0,12,0,0"
                                         HorizontalAlignment="Center" />
 
+            <!-- Initial D matchmaking titles: the other TeknoParrot PCs of this LAN (UNIFIED_MODE.md 2.7, 3.4) -->
+            <Border x:Name="initialDLanPanel"
+                    Margin="10,8,10,0"
+                    Padding="8,6"
+                    CornerRadius="3"
+                    BorderThickness="1"
+                    BorderBrush="{DynamicResource MaterialDesignDivider}"
+                    Visibility="Collapsed">
+                <StackPanel>
+                    <TextBlock x:Name="initialDLanText"
+                               FontSize="13"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap" />
+                    <WrapPanel x:Name="initialDLanButtons"
+                               HorizontalAlignment="Center"
+                               Margin="0,6,0,0">
+                        <Button x:Name="initialDLanTogetherButton"
+                                Margin="0,0,6,0"
+                                Padding="8,2"
+                                Content="{x:Static p:Resources.InitialDLanStartTogether}"
+                                Click="BtnInitialDLanStartTogether" />
+                        <Button x:Name="initialDLanAloneButton"
+                                Padding="8,2"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Content="{x:Static p:Resources.InitialDLanStartAlone}"
+                                Click="BtnInitialDLanStartAlone" />
+                    </WrapPanel>
+                </StackPanel>
+            </Border>
+
         </StackPanel>
         <!-- Action rows are stacked from the bottom up by LayoutActionRows() in the code-behind. -->
         <UniformGrid x:Name="playRow"
@@ -322,6 +353,24 @@
                                VerticalAlignment="Center"
                                TextTrimming="CharacterEllipsis"
                                Text="{x:Static p:Resources.LibraryPlayOnline}" />
+                </StackPanel>
+            </Button>
+            <!-- Initial D matchmaking titles: a per-launch friends code (UNIFIED_MODE.md 4.2) in place of TeknoParrot Online -->
+            <Button x:Name="playWithFriendsButton"
+                    Margin="4,4,4,2"
+                    Style="{StaticResource LibraryActionButton}"
+                    Visibility="Collapsed"
+                    Click="BtnPlayWithFriends">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Margin="0,0,8,0"
+                                             VerticalAlignment="Center"
+                                             Kind="AccountGroup"
+                                             Height="24"
+                                             Width="24" />
+                    <TextBlock FontSize="14"
+                               VerticalAlignment="Center"
+                               TextTrimming="CharacterEllipsis"
+                               Text="{x:Static p:Resources.LibraryPlayWithFriends}" />
                 </StackPanel>
             </Button>
         </UniformGrid>

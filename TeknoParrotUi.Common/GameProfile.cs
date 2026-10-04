@@ -21,7 +21,10 @@ namespace TeknoParrotUi.Common
         NamcoId,
         HighscoreSerial,
         MarioKartId,
-        NesysId
+        NesysId,
+        // Initial D Online (ID4 JP / ID5 / ID6 / ID7 / ID8): the PCB ID in OnlineIdFieldName plus its secret in the
+        // "OnlineSecret" field, both from the teknoparrot.com account (InitialDOnlineHelper).
+        InitialD
     }
 
     [Serializable]

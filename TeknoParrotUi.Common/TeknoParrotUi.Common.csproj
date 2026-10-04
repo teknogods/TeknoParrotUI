@@ -269,6 +269,7 @@
     <Compile Include="CabinetOutputSettings.cs" />
     <Compile Include="InputCode.cs" />
     <Compile Include="JoystickMapping.cs" />
+    <Compile Include="Jvs\ChatButtonBlock.cs" />
     <Compile Include="Jvs\JvsHelper.cs" />
     <Compile Include="Jvs\JvsPackageEmulator.cs" />
     <Compile Include="Pipes\RawThrills.cs" />

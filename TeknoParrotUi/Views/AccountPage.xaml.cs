@@ -12,6 +12,7 @@ using MaterialDesignThemes.Wpf;
 using System.ComponentModel;
 using TeknoParrotUi.Helpers;
 using TeknoParrotUi.Properties;
+using R = TeknoParrotUi.Properties.Resources;
 
 namespace TeknoParrotUi.Views
 {
@@ -36,7 +37,17 @@ namespace TeknoParrotUi.Views
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine("AccountPage Loaded");
+            InitialDConnectCheckBox.IsChecked = Lazydata.ParrotData?.InitialDConnectToServer != false;
             await CheckLoginStatus();
+        }
+
+        /// <summary>Initial D: "Connect to the online server" (the privacy opt-out of the unified network mode).</summary>
+        private void InitialDConnectCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+            if (Lazydata.ParrotData == null)
+                return;
+            Lazydata.ParrotData.InitialDConnectToServer = InitialDConnectCheckBox.IsChecked == true;
+            JoystickHelper.Serialize();
         }
 
         private async Task CheckLoginStatus()
@@ -64,6 +75,8 @@ namespace TeknoParrotUi.Views
                     {
                         await LoadUserData();
                     }
+
+                    await RefreshInitialDOnlineAsync();
                 }
                 else
                 {
@@ -88,6 +101,7 @@ namespace TeknoParrotUi.Views
             MarioKartIDTextBox.Text = userData.MarioKartId;
             UserTierText.Text = string.Format(TeknoParrotUi.Properties.Resources.AccountPageTierPrefix, userData.Tier);
             UserTierText.Visibility = Visibility.Visible;
+            _initialDRank = userData.InitialDRank;
 
             UpdateSubscriptionUI(userData);
         }
@@ -181,6 +195,10 @@ namespace TeknoParrotUi.Views
                     MarioKartIDTextBox.Text = string.Empty;
                     UserTierText.Text = TeknoParrotUi.Properties.Resources.AccountPageTierNone;
                     UserTierText.Visibility = Visibility.Collapsed;
+                    InitialDOnlineCard.Visibility = Visibility.Collapsed;
+                    _initialDRank = null;
+                    _initialDMachine = null;
+                    _initialDMachineKnown = false;
 
                     _cachedUserData = null;
                     _lastDataFetchTime = DateTime.MinValue;
@@ -201,6 +219,7 @@ namespace TeknoParrotUi.Views
                         UserInfoCard.Visibility = Visibility.Visible;
                         UserTierText.Visibility = Visibility.Visible;
                         await LoadUserData();
+                        await RefreshInitialDOnlineAsync();
                     }
                     else
                     {
@@ -454,6 +473,358 @@ namespace TeknoParrotUi.Views
             process.WaitForExit();
         }
 
+        // =============================================================================================================
+        // Initial D Online (InitialDServer docs/IDENTITY_AND_BADGES.md 4.4). Everything here is started by the user on this
+        // page; nothing runs at game launch. The rank is display only (api/User/Profile); the games get theirs from the
+        // Initial D server, never from TeknoParrotUI.
+        // =============================================================================================================
+
+        private int? _initialDRank;
+        private InitialDOnlineHelper.MachineInfo _initialDMachine;
+        private bool _initialDMachineKnown;
+        private InitialDOnlineHelper.ApiClient _initialDApi;
+        private bool _initialDBusy;
+
+        private InitialDOnlineHelper.ApiClient InitialDApi =>
+            _initialDApi ??= new InitialDOnlineHelper.ApiClient(InitialDTokenAsync, InitialDFreshLoginAsync);
+
+        private bool InitialDSupporter => _initialDRank.HasValue && _initialDRank.Value >= 1 && _initialDRank.Value <= 5;
+
+        private async Task<string> InitialDTokenAsync()
+        {
+            var oAuthHelper = _app.OAuthHelper;
+            return await oAuthHelper.EnsureAuthenticatedAsync(false) ? oAuthHelper.GetAccessToken() : null;
+        }
+
+        /// <summary>The step-up the secret reads need: the browser login again with prompt=login (bounded wait).</summary>
+        private async Task<bool> InitialDFreshLoginAsync()
+        {
+            ShowInitialDMessage(R.InitialDOnlineFreshLoginPrompt, false);
+            var login = _app.OAuthHelper.AuthenticateAsync(true);
+            var finished = await Task.WhenAny(login, Task.Delay(TimeSpan.FromMinutes(5)));
+            return finished == login && login.Result;
+        }
+
+        private async Task RefreshInitialDOnlineAsync()
+        {
+            if (!_isLoggedIn)
+            {
+                InitialDOnlineCard.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            var result = await InitialDApi.GetMachineAsync();
+            if (result.Error == InitialDOnlineHelper.ApiError.FeatureOff || result.Error == InitialDOnlineHelper.ApiError.NotLoggedIn)
+            {
+                // The website has not switched Initial D Online on (or the login is gone): show nothing.
+                InitialDOnlineCard.Visibility = Visibility.Collapsed;
+                return;
+            }
+
+            InitialDOnlineCard.Visibility = Visibility.Visible;
+            if (result.Ok)
+            {
+                _initialDMachine = result.Value;
+                _initialDMachineKnown = true;
+            }
+            else if (result.Error == InitialDOnlineHelper.ApiError.NoMachine)
+            {
+                _initialDMachine = null;
+                _initialDMachineKnown = true;
+            }
+            else
+            {
+                ShowInitialDMessage(InitialDOnlineHelper.DescribeError(result), true);
+            }
+            UpdateInitialDView();
+        }
+
+        private string SelectedVisibility() =>
+            InitialDVisPublic.IsChecked == true ? "public" :
+            InitialDVisOwn.IsChecked == true ? "own" :
+            InitialDVisOff.IsChecked == true ? "off" : null;
+
+        private void UpdateInitialDView()
+        {
+            var rank = InitialDOnlineHelper.Rank(_initialDRank);
+            InitialDRankPanel.Visibility = rank != null ? Visibility.Visible : Visibility.Collapsed;
+            if (rank != null)
+                StyleRankBadge(InitialDRankBadge, InitialDRankText, rank, true);
+            InitialDKingAuraText.Visibility = rank != null && rank.Id7KingAura ? Visibility.Visible : Visibility.Collapsed;
+            InitialDPeasantNotice.Visibility = rank != null && rank.Tier == 0 ? Visibility.Visible : Visibility.Collapsed;
+            BuildInitialDLadder(rank);
+
+            var local = InitialDOnlineHelper.LocalCredential();
+            var machine = _initialDMachine;
+            bool known = _initialDMachineKnown;
+            bool here = machine != null && local.HasValue && InitialDOnlineHelper.SamePcbId(local.Value.PcbId, machine.PcbId);
+            var visibility = SelectedVisibility();
+
+            InitialDPcbIdTextBox.Text = machine == null ? "" : InitialDOnlineHelper.NormalizePcbId(machine.PcbId) ?? machine.PcbId;
+            var text = "";
+            if (known)
+            {
+                if (machine == null)
+                {
+                    text = R.InitialDOnlineNotRegistered;
+                    if (InitialDSupporter && visibility == null)
+                        text += " " + R.InitialDOnlineChooseVisibilityFirst;
+                }
+                else
+                {
+                    text = here ? R.InitialDOnlineRegisteredHere : R.InitialDOnlineRegisteredElsewhere;
+                    if (machine.Status == "banned")
+                        text += " " + R.InitialDOnlineErrorBanned;
+                    else if (machine.Status == "suspended")
+                        text += " " + R.InitialDOnlineMachineSuspended;
+                    if (!string.IsNullOrEmpty(machine.LastSeenUtc))
+                        text += " " + string.Format(R.InitialDOnlineLastSeen, FormatUtc(machine.LastSeenUtc));
+                    if (!string.IsNullOrEmpty(machine.MachineChangedUtc))
+                        text += " " + string.Format(R.InitialDOnlineMachineChanged, FormatUtc(machine.MachineChangedUtc));
+                }
+            }
+            InitialDMachineText.Text = text;
+
+            // Supporters choose who sees their rank; there is no default (spec 2.7 / 3.15). Free accounts get the notice.
+            InitialDVisibilityPanel.Visibility = known && InitialDSupporter ? Visibility.Visible : Visibility.Collapsed;
+            InitialDSaveVisibilityButton.Visibility = machine != null ? Visibility.Visible : Visibility.Collapsed;
+            InitialDSaveVisibilityButton.IsEnabled = !_initialDBusy && visibility != null;
+            if (visibility != null && rank != null)
+            {
+                InitialDPreviewPanel.Visibility = Visibility.Visible;
+                StyleRankBadge(InitialDPreviewBadge, InitialDPreviewText, visibility == "public" ? rank : InitialDOnlineHelper.Ladder[0], true);
+            }
+            else
+            {
+                InitialDPreviewPanel.Visibility = Visibility.Collapsed;
+            }
+
+            InitialDRegisterButton.Visibility = known && machine == null ? Visibility.Visible : Visibility.Collapsed;
+            InitialDRegisterButton.IsEnabled = !_initialDBusy && (!InitialDSupporter || visibility != null);
+            InitialDUseHereButton.Visibility = machine != null && !here ? Visibility.Visible : Visibility.Collapsed;
+            InitialDRegenerateButton.Visibility = machine != null ? Visibility.Visible : Visibility.Collapsed;
+            InitialDRemoveButton.Visibility = machine != null ? Visibility.Visible : Visibility.Collapsed;
+            InitialDUseHereButton.IsEnabled = !_initialDBusy;
+            InitialDRegenerateButton.IsEnabled = !_initialDBusy;
+            InitialDRemoveButton.IsEnabled = !_initialDBusy;
+
+            var status = InitialDOnlineHelper.ReadNewestStatus();
+            InitialDLastStatusText.Text = status == null
+                ? R.InitialDOnlineNoStatus
+                : string.Format(R.InitialDOnlineLastStatus, status.Title, status.WrittenUtc.ToLocalTime().ToString("g"), InitialDOnlineHelper.Describe(status));
+        }
+
+        private static string FormatUtc(string value) =>
+            DateTime.TryParse(value, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AdjustToUniversal | System.Globalization.DateTimeStyles.AssumeUniversal, out var utc)
+                ? utc.ToLocalTime().ToString("g")
+                : value;
+
+        private static System.Windows.Media.Color RankColor(string rrggbb) =>
+            System.Windows.Media.Color.FromRgb(Convert.ToByte(rrggbb.Substring(0, 2), 16), Convert.ToByte(rrggbb.Substring(2, 2), 16), Convert.ToByte(rrggbb.Substring(4, 2), 16));
+
+        /// <summary>
+        /// The insignia in its material: bronze / silver plain, gold with a glow from GENERAL, and for 5-STAR GENERAL and
+        /// PRESIDENT a fire / platinum gradient with a pulsing glow (motion is exclusive to the top two ranks, spec 2.2).
+        /// </summary>
+        private static void StyleRankBadge(Border badge, TextBlock text, InitialDOnlineHelper.RankStyle rank, bool animate)
+        {
+            text.Text = rank.Display;
+            text.Effect = null;
+            badge.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0x14, 0x14, 0x18));
+            if (rank.Color == null)
+            {
+                // PEASANT: the plain word, no colour, no frame.
+                text.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0xC8, 0xC8, 0xC8));
+                badge.BorderThickness = new Thickness(0);
+                return;
+            }
+
+            var main = RankColor(rank.Color);
+            if (rank.Color2 != null)
+            {
+                var gradient = new System.Windows.Media.LinearGradientBrush { StartPoint = new Point(0, 0), EndPoint = new Point(1, 1) };
+                gradient.GradientStops.Add(new System.Windows.Media.GradientStop(RankColor(rank.Color2), 0.0));
+                gradient.GradientStops.Add(new System.Windows.Media.GradientStop(main, 0.55));
+                gradient.GradientStops.Add(new System.Windows.Media.GradientStop(RankColor(rank.Color2), 1.0));
+                text.Foreground = gradient;
+            }
+            else
+            {
+                text.Foreground = new System.Windows.Media.SolidColorBrush(main);
+            }
+            badge.BorderBrush = new System.Windows.Media.SolidColorBrush(main);
+            badge.BorderThickness = new Thickness(rank.Stars ? 2 : 1);
+
+            if (rank.Stars)
+            {
+                var glow = new System.Windows.Media.Effects.DropShadowEffect { Color = main, ShadowDepth = 0, BlurRadius = rank.Motion ? 16 : 10, Opacity = 0.9 };
+                text.Effect = glow;
+                if (rank.Motion && animate)
+                {
+                    var pulse = new System.Windows.Media.Animation.DoubleAnimation(8, 28, TimeSpan.FromSeconds(1.1))
+                    {
+                        AutoReverse = true,
+                        RepeatBehavior = System.Windows.Media.Animation.RepeatBehavior.Forever,
+                    };
+                    glow.BeginAnimation(System.Windows.Media.Effects.DropShadowEffect.BlurRadiusProperty, pulse);
+                }
+            }
+        }
+
+        /// <summary>The ladder, the own rank lit and the others dimmed ("locked").</summary>
+        private void BuildInitialDLadder(InitialDOnlineHelper.RankStyle current)
+        {
+            InitialDLadderPanel.Children.Clear();
+            if (current == null)
+            {
+                InitialDLadderPanel.Visibility = Visibility.Collapsed;
+                return;
+            }
+            InitialDLadderPanel.Visibility = Visibility.Visible;
+            foreach (var rank in InitialDOnlineHelper.Ladder)
+            {
+                var text = new TextBlock { FontWeight = FontWeights.Bold, FontSize = 12 };
+                var badge = new Border { CornerRadius = new CornerRadius(3), Padding = new Thickness(8, 2, 8, 2), Margin = new Thickness(0, 0, 6, 6), Child = text };
+                StyleRankBadge(badge, text, rank, false);
+                badge.Opacity = rank.Tier == current.Tier ? 1.0 : 0.45;
+                InitialDLadderPanel.Children.Add(badge);
+            }
+        }
+
+        private void ShowInitialDMessage(string message, bool error)
+        {
+            InitialDMessageText.Text = message ?? "";
+            InitialDMessageText.Visibility = string.IsNullOrEmpty(message) ? Visibility.Collapsed : Visibility.Visible;
+            if (error)
+                InitialDMessageText.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0xE0, 0x40, 0x30));
+            else
+                InitialDMessageText.ClearValue(TextBlock.ForegroundProperty);
+        }
+
+        /// <summary>Runs one user action (buttons disabled meanwhile), then reloads the machine card.</summary>
+        private async Task RunInitialDAsync(Func<Task<(bool Ok, string Message)>> work)
+        {
+            if (_initialDBusy)
+                return;
+            _initialDBusy = true;
+            UpdateInitialDView();
+            ShowInitialDMessage(R.InitialDOnlineWorking, false);
+            (bool Ok, string Message) outcome;
+            try
+            {
+                outcome = await work();
+            }
+            catch (Exception ex)
+            {
+                outcome = (false, string.Format(R.InitialDOnlineErrorGeneric, ex.Message));
+            }
+            try
+            {
+                await RefreshInitialDOnlineAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"InitialDOnline: refresh failed: {ex.Message}");
+            }
+            finally
+            {
+                _initialDBusy = false;
+                UpdateInitialDView();
+            }
+            ShowInitialDMessage(outcome.Message, !outcome.Ok);
+        }
+
+        private static (bool Ok, string Message) StoreInitialDPair(InitialDOnlineHelper.CredentialInfo pair)
+        {
+            var profiles = InitialDOnlineHelper.StoreCredential(pair.PcbId, pair.Secret);
+            return (true, string.Format(R.InitialDOnlineSaved, profiles));
+        }
+
+        private async void InitialDRegister_Click(object sender, RoutedEventArgs e)
+        {
+            var visibility = SelectedVisibility();
+            if (InitialDSupporter && visibility == null)
+            {
+                ShowInitialDMessage(R.InitialDOnlineChooseVisibilityFirst, true);
+                return;
+            }
+            var consent = visibility == null ? null : new InitialDOnlineHelper.ConsentChoice { Visibility = visibility };
+            await RunInitialDAsync(async () =>
+            {
+                var result = await InitialDApi.ProvisionAsync(Environment.MachineName, consent);
+                return result.Ok ? StoreInitialDPair(result.Value) : (false, InitialDOnlineHelper.DescribeError(result));
+            });
+        }
+
+        private async void InitialDUseHere_Click(object sender, RoutedEventArgs e)
+        {
+            if (!MessageBoxHelper.WarningYesNo(R.InitialDOnlineConfirmUseHere))
+                return;
+            await RunInitialDAsync(async () =>
+            {
+                var result = await InitialDApi.GetCredentialAsync();
+                return result.Ok ? StoreInitialDPair(result.Value) : (false, InitialDOnlineHelper.DescribeError(result));
+            });
+        }
+
+        private async void InitialDRegenerate_Click(object sender, RoutedEventArgs e)
+        {
+            var machine = _initialDMachine;
+            if (machine == null || !MessageBoxHelper.WarningYesNo(R.InitialDOnlineConfirmRegenerate))
+                return;
+            await RunInitialDAsync(async () =>
+            {
+                var result = await InitialDApi.RegenerateAsync(machine.PcbId);
+                return result.Ok ? StoreInitialDPair(result.Value) : (false, InitialDOnlineHelper.DescribeError(result));
+            });
+        }
+
+        private async void InitialDRemove_Click(object sender, RoutedEventArgs e)
+        {
+            var machine = _initialDMachine;
+            if (machine == null || !MessageBoxHelper.WarningYesNo(R.InitialDOnlineConfirmRemove))
+                return;
+            await RunInitialDAsync(async () =>
+            {
+                var result = await InitialDApi.RevokeAsync(machine.PcbId);
+                if (!result.Ok)
+                    return (false, InitialDOnlineHelper.DescribeError(result));
+                InitialDOnlineHelper.ClearCredential(machine.PcbId);
+                return (true, R.InitialDOnlineRemoved);
+            });
+        }
+
+        private async void InitialDSaveVisibility_Click(object sender, RoutedEventArgs e)
+        {
+            var visibility = SelectedVisibility();
+            if (visibility == null)
+                return;
+            await RunInitialDAsync(async () =>
+            {
+                var result = await InitialDApi.SaveConsentAsync(new InitialDOnlineHelper.ConsentChoice { Visibility = visibility });
+                return result.Ok ? (true, R.InitialDOnlineVisibilitySaved) : (false, InitialDOnlineHelper.DescribeError(result));
+            });
+        }
+
+        private void InitialDVisibility_Checked(object sender, RoutedEventArgs e)
+        {
+            if (IsLoaded)
+                UpdateInitialDView();
+        }
+
+        private void InitialDLearnMore_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"InitialDOnline: cannot open {e.Uri}: {ex.Message}");
+            }
+            e.Handled = true;
+        }
+
         private class UserProfile
         {
             public string Id { get; set; }
@@ -466,6 +837,9 @@ namespace TeknoParrotUi.Views
             public bool IsSubscribed { get; set; }
             public List<SerialStatus> Serials { get; set; }
             public DateTime? ExpirationDate { get; set; }
+            // Initial D Online rank from the website (0 = PEASANT .. 5 = PRESIDENT), display only; null on older sites.
+            public int? InitialDRank { get; set; }
+            public string InitialDRankName { get; set; }
         }
 
         public class SerialStatus

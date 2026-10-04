@@ -6,6 +6,7 @@ using SharpDX.DirectInput;
 using SharpDX.XInput;
 using TeknoParrotUi.Common.InputListening;
 using TeknoParrotUi.Common.InputProfiles.Helpers;
+using TeknoParrotUi.Common.Jvs;
 
 namespace TeknoParrotUi.Common
 {
@@ -164,8 +165,15 @@ namespace TeknoParrotUi.Common
             {
                 // ignored
             }
-            while (!KillMe)
-                Thread.Sleep(1000);
+            // Initial D online chat: mapped chat buttons go to the DLL's TeknoParrot_Chat block (null = none bound)
+            using (var chat = ChatButtonBlock.TryCreate(joystickButtons))
+            {
+                while (!KillMe)
+                {
+                    chat?.Refresh();
+                    Thread.Sleep(chat != null ? 50 : 1000);
+                }
+            }
         }
 
         public void WndProcReceived(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)

@@ -73,5 +73,47 @@
             Text="{x:Static p:Resources.GameRunningDefaultOutput}"
             TextWrapping="Wrap"
             VerticalScrollBarVisibility="Auto" />
+
+        <!--  Initial D: live online status (UNIFIED_MODE.md 2.4 / 2.7); code in GameRunning.InitialDOnline.cs  -->
+        <Border
+            x:Name="initialDOnlinePanel"
+            Grid.Row="5"
+            Padding="14,10"
+            Background="{DynamicResource MaterialDesignDivider}"
+            CornerRadius="4"
+            Loaded="InitialDOnlinePanel_OnLoaded"
+            Unloaded="InitialDOnlinePanel_OnUnloaded"
+            Visibility="Collapsed">
+            <StackPanel>
+                <TextBlock
+                    FontSize="12"
+                    Opacity="0.7"
+                    Text="{x:Static p:Resources.InitialDUnifiedPanelTitle}" />
+                <TextBlock
+                    x:Name="initialDOnlineHeadline"
+                    Margin="0,2,0,0"
+                    FontSize="16"
+                    FontWeight="Medium"
+                    TextWrapping="Wrap" />
+                <TextBlock
+                    x:Name="initialDOnlineDetails"
+                    Margin="0,4,0,0"
+                    TextWrapping="Wrap"
+                    Visibility="Collapsed" />
+                <StackPanel
+                    x:Name="initialDOnlinePartyPanel"
+                    Margin="0,6,0,0"
+                    Orientation="Horizontal"
+                    Visibility="Collapsed">
+                    <TextBlock x:Name="initialDOnlinePartyText" VerticalAlignment="Center" />
+                    <Button
+                        x:Name="initialDOnlineCopyInvite"
+                        Margin="12,0,0,0"
+                        Click="InitialDOnlineCopyInvite_Click"
+                        Content="{x:Static p:Resources.InitialDFriendsCopyInvite}"
+                        Style="{StaticResource MaterialDesignFlatButton}" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

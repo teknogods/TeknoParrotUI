@@ -6,11 +6,14 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaInitialD</EmulationProfile>
-	<GameProfileRevision>37</GameProfileRevision>
+	<GameProfileRevision>48</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
-	<HasTpoSupport>true</HasTpoSupport>
+	<HasTpoSupport>false</HasTpoSupport>
 	<LaunchSecondExecutableMinimized>true</LaunchSecondExecutableMinimized>
+	<OnlineIdFieldName>OnlineID</OnlineIdFieldName>
+	<OnlineIdType>InitialD</OnlineIdType>
+	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/InitialD</OnlineProfileURL>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -65,6 +68,7 @@
 			<FieldName>Framelimiter</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
+			<Hint>Fixed at 60 fps for Initial D network play: always online, and in LAN / offline play once the new LAN mode is on (the online server switches it on step by step). Until then, and with the old LAN-pair settings, this setting still applies.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -83,6 +87,44 @@
 			<FieldName>Windowed</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ResolutionWidth</FieldName>
+			<FieldValue>1360</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Window size (fullscreen: the display mode). 1360 x 768 is the arcade resolution. Above it the game keeps running at 1360x768 and TeknoParrot scales the whole picture (ResolutionMode Upscale), so every menu, story talk box, ticker and HUD element stays in place. Any size up to 3840 x 2160 (4K) and beyond; use 16:9 sizes (1920x1080, 2560x1440, 3840x2160). Windows larger than the desktop are allowed.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ResolutionHeight</FieldName>
+			<FieldValue>768</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>See ResolutionWidth. 768 = the arcade resolution.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ResolutionMode</FieldName>
+			<FieldValue>Upscale</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Upscale</string>
+				<string>Game</string>
+			</FieldOptions>
+			<Hint>Upscale (recommended): the game runs at its native 1360x768 and the picture is scaled to ResolutionWidth x ResolutionHeight; all 2D elements stay where they belong. Game: the old behaviour, the game's own resolution code runs at that size (above 1360x768 some menus, story talk boxes and ticker clips are misplaced).</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>RenderResolution</FieldName>
+			<FieldValue>Auto</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Auto</string>
+				<string>Stock</string>
+				<string>1.5x</string>
+				<string>2x</string>
+			</FieldOptions>
+			<Hint>3D scene resolution when the output is above 1360x768 (Upscale). Auto: at least the output size (1:1 sharp 3D). Stock: the renderer.ini of the game (ID6 / ID7 962x768, ID8 1443x1152). 1.5x / 2x: that multiple of the output (supersampling, more GPU load).</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -111,8 +153,11 @@
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
 			<FieldName>Dhcp</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Advanced</VisibleWhenValue>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
+			<Hint>Advanced. The cabinet's own network record in the game's EEPROM (what the game's test menu shows). Online and LAN play use the Windows network of the adapter above, not these values. Leave them as they are unless a test menu needs a fixed address.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -202,51 +247,234 @@
     </FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
+			<FieldName>Show settings</FieldName>
+			<FieldValue>Basic</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Basic</string>
+				<string>Advanced</string>
+			</FieldOptions>
+			<Hint>Initial D starts online by default: at every start TeknoParrot checks the online server, and with this PC registered (Account page) you get nationwide matchmaking, events and rankings. Without registration, or when the server cannot be reached, the game starts offline within seconds. 'Connect to the online server' on the Account page switches the online check off. Basic: nothing to set. Advanced: online server, LAN group and peers, seat, cabinet serial, the cabinet's EEPROM network record.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>NetworkMode</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Debug</VisibleWhenValue>
+			<FieldValue>Auto</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Auto</string>
+				<string>NoServer</string>
+				<string>Legacy</string>
+			</FieldOptions>
+			<Hint>Hidden (edit the profile file only). Auto (default): online when the online server answers and this PC is admitted, otherwise offline / LAN. NoServer: never contact the online server (TeknoParrotUI writes this into teknoparrot.ini when 'Connect to the online server' is off). Legacy: the old network code exactly as before (temporary safety valve).</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
 			<FieldName>Ip</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Advanced</VisibleWhenValue>
 			<FieldValue>192.168.1.2</FieldValue>
 			<FieldType>Text</FieldType>
+			<Hint>Advanced. The cabinet's address in the game's EEPROM network record (when Dhcp is off). Not used for online or LAN play.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
 			<FieldName>Mask</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Advanced</VisibleWhenValue>
 			<FieldValue>255.255.255.0</FieldValue>
 			<FieldType>Text</FieldType>
+			<Hint>Advanced. The subnet mask in the game's EEPROM network record (when Dhcp is off). Not used for online or LAN play.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
 			<FieldName>Gateway</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Advanced</VisibleWhenValue>
 			<FieldValue>192.168.1.1</FieldValue>
 			<FieldType>Text</FieldType>
+			<Hint>Advanced. The gateway in the game's EEPROM network record (when Dhcp is off). Not used for online or LAN play.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
 			<FieldName>Dns1</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Advanced</VisibleWhenValue>
 			<FieldValue>192.168.1.1</FieldValue>
 			<FieldType>Text</FieldType>
+			<Hint>Advanced. The first DNS server in the game's EEPROM network record (when Dhcp is off). Not used for online or LAN play.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
 			<FieldName>Dns2</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Advanced</VisibleWhenValue>
 			<FieldValue>0.0.0.0</FieldValue>
 			<FieldType>Text</FieldType>
+			<Hint>Advanced. The second DNS server in the game's EEPROM network record (when Dhcp is off). Not used for online or LAN play.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
-			<FieldName>BroadcastIP</FieldName>
-			<FieldValue>192.168.1.255</FieldValue>
-			<FieldType>Text</FieldType>
+			<FieldName>AllNetMode</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Debug</VisibleWhenValue>
+			<FieldValue>Dummy</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Dummy</string>
+				<string>Real</string>
+			</FieldOptions>
+			<Hint>Dummy = the game's own dummy ALL.Net (no ALL.Net authentication; the cabinet uses a local dummy store). Real = authenticate against the server's ALL.Net (store name / region come from the server); needs a real network adapter address and DongleRegion / PcbRegion JAPAN. Online play only.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
-			<FieldName>Cab1IP</FieldName>
-			<FieldValue>192.168.1.2</FieldValue>
+			<FieldName>LanGroup</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Advanced</VisibleWhenValue>
+			<FieldValue></FieldValue>
 			<FieldType>Text</FieldType>
+			<Hint>Advanced. LAN group of this cabinet. Empty: TeknoParrot links with the other TeknoParrot PCs of your network after you confirm the link once. A name (the same on every cabinet of one store) separates stores that share a network, counts as the confirmation, and allows LAN play on a network Windows marks as Public. Only PCs with the same group and the same game link.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
-			<FieldName>Cab2IP</FieldName>
-			<FieldValue>192.168.1.3</FieldValue>
+			<FieldName>LanPeers</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Advanced</VisibleWhenValue>
+			<FieldValue></FieldValue>
 			<FieldType>Text</FieldType>
+			<Hint>Advanced. Extra addresses to look for, separated by commas. Normally empty: TeknoParrot finds the other PCs by itself. Needed on networks that do not pass broadcasts (Tailscale and similar), and for a PC on another subnet.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>LanName</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Advanced</VisibleWhenValue>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Advanced. The name the other PCs show for this one. Empty = the Windows computer name. It is the only thing this PC puts on the network before a link.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>SeatNumber</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Advanced</VisibleWhenValue>
+			<FieldValue>AUTO</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>AUTO</string>
+				<string>SINGLE</string>
+				<string>A1</string>
+				<string>A2</string>
+				<string>B1</string>
+				<string>B2</string>
+				<string>C1</string>
+				<string>C2</string>
+				<string>D1</string>
+				<string>D2</string>
+			</FieldOptions>
+			<Hint>Advanced. Seat of this cabinet in its store. AUTO (recommended): TeknoParrot assigns the seat itself when it finds another TeknoParrot PC on your network, and SINGLE when it finds none. SINGLE: never seated. A1..D2: a fixed seat (tournaments, cabinets that must keep their place). A seat two PCs claim at once sends the later one to SINGLE.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>CabinetSerial</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Advanced</VisibleWhenValue>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Advanced. Optional cabinet id. Empty = a stable id generated from this PC. Set it only when two PCs would otherwise get the same id (cloned or imaged installs). Online play only. A registered PC uses its Online ID instead on the official server.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>OnlineID</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Debug</VisibleWhenValue>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Hidden: managed on the Account page (Initial D Online). Your Initial D Online PCB ID (AALG-...), filled in by TeknoParrotUI from your teknoparrot.com account. Used only for online play on the official server; offline and LAN play ignore it. One PC per account.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>OnlineSecret</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Debug</VisibleWhenValue>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Hidden: managed on the Account page (Initial D Online). The secret that belongs to OnlineID (43 characters). Keep it private: it lets anyone play as you. Used only for online play on the official server.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>PlaceId</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Debug</VisibleWhenValue>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Optional store id of this cabinet in AllNetMode=Dummy (decimal or 0x hex). Empty = derived from the cabinet id. Online play only.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>OnlineVerbose</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Debug</VisibleWhenValue>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Debug: log server box packets, store DB commands and more to TeknoParrot\id7online.log in the game folder.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>OnlineDebugPoller</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Debug</VisibleWhenValue>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Debug: log the game's network state (init sequence, store link, DB / match alive, ALL.Net) once per second to TeknoParrot\id7online.log.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>LagComp</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Debug</VisibleWhenValue>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Online only: show the opponent's car where it really is, predicted from each packet's age (100-300 ms internet latency: position error p95 about 1-2 m instead of 12-18 m). Also stops the opponent keeping its old pace for seconds after a crash or stop.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>MvSendDivisor</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Debug</VisibleWhenValue>
+			<FieldValue>1</FieldValue>
+			<FieldType>Numeric</FieldType>
+			<FieldMin>0</FieldMin>
+			<FieldMax>60</FieldMax>
+			<Hint>Online only: send your car state every N frames. 1 = 60 Hz (recommended with LagComp, about 9.4 kB/s), 0 = the game's own rate (30 Hz).</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>Chat</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Text chat with your rival in online matches (F2 type, Enter send, Esc close, Ctrl+1..4 quick phrases, /mute). Goes through the TeknoParrot server; nothing is stored.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Voice</CategoryName>
+			<FieldName>VoiceChat</FieldName>
+			<FieldValue>off</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>off</string>
+				<string>listen</string>
+				<string>talk</string>
+			</FieldOptions>
+			<Hint>Voice chat in online matches, through the server you play on (not stored, not recorded). talk uses your microphone (a headset is advised; no echo cancelling); F3: talk + listen -> listen only -> off.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Voice</CategoryName>
+			<FieldName>VoicePttKey</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>KeyCapture</FieldType>
+			<Hint>Optional push-to-talk key; empty = voice activation.</Hint>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
@@ -347,6 +575,30 @@
 		<JoystickButtons>
 			<ButtonName>Gear 6</ButtonName>
 			<InputMapping>P2Button6</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Chat: Quick 1</ButtonName>
+			<InputMapping>ChatQuick1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Chat: Quick 2</ButtonName>
+			<InputMapping>ChatQuick2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Chat: Quick 3</ButtonName>
+			<InputMapping>ChatQuick3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Chat: Quick 4</ButtonName>
+			<InputMapping>ChatQuick4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Voice: Push-to-talk</ButtonName>
+			<InputMapping>ChatPushToTalk</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Voice: Mode</ButtonName>
+			<InputMapping>ChatVoiceMode</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>
 </GameProfile>

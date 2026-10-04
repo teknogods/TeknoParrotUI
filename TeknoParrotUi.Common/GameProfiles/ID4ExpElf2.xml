@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaInitialDLindbergh</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<Patreon>false</Patreon>
@@ -110,6 +110,30 @@
 			<FieldName>ResolutionHeight</FieldName>
 			<FieldValue>768</FieldValue>
 			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ResolutionMode</FieldName>
+			<FieldValue>Upscale</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Upscale</string>
+				<string>Game</string>
+			</FieldOptions>
+			<Hint>Upscale (recommended): the game runs at its native 1360x768 and the picture is scaled to ResolutionWidth x ResolutionHeight; all 2D elements stay where they belong. Game: the old behaviour, the game's own resolution code runs at that size (above 1360x768 some menus, story talk boxes and ticker clips are misplaced).</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>RenderResolution</FieldName>
+			<FieldValue>Auto</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Auto</string>
+				<string>Stock</string>
+				<string>1.5x</string>
+				<string>2x</string>
+			</FieldOptions>
+			<Hint>3D scene resolution when the output is above 1360x768 (Upscale). Auto: the 3D frame buffer (FrameBufferWidth / FrameBufferHeight) is raised to the output size while it is at its default 962x768; a value you set there always wins. Stock: keep the frame buffer fields. 1.5x / 2x: that multiple of the output (supersampling, more GPU load).</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

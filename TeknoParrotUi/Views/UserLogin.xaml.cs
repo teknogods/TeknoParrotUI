@@ -204,6 +204,15 @@ namespace TeknoParrotUi.Views
                 return;
             }
 
+            // Initial D titles with built-in matchmaking are not played through TeknoParrot Online any more (owner
+            // decision 2026-10-02; UNIFIED_MODE.md): ID4 EXP and ID6 1.2, which have no matchmaking, keep TPO.
+            if (Helpers.InitialDUnifiedMode.IsTpoRetired(gameId))
+            {
+                MessageBox.Show(string.Format(Resources.InitialDTpoRetired, gameId), "TeknoParrot Online", MessageBoxButton.OK, MessageBoxImage.Information);
+                OnGameProcessExited(); // the room page must not wait for a game that never starts
+                return;
+            }
+
             this.uniqueRoomName = uniqueRoomName; // Store unique room name for later use
 
             var profileName = gameId + ".xml";

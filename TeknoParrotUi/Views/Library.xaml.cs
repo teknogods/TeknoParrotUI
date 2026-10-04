@@ -295,8 +295,9 @@ namespace TeknoParrotUi.Views
             var selectedGame = _gameNames[gameList.SelectedIndex];
             gameOnlineProfileButton.Visibility = selectedGame.OnlineProfileURL != "" ? Visibility.Visible : Visibility.Collapsed;
 
-            // Check online titles and show button if required
-            playOnlineButton.Visibility = selectedGame.HasTpoSupport ? Visibility.Visible : Visibility.Collapsed;
+            // Check online titles and show button if required. Initial D titles with matchmaking do not use TPO any more
+            // (they get "Play with friends" in its place); TPO stays for the titles without (ID4 EXP, ID6 1.2).
+            playOnlineButton.Visibility = selectedGame.HasTpoSupport && !InitialDUnifiedMode.IsTpoRetired(selectedGame) ? Visibility.Visible : Visibility.Collapsed;
 
             if (selectedGame.IsTpoExclusive)
             {
@@ -306,6 +307,9 @@ namespace TeknoParrotUi.Views
             {
                 gameLaunchButton.IsEnabled = true;
             }
+            playWithFriendsButton.Visibility = InitialDUnifiedMode.IsMatchmakingProfile(selectedGame) ? Visibility.Visible : Visibility.Collapsed;
+            // Initial D matchmaking titles: beacon on the LAN agent port while this title is selected (UNIFIED_MODE.md 2.7)
+            UpdateInitialDLanPresence(selectedGame);
 
             ShowGameInfo(selectedGame);
             delGame.IsEnabled = true;
@@ -375,6 +379,11 @@ namespace TeknoParrotUi.Views
                 notes = Properties.Resources.LibraryNoInfo;
                 gpuCompatibilityDisplay.SetGpuStatus(GPUSTATUS.NO_INFO, GPUSTATUS.NO_INFO, GPUSTATUS.NO_INFO);
             }
+            // Initial D old-loader profiles (ID5.xml / ID4Jap.xml): the ElfLoader 2 profile they were copied to.
+            var successor = InitialDUnifiedMode.SuccessorOf(game);
+            var moved = successor == null ? null : GameProfileLoader.UserProfiles?.FirstOrDefault(p => p.ProfileName == successor);
+            if (moved != null)
+                notes = string.Format(Properties.Resources.InitialDMovedTo, moved.GameNameInternal) + (string.IsNullOrWhiteSpace(notes) ? "" : "\n\n" + notes.Trim());
 
             gameNotesText.Text = notes?.Trim() ?? "";
             gameNotesPanel.Visibility = string.IsNullOrWhiteSpace(notes) ? Visibility.Collapsed : Visibility.Visible;
@@ -1987,6 +1996,8 @@ namespace TeknoParrotUi.Views
             CloseHighScoreWindow();
 
             var gameProfile = (GameProfile)((ListBoxItem)gameList.SelectedItem).Tag;
+            InitialDUnifiedMode.PrepareLaunch(gameProfile, null); // never a friends code in the test menu
+            StopInitialDLanPresence(); // the game's own LAN agent needs the port (LAN_AGENT.md 1)
 
             bool isTerminal = GetTerminalModeField(gameProfile) != null;
             if (!isTerminal && !gameProfile.HasSeparateTestMode)
@@ -2024,7 +2035,21 @@ namespace TeknoParrotUi.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void BtnLaunchGame(object sender, RoutedEventArgs e)
+        private async void BtnLaunchGame(object sender, RoutedEventArgs e)
+        {
+            await LaunchSelectedGame(false);
+        }
+
+        /// <summary>
+        /// Initial D matchmaking titles: Play with a friends code for this one start (UNIFIED_MODE.md 4.2).
+        /// </summary>
+        private async void BtnPlayWithFriends(object sender, RoutedEventArgs e)
+        {
+            CloseHighScoreWindow();
+            await LaunchSelectedGame(true);
+        }
+
+        private async Task LaunchSelectedGame(bool withFriends)
         {
             if (gameList.Items.Count == 0 || gameList.SelectedItem == null)
                 return;
@@ -2033,13 +2058,45 @@ namespace TeknoParrotUi.Views
 
             var gameProfile = (GameProfile)((ListBoxItem)gameList.SelectedItem).Tag;
 
+            // Initial D matchmaking titles: the one-time notice, the registration check and the friends code (library
+            // launches only; every other game starts exactly as before).
+            if (withFriends || InitialDUnifiedMode.IsMatchmakingProfile(gameProfile))
+            {
+                var launchEnabled = gameLaunchButton.IsEnabled;
+                gameLaunchButton.IsEnabled = false;
+                playWithFriendsButton.IsEnabled = false;
+                bool go;
+                try
+                {
+                    go = await InitialDLaunchFlow.BeforeLaunchAsync(gameProfile, withFriends, Window.GetWindow(this));
+                }
+                finally
+                {
+                    gameLaunchButton.IsEnabled = launchEnabled;
+                    playWithFriendsButton.IsEnabled = true;
+                }
+                if (!go)
+                    return;
+            }
+            else
+            {
+                InitialDUnifiedMode.PrepareLaunch(gameProfile, null);
+            }
+
             Lazydata.ParrotData.LastPlayed = gameProfile.GameNameInternal;
             JoystickHelper.Serialize();
+
+            // Initial D: the firewall rules once when a peer is on the LAN, then the agent port back to the game
+            InitialDLanBeforeLaunch(gameProfile);
 
             if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this, false))
             {
                 var gameRunning = new GameRunning(gameProfile, loader, dll, false, false, false, this);
                 Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
+            }
+            else
+            {
+                InitialDUnifiedMode.PrepareLaunch(gameProfile, null);
             }
         }
 

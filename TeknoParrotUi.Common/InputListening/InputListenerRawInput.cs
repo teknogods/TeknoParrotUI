@@ -1571,6 +1571,14 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.TPSystem8:
                     InputCode.TPSystem8 = pressed;
                     break;
+                case InputMapping.ChatQuick1:
+                case InputMapping.ChatQuick2:
+                case InputMapping.ChatQuick3:
+                case InputMapping.ChatQuick4:
+                case InputMapping.ChatPushToTalk:
+                case InputMapping.ChatVoiceMode:
+                    ChatButtonBlock.Set(joystickButton.InputMapping, pressed);
+                    break;
                 default:
                     break;
             }

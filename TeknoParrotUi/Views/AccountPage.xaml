@@ -35,6 +35,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"
@@ -214,7 +216,181 @@
                              Margin="0,0,0,12" />
                 </Grid>
             </materialDesign:Card>
+            <!-- Initial D Online (IDENTITY_AND_BADGES.md 4.4): this PC's online ID, the rank (display only), who sees it. -->
             <materialDesign:Card Grid.Row="4"
+                                 x:Name="InitialDOnlineCard"
+                                 Margin="0,0,0,20"
+                                 Padding="16"
+                                 Visibility="Collapsed">
+                <StackPanel>
+                    <TextBlock FontWeight="Medium"
+                               FontSize="16"
+                               Margin="0,0,0,8"
+                               Text="{x:Static p:Resources.InitialDOnlineTitle}" />
+                    <TextBlock TextWrapping="Wrap"
+                               Margin="0,0,0,12"
+                               Text="{x:Static p:Resources.InitialDOnlineIntro}" />
+                    <StackPanel x:Name="InitialDRankPanel"
+                                Orientation="Horizontal"
+                                Margin="0,0,0,8"
+                                Visibility="Collapsed">
+                        <TextBlock VerticalAlignment="Center"
+                                   Margin="0,0,10,0"
+                                   Text="{x:Static p:Resources.InitialDOnlineYourRank}" />
+                        <Border x:Name="InitialDRankBadge"
+                                CornerRadius="4"
+                                Padding="12,4"
+                                Background="#FF141418">
+                            <TextBlock x:Name="InitialDRankText"
+                                       FontSize="18"
+                                       FontWeight="Bold" />
+                        </Border>
+                        <TextBlock x:Name="InitialDKingAuraText"
+                                   VerticalAlignment="Center"
+                                   Margin="12,0,0,0"
+                                   FontWeight="Medium"
+                                   Foreground="#FFFF5A00"
+                                   Visibility="Collapsed"
+                                   Text="{x:Static p:Resources.InitialDOnlineKingAura}" />
+                    </StackPanel>
+                    <TextBlock x:Name="InitialDPeasantNotice"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,8"
+                               Visibility="Collapsed">
+                        <Run Text="{x:Static p:Resources.InitialDOnlinePeasantNotice}" />
+                        <Hyperlink NavigateUri="https://teknoparrot.com/OnlineProfile/InitialD"
+                                   RequestNavigate="InitialDLearnMore_RequestNavigate">
+                            <Run Text="{x:Static p:Resources.InitialDOnlineWearYourStars}" />
+                        </Hyperlink>
+                    </TextBlock>
+                    <WrapPanel x:Name="InitialDLadderPanel"
+                               Margin="0,0,0,12"
+                               Visibility="Collapsed" />
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   Text="{x:Static p:Resources.InitialDOnlinePcbId}" />
+                        <TextBox Grid.Column="1"
+                                 x:Name="InitialDPcbIdTextBox"
+                                 IsReadOnly="True"
+                                 FontFamily="Consolas" />
+                    </Grid>
+                    <TextBlock x:Name="InitialDMachineText"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,8" />
+                    <StackPanel x:Name="InitialDVisibilityPanel"
+                                Margin="0,4,0,8"
+                                Visibility="Collapsed">
+                        <TextBlock FontWeight="Medium"
+                                   Margin="0,0,0,6"
+                                   TextWrapping="Wrap"
+                                   Text="{x:Static p:Resources.InitialDOnlineVisibilityTitle}" />
+                        <RadioButton x:Name="InitialDVisPublic"
+                                     GroupName="InitialDVisibility"
+                                     Margin="0,2"
+                                     FontWeight="Medium"
+                                     Content="{x:Static p:Resources.InitialDOnlineVisibilityPublic}"
+                                     Checked="InitialDVisibility_Checked" />
+                        <RadioButton x:Name="InitialDVisOwn"
+                                     GroupName="InitialDVisibility"
+                                     Margin="0,2"
+                                     Content="{x:Static p:Resources.InitialDOnlineVisibilityOwn}"
+                                     Checked="InitialDVisibility_Checked" />
+                        <RadioButton x:Name="InitialDVisOff"
+                                     GroupName="InitialDVisibility"
+                                     Margin="0,2"
+                                     Content="{x:Static p:Resources.InitialDOnlineVisibilityOff}"
+                                     Checked="InitialDVisibility_Checked" />
+                        <StackPanel x:Name="InitialDPreviewPanel"
+                                    Orientation="Horizontal"
+                                    Margin="0,8,0,0"
+                                    Visibility="Collapsed">
+                            <TextBlock VerticalAlignment="Center"
+                                       Margin="0,0,10,0"
+                                       Text="{x:Static p:Resources.InitialDOnlinePreviewCaption}" />
+                            <Border x:Name="InitialDPreviewBadge"
+                                    CornerRadius="4"
+                                    Padding="12,4"
+                                    Background="#FF141418">
+                                <TextBlock x:Name="InitialDPreviewText"
+                                           FontSize="16"
+                                           FontWeight="Bold" />
+                            </Border>
+                        </StackPanel>
+                        <TextBlock Margin="0,6,0,0"
+                                   TextWrapping="Wrap"
+                                   Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                                   Text="{x:Static p:Resources.InitialDOnlineVisibilityNote}" />
+                        <Button x:Name="InitialDSaveVisibilityButton"
+                                HorizontalAlignment="Left"
+                                Margin="0,8,0,0"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Content="{x:Static p:Resources.InitialDOnlineSaveVisibility}"
+                                Click="InitialDSaveVisibility_Click" />
+                    </StackPanel>
+                    <WrapPanel HorizontalAlignment="Right"
+                               Margin="0,4,0,0">
+                        <Button x:Name="InitialDRegisterButton"
+                                Margin="8,4,0,0"
+                                Content="{x:Static p:Resources.InitialDOnlineRegisterButton}"
+                                Click="InitialDRegister_Click" />
+                        <Button x:Name="InitialDUseHereButton"
+                                Margin="8,4,0,0"
+                                Content="{x:Static p:Resources.InitialDOnlineUseHereButton}"
+                                Click="InitialDUseHere_Click" />
+                        <Button x:Name="InitialDRegenerateButton"
+                                Margin="8,4,0,0"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Content="{x:Static p:Resources.InitialDOnlineRegenerateButton}"
+                                Click="InitialDRegenerate_Click" />
+                        <Button x:Name="InitialDRemoveButton"
+                                Margin="8,4,0,0"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Content="{x:Static p:Resources.InitialDOnlineRemoveButton}"
+                                Click="InitialDRemove_Click" />
+                    </WrapPanel>
+                    <TextBlock Margin="0,12,0,0"
+                               TextWrapping="Wrap"
+                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                               Text="{x:Static p:Resources.InitialDOnlineOnePcPerAccount}" />
+                    <TextBlock x:Name="InitialDLastStatusText"
+                               Margin="0,8,0,0"
+                               TextWrapping="Wrap" />
+                    <TextBlock x:Name="InitialDMessageText"
+                               Margin="0,8,0,0"
+                               TextWrapping="Wrap"
+                               FontWeight="Medium"
+                               Visibility="Collapsed" />
+                </StackPanel>
+            </materialDesign:Card>
+            <!-- Initial D unified network mode (UNIFIED_MODE.md 2.7 / 6.7): the privacy opt-out, shown signed in or not -->
+            <materialDesign:Card Grid.Row="5"
+                                 x:Name="InitialDConnectCard"
+                                 Margin="0,0,0,20"
+                                 Padding="16">
+                <StackPanel>
+                    <TextBlock FontWeight="Medium"
+                               FontSize="16"
+                               Margin="0,0,0,8"
+                               Text="{x:Static p:Resources.InitialDConnectCardTitle}" />
+                    <CheckBox x:Name="InitialDConnectCheckBox"
+                              Margin="0,0,0,6"
+                              Content="{x:Static p:Resources.InitialDConnectToServer}"
+                              Click="InitialDConnectCheckBox_Click" />
+                    <TextBlock TextWrapping="Wrap"
+                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                               Text="{x:Static p:Resources.InitialDConnectToServerNote}" />
+                    <TextBlock Margin="0,8,0,0"
+                               TextWrapping="Wrap"
+                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                               Text="{x:Static p:Resources.InitialDChatNote}" />
+                </StackPanel>
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="6"
                                  Margin="0,0,0,20"
                                  Padding="16"
                                  Background="{DynamicResource MaterialDesignDivider}">

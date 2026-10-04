@@ -50,6 +50,27 @@ namespace TeknoParrotUi.Common
         public string SegaId {get; set; } = "";
         public string NamcoId { get; set; } = "";
         public string MarioKartId { get; set; } = "";
+        // Initial D Online machine credential (PCB ID + secret) of this PC, from the teknoparrot.com account
+        // (Account page, Initial D Online). Plain text by design, like the other online ids; it is copied into the
+        // [Network] OnlineID / OnlineSecret fields of the Initial D profiles. Not cleared on logout: the PC stays
+        // registered until the user removes or regenerates it.
+        public string InitialDOnlineId { get; set; } = "";
+        public string InitialDOnlineSecret { get; set; } = "";
+        // Initial D unified network mode (InitialDServer docs/UNIFIED_MODE.md 2.7, 6.7): "Connect to the online server"
+        // (the privacy opt-out; off = the matchmaking titles get [Network] NetworkMode=NoServer), the one-time first-run
+        // notice, "Don't ask again" of the pre-launch registration prompt, and the old-loader profiles already copied to
+        // their ElfLoader 2 profiles (comma-separated profile names).
+        public bool InitialDConnectToServer { get; set; } = true;
+        public bool InitialDUnifiedNoticeShown { get; set; } = false;
+        public bool InitialDRegisterPromptOff { get; set; } = false;
+        public string InitialDOldLoaderMigrated { get; set; } = "";
+        // Initial D LAN linking (UNIFIED_MODE.md 3.3 / 3.4, LAN_AGENT.md 7): the install id of this PC (32 hex, made
+        // once and also handed to the game in TP_LAN_INSTALL, so a PC is one install to its peers whether its game or
+        // its launcher is beaconing), the kept answers of the link question ("<install id>=always|never", comma
+        // separated, at most 64), and whether the inbound firewall rules were offered once.
+        public string InitialDLanInstallId { get; set; } = "";
+        public string InitialDLanConsent { get; set; } = "";
+        public bool InitialDLanFirewallAsked { get; set; } = false;
         public string Language { get; set; } = "en";
         public bool HideDolphinGUI { get; set; } = false;
         // Disable the "Are you sure you want to delete this game?" prompt

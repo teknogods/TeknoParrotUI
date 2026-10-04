@@ -152,6 +152,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             }
             var gameThread = new Thread(() =>
             {
+                // Initial D Online: only a status file written after this moment belongs to this boot (exit toast).
+                var launchUtc = DateTime.UtcNow;
                 var windowed = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1") || _gameProfile.ConfigValues.Any(x => x.FieldName == "DisplayMode" && x.FieldValue == "Windowed");
                 var fullscreen = _gameProfile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "0") || _gameProfile.ConfigValues.Any(x => x.FieldName == "DisplayMode" && x.FieldValue == "Fullscreen");
                 var width = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "ResolutionWidth");
@@ -566,6 +568,26 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 SetChildEnvironmentVariable(info, "tp_msysType",
                     _gameProfile.msysType > 0 ? _gameProfile.msysType.ToString() : null);
 
+                // Initial D matchmaking titles (UNIFIED_MODE.md 4.2 / 2.7): the friends code of a "Play with friends"
+                // start, for this start only (null also drops an inherited value), and the chosen network adapter for
+                // the RingEdge titles too (ElfLoader 2 gets TP_ETH below; the DLL's probe binds to it).
+                if (InitialDUnifiedMode.IsMatchmakingProfile(_gameProfile))
+                {
+                    SetChildEnvironmentVariable(info, InitialDUnifiedMode.PartyEnvironmentVariable,
+                        _isTest ? null : InitialDUnifiedMode.TakePartyCodeForProcess(_gameProfile));
+                    // the LAN install id of this PC (LAN_AGENT.md 3): the game's agent beacons with the same id as
+                    // TeknoParrotUI's presence, so a PC is one install to its peers and one consent answer covers both
+                    SetChildEnvironmentVariable(info, InitialDLanPresence.InstallEnvironmentVariable,
+                        InitialDLanPresence.InstallId);
+                    // the link answers this PC holds (LAN_AGENT.md 7), so an "Always" (or a "This time" of this run)
+                    // given in the launcher also lets the game's own agent link, and TPUI's window can ask again
+                    SetChildEnvironmentVariable(info, InitialDLanPresence.ConsentEnvironmentVariable,
+                        _isTest ? null : InitialDLanPresence.ConsentRowsForProcess());
+                    SetChildEnvironmentVariable(info, InitialDLanPresence.UiEnvironmentVariable, _isTest ? null : "1");
+                    if (_gameProfile.EmulatorType == EmulatorType.TeknoParrot && !string.IsNullOrEmpty(Lazydata.ParrotData.Elfldr2NetworkAdapterName))
+                        SetChildEnvironmentVariable(info, "TP_ETH", Lazydata.ParrotData.Elfldr2NetworkAdapterName);
+                }
+
                 if (_gameProfile.EmulatorType == EmulatorType.N2 || _gameProfile.EmulatorType == EmulatorType.ElfLdr2)
                 {
                     info.WorkingDirectory =
@@ -898,15 +920,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     File.WriteAllText(Path.Combine(Path.GetDirectoryName(_gameLocation), "HAUNTED2.INI"), "REGION\t\t" + _region + "\r\n" + "CNFNAME\t\t.\\OpenParrot\\HM2\r\nRANKFILE\t.\\OpenParrot\\\r\nPRJENABLE   \t1\r\nSCREEN_WIDTH\t" + _widthHM2 + "\r\n" + "SCREEN_HEIGHT\t" + _heightHM2 + "\r\nRENDER_WIDTH\t" + _widthHM2 + "\r\n" + "RENDER_HEIGHT\t" + _heightHM2 + "\r\nRENDER_WIDTH3D\t" + _widthHM2 + "\r\n" + "RENDER_HEIGHT3D\t" + _heightHM2 + "\r\n");
                 }
 
-                if (InputCode.ButtonMode == EmulationProfile.SegaInitialD)
-                {
-                    var newCard = _gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "EnableNewCardCode");
-                    if (newCard == null || newCard.FieldValue == "0")
-                    {
-                        RunAndWait(loaderExe,
-                            $"{loaderDll} \"{Path.Combine(Path.GetDirectoryName(_gameLocation), "picodaemon.exe")}");
-                    }
-                }
+                // Initial D 6 / 7 / 8 (EmulationProfile.SegaInitialD): picodaemon.exe is not started any more.
+                // TeknoParrot.dll runs the card daemon inside the game, with the same card file
+                // (%APPDATA%\TeknoParrot\<game>_card.bin).
 
                 if (InputCode.ButtonMode == EmulationProfile.ALLSSWDC)
                 {
@@ -1191,6 +1207,25 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                         {
                             Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = _library;
                         });
+
+                    // Initial D Online: why online play failed, as a non-modal toast (never in frontend / command-line
+                    // launches, which exit here). Only for the Initial D profiles, only for a status of this boot.
+                    if (_gameProfile.OnlineIdType == OnlineIdType.InitialD)
+                    {
+                        try
+                        {
+                            var toast = InitialDOnlineHelper.ExitToastText(_gameProfile, launchUtc);
+                            if (toast != null)
+                            {
+                                Application.Current.Dispatcher.BeginInvoke((Action)(() =>
+                                    Application.Current.Windows.OfType<MainWindow>().FirstOrDefault()?.ShowInitialDOnlineMessage(toast)));
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine($"InitialDOnline: exit toast: {ex.Message}");
+                        }
+                    }
                 }
                 else
                 {
