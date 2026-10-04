@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Crisis Zone (World, CSZO4 Ver. B)</GameNameInternal>
   <EmulationProfile>TeknoS23</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <EmulatorType>TeknoS23</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>crszone.zip</ExecutableName>

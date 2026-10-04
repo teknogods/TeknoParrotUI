@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Time Crisis (World, TS2 Ver.B)</GameNameInternal>
   <EmulationProfile>TeknoS22</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <EmulatorType>TeknoS22</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>timecris.zip</ExecutableName>

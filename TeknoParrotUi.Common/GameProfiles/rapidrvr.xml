@@ -3,13 +3,13 @@
   <GamePath />
   <GameNameInternal>Rapid River (US, RD3 Ver. C)</GameNameInternal>
   <EmulationProfile>TeknoS23</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <EmulatorType>TeknoS23</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>rapidrvr.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
+  <DevOnly>false</DevOnly>
   <HasTpoSupport>false</HasTpoSupport>
   <GunGame>false</GunGame>
   <InvertedMouseAxis>true</InvertedMouseAxis>
