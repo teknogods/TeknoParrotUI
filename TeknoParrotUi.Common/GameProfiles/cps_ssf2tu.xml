@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Super Street Fighter II Turbo (USA 940323)</GameNameInternal>
   <EmulationProfile>TeknoCPS</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <EmulatorType>TeknoCPS</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>ssf2tu.zip</ExecutableName>
@@ -44,7 +44,7 @@
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Test / Release startup Test switch</ButtonName>
+      <ButtonName>Test</ButtonName>
       <InputMapping>Test</InputMapping>
     </JoystickButtons>
     <JoystickButtons>

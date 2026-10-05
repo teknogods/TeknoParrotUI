@@ -3,14 +3,14 @@
   <GamePath />
   <GameNameInternal>JoJo's Venture (Europe 990108)</GameNameInternal>
   <EmulationProfile>TeknoCPS</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <EmulatorType>TeknoCPS</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>jojor1.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
-  <HasTpoSupport>false</HasTpoSupport>
+  <DevOnly>false</DevOnly>
+  <HasTpoSupport>true</HasTpoSupport>
   <TestMenuParameter>--test-menu</TestMenuParameter>
   <GunGame>false</GunGame>
   <ConfigValues>
@@ -41,10 +41,16 @@
         <string>8</string>
       </FieldOptions>
     </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>CD Image Folder</FieldName>
+      <FieldValue />
+      <FieldType>Text</FieldType>
+    </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Test / Release startup Test switch</ButtonName>
+      <ButtonName>Test</ButtonName>
       <InputMapping>Test</InputMapping>
     </JoystickButtons>
     <JoystickButtons>

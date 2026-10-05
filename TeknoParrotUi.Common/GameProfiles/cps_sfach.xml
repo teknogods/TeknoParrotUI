@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Street Fighter Alpha: Warriors' Dreams (CPS Changer, Publicity USA 950727)</GameNameInternal>
   <EmulationProfile>TeknoCPS</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <EmulatorType>TeknoCPS</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>sfach.zip</ExecutableName>

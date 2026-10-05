@@ -3,5 +3,5 @@
   "game_genre": "Arcade",
   "icon_name": "",
   "platform": "Capcom CPS1",
-  "general_issues": "Select slampic.zip; keep parent archives, keys and required qsound.zip beside it. Pending: board/device integration pending. Offline profile; no supported online multiplayer mode."
+  "general_issues": "Select slampic.zip; keep parent archives, keys and required qsound.zip beside it. Pending: board/device integration pending. Press Test to release the startup Test switch when navigating a boot-time operator screen. Offline profile; no supported online multiplayer mode."
 }

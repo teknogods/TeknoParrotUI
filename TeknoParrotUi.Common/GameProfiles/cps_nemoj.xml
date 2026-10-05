@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Nemo (Japan 901120, 88622B-3 ROM board)</GameNameInternal>
   <EmulationProfile>TeknoCPS</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <EmulatorType>TeknoCPS</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>nemoj.zip</ExecutableName>
@@ -44,7 +44,7 @@
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Test / Release startup Test switch</ButtonName>
+      <ButtonName>Test</ButtonName>
       <InputMapping>Test</InputMapping>
     </JoystickButtons>
     <JoystickButtons>

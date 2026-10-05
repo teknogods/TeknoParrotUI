@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>1941: Counter Attack (USA 900227)</GameNameInternal>
   <EmulationProfile>TeknoCPS</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <EmulatorType>TeknoCPS</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>1941u.zip</ExecutableName>
@@ -44,7 +44,7 @@
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Test / Release startup Test switch</ButtonName>
+      <ButtonName>Test</ButtonName>
       <InputMapping>Test</InputMapping>
     </JoystickButtons>
     <JoystickButtons>

@@ -49,6 +49,9 @@ internal static class CpsChecks
                 using (var stream = File.OpenRead(file)) profile = (GameProfile)serializer.Deserialize(stream);
                 profile.ProfileName = Path.GetFileNameWithoutExtension(file);
                 Require(profile.EmulationProfile == EmulationProfile.TeknoCPS && profile.EmulatorType == EmulatorType.TeknoCPS, "CPS dispatch");
+                Require(profile.GameProfileRevision == 3, "CPS profile migration revision: " + profile.ProfileName);
+                foreach (var button in profile.JoystickButtons.Where(b => b.InputMapping.ToString() == "Test"))
+                    Require(button.ButtonName == "Test", "CPS migration must preserve the saved Test binding: " + profile.ProfileName);
                 Require(File.Exists(Path.Combine(root, "TeknoParrotUi.Common", "Metadata", profile.ProfileName + ".json")), "CPS metadata");
                 var zip = Path.Combine(temporary, profile.ExecutableName); File.WriteAllBytes(zip, new byte[0]);
                 Environment.SetEnvironmentVariable("TP_TPONLINE2", null);
@@ -135,9 +138,9 @@ internal static class CpsChecks
                 Require(JvsHelper.StateView.ReadUInt32(16) == 10009 && JvsHelper.StateView.ReadUInt32(20) == unchecked((uint)-10011), "Skipped publication lost or repeated rotary motion");
             }
             mode.FieldValue = "Buttons"; pipe.Transmit(); Require(JvsHelper.StateView.ReadByte(32) == 0, "Button mode retained rotary ownership");
-            Require(onlineCount == 563, "CPS online count");
+            Require(onlineCount == 623, "CPS online count");
             Require(JvsHelper.StateView.ReadByte(0) == 'C' && JvsHelper.StateView.ReadByte(1) == 'P' && JvsHelper.StateView.ReadByte(4) == 3 && (JvsHelper.StateView.ReadUInt16(6) & 1) == 0, "CPIN publication contract");
-            Console.WriteLine($"641 CPS profiles, 563 online modes, {seats} room seats and {contacts} input press/release/isolation checks passed.");
+            Console.WriteLine($"641 CPS profiles, 623 online modes, {seats} room seats and {contacts} input press/release/isolation checks passed.");
         }
         finally { pipe.Stop(); Require(JvsHelper.StateView.ReadByte(5) == 0, "CPS bridge stop did not release ownership"); }
     }

@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Hyper Street Fighter II: The Anniversary Edition (Japan 031222)</GameNameInternal>
   <EmulationProfile>TeknoCPS</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <EmulatorType>TeknoCPS</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>hsf2j2.zip</ExecutableName>
@@ -44,7 +44,7 @@
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Test / Release startup Test switch</ButtonName>
+      <ButtonName>Test</ButtonName>
       <InputMapping>Test</InputMapping>
     </JoystickButtons>
     <JoystickButtons>

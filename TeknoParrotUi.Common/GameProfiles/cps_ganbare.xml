@@ -3,13 +3,13 @@
   <GamePath />
   <GameNameInternal>Ganbare! Marine Kun (Japan 2K0411)</GameNameInternal>
   <EmulationProfile>TeknoCPS</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <EmulatorType>TeknoCPS</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>ganbare.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
+  <DevOnly>false</DevOnly>
   <HasTpoSupport>false</HasTpoSupport>
   <TestMenuParameter>--test-menu</TestMenuParameter>
   <GunGame>false</GunGame>
@@ -44,12 +44,20 @@
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Test / Release startup Test switch</ButtonName>
+      <ButtonName>Test</ButtonName>
       <InputMapping>Test</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Service</ButtonName>
       <InputMapping>Service1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Medal</ButtonName>
+      <InputMapping>ExtensionOne1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Auxiliary Start</ButtonName>
+      <InputMapping>ExtensionOne2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Coin / Select</ButtonName>
@@ -74,14 +82,6 @@
     <JoystickButtons>
       <ButtonName>Player 1 Button 2</ButtonName>
       <InputMapping>P1Button2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Coin / Select</ButtonName>
-      <InputMapping>Coin2</InputMapping>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 2 Start</ButtonName>
-      <InputMapping>P2ButtonStart</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

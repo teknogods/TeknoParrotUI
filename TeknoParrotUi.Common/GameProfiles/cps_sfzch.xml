@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Street Fighter Zero (CPS Changer, Japan 951020)</GameNameInternal>
   <EmulationProfile>TeknoCPS</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <EmulatorType>TeknoCPS</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>sfzch.zip</ExecutableName>

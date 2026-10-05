@@ -3,5 +3,5 @@
   "game_genre": "Arcade",
   "icon_name": "",
   "platform": "Capcom CPS2",
-  "general_issues": "Select xmcotaar2.zip; keep parent archives, keys and required qsound.zip beside it. Experimental emulation; profile coverage does not mean full gameplay qualification. TPO automatically assigns up to 2 computers. Each computer controls one player on the shared cabinet using its Player 1 controls. Rollback uses a canonical two-frame input delay; every linked cabinet and serial queue is restored together. Offline EEPROM and manual cabinet settings are ignored during online play."
+  "general_issues": "Select xmcotaar2.zip; keep parent archives, keys and required qsound.zip beside it. Experimental emulation; profile coverage does not mean full gameplay qualification. Press Test to release the startup Test switch when navigating a boot-time operator screen. TPO automatically assigns up to 2 computers. Each computer controls one player on the shared cabinet using its Player 1 controls. Rollback uses a canonical two-frame input delay; every linked cabinet and serial queue is restored together. Offline EEPROM and manual cabinet settings are ignored during online play."
 }
