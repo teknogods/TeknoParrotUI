@@ -102,6 +102,7 @@ internal static class MvsChecks
                     ++contacts;
                 }
             }
+            pipe.Running = false; Thread.Sleep(40);
             InputCode.GameProfile.ProfileName = "mvs_irrmaze";
             InputCode.GameProfile.ConfigValues.Single(v => v.FieldName == "Input API").FieldValue = "RawInputTrackball";
             using (var first = MemoryMappedFile.CreateOrOpen("RawInputTrackballSharedMemory", 12))
@@ -111,14 +112,18 @@ internal static class MvsChecks
             {
                 a.Write(0, (short)32); a.Write(4, (short)-16); a.Write(8, 0);
                 pipe.Transmit();
-                Require(JvsHelper.StateView.ReadByte(16) == 8 && JvsHelper.StateView.ReadByte(17) == 252, "Raw trackball axes/signs lost");
+                Require(JvsHelper.StateView.ReadUInt32(16) == 8 && JvsHelper.StateView.ReadUInt32(20) == unchecked((uint)-4), "Raw trackball axes/signs lost");
                 pipe.Transmit();
-                Require(JvsHelper.StateView.ReadByte(16) == 8 && JvsHelper.StateView.ReadByte(17) == 252, "Raw movement was consumed twice");
+                Require(JvsHelper.StateView.ReadUInt32(16) == 8 && JvsHelper.StateView.ReadUInt32(20) == unchecked((uint)-4), "Raw movement was consumed twice");
                 InputCode.GameProfile.ProfileName = "mvs_popbounc";
                 a.Write(0, (short)12); a.Write(4, (short)0); a.Write(8, 0);
                 b.Write(0, (short)20); b.Write(4, (short)0); b.Write(8, 0);
                 pipe.Transmit();
-                Require(JvsHelper.StateView.ReadByte(16) == 11 && JvsHelper.StateView.ReadByte(17) == 1, "Two independent dial devices lost");
+                Require(JvsHelper.StateView.ReadUInt32(16) == 11 && JvsHelper.StateView.ReadUInt32(20) == 1, "Two independent dial devices lost");
+                a.Write(0, (short)1200); a.Write(8, 0); b.Write(0, (short)-1200); b.Write(8, 0);
+                pipe.Transmit(); a.Write(8, 0); b.Write(8, 0); pipe.Transmit(); pipe.Transmit();
+                Require(JvsHelper.StateView.ReadUInt32(16) == 611 && JvsHelper.StateView.ReadUInt32(20) == unchecked((uint)-599), "MVS skipped-publication burst was truncated or repeated");
+                Require(JvsHelper.StateView.ReadByte(4) == 2 && (JvsHelper.StateView.ReadUInt16(6) & 1) == 0, "MVIN v2 publication contract");
             }
         }
         finally { pipe.Stop(); ClearInputs(); Environment.SetEnvironmentVariable("TP_TPONLINE2", null); }

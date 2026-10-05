@@ -7,14 +7,14 @@ using TeknoParrotUi.Common.Jvs;
 
 namespace TeknoParrotUi.Common.Pipes
 {
-    // CPIN v2: four 16-contact panels and optional 12-bit rotary counters.
+    // CPIN v3: four 16-contact panels and optional 32-bit host rotary counters.
     // Cabinet configuration stays under the native TPO lobby's control.
     public sealed class TeknoCPSPipe : ControlSender
     {
         private readonly object _sync = new object();
         private ushort _sequence;
         private bool _active;
-        private readonly int[] _phase = new int[4], _pending = new int[4];
+        private readonly uint[] _phase = new uint[4];
         private readonly MemoryMappedFile[] _trackball = new MemoryMappedFile[2];
         private readonly MemoryMappedViewAccessor[] _view = new MemoryMappedViewAccessor[2];
         private static bool Down(bool? value) => value == true;
@@ -23,7 +23,7 @@ namespace TeknoParrotUi.Common.Pipes
         {
             lock (_sync)
             {
-                JvsHelper.ResetState(); _sequence = 0; _active = true; Array.Clear(_phase, 0, _phase.Length); Array.Clear(_pending, 0, _pending.Length);
+                JvsHelper.ResetState(); _sequence = 0; _active = true; Array.Clear(_phase, 0, _phase.Length);
                 InputCode.AnalogBytes[0] = InputCode.AnalogBytes[2] = 128;
             }
             base.Start();
@@ -57,7 +57,7 @@ namespace TeknoParrotUi.Common.Pipes
             {
                 if (!_active) return;
                 var page = new byte[64];
-                page[0] = (byte)'C'; page[1] = (byte)'P'; page[2] = (byte)'I'; page[3] = (byte)'N'; page[4] = 2; page[5] = 1;
+                page[0] = (byte)'C'; page[1] = (byte)'P'; page[2] = (byte)'I'; page[3] = (byte)'N'; page[4] = 3; page[5] = 1;
                 for (var p = 0; p < 4; ++p)
                 {
                     var input = InputCode.PlayerDigitalButtons[p];
@@ -74,15 +74,14 @@ namespace TeknoParrotUi.Common.Pipes
                     for (var p = 0; p < 2; ++p)
                     {
                         var axis = InputCode.AnalogBytes[p * 2] - 128;
-                        _pending[p] += rotary == "Trackball" ? Mouse(p) : Math.Abs(axis) > 12 ? axis / 8 : 0;
-                        // Keep each publication within the signed 12-bit counter range.
-                        var delta = Math.Max(-2047, Math.Min(2047, _pending[p]));
-                        _pending[p] -= delta; _phase[p] = (_phase[p] + delta) & 4095;
-                        page[16 + p * 2] = (byte)_phase[p]; page[17 + p * 2] = (byte)(_phase[p] >> 8);
-                        page[24] |= (byte)(1 << p);
+                        var delta = rotary == "Trackball" ? Mouse(p) : Math.Abs(axis) > 12 ? axis / 8 : 0;
+                        _phase[p] = unchecked(_phase[p] + (uint)delta);
+                        for (var n = 0; n < 4; ++n) page[16 + p * 4 + n] = (byte)(_phase[p] >> (n * 8));
+                        page[32] |= (byte)(1 << p);
                     }
                     if (rotary == "Trackball") foreach (var view in _view) view?.Write(8, 1);
                 }
+                else Array.Clear(_phase, 0, _phase.Length);
                 JvsHelper.StateView.Write(6, unchecked(++_sequence)); Thread.MemoryBarrier();
                 for (var n = 0; n < page.Length; ++n) if (n != 6 && n != 7) JvsHelper.WriteStateByte(n, page[n]);
                 Thread.MemoryBarrier(); JvsHelper.StateView.Write(6, unchecked(++_sequence));

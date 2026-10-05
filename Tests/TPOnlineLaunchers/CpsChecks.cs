@@ -94,27 +94,28 @@ internal static class CpsChecks
             var mode = rotary.ConfigValues.Single(v => v.FieldName == "Rotary Input");
             mode.FieldValue = "Analog"; InputCode.AnalogBytes[0] = 144; InputCode.AnalogBytes[2] = 112;
             pipe.Transmit();
-            Require(JvsHelper.StateView.ReadUInt16(16) == 2 && JvsHelper.StateView.ReadUInt16(18) == 4094 && JvsHelper.StateView.ReadByte(24) == 3, "CPIN analog rotary counter/wrap");
+            Require(JvsHelper.StateView.ReadUInt32(16) == 2 && JvsHelper.StateView.ReadUInt32(20) == unchecked((uint)-2) && JvsHelper.StateView.ReadByte(32) == 3, "CPIN analog rotary counter/wrap");
             InputCode.AnalogBytes[0] = InputCode.AnalogBytes[2] = 128; pipe.Transmit();
-            Require(JvsHelper.StateView.ReadUInt16(16) == 2 && JvsHelper.StateView.ReadUInt16(18) == 4094, "Idle rotary repeated motion");
+            Require(JvsHelper.StateView.ReadUInt32(16) == 2 && JvsHelper.StateView.ReadUInt32(20) == unchecked((uint)-2), "Idle rotary repeated motion");
             using (var left = System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen("RawInputTrackballSharedMemory", 12))
             using (var right = System.IO.MemoryMappedFiles.MemoryMappedFile.CreateOrOpen("RawInputTrackballSharedMemory2", 12))
             using (var a = left.CreateViewAccessor()) using (var b = right.CreateViewAccessor())
             {
                 a.Write(0, (short)7); a.Write(8, 0); b.Write(0, (short)-9); b.Write(8, 0); mode.FieldValue = "Trackball";
                 pipe.Transmit();
-                Require(JvsHelper.StateView.ReadUInt16(16) == 9 && JvsHelper.StateView.ReadUInt16(18) == 4085, "Independent CPS trackball directions");
+                Require(JvsHelper.StateView.ReadUInt32(16) == 9 && JvsHelper.StateView.ReadUInt32(20) == unchecked((uint)-11), "Independent CPS trackball directions");
                 pipe.Transmit();
-                Require(JvsHelper.StateView.ReadUInt16(16) == 9 && JvsHelper.StateView.ReadUInt16(18) == 4085 && a.ReadInt32(8) == 1 && b.ReadInt32(8) == 1, "Trackball acknowledgment/duplicate motion");
+                Require(JvsHelper.StateView.ReadUInt32(16) == 9 && JvsHelper.StateView.ReadUInt32(20) == unchecked((uint)-11) && a.ReadInt32(8) == 1 && b.ReadInt32(8) == 1, "Trackball acknowledgment/duplicate motion");
                 a.Write(0, (short)5000); a.Write(8, 0); b.Write(0, (short)-5000); b.Write(8, 0);
                 pipe.Transmit();
-                Require(JvsHelper.StateView.ReadUInt16(16) == 2056 && JvsHelper.StateView.ReadUInt16(18) == 2038, "Large rotary sample overflowed signed delta");
+                Require(JvsHelper.StateView.ReadUInt32(16) == 5009 && JvsHelper.StateView.ReadUInt32(20) == unchecked((uint)-5011), "Full host rotary burst was truncated");
+                a.Write(0, (short)5000); a.Write(8, 0); b.Write(0, (short)-5000); b.Write(8, 0);
                 pipe.Transmit(); pipe.Transmit();
-                Require(JvsHelper.StateView.ReadUInt16(16) == 913 && JvsHelper.StateView.ReadUInt16(18) == 3181, "Rotary pending motion was discarded");
+                Require(JvsHelper.StateView.ReadUInt32(16) == 10009 && JvsHelper.StateView.ReadUInt32(20) == unchecked((uint)-10011), "Skipped publication lost or repeated rotary motion");
             }
-            mode.FieldValue = "Buttons"; pipe.Transmit(); Require(JvsHelper.StateView.ReadByte(24) == 0, "Button mode retained rotary ownership");
+            mode.FieldValue = "Buttons"; pipe.Transmit(); Require(JvsHelper.StateView.ReadByte(32) == 0, "Button mode retained rotary ownership");
             Require(onlineCount == 563, "CPS online count");
-            Require(JvsHelper.StateView.ReadByte(0) == 'C' && JvsHelper.StateView.ReadByte(1) == 'P' && JvsHelper.StateView.ReadByte(4) == 2 && (JvsHelper.StateView.ReadUInt16(6) & 1) == 0, "CPIN publication contract");
+            Require(JvsHelper.StateView.ReadByte(0) == 'C' && JvsHelper.StateView.ReadByte(1) == 'P' && JvsHelper.StateView.ReadByte(4) == 3 && (JvsHelper.StateView.ReadUInt16(6) & 1) == 0, "CPIN publication contract");
             Console.WriteLine($"641 CPS profiles, 563 online modes, {seats} room seats and {contacts} input press/release/isolation checks passed.");
         }
         finally { pipe.Stop(); Require(JvsHelper.StateView.ReadByte(5) == 0, "CPS bridge stop did not release ownership"); }

@@ -7,7 +7,7 @@ using TeknoParrotUi.Common.Jvs;
 
 namespace TeknoParrotUi.Common.Pipes
 {
-    // SSIN v1: generated native cabinet order, including six local panels.
+    // SSIN v2: generated cabinet order and full host trackball counters.
     // Cabinet IDs and DIP settings are never published by the input bridge.
     public sealed class TeknoSS32Pipe : ControlSender
     {
@@ -30,7 +30,7 @@ namespace TeknoParrotUi.Common.Pipes
         private ushort _sequence;
         private bool _active;
         private Layout _layout;
-        private readonly int[] _phase = new int[16], _pending = new int[16];
+        private readonly uint[] _phase = new uint[8];
         private readonly MemoryMappedFile[] _trackball = new MemoryMappedFile[3];
         private readonly MemoryMappedViewAccessor[] _view = new MemoryMappedViewAccessor[3];
         public override void Start()
@@ -38,8 +38,10 @@ namespace TeknoParrotUi.Common.Pipes
             lock (_sync)
             {
                 _layout = TeknoSS32Bindings.Get(InputCode.GameProfile?.ProfileName ?? "");
+                if (_layout.Relative.Length > 8 || (_layout.Relative.Length != 0 && _layout.Analog.Length != 0))
+                    throw new InvalidOperationException("Unsupported mixed SS32 analog/trackball layout");
                 JvsHelper.ResetState(); _sequence = 0; _active = true;
-                Array.Clear(_phase, 0, _phase.Length); Array.Clear(_pending, 0, _pending.Length);
+                Array.Clear(_phase, 0, _phase.Length);
                 foreach (var axis in _layout.Analog.Concat(_layout.Relative)) InputCode.AnalogBytes[axis.Source] = (byte)axis.Neutral;
             }
             base.Start();
@@ -75,7 +77,7 @@ namespace TeknoParrotUi.Common.Pipes
             {
                 if (!_active) return;
                 var page = new byte[64];
-                page[0] = page[1] = (byte)'S'; page[2] = (byte)'I'; page[3] = (byte)'N'; page[4] = page[5] = 1;
+                page[0] = page[1] = (byte)'S'; page[2] = (byte)'I'; page[3] = (byte)'N'; page[4] = 2; page[5] = 1;
                 for (var n = 0; n < _layout.Digital.Length; ++n)
                     if (_layout.Digital[n]()) page[8 + n / 8] |= (byte)(1 << (n % 8));
                 for (var n = 0; n < _layout.Analog.Length; ++n) page[24 + n] = InputCode.AnalogBytes[_layout.Analog[n].Source];
@@ -84,10 +86,9 @@ namespace TeknoParrotUi.Common.Pipes
                 {
                     var axis = _layout.Relative[n];
                     var value = InputCode.AnalogBytes[axis.Source] - 128;
-                    _pending[n] += raw ? Mouse(axis) : Math.Abs(value) > 12 ? value / 8 : 0;
-                    var delta = Math.Max(-127, Math.Min(127, _pending[n]));
-                    _pending[n] -= delta; _phase[n] += delta;
-                    page[40 + n] = unchecked((byte)_phase[n]);
+                    var delta = raw ? Mouse(axis) : Math.Abs(value) > 12 ? value / 8 : 0;
+                    _phase[n] = unchecked(_phase[n] + (uint)delta);
+                    for (var b = 0; b < 4; ++b) page[24 + n * 4 + b] = (byte)(_phase[n] >> (b * 8));
                 }
                 if (raw) foreach (var view in _view) view?.Write(8, 1);
                 for (var n = 0; n < 4; ++n) page[56 + n] = (byte)(_layout.Identity >> (n * 8));

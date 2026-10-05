@@ -107,7 +107,7 @@ internal static class Ss32Checks
                     for (var n = 0; n < 16; ++n) Require(JvsHelper.StateView.ReadByte(8 + n) == 0, "SS32 stuck contact");
                     ++digital; ++contacts;
                 }
-                Require(JvsHelper.StateView.ReadByte(0) == 'S' && JvsHelper.StateView.ReadByte(1) == 'S' && JvsHelper.StateView.ReadByte(4) == 1 && (JvsHelper.StateView.ReadUInt16(6) & 1) == 0, "SSIN publication contract");
+                Require(JvsHelper.StateView.ReadByte(0) == 'S' && JvsHelper.StateView.ReadByte(1) == 'S' && JvsHelper.StateView.ReadByte(4) == 2 && (JvsHelper.StateView.ReadUInt16(6) & 1) == 0, "SSIN publication contract");
                 for (var n = 60; n < 64; ++n) Require(JvsHelper.StateView.ReadByte(n) == 0, "SSIN reserved data");
             }
             finally { pipe.Stop(); Require(JvsHelper.StateView.ReadByte(5) == 0, "SSIN stop ownership"); }
@@ -130,19 +130,19 @@ internal static class Ss32Checks
             relative.Transmit();
             for (var p = 0; p < 3; ++p)
             {
-                Require(JvsHelper.StateView.ReadByte(40 + p * 2) == 7 + p && JvsHelper.StateView.ReadByte(41 + p * 2) == 247 - p, "SS32 independent trackball XY routing");
+                Require(JvsHelper.StateView.ReadUInt32(24 + p * 8) == 7 + p && JvsHelper.StateView.ReadUInt32(28 + p * 8) == unchecked((uint)(-9 - p)), "SS32 independent trackball XY routing");
                 Require(views[p].ReadInt32(8) == 1, "SS32 trackball acknowledgment");
             }
             relative.Transmit();
-            for (var p = 0; p < 3; ++p) Require(JvsHelper.StateView.ReadByte(40 + p * 2) == 7 + p && JvsHelper.StateView.ReadByte(41 + p * 2) == 247 - p, "SS32 idle repeated motion");
+            for (var p = 0; p < 3; ++p) Require(JvsHelper.StateView.ReadUInt32(24 + p * 8) == 7 + p && JvsHelper.StateView.ReadUInt32(28 + p * 8) == unchecked((uint)(-9 - p)), "SS32 idle repeated motion");
             views[2].Write(0, (short)300); views[2].Write(4, (short)-300); views[2].Write(8, 0);
             relative.Transmit();
-            Require(JvsHelper.StateView.ReadByte(44) == 136 && JvsHelper.StateView.ReadByte(45) == 118, "SS32 large delta signed limit");
-            relative.Transmit(); relative.Transmit();
-            Require(JvsHelper.StateView.ReadByte(44) == 53 && JvsHelper.StateView.ReadByte(45) == 201, "SS32 pending motion lost");
+            Require(JvsHelper.StateView.ReadUInt32(40) == 309 && JvsHelper.StateView.ReadUInt32(44) == unchecked((uint)-311), "SS32 full host motion was truncated");
+            views[2].Write(8, 0); relative.Transmit(); relative.Transmit();
+            Require(JvsHelper.StateView.ReadUInt32(40) == 609 && JvsHelper.StateView.ReadUInt32(44) == unchecked((uint)-611), "SS32 skipped publication lost or repeated motion");
             sonic.ConfigValues.Single(v => v.FieldName == "Input API").FieldValue = "XInput";
             InputCode.AnalogBytes[0] = 144; InputCode.AnalogBytes[1] = 112; relative.Transmit();
-            Require(JvsHelper.StateView.ReadByte(40) == 9 && JvsHelper.StateView.ReadByte(41) == 245, "SS32 controller relative axes");
+            Require(JvsHelper.StateView.ReadUInt32(24) == 9 && JvsHelper.StateView.ReadUInt32(28) == unchecked((uint)-11), "SS32 controller relative axes");
         }
         finally
         {

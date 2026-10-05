@@ -7,13 +7,13 @@ using TeknoParrotUi.Common.Jvs;
 
 namespace TeknoParrotUi.Common.Pipes
 {
-    // MVIN v1 publishes real contact closures, never cabinet DIP settings.
+    // MVIN v2 publishes contact closures and full host counters, never cabinet DIP settings.
     public sealed class TeknoMVSPipe : ControlSender
     {
         private readonly object _sync = new object();
         private ushort _sequence;
         private bool _active;
-        private readonly int[] _phase = new int[2];
+        private readonly long[] _phase = new long[2];
         private readonly MemoryMappedFile[] _trackball = new MemoryMappedFile[2];
         private readonly MemoryMappedViewAccessor[] _trackballView = new MemoryMappedViewAccessor[2];
         private static bool Down(bool? value) => value == true;
@@ -57,7 +57,7 @@ namespace TeknoParrotUi.Common.Pipes
             lock (_sync)
             {
                 if (!_active) return;
-                var page = new byte[64]; page[0] = (byte)'M'; page[1] = (byte)'V'; page[2] = (byte)'I'; page[3] = (byte)'N'; page[4] = page[5] = 1;
+                var page = new byte[64]; page[0] = (byte)'M'; page[1] = (byte)'V'; page[2] = (byte)'I'; page[3] = (byte)'N'; page[4] = 2; page[5] = 1;
                 void Contact(int contact, bool down) { if (down) page[8 + contact / 8] |= (byte)(1 << (contact % 8)); }
                 var set = InputCode.GameProfile?.ProfileName ?? "";
                 for (var p = 0; p < (set == "mvs_kizuna4p" ? 4 : 2); ++p)
@@ -94,7 +94,11 @@ namespace TeknoParrotUi.Common.Pipes
                     {
                         for (var n = 0; n < 2; ++n) { var axis = InputCode.AnalogBytes[n * 2] - 128; if (Math.Abs(axis) > 12) _phase[n] += axis / 8; }
                     }
-                    page[16] = unchecked((byte)(_phase[0] / 4)); page[17] = unchecked((byte)(_phase[1] / 4));
+                    for (var p = 0; p < 2; ++p)
+                    {
+                        var counter = unchecked((uint)(_phase[p] / 4));
+                        for (var n = 0; n < 4; ++n) page[16 + p * 4 + n] = (byte)(counter >> (n * 8));
+                    }
                 }
                 // Odd while writing, even after publication. The reader checks
                 // both copies and expires an unchanged sequence after 250 ms.
