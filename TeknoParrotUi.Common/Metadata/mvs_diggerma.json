@@ -3,5 +3,5 @@
   "game_genre": "Arcade",
   "icon_name": "",
   "platform": "SNK Neo Geo MVS",
-  "general_issues": "Select diggerma.zip. Keep parent archives and neogeo.zip beside it. Offline physical DIP switches are in Game Settings. Use Test Menu for the original game soft-DIP options. TPO assigns all players and cabinet switches automatically. Up to 2 computers."
+  "general_issues": "Select diggerma.zip. Keep parent archives and neogeo.zip beside it. Offline physical DIP switches are in Game Settings. Test input is mapped, but no operator menu has been verified for this cartridge. TPO assigns all players and cabinet switches automatically. Up to 2 computers."
 }
