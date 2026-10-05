@@ -3,5 +3,5 @@
   "game_genre": "Arcade",
   "icon_name": "",
   "platform": "SNK Neo Geo MVS",
-  "general_issues": "Select stakwindev.zip. Keep parent archives and neogeo.zip beside it. TPO assigns all players and cabinet switches automatically. Up to 2 computers."
+  "general_issues": "Select stakwindev.zip. Keep parent archives and neogeo.zip beside it. Development board: repeated/corrupt startup; no paid race validated. Offline profile; no supported online multiplayer mode."
 }

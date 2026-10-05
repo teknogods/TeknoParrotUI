@@ -9,8 +9,8 @@
   <ExecutableName>mvstemp.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
   <Patreon>true</Patreon>
-  <DevOnly>false</DevOnly>
-  <HasTpoSupport>true</HasTpoSupport>
+  <DevOnly>true</DevOnly>
+  <HasTpoSupport>false</HasTpoSupport>
   <TestMenuParameter>--test-menu</TestMenuParameter>
   <GunGame>false</GunGame>
   <InvertedMouseAxis>false</InvertedMouseAxis>

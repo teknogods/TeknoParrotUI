@@ -69,7 +69,7 @@ internal static class MvsChecks
                     // Invalid saved display/clock settings cannot contaminate TPO.
                     profile.ConfigValues.Single(v => v.FieldName == "CPU Clock").FieldValue = "invalid-saved-clock";
                     profile.ConfigValues.Single(v => v.FieldName == "Rendering Mode").FieldValue = "invalid-saved-mode";
-                    var capacity = profile.ProfileName == "mvs_kizuna4p" || profile.ProfileName == "mvs_lbowling" ? 4 : 2;
+                    var capacity = linked || profile.ProfileName == "mvs_kizuna4p" || profile.ProfileName == "mvs_lbowling" ? 4 : 2;
                     for (var count = 2; count <= capacity; ++count) for (var seat = 0; seat < count; ++seat)
                     {
                         Environment.SetEnvironmentVariable("TP_TPONLINE2", "test|" + seat + "|Player|" + count);
@@ -123,7 +123,7 @@ internal static class MvsChecks
         finally { pipe.Stop(); ClearInputs(); Environment.SetEnvironmentVariable("TP_TPONLINE2", null); }
         Thread.Sleep(30);
         Require(JvsHelper.StateView.ReadByte(5) == 0, "Stopped MVS publisher remained active");
-        Require(modes == 275, "Wrong TPO MVS profile count");
+        Require(modes == 273, "Wrong TPO MVS profile count");
         Console.WriteLine($"287 MVS XML/metadata/offline/test profiles, {modes} online modes, {seats} lobby seats, {contacts} contact press/release checks passed.");
     }
 }

@@ -3,5 +3,5 @@
   "game_genre": "Arcade",
   "icon_name": "",
   "platform": "SNK Neo Geo MVS",
-  "general_issues": "Select lbowling.zip. Keep parent archives and neogeo.zip beside it. TPO assigns all players and cabinet switches automatically. Up to 2 computers. Each computer runs a separate cabinet. Wait for automatic service-menu setup and reboot, then select MULTI-LINK PLAY. Two local players per cabinet."
+  "general_issues": "Select lbowling.zip. Keep parent archives and neogeo.zip beside it. TPO assigns all players and cabinet switches automatically. Up to 4 computers. Each computer runs a separate cabinet. Wait for automatic service-menu setup and reboot, then select MULTI-LINK PLAY. Two local players per cabinet."
 }

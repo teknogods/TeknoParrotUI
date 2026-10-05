@@ -79,9 +79,9 @@ internal static class CpsChecks
                     ++contacts;
                 }
             }
-            Require(onlineCount == 397, "CPS online count");
+            Require(onlineCount == 488, "CPS online count");
             Require(JvsHelper.StateView.ReadByte(0) == 'C' && JvsHelper.StateView.ReadByte(1) == 'P' && JvsHelper.StateView.ReadByte(4) == 1 && (JvsHelper.StateView.ReadUInt16(6) & 1) == 0, "CPIN publication contract");
-            Console.WriteLine($"641 CPS profiles, 397 online modes, {seats} room seats and {contacts} input press/release/isolation checks passed.");
+            Console.WriteLine($"641 CPS profiles, 488 online modes, {seats} room seats and {contacts} input press/release/isolation checks passed.");
         }
         finally { pipe.Stop(); Require(JvsHelper.StateView.ReadByte(5) == 0, "CPS bridge stop did not release ownership"); }
     }

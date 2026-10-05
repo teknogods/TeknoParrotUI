@@ -3,5 +3,5 @@
   "game_genre": "Arcade",
   "icon_name": "",
   "platform": "Capcom CPS2",
-  "general_issues": "Select csclubjy.zip; keep parent archives, keys and required qsound.zip beside it. Pending: media operation needs implementation. Offline profile; no supported online multiplayer mode."
+  "general_issues": "Select csclubjy.zip; keep parent archives, keys and required qsound.zip beside it. Experimental emulation; profile coverage does not mean full gameplay qualification. TPO automatically assigns up to 2 computers. Each computer controls one player on the shared cabinet using its Player 1 controls. Offline EEPROM and manual cabinet settings are ignored during online play."
 }
