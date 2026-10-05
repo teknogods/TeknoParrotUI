@@ -44,7 +44,10 @@ internal static class CpsMediaChecks
         var exe = Assembly.GetExecutingAssembly().Location;
         ProcessStartInfo ChildInfo(string mode) => new ProcessStartInfo(exe, "--media-preparation-child " + mode)
         { UseShellExecute = false, CreateNoWindow = true, RedirectStandardOutput = true, RedirectStandardError = true };
-        TeknoCPSLauncher.RunMediaPreparationAsync(ChildInfo("ok"), TimeSpan.FromSeconds(10)).GetAwaiter().GetResult();
+        var progressCount = 0;
+        TeknoCPSLauncher.RunMediaPreparationAsync(ChildInfo("ok"), TimeSpan.FromSeconds(10), message =>
+        { Require(message.Length <= 500, "Unbounded progress message"); ++progressCount; }).GetAwaiter().GetResult();
+        Require(progressCount > 0, "Native progress was not delivered");
         var failed = false;
         try { TeknoCPSLauncher.RunMediaPreparationAsync(ChildInfo("fail"), TimeSpan.FromSeconds(10)).GetAwaiter().GetResult(); }
         catch (InvalidOperationException error) { failed = error.Message.Contains("Game media preparation failed") && error.Message.Length < 8300; }
@@ -59,6 +62,22 @@ internal static class CpsMediaChecks
         try { using (var child = Process.GetProcessById(int.Parse(File.ReadAllText(pidPath)))) alive = !child.HasExited; }
         catch (ArgumentException) { }
         Require(!alive, "Timed-out preparation process was left running");
-        Console.WriteLine("CPS media preparation: isolated arguments, pipe drainage, exit failure, bounded diagnostics and owned-process timeout passed.");
+        File.Delete(pidPath);
+        using (var cancellation = new CancellationTokenSource())
+        {
+            var pending = TeknoCPSLauncher.RunMediaPreparationAsync(ChildInfo("timeout \"" + pidPath + "\""), TimeSpan.FromSeconds(10), cancellation: cancellation.Token);
+            var until = DateTime.UtcNow.AddSeconds(3);
+            while (!File.Exists(pidPath) && DateTime.UtcNow < until) Thread.Sleep(10);
+            Require(File.Exists(pidPath), "Cancellable preparation did not start");
+            cancellation.Cancel();
+            var cancelled = false;
+            try { pending.GetAwaiter().GetResult(); } catch (OperationCanceledException) { cancelled = true; }
+            Require(cancelled, "Preparation cancellation did not complete");
+            alive = false;
+            try { using (var child = Process.GetProcessById(int.Parse(File.ReadAllText(pidPath)))) alive = !child.HasExited; }
+            catch (ArgumentException) { }
+            Require(!alive, "Cancelled preparation process was left running");
+        }
+        Console.WriteLine("CPS media preparation: isolation, progress, pipe drainage, bounded diagnostics, owned-process timeout and cancellation passed.");
     }
 }

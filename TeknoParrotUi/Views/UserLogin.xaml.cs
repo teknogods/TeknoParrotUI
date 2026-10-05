@@ -16,6 +16,7 @@ namespace TeknoParrotUi.Views
     {
         public bool IsActive = false;
         private TPO2Callback _tPO2Callback;
+        private MediaPreparationCallback _mediaPreparation;
         private bool _isDisposed = false;
         private bool _tpoAutoSession = false;
         private bool _loginNoticeShown = false;
@@ -24,14 +25,18 @@ namespace TeknoParrotUi.Views
         {
             InitializeComponent();
 
-            _tPO2Callback = new TPO2Callback();
+            _mediaPreparation = new MediaPreparationCallback(message => Dispatcher.BeginInvoke(new Action(() =>
+            {
+                if (!_isDisposed) Browser?.ExecuteScriptAsync("onGameMediaPreparationProgress", message);
+            })));
+            _tPO2Callback = new TPO2Callback(_mediaPreparation.cancelPreparation);
 
             // Subscribe to the GameProcessExited event
             _tPO2Callback.GameProcessExited += OnGameProcessExited;
 
             Browser.JavascriptObjectRepository.Settings.LegacyBindingEnabled = true;
             Browser.JavascriptObjectRepository.Register("callbackObj", _tPO2Callback, isAsync: false, options: BindingOptions.DefaultBinder);
-            Browser.JavascriptObjectRepository.Register("mediaPreparationObj", new MediaPreparationCallback(), isAsync: true, options: BindingOptions.DefaultBinder);
+            Browser.JavascriptObjectRepository.Register("mediaPreparationObj", _mediaPreparation, isAsync: true, options: BindingOptions.DefaultBinder);
             Browser.MenuHandler = new CustomMenuHandler();
             Browser.FrameLoadEnd += Browser_FrameLoadEnd;
 
@@ -70,6 +75,7 @@ namespace TeknoParrotUi.Views
         {
             if (_isDisposed) return;
             _isDisposed = true;
+            _mediaPreparation?.cancelPreparation();
 
             try
             {
@@ -188,24 +194,43 @@ namespace TeknoParrotUi.Views
 
     public sealed class MediaPreparationCallback
     {
+        private readonly object _sync = new object();
+        private readonly Action<string> _progress;
+        private CancellationTokenSource _active;
+        public MediaPreparationCallback(Action<string> progress) { _progress = progress; }
+        public void cancelPreparation() { lock (_sync) _active?.Cancel(); }
+
         public async Task<bool> prepareGame(string gameId)
         {
+            CancellationTokenSource cancellation;
+            lock (_sync)
+            {
+                if (_active != null) return false;
+                _active = cancellation = new CancellationTokenSource();
+            }
             try
             {
-                await GameRunningCode.ProcessManagement.TeknoCPSLauncher.PrepareMediaAsync(gameId).ConfigureAwait(false);
+                await GameRunningCode.ProcessManagement.TeknoCPSLauncher.PrepareMediaAsync(gameId, _progress, cancellation.Token).ConfigureAwait(false);
                 return true;
             }
+            catch (OperationCanceledException) { return false; }
             catch (Exception error)
             {
                 Application.Current.Dispatcher.BeginInvoke(new Action(() =>
                     MessageBox.Show(error.Message, "TeknoParrot Online", MessageBoxButton.OK, MessageBoxImage.Error)));
                 return false;
             }
+            finally { lock (_sync) { _active = null; cancellation.Dispose(); } }
         }
     }
 
     public class TPO2Callback
     {
+        private readonly Action _cancelPreparation;
+        public TPO2Callback(Action cancelPreparation = null) { _cancelPreparation = cancelPreparation; }
+        // Keep cancellation on the existing synchronous binding: it must not
+        // queue behind CefSharp's long asynchronous preparation invocation.
+        public void cancelMediaPreparation() => _cancelPreparation?.Invoke();
         public event Action GameProcessExited;
         private bool isLaunched = false;
         public static Process LauncherProcess;

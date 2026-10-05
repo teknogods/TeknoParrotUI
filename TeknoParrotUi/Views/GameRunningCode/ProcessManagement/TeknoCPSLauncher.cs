@@ -16,12 +16,12 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
     {
         private static readonly SemaphoreSlim MediaPreparation = new SemaphoreSlim(1, 1);
 
-        internal static async Task PrepareMediaAsync(string gameId)
+        internal static async Task PrepareMediaAsync(string gameId, Action<string> progress = null, CancellationToken cancellation = default)
         {
             if (string.IsNullOrEmpty(gameId) || !gameId.StartsWith("cps_", StringComparison.Ordinal) ||
                 gameId.Substring(4).Length == 0 || gameId.Substring(4).Any(c => !char.IsLetterOrDigit(c)))
                 throw new ArgumentException("Invalid CPS game profile");
-            await MediaPreparation.WaitAsync().ConfigureAwait(false);
+            await MediaPreparation.WaitAsync(cancellation).ConfigureAwait(false);
             try
             {
                 var profilePath = Path.Combine("UserProfiles", gameId + ".xml");
@@ -32,21 +32,39 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 profile.ProfileName = gameId;
                 if (!profile.HasTpoSupport || profile.EmulatorType != EmulatorType.TeknoCPS)
                     throw new InvalidOperationException("This profile has no CPS online multiplayer mode");
-                await RunMediaPreparationAsync(Build(profile, profile.GamePath, null, prepareMedia: true), TimeSpan.FromMinutes(20)).ConfigureAwait(false);
+                await RunMediaPreparationAsync(Build(profile, profile.GamePath, null, prepareMedia: true), TimeSpan.FromHours(1), progress, cancellation).ConfigureAwait(false);
             }
             finally { MediaPreparation.Release(); }
         }
 
-        internal static async Task RunMediaPreparationAsync(ProcessStartInfo info, TimeSpan timeout)
+        internal static async Task RunMediaPreparationAsync(ProcessStartInfo info, TimeSpan timeout,
+            Action<string> progress = null, CancellationToken cancellation = default)
         {
+            cancellation.ThrowIfCancellationRequested();
             using (var process = new Process { StartInfo = info, EnableRaisingEvents = true })
             {
                 var exited = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
                 process.Exited += (sender, args) => exited.TrySetResult(true);
                 if (!process.Start()) throw new InvalidOperationException("Unable to start game media preparation");
-                var output = process.StandardOutput.ReadToEndAsync();
-                var errors = process.StandardError.ReadToEndAsync();
-                using (var deadline = new CancellationTokenSource())
+                async Task<string> Read(StreamReader stream, bool report)
+                {
+                    var tail = new StringBuilder();
+                    string line;
+                    while ((line = await stream.ReadLineAsync().ConfigureAwait(false)) != null)
+                    {
+                        tail.AppendLine(line);
+                        if (tail.Length > 8000) tail.Remove(0, tail.Length - 8000);
+                        if (report && progress != null)
+                        {
+                            try { progress(line.Length > 500 ? line.Substring(0, 500) : line); }
+                            catch (Exception) { /* The browser may have closed; still drain the owned process. */ }
+                        }
+                    }
+                    return tail.ToString();
+                }
+                var output = Read(process.StandardOutput, true);
+                var errors = Read(process.StandardError, false);
+                using (var deadline = CancellationTokenSource.CreateLinkedTokenSource(cancellation))
                 {
                     var timedOut = await Task.WhenAny(exited.Task, Task.Delay(timeout, deadline.Token)).ConfigureAwait(false) != exited.Task;
                     deadline.Cancel();
@@ -56,10 +74,12 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                         catch (InvalidOperationException) { /* Exited between the check and Kill. */ }
                         await exited.Task.ConfigureAwait(false);
                         await Task.WhenAll(output, errors).ConfigureAwait(false);
+                        cancellation.ThrowIfCancellationRequested();
                         throw new TimeoutException("Game media preparation timed out after " + timeout.TotalMinutes.ToString("0") + " minutes");
                     }
                 }
                 var diagnostics = (await errors.ConfigureAwait(false)) + (await output.ConfigureAwait(false));
+                cancellation.ThrowIfCancellationRequested();
                 if (process.ExitCode != 0)
                     throw new InvalidOperationException("Game media preparation failed. Check the ROM ZIPs and CD Image Folder.\n\n" +
                         (diagnostics.Length > 8000 ? diagnostics.Substring(diagnostics.Length - 8000) : diagnostics));
