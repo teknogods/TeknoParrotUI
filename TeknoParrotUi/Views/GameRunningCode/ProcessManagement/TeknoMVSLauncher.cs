@@ -53,7 +53,17 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 var mode = Setting("Rendering Mode", "original");
                 if (clock != "12" && clock != "24") throw new ArgumentException("CPU Clock must be 12 or 24 MHz");
                 if (!new[] { "original", "enhanced", "remastered" }.Contains(mode)) throw new ArgumentException("Invalid MVS rendering mode");
+                var dipMask = set == "kizuna4p" ? 2 : new[] { "janshin", "minasan", "bakatono", "ms5pcb", "svcpcb", "svcpcba" }.Contains(set) ? 4 : 0;
+                for (var dip = 0; dip < 8; ++dip)
+                {
+                    var name = "DIP Switch " + (dip + 1);
+                    var value = Setting(name, (dipMask & (1 << dip)) != 0 ? "On" : "Off");
+                    if (value != "On" && value != "Off") throw new ArgumentException(name + " must be On or Off");
+                    if (value == "On") dipMask |= 1 << dip;
+                    else dipMask &= ~(1 << dip);
+                }
                 args.AddRange(new[] { "--play", "--start", "--cpu-clock", clock, "--render-mode", mode,
+                    "--dip-mask", dipMask.ToString(),
                     "--cabinet-state-dir", Quote(Path.Combine(root, "state")), "--rtc-offline-policy", "frozen" });
                 if (isTest) args.Add("--test-menu");
             }

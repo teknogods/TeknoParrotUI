@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>The King of Fighters 2003 (NGH-2710)</GameNameInternal>
   <EmulationProfile>TeknoMVS</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <EmulatorType>TeknoMVS</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>kof2003h.zip</ExecutableName>
@@ -64,6 +64,94 @@
         <string>1</string>
         <string>0</string>
       </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>DIP Switches</CategoryName>
+      <FieldName>DIP Switch 1</FieldName>
+      <FieldValue>Off</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Off</string>
+        <string>On</string>
+      </FieldOptions>
+      <Hint>Setting Mode. Test Menu enables this switch for that launch. TPO selects all DIP settings automatically.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>DIP Switches</CategoryName>
+      <FieldName>DIP Switch 2</FieldName>
+      <FieldValue>Off</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Off</string>
+        <string>On</string>
+      </FieldOptions>
+      <Hint>Physical cabinet switch. On = closed. TPO selects all DIP settings automatically.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>DIP Switches</CategoryName>
+      <FieldName>DIP Switch 3</FieldName>
+      <FieldValue>Off</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Off</string>
+        <string>On</string>
+      </FieldOptions>
+      <Hint>Physical cabinet switch. On = closed. TPO selects all DIP settings automatically.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>DIP Switches</CategoryName>
+      <FieldName>DIP Switch 4</FieldName>
+      <FieldValue>Off</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Off</string>
+        <string>On</string>
+      </FieldOptions>
+      <Hint>Physical cabinet switch. On = closed. TPO selects all DIP settings automatically.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>DIP Switches</CategoryName>
+      <FieldName>DIP Switch 5</FieldName>
+      <FieldValue>Off</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Off</string>
+        <string>On</string>
+      </FieldOptions>
+      <Hint>Physical cabinet switch. On = closed. TPO selects all DIP settings automatically.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>DIP Switches</CategoryName>
+      <FieldName>DIP Switch 6</FieldName>
+      <FieldValue>Off</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Off</string>
+        <string>On</string>
+      </FieldOptions>
+      <Hint>Physical cabinet switch. On = closed. TPO selects all DIP settings automatically.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>DIP Switches</CategoryName>
+      <FieldName>DIP Switch 7</FieldName>
+      <FieldValue>Off</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Off</string>
+        <string>On</string>
+      </FieldOptions>
+      <Hint>Physical cabinet switch. On = closed. TPO selects all DIP settings automatically.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>DIP Switches</CategoryName>
+      <FieldName>DIP Switch 8</FieldName>
+      <FieldValue>Off</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Off</string>
+        <string>On</string>
+      </FieldOptions>
+      <Hint>Physical cabinet switch. On = closed. TPO selects all DIP settings automatically.</Hint>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

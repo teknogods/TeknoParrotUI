@@ -3,5 +3,5 @@
   "game_genre": "Arcade",
   "icon_name": "",
   "platform": "SNK Neo Geo MVS",
-  "general_issues": "Select vliner7e.zip. Keep parent archives and neogeo.zip beside it. Offline profile; no supported online multiplayer mode."
+  "general_issues": "Select vliner7e.zip. Keep parent archives and neogeo.zip beside it. Offline physical DIP switches are in Game Settings. Use Test Menu for the original game soft-DIP options. Offline profile; no supported online multiplayer mode."
 }

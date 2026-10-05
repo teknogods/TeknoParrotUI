@@ -61,6 +61,26 @@ internal static class MvsChecks
                 Environment.SetEnvironmentVariable("TP_TPONLINE2", null);
                 profile.ConfigValues.Single(v => v.FieldName == "CPU Clock").FieldValue = "24";
                 var offline = TeknoMVSLauncher.Build(profile, zip, null, true);
+                var switches = profile.ConfigValues.Where(v => v.CategoryName == "DIP Switches").ToArray();
+                Require(switches.Length == 8 && profile.GameProfileRevision >= 2, "MVS DIP settings missing");
+                var defaultMask = profile.ProfileName == "mvs_kizuna4p" ? 2 : new[] { "mvs_janshin", "mvs_minasan", "mvs_bakatono", "mvs_ms5pcb", "mvs_svcpcb", "mvs_svcpcba" }.Contains(profile.ProfileName) ? 4 : 0;
+                var nativeArgs = Program.Arguments(offline.Arguments);
+                Require(nativeArgs[Array.IndexOf(nativeArgs, "--dip-mask") + 1] == defaultMask.ToString(), "MVS physical DIP defaults changed");
+                if (profile.ProfileName == "mvs_nam1975")
+                {
+                    for (var mask = 0; mask < 256; ++mask)
+                    {
+                        for (var dip = 0; dip < 8; ++dip)
+                            profile.ConfigValues.Single(v => v.FieldName == "DIP Switch " + (dip + 1)).FieldValue = (mask & (1 << dip)) != 0 ? "On" : "Off";
+                        var configured = Program.Arguments(TeknoMVSLauncher.Build(profile, zip, null).Arguments);
+                        Require(configured[Array.IndexOf(configured, "--dip-mask") + 1] == mask.ToString(), "Physical DIP bit order/combination");
+                    }
+                    switches[0].FieldValue = "invalid";
+                    var invalid = false;
+                    try { TeknoMVSLauncher.Build(profile, zip, null); } catch (ArgumentException) { invalid = true; }
+                    Require(invalid, "Malformed offline DIP accepted");
+                    foreach (var value in switches) value.FieldValue = "Off";
+                }
                 Require(offline.FileName.EndsWith("TeknoMVSDiagnostic.exe") && offline.Arguments.Contains("--test-menu") && offline.Arguments.Contains("--start") && offline.Arguments.Contains("--cpu-clock 24"), "MVS offline/test launch mismatch");
                 var linked = new[] { "mvs_ridhero", "mvs_ridheroh", "mvs_trally", "mvs_lbowling_link" }.Contains(profile.ProfileName);
                 if (profile.HasTpoSupport)
@@ -69,6 +89,7 @@ internal static class MvsChecks
                     // Invalid saved display/clock settings cannot contaminate TPO.
                     profile.ConfigValues.Single(v => v.FieldName == "CPU Clock").FieldValue = "invalid-saved-clock";
                     profile.ConfigValues.Single(v => v.FieldName == "Rendering Mode").FieldValue = "invalid-saved-mode";
+                    foreach (var value in switches) value.FieldValue = "invalid-saved-dip";
                     var capacity = linked || profile.ProfileName == "mvs_kizuna4p" || profile.ProfileName == "mvs_lbowling" ? 4 : 2;
                     for (var count = 2; count <= capacity; ++count) for (var seat = 0; seat < count; ++seat)
                     {
@@ -78,6 +99,7 @@ internal static class MvsChecks
                         Require(online.Arguments.Contains("--net-link") == linked, "MVS linked mode mismatch");
                         Require(online.Arguments.Contains("--net-mode rollback --net-input-delay 2"), "MVS TPO must use rollback");
                         Require(online.Arguments.Contains("--cpu-clock 12") && !online.Arguments.Contains("--cabinet-state-dir") && !online.Arguments.Contains("--net-player ") && !online.Arguments.Contains("--net-players"), "MVS lobby assignment not automatic");
+                        Require(!online.Arguments.Contains("--dip-mask"), "Offline DIP switches leaked into TPO");
                         ++seats;
                     }
                 }
