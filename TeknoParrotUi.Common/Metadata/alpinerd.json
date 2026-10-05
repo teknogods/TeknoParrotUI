@@ -1,7 +1,12 @@
 {
-  "game_name": "Alpine Racer (World, AR2 Ver.D)",
+  "game_name": "Alpine Racer",
   "game_genre": "Action",
   "icon_name": "",
   "platform": "Namco Super System 22",
-  "general_issues": "User-supplied merged ROM ZIP required. "
+  "general_issues": "User-supplied merged ROM ZIP required. Select Game Revision in Game Settings; the merged alpinerd.zip must contain that revision.",
+  "supported_versions": [
+    "World, AR2 Ver.D",
+    "World, AR2 Ver.C",
+    "Japan, AR1 Ver.C"
+  ]
 }

@@ -1,7 +1,16 @@
 {
-  "game_name": "Crisis Zone (World, CSZO4 Ver. B)",
+  "game_name": "Crisis Zone",
   "game_genre": "Shooter",
   "icon_name": "",
   "platform": "Namco System 23 Evolution 2",
-  "general_issues": "Select the merged crszone.zip ROM archive. VR: hold Menu, point and press right trigger. Linked play requires matching cabinet IDs in the service menu."
+  "general_issues": "Select the merged crszone.zip ROM archive. VR: hold Menu, point and press right trigger. Linked play requires matching cabinet IDs in the service menu. Select Game Revision in Game Settings; the merged crszone.zip must contain that revision.",
+  "supported_versions": [
+    "World, CSZO4 Ver. B",
+    "World, CSZO4 Ver. A",
+    "US, CSZO3 Ver. B, set 1",
+    "US, CSZO3 Ver. B, set 2",
+    "US, CSZO3 Ver. A",
+    "World, CSZO2 Ver. A",
+    "World, CSZO2 Ver. B"
+  ]
 }

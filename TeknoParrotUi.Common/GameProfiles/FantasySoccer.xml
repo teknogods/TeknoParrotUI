@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<GameProfileRevision>1</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<EmulatorType>TeknoParrot</EmulatorType>
+	<Patreon>true</Patreon>
+	<EmulationProfile>WartranTroopers</EmulationProfile>
+	<Is64Bit>true</Is64Bit>
+	<InvertedMouseAxis>true</InvertedMouseAxis>
+	<ExecutableName>FB-Win64-Shipping.exe</ExecutableName>
+	<xAxisMin>0</xAxisMin>
+	<xAxisMax>255</xAxisMax>
+	<yAxisMin>0</yAxisMin>
+	<yAxisMax>255</yAxisMax>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>HideCursor</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>CustomResolution</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ResolutionWidth</FieldName>
+			<FieldValue>1920</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ResolutionHeight</FieldName>
+			<FieldValue>1080</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>EnableSecondMonitor</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Enable 2nd monitor display: mirrors gameplay with commentators.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Use Relative Input</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Player 1 Relative Sensitivity</FieldName>
+			<FieldValue>8</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>50</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Player 2 Relative Sensitivity</FieldName>
+			<FieldValue>8</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>50</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Player 3 Relative Sensitivity</FieldName>
+			<FieldValue>8</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>50</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Player 4 Relative Sensitivity</FieldName>
+			<FieldValue>8</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>50</FieldMax>
+			<FieldOptions></FieldOptions>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Red Button</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Blue Button</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Ball Sensor Front (Light Ball Shoot)</ButtonName>
+			<InputMapping>P1Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Ball Sensor Behind (Heavy Ball Shoot)</ButtonName>
+			<InputMapping>P1Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Joystick X</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRelativeAxis>true</HideWithRelativeAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Joystick Y</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRelativeAxis>true</HideWithRelativeAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Joystick Y Up</ButtonName>
+			<InputMapping>P1RelativeUp</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Joystick Y Down</ButtonName>
+			<InputMapping>P1RelativeDown</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Joystick X Left</ButtonName>
+			<InputMapping>P1RelativeLeft</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Joystick X Right</ButtonName>
+			<InputMapping>P1RelativeRight</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Red Button</ButtonName>
+			<InputMapping>P2Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Blue Button</ButtonName>
+			<InputMapping>P2Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Ball Sensor Front (Light Ball Shoot)</ButtonName>
+			<InputMapping>P2Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Ball Sensor Behind (Heavy Ball Shoot)</ButtonName>
+			<InputMapping>P2Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Joystick X</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRelativeAxis>true</HideWithRelativeAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Joystick Y</ButtonName>
+			<InputMapping>Analog6</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRelativeAxis>true</HideWithRelativeAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Joystick Y Up</ButtonName>
+			<InputMapping>P2RelativeUp</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Joystick Y Down</ButtonName>
+			<InputMapping>P2RelativeDown</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Joystick X Left</ButtonName>
+			<InputMapping>P2RelativeLeft</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Joystick X Right</ButtonName>
+			<InputMapping>P2RelativeRight</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P3 Red Button</ButtonName>
+			<InputMapping>JvsTwoP1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P3 Blue Button</ButtonName>
+			<InputMapping>JvsTwoP1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P3 Ball Sensor Front (Light Ball Shoot)</ButtonName>
+			<InputMapping>JvsTwoP1Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P3 Ball Sensor Behind (Heavy Ball Shoot)</ButtonName>
+			<InputMapping>JvsTwoP1Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P3 Joystick X</ButtonName>
+			<InputMapping>Analog8</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRelativeAxis>true</HideWithRelativeAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P3 Joystick Y</ButtonName>
+			<InputMapping>Analog10</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRelativeAxis>true</HideWithRelativeAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P3 Joystick Y Up</ButtonName>
+			<InputMapping>P3RelativeUp</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P3 Joystick Y Down</ButtonName>
+			<InputMapping>P3RelativeDown</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P3 Joystick X Left</ButtonName>
+			<InputMapping>P3RelativeLeft</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P3 Joystick X Right</ButtonName>
+			<InputMapping>P3RelativeRight</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P4 Red Button</ButtonName>
+			<InputMapping>JvsTwoP2Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P4 Blue Button</ButtonName>
+			<InputMapping>JvsTwoP2Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P4 Ball Sensor Front (Light Ball Shoot)</ButtonName>
+			<InputMapping>JvsTwoP2Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P4 Ball Sensor Behind (Heavy Ball Shoot)</ButtonName>
+			<InputMapping>JvsTwoP2Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P4 Joystick X</ButtonName>
+			<InputMapping>Analog12</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRelativeAxis>true</HideWithRelativeAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P4 Joystick Y</ButtonName>
+			<InputMapping>Analog14</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithRawInput>true</HideWithRawInput>
+			<HideWithRelativeAxis>true</HideWithRelativeAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P4 Joystick Y Up</ButtonName>
+			<InputMapping>P4RelativeUp</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P4 Joystick Y Down</ButtonName>
+			<InputMapping>P4RelativeDown</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P4 Joystick X Left</ButtonName>
+			<InputMapping>P4RelativeLeft</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P4 Joystick X Right</ButtonName>
+			<InputMapping>P4RelativeRight</InputMapping>
+			<HideWithoutRelativeAxis>true</HideWithoutRelativeAxis>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+	</JoystickButtons>
+</GameProfile>

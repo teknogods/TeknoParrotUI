@@ -270,6 +270,7 @@
     <Compile Include="Pipes\EuropaRPipe.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GameProfile.cs" />
+    <Compile Include="NamcoGameRevisions.cs" />
     <Compile Include="CabinetOutputSettings.cs" />
     <Compile Include="InputCode.cs" />
     <Compile Include="JoystickMapping.cs" />
