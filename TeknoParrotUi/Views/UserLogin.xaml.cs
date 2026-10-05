@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using TeknoParrotUi.Properties;
 using MessageBox = System.Windows.MessageBox;
@@ -30,6 +31,7 @@ namespace TeknoParrotUi.Views
 
             Browser.JavascriptObjectRepository.Settings.LegacyBindingEnabled = true;
             Browser.JavascriptObjectRepository.Register("callbackObj", _tPO2Callback, isAsync: false, options: BindingOptions.DefaultBinder);
+            Browser.JavascriptObjectRepository.Register("mediaPreparationObj", new MediaPreparationCallback(), isAsync: true, options: BindingOptions.DefaultBinder);
             Browser.MenuHandler = new CustomMenuHandler();
             Browser.FrameLoadEnd += Browser_FrameLoadEnd;
 
@@ -180,6 +182,24 @@ namespace TeknoParrotUi.Views
                     System.Diagnostics.Debug.WriteLine($"Error reloading browser: {ex.Message}");
                 }
                 IsActive = false;
+            }
+        }
+    }
+
+    public sealed class MediaPreparationCallback
+    {
+        public async Task<bool> prepareGame(string gameId)
+        {
+            try
+            {
+                await GameRunningCode.ProcessManagement.TeknoCPSLauncher.PrepareMediaAsync(gameId).ConfigureAwait(false);
+                return true;
+            }
+            catch (Exception error)
+            {
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                    MessageBox.Show(error.Message, "TeknoParrot Online", MessageBoxButton.OK, MessageBoxImage.Error)));
+                return false;
             }
         }
     }

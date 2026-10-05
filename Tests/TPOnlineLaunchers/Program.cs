@@ -33,6 +33,7 @@ internal static class Program
 
     private static int Main(string[] args)
     {
+        if (args.Length > 0 && args[0] == "--media-preparation-child") return CpsMediaChecks.Child(args);
         var originalDirectory = Directory.GetCurrentDirectory();
         var originalOnline = Environment.GetEnvironmentVariable("TP_TPONLINE2");
         var temporary = Path.GetFullPath(Path.Combine(Path.GetTempPath(), "tponline-launchers-" + Guid.NewGuid().ToString("N")));
@@ -76,6 +77,7 @@ internal static class Program
             Console.WriteLine("All 17 real XML profiles passed TPOnline/manual LAN launch checks.");
             MvsChecks.Run(root, temporary);
             CpsChecks.Run(root, temporary);
+            CpsMediaChecks.Run(root, temporary);
             Ss32Checks.Run(root, temporary);
             return 0;
         }
