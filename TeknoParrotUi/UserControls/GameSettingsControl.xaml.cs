@@ -49,6 +49,7 @@ namespace TeknoParrotUi.UserControls
             PopulateCobraFfbDevices(gameProfile);
             PopulateVegasFfbDevices(gameProfile);
             PopulateGClubFfbDevices(gameProfile);
+            NamcoGameRevisions.Populate(gameProfile);
             GameSettingsList.ItemsSource = gameProfile.ConfigValues.Where(f =>
                 f.SettingsPage != ForceFeedbackSettingsControl.PageName).ToList();
             var settingsView = System.Windows.Data.CollectionViewSource.GetDefaultView(GameSettingsList.ItemsSource);

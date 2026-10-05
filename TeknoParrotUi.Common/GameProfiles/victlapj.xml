@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <GameProfile>
   <GamePath />
-  <GameNameInternal>Ace Driver: Victory Lap (Japan, ADV1 Ver.C)</GameNameInternal>
+  <GameNameInternal>Ace Driver: Victory Lap</GameNameInternal>
   <EmulationProfile>TeknoS22</EmulationProfile>
   <GameProfileRevision>5</GameProfileRevision>
   <EmulatorType>TeknoS22</EmulatorType>
@@ -46,6 +46,14 @@
       <FieldMin>0</FieldMin>
       <FieldMax>100</FieldMax>
       <Hint>Strength of the steering torque sent by the game, including its centering and impacts.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Revision</FieldName>
+      <FieldValue>victlapj</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select the region and revision to run. The merged victlap.zip archive must contain the selected revision.</Hint>
+    </FieldInformation>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

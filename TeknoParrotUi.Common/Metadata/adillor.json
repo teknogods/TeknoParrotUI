@@ -1,7 +1,11 @@
 {
-  "game_name": "Armadillo Racing (World, AM2 Ver.A)",
+  "game_name": "Armadillo Racing",
   "game_genre": "Action",
   "icon_name": "",
   "platform": "Namco Super System 22",
-  "general_issues": "User-supplied merged ROM ZIP required. "
+  "general_issues": "User-supplied merged ROM ZIP required. Select Game Revision in Game Settings; the merged adillor.zip must contain that revision.",
+  "supported_versions": [
+    "World, AM2 Ver.A",
+    "Japan, AM1 Ver.A"
+  ]
 }

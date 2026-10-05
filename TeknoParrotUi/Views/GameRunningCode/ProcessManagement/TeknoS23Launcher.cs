@@ -29,7 +29,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var game = Path.GetFullPath(gameLocation);
             if (!File.Exists(game)) throw new FileNotFoundException("Select this game's merged ROM ZIP.", game);
             var romRoot = Path.GetDirectoryName(game);
-            var set = profile.ProfileName;
+            var set = NamcoGameRevisions.ResolveSet(profile);
             if (string.IsNullOrWhiteSpace(set) || set.Any(c => !char.IsLetterOrDigit(c))) throw new ArgumentException("Invalid System 23 game profile");
             var scale = Setting("Internal Resolution", "2");
             if (!int.TryParse(scale, out var resolution) || resolution < 1 || resolution > 8) throw new ArgumentException("Internal Resolution must be 1 to 8");

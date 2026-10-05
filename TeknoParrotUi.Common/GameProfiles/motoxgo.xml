@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <GameProfile>
   <GamePath />
-  <GameNameInternal>Motocross Go! (World, MG3 Ver. A)</GameNameInternal>
+  <GameNameInternal>Motocross Go!</GameNameInternal>
   <EmulationProfile>TeknoS23</EmulationProfile>
   <GameProfileRevision>5</GameProfileRevision>
   <EmulatorType>TeknoS23</EmulatorType>
@@ -53,6 +53,14 @@
       <FieldMin>0</FieldMin>
       <FieldMax>100</FieldMax>
       <Hint>Strength of the handlebar torque sent by the game, including its centering and impacts.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Revision</FieldName>
+      <FieldValue>motoxgo</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select the region and revision to run. The merged motoxgo.zip archive must contain the selected revision.</Hint>
+    </FieldInformation>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

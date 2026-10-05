@@ -1,7 +1,12 @@
 {
-  "game_name": "Rave Racer (World, RV2 Ver.B)",
+  "game_name": "Rave Racer",
   "game_genre": "Racing",
   "icon_name": "",
   "platform": "Namco System 22",
-  "general_issues": "User-supplied merged ROM ZIP required. "
+  "general_issues": "User-supplied merged ROM ZIP required. Select Game Revision in Game Settings; the merged raverace.zip must contain that revision.",
+  "supported_versions": [
+    "World, RV2 Ver.B",
+    "Japan, RV1 Ver.B",
+    "Japan, RV1"
+  ]
 }

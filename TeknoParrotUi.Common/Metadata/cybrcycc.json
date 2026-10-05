@@ -1,7 +1,11 @@
 {
-  "game_name": "Cyber Cycles (World, CB2 Ver.C)",
+  "game_name": "Cyber Cycles",
   "game_genre": "Racing",
   "icon_name": "",
   "platform": "Namco Super System 22",
-  "general_issues": "User-supplied merged ROM ZIP required. "
+  "general_issues": "User-supplied merged ROM ZIP required. Select Game Revision in Game Settings; the merged cybrcycc.zip must contain that revision.",
+  "supported_versions": [
+    "World, CB2 Ver.C",
+    "Japan, CB1 Ver.C"
+  ]
 }

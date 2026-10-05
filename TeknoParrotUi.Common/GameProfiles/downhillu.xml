@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <GameProfile>
   <GamePath />
-  <GameNameInternal>Downhill Bikers (US, DH3 Ver. A)</GameNameInternal>
+  <GameNameInternal>Downhill Bikers</GameNameInternal>
   <EmulationProfile>TeknoS23</EmulationProfile>
   <GameProfileRevision>5</GameProfileRevision>
   <EmulatorType>TeknoS23</EmulatorType>
@@ -64,6 +64,14 @@
       <FieldMin>10</FieldMin>
       <FieldMax>200</FieldMax>
       <Hint>Time per vibration cycle in milliseconds. Lower values vibrate faster. Default: 40 ms (25 Hz).</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Revision</FieldName>
+      <FieldValue>downhillu</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select the region and revision to run. The merged downhill.zip archive must contain the selected revision.</Hint>
+    </FieldInformation>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

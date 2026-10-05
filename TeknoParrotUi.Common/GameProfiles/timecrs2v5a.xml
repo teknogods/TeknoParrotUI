@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <GameProfile>
   <GamePath />
-  <GameNameInternal>Time Crisis II (US, TSS5 Ver. A)</GameNameInternal>
+  <GameNameInternal>Time Crisis II</GameNameInternal>
   <EmulationProfile>TeknoS23</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <EmulatorType>TeknoS23</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>timecrs2.zip</ExecutableName>
@@ -19,6 +19,13 @@
   <yAxisMin>0</yAxisMin>
   <yAxisMax>255</yAxisMax>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Revision</FieldName>
+      <FieldValue>timecrs2v5a</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select the region and revision to run. The merged timecrs2.zip archive must contain the selected revision.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Outputs</FieldName>

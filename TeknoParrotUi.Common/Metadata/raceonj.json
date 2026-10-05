@@ -1,7 +1,11 @@
 {
-  "game_name": "Race On! (Japan, RO1 Ver. B)",
+  "game_name": "Race On!",
   "game_genre": "Racing",
   "icon_name": "",
   "platform": "Namco Super System 23",
-  "general_issues": "Select the merged raceon.zip ROM archive. VR: hold Menu, point and press right trigger. Linked play requires matching cabinet IDs in the service menu."
+  "general_issues": "Select the merged raceon.zip ROM archive. VR: hold Menu, point and press right trigger. Linked play requires matching cabinet IDs in the service menu. Select Game Revision in Game Settings; the merged raceon.zip must contain that revision.",
+  "supported_versions": [
+    "World, RO2 Ver. A",
+    "Japan, RO1 Ver. B"
+  ]
 }
