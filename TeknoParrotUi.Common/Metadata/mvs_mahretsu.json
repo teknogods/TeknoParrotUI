@@ -1,0 +1,7 @@
+{
+  "game_name": "Mahjong Kyo Retsuden (NGM-004 ~ NGH-004)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select mahretsu.zip. Keep parent archives and neogeo.zip beside it. TPO assigns all players and cabinet switches automatically. Up to 2 computers."
+}

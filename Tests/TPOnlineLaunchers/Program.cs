@@ -60,6 +60,7 @@ internal static class Program
 
             }
             Console.WriteLine("All 17 real XML profiles passed TPOnline/manual LAN launch checks.");
+            MvsChecks.Run(root, temporary);
             return 0;
         }
         catch (Exception error)

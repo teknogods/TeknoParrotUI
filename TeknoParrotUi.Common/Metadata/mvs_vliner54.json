@@ -1,0 +1,7 @@
+{
+  "game_name": "V-Liner (v0.54)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select vliner54.zip. Keep parent archives and neogeo.zip beside it. Offline profile; no supported online multiplayer mode."
+}

@@ -37,6 +37,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _isTeknoS22;
         private bool _isTeknoGClub;
         private bool _isTeknoS23;
+        private bool _isTeknoMVS;
         private bool _isTeknoVUnit;
         private bool _isTeknoViper;
         private bool _isTeknoS11;
@@ -215,6 +216,7 @@ namespace TeknoParrotUi.Common.InputListening
                     return true;
 
                 if (_isTeknoGClub && windowTitle.StartsWith("TeknoGClub", StringComparison.Ordinal)) return true;
+                if (_isTeknoMVS && windowTitle.StartsWith("TeknoMVS", StringComparison.Ordinal)) return true;
                 if (_isTeknoS23 && windowTitle.StartsWith("TeknoS23 - ", StringComparison.Ordinal)) return true;
                 if (_isTeknoS22 && windowTitle.StartsWith("TeknoS22 - ", StringComparison.Ordinal)) return true;
 
@@ -284,6 +286,7 @@ namespace TeknoParrotUi.Common.InputListening
             _isTeknoHornet = gameProfile.EmulationProfile == EmulationProfile.TeknoHornet;
             _isTeknoGClub = gameProfile.EmulationProfile == EmulationProfile.TeknoGClub;
             _isTeknoS23 = gameProfile.EmulationProfile == EmulationProfile.TeknoS23;
+            _isTeknoMVS = gameProfile.EmulationProfile == EmulationProfile.TeknoMVS;
             _isTeknoS22 = gameProfile.EmulationProfile == EmulationProfile.TeknoS22;
             _isTeknoVUnit = gameProfile.EmulationProfile == EmulationProfile.TeknoVUnit;
             _isTeknoM2 = gameProfile.EmulationProfile == EmulationProfile.TeknoM2;

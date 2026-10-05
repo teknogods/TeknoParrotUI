@@ -1,0 +1,7 @@
+{
+  "game_name": "Fight Fever / Wang Jung Wang (set 1)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select fightfev.zip. Keep parent archives and neogeo.zip beside it. TPO assigns all players and cabinet switches automatically. Up to 2 computers."
+}

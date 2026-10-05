@@ -1,0 +1,7 @@
+{
+  "game_name": "The King of Fighters 2001 (NGH-2621)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select kof2001h.zip. Keep parent archives and neogeo.zip beside it. TPO assigns all players and cabinet switches automatically. Up to 2 computers."
+}

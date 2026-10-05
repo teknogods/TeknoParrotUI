@@ -709,6 +709,15 @@ namespace TeknoParrotUi
             },
             new UpdaterComponent
             {
+                name = "TeknoMVS",
+                location = Path.Combine("TeknoMVS", "TeknoMVSDiagnostic.exe"),
+                reponame = "TeknoParrot",
+                opensource = false,
+                manualVersion = false,
+                folderOverride = "TeknoMVS"
+            },
+            new UpdaterComponent
+            {
                 name = "TeknoS23",
                 location = Path.Combine("TeknoS23", "TeknoS23.exe"),
                 reponame = "TeknoParrot",

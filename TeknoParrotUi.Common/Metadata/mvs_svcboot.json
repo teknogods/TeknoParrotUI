@@ -1,0 +1,7 @@
+{
+  "game_name": "SNK vs. Capcom - SVC Chaos (bootleg)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select svcboot.zip. Keep parent archives and neogeo.zip beside it. TPO assigns all players and cabinet switches automatically. Up to 2 computers."
+}

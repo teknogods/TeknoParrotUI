@@ -1,0 +1,7 @@
+{
+  "game_name": "World Heroes 2 Jet (ADM-007 ~ ADH-007)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select wh2j.zip. Keep parent archives and neogeo.zip beside it. TPO assigns all players and cabinet switches automatically. Up to 2 computers."
+}

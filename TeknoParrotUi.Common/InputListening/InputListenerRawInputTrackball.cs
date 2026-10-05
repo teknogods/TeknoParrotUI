@@ -93,6 +93,7 @@ namespace TeknoParrotUi.Common.InputListening
 
         private bool isHookableWindow(string windowTitle)
         {
+            if (_gameProfile?.EmulationProfile == EmulationProfile.TeknoMVS && windowTitle.StartsWith("TeknoMVS", StringComparison.Ordinal)) return true;
             for (int i = 0; i < _hookedWindows.Count; i++)
             {
                 if (windowTitle == _hookedWindows[i])

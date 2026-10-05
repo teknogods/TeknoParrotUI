@@ -1,0 +1,7 @@
+{
+  "game_name": "Metal Slug X - Super Vehicle-001 (NGM-2500 ~ NGH-2500)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select mslugx.zip. Keep parent archives and neogeo.zip beside it. TPO assigns all players and cabinet switches automatically. Up to 2 computers."
+}

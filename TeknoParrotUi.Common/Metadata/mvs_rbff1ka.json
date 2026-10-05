@@ -1,0 +1,7 @@
+{
+  "game_name": "Real Bout Fatal Fury / Real Bout Garou Densetsu (Korean release, bug fix revision)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select rbff1ka.zip. Keep parent archives and neogeo.zip beside it. TPO assigns all players and cabinet switches automatically. Up to 2 computers."
+}

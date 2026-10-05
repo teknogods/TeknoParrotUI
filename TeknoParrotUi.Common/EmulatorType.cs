@@ -58,6 +58,7 @@ namespace TeknoParrotUi.Common
         TeknoHDrive,
         TeknoMagic,
         // Sega Model 3
-        TeknoModel3
+        TeknoModel3,
+        TeknoMVS
     }
 }

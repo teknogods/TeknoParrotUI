@@ -200,6 +200,7 @@
     <Compile Include="Pipes\TeknoS22Pipe.cs" />
     <Compile Include="Pipes\TeknoS21Pipe.cs" />
     <Compile Include="Pipes\TeknoS23Pipe.cs" />
+    <Compile Include="Pipes\TeknoMVSPipe.cs" />
     <Compile Include="Pipes\TeknoGClubPipe.cs" />
     <Compile Include="Pipes\TeknoHornetPipe.cs" />
     <Compile Include="Pipes\TeknoCobraPipe.cs" />
