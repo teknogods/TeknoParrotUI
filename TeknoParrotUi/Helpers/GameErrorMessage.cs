@@ -120,12 +120,13 @@ namespace TeknoParrotUi.Helpers
             }
             if (emulatorType == EmulatorType.TeknoSS32 && errorCode != 0)
             {
-                MessageBox.Show("TeknoSS32 could not launch or continue. Check the ROM ZIP, parent archives and required CHDs.", "TeknoSS32");
+                MessageBox.Show("TeknoSS32 could not launch or continue. Check the ROM ZIP, parent archives and required CHDs."
+                    + Environment.NewLine + diagnostics, "TeknoSS32");
                 return;
             }
             if (emulatorType == EmulatorType.TeknoCPS && errorCode != 0)
             {
-                MessageBox.Show("TeknoCPS could not launch or continue. Check the ROM ZIP, parent archives, keys and required QSound firmware."
+                MessageBox.Show("TeknoCPS could not launch or continue. Check the ROM ZIP, parent archives, keys, required CD images and sound firmware."
                     + Environment.NewLine + diagnostics);
                 return;
             }
