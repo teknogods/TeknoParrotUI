@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Downhill Bikers</GameNameInternal>
   <EmulationProfile>TeknoS23</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <EmulatorType>TeknoS23</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>downhill.zip</ExecutableName>
@@ -19,6 +19,13 @@
   <yAxisMin>0</yAxisMin>
   <yAxisMax>255</yAxisMax>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Revision</FieldName>
+      <FieldValue>downhillu</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select the region and revision to run. The merged downhill.zip archive must contain the selected revision.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Force Feedback Device</FieldName>
@@ -64,14 +71,6 @@
       <FieldMin>10</FieldMin>
       <FieldMax>200</FieldMax>
       <Hint>Time per vibration cycle in milliseconds. Lower values vibrate faster. Default: 40 ms (25 Hz).</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Game Revision</FieldName>
-      <FieldValue>downhillu</FieldValue>
-      <FieldType>DynamicDropdown</FieldType>
-      <Hint>Select the region and revision to run. The merged downhill.zip archive must contain the selected revision.</Hint>
-    </FieldInformation>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

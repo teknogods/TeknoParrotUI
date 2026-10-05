@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Rave Racer</GameNameInternal>
   <EmulationProfile>TeknoS22</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <EmulatorType>TeknoS22</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>raverace.zip</ExecutableName>
@@ -12,6 +12,13 @@
   <DevOnly>false</DevOnly>
   <HasTpoSupport>true</HasTpoSupport>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Revision</FieldName>
+      <FieldValue>raverace</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select the region and revision to run. The merged raverace.zip archive must contain the selected revision.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Force Feedback Device</FieldName>
@@ -46,14 +53,6 @@
       <FieldMin>0</FieldMin>
       <FieldMax>100</FieldMax>
       <Hint>Strength of the steering torque sent by the game, including its centering and impacts.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Game Revision</FieldName>
-      <FieldValue>raverace</FieldValue>
-      <FieldType>DynamicDropdown</FieldType>
-      <Hint>Select the region and revision to run. The merged raverace.zip archive must contain the selected revision.</Hint>
-    </FieldInformation>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

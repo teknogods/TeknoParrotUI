@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Motocross Go!</GameNameInternal>
   <EmulationProfile>TeknoS23</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <EmulatorType>TeknoS23</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>motoxgo.zip</ExecutableName>
@@ -19,6 +19,13 @@
   <yAxisMin>0</yAxisMin>
   <yAxisMax>255</yAxisMax>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Revision</FieldName>
+      <FieldValue>motoxgo</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select the region and revision to run. The merged motoxgo.zip archive must contain the selected revision.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Force Feedback Device</FieldName>
@@ -53,14 +60,6 @@
       <FieldMin>0</FieldMin>
       <FieldMax>100</FieldMax>
       <Hint>Strength of the handlebar torque sent by the game, including its centering and impacts.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Game Revision</FieldName>
-      <FieldValue>motoxgo</FieldValue>
-      <FieldType>DynamicDropdown</FieldType>
-      <Hint>Select the region and revision to run. The merged motoxgo.zip archive must contain the selected revision.</Hint>
-    </FieldInformation>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
