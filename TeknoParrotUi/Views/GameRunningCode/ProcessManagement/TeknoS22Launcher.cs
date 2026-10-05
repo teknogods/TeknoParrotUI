@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,30 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 result.Append(c); slashes = 0;
             }
             return result.Append('\\', slashes * 2).Append('"').ToString();
+        }
+        // Shared by TeknoS22 and TeknoS23: SDL3 force feedback through the S22haptic/S23haptic
+        // device tokens. Only profiles declaring a Force Feedback Device get these options, and
+        // only the effects a profile declares are sent (ForceFeedbackArguments).
+        internal static void AddForceFeedback(GameProfile profile, List<string> args)
+        {
+            string Setting(string name, string fallback = null) =>
+                profile.ConfigValues?.FirstOrDefault(x => x.FieldName == name)?.FieldValue ?? fallback;
+            if (Setting("Force Feedback Device") == null) return;
+            args.Add("--ffb-device");
+            args.Add(Helpers.NamcoFfbDeviceProbe.GetLaunchSelection(Setting("Force Feedback Device", "off")));
+            if (!int.TryParse(Setting("Force Feedback Strength", "100"), NumberStyles.Integer,
+                    CultureInfo.InvariantCulture, out var gain) || gain < 0 || gain > 100)
+                gain = 100;
+            args.Add("--ffb-gain");
+            args.Add(gain.ToString(CultureInfo.InvariantCulture));
+            ForceFeedbackArguments.Add(profile, args, "Spring", "Constant", "Friction", "Sine");
+            var sinePeriod = Setting("Sine Effect Period");
+            if (sinePeriod == null) return;
+            if (!int.TryParse(sinePeriod, NumberStyles.Integer, CultureInfo.InvariantCulture, out var period) ||
+                period < 10 || period > 200)
+                period = 40;
+            args.Add("--ffb-sine-period");
+            args.Add(period.ToString(CultureInfo.InvariantCulture));
         }
         public static ProcessStartInfo Build(GameProfile profile, string gameLocation, Action<string> log)
         {
@@ -58,6 +83,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 if (!Enabled("Use VR Controls", true)) args.Add("--no-vr-controls");
             }
             else if (Enabled("Widescreen")) args.Add("--widescreen");
+            AddForceFeedback(profile, args);
             // TPOnline supplies TP_TPONLINE2 in the inherited environment, as for Viper.
             // Manual LAN peers use the native C139 transport in the same executable.
             if (Enabled("Enable LAN"))

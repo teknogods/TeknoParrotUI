@@ -40,6 +40,7 @@ namespace TeknoParrotUi.UserControls
             GamePathBox2.Text = _gameProfile.GamePath2;
 
             PopulateModelFfbDevices(gameProfile);
+            PopulateNamcoFfbDevices(gameProfile);
             PopulateHng64FfbDevices(gameProfile);
             PopulateViperFfbDevices(gameProfile);
             PopulateZeusFfbDevices(gameProfile);
@@ -183,6 +184,30 @@ namespace TeknoParrotUi.UserControls
                         Value = field.FieldValue
                     });
                 }
+            }
+        }
+
+        private static void PopulateNamcoFfbDevices(GameProfile gameProfile)
+        {
+            if (gameProfile.EmulatorType != EmulatorType.TeknoS22 &&
+                gameProfile.EmulatorType != EmulatorType.TeknoS23)
+                return;
+
+            var field = gameProfile.ConfigValues?.Find(cv =>
+                cv.FieldName == "Force Feedback Device" &&
+                cv.FieldType == FieldType.DynamicDropdown);
+            if (field == null)
+                return;
+
+            field.DynamicOptions = NamcoFfbDeviceProbe.GetDevices(gameProfile.EmulatorType);
+            if (!field.DynamicOptions.Any(option => option.Value == field.FieldValue) &&
+                !string.IsNullOrWhiteSpace(field.FieldValue))
+            {
+                field.DynamicOptions.Add(new DynamicDropdownOption
+                {
+                    DisplayName = $"Previously selected device (unavailable) - {field.FieldValue}",
+                    Value = field.FieldValue
+                });
             }
         }
 
