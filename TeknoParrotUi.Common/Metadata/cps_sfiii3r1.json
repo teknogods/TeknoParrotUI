@@ -1,0 +1,7 @@
+{
+  "game_name": "Street Fighter III 3rd Strike: Fight for the Future (Europe 990512)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS3",
+  "general_issues": "Select sfiii3r1.zip; keep parent archives, keys and required qsound.zip beside it. Pending: CPS3 CD installation pending; use a preinstalled SIMM set. Offline profile; no supported online multiplayer mode."
+}

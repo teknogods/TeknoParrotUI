@@ -1,0 +1,7 @@
+{
+  "game_name": "Super Puzzle Fighter II Turbo (USA 960620 Phoenix Edition) (bootleg)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select spf2td.zip; keep parent archives, keys and required qsound.zip beside it. Pending: media operation needs implementation. Offline profile; no supported online multiplayer mode."
+}

@@ -1,0 +1,7 @@
+{
+  "game_name": "Forgotten Worlds (USA, B-Board 88618B-2, Rev. A)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select forgottnua.zip; keep parent archives, keys and required qsound.zip beside it. Pending: board/device integration pending. Offline profile; no supported online multiplayer mode."
+}

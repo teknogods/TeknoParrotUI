@@ -48,6 +48,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                     return BuildTeknoVegas(profile, gameLocation, log);
                 case EmulatorType.TeknoGClub:
                     return TeknoGClubLauncher.Build(profile, gameLocation, log);
+                case EmulatorType.TeknoCPS:
+                    return TeknoCPSLauncher.Build(profile, gameLocation, log, isTest);
                 case EmulatorType.TeknoMVS:
                     return TeknoMVSLauncher.Build(profile, gameLocation, log, isTest);
                 case EmulatorType.TeknoS23:

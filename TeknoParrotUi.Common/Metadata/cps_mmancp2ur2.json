@@ -1,0 +1,7 @@
+{
+  "game_name": "Mega Man: The Power Battle (CPS2, USA 950925, SAMPLE Version)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select mmancp2ur2.zip; keep parent archives, keys and required qsound.zip beside it. Pending: media operation needs implementation. Offline profile; no supported online multiplayer mode."
+}

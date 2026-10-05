@@ -1,0 +1,7 @@
+{
+  "game_name": "Captain Commando (bootleg with 2xMSM5205)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select captcommb2.zip; keep parent archives, keys and required qsound.zip beside it. Pending: media operation needs implementation. Offline profile; no supported online multiplayer mode."
+}

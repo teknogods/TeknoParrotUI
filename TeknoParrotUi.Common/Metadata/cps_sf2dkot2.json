@@ -1,0 +1,7 @@
+{
+  "game_name": "Street Fighter II': Champion Edition (Double K.O. Turbo II, bootleg)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select sf2dkot2.zip; keep parent archives, keys and required qsound.zip beside it. Pending: board/device integration pending. Offline profile; no supported online multiplayer mode."
+}

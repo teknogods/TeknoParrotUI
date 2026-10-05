@@ -1,0 +1,7 @@
+{
+  "game_name": "Street Fighter III 2nd Impact: Giant Attack (Asia 970930)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS3",
+  "general_issues": "Select sfiii2a.zip; keep parent archives, keys and required qsound.zip beside it. Pending: CPS3 CD installation pending; use a preinstalled SIMM set. Offline profile; no supported online multiplayer mode."
+}

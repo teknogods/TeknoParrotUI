@@ -22,6 +22,8 @@ $exe = Join-Path $output 'TPOnlineLaunchers.exe'
 & $Compiler /nologo /langversion:9 /target:exe /platform:x86 "/reference:$CommonAssembly" "/out:$exe" `
     (Join-Path $PSScriptRoot 'Program.cs') `
     (Join-Path $PSScriptRoot 'MvsChecks.cs') `
+    (Join-Path $PSScriptRoot 'CpsChecks.cs') `
+    (Join-Path $root 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\TeknoCPSLauncher.cs') `
     (Join-Path $root 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\TeknoMVSLauncher.cs') `
     (Join-Path $root 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\TeknoS22Launcher.cs') `
     (Join-Path $root 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\TeknoS23Launcher.cs')

@@ -1,0 +1,7 @@
+{
+  "game_name": "Lost Worlds (Japan Old Ver.)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select lostwrldo.zip; keep parent archives, keys and required qsound.zip beside it. Pending: board/device integration pending. Offline profile; no supported online multiplayer mode."
+}

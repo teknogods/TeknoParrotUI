@@ -1,0 +1,7 @@
+{
+  "game_name": "CPS3 Multi-game bootleg for HD6417095 type SH2 (older)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS3",
+  "general_issues": "Select cps3booto.zip; keep parent archives, keys and required qsound.zip beside it. Pending: CPS3 CD installation pending; use a preinstalled SIMM set. Offline profile; no supported online multiplayer mode."
+}

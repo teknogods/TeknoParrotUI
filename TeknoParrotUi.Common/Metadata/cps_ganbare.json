@@ -1,0 +1,7 @@
+{
+  "game_name": "Ganbare! Marine Kun (Japan 2K0411)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select ganbare.zip; keep parent archives, keys and required qsound.zip beside it. Pending: board/device integration pending. Offline profile; no supported online multiplayer mode."
+}

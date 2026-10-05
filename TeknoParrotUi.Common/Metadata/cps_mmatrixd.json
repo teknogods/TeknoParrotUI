@@ -1,0 +1,7 @@
+{
+  "game_name": "Mars Matrix: Hyper Solid Shooting (USA 000412 Phoenix Edition) (bootleg)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select mmatrixd.zip; keep parent archives, keys and required qsound.zip beside it. Pending: board/device integration pending. Offline profile; no supported online multiplayer mode."
+}

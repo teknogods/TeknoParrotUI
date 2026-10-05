@@ -1,0 +1,7 @@
+{
+  "game_name": "Jyangokushi: Haoh no Saihai (Japan 990527)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select jyangoku.zip; keep parent archives, keys and required qsound.zip beside it. Experimental emulation; profile coverage does not mean full gameplay qualification. Offline profile; no supported online multiplayer mode."
+}

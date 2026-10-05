@@ -1,0 +1,7 @@
+{
+  "game_name": "Armored Warriors (USA 941024)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select armwaru.zip; keep parent archives, keys and required qsound.zip beside it. Experimental emulation; profile coverage does not mean full gameplay qualification. TPO automatically assigns up to 3 computers. Each computer controls one player on the shared cabinet using its Player 1 controls. Offline EEPROM and manual cabinet settings are ignored during online play."
+}

@@ -118,6 +118,12 @@ namespace TeknoParrotUi.Helpers
                     + Environment.NewLine + diagnostics);
                 return;
             }
+            if (emulatorType == EmulatorType.TeknoCPS && errorCode != 0)
+            {
+                MessageBox.Show("TeknoCPS could not launch or continue. Check the ROM ZIP, parent archives, keys and required QSound firmware."
+                    + Environment.NewLine + diagnostics);
+                return;
+            }
             if (emulatorType == EmulatorType.TeknoMVS && errorCode != 0)
             {
                 MessageBox.Show("TeknoMVS could not launch or continue. Check the selected ROM ZIP, parent archives and BIOS."

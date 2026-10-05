@@ -1,0 +1,7 @@
+{
+  "game_name": "Quiz Tonosama no Yabou 2: Zenkoku-ban (Japan 950123)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select qtono2j.zip; keep parent archives, keys and required qsound.zip beside it. Experimental emulation; profile coverage does not mean full gameplay qualification. TPO automatically assigns up to 2 computers. Each computer controls one player on the shared cabinet using its Player 1 controls. Offline EEPROM and manual cabinet settings are ignored during online play."
+}

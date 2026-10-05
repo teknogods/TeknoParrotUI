@@ -1,0 +1,7 @@
+{
+  "game_name": "Saturday Night Slam Masters (bootleg with PIC16C57, set 1)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select slampic.zip; keep parent archives, keys and required qsound.zip beside it. Pending: board/device integration pending. Offline profile; no supported online multiplayer mode."
+}

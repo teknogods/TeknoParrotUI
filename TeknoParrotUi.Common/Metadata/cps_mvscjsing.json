@@ -1,0 +1,7 @@
+{
+  "game_name": "Marvel Vs. Capcom: Clash of Super Heroes (Japan 980123) (Single PCB)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select mvscjsing.zip; keep parent archives, keys and required qsound.zip beside it. Pending: board/device integration pending. Offline profile; no supported online multiplayer mode."
+}

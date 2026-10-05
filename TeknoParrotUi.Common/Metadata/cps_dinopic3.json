@@ -1,0 +1,7 @@
+{
+  "game_name": "Cadillacs and Dinosaurs (bootleg with PIC16C57, set 3)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select dinopic3.zip; keep parent archives, keys and required qsound.zip beside it. Pending: board/device integration pending. Offline profile; no supported online multiplayer mode."
+}

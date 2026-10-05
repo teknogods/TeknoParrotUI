@@ -1,0 +1,7 @@
+{
+  "game_name": "Street Fighter II: The World Warrior (bootleg, set 1)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select sf2b.zip; keep parent archives, keys and required qsound.zip beside it. Pending: media operation needs implementation. Offline profile; no supported online multiplayer mode."
+}

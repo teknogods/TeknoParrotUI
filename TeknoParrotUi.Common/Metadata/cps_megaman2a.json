@@ -1,0 +1,7 @@
+{
+  "game_name": "Mega Man 2: The Power Fighters (Asia 960708)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select megaman2a.zip; keep parent archives, keys and required qsound.zip beside it. Pending: media operation needs implementation. Offline profile; no supported online multiplayer mode."
+}
