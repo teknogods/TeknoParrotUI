@@ -74,7 +74,7 @@
         <string>Off</string>
         <string>On</string>
       </FieldOptions>
-      <Hint>Setting Mode. Test Menu enables this switch for that launch. TPO selects all DIP settings automatically.</Hint>
+      <Hint>Setting Mode. Test Menu enables this switch for that launch. To leave the BIOS menu, highlight Exit, press Test (F2) to release Setting Mode, then confirm with P1 A. TPO selects all DIP settings automatically.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>DIP Switches</CategoryName>
