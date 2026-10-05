@@ -9,8 +9,8 @@
   <ExecutableName>sf2v004.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
-  <HasTpoSupport>false</HasTpoSupport>
+  <DevOnly>false</DevOnly>
+  <HasTpoSupport>true</HasTpoSupport>
   <TestMenuParameter>--test-menu</TestMenuParameter>
   <GunGame>false</GunGame>
   <ConfigValues>

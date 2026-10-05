@@ -1,0 +1,158 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GameProfile>
+  <GamePath />
+  <GameNameInternal>SegaSonic The Hedgehog (Japan, prototype)</GameNameInternal>
+  <EmulationProfile>TeknoSS32</EmulationProfile>
+  <GameProfileRevision>1</GameProfileRevision>
+  <EmulatorType>TeknoSS32</EmulatorType>
+  <Is64Bit>true</Is64Bit>
+  <ExecutableName>sonicp.zip</ExecutableName>
+  <HasTwoExecutables>false</HasTwoExecutables>
+  <Patreon>true</Patreon>
+  <DevOnly>false</DevOnly>
+  <HasTpoSupport>true</HasTpoSupport>
+  <TestMenuParameter>--test-menu</TestMenuParameter>
+  <GunGame>false</GunGame>
+  <InvertedMouseAxis>false</InvertedMouseAxis>
+  <Use16BitAnalog>false</Use16BitAnalog>
+  <xAxisMin>0</xAxisMin>
+  <xAxisMax>255</xAxisMax>
+  <yAxisMin>0</yAxisMin>
+  <yAxisMax>255</yAxisMax>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Input API</FieldName>
+      <FieldValue>XInput</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>XInput</string>
+        <string>DirectInput</string>
+        <string>RawInput</string>
+        <string>RawInputTrackball</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Window Scale</FieldName>
+      <FieldValue>2</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>2</string>
+        <string>3</string>
+        <string>4</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Audio</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>0</string>
+      </FieldOptions>
+    </FieldInformation>
+  </ConfigValues>
+  <JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Button1</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Button3</ButtonName>
+      <InputMapping>P1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Button1</ButtonName>
+      <InputMapping>P2Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service credit</ButtonName>
+      <InputMapping>Service1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service mode</ButtonName>
+      <InputMapping>Test</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin 1</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin 2</ButtonName>
+      <InputMapping>Coin2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Start 1</ButtonName>
+      <InputMapping>P1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Start 2</ButtonName>
+      <InputMapping>P2ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>PCB service</ButtonName>
+      <InputMapping>ExtensionOne1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>PCB test</ButtonName>
+      <InputMapping>ExtensionOne2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Button 1</ButtonName>
+      <InputMapping>JvsTwoP1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin 3</ButtonName>
+      <InputMapping>JvsTwoCoin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Start 3</ButtonName>
+      <InputMapping>JvsTwoP1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Trackball X</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Trackball Y</ButtonName>
+      <InputMapping>Analog1</InputMapping>
+      <AnalogType>AnalogJoystickY</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Trackball X</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Trackball Y</ButtonName>
+      <InputMapping>Analog3</InputMapping>
+      <AnalogType>AnalogJoystickY</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Trackball X</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Trackball Y</ButtonName>
+      <InputMapping>Analog5</InputMapping>
+      <AnalogType>AnalogJoystickY</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Trackball Device</ButtonName>
+      <InputMapping>P1Trackball</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Trackball Device</ButtonName>
+      <InputMapping>P2Trackball</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Trackball Device</ButtonName>
+      <InputMapping>P3Trackball</InputMapping>
+    </JoystickButtons>
+  </JoystickButtons>
+</GameProfile>

@@ -3,5 +3,5 @@
   "game_genre": "Arcade",
   "icon_name": "",
   "platform": "Capcom CPS2",
-  "general_issues": "Select ssf2tbj.zip; keep parent archives, keys and required qsound.zip beside it. Experimental emulation; profile coverage does not mean full gameplay qualification. TPO automatically assigns up to 4 computers. Tournament Battle uses linked cabinets with two local players each (eight players with four computers). Offline EEPROM and manual cabinet settings are ignored during online play."
+  "general_issues": "Select ssf2tbj.zip; keep parent archives, keys and required qsound.zip beside it. Experimental emulation; profile coverage does not mean full gameplay qualification. TPO automatically assigns up to 4 computers. Tournament Battle uses linked cabinets with two local players each (eight players with four computers). Rollback uses a canonical two-frame input delay; every linked cabinet and serial queue is restored together. Offline EEPROM and manual cabinet settings are ignored during online play."
 }

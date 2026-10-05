@@ -27,21 +27,21 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _invertX = false;
         private bool _invertY = false;
 
-        // Index 0 is P1Trackball, index 1 is P2Trackball. P1 keeps the classic
-        // page name every trackball game reads; P2 gets its own page so a
-        // two-trackball cabinet (TeknoMagic) can bind a second device.
-        private static readonly short[] _currentDeltaX = new short[2];
-        private static readonly short[] _currentDeltaY = new short[2];
+        // Each player owns a separate device page. P1 retains the classic name;
+        // P2 and P3 support multi-trackball cabinets such as SegaSonic.
+        private static readonly short[] _currentDeltaX = new short[3];
+        private static readonly short[] _currentDeltaY = new short[3];
         private readonly object _stateLock = new object();
         private const int MaxShortValue = 32767;
         private const int MinShortValue = -32768;
         private static readonly string[] SharedMemoryNames =
         {
             "RawInputTrackballSharedMemory",
-            "RawInputTrackballSharedMemory2"
+            "RawInputTrackballSharedMemory2",
+            "RawInputTrackballSharedMemory3"
         };
-        private readonly MemoryMappedFile[] _mmf = new MemoryMappedFile[2];
-        private readonly MemoryMappedViewAccessor[] _accessor = new MemoryMappedViewAccessor[2];
+        private readonly MemoryMappedFile[] _mmf = new MemoryMappedFile[3];
+        private readonly MemoryMappedViewAccessor[] _accessor = new MemoryMappedViewAccessor[3];
 
         [StructLayout(LayoutKind.Sequential)]
         private struct RECT
@@ -94,6 +94,8 @@ namespace TeknoParrotUi.Common.InputListening
         private bool isHookableWindow(string windowTitle)
         {
             if (_gameProfile?.EmulationProfile == EmulationProfile.TeknoMVS && windowTitle.StartsWith("TeknoMVS", StringComparison.Ordinal)) return true;
+            if (_gameProfile?.EmulationProfile == EmulationProfile.TeknoCPS && windowTitle.StartsWith("TeknoCPS", StringComparison.Ordinal)) return true;
+            if (_gameProfile?.EmulationProfile == EmulationProfile.TeknoSS32 && windowTitle.StartsWith("TeknoSS32", StringComparison.Ordinal)) return true;
             for (int i = 0; i < _hookedWindows.Count; i++)
             {
                 if (windowTitle == _hookedWindows[i])
@@ -271,7 +273,7 @@ namespace TeknoParrotUi.Common.InputListening
 
                             if (mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveRelative))
                             {
-                                foreach (var trackball in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1Trackball || btn.InputMapping == InputMapping.P2Trackball)))
+                                foreach (var trackball in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1Trackball || btn.InputMapping == InputMapping.P2Trackball || btn.InputMapping == InputMapping.P3Trackball)))
                                 {
                                     HandleRawInputTrackball(trackball, mouse.Mouse.LastX, mouse.Mouse.LastY);
                                 }
@@ -594,7 +596,7 @@ namespace TeknoParrotUi.Common.InputListening
 
         private void HandleRawInputTrackball(JoystickButtons joystickButton, int deltaX, int deltaY)
         {
-            var player = joystickButton.InputMapping == InputMapping.P2Trackball ? 1 : 0;
+            var player = joystickButton.InputMapping == InputMapping.P3Trackball ? 2 : joystickButton.InputMapping == InputMapping.P2Trackball ? 1 : 0;
             var accessor = _accessor[player];
             lock (_stateLock)
             {

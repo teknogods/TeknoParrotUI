@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GameProfile>
+  <GamePath />
+  <GameNameInternal>Stadium Cross (US)</GameNameInternal>
+  <EmulationProfile>TeknoSS32</EmulationProfile>
+  <GameProfileRevision>1</GameProfileRevision>
+  <EmulatorType>TeknoSS32</EmulatorType>
+  <Is64Bit>true</Is64Bit>
+  <ExecutableName>scrossu.zip</ExecutableName>
+  <HasTwoExecutables>false</HasTwoExecutables>
+  <Patreon>true</Patreon>
+  <DevOnly>false</DevOnly>
+  <HasTpoSupport>true</HasTpoSupport>
+  <TestMenuParameter>--test-menu</TestMenuParameter>
+  <GunGame>false</GunGame>
+  <InvertedMouseAxis>false</InvertedMouseAxis>
+  <Use16BitAnalog>false</Use16BitAnalog>
+  <xAxisMin>0</xAxisMin>
+  <xAxisMax>255</xAxisMax>
+  <yAxisMin>0</yAxisMin>
+  <yAxisMax>255</yAxisMax>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Input API</FieldName>
+      <FieldValue>XInput</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>XInput</string>
+        <string>DirectInput</string>
+        <string>RawInput</string>
+        <string>RawInputTrackball</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Window Scale</FieldName>
+      <FieldValue>2</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>2</string>
+        <string>3</string>
+        <string>4</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Audio</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>0</string>
+      </FieldOptions>
+    </FieldInformation>
+  </ConfigValues>
+  <JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Down</ButtonName>
+      <InputMapping>P1ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Up</ButtonName>
+      <InputMapping>P1ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Right</ButtonName>
+      <InputMapping>P1ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Left</ButtonName>
+      <InputMapping>P1ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Button1</ButtonName>
+      <InputMapping>P2Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Button2</ButtonName>
+      <InputMapping>P2Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Button3</ButtonName>
+      <InputMapping>P2Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Down</ButtonName>
+      <InputMapping>P2ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Up</ButtonName>
+      <InputMapping>P2ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Right</ButtonName>
+      <InputMapping>P2ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Left</ButtonName>
+      <InputMapping>P2ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service credit</ButtonName>
+      <InputMapping>Service1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service mode</ButtonName>
+      <InputMapping>Test</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin 1</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Start 1</ButtonName>
+      <InputMapping>P1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Start 2</ButtonName>
+      <InputMapping>P2ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>PCB service</ButtonName>
+      <InputMapping>ExtensionOne1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>PCB test</ButtonName>
+      <InputMapping>ExtensionOne2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service credit 2</ButtonName>
+      <InputMapping>Service2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service mode 2</ButtonName>
+      <InputMapping>ExtensionOne3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin 2</ButtonName>
+      <InputMapping>Coin2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>PCB service 2</ButtonName>
+      <InputMapping>ExtensionOne4</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>PCB test 2</ButtonName>
+      <InputMapping>ExtensionOne11</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Attack</ButtonName>
+      <InputMapping>ExtensionOne12</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Wheelie</ButtonName>
+      <InputMapping>ExtensionOne13</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Brake</ButtonName>
+      <InputMapping>ExtensionOne14</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Attack</ButtonName>
+      <InputMapping>ExtensionOne15</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Wheelie</ButtonName>
+      <InputMapping>ExtensionOne16</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Brake</ButtonName>
+      <InputMapping>ExtensionOne17</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Handlebar</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Accelerator</ButtonName>
+      <InputMapping>Analog1</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Handlebar</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Accelerator</ButtonName>
+      <InputMapping>Analog3</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+  </JoystickButtons>
+</GameProfile>

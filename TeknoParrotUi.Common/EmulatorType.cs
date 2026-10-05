@@ -60,6 +60,7 @@ namespace TeknoParrotUi.Common
         // Sega Model 3
         TeknoModel3,
         TeknoMVS,
-        TeknoCPS
+        TeknoCPS,
+        TeknoSS32
     }
 }

@@ -76,6 +76,7 @@ internal static class MvsChecks
                         var online = TeknoMVSLauncher.Build(profile, zip, null);
                         Require(online.FileName.EndsWith("TeknoMVSOnline.exe") && !online.UseShellExecute, "MVS online dispatch");
                         Require(online.Arguments.Contains("--net-link") == linked, "MVS linked mode mismatch");
+                        Require(online.Arguments.Contains("--net-mode rollback --net-input-delay 2"), "MVS TPO must use rollback");
                         Require(online.Arguments.Contains("--cpu-clock 12") && !online.Arguments.Contains("--cabinet-state-dir") && !online.Arguments.Contains("--net-player ") && !online.Arguments.Contains("--net-players"), "MVS lobby assignment not automatic");
                         ++seats;
                     }

@@ -9,8 +9,8 @@
   <ExecutableName>ecofghtru.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
-  <HasTpoSupport>false</HasTpoSupport>
+  <DevOnly>false</DevOnly>
+  <HasTpoSupport>true</HasTpoSupport>
   <TestMenuParameter>--test-menu</TestMenuParameter>
   <GunGame>false</GunGame>
   <ConfigValues>
@@ -23,6 +23,7 @@
         <string>XInput</string>
         <string>DirectInput</string>
         <string>RawInput</string>
+        <string>RawInputTrackball</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
@@ -39,6 +40,17 @@
         <string>6</string>
         <string>7</string>
         <string>8</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Rotary Input</FieldName>
+      <FieldValue>Buttons</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Buttons</string>
+        <string>Analog</string>
+        <string>Trackball</string>
       </FieldOptions>
     </FieldInformation>
   </ConfigValues>
@@ -122,6 +134,40 @@
     <JoystickButtons>
       <ButtonName>Player 2 Button 3</ButtonName>
       <InputMapping>P2Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Rotate Left</ButtonName>
+      <InputMapping>ExtensionOne1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Rotate Right</ButtonName>
+      <InputMapping>ExtensionOne2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Rotary Analog</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Rotary Trackball</ButtonName>
+      <InputMapping>P1Trackball</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Rotate Left</ButtonName>
+      <InputMapping>ExtensionTwo1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Rotate Right</ButtonName>
+      <InputMapping>ExtensionTwo2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Rotary Analog</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Rotary Trackball</ButtonName>
+      <InputMapping>P2Trackball</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

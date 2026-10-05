@@ -455,6 +455,7 @@
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoS23Launcher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoMVSLauncher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoCPSLauncher.cs" />
+    <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoSS32Launcher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoGClubLauncher.cs" />
     <Compile Include="Views\GameRunningCode\ControlHandlers\GunControlHandler.cs" />
     <Compile Include="Views\GameRunningCode\ControlHandlers\OlympicControlHandler.cs" />

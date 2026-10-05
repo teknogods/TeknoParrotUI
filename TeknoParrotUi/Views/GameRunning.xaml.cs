@@ -724,6 +724,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.TeknoGClub:
                     _controlSender = new TeknoGClubPipe();
                     break;
+                case EmulationProfile.TeknoSS32:
+                    _controlSender = new TeknoSS32Pipe();
+                    break;
                 case EmulationProfile.TeknoCPS:
                     _controlSender = new TeknoCPSPipe();
                     break;

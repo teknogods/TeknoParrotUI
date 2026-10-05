@@ -272,7 +272,8 @@ namespace TeknoParrotUi.Common
         ChatQuick3,
         ChatQuick4,
         ChatPushToTalk,
-        ChatVoiceMode
+        ChatVoiceMode,
+        P3Trackball
     }
 
     public enum RotaryInputMode

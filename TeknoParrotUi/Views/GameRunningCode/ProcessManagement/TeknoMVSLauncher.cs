@@ -44,7 +44,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             {
                 // All peers use a canonical boot configuration. The inherited
                 // lobby assigns seats; saved local cabinet settings never enter it.
-                args.AddRange(new[] { "--cpu-clock", "12", "--net-mode", "delay", "--net-input-delay", "3" });
+                args.AddRange(new[] { "--cpu-clock", "12", "--net-mode", "rollback", "--net-input-delay", "2" });
                 if (linked) args.Add("--net-link");
             }
             else

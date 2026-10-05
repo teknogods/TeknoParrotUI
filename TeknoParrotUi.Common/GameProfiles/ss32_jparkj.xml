@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GameProfile>
+  <GamePath />
+  <GameNameInternal>Jurassic Park (Japan, Rev A, Deluxe)</GameNameInternal>
+  <EmulationProfile>TeknoSS32</EmulationProfile>
+  <GameProfileRevision>1</GameProfileRevision>
+  <EmulatorType>TeknoSS32</EmulatorType>
+  <Is64Bit>true</Is64Bit>
+  <ExecutableName>jparkj.zip</ExecutableName>
+  <HasTwoExecutables>false</HasTwoExecutables>
+  <Patreon>true</Patreon>
+  <DevOnly>false</DevOnly>
+  <HasTpoSupport>true</HasTpoSupport>
+  <TestMenuParameter>--test-menu</TestMenuParameter>
+  <GunGame>true</GunGame>
+  <InvertedMouseAxis>false</InvertedMouseAxis>
+  <Use16BitAnalog>false</Use16BitAnalog>
+  <xAxisMin>0</xAxisMin>
+  <xAxisMax>255</xAxisMax>
+  <yAxisMin>0</yAxisMin>
+  <yAxisMax>255</yAxisMax>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Input API</FieldName>
+      <FieldValue>XInput</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>XInput</string>
+        <string>DirectInput</string>
+        <string>RawInput</string>
+        <string>RawInputTrackball</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Window Scale</FieldName>
+      <FieldValue>2</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>2</string>
+        <string>3</string>
+        <string>4</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Audio</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>0</string>
+      </FieldOptions>
+    </FieldInformation>
+  </ConfigValues>
+  <JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Button1</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Button1</ButtonName>
+      <InputMapping>P2Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service credit</ButtonName>
+      <InputMapping>Service1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service mode</ButtonName>
+      <InputMapping>Test</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin 1</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin 2</ButtonName>
+      <InputMapping>Coin2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Start 1</ButtonName>
+      <InputMapping>P1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Start 2</ButtonName>
+      <InputMapping>P2ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>PCB service</ButtonName>
+      <InputMapping>ExtensionOne1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>PCB test</ButtonName>
+      <InputMapping>ExtensionOne2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Emergency tilt</ButtonName>
+      <InputMapping>ExtensionOne3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun X</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gun Y</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>AnalogJoystickY</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Gun X</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Gun Y</ButtonName>
+      <InputMapping>Analog6</InputMapping>
+      <AnalogType>AnalogJoystickY</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Light Gun</ButtonName>
+      <InputMapping>P1LightGun</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Light Gun</ButtonName>
+      <InputMapping>P2LightGun</InputMapping>
+    </JoystickButtons>
+  </JoystickButtons>
+</GameProfile>

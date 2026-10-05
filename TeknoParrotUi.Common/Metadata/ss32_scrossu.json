@@ -1,0 +1,7 @@
+{
+  "game_name": "Stadium Cross (US)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Sega System 32 / Multi 32",
+  "general_issues": "Select scrossu.zip; keep parent ZIPs and required CHDs beside it. TPO assigns the cabinet and player automatically, using rollback. Up to 2 computers."
+}

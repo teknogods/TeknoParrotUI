@@ -896,7 +896,7 @@ namespace TeknoParrotUi.UserControls
         {
             return mapping == InputMapping.P1LightGun || mapping == InputMapping.P2LightGun ||
                    mapping == InputMapping.P3LightGun || mapping == InputMapping.P4LightGun ||
-                   mapping == InputMapping.P1Trackball || mapping == InputMapping.P2Trackball;
+                   mapping == InputMapping.P1Trackball || mapping == InputMapping.P2Trackball || mapping == InputMapping.P3Trackball;
         }
 
         private void ConfigTextBox_Loaded(object sender, RoutedEventArgs e)

@@ -118,6 +118,11 @@ namespace TeknoParrotUi.Helpers
                     + Environment.NewLine + diagnostics);
                 return;
             }
+            if (emulatorType == EmulatorType.TeknoSS32 && errorCode != 0)
+            {
+                MessageBox.Show("TeknoSS32 could not launch or continue. Check the ROM ZIP, parent archives and required CHDs.", "TeknoSS32");
+                return;
+            }
             if (emulatorType == EmulatorType.TeknoCPS && errorCode != 0)
             {
                 MessageBox.Show("TeknoCPS could not launch or continue. Check the ROM ZIP, parent archives, keys and required QSound firmware."
