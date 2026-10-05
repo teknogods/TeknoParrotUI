@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Race On! (Japan, RO1 Ver. B)</GameNameInternal>
   <EmulationProfile>TeknoS23</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <EmulatorType>TeknoS23</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>raceon.zip</ExecutableName>
@@ -140,7 +140,7 @@
       <FieldName>Enable LAN</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>Direct peers; no external relay. Disable when using TPOnline.</Hint>
+      <Hint>Used for direct LAN play. TPOnline assigns online cabinet IDs and link settings automatically, overriding saved manual settings.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>

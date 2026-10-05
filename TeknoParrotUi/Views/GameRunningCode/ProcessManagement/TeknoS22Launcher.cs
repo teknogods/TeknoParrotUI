@@ -60,7 +60,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             else if (Enabled("Widescreen")) args.Add("--widescreen");
             // TPOnline supplies TP_TPONLINE2 in the inherited environment, as for Viper.
             // Manual LAN peers use the native C139 transport in the same executable.
-            if (Enabled("Enable LAN"))
+            var tpOnline = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("TP_TPONLINE2"));
+            if (Enabled("Enable LAN") && !tpOnline)
             {
                 foreach (var pair in new[] { new[] { "Cabinet ID", "--link-node" }, new[] { "Cabinet Count", "--link-count" }, new[] { "Local Port", "--link-port" } })
                 { args.Add(pair[1]); args.Add(Quote(Setting(pair[0]))); }

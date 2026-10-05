@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Final Furlong 2 (World, FFS2 Ver. A)</GameNameInternal>
   <EmulationProfile>TeknoS23</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <EmulatorType>TeknoS23</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>finfurl2.zip</ExecutableName>
@@ -140,7 +140,7 @@
       <FieldName>Enable LAN</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>Direct peers; no external relay. Disable when using TPOnline.</Hint>
+      <Hint>Used for direct LAN play. TPOnline assigns online cabinet IDs and link settings automatically, overriding saved manual settings.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
@@ -153,6 +153,10 @@
         <string>2</string>
         <string>3</string>
         <string>4</string>
+        <string>5</string>
+        <string>6</string>
+        <string>7</string>
+        <string>8</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
@@ -164,6 +168,10 @@
         <string>2</string>
         <string>3</string>
         <string>4</string>
+        <string>5</string>
+        <string>6</string>
+        <string>7</string>
+        <string>8</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
