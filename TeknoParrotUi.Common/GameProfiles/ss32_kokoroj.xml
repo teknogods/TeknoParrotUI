@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Soreike Kokology (Rev A)</GameNameInternal>
   <EmulationProfile>TeknoSS32</EmulationProfile>
-  <GameProfileRevision>1</GameProfileRevision>
+  <GameProfileRevision>2</GameProfileRevision>
   <EmulatorType>TeknoSS32</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>kokoroj.zip</ExecutableName>
@@ -53,6 +53,13 @@
         <string>1</string>
         <string>0</string>
       </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>CD Image Folder</FieldName>
+      <FieldValue />
+      <FieldType>Text</FieldType>
+      <Hint>Optional folder containing the game CD image or its game subfolder. Leave empty to use the ROM ZIP folder.</Hint>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

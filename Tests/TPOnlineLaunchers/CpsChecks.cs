@@ -86,6 +86,27 @@ internal static class CpsChecks
                     ++contacts;
                 }
             }
+            // Windows must deliver a split CD root with spaces and trailing slash intact.
+            GameProfile cd;
+            using (var stream = File.OpenRead(Path.Combine(root, "TeknoParrotUi.Common/GameProfiles/cps_sfiii3n.xml"))) cd = (GameProfile)serializer.Deserialize(stream);
+            cd.ProfileName = "cps_sfiii3n";
+            var cdSetting = cd.ConfigValues.SingleOrDefault(v => v.FieldName == "CD Image Folder");
+            if (cdSetting == null) { cdSetting = new FieldInformation { FieldName = "CD Image Folder", FieldType = FieldType.Text }; cd.ConfigValues.Add(cdSetting); }
+            var media = Directory.CreateDirectory(Path.Combine(temporary, "separate CPS CD images")).FullName + Path.DirectorySeparatorChar;
+            var cdZip = Path.Combine(temporary, "sfiii3n.zip"); File.WriteAllBytes(cdZip, new byte[0]);
+            foreach (var online in new[] { false, true })
+            {
+                Environment.SetEnvironmentVariable("TP_TPONLINE2", online ? "test|0|Player|2" : null);
+                cdSetting.FieldValue = media;
+                var args = Program.Arguments(TeknoCPSLauncher.Build(cd, cdZip, null).Arguments);
+                var roots = args.Select((value, index) => new { value, index }).Where(v => v.value == "--rom-root").Select(v => args[v.index + 1]).ToArray();
+                Require(roots.SequenceEqual(new[] { Path.GetDirectoryName(cdZip), media }), "CPS split CD root or Windows quoting");
+                cdSetting.FieldValue = " ";
+                Require(Program.Arguments(TeknoCPSLauncher.Build(cd, cdZip, null).Arguments).Count(v => v == "--rom-root") == 1, "Empty CD root changed defaults");
+                cdSetting.FieldValue = Path.Combine(temporary, "missing CD folder");
+                var rejected = false; try { TeknoCPSLauncher.Build(cd, cdZip, null); } catch (DirectoryNotFoundException) { rejected = true; }
+                Require(rejected, "Missing CPS CD root was not diagnosed");
+            }
             // Rotary counters preserve direction, wrap and idle ownership for both devices.
             GameProfile rotary;
             using (var stream = File.OpenRead(Path.Combine(root, "TeknoParrotUi.Common/GameProfiles/cps_forgottn.xml"))) rotary = (GameProfile)serializer.Deserialize(stream);

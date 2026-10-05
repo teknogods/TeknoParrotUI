@@ -1,12 +1,26 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Xml.Serialization;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Views.GameRunningCode.ProcessManagement;
 
 internal static class Program
 {
+    [DllImport("shell32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+    private static extern IntPtr CommandLineToArgvW(string commandLine, out int count);
+    [DllImport("kernel32.dll")]
+    private static extern IntPtr LocalFree(IntPtr value);
+
+    internal static string[] Arguments(string arguments)
+    {
+        var pointer = CommandLineToArgvW("emulator.exe " + arguments, out var count);
+        if (pointer == IntPtr.Zero) throw new InvalidOperationException("Windows argument parser failed");
+        try { return Enumerable.Range(1, count - 1).Select(n => Marshal.PtrToStringUni(Marshal.ReadIntPtr(pointer, n * IntPtr.Size))).ToArray(); }
+        finally { LocalFree(pointer); }
+    }
+
     private static void Require(bool condition, string message)
     {
         if (!condition) throw new Exception(message);

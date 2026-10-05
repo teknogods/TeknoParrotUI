@@ -36,7 +36,10 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var root = Path.Combine(Directory.GetCurrentDirectory(), "TeknoSS32");
             var executable = Path.Combine(root, online ? "ss32online.exe" : "ss32win.exe");
             if (!File.Exists(executable)) throw new FileNotFoundException("Install the TeknoSS32 emulator package.", executable);
-            var args = new List<string> { "--set", set, "--rom-root", Quote(Path.GetDirectoryName(game)), "--chd-root", Quote(Path.GetDirectoryName(game)) };
+            var cdSetting = Setting("CD Image Folder", "");
+            var cdRoot = string.IsNullOrWhiteSpace(cdSetting) ? Path.GetDirectoryName(game) : Path.GetFullPath(cdSetting.Trim());
+            if (!Directory.Exists(cdRoot)) throw new DirectoryNotFoundException("CD Image Folder does not exist: " + cdRoot);
+            var args = new List<string> { "--set", set, "--rom-root", Quote(Path.GetDirectoryName(game)), "--chd-root", Quote(cdRoot) };
             if (online)
             {
                 args.AddRange(new[] { "--net-mode", "rollback", "--net-input-delay", "2" });

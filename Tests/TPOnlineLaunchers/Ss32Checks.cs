@@ -112,6 +112,25 @@ internal static class Ss32Checks
             }
             finally { pipe.Stop(); Require(JvsHelper.StateView.ReadByte(5) == 0, "SSIN stop ownership"); }
         }
+        // The CD folder is independent of ROM ZIPs in both launch paths.
+        GameProfile cd;
+        using (var stream = File.OpenRead(Path.Combine(root, "TeknoParrotUi.Common/GameProfiles/ss32_kokoroj2.xml"))) cd = (GameProfile)serializer.Deserialize(stream);
+        cd.ProfileName = "ss32_kokoroj2";
+        var cdSetting = cd.ConfigValues.Single(v => v.FieldName == "CD Image Folder");
+        var media = Directory.CreateDirectory(Path.Combine(temporary, "separate SS32 CD images")).FullName + Path.DirectorySeparatorChar;
+        var cdZip = Path.Combine(temporary, "kokoroj2.zip"); File.WriteAllBytes(cdZip, new byte[0]);
+        foreach (var online in new[] { false, true })
+        {
+            Environment.SetEnvironmentVariable("TP_TPONLINE2", online ? "test|0|Player|4" : null);
+            cdSetting.FieldValue = media;
+            var args = Program.Arguments(TeknoSS32Launcher.Build(cd, cdZip, null).Arguments);
+            Require(args[Array.IndexOf(args, "--chd-root") + 1] == media && args[Array.IndexOf(args, "--rom-root") + 1] == Path.GetDirectoryName(cdZip), "SS32 split CD root or Windows quoting");
+            cdSetting.FieldValue = " "; args = Program.Arguments(TeknoSS32Launcher.Build(cd, cdZip, null).Arguments);
+            Require(args[Array.IndexOf(args, "--chd-root") + 1] == Path.GetDirectoryName(cdZip), "Empty SS32 CD root changed defaults");
+            cdSetting.FieldValue = Path.Combine(temporary, "missing CD folder");
+            var rejected = false; try { TeknoSS32Launcher.Build(cd, cdZip, null); } catch (DirectoryNotFoundException) { rejected = true; }
+            Require(rejected, "Missing SS32 CD root was not diagnosed");
+        }
         // Three independent trackballs, both axes, signed wrap, large motion and idle.
         GameProfile sonic;
         using (var stream = File.OpenRead(Path.Combine(root, "TeknoParrotUi.Common/GameProfiles/ss32_sonic.xml"))) sonic = (GameProfile)serializer.Deserialize(stream);

@@ -39,6 +39,13 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var scale = profile.ConfigValues?.FirstOrDefault(x => x.FieldName == "Window Scale")?.FieldValue ?? "2";
             if (!int.TryParse(scale, out var size) || size < 1 || size > 8) throw new ArgumentException("Window Scale must be 1..8");
             var args = new List<string> { "--game", set, "--rom-root", Quote(Path.GetDirectoryName(game)), "--scale", size.ToString() };
+            var cdRoot = profile.ConfigValues?.FirstOrDefault(x => x.FieldName == "CD Image Folder")?.FieldValue;
+            if (!string.IsNullOrWhiteSpace(cdRoot))
+            {
+                var media = Path.GetFullPath(cdRoot.Trim());
+                if (!Directory.Exists(media)) throw new DirectoryNotFoundException("CD Image Folder does not exist: " + media);
+                args.AddRange(new[] { "--rom-root", Quote(media) });
+            }
             if (online)
             {
                 // The inherited lobby owns every seat and Tournament cabinet position.
