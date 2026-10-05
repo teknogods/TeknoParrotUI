@@ -1,7 +1,11 @@
 {
-  "game_name": "Prop Cycle (World, PR2 Ver.A)",
+  "game_name": "Prop Cycle",
   "game_genre": "Action",
   "icon_name": "",
   "platform": "Namco Super System 22",
-  "general_issues": "User-supplied merged ROM ZIP required. "
+  "general_issues": "User-supplied merged ROM ZIP required. Select Game Revision in Game Settings; the merged propcycl.zip must contain that revision.",
+  "supported_versions": [
+    "World, PR2 Ver.A",
+    "Japan, PR1 Ver.A"
+  ]
 }

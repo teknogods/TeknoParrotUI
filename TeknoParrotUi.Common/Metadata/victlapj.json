@@ -1,7 +1,12 @@
 {
-  "game_name": "Ace Driver: Victory Lap (Japan, ADV1 Ver.C)",
+  "game_name": "Ace Driver: Victory Lap",
   "game_genre": "Racing",
   "icon_name": "",
   "platform": "Namco System 22",
-  "general_issues": "User-supplied merged ROM ZIP required. "
+  "general_issues": "User-supplied merged ROM ZIP required. Select Game Revision in Game Settings; the merged victlap.zip must contain that revision.",
+  "supported_versions": [
+    "World, ADV2 Ver.B",
+    "World, ADV2",
+    "Japan, ADV1 Ver.C"
+  ]
 }

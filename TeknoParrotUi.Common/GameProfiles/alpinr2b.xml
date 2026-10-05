@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <GameProfile>
   <GamePath />
-  <GameNameInternal>Alpine Racer 2 (World, ARS2 Ver.B)</GameNameInternal>
+  <GameNameInternal>Alpine Racer 2</GameNameInternal>
   <EmulationProfile>TeknoS22</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <EmulatorType>TeknoS22</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>alpinr2b.zip</ExecutableName>
@@ -12,6 +12,13 @@
   <DevOnly>false</DevOnly>
   <HasTpoSupport>true</HasTpoSupport>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Revision</FieldName>
+      <FieldValue>alpinr2b</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select the region and revision to run. The merged alpinr2b.zip archive must contain the selected revision.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Outputs</FieldName>

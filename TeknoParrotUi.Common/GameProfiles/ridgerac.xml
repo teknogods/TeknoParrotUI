@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <GameProfile>
   <GamePath />
-  <GameNameInternal>Ridge Racer (World, RR2 Ver.B)</GameNameInternal>
+  <GameNameInternal>Ridge Racer</GameNameInternal>
   <EmulationProfile>TeknoS22</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <EmulatorType>TeknoS22</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>ridgerac.zip</ExecutableName>
@@ -12,6 +12,13 @@
   <DevOnly>false</DevOnly>
   <HasTpoSupport>false</HasTpoSupport>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Revision</FieldName>
+      <FieldValue>ridgerac</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select the region and revision to run. The merged ridgerac.zip archive must contain the selected revision.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Outputs</FieldName>

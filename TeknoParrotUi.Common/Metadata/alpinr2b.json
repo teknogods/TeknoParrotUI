@@ -1,7 +1,11 @@
 {
-  "game_name": "Alpine Racer 2 (World, ARS2 Ver.B)",
+  "game_name": "Alpine Racer 2",
   "game_genre": "Action",
   "icon_name": "",
   "platform": "Namco Super System 22",
-  "general_issues": "User-supplied merged ROM ZIP required. "
+  "general_issues": "User-supplied merged ROM ZIP required. Select Game Revision in Game Settings; the merged alpinr2b.zip must contain that revision.",
+  "supported_versions": [
+    "World, ARS2 Ver.B",
+    "World, ARS2 Ver.A"
+  ]
 }
