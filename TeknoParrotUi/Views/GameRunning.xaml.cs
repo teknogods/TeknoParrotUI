@@ -55,8 +55,12 @@ namespace TeknoParrotUi.Views
         public DebugJVS jvsDebug;
 #endif
 
-        public GameRunning(GameProfile gameProfile, string loaderExe, string loaderDll, bool isTest, bool runEmuOnly = false, bool profileLaunch = false, Library library = null, bool startMinimized = false)
+        public GameRunning(GameProfile gameProfile, string loaderExe, string loaderDll, bool isTest, bool runEmuOnly = false, bool profileLaunch = false, Library library = null, bool startMinimized = false, bool revisionPrepared = false)
         {
+            // Resolve before configuring either the shared input page or native launch.
+            // The original saved family profile stays unchanged.
+            if (!revisionPrepared && ArcadeGameRevisions.Handles(gameProfile))
+                gameProfile = ArcadeGameRevisions.CreateLaunchProfile(gameProfile);
             InitializeComponent();
             if (!profileLaunch && !runEmuOnly)
             {

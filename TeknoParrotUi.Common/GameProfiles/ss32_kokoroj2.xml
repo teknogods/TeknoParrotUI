@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Soreike Kokology Vol. 2 - Kokoro no Tanteikyoku</GameNameInternal>
   <EmulationProfile>TeknoSS32</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <EmulatorType>TeknoSS32</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>kokoroj2.zip</ExecutableName>
@@ -20,6 +20,12 @@
   <yAxisMin>0</yAxisMin>
   <yAxisMax>255</yAxisMax>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Revision</FieldName>
+      <FieldValue>ss32_kokoroj2</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>

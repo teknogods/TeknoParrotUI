@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Giga Wing (USA 990222 Phoenix Edition) (bootleg)</GameNameInternal>
   <EmulationProfile>TeknoCPS</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <EmulatorType>TeknoCPS</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>gigawingd.zip</ExecutableName>
@@ -14,6 +14,12 @@
   <TestMenuParameter>--test-menu</TestMenuParameter>
   <GunGame>false</GunGame>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Revision</FieldName>
+      <FieldValue>cps_gigawingd</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>

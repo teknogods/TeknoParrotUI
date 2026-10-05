@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Super Sidekicks 3 - The Next Glory / Tokuten Ou 3 - Eikou e no Chousen</GameNameInternal>
   <EmulationProfile>TeknoMVS</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>3</GameProfileRevision>
   <EmulatorType>TeknoMVS</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>ssideki3.zip</ExecutableName>
@@ -20,6 +20,12 @@
   <yAxisMin>0</yAxisMin>
   <yAxisMax>255</yAxisMax>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Revision</FieldName>
+      <FieldValue>mvs_ssideki3</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>

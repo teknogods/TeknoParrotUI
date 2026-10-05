@@ -481,6 +481,7 @@ namespace TeknoParrotUi.Views
             reloaded.GameGenreInternal = profile.GameGenreInternal;
             reloaded.IconName = profile.IconName;
             reloaded.GameInfo = profile.GameInfo;
+            ArcadeGameRevisions.Populate(reloaded);
 
             int userIndex = GameProfileLoader.UserProfiles.IndexOf(profile);
             if (userIndex >= 0)
@@ -534,7 +535,7 @@ namespace TeknoParrotUi.Views
                 RefreshPlatformComboBox();
                 string selectedPlatform = (PlatformBox?.SelectedItem as TeknoParrotUi.Helpers.GenreItem)?.InternalName ?? "All";
 
-                foreach (var gameProfile in GameProfileLoader.UserProfiles)
+                foreach (var gameProfile in ArcadeGameRevisions.GetLibraryProfiles(GameProfileLoader.UserProfiles))
                 {
                     var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
 
@@ -665,10 +666,21 @@ namespace TeknoParrotUi.Views
         /// Validates that the game exists and then runs it with the emulator.
         /// </summary>
         /// <param name="gameProfile">Input profile.</param>
-        public static bool ValidateAndRun(GameProfile gameProfile, out string loaderExe, out string loaderDll, bool emuOnly, Library library, bool _test)
+        public static bool ValidateAndRun(GameProfile gameProfile, out string loaderExe, out string loaderDll, bool emuOnly, Library library, bool _test, out GameProfile preparedProfile)
         {
             loaderDll = string.Empty;
             loaderExe = string.Empty;
+            preparedProfile = gameProfile;
+
+            if (ArcadeGameRevisions.Handles(gameProfile))
+            {
+                try { preparedProfile = gameProfile = ArcadeGameRevisions.CreateLaunchProfile(gameProfile); }
+                catch (Exception error) when (error is ArgumentException || error is IOException || error is InvalidOperationException)
+                {
+                    MessageBoxHelper.ErrorOK(error.Message);
+                    return false;
+                }
+            }
 
             bool is64Bit = _test ? gameProfile.TestExecIs64Bit : gameProfile.Is64Bit;
 
@@ -1076,10 +1088,11 @@ namespace TeknoParrotUi.Views
                 }
 
                 // Save profile and reload library
-                if (fixedSomething)
+                if (fixedSomething && !ArcadeGameRevisions.Handles(gameProfile) &&
+                    string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("TP_TPONLINE2")))
                 {
                     JoystickHelper.SerializeGameProfile(gameProfile);
-                    library.ListUpdate(gameProfile.GameNameInternal);
+                    library?.ListUpdate(gameProfile.GameNameInternal);
                 }
             }
 
@@ -2008,24 +2021,24 @@ namespace TeknoParrotUi.Views
 
             // Terminal mode uses the normal game executable and architecture.
             bool isTest = !isTerminal;
-            if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this, isTest))
+            if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this, isTest, out var launchProfile))
             {
                 if (isTerminal)
                 {
                     // Validation can save input repairs, so apply launch-only settings afterwards.
-                    gameProfile = gameProfile.Clone();
-                    GetTerminalModeField(gameProfile).FieldValue = "1";
-                    foreach (var field in gameProfile.ConfigValues.Where(field => field.CategoryName == "General" &&
+                    launchProfile = launchProfile.Clone();
+                    GetTerminalModeField(launchProfile).FieldValue = "1";
+                    foreach (var field in launchProfile.ConfigValues.Where(field => field.CategoryName == "General" &&
                         field.FieldType == FieldType.Bool &&
                         (field.FieldName == "TerminalEmulator" || field.FieldName == "Terminal Emu")))
                     {
                         field.FieldValue = "0";
                     }
                     // Prevent settings synchronization from saving this temporary profile.
-                    gameProfile.AllowSettingSync = false;
+                    launchProfile.AllowSettingSync = false;
                 }
 
-                var gameRunning = new GameRunning(gameProfile, loader, dll, isTest, false, false, this);
+                var gameRunning = new GameRunning(launchProfile, loader, dll, isTest, false, false, this, revisionPrepared: true);
                 Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
             }
         }
@@ -2089,9 +2102,9 @@ namespace TeknoParrotUi.Views
             // Initial D: the firewall rules once when a peer is on the LAN, then the agent port back to the game
             InitialDLanBeforeLaunch(gameProfile);
 
-            if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this, false))
+            if (ValidateAndRun(gameProfile, out var loader, out var dll, false, this, false, out var launchProfile))
             {
-                var gameRunning = new GameRunning(gameProfile, loader, dll, false, false, false, this);
+                var gameRunning = new GameRunning(launchProfile, loader, dll, false, false, false, this, revisionPrepared: true);
                 Application.Current.Windows.OfType<MainWindow>().Single().contentControl.Content = gameRunning;
             }
             else

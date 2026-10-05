@@ -57,6 +57,7 @@ namespace TeknoParrotUi.Common
                 }
 
                 ProfileOperations.PopulateMetadata(gameProfile, file, metadataCatalog);
+                ArcadeGameRevisions.Populate(gameProfile);
                 if (migrated)
                     JoystickHelper.SerializeGameProfile(gameProfile);
 

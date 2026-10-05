@@ -30,11 +30,16 @@ namespace TeknoParrotUi.UserControls
         private ContentControl _contentControl;
         private Library _library;
         private InputApi _inputApi = InputApi.DirectInput;
+        private bool _loadingRevision;
+        private string _displayedRevision;
 
         public void LoadNewSettings(GameProfile gameProfile, ListBoxItem comboItem, ContentControl contentControl, Library library)
         {
+            _loadingRevision = true;
             _gameProfile = gameProfile;
             _comboItem = comboItem;
+            ArcadeGameRevisions.Populate(gameProfile);
+            _displayedRevision = gameProfile.ConfigValues?.FirstOrDefault(field => field.FieldName == "Game Revision")?.FieldValue;
 
             GamePathBox.Text = _gameProfile.GamePath;
             GamePathBox2.Text = _gameProfile.GamePath2;
@@ -96,6 +101,7 @@ namespace TeknoParrotUi.UserControls
                 GameExecutable2Text.Visibility = Visibility.Collapsed;
                 GamePathBox2.Visibility = Visibility.Collapsed;
             }
+            _loadingRevision = false;
         }
 
         private void ForceFeedbackButtonLoaded(object sender, RoutedEventArgs e)
@@ -122,6 +128,26 @@ namespace TeknoParrotUi.UserControls
             if (!(e.OriginalSource is ComboBox combo) || !(combo.DataContext is FieldInformation field) ||
                 combo.SelectedValue == null || _gameProfile == null)
                 return;
+            if (!_loadingRevision && field.FieldName == "Game Revision" &&
+                ArcadeGameRevisions.Handles(_gameProfile) &&
+                Convert.ToString(combo.SelectedValue) != _displayedRevision)
+            {
+                combo.GetBindingExpression(ComboBox.SelectedValueProperty)?.UpdateSource();
+                _gameProfile.GamePath = GamePathBox.Text;
+                _gameProfile.GamePath2 = GamePathBox2.Text;
+                try
+                {
+                    ArcadeGameRevisions.ApplyRevision(_gameProfile, Convert.ToString(combo.SelectedValue));
+                    LoadNewSettings(_gameProfile, _comboItem, _contentControl, _library);
+                }
+                catch (Exception error) when (error is ArgumentException || error is System.IO.IOException)
+                {
+                    field.FieldValue = _displayedRevision;
+                    combo.SelectedValue = _displayedRevision;
+                    MessageBoxHelper.ErrorOK(error.Message);
+                }
+                return;
+            }
             if (CabinetOutputSettings.Supports(_gameProfile) && CabinetOutputSettings.IsOutputField(field))
             {
                 combo.GetBindingExpression(ComboBox.SelectedValueProperty)?.UpdateSource();

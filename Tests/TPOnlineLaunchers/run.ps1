@@ -25,6 +25,9 @@ $exe = Join-Path $output 'TPOnlineLaunchers.exe'
     (Join-Path $PSScriptRoot 'CpsChecks.cs') `
     (Join-Path $PSScriptRoot 'CpsMediaChecks.cs') `
     (Join-Path $PSScriptRoot 'Ss32Checks.cs') `
+    (Join-Path $PSScriptRoot 'RevisionRoutingChecks.cs') `
+    (Join-Path $root 'TeknoParrotUi\Helpers\NamcoFfbDeviceProbe.cs') `
+    (Join-Path $root 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\ForceFeedbackArguments.cs') `
     (Join-Path $root 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\TeknoSS32Launcher.cs') `
     (Join-Path $root 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\TeknoCPSLauncher.cs') `
     (Join-Path $root 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\TeknoMVSLauncher.cs') `

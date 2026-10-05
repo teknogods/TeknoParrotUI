@@ -25,6 +25,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
         public static ProcessStartInfo Build(GameProfile profile, string gameLocation, Action<string> log, bool isTest = false)
         {
+            profile = ArcadeGameRevisions.CreateLaunchProfile(profile);
             string Setting(string name, string fallback) => profile.ConfigValues?.FirstOrDefault(x => x.FieldName == name)?.FieldValue ?? fallback;
             var id = profile.ProfileName ?? "";
             if (!id.StartsWith("mvs_", StringComparison.Ordinal)) throw new ArgumentException("Invalid TeknoMVS profile");

@@ -24,12 +24,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             await MediaPreparation.WaitAsync(cancellation).ConfigureAwait(false);
             try
             {
-                var profilePath = Path.Combine("UserProfiles", gameId + ".xml");
-                if (!File.Exists(profilePath)) profilePath = Path.Combine("GameProfiles", gameId + ".xml");
-                GameProfile profile;
-                using (var reader = XmlReader.Create(profilePath, new XmlReaderSettings { DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null }))
-                    profile = (GameProfile)new XmlSerializer(typeof(GameProfile)).Deserialize(reader);
-                profile.ProfileName = gameId;
+                var profile = ArcadeGameRevisions.LoadOnlineProfile(gameId);
                 if (!profile.HasTpoSupport || profile.EmulatorType != EmulatorType.TeknoCPS)
                     throw new InvalidOperationException("This profile has no CPS online multiplayer mode");
                 await RunMediaPreparationAsync(Build(profile, profile.GamePath, null, prepareMedia: true), TimeSpan.FromHours(1), progress, cancellation).ConfigureAwait(false);
@@ -101,6 +96,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
         public static ProcessStartInfo Build(GameProfile profile, string gameLocation, Action<string> log, bool isTest = false, bool prepareMedia = false)
         {
+            profile = ArcadeGameRevisions.CreateLaunchProfile(profile);
             var id = profile.ProfileName ?? "";
             if (!id.StartsWith("cps_", StringComparison.Ordinal)) throw new ArgumentException("Invalid TeknoCPS profile");
             var set = id.Substring(4);

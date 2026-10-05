@@ -55,11 +55,16 @@ namespace TeknoParrotUi.Views
             int fullGameCount = 0;
             foreach (var gameProfile in GameProfileLoader.GameProfiles)
             {
+                // Revision templates remain addressable for existing settings and TPO rooms.
+                // New library entries are added once per parent game.
+                if (ArcadeGameRevisions.Handles(gameProfile) && !ArcadeGameRevisions.IsPrimary(gameProfile))
+                    continue;
                 // third-party emulators
                 var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
 
                 // check the existing user profiles
-                var existing = GameProfileLoader.UserProfiles.FirstOrDefault((profile) => profile.ProfileName == gameProfile.ProfileName) != null;
+                var existing = GameProfileLoader.UserProfiles.Any(profile =>
+                    ArcadeGameRevisions.FamilyId(profile) == ArcadeGameRevisions.FamilyId(gameProfile));
 
                 if (gameProfile.IsLegacy && !existing)
                 {
@@ -187,10 +192,13 @@ namespace TeknoParrotUi.Views
 
             var gameItem = (ListBoxItem)stockGameList.SelectedValue;
             _selected = (GameProfile)gameItem.Tag;
+            var installed = ArcadeGameRevisions.GetLibraryProfiles(GameProfileLoader.UserProfiles)
+                .FirstOrDefault(profile => ArcadeGameRevisions.FamilyId(profile) == ArcadeGameRevisions.FamilyId(_selected));
+            if (installed != null) _selected = installed;
             //_selected = GameProfileLoader.GameProfiles[stockGameList.SelectedIndex];
             _ = Library.UpdateIconAsync(Path.GetFileName(_selected.IconName), _selected.EmulatorType, gameIcon);
 
-            var added = GameProfileLoader.UserProfiles.Any(profile => profile.ProfileName == _selected.ProfileName);
+            var added = installed != null;
             AddButton.IsEnabled = !added;
             AddContinueButton.IsEnabled = !added;
             DeleteButton.IsEnabled = added;

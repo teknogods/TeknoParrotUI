@@ -120,6 +120,16 @@ namespace TeknoParrotUi
                 var a = profile.Substring(10, profile.Length - 10);
                 if (string.IsNullOrWhiteSpace(a))
                     return false;
+                if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("TP_TPONLINE2")))
+                {
+                    // A room selects an exact revision, even when only its parent is installed.
+                    var online = OnlineGameRevisionProfiles.Load(Path.GetFileNameWithoutExtension(a));
+                    if (online != null)
+                    {
+                        _profile = online;
+                        return true;
+                    }
+                }
                 var b = Path.Combine("GameProfiles\\", a);
                 if (!File.Exists(b))
                     return false;
@@ -153,6 +163,7 @@ namespace TeknoParrotUi
                     }
                 }
 
+                ArcadeGameRevisions.Populate(_profile);
                 return true;
             }
             catch (Exception)
@@ -392,9 +403,9 @@ namespace TeknoParrotUi
             if (e.Args.Length != 0)
             {
                 // Process command args
-                if (HandleArgs(e.Args) && Views.Library.ValidateAndRun(_profile, out var loader, out var dll, _emuOnly, null, _test))
+                if (HandleArgs(e.Args) && Views.Library.ValidateAndRun(_profile, out var loader, out var dll, _emuOnly, null, _test, out var launchProfile))
                 {
-                    var gamerunning = new Views.GameRunning(_profile, loader, dll, _test, _emuOnly, _profileLaunch, null, _startMin);
+                    var gamerunning = new Views.GameRunning(launchProfile, loader, dll, _test, _emuOnly, _profileLaunch, null, _startMin, revisionPrepared: true);
                     // Args ok, let's do stuff
                     var window = new Window
                     {

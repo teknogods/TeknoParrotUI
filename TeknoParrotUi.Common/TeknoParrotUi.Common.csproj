@@ -271,6 +271,11 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="GameProfile.cs" />
     <Compile Include="NamcoGameRevisions.cs" />
+    <Compile Include="ArcadeGameRevisions.cs" />
+    <Compile Include="ArcadeGameRevisions.Mvs.cs" />
+    <Compile Include="ArcadeGameRevisions.Cps.cs" />
+    <Compile Include="ArcadeGameRevisions.Ss32.cs" />
+    <Compile Include="OnlineGameRevisionProfiles.cs" />
     <Compile Include="CabinetOutputSettings.cs" />
     <Compile Include="InputCode.cs" />
     <Compile Include="JoystickMapping.cs" />

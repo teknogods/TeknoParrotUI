@@ -36,12 +36,20 @@ internal static class Program
         if (args.Length > 0 && args[0] == "--media-preparation-child") return CpsMediaChecks.Child(args);
         var originalDirectory = Directory.GetCurrentDirectory();
         var originalOnline = Environment.GetEnvironmentVariable("TP_TPONLINE2");
+        var originalDevProfiles = Environment.GetEnvironmentVariable("TPUI_SHOW_DEVONLY_PROFILES");
         var temporary = Path.GetFullPath(Path.Combine(Path.GetTempPath(), "tponline-launchers-" + Guid.NewGuid().ToString("N")));
         Directory.CreateDirectory(temporary);
         try
         {
             var root = Path.GetFullPath(args[0]);
+            Environment.SetEnvironmentVariable("TPUI_SHOW_DEVONLY_PROFILES", "1");
             Directory.SetCurrentDirectory(temporary);
+            foreach (var folder in new[] { "GameProfiles", "Metadata" })
+            {
+                Directory.CreateDirectory(folder);
+                foreach (var file in Directory.GetFiles(Path.Combine(root, "TeknoParrotUi.Common", folder)))
+                    File.Copy(file, Path.Combine(folder, Path.GetFileName(file)));
+            }
             foreach (var system in new[] { "TeknoS22", "TeknoS23" })
             {
                 Directory.CreateDirectory(system);
@@ -75,6 +83,7 @@ internal static class Program
 
             }
             Console.WriteLine("All 17 real XML profiles passed TPOnline/manual LAN launch checks.");
+            RevisionRoutingChecks.Run(temporary);
             MvsChecks.Run(root, temporary);
             CpsChecks.Run(root, temporary);
             CpsMediaChecks.Run(root, temporary);
@@ -89,6 +98,7 @@ internal static class Program
         finally
         {
             Environment.SetEnvironmentVariable("TP_TPONLINE2", originalOnline);
+            Environment.SetEnvironmentVariable("TPUI_SHOW_DEVONLY_PROFILES", originalDevProfiles);
             Directory.SetCurrentDirectory(originalDirectory);
             var prefix = Path.GetFullPath(Path.GetTempPath()) + "tponline-launchers-";
             if (temporary.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)) Directory.Delete(temporary, true);

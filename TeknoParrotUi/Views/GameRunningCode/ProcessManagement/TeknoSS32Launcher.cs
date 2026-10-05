@@ -23,6 +23,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
         }
         public static ProcessStartInfo Build(GameProfile profile, string gameLocation, Action<string> log, bool isTest = false)
         {
+            profile = ArcadeGameRevisions.CreateLaunchProfile(profile);
             string Setting(string key, string fallback) => profile.ConfigValues?.FirstOrDefault(v => v.FieldName == key)?.FieldValue ?? fallback;
             var id = profile.ProfileName ?? "";
             if (!id.StartsWith("ss32_", StringComparison.Ordinal)) throw new ArgumentException("Invalid TeknoSS32 profile");

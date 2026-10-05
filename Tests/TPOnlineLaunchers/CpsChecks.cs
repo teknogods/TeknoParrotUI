@@ -49,7 +49,7 @@ internal static class CpsChecks
                 using (var stream = File.OpenRead(file)) profile = (GameProfile)serializer.Deserialize(stream);
                 profile.ProfileName = Path.GetFileNameWithoutExtension(file);
                 Require(profile.EmulationProfile == EmulationProfile.TeknoCPS && profile.EmulatorType == EmulatorType.TeknoCPS, "CPS dispatch");
-                Require(profile.GameProfileRevision == 3, "CPS profile migration revision: " + profile.ProfileName);
+                Require(profile.GameProfileRevision >= 4, "CPS profile migration revision: " + profile.ProfileName);
                 foreach (var button in profile.JoystickButtons.Where(b => b.InputMapping.ToString() == "Test"))
                     Require(button.ButtonName == "Test", "CPS migration must preserve the saved Test binding: " + profile.ProfileName);
                 Require(File.Exists(Path.Combine(root, "TeknoParrotUi.Common", "Metadata", profile.ProfileName + ".json")), "CPS metadata");
