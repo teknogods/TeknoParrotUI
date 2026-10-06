@@ -297,6 +297,33 @@ namespace ParrotPatcher
                 },
                 new UpdaterComponent
                 {
+                    name = "TeknoMVS",
+                    location = Path.Combine("TeknoMVS", "TeknoMVS.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "TeknoMVS"
+                },
+                new UpdaterComponent
+                {
+                    name = "TeknoSS32",
+                    location = Path.Combine("TeknoSS32", "TeknoSS32.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "TeknoSS32"
+                },
+                new UpdaterComponent
+                {
+                    name = "TeknoCPS",
+                    location = Path.Combine("TeknoCPS", "TeknoCPS.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "TeknoCPS"
+                },
+                new UpdaterComponent
+                {
                     name = "TeknoS23",
                     location = Path.Combine("TeknoS23", "TeknoS23.exe"),
                     reponame = "TeknoParrot",
