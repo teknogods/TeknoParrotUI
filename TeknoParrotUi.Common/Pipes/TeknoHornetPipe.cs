@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using TeknoParrotUi.Common.InputProfiles.Helpers;
 using TeknoParrotUi.Common.Jvs;
 
 namespace TeknoParrotUi.Common.Pipes
@@ -13,6 +14,7 @@ namespace TeknoParrotUi.Common.Pipes
     {
         private ushort _sequence;
         private bool _publishInput;
+        private bool _highResolutionAxis;
 
         private static bool Down(bool? value) => value.HasValue && value.Value;
 
@@ -63,11 +65,19 @@ namespace TeknoParrotUi.Common.Pipes
         {
             JvsHelper.ResetState();
             _sequence = 0;
+            _highResolutionAxis = InputCode.GameProfile?.HighResolutionAxis == true;
             _publishInput = !(SettingEnabled("Enable VR") &&
                               SettingEnabled("Use VR Controls", true));
             if (!_publishInput)
             {
                 JvsHelper.WriteStateByte(5, 0);
+                base.Start();
+                return;
+            }
+
+            if (_highResolutionAxis)
+            {
+                LightGunAxisHelper.InitializeAxes(InputCode.AnalogBytes, InputCode.GameProfile);
                 base.Start();
                 return;
             }
@@ -114,7 +124,16 @@ namespace TeknoParrotUi.Common.Pipes
             }
 
             for (var analog = 0; analog < 8; ++analog)
+            {
                 JvsHelper.WriteStateByte(13 + analog, InputCode.AnalogBytes[analog * 2]);
+                if (_highResolutionAxis)
+                {
+                    // Preserve the byte axes above for older emulator builds.
+                    // The VPIN extension stores full axes high byte first at 40..55.
+                    JvsHelper.WriteStateByte(40 + analog * 2, InputCode.AnalogBytes[analog * 2]);
+                    JvsHelper.WriteStateByte(41 + analog * 2, InputCode.AnalogBytes[analog * 2 + 1]);
+                }
+            }
 
             ++_sequence;
             JvsHelper.WriteStateByte(0, (byte)'V');
@@ -124,7 +143,7 @@ namespace TeknoParrotUi.Common.Pipes
             JvsHelper.WriteStateByte(4, 1);
             JvsHelper.WriteStateByte(6, (byte)_sequence);
             JvsHelper.WriteStateByte(7, (byte)(_sequence >> 8));
-            JvsHelper.WriteStateByte(5, 1);
+            JvsHelper.WriteStateByte(5, _highResolutionAxis ? (byte)3 : (byte)1);
         }
     }
 }

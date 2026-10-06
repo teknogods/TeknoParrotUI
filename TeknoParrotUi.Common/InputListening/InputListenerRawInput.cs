@@ -55,6 +55,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _onedisplay;
         private bool _bg4Key;
         private bool _16bit;
+        private bool _highResolutionAxis;
         private bool _boneEaterLandscape;
         private bool _isBoneEater;
         private bool _boneEaterSingleScreen;
@@ -296,7 +297,8 @@ namespace TeknoParrotUi.Common.InputListening
             _isTeknoModel1 = gameProfile.EmulationProfile == EmulationProfile.TeknoModel1;
             _isNetMerc = _isTeknoModel1 && string.Equals(gameProfile.ExecutableName, "netmerc.zip", StringComparison.OrdinalIgnoreCase);
             _isPCSX2 = gameProfile.EmulationProfile == EmulationProfile.pcsx2x6;
-            _16bit = gameProfile.Use16BitAnalog;
+            _highResolutionAxis = gameProfile.HighResolutionAxis;
+            _16bit = gameProfile.Use16BitAnalog || _highResolutionAxis;
             _gameProfile = gameProfile;
 
 
@@ -600,8 +602,8 @@ namespace TeknoParrotUi.Common.InputListening
                                     _lastPosX[0] = _lastPosX[1] = _lastPosX[2] = _lastPosX[3] = centerX;
                                     _lastPosY[0] = _lastPosY[1] = _lastPosY[2] = _lastPosY[3] = centerY;
 
-                                    ushort centerValue = (ushort)((_minX + _maxX) / 2.0);
-                                    ushort centerValueY = (ushort)((_minY + _maxY) / 2.0);
+                                    ushort centerValue = _highResolutionAxis ? LightGunAxisHelper.CalculatePosition(0.5, _minX, _maxX) : (ushort)((_minX + _maxX) / 2.0);
+                                    ushort centerValueY = _highResolutionAxis ? LightGunAxisHelper.CalculatePosition(0.5, _minY, _maxY) : (ushort)((_minY + _maxY) / 2.0);
 
                                     if (_invertedMouseAxis)
                                     {
@@ -750,8 +752,8 @@ namespace TeknoParrotUi.Common.InputListening
                                 _lastPosX[0] = _lastPosX[1] = _lastPosX[2] = _lastPosX[3] = _windowWidth / 2 + _windowLocationX;
                                 _lastPosY[0] = _lastPosY[1] = _lastPosY[2] = _lastPosY[3] = _windowHeight / 2 + _windowLocationY;
 
-                                ushort centerValue = (ushort)((_minX + _maxX) / 2.0);
-                                ushort centerValueY = (ushort)((_minY + _maxY) / 2.0);
+                                ushort centerValue = _highResolutionAxis ? LightGunAxisHelper.CalculatePosition(0.5, _minX, _maxX) : (ushort)((_minX + _maxX) / 2.0);
+                                ushort centerValueY = _highResolutionAxis ? LightGunAxisHelper.CalculatePosition(0.5, _minY, _maxY) : (ushort)((_minY + _maxY) / 2.0);
                                 if (_16bit)
                                 {
                                     if (_invertedMouseAxis)
@@ -1711,6 +1713,12 @@ namespace TeknoParrotUi.Common.InputListening
                 x = (ushort)Math.Round(minX + factorX * (maxX - minX));
 
             ushort y = (ushort)Math.Round(minY + factorY * (maxY - minY));
+
+            if (_highResolutionAxis)
+            {
+                x = LightGunAxisHelper.CalculatePosition(factorX, _minX, _maxX);
+                y = LightGunAxisHelper.CalculatePosition(factorY, _minY, _maxY);
+            }
 
             /*
              * 16-bit lightgun values stored in big-endian format (MSB first) for backwards compatibility
