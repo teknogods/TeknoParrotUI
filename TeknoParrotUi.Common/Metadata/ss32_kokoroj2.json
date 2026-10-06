@@ -3,5 +3,5 @@
   "game_genre": "Arcade",
   "icon_name": "",
   "platform": "Sega System 32 / Multi 32",
-  "general_issues": "Select kokoroj2.zip; keep parent ZIPs and required CHDs beside it. If the CD is elsewhere, set CD Image Folder to that media root. TPO assigns the cabinet and player automatically, using rollback. Up to 4 computers."
+  "general_issues": "Select kokoroj2.zip. CD image: kokoroj2/cdp-00146.chd. Set CD Image Folder to its parent folder."
 }

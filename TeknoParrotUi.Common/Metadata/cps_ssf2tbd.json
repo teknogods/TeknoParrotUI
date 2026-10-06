@@ -3,5 +3,5 @@
   "game_genre": "Arcade",
   "icon_name": "",
   "platform": "Capcom CPS2",
-  "general_issues": "Select ssf2tbd.zip; keep parent archives, keys and required qsound.zip beside it. Test Menu waits for the Phoenix startup screen to finish before pressing the original game Test switch; allow about 60 emulated seconds. Experimental emulation; profile coverage does not mean full gameplay qualification. Press Test to release the startup Test switch when navigating a boot-time operator screen. TPO automatically assigns up to 4 computers. Tournament Battle uses linked cabinets with two local players each (eight players with four computers). Rollback uses a canonical two-frame input delay; every linked cabinet and serial queue is restored together. Offline EEPROM and manual cabinet settings are ignored during online play."
+  "general_issues": "Select ssf2tbd.zip. If ROM files are missing, also add ssf2.zip to the same folder. Keep qsound.zip in the same folder."
 }
