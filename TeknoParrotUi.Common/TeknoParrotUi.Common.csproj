@@ -180,6 +180,7 @@
     <Compile Include="InputListening\XInputDeviceHelper.cs" />
     <Compile Include="InputProfiles\Helpers\AnalogHelper.cs" />
     <Compile Include="InputProfiles\Helpers\DigitalHelper.cs" />
+    <Compile Include="InputProfiles\Helpers\LightGunAxisHelper.cs" />
     <Compile Include="InputProfiles\Helpers\WMMT3Cards.cs" />
     <Compile Include="Jvs\JVSIdentifiers.cs" />
     <Compile Include="Jvs\JVSPackets.cs" />

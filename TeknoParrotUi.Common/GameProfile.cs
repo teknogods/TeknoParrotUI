@@ -76,6 +76,14 @@ namespace TeknoParrotUi.Common
         public int msysType { get; set; }
         public bool InvertedMouseAxis { get; set; }
         public bool GunGame { get; set; }
+        // Add games here only after their input transport supports full 16-bit axes.
+        [XmlIgnore]
+        public bool HighResolutionAxis =>
+            string.Equals(ExecutableName, "arkndd.dll", StringComparison.OrdinalIgnoreCase) ||
+            ((EmulationProfile == EmulationProfile.TeknoViper || EmulationProfile == EmulationProfile.TeknoHornet) &&
+             ExecutableName?.StartsWith("sscope", StringComparison.OrdinalIgnoreCase) == true) ||
+            (EmulationProfile == EmulationProfile.TeknoViper &&
+             string.Equals(ExecutableName, "sogeki.zip", StringComparison.OrdinalIgnoreCase));
         public bool DevOnly { get; set; }
         public string ExecutableName { get; set; }
         public string ExecutableName2 { get; set; }
