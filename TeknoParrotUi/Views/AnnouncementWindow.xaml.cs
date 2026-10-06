@@ -147,7 +147,7 @@ namespace TeknoParrotUi.Views
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            // Dismiss the announcement and resume startup, just like leaving the changelog view.
+            // Dismiss the announcement and resume startup.
             Close();
         }
 

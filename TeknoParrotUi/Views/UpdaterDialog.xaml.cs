@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -112,7 +111,6 @@ namespace TeknoParrotUi.Views
         {
             buttonBeginUpdate.IsEnabled = false;
             List<DownloadControl> downloads = new List<DownloadControl>();
-            List<GitHubUpdates> selectedUpdates = new List<GitHubUpdates>();
             
             foreach (GitHubUpdates g in updaterList.Children)
             {
@@ -120,7 +118,6 @@ namespace TeknoParrotUi.Views
                 {
                     var dw = g.DoUpdate();
                     downloads.Add(dw);
-                    selectedUpdates.Add(g);
                 }
             }
             if (downloads.Count > 0)
@@ -134,9 +131,6 @@ namespace TeknoParrotUi.Views
 
                 await checkIfDone();
                 
-                // Save update information for changelog display after ParrotPatcher completes
-                SaveUpdateInfoForChangelog(selectedUpdates);
-                
                 string currentDirectory = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
                 string targetExePath = System.IO.Path.Combine(currentDirectory, "ParrotPatcher.exe");
                 Process.Start(targetExePath);
@@ -146,30 +140,6 @@ namespace TeknoParrotUi.Views
             {
                 Application.Current.Windows.OfType<MainWindow>().Single().ShowMessage(TeknoParrotUi.Properties.Resources.UpdaterPleaseSelectAtLeastOneComponent);
                 buttonBeginUpdate.IsEnabled = true;
-            }
-        }
-
-        private void SaveUpdateInfoForChangelog(List<GitHubUpdates> selectedUpdates)
-        {
-            try
-            {
-                var updateInfo = new StringBuilder();
-                foreach (var update in selectedUpdates)
-                {
-                    // Save component info with changelog
-                    // Format: ComponentName|Version|Base64EncodedChangelog
-                    string changelogBody = update._latestRelease?.body ?? "";
-                    string base64Changelog = Convert.ToBase64String(Encoding.UTF8.GetBytes(changelogBody));
-                    updateInfo.AppendLine($"{update._componentUpdated.name}|{update.onlineVersion}|{base64Changelog}");
-                }
-                
-                // Save to root directory (not cache) so it survives cache folder deletion
-                System.IO.File.WriteAllText(".lastupdate", updateInfo.ToString());
-                Debug.WriteLine($"Saved update info for {selectedUpdates.Count} components with changelogs");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Failed to save update info: {ex.Message}");
             }
         }
 

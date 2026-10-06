@@ -529,9 +529,6 @@
     <Compile Include="Views\AnnouncementWindow.xaml.cs">
       <DependentUpon>AnnouncementWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ChangelogView.xaml.cs">
-      <DependentUpon>ChangelogView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Library.xaml.cs">
       <DependentUpon>Library.xaml</DependentUpon>
     </Compile>
@@ -667,10 +664,6 @@
     <Page Include="Views\AnnouncementWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ChangelogView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Library.xaml">
       <Generator>MSBuild:Compile</Generator>
