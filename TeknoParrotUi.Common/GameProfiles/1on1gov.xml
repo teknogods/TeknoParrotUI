@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>1 on 1 Government (Japan)</GameNameInternal>
   <EmulationProfile>TeknoS11</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <EmulatorType>TeknoS11</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>1on1gov.zip</ExecutableName>
@@ -218,6 +218,78 @@
     <JoystickButtons>
       <ButtonName>Player 2 Button 3</ButtonName>
       <InputMapping>P2Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Coin</ButtonName>
+      <InputMapping>JvsTwoCoin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Start</ButtonName>
+      <InputMapping>JvsTwoP1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Up</ButtonName>
+      <InputMapping>JvsTwoP1ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Down</ButtonName>
+      <InputMapping>JvsTwoP1ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Left</ButtonName>
+      <InputMapping>JvsTwoP1ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Right</ButtonName>
+      <InputMapping>JvsTwoP1ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Button 1</ButtonName>
+      <InputMapping>JvsTwoP1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Button 2</ButtonName>
+      <InputMapping>JvsTwoP1Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 3 Button 3</ButtonName>
+      <InputMapping>JvsTwoP1Button3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Coin</ButtonName>
+      <InputMapping>JvsTwoCoin2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Start</ButtonName>
+      <InputMapping>JvsTwoP2ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Up</ButtonName>
+      <InputMapping>JvsTwoP2ButtonUp</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Down</ButtonName>
+      <InputMapping>JvsTwoP2ButtonDown</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Left</ButtonName>
+      <InputMapping>JvsTwoP2ButtonLeft</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Right</ButtonName>
+      <InputMapping>JvsTwoP2ButtonRight</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Button 1</ButtonName>
+      <InputMapping>JvsTwoP2Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Button 2</ButtonName>
+      <InputMapping>JvsTwoP2Button2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 4 Button 3</ButtonName>
+      <InputMapping>JvsTwoP2Button3</InputMapping>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>
