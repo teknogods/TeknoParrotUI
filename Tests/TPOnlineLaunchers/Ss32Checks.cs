@@ -48,7 +48,7 @@ internal static class Ss32Checks
     public static void Run(string root, string temporary)
     {
         Directory.CreateDirectory("TeknoSS32");
-        foreach (var name in new[] { "ss32win.exe", "ss32online.exe" }) File.WriteAllBytes(Path.Combine("TeknoSS32", name), new byte[0]);
+        File.WriteAllBytes(Path.Combine("TeknoSS32", "TeknoSS32.exe"), new byte[0]);
         var files = Directory.GetFiles(Path.Combine(root, "TeknoParrotUi.Common/GameProfiles"), "ss32_*.xml");
         Require(files.Length == 67, "SS32 registration/link profile coverage");
         var serializer = new XmlSerializer(typeof(GameProfile));
@@ -63,7 +63,15 @@ internal static class Ss32Checks
             var zip = Path.Combine(temporary, profile.ExecutableName); File.WriteAllBytes(zip, new byte[0]);
             Environment.SetEnvironmentVariable("TP_TPONLINE2", null);
             var offline = TeknoSS32Launcher.Build(profile, zip, null, true);
-            Require(offline.FileName.EndsWith("ss32win.exe") && offline.Arguments.Contains("--test-menu") && offline.Arguments.Contains("--state-root") && !offline.UseShellExecute, "SS32 operator launch");
+            foreach (var blank in new[] { "", " ", "\t" })
+            {
+                Environment.SetEnvironmentVariable("TP_TPONLINE2", blank);
+                var local = TeknoSS32Launcher.Build(profile, zip, null, true);
+                Require(local.FileName == offline.FileName && local.Arguments == offline.Arguments,
+                    "SS32 blank online environment changed offline launch");
+            }
+            Environment.SetEnvironmentVariable("TP_TPONLINE2", null);
+            Require(offline.FileName.EndsWith("TeknoSS32.exe") && offline.Arguments.Contains("--test-menu") && offline.Arguments.Contains("--state-root") && !offline.UseShellExecute, "SS32 operator launch");
             Require(!TeknoSS32Launcher.Build(profile, zip, null).Arguments.Contains("--test-menu"), "SS32 Test switch persisted");
             if (profile.HasTpoSupport)
             {
@@ -72,7 +80,7 @@ internal static class Ss32Checks
                 {
                     Environment.SetEnvironmentVariable("TP_TPONLINE2", $"test|{seat}|Player|{count}");
                     var online = TeknoSS32Launcher.Build(profile, zip, null, true);
-                    Require(online.FileName.EndsWith("ss32online.exe") && online.Arguments.Contains("--net-mode rollback --net-input-delay 2") && !online.UseShellExecute, "SS32 rollback dispatch");
+                    Require(online.FileName.EndsWith("TeknoSS32.exe") && online.Arguments.Contains("--net-mode rollback --net-input-delay 2") && !online.UseShellExecute, "SS32 rollback dispatch");
                     Require(!online.Arguments.Contains("--net-player") && !online.Arguments.Contains("--state-root") && !online.Arguments.Contains("--test-menu"), "SS32 manual settings leaked online");
                     ++seats;
                 }

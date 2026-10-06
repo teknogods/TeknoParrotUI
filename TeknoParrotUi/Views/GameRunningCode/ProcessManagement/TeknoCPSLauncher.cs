@@ -101,7 +101,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             if (!id.StartsWith("cps_", StringComparison.Ordinal)) throw new ArgumentException("Invalid TeknoCPS profile");
             var set = id.Substring(4);
             if (set.Length == 0 || set.Any(c => !char.IsLetterOrDigit(c))) throw new ArgumentException("Invalid CPS ROM set");
-            var online = !prepareMedia && Environment.GetEnvironmentVariable("TP_TPONLINE2") != null;
+            var online = !prepareMedia && !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("TP_TPONLINE2"));
             if (online && !profile.HasTpoSupport) throw new ArgumentException("This CPS profile has no supported online multiplayer mode");
             var game = Path.GetFullPath(gameLocation);
             if (!File.Exists(game)) throw new FileNotFoundException("Select the game's ROM ZIP.", game);

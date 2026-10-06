@@ -56,7 +56,15 @@ internal static class CpsChecks
                 var zip = Path.Combine(temporary, profile.ExecutableName); File.WriteAllBytes(zip, new byte[0]);
                 Environment.SetEnvironmentVariable("TP_TPONLINE2", null);
                 var offline = TeknoCPSLauncher.Build(profile, zip, null, true);
-                Require(offline.Arguments.Contains("--test-menu") == !string.IsNullOrEmpty(profile.TestMenuParameter) && offline.Arguments.Contains("--nvram-dir") && !offline.UseShellExecute, "Offline test launch");
+                foreach (var blank in new[] { "", " ", "\t" })
+                {
+                    Environment.SetEnvironmentVariable("TP_TPONLINE2", blank);
+                    var local = TeknoCPSLauncher.Build(profile, zip, null, true);
+                    Require(local.FileName == offline.FileName && local.Arguments == offline.Arguments,
+                        "CPS blank online environment changed offline launch");
+                }
+                Environment.SetEnvironmentVariable("TP_TPONLINE2", null);
+                Require(offline.FileName.EndsWith("TeknoCPS.exe") && offline.Arguments.Contains("--test-menu") == !string.IsNullOrEmpty(profile.TestMenuParameter) && offline.Arguments.Contains("--nvram-dir") && !offline.UseShellExecute, "Offline test launch");
                 Require(!TeknoCPSLauncher.Build(profile, zip, null).Arguments.Contains("--test-menu"), "Test switch leaked into normal launch");
                 if (profile.HasTpoSupport)
                 {
@@ -67,7 +75,7 @@ internal static class CpsChecks
                     {
                         Environment.SetEnvironmentVariable("TP_TPONLINE2", "test|" + seat + "|Player|" + count);
                         var online = TeknoCPSLauncher.Build(profile, zip, null, true);
-                        Require(online.Arguments.Contains("--no-nvram") && !online.Arguments.Contains("--test-menu") && !online.Arguments.Contains("--player") && !online.Arguments.Contains("--link-") && !online.Arguments.Contains("--nvram-dir"), "Automatic TPO assignment");
+                        Require(online.FileName == offline.FileName && !online.UseShellExecute && online.Arguments.Contains("--no-nvram") && !online.Arguments.Contains("--test-menu") && !online.Arguments.Contains("--player") && !online.Arguments.Contains("--link-") && !online.Arguments.Contains("--nvram-dir"), "Automatic TPO assignment");
                         ++seats;
                     }
                 }

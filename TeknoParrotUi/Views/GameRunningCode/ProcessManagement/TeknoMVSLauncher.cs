@@ -37,7 +37,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var game = Path.GetFullPath(gameLocation);
             if (!File.Exists(game)) throw new FileNotFoundException("Select the game's merged ROM ZIP.", game);
             var root = Path.Combine(Directory.GetCurrentDirectory(), "TeknoMVS");
-            var executable = Path.Combine(root, online ? "TeknoMVSOnline.exe" : "TeknoMVSDiagnostic.exe");
+            var executable = Path.Combine(root, "TeknoMVS.exe");
             if (!File.Exists(executable)) throw new FileNotFoundException("Install the TeknoMVS emulator package.", executable);
             var bios = set == "kizuna4p" ? "asia" : set == "irrmaze" ? "asia-sp1" : new[] { "ms5pcb", "svcpcb", "svcpcba", "kf2k3pcb" }.Contains(set) ? "default" : "euro";
             var args = new List<string> { "--game", set, "--bios", bios, "--rom-root", Quote(Path.GetDirectoryName(game)) };

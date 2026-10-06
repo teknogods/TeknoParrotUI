@@ -41,7 +41,7 @@ internal static class MvsChecks
     public static void Run(string root, string temporary)
     {
         Directory.CreateDirectory("TeknoMVS");
-        foreach (var name in new[] { "TeknoMVSDiagnostic.exe", "TeknoMVSOnline.exe" }) File.WriteAllBytes(Path.Combine("TeknoMVS", name), new byte[0]);
+        File.WriteAllBytes(Path.Combine("TeknoMVS", "TeknoMVS.exe"), new byte[0]);
         var serializer = new XmlSerializer(typeof(GameProfile));
         var files = Directory.GetFiles(Path.Combine(root, "TeknoParrotUi.Common", "GameProfiles"), "mvs_*.xml");
         Require(files.Length == 287, "Expected 286 MVS games plus linked Bowling");
@@ -61,6 +61,14 @@ internal static class MvsChecks
                 Environment.SetEnvironmentVariable("TP_TPONLINE2", null);
                 profile.ConfigValues.Single(v => v.FieldName == "CPU Clock").FieldValue = "24";
                 var offline = TeknoMVSLauncher.Build(profile, zip, null, true);
+                foreach (var blank in new[] { "", " ", "\t" })
+                {
+                    Environment.SetEnvironmentVariable("TP_TPONLINE2", blank);
+                    var local = TeknoMVSLauncher.Build(profile, zip, null, true);
+                    Require(local.FileName == offline.FileName && local.Arguments == offline.Arguments,
+                        "MVS blank online environment changed offline launch");
+                }
+                Environment.SetEnvironmentVariable("TP_TPONLINE2", null);
                 var switches = profile.ConfigValues.Where(v => v.CategoryName == "DIP Switches").ToArray();
                 Require(switches.Length == 8 && profile.GameProfileRevision >= 2, "MVS DIP settings missing");
                 var defaultMask = profile.ProfileName == "mvs_kizuna4p" ? 2 : new[] { "mvs_janshin", "mvs_minasan", "mvs_bakatono", "mvs_ms5pcb", "mvs_svcpcb", "mvs_svcpcba" }.Contains(profile.ProfileName) ? 4 : 0;
@@ -81,7 +89,7 @@ internal static class MvsChecks
                     Require(invalid, "Malformed offline DIP accepted");
                     foreach (var value in switches) value.FieldValue = "Off";
                 }
-                Require(offline.FileName.EndsWith("TeknoMVSDiagnostic.exe") && offline.Arguments.Contains("--test-menu") && offline.Arguments.Contains("--start") && offline.Arguments.Contains("--cpu-clock 24"), "MVS offline/test launch mismatch");
+                Require(offline.FileName.EndsWith("TeknoMVS.exe") && offline.Arguments.Contains("--test-menu") && offline.Arguments.Contains("--start") && offline.Arguments.Contains("--cpu-clock 24"), "MVS offline/test launch mismatch");
                 var linked = new[] { "mvs_ridhero", "mvs_ridheroh", "mvs_trally", "mvs_lbowling_link" }.Contains(profile.ProfileName);
                 if (profile.HasTpoSupport)
                 {
@@ -95,7 +103,7 @@ internal static class MvsChecks
                     {
                         Environment.SetEnvironmentVariable("TP_TPONLINE2", "test|" + seat + "|Player|" + count);
                         var online = TeknoMVSLauncher.Build(profile, zip, null);
-                        Require(online.FileName.EndsWith("TeknoMVSOnline.exe") && !online.UseShellExecute, "MVS online dispatch");
+                        Require(online.FileName.EndsWith("TeknoMVS.exe") && !online.UseShellExecute, "MVS online dispatch");
                         Require(online.Arguments.Contains("--net-link") == linked, "MVS linked mode mismatch");
                         Require(online.Arguments.Contains("--net-mode rollback --net-input-delay 2"), "MVS TPO must use rollback");
                         Require(online.Arguments.Contains("--cpu-clock 12") && !online.Arguments.Contains("--cabinet-state-dir") && !online.Arguments.Contains("--net-player ") && !online.Arguments.Contains("--net-players"), "MVS lobby assignment not automatic");

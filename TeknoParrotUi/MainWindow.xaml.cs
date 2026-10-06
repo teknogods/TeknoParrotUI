@@ -710,7 +710,7 @@ namespace TeknoParrotUi
             new UpdaterComponent
             {
                 name = "TeknoMVS",
-                location = Path.Combine("TeknoMVS", "TeknoMVSDiagnostic.exe"),
+                location = Path.Combine("TeknoMVS", "TeknoMVS.exe"),
                 reponame = "TeknoParrot",
                 opensource = false,
                 manualVersion = false,
@@ -719,7 +719,7 @@ namespace TeknoParrotUi
             new UpdaterComponent
             {
                 name = "TeknoSS32",
-                location = Path.Combine("TeknoSS32", "ss32win.exe"),
+                location = Path.Combine("TeknoSS32", "TeknoSS32.exe"),
                 reponame = "TeknoParrot",
                 opensource = false,
                 manualVersion = false,

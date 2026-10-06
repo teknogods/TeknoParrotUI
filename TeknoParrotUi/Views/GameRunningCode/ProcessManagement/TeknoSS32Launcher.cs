@@ -30,12 +30,12 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var linked = id.EndsWith("_link", StringComparison.Ordinal) || new[] { "ss32_f1lap", "ss32_f1lapt", "ss32_f1lapj", "ss32_radr", "ss32_radru", "ss32_radrj" }.Contains(id);
             var set = id.Substring(5); if (id.EndsWith("_link", StringComparison.Ordinal)) set = set.Substring(0, set.Length - 5);
             if (set.Length == 0 || set.Any(c => !char.IsLetterOrDigit(c))) throw new ArgumentException("Invalid System 32 ROM set");
-            var online = Environment.GetEnvironmentVariable("TP_TPONLINE2") != null;
+            var online = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("TP_TPONLINE2"));
             if (online && !profile.HasTpoSupport) throw new ArgumentException("This SS32 profile has no available multiplayer mode");
             var game = Path.GetFullPath(gameLocation);
             if (!File.Exists(game)) throw new FileNotFoundException("Select the game's ROM ZIP.", game);
             var root = Path.Combine(Directory.GetCurrentDirectory(), "TeknoSS32");
-            var executable = Path.Combine(root, online ? "ss32online.exe" : "ss32win.exe");
+            var executable = Path.Combine(root, "TeknoSS32.exe");
             if (!File.Exists(executable)) throw new FileNotFoundException("Install the TeknoSS32 emulator package.", executable);
             var cdSetting = Setting("CD Image Folder", "");
             var cdRoot = string.IsNullOrWhiteSpace(cdSetting) ? Path.GetDirectoryName(game) : Path.GetFullPath(cdSetting.Trim());
