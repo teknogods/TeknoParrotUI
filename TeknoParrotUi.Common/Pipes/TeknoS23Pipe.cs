@@ -11,8 +11,14 @@ namespace TeknoParrotUi.Common.Pipes
     /// </summary>
     public sealed class TeknoS23Pipe : ControlSender
     {
+        private readonly object _sync = new object();
         private ushort _sequence;
         private bool _publishInput;
+        private readonly bool _startInTest;
+        private bool _testSwitch;
+        private bool _testPressed;
+
+        public TeknoS23Pipe(bool startInTest = false) => _startInTest = startInTest;
 
         private static bool Down(bool? value) => value.HasValue && value.Value;
 
@@ -60,6 +66,8 @@ namespace TeknoParrotUi.Common.Pipes
         {
             JvsHelper.ResetState();
             _sequence = 0;
+            _testSwitch = _startInTest;
+            _testPressed = false;
             _publishInput = !(SettingEnabled("Enable VR") &&
                               SettingEnabled("Use VR Controls", true));
             if (!_publishInput)
@@ -80,47 +88,59 @@ namespace TeknoParrotUi.Common.Pipes
 
         public override void Stop()
         {
-            JvsHelper.WriteStateByte(5, 0);
             base.Stop();
+            lock (_sync)
+            {
+                _publishInput = false;
+                JvsHelper.WriteStateByte(5, 0);
+            }
         }
 
         public override void Transmit()
         {
-            if (!_publishInput)
+            lock (_sync)
             {
-                JvsHelper.WriteStateByte(5, 0);
-                return;
+                if (!_publishInput)
+                {
+                    JvsHelper.WriteStateByte(5, 0);
+                    return;
+                }
+
+                var operatorInput = InputCode.PlayerDigitalButtons[0];
+                byte system = 0;
+                // The JVS cabinet's Test switch is maintained. A bound key/button
+                // changes its position once per press; Service stays momentary.
+                var testPressed = Down(operatorInput.Test);
+                if (testPressed && !_testPressed) _testSwitch = !_testSwitch;
+                _testPressed = testPressed;
+                if (_testSwitch) system |= 0x80;
+                if (Down(operatorInput.Service)) system |= 0x40;
+                JvsHelper.WriteStateByte(8, system);
+
+                for (var player = 0; player < 4; ++player)
+                {
+                    JvsHelper.WriteStateByte(9 + player, PlayerByte(player));
+                    JvsHelper.WriteStateByte(24 + player, ExtraByte(player));
+                    JvsHelper.WriteStateByte(
+                        32 + player,
+                        Down(InputCode.PlayerDigitalButtons[player].Coin)
+                            ? (byte)1
+                            : (byte)0);
+                }
+
+                for (var analog = 0; analog < 8; ++analog)
+                    JvsHelper.WriteStateByte(13 + analog, InputCode.AnalogBytes[analog * 2]);
+
+                ++_sequence;
+                JvsHelper.WriteStateByte(0, (byte)'V');
+                JvsHelper.WriteStateByte(1, (byte)'P');
+                JvsHelper.WriteStateByte(2, (byte)'I');
+                JvsHelper.WriteStateByte(3, (byte)'N');
+                JvsHelper.WriteStateByte(4, 1);
+                JvsHelper.WriteStateByte(6, (byte)_sequence);
+                JvsHelper.WriteStateByte(7, (byte)(_sequence >> 8));
+                JvsHelper.WriteStateByte(5, 1);
             }
-
-            var operatorInput = InputCode.PlayerDigitalButtons[0];
-            byte system = 0;
-            if (Down(operatorInput.Test)) system |= 0x80;
-            if (Down(operatorInput.Service)) system |= 0x40;
-            JvsHelper.WriteStateByte(8, system);
-
-            for (var player = 0; player < 4; ++player)
-            {
-                JvsHelper.WriteStateByte(9 + player, PlayerByte(player));
-                JvsHelper.WriteStateByte(24 + player, ExtraByte(player));
-                JvsHelper.WriteStateByte(
-                    32 + player,
-                    Down(InputCode.PlayerDigitalButtons[player].Coin)
-                        ? (byte)1
-                        : (byte)0);
-            }
-
-            for (var analog = 0; analog < 8; ++analog)
-                JvsHelper.WriteStateByte(13 + analog, InputCode.AnalogBytes[analog * 2]);
-
-            ++_sequence;
-            JvsHelper.WriteStateByte(0, (byte)'V');
-            JvsHelper.WriteStateByte(1, (byte)'P');
-            JvsHelper.WriteStateByte(2, (byte)'I');
-            JvsHelper.WriteStateByte(3, (byte)'N');
-            JvsHelper.WriteStateByte(4, 1);
-            JvsHelper.WriteStateByte(6, (byte)_sequence);
-            JvsHelper.WriteStateByte(7, (byte)(_sequence >> 8));
-            JvsHelper.WriteStateByte(5, 1);
         }
     }
 }

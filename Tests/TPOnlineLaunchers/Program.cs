@@ -76,6 +76,11 @@ internal static class Program
                 File.WriteAllBytes(Path.Combine(system, system + ".exe"), new byte[0]);
             }
             var serializer = new XmlSerializer(typeof(GameProfile));
+            if (args.Length > 1 && args[1] == "--namco-only")
+            {
+                NamcoInputChecks.Run(root, temporary);
+                return 0;
+            }
             var games = new[] { "acedrive", "adillor", "alpinr2b", "cybrcomm", "cybrcycc", "raverace", "ridgera2j", "tokyowar", "victlapj", "500gp", "downhillu", "finfurl", "finfurl2", "gunwars", "motoxgo", "raceonj", "timecrs2v5a" };
             foreach (var game in games)
             {
@@ -111,6 +116,7 @@ internal static class Program
             PresentationChecks.Run(root, temporary);
             DrivingChecks.Run(root);
             AnalogInputChecks.Run(root);
+            NamcoInputChecks.Run(root, temporary);
             DigitalInputChecks.Run(root);
             return 0;
         }

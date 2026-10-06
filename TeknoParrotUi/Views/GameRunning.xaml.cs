@@ -23,6 +23,21 @@ namespace TeknoParrotUi.Views
 {
     public partial class GameRunning
     {
+        internal void UpdateCpsMediaProgress(string line)
+        {
+            if (_gameProfile.EmulatorType != EmulatorType.TeknoCPS) return;
+            var status = CpsMediaProgress.Parse(line);
+            if (status == null) return;
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                mediaPreparationStatus.Text = status.Message;
+                mediaPreparationStatus.Visibility = status.Installing ? Visibility.Visible : Visibility.Collapsed;
+                gameRunning.Content = status.Installing ? "Installing game" : Properties.Resources.GameRunning;
+                progressBar.IsIndeterminate = !status.Installing || !status.Percent.HasValue;
+                if (status.Percent.HasValue) progressBar.Value = status.Percent.Value;
+            }));
+        }
+
         private readonly bool _isTest;
         private readonly string _gameLocation;
         private readonly string _gameLocation2;
@@ -738,7 +753,9 @@ namespace TeknoParrotUi.Views
                     _controlSender = new TeknoMVSPipe();
                     break;
                 case EmulationProfile.TeknoS23:
-                    _controlSender = new TeknoS23Pipe();
+                    _controlSender = new TeknoS23Pipe(_isTest &&
+                        string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("TP_TPONLINE2")) &&
+                        !NamcoGameRevisions.ResolveSet(_gameProfile).StartsWith("panicprk", StringComparison.Ordinal));
                     break;
                 case EmulationProfile.TeknoS21:
                     _controlSender = new TeknoS21Pipe();

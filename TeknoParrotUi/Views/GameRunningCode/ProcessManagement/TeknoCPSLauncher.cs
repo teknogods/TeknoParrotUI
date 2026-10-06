@@ -51,7 +51,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                         if (tail.Length > 8000) tail.Remove(0, tail.Length - 8000);
                         if (report && progress != null)
                         {
-                            try { progress(line.Length > 500 ? line.Substring(0, 500) : line); }
+                            try { progress(CpsMediaProgress.Parse(line)?.Message ?? (line.Length > 500 ? line.Substring(0, 500) : line)); }
                             catch (Exception) { /* The browser may have closed; still drain the owned process. */ }
                         }
                     }
@@ -138,6 +138,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             }
             log?.Invoke("TeknoCPS: " + set + (online ? ", automatic online room" : ", local play"));
             var info = NativeArcadeLaunch.FromTeknoParrotUi(new ProcessStartInfo(executable, string.Join(" ", args)) { WorkingDirectory = root, UseShellExecute = false });
+            // Installation happens before the native game window opens. Always
+            // consume its output, including when TPUI's Silent Mode is disabled.
+            info.RedirectStandardOutput = info.RedirectStandardError = true;
             if (prepareMedia)
             {
                 info.EnvironmentVariables.Remove("TP_TPONLINE2");
@@ -145,6 +148,32 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 info.RedirectStandardOutput = info.RedirectStandardError = true;
             }
             return info;
+        }
+    }
+
+    internal sealed class CpsMediaProgress
+    {
+        internal bool Installing { get; private set; }
+        internal int? Percent { get; private set; }
+        internal string Message { get; private set; }
+
+        internal static CpsMediaProgress Parse(string line)
+        {
+            if (line == "CPS3_INSTALL READY" || line == "CD installation complete; starting with fresh cabinet state.")
+                return new CpsMediaProgress { Message = "Game data is ready. Starting game…" };
+            var begin = line == "CPS3_INSTALL BEGIN" ||
+                (line?.StartsWith("Installing ", StringComparison.Ordinal) == true && line.EndsWith(" from CD (first run)...", StringComparison.Ordinal));
+            int? percent = null;
+            const string prefix = "CPS3_INSTALL PROGRESS ";
+            if (line?.StartsWith(prefix, StringComparison.Ordinal) == true)
+            {
+                if (!int.TryParse(line.Substring(prefix.Length), out var value) || value < 0 || value > 100) return null;
+                percent = value;
+            }
+            if (!begin && !percent.HasValue && line?.StartsWith("CD installation in progress: ", StringComparison.Ordinal) != true) return null;
+            return new CpsMediaProgress { Installing = true, Percent = percent,
+                Message = (percent.HasValue ? $"Installing game data… {percent}%" : "Installing game data for the first time…") +
+                    " Please wait. Future launches will use the saved data." };
         }
     }
 }

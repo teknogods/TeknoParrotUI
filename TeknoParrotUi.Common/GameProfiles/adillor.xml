@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Armadillo Racing</GameNameInternal>
   <EmulationProfile>TeknoS22</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <EmulatorType>TeknoS22</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>adillor.zip</ExecutableName>
@@ -38,6 +38,7 @@
       <FieldOptions>
         <string>DirectInput</string>
         <string>XInput</string>
+        <string>RawInputTrackball</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
@@ -221,11 +222,12 @@
       <AnalogType>AnalogJoystick</AnalogType>
       <Hint>Trackball X</Hint>
       <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Analog X Left</ButtonName>
       <InputMapping>Analog0</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>Minimum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>
       <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
@@ -235,7 +237,7 @@
     <JoystickButtons>
       <ButtonName>Analog X Right</ButtonName>
       <InputMapping>Analog0</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>Maximum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>
       <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
@@ -245,14 +247,15 @@
     <JoystickButtons>
       <ButtonName>Analog Y</ButtonName>
       <InputMapping>Analog2</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>AnalogJoystickY</AnalogType>
       <Hint>Trackball Y</Hint>
       <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Analog Y Up</ButtonName>
       <InputMapping>Analog2</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <AnalogType>Minimum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>
       <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
@@ -262,12 +265,18 @@
     <JoystickButtons>
       <ButtonName>Analog Y Down</ButtonName>
       <InputMapping>Analog2</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <AnalogType>Maximum</AnalogType>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>
       <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
       <Hint>Trackball Y</Hint>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Trackball Device</ButtonName>
+      <InputMapping>P1Trackball</InputMapping>
+      <HideWithDirectInput>true</HideWithDirectInput>
+      <HideWithXInput>true</HideWithXInput>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

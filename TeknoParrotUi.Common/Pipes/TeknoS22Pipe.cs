@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.IO.MemoryMappedFiles;
 using System.Linq;
 using TeknoParrotUi.Common.Jvs;
 
@@ -13,6 +15,9 @@ namespace TeknoParrotUi.Common.Pipes
     {
         private ushort _sequence;
         private bool _publishInput;
+        private readonly object _sync = new object();
+        private MemoryMappedFile _trackball;
+        private MemoryMappedViewAccessor _trackballView;
 
         private static bool Down(bool? value) => value.HasValue && value.Value;
 
@@ -83,47 +88,76 @@ namespace TeknoParrotUi.Common.Pipes
 
         public override void Stop()
         {
-            JvsHelper.WriteStateByte(5, 0);
             base.Stop();
+            lock (_sync)
+            {
+                _publishInput = false;
+                JvsHelper.WriteStateByte(5, 0);
+                _trackballView?.Dispose(); _trackball?.Dispose();
+                _trackballView = null; _trackball = null;
+            }
+        }
+
+        private bool PublishTrackball()
+        {
+            if ((!IsProfile("adillor") && !IsProfile("adillorj")) ||
+                InputCode.GameProfile?.ConfigValues?.FirstOrDefault(x => x.FieldName == "Input API")?.FieldValue != "RawInputTrackball") return false;
+            if (_trackballView == null)
+            {
+                try
+                {
+                    _trackball = MemoryMappedFile.OpenExisting("RawInputTrackballSharedMemory");
+                    _trackballView = _trackball.CreateViewAccessor(0, 12);
+                }
+                catch (FileNotFoundException) { }
+            }
+            JvsHelper.StateView.Write(40, _trackballView?.ReadUInt32(0) ?? 0);
+            JvsHelper.StateView.Write(44, _trackballView?.ReadUInt32(4) ?? 0);
+            return true;
         }
 
         public override void Transmit()
         {
-            if (!_publishInput)
+            lock (_sync)
             {
-                JvsHelper.WriteStateByte(5, 0);
-                return;
+                if (!_publishInput)
+                {
+                    JvsHelper.WriteStateByte(5, 0);
+                    return;
+                }
+
+                var operatorInput = InputCode.PlayerDigitalButtons[0];
+                byte system = 0;
+                if (Down(operatorInput.Test)) system |= 0x80;
+                if (Down(operatorInput.Service)) system |= 0x40;
+                JvsHelper.WriteStateByte(8, system);
+
+                for (var player = 0; player < 4; ++player)
+                {
+                    JvsHelper.WriteStateByte(9 + player, PlayerByte(player));
+                    JvsHelper.WriteStateByte(24 + player, ExtraByte(player));
+                    JvsHelper.WriteStateByte(
+                        32 + player,
+                        Down(InputCode.PlayerDigitalButtons[player].Coin)
+                            ? (byte)1
+                            : (byte)0);
+                }
+
+                for (var analog = 0; analog < 8; ++analog)
+                    JvsHelper.WriteStateByte(13 + analog, InputCode.AnalogBytes[analog * 2]);
+
+                var relative = PublishTrackball();
+
+                ++_sequence;
+                JvsHelper.WriteStateByte(0, (byte)'V');
+                JvsHelper.WriteStateByte(1, (byte)'P');
+                JvsHelper.WriteStateByte(2, (byte)'I');
+                JvsHelper.WriteStateByte(3, (byte)'N');
+                JvsHelper.WriteStateByte(4, relative ? (byte)2 : (byte)1);
+                JvsHelper.WriteStateByte(6, (byte)_sequence);
+                JvsHelper.WriteStateByte(7, (byte)(_sequence >> 8));
+                JvsHelper.WriteStateByte(5, relative ? (byte)3 : (byte)1);
             }
-
-            var operatorInput = InputCode.PlayerDigitalButtons[0];
-            byte system = 0;
-            if (Down(operatorInput.Test)) system |= 0x80;
-            if (Down(operatorInput.Service)) system |= 0x40;
-            JvsHelper.WriteStateByte(8, system);
-
-            for (var player = 0; player < 4; ++player)
-            {
-                JvsHelper.WriteStateByte(9 + player, PlayerByte(player));
-                JvsHelper.WriteStateByte(24 + player, ExtraByte(player));
-                JvsHelper.WriteStateByte(
-                    32 + player,
-                    Down(InputCode.PlayerDigitalButtons[player].Coin)
-                        ? (byte)1
-                        : (byte)0);
-            }
-
-            for (var analog = 0; analog < 8; ++analog)
-                JvsHelper.WriteStateByte(13 + analog, InputCode.AnalogBytes[analog * 2]);
-
-            ++_sequence;
-            JvsHelper.WriteStateByte(0, (byte)'V');
-            JvsHelper.WriteStateByte(1, (byte)'P');
-            JvsHelper.WriteStateByte(2, (byte)'I');
-            JvsHelper.WriteStateByte(3, (byte)'N');
-            JvsHelper.WriteStateByte(4, 1);
-            JvsHelper.WriteStateByte(6, (byte)_sequence);
-            JvsHelper.WriteStateByte(7, (byte)(_sequence >> 8));
-            JvsHelper.WriteStateByte(5, 1);
         }
     }
 }

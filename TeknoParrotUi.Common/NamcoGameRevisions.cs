@@ -9,6 +9,49 @@ namespace TeknoParrotUi.Common
     {
         public const string SettingName = "Game Revision";
 
+        // These cabinets use independent host axes. Cyber/Armadillo are
+        // right/down-positive; Alpine Surfer's Swing binding drives the
+        // hardware-reversed ADC and its Edge binding is right-positive.
+        public static bool UsesIndependentCabinetAxes(GameProfile profile) =>
+            profile?.EmulatorType == EmulatorType.TeknoS22 &&
+            (profile.ProfileName == "cybrcomm" || profile.ProfileName == "adillor" || profile.ProfileName == "adillorj" || profile.ProfileName == "alpines");
+
+        public static string PreviousControlName(GameProfile profile, string name)
+        {
+            if (profile?.EmulatorType == EmulatorType.TeknoS22 &&
+                (profile.ProfileName == "alpines" || profile.ExecutableName == "alpines.zip"))
+            {
+                switch (name)
+                {
+                    case "Swing": return "Analog X";
+                    case "Swing Left": return "Analog X Left";
+                    case "Swing Right": return "Analog X Right";
+                    case "Edge": return "Analog Y";
+                    case "Edge Left": return "Analog Y Up";
+                    case "Edge Right": return "Analog Y Down";
+                    default: return name;
+                }
+            }
+            if (profile?.EmulatorType != EmulatorType.TeknoS22 ||
+                (profile.ProfileName != "cybrcomm" && profile.ExecutableName != "cybrcomm.zip")) return name;
+            switch (name)
+            {
+                case "Left Stick X": return "Analog X";
+                case "Left Stick Left": return "Analog X Left";
+                case "Left Stick Right": return "Analog X Right";
+                case "Left Stick Y": return "Analog Y";
+                case "Left Stick Up": return "Analog Y Up";
+                case "Left Stick Down": return "Analog Y Down";
+                case "Right Stick X": return "Analog Z";
+                case "Right Stick Left": return "Analog Z Left";
+                case "Right Stick Right": return "Analog Z Right";
+                case "Right Stick Y": return "Analog R";
+                case "Right Stick Up": return "Analog R Up";
+                case "Right Stick Down": return "Analog R Down";
+                default: return name;
+            }
+        }
+
         private sealed class Revision
         {
             internal readonly string Set;

@@ -115,6 +115,11 @@ namespace TeknoParrotUi.Common
                 {
                     var oldButton = other.JoystickButtons[i];
                     var button = gameProfile.JoystickButtons.FirstOrDefault(x => x.ButtonName == oldButton.ButtonName);
+                    if (button == null && gameProfile.EmulatorType == EmulatorType.TeknoS22)
+                    {
+                        button = gameProfile.JoystickButtons.FirstOrDefault(x =>
+                            NamcoGameRevisions.PreviousControlName(gameProfile, x.ButtonName) == oldButton.ButtonName);
+                    }
                     if (button == null && gameProfile.EmulatorType == EmulatorType.TeknoModel2 &&
                         gameProfile.ExecutableName == "desert.zip" && oldButton.ButtonName == "Brake")
                         button = gameProfile.JoystickButtons.FirstOrDefault(x => x.ButtonName == "Turret");

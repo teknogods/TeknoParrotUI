@@ -1,6 +1,7 @@
 [CmdletBinding()]
 param(
     [string]$CommonAssembly = '',
+    [switch]$NamcoOnly,
     [string]$Compiler = 'C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Current\Bin\Roslyn\csc.exe'
 )
 $ErrorActionPreference = 'Stop'
@@ -27,6 +28,7 @@ $exe = Join-Path $output 'TPOnlineLaunchers.exe'
     (Join-Path $PSScriptRoot 'MvsChecks.cs') `
     (Join-Path $PSScriptRoot 'CpsChecks.cs') `
     (Join-Path $PSScriptRoot 'CpsMediaChecks.cs') `
+    (Join-Path $PSScriptRoot 'NamcoInputChecks.cs') `
     (Join-Path $PSScriptRoot 'Ss32Checks.cs') `
     (Join-Path $PSScriptRoot 'RevisionRoutingChecks.cs') `
     (Join-Path $PSScriptRoot 'PresentationChecks.cs') `
@@ -42,5 +44,5 @@ $exe = Join-Path $output 'TPOnlineLaunchers.exe'
     (Join-Path $root 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\TeknoS22Launcher.cs') `
     (Join-Path $root 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\TeknoS23Launcher.cs')
 if ($LASTEXITCODE -ne 0) { throw 'Launcher check compilation failed.' }
-& $exe $root
+if ($NamcoOnly) { & $exe $root --namco-only } else { & $exe $root }
 if ($LASTEXITCODE -ne 0) { throw 'Launcher checks failed.' }

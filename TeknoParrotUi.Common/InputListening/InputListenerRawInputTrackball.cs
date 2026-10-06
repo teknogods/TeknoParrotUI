@@ -96,6 +96,7 @@ namespace TeknoParrotUi.Common.InputListening
             if (_gameProfile?.EmulationProfile == EmulationProfile.TeknoMVS && windowTitle.StartsWith("TeknoMVS", StringComparison.Ordinal)) return true;
             if (_gameProfile?.EmulationProfile == EmulationProfile.TeknoCPS && windowTitle.StartsWith("TeknoCPS", StringComparison.Ordinal)) return true;
             if (_gameProfile?.EmulationProfile == EmulationProfile.TeknoSS32 && windowTitle.StartsWith("TeknoSS32", StringComparison.Ordinal)) return true;
+            if (_gameProfile?.EmulationProfile == EmulationProfile.TeknoS22 && windowTitle.StartsWith("TeknoS22", StringComparison.Ordinal)) return true;
             for (int i = 0; i < _hookedWindows.Count; i++)
             {
                 if (windowTitle == _hookedWindows[i])
@@ -122,6 +123,10 @@ namespace TeknoParrotUi.Common.InputListening
             // Reset all class members here!
             _joystickButtons = joystickButtons.Where(x => x?.RawInputButton != null).ToList(); // Only configured buttons
             _gameProfile = gameProfile;
+            if (UsesS22Counters)
+            {
+                lock (_stateLock) { _accessor[0].Write(0, 0u); _accessor[0].Write(4, 0u); }
+            }
 
             _windowFound = false;
             _windowHandle = IntPtr.Zero;
@@ -594,6 +599,9 @@ namespace TeknoParrotUi.Common.InputListening
             }
         }
 
+        private static bool UsesS22Counters => _gameProfile?.EmulatorType == EmulatorType.TeknoS22 &&
+            (_gameProfile.ProfileName == "adillor" || _gameProfile.ProfileName == "adillorj");
+
         private void HandleRawInputTrackball(JoystickButtons joystickButton, int deltaX, int deltaY)
         {
             var player = joystickButton.InputMapping == InputMapping.P3Trackball ? 2 : joystickButton.InputMapping == InputMapping.P2Trackball ? 1 : 0;
@@ -602,6 +610,15 @@ namespace TeknoParrotUi.Common.InputListening
             {
                 int signedDeltaX = _invertX ? -deltaX : deltaX;
                 int signedDeltaY = _invertY ? -deltaY : deltaY;
+                if (UsesS22Counters)
+                {
+                    // Armadillo's VPINv2 bridge forwards cumulative counters.
+                    // Retain every raw count across publisher/guest cadences;
+                    // unsigned wrapping is decoded by the native consumer.
+                    accessor.Write(0, unchecked(accessor.ReadUInt32(0) + (uint)signedDeltaX));
+                    accessor.Write(4, unchecked(accessor.ReadUInt32(4) + (uint)signedDeltaY));
+                    return;
+                }
                 int resetFlag = accessor.ReadInt32(8);
 
                 if (resetFlag == 1)

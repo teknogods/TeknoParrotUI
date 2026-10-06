@@ -129,6 +129,7 @@ namespace TeknoParrotUi.Common.InputListening
         private static readonly byte[] _keyboardAxisRest = new byte[16];
         private static int _keyboardAxisStep = 10;
         private static bool UsesIndependentKeyboardAxes =>
+            NamcoGameRevisions.UsesIndependentCabinetAxes(_gameProfile) ||
             _gameProfile?.EmulationProfile == EmulationProfile.TeknoS21 ||
             _gameProfile?.EmulationProfile == EmulationProfile.TeknoHDrive;
         private static bool ReverseYAxis = false;
@@ -946,7 +947,8 @@ namespace TeknoParrotUi.Common.InputListening
                 Array.Clear(_keyboardAxisEnabled, 0, _keyboardAxisEnabled.Length);
                 var axisSensitivity = gameProfile.ConfigValues.FirstOrDefault(
                     x => x.FieldName == "Keyboard/Button Axis Sensitivity")?.FieldValue ??
-                    gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Wheel Sensitivity")?.FieldValue;
+                    gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis Wheel Sensitivity")?.FieldValue ??
+                    gameProfile.ConfigValues.FirstOrDefault(x => x.FieldName == "Keyboard/Button Axis X/Y Sensitivity")?.FieldValue;
                 _keyboardAxisStep = int.TryParse(axisSensitivity, out var step) ? Math.Max(1, Math.Min(255, step)) : 10;
                 foreach (var binding in joystickButtons)
                 {
@@ -3447,6 +3449,10 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                 if (direction) return null;
             }
+            if (NamcoGameRevisions.UsesIndependentCabinetAxes(_gameProfile) && joystickButtons.AnalogType == AnalogType.AnalogJoystickY)
+                return JvsHelper.CalculateWheelPos(state.Value);
+            if (NamcoGameRevisions.UsesIndependentCabinetAxes(_gameProfile) && joystickButtons.AnalogType == AnalogType.AnalogJoystickReverse)
+                return (byte)~JvsHelper.CalculateWheelPos(state.Value);
             switch (joystickButtons.AnalogType)
             {
                 case AnalogType.None:

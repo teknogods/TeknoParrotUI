@@ -21,7 +21,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             }
             return result.Append('\\', slashes * 2).Append('"').ToString();
         }
-        public static ProcessStartInfo Build(GameProfile profile, string gameLocation, Action<string> log)
+        public static ProcessStartInfo Build(GameProfile profile, string gameLocation, Action<string> log, bool isTest = false)
         {
             string Setting(string name, string fallback = "") => profile.ConfigValues?.FirstOrDefault(x => x.FieldName == name)?.FieldValue ?? fallback;
             bool Enabled(string name, bool fallback = false) => Setting(name, fallback ? "1" : "0") == "1" || Setting(name).Equals("true", StringComparison.OrdinalIgnoreCase);
@@ -61,6 +61,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             // TPOnline supplies TP_TPONLINE2 in the inherited environment, as for Viper.
             // Manual LAN peers use the native C422/GMEN transport in the same executable.
             var tpOnline = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("TP_TPONLINE2"));
+            // Panic Park enters diagnostics through its service DIP, rather
+            // than holding JVS Test at startup. Other games use the TPUI pipe.
+            if (isTest && !tpOnline && (set == "panicprk" || set == "panicprkj")) args.Add("--service-dip");
             if (Enabled("Enable LAN") && !tpOnline)
             {
                 foreach (var pair in new[] { new[] { "Cabinet ID", "--cabinet-node" }, new[] { "Cabinet Count", "--link-nodes" }, new[] { "Local Port", "--link-bind" }, new[] { "Session ID", "--link-session" } })

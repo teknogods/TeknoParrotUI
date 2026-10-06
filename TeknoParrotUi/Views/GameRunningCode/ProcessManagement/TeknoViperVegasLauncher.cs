@@ -55,7 +55,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 case EmulatorType.TeknoMVS:
                     return TeknoMVSLauncher.Build(profile, gameLocation, log, isTest);
                 case EmulatorType.TeknoS23:
-                    return TeknoS23Launcher.Build(profile, gameLocation, log);
+                    return TeknoS23Launcher.Build(profile, gameLocation, log, isTest);
                 case EmulatorType.TeknoS21:
                     return TeknoS21Launcher.Build(profile, gameLocation, log);
                 case EmulatorType.TeknoS22:

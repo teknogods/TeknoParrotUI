@@ -26,6 +26,18 @@ internal static class CpsMediaChecks
 
     internal static void Run(string root, string temporary)
     {
+        var begin = CpsMediaProgress.Parse("CPS3_INSTALL BEGIN");
+        Require(begin.Installing && begin.Percent == null && begin.Message.Contains("first time"), "Missing first-install explanation");
+        foreach (var percent in new[] { 0, 1, 50, 99, 100 })
+        {
+            var progress = CpsMediaProgress.Parse("CPS3_INSTALL PROGRESS " + percent);
+            Require(progress.Installing && progress.Percent == percent && progress.Message.Contains(percent + "%"), "Wrong installation progress");
+        }
+        Require(!CpsMediaProgress.Parse("CPS3_INSTALL READY").Installing, "Completion did not clear install status");
+        foreach (var line in new[] { "CPS3_INSTALL PROGRESS -1", "CPS3_INSTALL PROGRESS101", "CPS3_INSTALL PROGRESS101 ", "CPS3_INSTALL PROGRESS 101", "CPS3_INSTALL PROGRESS invalid", "Audited sfiii3", null })
+            Require(CpsMediaProgress.Parse(line) == null, "Unexpected native output changed installation status");
+        Require(CpsMediaProgress.Parse("Installing Game from CD (first run)...").Installing &&
+            !CpsMediaProgress.Parse("CD installation complete; starting with fresh cabinet state.").Installing, "Previous emulator installer status compatibility");
         GameProfile profile;
         using (var stream = File.OpenRead(Path.Combine(root, "TeknoParrotUi.Common/GameProfiles/cps_sfiii3n.xml")))
             profile = (GameProfile)new XmlSerializer(typeof(GameProfile)).Deserialize(stream);

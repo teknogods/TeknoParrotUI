@@ -2058,6 +2058,12 @@ namespace TeknoParrotUi.Common.InputListening
         {
             if (joystickButtons.XInputButton?.XInputIndex != index)
                 return null;
+            if (NamcoGameRevisions.UsesIndependentCabinetAxes(_gameProfile) &&
+                (joystickButtons.AnalogType == AnalogType.AnalogJoystickY || joystickButtons.AnalogType == AnalogType.AnalogJoystickReverse))
+            {
+                var value = AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, false, 0, _gameProfile);
+                return value >= 254 ? (byte)0 : value <= 1 ? (byte)255 : (byte)(255 - value);
+            }
             switch (joystickButtons.AnalogType)
             {
                 case AnalogType.None:

@@ -1003,6 +1003,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 {
                     // Prepend line numbers to each line of the output.
                     if (string.IsNullOrEmpty(e.Data)) return;
+                    _gameRunning.UpdateCpsMediaProgress(e.Data);
                     try
                     {
                         textBoxConsole.Dispatcher.Invoke(() => textBoxConsole.AppendText("\n" + e.Data),
@@ -1063,7 +1064,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 cmdProcess.Start();
                 if (info.RedirectStandardError)
                     cmdProcess.BeginErrorReadLine();
-                if (Lazydata.ParrotData.SilentMode &&
+                if (info.RedirectStandardOutput &&
                     _gameProfile.EmulatorType != EmulatorType.Lindbergh &&
                     _gameProfile.EmulatorType != EmulatorType.N2 &&
                     _gameProfile.EmulatorType != EmulatorType.ElfLdr2)
