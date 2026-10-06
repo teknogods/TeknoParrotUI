@@ -36,7 +36,6 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"
@@ -367,30 +366,7 @@
                                Visibility="Collapsed" />
                 </StackPanel>
             </materialDesign:Card>
-            <!-- Initial D unified network mode (UNIFIED_MODE.md 2.7 / 6.7): the privacy opt-out, shown signed in or not -->
             <materialDesign:Card Grid.Row="5"
-                                 x:Name="InitialDConnectCard"
-                                 Margin="0,0,0,20"
-                                 Padding="16">
-                <StackPanel>
-                    <TextBlock FontWeight="Medium"
-                               FontSize="16"
-                               Margin="0,0,0,8"
-                               Text="{x:Static p:Resources.InitialDConnectCardTitle}" />
-                    <CheckBox x:Name="InitialDConnectCheckBox"
-                              Margin="0,0,0,6"
-                              Content="{x:Static p:Resources.InitialDConnectToServer}"
-                              Click="InitialDConnectCheckBox_Click" />
-                    <TextBlock TextWrapping="Wrap"
-                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                               Text="{x:Static p:Resources.InitialDConnectToServerNote}" />
-                    <TextBlock Margin="0,8,0,0"
-                               TextWrapping="Wrap"
-                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
-                               Text="{x:Static p:Resources.InitialDChatNote}" />
-                </StackPanel>
-            </materialDesign:Card>
-            <materialDesign:Card Grid.Row="6"
                                  Margin="0,0,0,20"
                                  Padding="16"
                                  Background="{DynamicResource MaterialDesignDivider}">

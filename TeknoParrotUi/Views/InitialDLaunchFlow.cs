@@ -16,7 +16,7 @@ namespace TeknoParrotUi.Views
     /// docs/UNIFIED_MODE.md 2.7 "Before the launch", 4.2, 6.7):
     /// <list type="number">
     /// <item>once: the first-run notice (every start now contacts the online server; cards become online cards; offline
-    /// progress is merged later) with the "Connect to the online server" checkbox;</item>
+    /// progress is merged later); the server check is always enabled;</item>
     /// <item>without this PC's Online ID on the official server: "Play online (register this PC) / Play offline for now /
     /// Don't ask again" (no guests on the official server: an unregistered PC plays offline / LAN);</item>
     /// <item>"Play with friends": the friends code dialog (a new code with "Copy invite", or a friend's code);</item>
@@ -48,30 +48,6 @@ namespace TeknoParrotUi.Views
                     ShowFirstRunNotice(owner);
                 data.InitialDUnifiedNoticeShown = true;
                 Save();
-            }
-
-            var mode = InitialDUnifiedMode.EffectiveNetworkMode(profile);
-            if (withFriends)
-            {
-                if (mode == InitialDUnifiedMode.ModeLegacy)
-                {
-                    Ask(owner, R.InitialDFriendsTitle, R.InitialDFriendsLegacy, R.InitialDOk);
-                    return false;
-                }
-                if (mode == InitialDUnifiedMode.ModeNoServer)
-                {
-                    if (Ask(owner, R.InitialDFriendsTitle, R.InitialDFriendsNeedsConnect, R.InitialDSwitchOnAndStart, R.InitialDCancel) != 0)
-                        return false;
-                    data.InitialDConnectToServer = true;
-                    Save();
-                    mode = InitialDUnifiedMode.EffectiveNetworkMode(profile);
-                }
-            }
-            if (mode != InitialDUnifiedMode.ModeAuto)
-            {
-                // NoServer (the checkbox) or the Legacy valve: no server contact at all
-                InitialDUnifiedMode.PrepareLaunch(profile, null);
-                return true;
             }
 
             var server = InitialDUnifiedMode.ServerOf(profile);
@@ -323,25 +299,22 @@ namespace TeknoParrotUi.Views
             return new DialogHandle<int> { Window = w, Result = () => result };
         }
 
-        /// <summary>The one-time notice of the unified mode, with the privacy opt-out (stored when it closes).</summary>
+        /// <summary>The one-time notice explaining automatic Initial D online play.</summary>
         public static void ShowFirstRunNotice(Window owner) => BuildFirstRunNotice(owner).ShowDialog();
 
         internal static DialogHandle<bool> BuildFirstRunNotice(Window owner)
         {
-            var data = Lazydata.ParrotData;
             var w = NewDialog(owner, R.InitialDFirstRunTitle, 600);
             var panel = new StackPanel { Margin = new Thickness(20) };
             panel.Children.Add(Text(R.InitialDFirstRunTitle, 18));
             panel.Children.Add(Text(R.InitialDFirstRunText));
-            var check = new CheckBox { Content = R.InitialDConnectToServer, IsChecked = data.InitialDConnectToServer, Margin = new Thickness(0, 4, 0, 4) };
-            panel.Children.Add(check);
-            panel.Children.Add(Text(R.InitialDConnectToServerNote, 12, 4));
+            panel.Children.Add(Text(R.InitialDAutomaticOnlineNote, 12, 4));
             panel.Children.Add(ButtonRow(w, i => w.Close(), R.InitialDOk));
             w.Content = panel;
             return new DialogHandle<bool>
             {
                 Window = w,
-                Result = () => data.InitialDConnectToServer = check.IsChecked == true,
+                Result = () => true,
             };
         }
 

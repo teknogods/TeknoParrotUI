@@ -3128,17 +3128,11 @@ Only the key saved on this PC will be removed. This will not release an activati
 
 Cards you play online become online cards. Progress you make offline is merged the next time you play online.</value>
   </data>
-  <data name="InitialDConnectToServer" xml:space="preserve">
-    <value>Connect to the online server</value>
-  </data>
-  <data name="InitialDConnectToServerNote" xml:space="preserve">
-    <value>On: every start of Initial D 4 (Japan), 5, 6, 7 and 8 checks the online server, and a registered PC plays online. Off: these games never contact the online server and always start offline / LAN. You can change it here at any time.</value>
+  <data name="InitialDAutomaticOnlineNote" xml:space="preserve">
+    <value>Initial D 4 (Japan), 5, 6 Double Ace, 7 and 8 check the online server automatically at every start. A registered PC plays online; when the server is unavailable or the PC is not registered, the game starts offline or on LAN.</value>
   </data>
   <data name="InitialDChatNote" xml:space="preserve">
     <value>In online matches text chat is on (F2 to type, /mute silences a player; the Chat setting of each game turns it off). Voice chat stays off until you choose listen or talk in the game's settings. Chat and voice go through the server you play on; nothing is stored or recorded.</value>
-  </data>
-  <data name="InitialDConnectCardTitle" xml:space="preserve">
-    <value>Initial D online play</value>
   </data>
   <data name="InitialDRegisterTitle" xml:space="preserve">
     <value>Play Initial D online?</value>
@@ -3210,12 +3204,6 @@ Online play is free: sign in with a teknoparrot.com account on the Account page 
   </data>
   <data name="InitialDFriendsNeedsRegistration" xml:space="preserve">
     <value>Play with friends needs this PC to be registered for Initial D online play (a free teknoparrot.com account, one PC per account).</value>
-  </data>
-  <data name="InitialDFriendsNeedsConnect" xml:space="preserve">
-    <value>Play with friends needs the online connection, which is switched off ("Connect to the online server"). Switch it on and start?</value>
-  </data>
-  <data name="InitialDSwitchOnAndStart" xml:space="preserve">
-    <value>Switch on and start</value>
   </data>
   <data name="InitialDFriendsLegacy" xml:space="preserve">
     <value>Play with friends is not available: the old network mode is set for this game (NetworkMode=Legacy).</value>

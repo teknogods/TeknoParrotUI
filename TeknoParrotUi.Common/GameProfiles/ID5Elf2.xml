@@ -167,7 +167,7 @@
 				<string>Basic</string>
 				<string>Advanced</string>
 			</FieldOptions>
-			<Hint>Initial D starts online by default: at every start TeknoParrot checks the online server, and with this PC registered (Account page) you get nationwide matchmaking, events and rankings. Without registration, or when the server cannot be reached, the game starts offline within seconds. 'Connect to the online server' on the Account page switches the online check off. Basic: nothing to set. Advanced: online server, LAN group and peers, seat, cabinet serial, the cabinet's EEPROM network record.</Hint>
+			<Hint>Initial D starts online by default: at every start TeknoParrot checks the online server, and with this PC registered (Account page) you get nationwide matchmaking, events and rankings. Without registration, or when the server cannot be reached, the game starts offline within seconds. Basic: nothing to set. Advanced: online server, LAN group and peers, seat, cabinet serial, the cabinet's EEPROM network record.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
@@ -178,10 +178,8 @@
 			<FieldType>Dropdown</FieldType>
 			<FieldOptions>
 				<string>Auto</string>
-				<string>NoServer</string>
-				<string>Legacy</string>
 			</FieldOptions>
-			<Hint>Hidden (edit the profile file only). Auto (default): online when the online server answers and this PC is admitted, otherwise offline / LAN. NoServer: never contact the online server (TeknoParrotUI writes this into teknoparrot.ini when 'Connect to the online server' is off). Legacy: the old network code exactly as before (temporary safety valve).</Hint>
+			<Hint>TPUI always selects Auto. Online when the server answers and this PC is registered; otherwise offline or LAN.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>

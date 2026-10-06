@@ -24,7 +24,7 @@ namespace TeknoParrotUi.Helpers
     /// <item>the online server of a profile (the official server: the profiles have no server field, and Release DLLs
     /// ignore <c>[Network] OnlineServer</c>) and the server's constant <c>/tp/v1/ping</c> reply (maintenance, friends
     /// codes);</item>
-    /// <item>"Connect to the online server" (the privacy opt-out): off writes <c>[Network] NetworkMode=NoServer</c>;</item>
+    /// <item>automatic server checks are always enabled for the five matchmaking titles;</item>
     /// <item>the per-launch friends code (<c>TP_PARTY</c>; generated, typed, never saved);</item>
     /// <item>the profile migrations: the first move of a user profile to the unified fields (SINGLE becomes AUTO), the
     /// P3 removal of the classic LAN
@@ -283,28 +283,23 @@ namespace TeknoParrotUi.Helpers
         }
 
         /// <summary>
-        /// The NetworkMode the DLL gets: the profile's (hidden) value, with "Connect to the online server" off turning
-        /// Auto into NoServer. Legacy (the valve) is never changed.
+        /// Matchmaking titles always use Auto, including profiles saved with an old opt-out or debug mode.
+        /// Other profiles retain their original network mode.
         /// </summary>
         public static string EffectiveNetworkMode(GameProfile profile)
         {
-            var mode = CanonicalMode(Field(profile, ModeField)?.FieldValue);
-            if (mode == ModeAuto && Lazydata.ParrotData != null && !Lazydata.ParrotData.InitialDConnectToServer)
-                return ModeNoServer;
-            return mode;
+            return IsMatchmakingProfile(profile) ? ModeAuto : CanonicalMode(Field(profile, ModeField)?.FieldValue);
         }
 
         /// <summary>
         /// ConfigurationWriter hook: the value written for one ini field. Only [Network] NetworkMode of a matchmaking
-        /// profile can change (NoServer while the checkbox is off); every other field of every profile is returned as is.
+        /// profile is always Auto; every other field of every profile is returned as is.
         /// </summary>
         public static string IniValue(GameProfile profile, FieldInformation field, string value)
         {
             if (field == null || field.FieldName != ModeField || field.CategoryName != "Network" || !IsMatchmakingProfile(profile))
                 return value;
-            if (Lazydata.ParrotData != null && !Lazydata.ParrotData.InitialDConnectToServer && CanonicalMode(value) == ModeAuto)
-                return ModeNoServer;
-            return value;
+            return ModeAuto;
         }
 
         // -------------------------------------------------------------------------------------------------------------

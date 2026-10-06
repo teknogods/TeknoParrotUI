@@ -56,11 +56,9 @@ namespace TeknoParrotUi.Common
         // registered until the user removes or regenerates it.
         public string InitialDOnlineId { get; set; } = "";
         public string InitialDOnlineSecret { get; set; } = "";
-        // Initial D unified network mode (InitialDServer docs/UNIFIED_MODE.md 2.7, 6.7): "Connect to the online server"
-        // (the privacy opt-out; off = the matchmaking titles get [Network] NetworkMode=NoServer), the one-time first-run
-        // notice, "Don't ask again" of the pre-launch registration prompt, and the old-loader profiles already copied to
-        // their ElfLoader 2 profiles (comma-separated profile names).
-        public bool InitialDConnectToServer { get; set; } = true;
+        // Initial D matchmaking always uses automatic server selection. Keep the one-time notice,
+        // registration prompt preference and migrated old-loader profile names. Old serialized
+        // InitialDConnectToServer values are ignored when existing settings are loaded.
         public bool InitialDUnifiedNoticeShown { get; set; } = false;
         public bool InitialDRegisterPromptOff { get; set; } = false;
         public string InitialDOldLoaderMigrated { get; set; } = "";

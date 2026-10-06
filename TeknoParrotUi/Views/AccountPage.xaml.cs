@@ -37,17 +37,7 @@ namespace TeknoParrotUi.Views
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine("AccountPage Loaded");
-            InitialDConnectCheckBox.IsChecked = Lazydata.ParrotData?.InitialDConnectToServer != false;
             await CheckLoginStatus();
-        }
-
-        /// <summary>Initial D: "Connect to the online server" (the privacy opt-out of the unified network mode).</summary>
-        private void InitialDConnectCheckBox_Click(object sender, RoutedEventArgs e)
-        {
-            if (Lazydata.ParrotData == null)
-                return;
-            Lazydata.ParrotData.InitialDConnectToServer = InitialDConnectCheckBox.IsChecked == true;
-            JoystickHelper.Serialize();
         }
 
         private async Task CheckLoginStatus()

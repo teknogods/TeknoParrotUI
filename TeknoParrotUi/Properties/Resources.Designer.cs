@@ -8553,21 +8553,13 @@ namespace TeknoParrotUi.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Connect to the online server.
-        /// </summary>
-        public static string InitialDConnectToServer {
-            get {
-                return ResourceManager.GetString("InitialDConnectToServer", resourceCulture);
-            }
-        }
         
         /// <summary>
-        ///   Looks up a localized string similar to On: every start of Initial D 4 (Japan), 5, 6, 7 and 8 checks the online server, and a registered PC plays online. Off: these games never contact the online server and always start offline / LAN. You c[rest of string was truncated].
+        ///   Looks up a localized string describing automatic Initial D online server checks and offline or LAN fallback.
         /// </summary>
-        public static string InitialDConnectToServerNote {
+        public static string InitialDAutomaticOnlineNote {
             get {
-                return ResourceManager.GetString("InitialDConnectToServerNote", resourceCulture);
+                return ResourceManager.GetString("InitialDAutomaticOnlineNote", resourceCulture);
             }
         }
         
@@ -8580,14 +8572,6 @@ namespace TeknoParrotUi.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Initial D online play.
-        /// </summary>
-        public static string InitialDConnectCardTitle {
-            get {
-                return ResourceManager.GetString("InitialDConnectCardTitle", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to Play Initial D online?.
@@ -8796,23 +8780,7 @@ namespace TeknoParrotUi.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Play with friends needs the online connection, which is switched off ("Connect to the online server"). Switch it on and start?.
-        /// </summary>
-        public static string InitialDFriendsNeedsConnect {
-            get {
-                return ResourceManager.GetString("InitialDFriendsNeedsConnect", resourceCulture);
-            }
-        }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Switch on and start.
-        /// </summary>
-        public static string InitialDSwitchOnAndStart {
-            get {
-                return ResourceManager.GetString("InitialDSwitchOnAndStart", resourceCulture);
-            }
-        }
         
         /// <summary>
         ///   Looks up a localized string similar to Play with friends is not available: the old network mode is set for this game (NetworkMode=Legacy)..
