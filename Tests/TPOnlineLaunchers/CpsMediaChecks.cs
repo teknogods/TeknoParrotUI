@@ -35,6 +35,7 @@ internal static class CpsMediaChecks
         Environment.SetEnvironmentVariable("TP_TPONLINE2", "should-not-connect|0|Player|2");
         profile.ConfigValues.Single(v => v.FieldName == "Window Scale").FieldValue = "invalid-local-scale";
         var prepared = TeknoCPSLauncher.Build(profile, zip, null, isTest: true, prepareMedia: true);
+        Program.NativeLaunch(prepared, renders: false);
         var arguments = Program.Arguments(prepared.Arguments);
         Require(arguments.Contains("--prepare-media") && arguments.Contains("--no-nvram") &&
             !arguments.Contains("--test-menu") && !arguments.Contains("--nvram-dir"), "Preparation must not play or mutate offline cabinet state");

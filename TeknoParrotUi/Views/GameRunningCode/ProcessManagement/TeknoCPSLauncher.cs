@@ -111,6 +111,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var scale = prepareMedia ? "2" : profile.ConfigValues?.FirstOrDefault(x => x.FieldName == "Window Scale")?.FieldValue ?? "2";
             if (!int.TryParse(scale, out var size) || size < 1 || size > 8) throw new ArgumentException("Window Scale must be 1..8");
             var args = new List<string> { "--game", set, "--rom-root", Quote(Path.GetDirectoryName(game)), "--scale", size.ToString() };
+            if (!prepareMedia) args.AddRange(new[] { "--renderer", "vulkan" });
             var cdRoot = profile.ConfigValues?.FirstOrDefault(x => x.FieldName == "CD Image Folder")?.FieldValue;
             if (!string.IsNullOrWhiteSpace(cdRoot))
             {
@@ -132,7 +133,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 if (isTest && !string.IsNullOrEmpty(profile.TestMenuParameter)) args.Add("--test-menu");
             }
             log?.Invoke("TeknoCPS: " + set + (online ? ", automatic online room" : ", local play"));
-            var info = new ProcessStartInfo(executable, string.Join(" ", args)) { WorkingDirectory = root, UseShellExecute = false };
+            var info = NativeArcadeLaunch.FromTeknoParrotUi(new ProcessStartInfo(executable, string.Join(" ", args)) { WorkingDirectory = root, UseShellExecute = false });
             if (prepareMedia)
             {
                 info.EnvironmentVariables.Remove("TP_TPONLINE2");

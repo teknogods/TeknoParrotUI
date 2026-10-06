@@ -61,6 +61,7 @@ internal static class MvsChecks
                 Environment.SetEnvironmentVariable("TP_TPONLINE2", null);
                 profile.ConfigValues.Single(v => v.FieldName == "CPU Clock").FieldValue = "24";
                 var offline = TeknoMVSLauncher.Build(profile, zip, null, true);
+                Program.NativeLaunch(offline);
                 foreach (var blank in new[] { "", " ", "\t" })
                 {
                     Environment.SetEnvironmentVariable("TP_TPONLINE2", blank);
@@ -103,6 +104,7 @@ internal static class MvsChecks
                     {
                         Environment.SetEnvironmentVariable("TP_TPONLINE2", "test|" + seat + "|Player|" + count);
                         var online = TeknoMVSLauncher.Build(profile, zip, null);
+                        Program.NativeLaunch(online);
                         Require(online.FileName.EndsWith("TeknoMVS.exe") && !online.UseShellExecute, "MVS online dispatch");
                         Require(online.Arguments.Contains("--net-link") == linked, "MVS linked mode mismatch");
                         Require(online.Arguments.Contains("--net-mode rollback --net-input-delay 2"), "MVS TPO must use rollback");

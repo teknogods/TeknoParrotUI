@@ -63,6 +63,7 @@ internal static class Ss32Checks
             var zip = Path.Combine(temporary, profile.ExecutableName); File.WriteAllBytes(zip, new byte[0]);
             Environment.SetEnvironmentVariable("TP_TPONLINE2", null);
             var offline = TeknoSS32Launcher.Build(profile, zip, null, true);
+            Program.NativeLaunch(offline);
             foreach (var blank in new[] { "", " ", "\t" })
             {
                 Environment.SetEnvironmentVariable("TP_TPONLINE2", blank);
@@ -80,6 +81,7 @@ internal static class Ss32Checks
                 {
                     Environment.SetEnvironmentVariable("TP_TPONLINE2", $"test|{seat}|Player|{count}");
                     var online = TeknoSS32Launcher.Build(profile, zip, null, true);
+                    Program.NativeLaunch(online);
                     Require(online.FileName.EndsWith("TeknoSS32.exe") && online.Arguments.Contains("--net-mode rollback --net-input-delay 2") && !online.UseShellExecute, "SS32 rollback dispatch");
                     Require(!online.Arguments.Contains("--net-player") && !online.Arguments.Contains("--state-root") && !online.Arguments.Contains("--test-menu"), "SS32 manual settings leaked online");
                     ++seats;

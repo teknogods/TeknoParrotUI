@@ -40,7 +40,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var cdSetting = Setting("CD Image Folder", "");
             var cdRoot = string.IsNullOrWhiteSpace(cdSetting) ? Path.GetDirectoryName(game) : Path.GetFullPath(cdSetting.Trim());
             if (!Directory.Exists(cdRoot)) throw new DirectoryNotFoundException("CD Image Folder does not exist: " + cdRoot);
-            var args = new List<string> { "--set", set, "--rom-root", Quote(Path.GetDirectoryName(game)), "--chd-root", Quote(cdRoot) };
+            var args = new List<string> { "--set", set, "--rom-root", Quote(Path.GetDirectoryName(game)), "--chd-root", Quote(cdRoot), "--renderer", "vulkan" };
             if (online)
             {
                 args.AddRange(new[] { "--net-mode", "rollback", "--net-input-delay", "2" });
@@ -54,7 +54,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             }
             if (Setting("Audio", "1") != "1") args.Add("--no-audio");
             log?.Invoke("TeknoSS32: " + set + (online ? ", automatic rollback room" : ", local play"));
-            return new ProcessStartInfo(executable, string.Join(" ", args)) { WorkingDirectory = root, UseShellExecute = false };
+            return NativeArcadeLaunch.FromTeknoParrotUi(new ProcessStartInfo(executable, string.Join(" ", args)) { WorkingDirectory = root, UseShellExecute = false });
         }
     }
 }

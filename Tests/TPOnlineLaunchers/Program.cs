@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -21,6 +23,20 @@ internal static class Program
         finally { LocalFree(pointer); }
     }
 
+    internal static void NativeLaunch(ProcessStartInfo info, bool renders = true)
+    {
+        Require(!info.UseShellExecute, "Native launch must preserve the TPUI handoff");
+        Require(info.CreateNoWindow, "Native launch must not create a console window");
+        using (var launcher = Process.GetCurrentProcess())
+        {
+            Require(info.EnvironmentVariables["TP_TPUI_PARENT_PID"] == launcher.Id.ToString(CultureInfo.InvariantCulture), "Wrong TPUI parent PID");
+            Require(info.EnvironmentVariables["TP_TPUI_PARENT_EXE"] == launcher.MainModule.FileName, "Wrong TPUI parent executable");
+        }
+        var arguments = Arguments(info.Arguments);
+        Require(arguments.Count(value => value == "--renderer") == (renders ? 1 : 0), "Wrong renderer selection count");
+        if (renders) Require(arguments[Array.IndexOf(arguments, "--renderer") + 1] == "vulkan", "Native games must use Vulkan");
+    }
+
     private static void Require(bool condition, string message)
     {
         if (!condition) throw new Exception(message);
@@ -37,12 +53,16 @@ internal static class Program
         var originalDirectory = Directory.GetCurrentDirectory();
         var originalOnline = Environment.GetEnvironmentVariable("TP_TPONLINE2");
         var originalDevProfiles = Environment.GetEnvironmentVariable("TPUI_SHOW_DEVONLY_PROFILES");
+        var originalParentPid = Environment.GetEnvironmentVariable("TP_TPUI_PARENT_PID");
+        var originalParentExe = Environment.GetEnvironmentVariable("TP_TPUI_PARENT_EXE");
         var temporary = Path.GetFullPath(Path.Combine(Path.GetTempPath(), "tponline-launchers-" + Guid.NewGuid().ToString("N")));
         Directory.CreateDirectory(temporary);
         try
         {
             var root = Path.GetFullPath(args[0]);
             Environment.SetEnvironmentVariable("TPUI_SHOW_DEVONLY_PROFILES", "1");
+            Environment.SetEnvironmentVariable("TP_TPUI_PARENT_PID", "1");
+            Environment.SetEnvironmentVariable("TP_TPUI_PARENT_EXE", "stale-launcher.exe");
             Directory.SetCurrentDirectory(temporary);
             foreach (var folder in new[] { "GameProfiles", "Metadata" })
             {
@@ -99,6 +119,8 @@ internal static class Program
         {
             Environment.SetEnvironmentVariable("TP_TPONLINE2", originalOnline);
             Environment.SetEnvironmentVariable("TPUI_SHOW_DEVONLY_PROFILES", originalDevProfiles);
+            Environment.SetEnvironmentVariable("TP_TPUI_PARENT_PID", originalParentPid);
+            Environment.SetEnvironmentVariable("TP_TPUI_PARENT_EXE", originalParentExe);
             Directory.SetCurrentDirectory(originalDirectory);
             var prefix = Path.GetFullPath(Path.GetTempPath()) + "tponline-launchers-";
             if (temporary.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)) Directory.Delete(temporary, true);
