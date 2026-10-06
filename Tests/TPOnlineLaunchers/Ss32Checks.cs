@@ -93,6 +93,8 @@ internal static class Ss32Checks
                 var rejected = false; try { TeknoSS32Launcher.Build(profile, zip, null); } catch (ArgumentException) { rejected = true; }
                 Require(rejected, "Unavailable/single-player SS32 room advertised");
             }
+            var shifter = profile.ConfigValues.FirstOrDefault(field => field.FieldName == "Shifter Mode");
+            if (shifter != null) shifter.FieldValue = "Lever";
             Clear(); InputCode.GameProfile = profile;
             var pipe = new TeknoSS32Pipe(); pipe.Start();
             try

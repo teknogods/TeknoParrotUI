@@ -2118,6 +2118,13 @@ namespace TeknoParrotUi.Common.InputListening
                                     analogPos = 0;
                                 }
 
+                                // SS32 accepts screen coordinates: XInput thumb Y is positive upwards.
+                                if (_gameProfile.EmulationProfile == EmulationProfile.TeknoSS32)
+                                {
+                                    if (analogPos == 254) analogPos = 255;
+                                    analogPos = (byte)~analogPos;
+                                }
+
                                 analogPos = (byte)(_minY + analogPos / _DivideY);
 
                                 if (!_invertedMouseAxis)

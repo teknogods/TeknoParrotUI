@@ -111,7 +111,11 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var scale = prepareMedia ? "2" : profile.ConfigValues?.FirstOrDefault(x => x.FieldName == "Window Scale")?.FieldValue ?? "2";
             if (!int.TryParse(scale, out var size) || size < 1 || size > 8) throw new ArgumentException("Window Scale must be 1..8");
             var args = new List<string> { "--game", set, "--rom-root", Quote(Path.GetDirectoryName(game)), "--scale", size.ToString() };
-            if (!prepareMedia) args.AddRange(new[] { "--renderer", "vulkan" });
+            if (!prepareMedia)
+            {
+                args.AddRange(new[] { "--renderer", "vulkan" });
+                NativeArcadeLaunch.AddPresentation(profile, root, args);
+            }
             var cdRoot = profile.ConfigValues?.FirstOrDefault(x => x.FieldName == "CD Image Folder")?.FieldValue;
             if (!string.IsNullOrWhiteSpace(cdRoot))
             {

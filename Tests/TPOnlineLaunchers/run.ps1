@@ -20,12 +20,19 @@ Get-ChildItem -LiteralPath (Split-Path -Parent $CommonAssembly) -Filter '*.dll' 
     ForEach-Object { Copy-Item -LiteralPath $_.FullName -Destination $output }
 $exe = Join-Path $output 'TPOnlineLaunchers.exe'
 & $Compiler /nologo /langversion:9 /target:exe /platform:x86 "/reference:$CommonAssembly" "/out:$exe" `
+    "/reference:$(Join-Path $output 'SharpDX.dll')" `
+    "/reference:$(Join-Path $output 'SharpDX.DirectInput.dll')" `
+    "/reference:$(Join-Path $output 'SharpDX.XInput.dll')" `
     (Join-Path $PSScriptRoot 'Program.cs') `
     (Join-Path $PSScriptRoot 'MvsChecks.cs') `
     (Join-Path $PSScriptRoot 'CpsChecks.cs') `
     (Join-Path $PSScriptRoot 'CpsMediaChecks.cs') `
     (Join-Path $PSScriptRoot 'Ss32Checks.cs') `
     (Join-Path $PSScriptRoot 'RevisionRoutingChecks.cs') `
+    (Join-Path $PSScriptRoot 'PresentationChecks.cs') `
+    (Join-Path $PSScriptRoot 'DrivingChecks.cs') `
+    (Join-Path $PSScriptRoot 'AnalogInputChecks.cs') `
+    (Join-Path $PSScriptRoot 'DigitalInputChecks.cs') `
     (Join-Path $root 'TeknoParrotUi\Helpers\NamcoFfbDeviceProbe.cs') `
     (Join-Path $root 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\ForceFeedbackArguments.cs') `
     (Join-Path $root 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\NativeArcadeLaunch.cs') `

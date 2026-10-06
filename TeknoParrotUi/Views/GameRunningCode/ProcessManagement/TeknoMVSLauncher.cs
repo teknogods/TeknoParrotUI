@@ -41,6 +41,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             if (!File.Exists(executable)) throw new FileNotFoundException("Install the TeknoMVS emulator package.", executable);
             var bios = set == "kizuna4p" ? "asia" : set == "irrmaze" ? "asia-sp1" : new[] { "ms5pcb", "svcpcb", "svcpcba", "kf2k3pcb" }.Contains(set) ? "default" : "euro";
             var args = new List<string> { "--game", set, "--bios", bios, "--rom-root", Quote(Path.GetDirectoryName(game)), "--renderer", "vulkan" };
+            NativeArcadeLaunch.AddPresentation(profile, root, args);
             if (online)
             {
                 // All peers use a canonical boot configuration. The inherited

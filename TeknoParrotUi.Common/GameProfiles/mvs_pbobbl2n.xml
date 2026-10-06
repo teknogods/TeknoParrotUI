@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Puzzle Bobble 2 / Bust-A-Move Again (Neo-Geo)</GameNameInternal>
   <EmulationProfile>TeknoMVS</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <EmulatorType>TeknoMVS</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>pbobbl2n.zip</ExecutableName>
@@ -70,6 +70,34 @@
         <string>1</string>
         <string>0</string>
       </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Window Mode</FieldName>
+      <FieldValue>Windowed</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windowed</string>
+        <string>Fullscreen</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>CRT Shader</FieldName>
+      <FieldValue>off</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>off</string>
+        <string>lottes</string>
+        <string>lottes-downsample</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Use Bezel</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>PNG overlay: TeknoMVS/bezels/pbobbl2n.png, or default.png.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>DIP Switches</CategoryName>

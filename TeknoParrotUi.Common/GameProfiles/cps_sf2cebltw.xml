@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Street Fighter II': Champion Edition ('Taiwan' bootleg with PAL)</GameNameInternal>
   <EmulationProfile>TeknoCPS</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <EmulatorType>TeknoCPS</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>sf2cebltw.zip</ExecutableName>
@@ -46,6 +46,34 @@
         <string>7</string>
         <string>8</string>
       </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Window Mode</FieldName>
+      <FieldValue>Windowed</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windowed</string>
+        <string>Fullscreen</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>CRT Shader</FieldName>
+      <FieldValue>off</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>off</string>
+        <string>lottes</string>
+        <string>lottes-downsample</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Use Bezel</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>PNG overlay: TeknoCPS/bezels/sf2cebltw.png, or default.png.</Hint>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

@@ -86,7 +86,7 @@ namespace TeknoParrotUi.Common.Pipes
                 case "ss32_jparkjc":
                     return new TeknoSS32Pipe.Layout(2522650497U,
                         new Func<bool>[] { () => InputCode.PlayerDigitalButtons[0].Button1 == true, () => InputCode.PlayerDigitalButtons[1].Button1 == true, () => InputCode.PlayerDigitalButtons[0].Service == true, () => InputCode.PlayerDigitalButtons[0].Test == true, () => InputCode.PlayerDigitalButtons[0].Coin == true, () => InputCode.PlayerDigitalButtons[1].Coin == true, () => InputCode.PlayerDigitalButtons[0].Start == true, () => InputCode.PlayerDigitalButtons[1].Start == true, () => InputCode.PlayerDigitalButtons[0].ExtensionButton1 == true, () => InputCode.PlayerDigitalButtons[0].ExtensionButton2 == true, () => InputCode.PlayerDigitalButtons[0].ExtensionButton3 == true },
-                        new TeknoSS32Pipe.Axis[] { new TeknoSS32Pipe.Axis(0, 128, -1, false), new TeknoSS32Pipe.Axis(2, 128, -1, true), new TeknoSS32Pipe.Axis(4, 128, -1, false), new TeknoSS32Pipe.Axis(6, 128, -1, true) },
+                        new TeknoSS32Pipe.Axis[] { new TeknoSS32Pipe.Axis(0, 128, -1, false), new TeknoSS32Pipe.Axis(2, 127, -1, true), new TeknoSS32Pipe.Axis(4, 128, -1, false), new TeknoSS32Pipe.Axis(6, 127, -1, true) },
                         new TeknoSS32Pipe.Axis[] {  });
                 case "ss32_kokoroj":
                 case "ss32_kokoroja":
@@ -105,19 +105,19 @@ namespace TeknoParrotUi.Common.Pipes
                 case "ss32_radru":
                 case "ss32_radrj":
                     return new TeknoSS32Pipe.Layout(2611645934U,
-                        new Func<bool>[] { () => InputCode.PlayerDigitalButtons[0].Service == true, () => InputCode.PlayerDigitalButtons[0].Test == true, () => InputCode.PlayerDigitalButtons[0].Coin == true, () => InputCode.PlayerDigitalButtons[1].Coin == true, () => InputCode.PlayerDigitalButtons[0].Start == true, () => InputCode.PlayerDigitalButtons[0].ExtensionButton1 == true, () => InputCode.PlayerDigitalButtons[0].ExtensionButton2 == true },
+                        new Func<bool>[] { () => InputCode.PlayerDigitalButtons[0].Service == true, () => InputCode.PlayerDigitalButtons[0].Test == true, () => InputCode.PlayerDigitalButtons[0].Coin == true, () => InputCode.PlayerDigitalButtons[1].Coin == true, () => InputCode.PlayerDigitalButtons[0].Start == true, () => InputCode.PlayerDigitalButtons[0].ExtensionButton1 == true, () => InputCode.PlayerDigitalButtons[0].ExtensionButton2 == true, () => InputCode.PlayerDigitalButtons[0].ExtensionButton3 == true },
                         new TeknoSS32Pipe.Axis[] { new TeknoSS32Pipe.Axis(0, 128, -1, false), new TeknoSS32Pipe.Axis(1, 0, -1, false), new TeknoSS32Pipe.Axis(2, 0, -1, false) },
-                        new TeknoSS32Pipe.Axis[] {  });
+                        new TeknoSS32Pipe.Axis[] {  }, new int[] { 7 });
                 case "ss32_slipstrm":
                 case "ss32_slipstrmh":
                     return new TeknoSS32Pipe.Layout(1675829389U,
-                        new Func<bool>[] { () => InputCode.PlayerDigitalButtons[0].Service == true, () => InputCode.PlayerDigitalButtons[0].Test == true, () => InputCode.PlayerDigitalButtons[0].Coin == true, () => InputCode.PlayerDigitalButtons[1].Coin == true, () => InputCode.PlayerDigitalButtons[0].Start == true, () => InputCode.PlayerDigitalButtons[0].ExtensionButton1 == true, () => InputCode.PlayerDigitalButtons[0].ExtensionButton2 == true },
+                        new Func<bool>[] { () => InputCode.PlayerDigitalButtons[0].Service == true, () => InputCode.PlayerDigitalButtons[0].Test == true, () => InputCode.PlayerDigitalButtons[0].Coin == true, () => InputCode.PlayerDigitalButtons[1].Coin == true, () => InputCode.PlayerDigitalButtons[0].Start == true, () => InputCode.PlayerDigitalButtons[0].ExtensionButton1 == true, () => InputCode.PlayerDigitalButtons[0].ExtensionButton2 == true, () => InputCode.PlayerDigitalButtons[0].ExtensionButton3 == true },
                         new TeknoSS32Pipe.Axis[] { new TeknoSS32Pipe.Axis(0, 128, -1, false), new TeknoSS32Pipe.Axis(1, 0, -1, false), new TeknoSS32Pipe.Axis(2, 0, -1, false) },
-                        new TeknoSS32Pipe.Axis[] {  });
+                        new TeknoSS32Pipe.Axis[] {  }, new int[] { 7 });
                 case "ss32_sonic":
                 case "ss32_sonicp":
                     return new TeknoSS32Pipe.Layout(3440259439U,
-                        new Func<bool>[] { () => InputCode.PlayerDigitalButtons[0].Button1 == true, () => InputCode.PlayerDigitalButtons[0].Button3 == true, () => InputCode.PlayerDigitalButtons[1].Button1 == true, () => InputCode.PlayerDigitalButtons[0].Service == true, () => InputCode.PlayerDigitalButtons[0].Test == true, () => InputCode.PlayerDigitalButtons[0].Coin == true, () => InputCode.PlayerDigitalButtons[1].Coin == true, () => InputCode.PlayerDigitalButtons[0].Start == true, () => InputCode.PlayerDigitalButtons[1].Start == true, () => InputCode.PlayerDigitalButtons[0].ExtensionButton1 == true, () => InputCode.PlayerDigitalButtons[0].ExtensionButton2 == true, () => InputCode.PlayerDigitalButtons[2].Button1 == true, () => InputCode.PlayerDigitalButtons[2].Coin == true, () => InputCode.PlayerDigitalButtons[2].Start == true },
+                        new Func<bool>[] { () => InputCode.PlayerDigitalButtons[0].Button1 == true, () => InputCode.PlayerDigitalButtons[1].Button1 == true, () => InputCode.PlayerDigitalButtons[0].Service == true, () => InputCode.PlayerDigitalButtons[0].Test == true, () => InputCode.PlayerDigitalButtons[0].Coin == true, () => InputCode.PlayerDigitalButtons[1].Coin == true, () => InputCode.PlayerDigitalButtons[0].Start == true, () => InputCode.PlayerDigitalButtons[1].Start == true, () => InputCode.PlayerDigitalButtons[0].ExtensionButton1 == true, () => InputCode.PlayerDigitalButtons[0].ExtensionButton2 == true, () => InputCode.PlayerDigitalButtons[2].Button1 == true, () => InputCode.PlayerDigitalButtons[2].Coin == true, () => InputCode.PlayerDigitalButtons[2].Start == true },
                         new TeknoSS32Pipe.Axis[] {  },
                         new TeknoSS32Pipe.Axis[] { new TeknoSS32Pipe.Axis(0, 128, 0, false), new TeknoSS32Pipe.Axis(1, 128, 0, true), new TeknoSS32Pipe.Axis(2, 128, 1, false), new TeknoSS32Pipe.Axis(3, 128, 1, true), new TeknoSS32Pipe.Axis(4, 128, 2, false), new TeknoSS32Pipe.Axis(5, 128, 2, true) });
                 case "ss32_spidman":

@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Slip Stream</GameNameInternal>
   <EmulationProfile>TeknoSS32</EmulationProfile>
-  <GameProfileRevision>3</GameProfileRevision>
+  <GameProfileRevision>4</GameProfileRevision>
   <EmulatorType>TeknoSS32</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>slipstrm.zip</ExecutableName>
@@ -60,6 +60,45 @@
         <string>0</string>
       </FieldOptions>
     </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Shifter Mode</FieldName>
+      <FieldValue>Button</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <Hint>Button toggles low/high gear. Lever uses its held position.</Hint>
+      <FieldOptions>
+        <string>Button</string>
+        <string>Lever</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Window Mode</FieldName>
+      <FieldValue>Windowed</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windowed</string>
+        <string>Fullscreen</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>CRT Shader</FieldName>
+      <FieldValue>off</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>off</string>
+        <string>lottes</string>
+        <string>lottes-downsample</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Use Bezel</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>PNG overlay: TeknoSS32/bezels/slipstrm.png, or default.png.</Hint>
+    </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
     <JoystickButtons>
@@ -91,19 +130,23 @@
       <InputMapping>ExtensionOne2</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
+      <ButtonName>Player 1 Gear change</ButtonName>
+      <InputMapping>ExtensionOne3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
       <ButtonName>Player 1 Steering wheel</ButtonName>
       <InputMapping>Analog0</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>Wheel</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Gas pedal</ButtonName>
       <InputMapping>Analog1</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>Gas</AnalogType>
     </JoystickButtons>
     <JoystickButtons>
       <ButtonName>Player 1 Brake pedal</ButtonName>
       <InputMapping>Analog2</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>Brake</AnalogType>
     </JoystickButtons>
   </JoystickButtons>
 </GameProfile>

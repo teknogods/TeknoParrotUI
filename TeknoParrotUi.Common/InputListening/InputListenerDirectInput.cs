@@ -3737,9 +3737,12 @@ namespace TeknoParrotUi.Common.InputListening
                                 if (RelativeInput)
                                     break;
 
+                                if (_gameProfile.EmulationProfile == EmulationProfile.TeknoSS32 && _invertedMouseAxis)
+                                    analogPos = (byte)~analogPos;
+
                                 analogPos = (byte)(_minY + (analogPos) / _DivideY);
 
-                                if (_invertedMouseAxis)
+                                if (_invertedMouseAxis && _gameProfile.EmulationProfile != EmulationProfile.TeknoSS32)
                                     analogPos = (byte)~analogPos;
                             }
                         }
@@ -4199,7 +4202,7 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                 case AnalogType.Brake:
                     {
-                        var brake = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, Lazydata.ParrotData.ReverseAxisGas, Lazydata.ParrotData.FullAxisGas, false);
+                        var brake = HandleGasBrakeForJvs(state.Value, joystickButtons.DirectInputButton?.IsAxisMinus, Lazydata.ParrotData.ReverseAxisBrake, Lazydata.ParrotData.FullAxisBrake, false);
                         if (InputCode.ButtonMode == EmulationProfile.NamcoWmmt5)
                         {
                             brake /= 3;
@@ -4457,15 +4460,15 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                     return JvsHelper.CalculateGasPos(-value + short.MaxValue, false, isReverseAxis, _gameProfile.GasAxisMin, _gameProfile.GasAxisMax);
                 }
-                return 0;
+                return JvsHelper.CalculateGasPos(0, false, isReverseAxis, _gameProfile.GasAxisMin, _gameProfile.GasAxisMax);
             }
 
             if (value <= short.MaxValue)
             {
-                return 0;
+                return JvsHelper.CalculateGasPos(0, false, isReverseAxis, _gameProfile.GasAxisMin, _gameProfile.GasAxisMax);
             }
 
-            return JvsHelper.CalculateGasPos(value + short.MaxValue, false, isReverseAxis, _gameProfile.GasAxisMin, _gameProfile.GasAxisMax);
+            return JvsHelper.CalculateGasPos(value - short.MaxValue, false, isReverseAxis, _gameProfile.GasAxisMin, _gameProfile.GasAxisMax);
         }
     }
 }

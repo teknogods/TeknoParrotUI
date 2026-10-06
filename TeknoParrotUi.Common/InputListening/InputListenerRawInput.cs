@@ -63,7 +63,7 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _isBoneEater;
         private bool _boneEaterSingleScreen;
         private DateTime _nextBoneEaterCanvasAttempt;
-        private bool UsesPublishedCanvas => _isBoneEater || _isPlay || _isTeknoVegas || _isTeknoHNG64 || _isTeknoViper || _isTeknoTPJC || _isTeknoS11 || _isTeknoM2 || _isTeknoAGX || _isTeknoS22 || _isTeknoGClub || _isTeknoS23 || _isTeknoHornet || _isTeknoModel1 || _isTeknoModel2 || _isTeknoModel3 || _isTeknoZeus;
+        private bool UsesPublishedCanvas => _isBoneEater || _isPlay || _isTeknoVegas || _isTeknoHNG64 || _isTeknoViper || _isTeknoTPJC || _isTeknoS11 || _isTeknoM2 || _isTeknoAGX || _isTeknoS22 || _isTeknoGClub || _isTeknoS23 || _isTeknoSS32 || _isTeknoHornet || _isTeknoModel1 || _isTeknoModel2 || _isTeknoModel3 || _isTeknoZeus;
         // Rotary encoder button states
         private static bool Rotary1LeftPressed = false;
         private static bool Rotary1RightPressed = false;
@@ -185,6 +185,10 @@ namespace TeknoParrotUi.Common.InputListening
 
         private const int SM_CXSCREEN = 0;
         private const int SM_CYSCREEN = 1;
+        private const int SM_XVIRTUALSCREEN = 76;
+        private const int SM_YVIRTUALSCREEN = 77;
+        private const int SM_CXVIRTUALSCREEN = 78;
+        private const int SM_CYVIRTUALSCREEN = 79;
         private const int LOGPIXELSX = 88;
         private const int LOGPIXELSY = 90;
 
@@ -439,6 +443,10 @@ namespace TeknoParrotUi.Common.InputListening
                 else if (_isTeknoS23)
                 {
                     canvasName = "TeknoS23CanvasInfo";
+                }
+                else if (_isTeknoSS32)
+                {
+                    canvasName = "TeknoSS32CanvasInfo";
                 }
                 else if (_isTeknoS22)
                 {
@@ -957,7 +965,8 @@ namespace TeknoParrotUi.Common.InputListening
                         {
                             // Lightgun
                             foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun || btn.InputMapping == InputMapping.P3LightGun || btn.InputMapping == InputMapping.P4LightGun)))
-                                HandleRawInputGun(gun, mouse.Mouse.LastX, mouse.Mouse.LastY, true);
+                                HandleRawInputGun(gun, mouse.Mouse.LastX, mouse.Mouse.LastY, true,
+                                    mouse.Mouse.Flags.HasFlag(RawMouseFlags.VirtualDesktop));
                         }
                         else if (mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveRelative))
                         {
@@ -1620,7 +1629,12 @@ namespace TeknoParrotUi.Common.InputListening
             InputCode.AnalogBytes[analogIndex] = value;
         }
 
-        private void HandleRawInputGun(JoystickButtons joystickButton, int inputX, int inputY, bool moveAbsolute)
+        private static int AbsoluteDesktopPosition(int normalized, int origin, int extent)
+        {
+            return origin + (int)((long)Math.Max(0, Math.Min(65535, normalized)) * extent / 65535);
+        }
+
+        private void HandleRawInputGun(JoystickButtons joystickButton, int inputX, int inputY, bool moveAbsolute, bool virtualDesktop = false)
         {
             // Ignore when alt+tabbed
             if (!_windowFocus)
@@ -1638,7 +1652,15 @@ namespace TeknoParrotUi.Common.InputListening
                 // Translate absolute units to pixels
                 if (moveAbsolute)
                 {
-                    if ((UsesPublishedCanvas) &&
+                    if (_isTeknoSS32)
+                    {
+                        // RAWMOUSE absolute units cover the display, including virtual desktop origins.
+                        inputX = AbsoluteDesktopPosition(inputX, virtualDesktop ? GetSystemMetrics(SM_XVIRTUALSCREEN) : 0,
+                            GetSystemMetrics(virtualDesktop ? SM_CXVIRTUALSCREEN : SM_CXSCREEN));
+                        inputY = AbsoluteDesktopPosition(inputY, virtualDesktop ? GetSystemMetrics(SM_YVIRTUALSCREEN) : 0,
+                            GetSystemMetrics(virtualDesktop ? SM_CYVIRTUALSCREEN : SM_CYSCREEN));
+                    }
+                    else if ((UsesPublishedCanvas) &&
                         canvasInfo.windowWidth > 0 && canvasInfo.windowHeight > 0)
                     {
                         // Canvas publishers use physical pixels. Map normalized RawInput

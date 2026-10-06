@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Street Fighter III 3rd Strike: Fight for the Future (USA 990608)</GameNameInternal>
   <EmulationProfile>TeknoCPS</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <EmulatorType>TeknoCPS</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>sfiii3u.zip</ExecutableName>
@@ -52,6 +52,34 @@
       <FieldName>CD Image Folder</FieldName>
       <FieldValue />
       <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Window Mode</FieldName>
+      <FieldValue>Windowed</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windowed</string>
+        <string>Fullscreen</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>CRT Shader</FieldName>
+      <FieldValue>off</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>off</string>
+        <string>lottes</string>
+        <string>lottes-downsample</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Use Bezel</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>PNG overlay: TeknoCPS/bezels/sfiii3u.png, or default.png.</Hint>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

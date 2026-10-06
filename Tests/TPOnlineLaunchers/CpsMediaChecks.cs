@@ -34,11 +34,15 @@ internal static class CpsMediaChecks
         File.WriteAllBytes(zip, new byte[0]);
         Environment.SetEnvironmentVariable("TP_TPONLINE2", "should-not-connect|0|Player|2");
         profile.ConfigValues.Single(v => v.FieldName == "Window Scale").FieldValue = "invalid-local-scale";
+        profile.ConfigValues.Single(v => v.FieldName == "Window Mode").FieldValue = "Fullscreen";
+        profile.ConfigValues.Single(v => v.FieldName == "Use Bezel").FieldValue = "1";
+        profile.ConfigValues.Single(v => v.FieldName == "CRT Shader").FieldValue = "lottes";
         var prepared = TeknoCPSLauncher.Build(profile, zip, null, isTest: true, prepareMedia: true);
         Program.NativeLaunch(prepared, renders: false);
         var arguments = Program.Arguments(prepared.Arguments);
         Require(arguments.Contains("--prepare-media") && arguments.Contains("--no-nvram") &&
             !arguments.Contains("--test-menu") && !arguments.Contains("--nvram-dir"), "Preparation must not play or mutate offline cabinet state");
+        Require(!arguments.Contains("--fullscreen") && !arguments.Contains("--use-bezel") && !arguments.Contains("--crt"), "Presentation options leaked into headless media preparation");
         Require(!prepared.EnvironmentVariables.ContainsKey("TP_TPONLINE2") && prepared.CreateNoWindow &&
             prepared.RedirectStandardOutput && prepared.RedirectStandardError && !prepared.UseShellExecute, "Preparation process isolation");
 

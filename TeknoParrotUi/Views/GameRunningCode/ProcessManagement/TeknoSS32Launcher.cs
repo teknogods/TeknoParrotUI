@@ -41,6 +41,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var cdRoot = string.IsNullOrWhiteSpace(cdSetting) ? Path.GetDirectoryName(game) : Path.GetFullPath(cdSetting.Trim());
             if (!Directory.Exists(cdRoot)) throw new DirectoryNotFoundException("CD Image Folder does not exist: " + cdRoot);
             var args = new List<string> { "--set", set, "--rom-root", Quote(Path.GetDirectoryName(game)), "--chd-root", Quote(cdRoot), "--renderer", "vulkan" };
+            NativeArcadeLaunch.AddPresentation(profile, root, args);
             if (online)
             {
                 args.AddRange(new[] { "--net-mode", "rollback", "--net-input-delay", "2" });
@@ -51,6 +52,12 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 if (!int.TryParse(Setting("Window Scale", "2"), out var scale) || scale < 1 || scale > 4) throw new ArgumentException("Window Scale must be 1..4");
                 args.AddRange(new[] { "--scale", scale.ToString(), "--state-root", Quote(Path.Combine(root, "state")) });
                 if (isTest) args.Add("--test-menu");
+                if (set.StartsWith("orunners", StringComparison.Ordinal))
+                {
+                    var screens = Setting("Screens", "Both");
+                    if (!new[] { "Both", "Monitor 1", "Monitor 2" }.Contains(screens)) throw new ArgumentException("Invalid OutRunners screen selection");
+                    args.AddRange(new[] { "--screens", screens == "Monitor 1" ? "first" : screens == "Monitor 2" ? "second" : "both" });
+                }
             }
             if (Setting("Audio", "1") != "1") args.Add("--no-audio");
             log?.Invoke("TeknoSS32: " + set + (online ? ", automatic rollback room" : ", local play"));

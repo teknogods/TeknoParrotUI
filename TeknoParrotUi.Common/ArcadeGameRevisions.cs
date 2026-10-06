@@ -323,7 +323,7 @@ namespace TeknoParrotUi.Common
             foreach (var field in target.ConfigValues ?? Enumerable.Empty<FieldInformation>())
             {
                 if (field == null || field.FieldName == SettingName ||
-                    (!sameRevision && field.CategoryName != "General")) continue;
+                    (!sameRevision && field.CategoryName != "General" && field.CategoryName != "Video")) continue;
                 var old = copy.ConfigValues?.FirstOrDefault(x => x != null &&
                     x.CategoryName == field.CategoryName && x.FieldName == field.FieldName);
                 if (old != null) field.FieldValue = old.FieldValue;

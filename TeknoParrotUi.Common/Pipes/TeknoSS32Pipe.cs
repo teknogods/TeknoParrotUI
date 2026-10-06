@@ -23,13 +23,16 @@ namespace TeknoParrotUi.Common.Pipes
             internal readonly uint Identity;
             internal readonly Func<bool>[] Digital;
             internal readonly Axis[] Analog, Relative;
-            internal Layout(uint identity, Func<bool>[] digital, Axis[] analog, Axis[] relative)
-            { Identity = identity; Digital = digital; Analog = analog; Relative = relative; }
+            internal readonly int[] Toggle;
+            internal Layout(uint identity, Func<bool>[] digital, Axis[] analog, Axis[] relative, int[] toggle = null)
+            { Identity = identity; Digital = digital; Analog = analog; Relative = relative; Toggle = toggle ?? new int[0]; }
         }
         private readonly object _sync = new object();
         private ushort _sequence;
         private bool _active;
         private Layout _layout;
+        private bool _buttonShifter;
+        private bool[] _shiftDown, _shiftHigh;
         private readonly uint[] _phase = new uint[8];
         private readonly MemoryMappedFile[] _trackball = new MemoryMappedFile[3];
         private readonly MemoryMappedViewAccessor[] _view = new MemoryMappedViewAccessor[3];
@@ -38,6 +41,10 @@ namespace TeknoParrotUi.Common.Pipes
             lock (_sync)
             {
                 _layout = TeknoSS32Bindings.Get(InputCode.GameProfile?.ProfileName ?? "");
+                var shifter = InputCode.GameProfile?.ConfigValues?.FirstOrDefault(field => field.FieldName == "Shifter Mode")?.FieldValue ?? "Button";
+                if (shifter != "Button" && shifter != "Lever") throw new ArgumentException("Shifter Mode must be Button or Lever");
+                _buttonShifter = shifter == "Button";
+                _shiftDown = new bool[_layout.Digital.Length]; _shiftHigh = new bool[_layout.Digital.Length];
                 if (_layout.Relative.Length > 8 || (_layout.Relative.Length != 0 && _layout.Analog.Length != 0))
                     throw new InvalidOperationException("Unsupported mixed SS32 analog/trackball layout");
                 JvsHelper.ResetState(); _sequence = 0; _active = true;
@@ -79,7 +86,15 @@ namespace TeknoParrotUi.Common.Pipes
                 var page = new byte[64];
                 page[0] = page[1] = (byte)'S'; page[2] = (byte)'I'; page[3] = (byte)'N'; page[4] = 2; page[5] = 1;
                 for (var n = 0; n < _layout.Digital.Length; ++n)
-                    if (_layout.Digital[n]()) page[8 + n / 8] |= (byte)(1 << (n % 8));
+                {
+                    var pressed = _layout.Digital[n]();
+                    if (_buttonShifter && _layout.Toggle.Contains(n))
+                    {
+                        if (pressed && !_shiftDown[n]) _shiftHigh[n] = !_shiftHigh[n];
+                        _shiftDown[n] = pressed; pressed = _shiftHigh[n];
+                    }
+                    if (pressed) page[8 + n / 8] |= (byte)(1 << (n % 8));
+                }
                 for (var n = 0; n < _layout.Analog.Length; ++n) page[24 + n] = InputCode.AnalogBytes[_layout.Analog[n].Source];
                 var raw = InputCode.GameProfile?.ConfigValues?.FirstOrDefault(v => v.FieldName == "Input API")?.FieldValue == "RawInputTrackball";
                 for (var n = 0; n < _layout.Relative.Length; ++n)

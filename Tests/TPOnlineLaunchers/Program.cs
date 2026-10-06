@@ -108,6 +108,10 @@ internal static class Program
             CpsChecks.Run(root, temporary);
             CpsMediaChecks.Run(root, temporary);
             Ss32Checks.Run(root, temporary);
+            PresentationChecks.Run(root, temporary);
+            DrivingChecks.Run(root);
+            AnalogInputChecks.Run(root);
+            DigitalInputChecks.Run(root);
             return 0;
         }
         catch (Exception error)

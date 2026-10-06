@@ -51,22 +51,22 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
 
             if (button.IsLeftThumbX)
             {
-                return JvsHelper.CalculateGasPos(state.Gamepad.LeftThumbX, true, false, minVal, maxVal);
+                return StickPedal(state.Gamepad.LeftThumbX, button.IsAxisMinus, minVal, maxVal);
             }
 
             if (button.IsLeftThumbY)
             {
-                return JvsHelper.CalculateGasPos(state.Gamepad.LeftThumbY, true, false, minVal, maxVal);
+                return StickPedal(state.Gamepad.LeftThumbY, button.IsAxisMinus, minVal, maxVal);
             }
 
             if (button.IsRightThumbX)
             {
-                return JvsHelper.CalculateGasPos(state.Gamepad.RightThumbX, true, false, minVal, maxVal);
+                return StickPedal(state.Gamepad.RightThumbX, button.IsAxisMinus, minVal, maxVal);
             }
 
             if (button.IsRightThumbY)
             {
-                return JvsHelper.CalculateGasPos(state.Gamepad.RightThumbY, true, false, minVal, maxVal);
+                return StickPedal(state.Gamepad.RightThumbY, button.IsAxisMinus, minVal, maxVal);
             }
 
             int result = 0;
@@ -92,6 +92,12 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
                 result = maxVal;
 
             return (byte)result;
+        }
+
+        private static byte StickPedal(short position, bool negative, byte minValue, byte maxValue)
+        {
+            // A stick pedal uses the chosen half of its signed axis; neutral is released.
+            return JvsHelper.CalculateGasPos(negative ? -(int)position : position, false, false, minValue, maxValue);
         }
 
         public static byte CalculateWheelPosXinput(XInputButton button, State state, bool useSto0Z, int stoozPercent,

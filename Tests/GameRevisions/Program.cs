@@ -72,7 +72,8 @@ internal static class Program
             }
         }
         Check(ArcadeGameRevisions.FamilyId(Profile("cps_ssf2tb")) == "cps_ssf2", "Tournament Battle authoritative family");
-        Check(ArcadeGameRevisions.CreateLaunchProfile(Profile("cps_ssf2"), "cps_ssf2tb").GameInfo.general_issues.Contains("4 computers"), "Tournament Battle capacity metadata preserved");
+        var tournament = ArcadeGameRevisions.CreateLaunchProfile(Profile("cps_ssf2"), "cps_ssf2tb");
+        Check(tournament.HasTpoSupport && tournament.GameInfo.general_issues.Contains("ssf2tb.zip"), "Tournament Battle keeps its multiplayer eligibility and exact ROM requirements");
         var unrelated = new GameProfile { ProfileName = "unrelated", GameNameInternal = "Unrelated", ConfigValues = new List<FieldInformation>() };
         Check(!ArcadeGameRevisions.Handles(unrelated) && ArcadeGameRevisions.ResolveId(unrelated) == "unrelated", "Unrelated emulator stays outside helper");
         Check(ArcadeGameRevisions.CreateLaunchProfile(unrelated) != unrelated, "Unrelated launch clone is detached");
