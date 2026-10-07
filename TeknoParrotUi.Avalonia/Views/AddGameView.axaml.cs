@@ -29,11 +29,14 @@ public partial class AddGameView : UserControl
             // nearly the entire short edge, leaving a multi-row game list.
             HeaderText.IsVisible = false;
             FilterGrid.ColumnDefinitions = new ColumnDefinitions("*,220");
-            FilterGrid.RowDefinitions = new RowDefinitions("Auto");
+            FilterGrid.RowDefinitions = new RowDefinitions("Auto,Auto");
             Grid.SetColumn(SearchBox, 0);
             Grid.SetRow(SearchBox, 0);
-            Grid.SetColumn(GenreBox, 1);
-            Grid.SetRow(GenreBox, 0);
+            Grid.SetColumnSpan(SearchBox, 2);
+            Grid.SetColumn(GenreBox, 0);
+            Grid.SetRow(GenreBox, 1);
+            Grid.SetColumn(PlatformBox, 1);
+            Grid.SetRow(PlatformBox, 1);
             GenreBox.Margin = new global::Avalonia.Thickness(6, 0, 0, 0);
             ContentGrid.ColumnDefinitions = new ColumnDefinitions("*");
             DetailsPanel.IsVisible = false;
@@ -63,14 +66,21 @@ public partial class AddGameView : UserControl
     public void Refresh()
     {
         GameProfileLoader.LoadProfiles(false);
-        var installed = GameProfileLoader.UserProfiles.Select(p => p.ProfileName).ToHashSet();
+        var installed = GameProfileLoader.UserProfiles
+            .Select(ArcadeGameRevisions.FamilyId).ToHashSet(StringComparer.OrdinalIgnoreCase);
         // Same rules as the classic Add Game view: all profiles, legacy ones only when
         // already installed, installed titles marked with a suffix.
-        _available = GameProfileLoader.GameProfiles
-            .Where(p => !p.IsLegacy || installed.Contains(p.ProfileName))
+        _available = ArcadeGameRevisions.GetLibraryProfiles(GameProfileLoader.GameProfiles)
+            .Where(p => !p.IsLegacy || installed.Contains(ArcadeGameRevisions.FamilyId(p)))
             .OrderBy(p => p.GameNameInternal ?? p.ProfileName)
             .ToList();
         _installed = installed;
+        var platforms = new[] { Services.Loc.T("LibraryGenreAll", "All") }.Concat(_available
+            .Select(profile => profile.GameInfo?.platform).Where(platform => !string.IsNullOrWhiteSpace(platform))
+            .Distinct(StringComparer.OrdinalIgnoreCase).OrderBy(platform => platform)).ToList();
+        var previousPlatform = PlatformBox.SelectedItem as string;
+        PlatformBox.ItemsSource = platforms;
+        PlatformBox.SelectedItem = platforms.Contains(previousPlatform) ? previousPlatform : platforms[0];
 
         // Filter list derived from the catalog's metadata JSONs (not hardcoded)
         _genres = Services.GenreHelper.GetGenres(_available, includeNotInstalled: true);
@@ -93,9 +103,11 @@ public partial class AddGameView : UserControl
             .Where(p => string.IsNullOrWhiteSpace(search) ||
                         (p.GameNameInternal ?? p.ProfileName ?? "").Contains(search, StringComparison.OrdinalIgnoreCase))
             .Where(p => Services.GenreHelper.DoesGameMatchGenre(genre, p))
+            .Where(p => PlatformBox.SelectedIndex <= 0 || p.GameInfo?.platform == PlatformBox.SelectedItem as string)
             .ToList();
         GameList.ItemsSource = _filtered
-            .Select(p => (p.GameNameInternal ?? p.ProfileName) + (_installed.Contains(p.ProfileName) ? "   ✓ Added" : ""))
+            .Select(p => (p.GameNameInternal ?? p.ProfileName) +
+                (_installed.Contains(ArcadeGameRevisions.FamilyId(p)) ? "   ✓ Added" : ""))
             .ToList();
         CountText.Text = $"{_filtered.Count} of {_available.Count} games";
     }
@@ -106,8 +118,8 @@ public partial class AddGameView : UserControl
     private async void GameList_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
         var p = Selected;
-        BtnAdd.IsEnabled = p != null && !_installed.Contains(p.ProfileName);
-        BtnAdd.Content = p != null && _installed.Contains(p.ProfileName) ? "Already Added" : "Add Game";
+        BtnAdd.IsEnabled = p != null && !_installed.Contains(ArcadeGameRevisions.FamilyId(p));
+        BtnAdd.Content = p != null && _installed.Contains(ArcadeGameRevisions.FamilyId(p)) ? "Already Added" : "Add Game";
         GameTitle.Text = p?.GameNameInternal ?? "";
         GameGenre.Text = p?.GameGenreInternal ?? "";
         GameEmulator.Text = p != null ? $"Emulator: {p.EmulatorType}" : "";
@@ -128,7 +140,7 @@ public partial class AddGameView : UserControl
     private void AddSelected()
     {
         var profile = Selected;
-        if (profile == null || _installed.Contains(profile.ProfileName)) return;
+        if (profile == null || _installed.Contains(ArcadeGameRevisions.FamilyId(profile))) return;
 
         Directory.CreateDirectory("UserProfiles");
         JoystickHelper.SerializeGameProfile(profile);

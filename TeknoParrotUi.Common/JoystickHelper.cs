@@ -266,6 +266,10 @@ namespace TeknoParrotUi.Common
             if (profile == null || string.IsNullOrEmpty(profile.OnlineIdFieldName) || profile.OnlineIdType == OnlineIdType.None)
                 return false;
 
+            if (profile.OnlineIdType == OnlineIdType.InitialD) return Online.InitialDOnlineHelper.AutoFill(profile);
+            if (profile.OnlineIdType == OnlineIdType.Kizuna) return Online.KizunaOnlineHelper.AutoFill(profile);
+            if (profile.OnlineIdType == OnlineIdType.GoldenTee) return Online.GoldenTeeOnlineHelper.AutoFill(profile);
+
             var configField = profile.ConfigValues?.FirstOrDefault(x => x.FieldName == profile.OnlineIdFieldName);
             if (configField == null || (!string.IsNullOrEmpty(configField.FieldValue) && configField.FieldValue != "1234567890"))
                 return false;

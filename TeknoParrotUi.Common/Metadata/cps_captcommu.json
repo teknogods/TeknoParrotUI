@@ -1,0 +1,7 @@
+{
+  "game_name": "Captain Commando (USA 910928)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select captcommu.zip. If ROM files are missing, also add captcomm.zip to the same folder."
+}

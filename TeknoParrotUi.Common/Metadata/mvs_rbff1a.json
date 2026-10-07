@@ -1,0 +1,7 @@
+{
+  "game_name": "Real Bout Fatal Fury / Real Bout Garou Densetsu (bug fix revision)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select rbff1a.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add rbff1.zip to the same folder."
+}

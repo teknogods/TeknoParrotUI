@@ -209,7 +209,7 @@ public partial class MultiButtonConfigView : UserControl
 
     private static bool IsDeviceMapping(InputMapping mapping) =>
         mapping is InputMapping.P1LightGun or InputMapping.P2LightGun or InputMapping.P3LightGun
-            or InputMapping.P4LightGun or InputMapping.P1Trackball or InputMapping.P2Trackball;
+            or InputMapping.P4LightGun or InputMapping.P1Trackball or InputMapping.P2Trackball or InputMapping.P3Trackball;
 
     private static string BuildMergedBindName(string? xiName, string? riName)
     {

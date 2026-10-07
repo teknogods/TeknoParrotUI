@@ -1,0 +1,7 @@
+{
+  "game_name": "Tenchi wo Kurau II: Sekiheki no Tatakai (Japan 921031)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select wofj.zip. If ROM files are missing, also add wof.zip to the same folder. Keep qsound.zip in the same folder."
+}

@@ -1,0 +1,7 @@
+{
+  "game_name": "Muscle Bomber Duo: Heat Up Warriors (Japan 931206)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select mbombrdj.zip. If ROM files are missing, also add mbombrd.zip to the same folder. Keep qsound.zip in the same folder."
+}

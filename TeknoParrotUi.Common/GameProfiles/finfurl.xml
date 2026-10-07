@@ -3,13 +3,13 @@
   <GamePath />
   <GameNameInternal>Final Furlong (World, FF2 Ver. A)</GameNameInternal>
   <EmulationProfile>TeknoS23</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <EmulatorType>TeknoS23</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>finfurl.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
+  <DevOnly>false</DevOnly>
   <HasTpoSupport>true</HasTpoSupport>
   <GunGame>false</GunGame>
   <InvertedMouseAxis>true</InvertedMouseAxis>
@@ -19,6 +19,17 @@
   <yAxisMin>0</yAxisMin>
   <yAxisMax>255</yAxisMax>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Outputs</FieldName>
+      <FieldValue>Windows Outputs</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windows Outputs</string>
+        <string>Network Outputs</string>
+      </FieldOptions>
+      <Hint>Choose how game outputs are sent. Select Network Outputs to configure its settings.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
@@ -129,7 +140,7 @@
       <FieldName>Enable LAN</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>Direct peers; no external relay. Disable when using TPOnline.</Hint>
+      <Hint>Used for direct LAN play. TPOnline assigns online cabinet IDs and link settings automatically, overriding saved manual settings.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>

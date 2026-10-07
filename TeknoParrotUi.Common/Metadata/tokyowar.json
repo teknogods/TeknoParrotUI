@@ -1,7 +1,11 @@
 {
-  "game_name": "Tokyo Wars (World, TW2 Ver.A)",
+  "game_name": "Tokyo Wars",
   "game_genre": "Action",
   "icon_name": "",
   "platform": "Namco Super System 22",
-  "general_issues": "User-supplied merged ROM ZIP required. "
+  "general_issues": "User-supplied merged ROM ZIP required. Select Game Revision in Game Settings; the merged tokyowar.zip must contain that revision.",
+  "supported_versions": [
+    "World, TW2 Ver.A",
+    "Japan, TW1 Ver.A"
+  ]
 }

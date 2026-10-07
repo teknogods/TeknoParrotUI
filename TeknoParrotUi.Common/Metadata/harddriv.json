@@ -1,0 +1,10 @@
+{
+  "game_name": "Hard Drivin' (cockpit, rev 7)",
+  "game_genre": "Racing",
+  "platform": "Atari Hard Drivin'",
+  "release_year": "1988",
+  "nvidia": "NO_INFO",
+  "amd": "NO_INFO",
+  "intel": "NO_INFO",
+  "general_issues": "Development only. Select harddriv.zip. Latest revision for this cabinet; older revisions are intentionally omitted. Cabinet networking is not implemented."
+}

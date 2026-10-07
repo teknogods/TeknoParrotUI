@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
 <GameProfile>
   <GamePath />
-  <GameNameInternal>Final Furlong 2 (World, FFS2 Ver. A)</GameNameInternal>
+  <GameNameInternal>Final Furlong 2</GameNameInternal>
   <EmulationProfile>TeknoS23</EmulationProfile>
-  <GameProfileRevision>2</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <EmulatorType>TeknoS23</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>finfurl2.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
+  <DevOnly>false</DevOnly>
   <HasTpoSupport>true</HasTpoSupport>
   <GunGame>false</GunGame>
   <InvertedMouseAxis>true</InvertedMouseAxis>
@@ -19,6 +19,24 @@
   <yAxisMin>0</yAxisMin>
   <yAxisMax>255</yAxisMax>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Revision</FieldName>
+      <FieldValue>finfurl2</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select the region and revision to run. The merged finfurl2.zip archive must contain the selected revision.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Outputs</FieldName>
+      <FieldValue>Windows Outputs</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windows Outputs</string>
+        <string>Network Outputs</string>
+      </FieldOptions>
+      <Hint>Choose how game outputs are sent. Select Network Outputs to configure its settings.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
@@ -129,7 +147,7 @@
       <FieldName>Enable LAN</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>Direct peers; no external relay. Disable when using TPOnline.</Hint>
+      <Hint>Used for direct LAN play. TPOnline assigns online cabinet IDs and link settings automatically, overriding saved manual settings.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
@@ -142,6 +160,10 @@
         <string>2</string>
         <string>3</string>
         <string>4</string>
+        <string>5</string>
+        <string>6</string>
+        <string>7</string>
+        <string>8</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>
@@ -153,6 +175,10 @@
         <string>2</string>
         <string>3</string>
         <string>4</string>
+        <string>5</string>
+        <string>6</string>
+        <string>7</string>
+        <string>8</string>
       </FieldOptions>
     </FieldInformation>
     <FieldInformation>

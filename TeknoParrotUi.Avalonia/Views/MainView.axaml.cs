@@ -28,6 +28,7 @@ namespace TeknoParrotUi.Avalonia.Views;
 /// </summary>
 public partial class MainView : UserControl
 {
+    private int _onlineToastSerial;
     private readonly LibraryView _library = new();
     private readonly SettingsView _settings = new();
     private readonly AboutView _about = new();
@@ -147,6 +148,8 @@ public partial class MainView : UserControl
             Show(_addGame, "Add Game");
         };
         _library.ScannerRequested += () => Show(_scanner, "Game Scanner");
+        _library.AccountRequested += () => Show(_account, "AccountPageTitle");
+        _library.OnlineRequested += () => NavOnline_Click(null, new global::Avalonia.Interactivity.RoutedEventArgs());
         _library.NativeLaunchRequested += async (profile, testMode) =>
         {
             if (!PlatformCapabilities.CanLaunchGames)
@@ -204,13 +207,29 @@ public partial class MainView : UserControl
         };
         _scanner.GamesAdded += count => StatusBar.Text = $"Game scanner added {count} game(s)";
         _gameRunning.BackRequested += ShowLibrary;
+        _gameRunning.OnlineMessage += message =>
+        {
+            var serial = ++_onlineToastSerial;
+            StatusBar.Text = message;
+            BtnOnlineAccount.Content = Loc.T("InitialDOnlineToastAction");
+            BtnOnlineAccount.IsVisible = true;
+            var timer = new global::Avalonia.Threading.DispatcherTimer { Interval = TimeSpan.FromSeconds(12) };
+            timer.Tick += (_, _) =>
+            {
+                timer.Stop();
+                if (serial != _onlineToastSerial) return;
+                BtnOnlineAccount.IsVisible = false;
+                if (StatusBar.Text == message) StatusBar.Text = "";
+            };
+            timer.Start();
+        };
         _gameRunning.GameExited += _ =>
         {
             // Return to the library (same game still selected) once the game stops
             if (ContentHost.Content == _gameRunning)
             {
                 ShowLibrary();
-                StatusBar.Text = "Game session ended";
+                if (!BtnOnlineAccount.IsVisible) StatusBar.Text = "Game session ended";
             }
         };
         _settings.SavedNotification += () => StatusBar.Text = "Settings saved";
@@ -260,7 +279,6 @@ public partial class MainView : UserControl
                 return;
             policiesShown = true;
             await ShowPoliciesGateAsync();
-            await ShowPendingChangelogAsync();
             if (Lazydata.ParrotData.HasReadPoliciesNew)
             {
                 await CheckForAnnouncementAsync();
@@ -311,7 +329,7 @@ public partial class MainView : UserControl
         {
             var announcement = await AnnouncementService.CheckAsync(
                 Lazydata.ParrotData.AnnouncementSourceUrl,
-                Lazydata.ParrotData.LastAnnouncementContent,
+                Environment.GetCommandLineArgs().Contains("--news-test") ? null : Lazydata.ParrotData.LastAnnouncementContent,
                 _announcementCancellation.Token);
             if (announcement == null || _announcementCancellation.IsCancellationRequested)
                 return;
@@ -368,7 +386,7 @@ public partial class MainView : UserControl
 
             if (TopLevel.GetTopLevel(this) is Window owner)
             {
-                var dialog = new AnnouncementWindow(announcement.PageUrl, IsPatreon());
+                var dialog = new AnnouncementWindow(announcement.Articles, IsPatreon());
                 dialog.Opened += (_, _) => RememberAnnouncement();
                 await dialog.ShowDialog(owner);
             }
@@ -378,7 +396,7 @@ public partial class MainView : UserControl
                 // inside the shell and restore the previous page when closed.
                 var previous = ContentHost.Content;
                 var previousTitle = PageTitle.Text;
-                var news = new AnnouncementView(announcement.PageUrl, IsPatreon());
+                var news = new AnnouncementView(announcement.Articles, IsPatreon());
                 var closed = new System.Threading.Tasks.TaskCompletionSource(
                     System.Threading.Tasks.TaskCreationOptions.RunContinuationsAsynchronously);
                 news.AttachedToVisualTree += (_, _) => RememberAnnouncement();
@@ -898,101 +916,6 @@ public partial class MainView : UserControl
         {
             CloseRequested?.Invoke();
         }
-    }
-
-    /// <summary>
-    /// After a self-update restart (ParrotPatcher relaunches TeknoParrotUI once it
-    /// finishes extracting), a ".lastupdate" marker sits next to the executable
-    /// (component|version|base64-changelog — see UpdaterCore.LaunchSelfUpdate).
-    /// Show a "what's new" popup with the release notes, then delete the marker.
-    /// </summary>
-    private async System.Threading.Tasks.Task ShowPendingChangelogAsync()
-    {
-        var path = System.IO.Path.Combine(AppContext.BaseDirectory, ".lastupdate");
-        if (!System.IO.File.Exists(path))
-            return;
-
-        var entries = new List<(string Name, string Version, string? Body)>();
-        try
-        {
-            foreach (var line in System.IO.File.ReadAllLines(path))
-            {
-                if (string.IsNullOrWhiteSpace(line)) continue;
-                var parts = line.Split('|');
-                if (parts.Length < 2) continue;
-
-                string? body = null;
-                if (parts.Length >= 3 && !string.IsNullOrWhiteSpace(parts[2]))
-                {
-                    try { body = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(parts[2])); }
-                    catch { /* ignore malformed changelog payload */ }
-                }
-                entries.Add((parts[0], parts[1], body));
-            }
-        }
-        catch { /* ignore unreadable marker */ }
-        finally
-        {
-            try { System.IO.File.Delete(path); } catch { /* ignore */ }
-        }
-
-        if (entries.Count == 0 || TopLevel.GetTopLevel(this) is not Window owner)
-            return;
-
-        var list = new StackPanel { Spacing = 16 };
-        foreach (var entry in entries)
-        {
-            var header = new StackPanel { Orientation = global::Avalonia.Layout.Orientation.Horizontal, Spacing = 8 };
-            header.Children.Add(new TextBlock { Text = entry.Name, FontWeight = global::Avalonia.Media.FontWeight.Bold, FontSize = 16 });
-            header.Children.Add(new TextBlock { Text = entry.Version, Opacity = 0.7, VerticalAlignment = global::Avalonia.Layout.VerticalAlignment.Center });
-
-            var card = new Border
-            {
-                BorderBrush = global::Avalonia.Media.Brushes.Gray,
-                BorderThickness = new Thickness(1),
-                CornerRadius = new global::Avalonia.CornerRadius(6),
-                Padding = new Thickness(16),
-                Child = new StackPanel
-                {
-                    Spacing = 8,
-                    Children =
-                    {
-                        header,
-                        new TextBlock
-                        {
-                            Text = string.IsNullOrWhiteSpace(entry.Body)
-                                ? Loc.T("ChangelogNoInformation", "No changelog information available.")
-                                : entry.Body,
-                            Opacity = string.IsNullOrWhiteSpace(entry.Body) ? 0.6 : 1.0,
-                            TextWrapping = global::Avalonia.Media.TextWrapping.Wrap
-                        }
-                    }
-                }
-            };
-            list.Children.Add(card);
-        }
-
-        var closeButton = new Button { Content = Loc.T("OK", "OK"), MinWidth = 90, HorizontalAlignment = global::Avalonia.Layout.HorizontalAlignment.Right, Classes = { "primary" } };
-        var dialog = new Window
-        {
-            Title = Loc.T("ChangelogTitle", "What's New"),
-            Width = 520,
-            Height = 480,
-            WindowStartupLocation = WindowStartupLocation.CenterOwner,
-            Content = new DockPanel
-            {
-                Margin = new Thickness(20),
-                Children =
-                {
-                    closeButton,
-                    new ScrollViewer { Content = list }
-                }
-            }
-        };
-        DockPanel.SetDock(closeButton, global::Avalonia.Controls.Dock.Bottom);
-        closeButton.Margin = new Thickness(0, 16, 0, 0);
-        closeButton.Click += (_, _) => dialog.Close();
-        await dialog.ShowDialog(owner);
     }
 
     private void PerformNavAction(UiNavAction action)

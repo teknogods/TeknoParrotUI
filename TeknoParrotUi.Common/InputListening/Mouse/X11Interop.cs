@@ -253,21 +253,22 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
         /// <summary>
         /// Read valuator deltas (valuator 0 = X, 1 = Y) from a raw motion event.
         /// </summary>
-        public static void GetMotionDeltas(in XIRawEvent ev, out double dx, out double dy)
+        public static void GetMotionDeltas(in XIRawEvent ev, out double dx, out double dy, bool unaccelerated = false)
         {
             dx = 0;
             dy = 0;
-            if (ev.ValuatorsMask == IntPtr.Zero || ev.ValuatorsValues == IntPtr.Zero || ev.ValuatorsMaskLen < 1)
+            var values = unaccelerated && ev.RawValues != IntPtr.Zero ? ev.RawValues : ev.ValuatorsValues;
+            if (ev.ValuatorsMask == IntPtr.Zero || values == IntPtr.Zero || ev.ValuatorsMaskLen < 1)
                 return;
             byte mask0 = Marshal.ReadByte(ev.ValuatorsMask, 0);
             int valueIndex = 0;
             if ((mask0 & 1) != 0)
             {
-                dx = ReadDouble(ev.ValuatorsValues, valueIndex++);
+                dx = ReadDouble(values, valueIndex++);
             }
             if ((mask0 & 2) != 0)
             {
-                dy = ReadDouble(ev.ValuatorsValues, valueIndex);
+                dy = ReadDouble(values, valueIndex);
             }
         }
 

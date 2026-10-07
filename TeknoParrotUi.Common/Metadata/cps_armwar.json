@@ -1,0 +1,7 @@
+{
+  "game_name": "Armored Warriors",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select armwar.zip. Keep qsound.zip in the same folder."
+}

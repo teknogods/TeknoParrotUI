@@ -21,7 +21,7 @@ namespace TeknoParrotUi.Common.GameLaunch
             }
             return result.Append('\\', slashes * 2).Append('"').ToString();
         }
-        public static ProcessStartInfo Build(GameProfile profile, string gameLocation, Action<string> log)
+        public static ProcessStartInfo Build(GameProfile profile, string gameLocation, Action<string> log, bool isTest = false)
         {
             string Setting(string name, string fallback = "") => profile.ConfigValues?.FirstOrDefault(x => x.FieldName == name)?.FieldValue ?? fallback;
             bool Enabled(string name, bool fallback = false) => Setting(name, fallback ? "1" : "0") == "1" || Setting(name).Equals("true", StringComparison.OrdinalIgnoreCase);
@@ -29,7 +29,7 @@ namespace TeknoParrotUi.Common.GameLaunch
             var game = Path.GetFullPath(gameLocation);
             if (!File.Exists(game)) throw new FileNotFoundException("Select this game's merged ROM ZIP.", game);
             var romRoot = Path.GetDirectoryName(game);
-            var set = profile.ProfileName;
+            var set = NamcoGameRevisions.ResolveSet(profile);
             if (string.IsNullOrWhiteSpace(set) || set.Any(c => !char.IsLetterOrDigit(c))) throw new ArgumentException("Invalid System 23 game profile");
             var scale = Setting("Internal Resolution", "2");
             if (!int.TryParse(scale, out var resolution) || resolution < 1 || resolution > 8) throw new ArgumentException("Internal Resolution must be 1 to 8");
@@ -38,7 +38,7 @@ namespace TeknoParrotUi.Common.GameLaunch
             Directory.CreateDirectory(root);
             Directory.CreateDirectory(Path.Combine(root, "state"));
             Directory.CreateDirectory(Path.Combine(root, "bezels"));
-            var args = new List<string> { "--rom-root", Quote(romRoot), "--state-root", Quote(Path.Combine(root, "state")), "--scale", scale, "--present-filter", filter };
+            var args = new List<string> { "--rom-root", Quote(romRoot), "--state-root", Quote(Path.Combine(root, "state")), "--scale", scale, "--present-filter", filter, "--outputs" };
             var fullscreen = Setting("DisplayMode", "Fullscreen").Equals("Fullscreen", StringComparison.OrdinalIgnoreCase);
             if (fullscreen) args.Add("--fullscreen");
             if (fullscreen && Enabled("Stretch to Fullscreen")) args.Add("--stretch");
@@ -56,9 +56,15 @@ namespace TeknoParrotUi.Common.GameLaunch
                 if (!Enabled("Use VR Controls", true)) args.Add("--no-vr-controls");
             }
             else if (Enabled("Widescreen")) args.Add("--experimental-widescreen");
+            // Same --ffb-* options and device tokens as TeknoS22 (S23haptic.exe).
+            TeknoS22Launcher.AddForceFeedback(profile, args);
             // TPOnline supplies TP_TPONLINE2 in the inherited environment, as for Viper.
             // Manual LAN peers use the native C422/GMEN transport in the same executable.
-            if (Enabled("Enable LAN"))
+            var tpOnline = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("TP_TPONLINE2"));
+            // Panic Park enters diagnostics through its service DIP, rather
+            // than holding JVS Test at startup. Other games use the TPUI pipe.
+            if (isTest && !tpOnline && (set == "panicprk" || set == "panicprkj")) args.Add("--service-dip");
+            if (Enabled("Enable LAN") && !tpOnline)
             {
                 foreach (var pair in new[] { new[] { "Cabinet ID", "--cabinet-node" }, new[] { "Cabinet Count", "--link-nodes" }, new[] { "Local Port", "--link-bind" }, new[] { "Session ID", "--link-session" } })
                 { args.Add(pair[1]); args.Add(Quote(Setting(pair[0]))); }

@@ -1,0 +1,7 @@
+{
+  "game_name": "Giga Wing",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select gigawing.zip. Keep qsound.zip in the same folder."
+}

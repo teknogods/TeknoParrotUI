@@ -30,10 +30,13 @@ public partial class LibraryView : UserControl
     public event Action? AddGameRequested;
     public event Action? ScannerRequested;
     public event Action<GameProfile, bool>? NativeLaunchRequested;
+    public event Action? AccountRequested;
+    public event Action? OnlineRequested;
 
     public LibraryView()
     {
         InitializeComponent();
+        DetachedFromVisualTree += (_, _) => StopLanPresence();
         PlatformGameCatalogSync.CatalogUpdated += OnPlatformCatalogUpdated;
         BtnLaunch.IsVisible = PlatformCapabilities.CanLaunchGames;
         BtnTestMode.IsVisible = PlatformCapabilities.CanLaunchGames;
@@ -129,7 +132,7 @@ public partial class LibraryView : UserControl
         // profiles appear immediately without requiring a fake executable path
         // or pre-creating mutable user settings. RPCS3X6 profiles use the normal
         // Add Game flow because each user selects that game's EBOOT.BIN directly.
-        var profiles = GameProfileLoader.UserProfiles.ToList();
+        var profiles = ArcadeGameRevisions.GetLibraryProfiles(GameProfileLoader.UserProfiles).ToList();
         if (OperatingSystem.IsAndroid())
         {
             var readyExecutables =
@@ -350,12 +353,24 @@ public partial class LibraryView : UserControl
     private void GameList_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
         var p = Selected;
+        UpdateLanPresence(p);
+        BtnFriends.IsVisible = Common.Online.InitialDUnifiedMode.IsMatchmakingProfile(p);
+        BtnGtOnTp.IsVisible = p?.HasGtOnTp == true;
+        BtnOnlineProfile.IsVisible = !string.IsNullOrWhiteSpace(p?.OnlineProfileURL);
+        BtnPlayOnline.IsVisible = p?.HasTpoSupport == true && !Common.Online.InitialDUnifiedMode.IsTpoRetired(p) &&
+            !OperatingSystem.IsAndroid();
+        BtnLaunch.IsEnabled = p != null && !p.IsTpoExclusive;
         if (p != null)
             _lastSelectedProfile = p.ProfileName;
         GameTitle.Text = p != null ? DisplayName(p) : "";
         GameGenre.Text = p?.GameGenreInternal ?? "";
         GamePathText.Text = p?.GamePath ?? "";
-        BtnTestMode.IsVisible = p?.HasSeparateTestMode ?? false;
+        var terminal = p?.ConfigValues?.Any(field => field.CategoryName == "General" && field.FieldType == FieldType.Bool &&
+            field.FieldName is "TerminalMode" or "Terminal Mode") == true;
+        BtnTestMode.IsVisible = p != null && PlatformCapabilities.CanLaunchGames;
+        BtnTestMode.IsEnabled = terminal || (p?.HasSeparateTestMode ?? false);
+        ToolTip.SetTip(BtnTestMode, BtnTestMode.IsEnabled ? null : "The test menu is accessed with in-game controls, or is unavailable.");
+        BtnTestMode.Content = terminal ? Loc.T("LibraryTerminalMode", "Terminal Mode") : Loc.T("LibraryTestMode", "Test Menu");
         BtnHighScores.IsVisible = HighScoreUrlResolver.Resolve(
             p?.ProfileName,
             Lazydata.ParrotData.Language) != null;
@@ -388,18 +403,29 @@ public partial class LibraryView : UserControl
         // Metadata block: platform, release year, wheel rotation, supported
         // versions, TPO version, general issues + GPU compatibility
         var info = p?.GameInfo;
+        GameInfoGrid.Children.Clear();
+        GameInfoGrid.RowDefinitions.Clear();
         if (info != null)
         {
-            GameInfoText.Text = info.ToString().TrimEnd('\n');
-            GpuStatusText.Text = $"GPU:  NVIDIA {GpuGlyph(info.nvidia)}   AMD {GpuGlyph(info.amd)}   Intel {GpuGlyph(info.intel)}";
-            var issues = info.GetGpuIssues();
-            ToolTip.SetTip(GpuStatusText, string.IsNullOrEmpty(issues) ? null : issues);
-            GpuStatusText.IsVisible = true;
+            AddInfoRow("Platform", info.platform);
+            AddInfoRow("Release year", info.release_year);
+            AddInfoRow("Wheel rotation", info.wheel_rotation);
+            AddInfoRow("Versions", info.supported_versions == null ? null : string.Join(", ", info.supported_versions));
+            AddInfoRow("TPO version", info.tpo_version);
+            GameInfoText.Text = info.general_issues?.Trim() ?? "";
+            var untested = info.nvidia == GPUSTATUS.NO_INFO && info.amd == GPUSTATUS.NO_INFO && info.intel == GPUSTATUS.NO_INFO;
+            GpuStatusText.Text = "GPU: Untested";
+            GpuStatusText.IsVisible = untested;
+            GpuVendors.IsVisible = !untested;
+            SetGpuVendor(GpuNvidia, "NVIDIA", info.nvidia, info.nvidia_issues);
+            SetGpuVendor(GpuAmd, "AMD", info.amd, info.amd_issues);
+            SetGpuVendor(GpuIntel, "Intel", info.intel, info.intel_issues);
         }
         else
         {
             GameInfoText.Text = p != null ? Services.Loc.T("LibraryNoInfo", "No information available for this game.") : "";
             GpuStatusText.IsVisible = false;
+            GpuVendors.IsVisible = false;
         }
 
         LoadIcon(p);
@@ -409,6 +435,31 @@ public partial class LibraryView : UserControl
     {
         if (_emulatorUrl != null)
             await Services.ExternalUrlLauncher.OpenAsync(this, _emulatorUrl);
+    }
+
+    private void AddInfoRow(string label, string? value)
+    {
+        if (string.IsNullOrWhiteSpace(value)) return;
+        var row = GameInfoGrid.RowDefinitions.Count;
+        GameInfoGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
+        var name = new TextBlock { Text = label, Opacity = 0.65, FontSize = 11 };
+        var text = new TextBlock { Text = value, FontSize = 11, TextWrapping = global::Avalonia.Media.TextWrapping.Wrap };
+        Grid.SetRow(name, row); Grid.SetRow(text, row); Grid.SetColumn(text, 1);
+        GameInfoGrid.Children.Add(name); GameInfoGrid.Children.Add(text);
+    }
+
+    private static void SetGpuVendor(TextBlock text, string vendor, GPUSTATUS status, string? issues)
+    {
+        text.Text = vendor + " " + GpuGlyph(status);
+        var description = status switch
+        {
+            GPUSTATUS.OK => "Works",
+            GPUSTATUS.WITH_FIX => "Works with a fix",
+            GPUSTATUS.HAS_ISSUES => "Runs with issues",
+            GPUSTATUS.NO => "Not working",
+            _ => "Untested"
+        };
+        ToolTip.SetTip(text, string.IsNullOrWhiteSpace(issues) ? description : description + ": " + issues.Trim());
     }
 
     private async void BtnHighScores_Click(
@@ -497,8 +548,9 @@ public partial class LibraryView : UserControl
             StatusText.Text = $"Could not remove: {ex.Message}";
         }
     }
-    private void LaunchSelected(bool testMode)
+    private async void LaunchSelected(bool testMode, bool friends = false)
     {
+        if (_launchPending) return;
         if (!PlatformCapabilities.CanLaunchGames)
         {
             StatusText.Text = PlatformCapabilities.AndroidLaunchUnavailableMessage;
@@ -526,6 +578,27 @@ public partial class LibraryView : UserControl
             return;
         }
 
-        NativeLaunchRequested?.Invoke(p, testMode);
+        _launchPending = true;
+        try
+        {
+            if (!testMode && !await Services.OnlineLaunchFlow.BeforeLaunchAsync(this, p, friends,
+                () => AccountRequested?.Invoke())) return;
+            if (_lanSession?.Peers().Count > 0) await Services.OnlineLaunchFlow.OfferFirewallAsync(this, p);
+            StopLanPresence();
+            if (testMode && p.ConfigValues?.Any(field => field.CategoryName == "General" && field.FieldType == FieldType.Bool &&
+                field.FieldName is "TerminalMode" or "Terminal Mode") == true)
+            {
+                p = p.Clone();
+                foreach (var field in p.ConfigValues.Where(field => field.CategoryName == "General" && field.FieldType == FieldType.Bool))
+                    if (field.FieldName is "TerminalMode" or "Terminal Mode") field.FieldValue = "1";
+                    else if (field.FieldName is "TerminalEmulator" or "Terminal Emu") field.FieldValue = "0";
+                p.AllowSettingSync = false;
+                testMode = false;
+            }
+            NativeLaunchRequested?.Invoke(p, testMode);
+        }
+        catch (Exception error) { StatusText.Text = error.Message; }
+        finally { _launchPending = false; }
     }
+    private bool _launchPending;
 }

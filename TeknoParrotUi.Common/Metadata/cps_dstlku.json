@@ -1,0 +1,7 @@
+{
+  "game_name": "Darkstalkers: The Night Warriors (USA 940818)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select dstlku.zip. If ROM files are missing, also add dstlk.zip to the same folder. Keep qsound.zip in the same folder."
+}

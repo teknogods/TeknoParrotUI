@@ -1,5 +1,7 @@
 using System;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using TeknoParrotUi.Common.Jvs;
 
 namespace TeknoParrotUi.Common.Pipes
@@ -13,6 +15,38 @@ namespace TeknoParrotUi.Common.Pipes
     {
         private ushort _sequence;
         private bool _publishInput;
+        private static readonly object WheelLock = new object();
+        private static bool _publishWheel;
+        private static uint _wheelSequence;
+
+        internal static bool UsesEnhancedWheel(GameProfile profile)
+        {
+            if (profile == null ||
+                !(string.Equals(profile.ProfileName, "sfrush", StringComparison.OrdinalIgnoreCase) ||
+                  string.Equals(profile.ProfileName, "sfrushrk", StringComparison.OrdinalIgnoreCase)))
+                return false;
+            var value = profile.ConfigValues?.FirstOrDefault(
+                x => x.FieldName == "Enhanced Force Feedback")?.FieldValue;
+            return value == null || value == "1" || value.Equals("true", StringComparison.OrdinalIgnoreCase);
+        }
+
+        internal static void PublishWheel(double position, long timestamp)
+        {
+            lock (WheelLock)
+            {
+                if (!_publishWheel || double.IsNaN(position) || double.IsInfinity(position)) return;
+                // Versioned extension in the reserved tail. Publish directly
+                // from the wheel poll, independently of the button sender.
+                JvsHelper.StateView.Write(40, ++_wheelSequence);
+                Thread.MemoryBarrier();
+                JvsHelper.StateView.Write(44, (float)Math.Max(0, Math.Min(255, position)));
+                JvsHelper.StateView.Write(48, timestamp);
+                JvsHelper.StateView.Write(56, checked((uint)Stopwatch.Frequency));
+                JvsHelper.StateView.Write(60, 0x31574852u); // RHW1
+                Thread.MemoryBarrier();
+                JvsHelper.StateView.Write(40, ++_wheelSequence);
+            }
+        }
 
         private static bool Down(bool? value) => value.HasValue && value.Value;
 
@@ -32,7 +66,10 @@ namespace TeknoParrotUi.Common.Pipes
 
         private static bool UsesVolumeMenuBindings() =>
             IsProfile("roadburn") || IsProfile("cartfury") ||
-            IsProfile("carnevil");
+            IsProfile("carnevil") ||
+            IsProfile("sfrush") || IsProfile("sfrushrk") ||
+            IsProfile("sf2049") || IsProfile("sf2049se") ||
+            IsProfile("sf2049te");
 
         private static byte PlayerByte(int index)
         {
@@ -83,10 +120,17 @@ namespace TeknoParrotUi.Common.Pipes
 
         public override void Start()
         {
-            JvsHelper.ResetState();
+            lock (WheelLock)
+            {
+                _publishWheel = false;
+                _wheelSequence = 0;
+                JvsHelper.ResetState();
+            }
             _sequence = 0;
             _publishInput = !(SettingEnabled("Enable VR") &&
                               SettingEnabled("Use VR Controls", true));
+            lock (WheelLock)
+                _publishWheel = _publishInput && UsesEnhancedWheel(InputCode.GameProfile);
             if (!_publishInput)
             {
                 JvsHelper.WriteStateByte(5, 0);
@@ -138,6 +182,11 @@ namespace TeknoParrotUi.Common.Pipes
 
         public override void Stop()
         {
+            lock (WheelLock)
+            {
+                _publishWheel = false;
+                JvsHelper.StateView.Write(40, 0u);
+            }
             // Revoke ownership before the worker exits. The emulator expires
             // an unchanging sequence too, covering abnormal UI termination.
             JvsHelper.WriteStateByte(5, 0);

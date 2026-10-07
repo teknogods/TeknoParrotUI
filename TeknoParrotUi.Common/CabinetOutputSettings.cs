@@ -18,7 +18,7 @@ namespace TeknoParrotUi.Common
 
         public CabinetOutputSettings Clone() => (CabinetOutputSettings)MemberwiseClone();
 
-        // Only emulator families already released through this UI are eligible.
+        // Each supported emulator uses the same cabinet-output transport settings.
         public static bool Supports(GameProfile profile)
         {
             if (profile == null) return false;
@@ -26,6 +26,7 @@ namespace TeknoParrotUi.Common
             {
                 case EmulatorType.TeknoModel1:
                 case EmulatorType.TeknoModel2:
+                case EmulatorType.TeknoModel3:
                 case EmulatorType.TeknoHornet:
                 case EmulatorType.TeknoHNG64:
                 case EmulatorType.TeknoGClub:
@@ -33,7 +34,17 @@ namespace TeknoParrotUi.Common
                 case EmulatorType.TeknoZeus:
                 case EmulatorType.TeknoViper:
                 case EmulatorType.TeknoVegas:
+                case EmulatorType.TeknoHDrive:
                 case EmulatorType.TeknoVUnit:
+                case EmulatorType.TeknoAGX:
+                case EmulatorType.TeknoS22:
+                case EmulatorType.TeknoS23:
+                case EmulatorType.TeknoS21:
+                case EmulatorType.TeknoS11:
+                case EmulatorType.TeknoTPJC:
+                case EmulatorType.TeknoMagic:
+                case EmulatorType.TeknoM2:
+                case EmulatorType.TeknoAir:
                     return true;
                 default:
                     return false;

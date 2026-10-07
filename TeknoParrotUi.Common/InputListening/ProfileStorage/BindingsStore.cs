@@ -86,7 +86,9 @@ namespace TeknoParrotUi.Common.InputListening.ProfileStorage
 
                 foreach (var row in profile.JoystickButtons)
                 {
-                    if (byKey.TryGetValue(Key(row.InputMapping, row.ButtonName), out var e))
+                    var previousName = NamcoGameRevisions.PreviousControlName(profile, row.ButtonName);
+                    if (byKey.TryGetValue(Key(row.InputMapping, row.ButtonName), out var e) ||
+                        previousName != row.ButtonName && byKey.TryGetValue(Key(row.InputMapping, previousName), out e))
                     {
                         row.XInputButton = e.XInputButton;
                         row.RawInputButton = e.RawInputButton;

@@ -26,10 +26,12 @@ public partial class GameRunningView : UserControl
 
     /// <summary>Raised with the exit code when the game process ends (CLI mode auto-close).</summary>
     public event Action<int>? GameExited;
+    public event Action<string>? OnlineMessage;
 
     public GameRunningView()
     {
         InitializeComponent();
+        DetachedFromVisualTree += (_, _) => StopOnlineStatus();
         if (OperatingSystem.IsAndroid())
         {
             ActionsPanel.Orientation = Orientation.Vertical;
@@ -55,7 +57,10 @@ public partial class GameRunningView : UserControl
     public void StartGame(GameProfile profile, bool testMode, bool emuOnly = false)
     {
         _session?.Dispose();
+        StopOnlineStatus();
         _profile = profile;
+        MediaPanel.IsVisible = false;
+        StartOnlineStatus(testMode);
         _forceQuitRequested = false;
         _consoleBuffer.Clear();
         ConsoleText.Text = "";
@@ -66,13 +71,32 @@ public partial class GameRunningView : UserControl
         BtnForceQuit.IsEnabled = true;
         BtnBack.IsEnabled = false;
 
-        var session = GameSessionFactory.Create(profile, testMode, emuOnly);
+        IGameSession session;
+        try { session = GameSessionFactory.Create(profile, testMode, emuOnly); }
+        catch (Exception error)
+        {
+            AppendConsoleLine("ERROR: " + error.Message);
+            StatusText.Text = error.Message;
+            SetLogVisible(true);
+            BtnForceQuit.IsEnabled = false;
+            BtnBack.IsEnabled = true;
+            StopOnlineStatus();
+            return;
+        }
         _session = session;
         session.OutputReceived += line => Dispatcher.UIThread.Post(() =>
         {
             if (!ReferenceEquals(_session, session))
                 return;
             AppendConsoleLine(line);
+            var media = CpsMediaProgress.Parse(line);
+            if (media != null)
+            {
+                MediaPanel.IsVisible = media.Installing;
+                MediaText.Text = media.Message;
+                MediaProgress.IsIndeterminate = !media.Percent.HasValue;
+                if (media.Percent.HasValue) MediaProgress.Value = media.Percent.Value;
+            }
             ConsoleScroll.ScrollToEnd();
         });
         session.StateChanged += state => Dispatcher.UIThread.Post(() =>
@@ -86,6 +110,8 @@ public partial class GameRunningView : UserControl
                 return;
             BtnForceQuit.IsEnabled = false;
             BtnBack.IsEnabled = true;
+            PublishOnlineExit();
+            StopOnlineStatus();
             if (code != 0 && !_forceQuitRequested)
             {
                 SetLogVisible(true);

@@ -1,0 +1,10 @@
+{
+  "game_name": "Steel Talons (rev 2)",
+  "game_genre": "Simulation",
+  "platform": "Atari Hard Drivin'",
+  "release_year": "1991",
+  "nvidia": "NO_INFO",
+  "amd": "NO_INFO",
+  "intel": "NO_INFO",
+  "general_issues": "Development only. Select steeltal.zip. Latest revision for this cabinet; older revisions are intentionally omitted. Cabinet networking is not implemented."
+}

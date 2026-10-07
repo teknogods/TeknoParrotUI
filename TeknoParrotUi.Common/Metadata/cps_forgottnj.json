@@ -1,0 +1,7 @@
+{
+  "game_name": "Forgotten Worlds (Japan) (English prototype)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select forgottnj.zip. If ROM files are missing, also add forgottn.zip to the same folder."
+}

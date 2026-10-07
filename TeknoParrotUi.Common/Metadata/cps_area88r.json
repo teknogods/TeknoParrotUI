@@ -1,0 +1,7 @@
+{
+  "game_name": "Area 88 (Japan Resale Ver.)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select area88r.zip. If ROM files are missing, also add unsquad.zip to the same folder."
+}

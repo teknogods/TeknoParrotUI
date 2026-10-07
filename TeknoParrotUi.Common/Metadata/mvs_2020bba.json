@@ -1,0 +1,7 @@
+{
+  "game_name": "2020 Super Baseball (set 2)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select 2020bba.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add 2020bb.zip to the same folder."
+}

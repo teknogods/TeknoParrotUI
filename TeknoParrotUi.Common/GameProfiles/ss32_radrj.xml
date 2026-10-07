@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GameProfile>
+  <GamePath />
+  <GameNameInternal>Rad Rally (Japan)</GameNameInternal>
+  <EmulationProfile>TeknoSS32</EmulationProfile>
+  <GameProfileRevision>4</GameProfileRevision>
+  <EmulatorType>TeknoSS32</EmulatorType>
+  <Is64Bit>true</Is64Bit>
+  <ExecutableName>radrj.zip</ExecutableName>
+  <HasTwoExecutables>false</HasTwoExecutables>
+  <Patreon>true</Patreon>
+  <DevOnly>false</DevOnly>
+  <HasTpoSupport>true</HasTpoSupport>
+  <TestMenuParameter>--test-menu</TestMenuParameter>
+  <GunGame>false</GunGame>
+  <InvertedMouseAxis>false</InvertedMouseAxis>
+  <Use16BitAnalog>false</Use16BitAnalog>
+  <xAxisMin>0</xAxisMin>
+  <xAxisMax>255</xAxisMax>
+  <yAxisMin>0</yAxisMin>
+  <yAxisMax>255</yAxisMax>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Revision</FieldName>
+      <FieldValue>ss32_radrj</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Input API</FieldName>
+      <FieldValue>XInput</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>XInput</string>
+        <string>DirectInput</string>
+        <string>RawInput</string>
+        <string>RawInputTrackball</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Window Scale</FieldName>
+      <FieldValue>2</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>2</string>
+        <string>3</string>
+        <string>4</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Audio</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>0</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Shifter Mode</FieldName>
+      <FieldValue>Button</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <Hint>Button toggles low/high gear. Lever uses its held position.</Hint>
+      <FieldOptions>
+        <string>Button</string>
+        <string>Lever</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Window Mode</FieldName>
+      <FieldValue>Windowed</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windowed</string>
+        <string>Fullscreen</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>CRT Shader</FieldName>
+      <FieldValue>off</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>off</string>
+        <string>lottes</string>
+        <string>lottes-downsample</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Use Bezel</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>PNG overlay: TeknoSS32/bezels/radrj.png, or default.png.</Hint>
+    </FieldInformation>
+  </ConfigValues>
+  <JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service credit</ButtonName>
+      <InputMapping>Service1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service mode</ButtonName>
+      <InputMapping>Test</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin 1</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin 2</ButtonName>
+      <InputMapping>Coin2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Start 1</ButtonName>
+      <InputMapping>P1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>PCB service</ButtonName>
+      <InputMapping>ExtensionOne1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>PCB test</ButtonName>
+      <InputMapping>ExtensionOne2</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gear change</ButtonName>
+      <InputMapping>ExtensionOne3</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Steering wheel</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>Wheel</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Gas pedal</ButtonName>
+      <InputMapping>Analog1</InputMapping>
+      <AnalogType>Gas</AnalogType>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 1 Brake pedal</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>Brake</AnalogType>
+    </JoystickButtons>
+  </JoystickButtons>
+</GameProfile>

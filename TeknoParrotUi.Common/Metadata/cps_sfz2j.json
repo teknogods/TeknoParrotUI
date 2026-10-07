@@ -1,0 +1,7 @@
+{
+  "game_name": "Street Fighter Zero 2 (Japan 960430)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select sfz2j.zip. If ROM files are missing, also add sfa2.zip to the same folder. Keep qsound.zip in the same folder."
+}

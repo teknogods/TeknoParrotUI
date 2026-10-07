@@ -1,0 +1,7 @@
+{
+  "game_name": "Lansquenet 2004 (bootleg of Shock Troopers - 2nd Squad)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select lans2004.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add shocktr2.zip to the same folder."
+}

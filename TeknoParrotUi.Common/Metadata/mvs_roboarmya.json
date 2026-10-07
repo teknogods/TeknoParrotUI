@@ -1,0 +1,7 @@
+{
+  "game_name": "Robo Army (NGM-032 ~ NGH-032)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select roboarmya.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add roboarmy.zip to the same folder."
+}

@@ -27,7 +27,7 @@ public static class TroubleshootingReport
 {
     /// <summary>Same privacy filter as the classic view - these config values are censored.</summary>
     private static readonly string[] FilteredGameConfigValues =
-        { "APM3ID", "OnlineId", "PlayerId", "Pass", "PCB ID", "Card ID", "Card ID P1", "Card ID P2" };
+        { "APM3ID", "OnlineId", "PlayerId", "Pass", "PCB ID", "Card ID", "Card ID P1", "Card ID P2", "OnlineSecret", "CabinetSerial" };
 
     /// <summary>Module files whose versions identify the emulator payload.</summary>
     private static readonly string[] ModuleFiles =

@@ -41,7 +41,7 @@ namespace TeknoParrotUi.Common.GameLaunch
             if (crt != "none" && crt != "lottes" && crt != "lottes-ssaa") throw new ArgumentException("Invalid CRT shader");
             var args = new List<string> { "--run", "--set", Quote(set), "--rom-root", Quote(Path.GetDirectoryName(game)),
                 "--save-dir", Quote(Path.Combine(root, "state")), "--resolution-scale", scale, "--presentation-filter", filter,
-                "--crt", crt, "--renderer", "vulkan", "--audio", Enabled("Mute Audio") ? "off" : "on" };
+                "--crt", crt, "--renderer", "vulkan", "--audio", Enabled("Mute Audio") ? "off" : "on", "--outputs" };
             if (Setting("DisplayMode", "Fullscreen").Equals("Fullscreen", StringComparison.OrdinalIgnoreCase)) args.Add("--fullscreen");
             if (Enabled("Stretch To Fullscreen")) { args.Add("--presentation-layout"); args.Add("stretch"); }
             if (Enabled("Use Bezel")) args.Add("--bezels");

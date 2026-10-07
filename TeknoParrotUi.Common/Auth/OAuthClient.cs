@@ -106,7 +106,9 @@ namespace TeknoParrotUi.Common.Auth
             GetClaim("email")
             ?? GetClaim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress");
 
-        public async Task<bool> LoginAsync(CancellationToken ct = default)
+        public Task<bool> LoginAsync(CancellationToken ct = default) => LoginAsync(false, ct);
+
+        public async Task<bool> LoginAsync(bool freshLogin, CancellationToken ct = default)
         {
             using var timeout = CancellationTokenSource.CreateLinkedTokenSource(ct);
             timeout.CancelAfter(TimeSpan.FromMinutes(5));
@@ -117,8 +119,8 @@ namespace TeknoParrotUi.Common.Auth
                 // production currently allows. Loopback (RFC 8252) is used elsewhere and
                 // becomes the universal path once the server-side loopback fix is deployed.
                 if (OperatingSystem.IsWindows())
-                    return await LoginViaCustomSchemeAsync(timeout.Token);
-                return await LoginViaLoopbackAsync(timeout.Token);
+                    return await LoginViaCustomSchemeAsync(timeout.Token, freshLogin);
+                return await LoginViaLoopbackAsync(timeout.Token, freshLogin);
             }
             catch (OperationCanceledException) when (timeout.IsCancellationRequested)
             {
@@ -147,7 +149,7 @@ namespace TeknoParrotUi.Common.Auth
             }
         }
 
-        private async Task<bool> LoginViaCustomSchemeAsync(CancellationToken ct)
+        private async Task<bool> LoginViaCustomSchemeAsync(CancellationToken ct, bool freshLogin)
         {
             RegisterSchemeHandler();
 
@@ -164,7 +166,7 @@ namespace TeknoParrotUi.Common.Auth
                 $"redirect_uri={Uri.EscapeDataString(SchemeRedirectUri)}&" +
                 $"code_challenge={codeChallenge}&" +
                 "code_challenge_method=S256&" +
-                $"state={state}";
+                $"state={state}" + (freshLogin ? "&prompt=login" : "");
 
             if (!OpenSystemBrowser(authorizationUrl))
                 return false;
@@ -225,7 +227,7 @@ namespace TeknoParrotUi.Common.Auth
             }
         }
 
-        private async Task<bool> LoginViaLoopbackAsync(CancellationToken ct)
+        private async Task<bool> LoginViaLoopbackAsync(CancellationToken ct, bool freshLogin)
         {
             var codeVerifier = GenerateCodeVerifier();
             var codeChallenge = GenerateCodeChallenge(codeVerifier);
@@ -244,7 +246,7 @@ namespace TeknoParrotUi.Common.Auth
                 $"redirect_uri={Uri.EscapeDataString(redirectUri.TrimEnd('/'))}&" +
                 $"code_challenge={codeChallenge}&" +
                 "code_challenge_method=S256&" +
-                $"state={state}";
+                $"state={state}" + (freshLogin ? "&prompt=login" : "");
 
             if (!OpenSystemBrowser(authorizationUrl))
                 return false;
@@ -289,6 +291,17 @@ namespace TeknoParrotUi.Common.Auth
 
         public void Logout()
         {
+            var data = Lazydata.ParrotData;
+            if (data != null)
+            {
+                data.SegaId = "";
+                data.NamcoId = "";
+                data.MarioKartId = "";
+                data.GoldenTeePcbId = "";
+                data.GoldenTeeCardId = "";
+                data.IsLoggedIn = false;
+                try { JoystickHelper.Serialize(); } catch { }
+            }
             _token = null;
             _refreshToken = null;
             _tokenExpiry = DateTime.MinValue;

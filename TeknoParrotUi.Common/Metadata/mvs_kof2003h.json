@@ -1,0 +1,7 @@
+{
+  "game_name": "The King of Fighters 2003 (NGH-2710)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select kof2003h.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add kof2003.zip to the same folder."
+}

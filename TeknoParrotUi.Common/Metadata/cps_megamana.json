@@ -1,0 +1,7 @@
+{
+  "game_name": "Mega Man: The Power Battle (CPS1, Asia 951006)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select megamana.zip. If ROM files are missing, also add megaman.zip to the same folder."
+}

@@ -1,0 +1,7 @@
+{
+  "game_name": "King of the Monsters 2 - The Next Thing (prototype)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select kotm2p.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add kotm2.zip to the same folder."
+}

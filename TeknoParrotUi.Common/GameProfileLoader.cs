@@ -31,6 +31,7 @@ namespace TeknoParrotUi.Common
         {
             Directory.CreateDirectory("GameProfiles");
             Directory.CreateDirectory("UserProfiles");
+            Online.InitialDUnifiedMode.MigrateOldLoaderProfiles();
             var stockFiles = Directory.GetFiles("GameProfiles", "*.xml")
                 .ToDictionary(Path.GetFileName, StringComparer.OrdinalIgnoreCase);
             var userFiles = Directory.GetFiles("UserProfiles", "*.xml")
@@ -71,6 +72,7 @@ namespace TeknoParrotUi.Common
                 }
 
                 PopulateMetadata(profile, file, metadataCatalog);
+                ArcadeGameRevisions.Populate(profile);
                 if (migrated)
                     JoystickHelper.SerializeGameProfile(profile);
 
@@ -93,6 +95,7 @@ namespace TeknoParrotUi.Common
                     .OrderBy(x => x.GameNameInternal).ToList();
             UserProfiles = installed.Where(IsVisibleOnThisPlatform)
                 .OrderBy(x => x.GameNameInternal).ToList();
+            Online.InitialDUnifiedMode.HideReplacedOldLoaderProfiles(UserProfiles);
 
             // JSON bindings are the single source of truth after profile migration.
             foreach (var profile in UserProfiles)
@@ -122,11 +125,15 @@ namespace TeknoParrotUi.Common
                 profile.IconName = "Icons/" + profile.GameInfo.icon_name;
         }
 
-        private static void MergeUserSettings(GameProfile stock, GameProfile user)
+        internal static void MergeUserSettings(GameProfile stock, GameProfile user)
         {
+            var initialDMigration = Online.InitialDUnifiedMode.PrepareRevisionMigration(stock, user);
             foreach (var oldButton in user.JoystickButtons ?? Enumerable.Empty<JoystickButtons>())
             {
                 var button = stock.JoystickButtons?.FirstOrDefault(x => x.ButtonName == oldButton.ButtonName);
+                if (button == null && stock.EmulatorType == EmulatorType.TeknoS22)
+                    button = stock.JoystickButtons?.FirstOrDefault(x =>
+                        NamcoGameRevisions.PreviousControlName(stock, x.ButtonName) == oldButton.ButtonName);
                 if (button == null && stock.EmulatorType == EmulatorType.TeknoModel2 &&
                     stock.ExecutableName == "desert.zip" && oldButton.ButtonName == "Brake")
                     button = stock.JoystickButtons?.FirstOrDefault(x => x.ButtonName == "Turret");
@@ -184,7 +191,9 @@ namespace TeknoParrotUi.Common
             stock.CabinetOutputSettings = user.CabinetOutputSettings?.Clone() ?? new CabinetOutputSettings();
             stock.GamePath = user.GamePath;
             stock.GamePath2 = user.GamePath2;
+            initialDMigration?.Invoke();
             stock.WineRunnerPath = user.WineRunnerPath;
+            stock.ProtonVersion = user.ProtonVersion ?? stock.ProtonVersion;
             stock.WinePrefixMode = user.WinePrefixMode;
             stock.FullscreenScalingMode = user.FullscreenScalingMode;
             stock.AndroidDebugLogging = user.AndroidDebugLogging;

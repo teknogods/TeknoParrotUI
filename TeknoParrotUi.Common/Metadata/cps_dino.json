@@ -1,0 +1,7 @@
+{
+  "game_name": "Cadillacs and Dinosaurs",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select dino.zip. Keep qsound.zip in the same folder."
+}

@@ -1,0 +1,7 @@
+{
+  "game_name": "Super Puzzle Fighter II X (Japan 960531)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select spf2xj.zip. If ROM files are missing, also add spf2t.zip to the same folder. Keep qsound.zip in the same folder."
+}

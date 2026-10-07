@@ -1,0 +1,7 @@
+{
+  "game_name": "JoJo's Bizarre Adventure (Europe 990927)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS3",
+  "general_issues": "Select jojobar1.zip. If ROM files are missing, also add jojoba.zip to the same folder. CD image: cap-jjm-1.chd. Set CD Image Folder if stored elsewhere."
+}

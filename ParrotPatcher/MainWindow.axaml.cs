@@ -93,9 +93,7 @@ public partial class MainWindow : Window
             if (zipList.Length > 0)
             {
                 ProcessZipFiles(zipList);
-                if (_completedUpdateArchives.Count > 0)
-                    SaveUpdateInfo(_completedUpdateArchives.ToArray());
-                else
+                if (_completedUpdateArchives.Count == 0)
                     LogMessage("No updates were applied successfully. Cached update files were kept for retrying.");
             }
             else
@@ -294,50 +292,6 @@ public partial class MainWindow : Window
         catch (Exception ex)
         {
             LogMessage($"Failed to write version file for {component.name}: {ex.Message}");
-        }
-    }
-
-    private void SaveUpdateInfo(string[] zipList)
-    {
-        // TeknoParrotUI's self-update path (UpdaterCore.LaunchSelfUpdate) already
-        // writes a richer ".lastupdate" marker (component|version|base64-changelog)
-        // before launching us — don't clobber it with the plain name|version line
-        // this method would otherwise derive from the zip filename alone.
-        string updateFilePath = Path.Combine(_baseDirectory, ".lastupdate");
-        if (File.Exists(updateFilePath))
-        {
-            LogMessage("'.lastupdate' already present (written before restart) - keeping it as-is.");
-            return;
-        }
-
-        // Save information about what was updated to show changelog later
-        try
-        {
-            var updateInfo = new StringBuilder();
-            foreach (string zipPath in zipList)
-            {
-                string zipFile = Path.GetFileName(zipPath);
-                foreach (UpdaterComponent component in _uc.components)
-                {
-                    if (Regex.IsMatch(zipFile, $"^{component.name}\\d+\\.\\d+\\.\\d+\\.\\d+\\.zip"))
-                    {
-                        string versionString = zipFile.Replace(component.name, "").Replace(".zip", "");
-                        updateInfo.AppendLine($"{component.name}|{versionString}");
-                        break;
-                    }
-                }
-            }
-
-            if (updateInfo.Length > 0)
-            {
-                // Save OUTSIDE the cache folder so it doesn't get deleted
-                File.WriteAllText(updateFilePath, updateInfo.ToString());
-                LogMessage($"Saved update info to: {updateFilePath}");
-            }
-        }
-        catch (Exception ex)
-        {
-            LogMessage($"Failed to save update info: {ex.Message}");
         }
     }
 

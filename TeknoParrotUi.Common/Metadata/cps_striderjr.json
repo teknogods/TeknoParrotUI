@@ -1,0 +1,7 @@
+{
+  "game_name": "Strider Hiryu (Japan Resale Ver.)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select striderjr.zip. If ROM files are missing, also add strider.zip to the same folder."
+}

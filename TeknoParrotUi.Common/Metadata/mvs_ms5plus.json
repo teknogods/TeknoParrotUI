@@ -1,0 +1,7 @@
+{
+  "game_name": "Metal Slug 5 Plus (bootleg)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select ms5plus.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add mslug5.zip to the same folder."
+}

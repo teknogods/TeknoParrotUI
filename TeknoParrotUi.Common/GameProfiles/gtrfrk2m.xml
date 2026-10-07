@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Guitar Freaks 2nd Mix Ver 1.01 (GQ883 VER. JAD)</GameNameInternal>
   <EmulationProfile>TeknoS11</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <EmulatorType>TeknoS11</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>gtrfrk2m.zip</ExecutableName>
@@ -17,6 +17,17 @@
   <GamePath2 />
   <ExecutableName2>*.chd</ExecutableName2>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Outputs</FieldName>
+      <FieldValue>Windows Outputs</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windows Outputs</string>
+        <string>Network Outputs</string>
+      </FieldOptions>
+      <Hint>Choose how game outputs are sent. Select Network Outputs to configure its settings.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>

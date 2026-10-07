@@ -1,0 +1,7 @@
+{
+  "game_name": "Cadillacs and Dinosaurs (bootleg with PIC16C57, set 2)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select dinopic2.zip. If ROM files are missing, also add dino.zip to the same folder. This game is not supported yet."
+}

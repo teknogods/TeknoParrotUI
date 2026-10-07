@@ -1,0 +1,7 @@
+{
+  "game_name": "Dinosaur Hunter (Chinese bootleg of Cadillacs and Dinosaurs)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select dinohunt.zip. If ROM files are missing, also add dino.zip to the same folder."
+}

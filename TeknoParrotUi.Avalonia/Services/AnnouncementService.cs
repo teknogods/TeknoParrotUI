@@ -1,5 +1,7 @@
 #nullable disable
 using System;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
@@ -9,25 +11,40 @@ using System.Threading.Tasks;
 
 namespace TeknoParrotUi.Avalonia.Services
 {
+    public sealed class NewsArticle
+    {
+        public Uri PageUrl { get; }
+        public DateTimeOffset? PublishedAt { get; }
+        public NewsArticle(Uri pageUrl, DateTimeOffset? publishedAt)
+        {
+            PageUrl = pageUrl;
+            PublishedAt = publishedAt;
+        }
+    }
+
     internal sealed class Announcement
     {
         public string Content { get; }
-        public Uri PageUrl { get; }
-
+        public Uri PageUrl => Articles[0].PageUrl;
+        public IReadOnlyList<NewsArticle> Articles { get; }
         public Announcement(string content, Uri pageUrl)
+            : this(content, new[] { new NewsArticle(pageUrl, null) }) { }
+        public Announcement(string content, IReadOnlyList<NewsArticle> articles)
         {
             Content = content;
-            PageUrl = pageUrl;
+            Articles = articles;
         }
     }
 
     internal static class AnnouncementService
     {
-        internal const int MaximumContentBytes = 16 * 1024;
+        internal const int MaximumContentBytes = 1024 * 1024;
         private const string NewsPostPrefix = "https://www.patreon.com/TeknoParrotTeam/posts/";
 
         internal static bool ShouldCheckAtStartup(string[] arguments, bool debuggerAttached)
         {
+            if (arguments != null && arguments.Contains("--news-test"))
+                return true;
 #if DEBUG
             return false;
 #else
@@ -58,22 +75,24 @@ namespace TeknoParrotUi.Avalonia.Services
 
             try
             {
-                using (var request = new HttpRequestMessage(HttpMethod.Get, sourceUri))
+                // Old saved settings keep the single-link URL. Prefer its history endpoint,
+                // falling back only when an older website has not implemented it yet.
+                if (sourceUri.AbsolutePath.EndsWith("/Home/NewsPostUrl", StringComparison.OrdinalIgnoreCase))
                 {
-                    request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
-                    using (var response = await client.SendAsync(request, cancellationToken).ConfigureAwait(false))
+                    var historyUri = new UriBuilder(sourceUri);
+                    historyUri.Path = sourceUri.AbsolutePath.Substring(0, sourceUri.AbsolutePath.Length - "NewsPostUrl".Length) + "NewsPostArticles";
+                    using (var historyResponse = await FetchAsync(client, historyUri.Uri, cancellationToken).ConfigureAwait(false))
                     {
-                        if (!response.IsSuccessStatusCode || response.Content == null)
+                        if (historyResponse.IsSuccessStatusCode)
+                            return ParseContent(await historyResponse.Content.ReadAsStringAsync().ConfigureAwait(false), previousContent, cancellationToken);
+                        if (historyResponse.StatusCode != System.Net.HttpStatusCode.NotFound)
                             return null;
-
-                        var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                        if (cancellationToken.IsCancellationRequested || content.Length > MaximumContentBytes ||
-                            string.Equals(content, previousContent, StringComparison.Ordinal) ||
-                            !TryGetNewsPostUrl(content, out var pageUrl))
-                            return null;
-
-                        return new Announcement(content, pageUrl);
                     }
+                }
+                using (var response = await FetchAsync(client, sourceUri, cancellationToken).ConfigureAwait(false))
+                {
+                    if (!response.IsSuccessStatusCode || response.Content == null) return null;
+                    return ParseContent(await response.Content.ReadAsStringAsync().ConfigureAwait(false), previousContent, cancellationToken);
                 }
             }
             catch (HttpRequestException ex)
@@ -86,6 +105,49 @@ namespace TeknoParrotUi.Avalonia.Services
             }
 
             return null;
+        }
+
+        private static async Task<HttpResponseMessage> FetchAsync(HttpClient client, Uri uri, CancellationToken cancellationToken)
+        {
+            using (var request = new HttpRequestMessage(HttpMethod.Get, uri))
+            {
+                request.Headers.CacheControl = new CacheControlHeaderValue { NoCache = true, NoStore = true };
+                return await client.SendAsync(request, cancellationToken).ConfigureAwait(false);
+            }
+        }
+
+        internal static Announcement ParseContent(string content, string previousContent, CancellationToken cancellationToken)
+        {
+            if (cancellationToken.IsCancellationRequested || string.IsNullOrWhiteSpace(content) || content.Length > MaximumContentBytes)
+                return null;
+            var articles = new List<NewsArticle>();
+            if (TryGetNewsPostUrl(content, out var legacyUrl))
+                articles.Add(new NewsArticle(legacyUrl, null));
+            else
+            {
+                try
+                {
+                    var json = JArray.Parse(content);
+                    foreach (var item in json)
+                    {
+                        if (!(item is JObject article) ||
+                            !TryGetNewsPostUrl((string)article["url"], out var url) ||
+                            !DateTimeOffset.TryParse((string)article["publishedAt"], System.Globalization.CultureInfo.InvariantCulture,
+                                System.Globalization.DateTimeStyles.AssumeUniversal, out var date))
+                            return null;
+                        articles.Add(new NewsArticle(url, date));
+                    }
+                    articles = articles.OrderByDescending(article => article.PublishedAt).ToList();
+                }
+                catch (Exception ex) when (ex is Newtonsoft.Json.JsonException || ex is ArgumentException || ex is InvalidCastException)
+                {
+                    return null;
+                }
+            }
+            if (articles.Count == 0 || string.Equals(articles[0].PageUrl.AbsoluteUri,
+                previousContent?.Trim(), StringComparison.Ordinal)) return null;
+            // Remember the newest URL, so adding/editing history never reopens an already seen article.
+            return new Announcement(articles[0].PageUrl.AbsoluteUri, articles.AsReadOnly());
         }
 
         internal static bool TryGetNewsPostUrl(string text, out Uri uri)

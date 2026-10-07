@@ -1,7 +1,13 @@
 {
-  "game_name": "Dirt Dash (World, DT2 Ver.C)",
+  "game_name": "Dirt Dash",
   "game_genre": "Racing",
   "icon_name": "",
   "platform": "Namco Super System 22",
-  "general_issues": "User-supplied merged ROM ZIP required. "
+  "general_issues": "User-supplied merged ROM ZIP required. Select Game Revision in Game Settings; the merged dirtdash.zip must contain that revision.",
+  "supported_versions": [
+    "World, DT2 Ver.C",
+    "World, DT2 Ver.A",
+    "World, DT2 Ver.B",
+    "Japan, DT1 Ver.A"
+  ]
 }

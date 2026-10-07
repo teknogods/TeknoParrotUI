@@ -1,0 +1,7 @@
+{
+  "game_name": "Capcom Sports Club",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select csclub.zip. Keep qsound.zip in the same folder."
+}

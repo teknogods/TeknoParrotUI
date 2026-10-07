@@ -1,0 +1,7 @@
+{
+  "game_name": "Samurai Shodown V / Samurai Spirits Zero (bootleg)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select samsho5b.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add samsho5.zip to the same folder."
+}

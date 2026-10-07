@@ -1,0 +1,7 @@
+{
+  "game_name": "Saulabi Spirits / Jin Saulabi Tu Hon (Korean release of Samurai Shodown II, set 1)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select samsho2k.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add samsho2.zip to the same folder."
+}

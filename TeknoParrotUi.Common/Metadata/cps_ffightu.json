@@ -1,0 +1,7 @@
+{
+  "game_name": "Final Fight (USA, set 1)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select ffightu.zip. If ROM files are missing, also add ffight.zip to the same folder."
+}

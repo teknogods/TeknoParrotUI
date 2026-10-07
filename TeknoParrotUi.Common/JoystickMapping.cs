@@ -258,7 +258,19 @@ namespace TeknoParrotUi.Common
         Card4,
         TPSystem1,
         TPSystem2,
-        TPSystem3
+        TPSystem3,
+        TPSystem4,
+        TPSystem5,
+        TPSystem6,
+        TPSystem7,
+        TPSystem8,
+        ChatQuick1,
+        ChatQuick2,
+        ChatQuick3,
+        ChatQuick4,
+        ChatPushToTalk,
+        ChatVoiceMode,
+        P3Trackball
     }
 
     public enum RotaryInputMode

@@ -1,0 +1,7 @@
+{
+  "game_name": "King of the Monsters (set 2)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select kotmh.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add kotm.zip to the same folder."
+}

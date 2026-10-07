@@ -3,7 +3,7 @@
 	<GamePath />
 	<GamePath2 />
 	<EmulationProfile>TeknoZeus</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>5</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoZeus</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -195,6 +195,13 @@
 			<FieldType>Slider</FieldType>
 			<FieldMin>1</FieldMin>
 			<FieldMax>127</FieldMax>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Input</CategoryName>
+			<FieldName>Enable Keyboard Numpad</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Use the PC numpad as the cabinet keypad alongside your bindings: 0-9, * for star and / for hash. Useful with XInput, which cannot bind keyboard keys. Disabled in VR, where the numpad adjusts the screen.</Hint>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>

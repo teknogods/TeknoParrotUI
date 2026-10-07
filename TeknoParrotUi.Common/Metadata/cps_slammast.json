@@ -1,0 +1,7 @@
+{
+  "game_name": "Saturday Night Slam Masters",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select slammast.zip. Keep qsound.zip in the same folder."
+}

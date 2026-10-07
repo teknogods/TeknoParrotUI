@@ -1,0 +1,7 @@
+{
+  "game_name": "Soccer Brawl (NGH-031)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select socbrawlh.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add socbrawl.zip to the same folder."
+}

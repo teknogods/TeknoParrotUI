@@ -1,0 +1,7 @@
+{
+  "game_name": "Ninja Combat (NGH-009)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select ncombath.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add ncombat.zip to the same folder."
+}

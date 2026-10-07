@@ -25,14 +25,20 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _invertX = false;
         private bool _invertY = false;
 
-        private static short _currentDeltaX;
-        private static short _currentDeltaY;
+        private static readonly short[] _currentDeltaX = new short[3];
+        private static readonly short[] _currentDeltaY = new short[3];
         private readonly object _stateLock = new object();
         private const int MaxShortValue = 32767;
         private const int MinShortValue = -32768;
-        private MemoryMappedFile _mmf;
-        private MemoryMappedViewAccessor _accessor;
-        internal bool HasOpenSharedMemory => _mmf != null || _accessor != null;
+        private static readonly string[] SharedMemoryNames =
+        {
+            "RawInputTrackballSharedMemory",
+            "RawInputTrackballSharedMemory2",
+            "RawInputTrackballSharedMemory3"
+        };
+        private readonly MemoryMappedFile[] _mmf = new MemoryMappedFile[3];
+        private readonly MemoryMappedViewAccessor[] _accessor = new MemoryMappedViewAccessor[3];
+        internal bool HasOpenSharedMemory => _mmf.Any(x => x != null) || _accessor.Any(x => x != null);
 
         [StructLayout(LayoutKind.Sequential)]
         private struct RECT
@@ -78,15 +84,22 @@ namespace TeknoParrotUi.Common.InputListening
         public InputListenerRawInputTrackball()
         {
             _hookedWindows = File.Exists("HookedWindows.txt") ? File.ReadAllLines("HookedWindows.txt").ToList() : new List<string>();
-            _mmf = MemoryMappedFile.CreateOrOpen("RawInputTrackballSharedMemory", 12);
-            _accessor = _mmf.CreateViewAccessor();
-            _accessor.Write(0, 0); // deltaX
-            _accessor.Write(4, 0); // deltaY
-            _accessor.Write(8, 0); // reset flag
+            for (var player = 0; player < SharedMemoryNames.Length; ++player)
+            {
+                _mmf[player] = MemoryMappedFile.CreateOrOpen(SharedMemoryNames[player], 12);
+                _accessor[player] = _mmf[player].CreateViewAccessor();
+                _accessor[player].Write(0, 0);
+                _accessor[player].Write(4, 0);
+                _accessor[player].Write(8, 0);
+            }
         }
 
         private bool isHookableWindow(string windowTitle)
         {
+            if (_gameProfile?.EmulationProfile == EmulationProfile.TeknoMVS && windowTitle.StartsWith("TeknoMVS", StringComparison.Ordinal)) return true;
+            if (_gameProfile?.EmulationProfile == EmulationProfile.TeknoCPS && windowTitle.StartsWith("TeknoCPS", StringComparison.Ordinal)) return true;
+            if (_gameProfile?.EmulationProfile == EmulationProfile.TeknoSS32 && windowTitle.StartsWith("TeknoSS32", StringComparison.Ordinal)) return true;
+            if (_gameProfile?.EmulationProfile == EmulationProfile.TeknoS22 && windowTitle.StartsWith("TeknoS22", StringComparison.Ordinal)) return true;
             for (int i = 0; i < _hookedWindows.Count; i++)
             {
                 if (windowTitle == _hookedWindows[i])
@@ -119,6 +132,14 @@ namespace TeknoParrotUi.Common.InputListening
             // Reset all class members here!
             _joystickButtons = joystickButtons.Where(x => x?.RawInputButton != null).ToList(); // Only configured buttons
             _gameProfile = gameProfile;
+            if (UsesS22Counters)
+            {
+                lock (_stateLock)
+                {
+                    _accessor[0].Write(0, 0u);
+                    _accessor[0].Write(4, 0u);
+                }
+            }
 
             _windowFound = false;
             _windowHandle = IntPtr.Zero;
@@ -270,7 +291,7 @@ namespace TeknoParrotUi.Common.InputListening
 
                             if (!mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveAbsolute))
                             {
-                                foreach (var trackball in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1Trackball || btn.InputMapping == InputMapping.P2Trackball)))
+                                foreach (var trackball in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1Trackball || btn.InputMapping == InputMapping.P2Trackball || btn.InputMapping == InputMapping.P3Trackball)))
                                 {
                                     HandleRawInputTrackball(trackball, mouse.Mouse.LastX, mouse.Mouse.LastY);
                                 }
@@ -591,13 +612,25 @@ namespace TeknoParrotUi.Common.InputListening
             }
         }
 
+        private static bool UsesS22Counters => _gameProfile?.EmulatorType == EmulatorType.TeknoS22 &&
+            (_gameProfile.ProfileName == "adillor" || _gameProfile.ProfileName == "adillorj");
+
         private void HandleRawInputTrackball(JoystickButtons joystickButton, int deltaX, int deltaY)
         {
+            var player = joystickButton.InputMapping == InputMapping.P3Trackball ? 2 :
+                joystickButton.InputMapping == InputMapping.P2Trackball ? 1 : 0;
+            var accessor = _accessor[player];
             lock (_stateLock)
             {
                 int signedDeltaX = _invertX ? -deltaX : deltaX;
                 int signedDeltaY = _invertY ? -deltaY : deltaY;
-                int resetFlag = _accessor.ReadInt32(8);
+                if (UsesS22Counters)
+                {
+                    accessor.Write(0, unchecked(accessor.ReadUInt32(0) + (uint)signedDeltaX));
+                    accessor.Write(4, unchecked(accessor.ReadUInt32(4) + (uint)signedDeltaY));
+                    return;
+                }
+                int resetFlag = accessor.ReadInt32(8);
 
                 if (resetFlag == 1)
                 {
@@ -605,25 +638,27 @@ namespace TeknoParrotUi.Common.InputListening
                     // Game has read the accumulated delta, so we can reset and start over
                     // Note: we do also clear the delta from memory if the game does it, to get rid of leftover deltas
                     // Although we could also just read the reset flag on the game to see if there has been an update.
-                    _currentDeltaX = 0;
-                    _currentDeltaY = 0;
-                    _accessor.Write(8, 0);
+                    _currentDeltaX[player] = 0;
+                    _currentDeltaY[player] = 0;
+                    accessor.Write(8, 0);
                 }
 
-                _currentDeltaX += (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaX));
-                _currentDeltaY += (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaY));
-                //Trace.WriteLine($"DeltaX: {_currentDeltaX}, DeltaY: {_currentDeltaY}");
-                _accessor.Write(0, _currentDeltaX);
-                _accessor.Write(4, _currentDeltaY);
+                _currentDeltaX[player] += (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaX));
+                _currentDeltaY[player] += (short)Math.Max(MinShortValue, Math.Min(MaxShortValue, signedDeltaY));
+                accessor.Write(0, _currentDeltaX[player]);
+                accessor.Write(4, _currentDeltaY[player]);
             }
         }
 
         public void Dispose()
         {
-            _accessor?.Dispose();
-            _mmf?.Dispose();
-            _accessor = null;
-            _mmf = null;
+            for (var player = 0; player < SharedMemoryNames.Length; ++player)
+            {
+                _accessor[player]?.Dispose();
+                _mmf[player]?.Dispose();
+                _accessor[player] = null;
+                _mmf[player] = null;
+            }
             _gameProfile = null;
             _joystickButtons = null;
         }

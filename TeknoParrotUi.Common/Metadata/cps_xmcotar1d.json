@@ -1,0 +1,7 @@
+{
+  "game_name": "X-Men: Children of the Atom (Europe 950105 Phoenix Edition) (bootleg)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select xmcotar1d.zip. If ROM files are missing, also add xmcota.zip to the same folder. Keep qsound.zip in the same folder."
+}

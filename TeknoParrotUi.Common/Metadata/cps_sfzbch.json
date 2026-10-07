@@ -1,0 +1,7 @@
+{
+  "game_name": "Street Fighter Zero (CPS Changer, Brazil 950727)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS Changer",
+  "general_issues": "Select sfzbch.zip. If ROM files are missing, also add sfzch.zip to the same folder."
+}

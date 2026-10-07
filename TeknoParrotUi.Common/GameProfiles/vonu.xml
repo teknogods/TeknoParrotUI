@@ -6,15 +6,26 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>11</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>von.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
   <Patreon>true</Patreon>
-  <DevOnly>true</DevOnly>
+  <DevOnly>false</DevOnly>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Version</FieldName>
+      <FieldValue>vonu</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>vonu</string>
+        <string>von</string>
+      </FieldOptions>
+      <Hint>vonu: Twin (USA, Revision B); von: Twin (Export). Both use the merged von.zip archive. Each version uses separate saves.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
@@ -129,7 +140,14 @@
       <FieldName>Enable LAN</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>Viper-style local multicast; no relay process or host address. Enable linked play in the game service menu.</Hint>
+      <Hint>Viper-style local multicast; no relay process or host address. The game's own link settings follow Cabinet Number and Cabinet Count.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Set Game Link Settings</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Sets the link options in the game's test menu for you: master or slave and the car or cabinet number from Cabinet Number when LAN or TPOnline is used, and standalone (link off) otherwise, so the game can always be played alone. Turn off to keep the settings made in the game's test menu.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
@@ -146,14 +164,8 @@
       <FieldOptions>
         <string>1</string>
         <string>2</string>
-        <string>3</string>
-        <string>4</string>
-        <string>5</string>
-        <string>6</string>
-        <string>7</string>
-        <string>8</string>
       </FieldOptions>
-      <Hint>Unique number from 1 to Cabinet Count. Cabinet 1 is master; the others are slaves.</Hint>
+      <Hint>Unique number from 1 to Cabinet Count. Cabinet 1 is master; the others are slaves. This game links up to 2 cabinets.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
@@ -162,14 +174,8 @@
       <FieldType>Dropdown</FieldType>
       <FieldOptions>
         <string>2</string>
-        <string>3</string>
-        <string>4</string>
-        <string>5</string>
-        <string>6</string>
-        <string>7</string>
-        <string>8</string>
       </FieldOptions>
-      <Hint>Same count on every cabinet. All cabinets must be present before the ring starts; game limits still apply.</Hint>
+      <Hint>Same count on every cabinet, up to 2 for this game. All cabinets must be present before the ring starts.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
@@ -184,6 +190,72 @@
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
       <Hint>Print LAN or TPOnline peer and frame statistics every five seconds. TPO lobby launches automatically use direct peers and override the LAN settings.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Widescreen</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Experimental 16:9 view with a wider 3D render target and centered 4:3 HUD. Desktop only; ignored when VR is enabled. Some scenes may have missing side geometry or menu layout issues.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable Submission</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Submit completed arcade runs (one credit, no versus) to the TeknoParrot.com high scores. Requires your Score Submission ID in Settings.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable GUI</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable Capture</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>Enable YouTube Upload</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>YouTube Upload Customization</FieldName>
+      <FieldValue>Confirm Before Upload</FieldValue>
+      <FieldType>DropdownIndex</FieldType>
+      <FieldOptions>
+        <string>Confirm Before Upload</string>
+        <string>Always Upload</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>YouTube Upload Browser</FieldName>
+      <FieldValue>Chrome</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Chrome</string>
+        <string>Firefox</string>
+        <string>Edge</string>
+        <string>Opera</string>
+        <string>Brave</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Score</CategoryName>
+      <FieldName>YouTube Upload Privacy</FieldName>
+      <FieldValue>Public</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Public</string>
+        <string>Unlisted</string>
+        <string>Private</string>
+      </FieldOptions>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

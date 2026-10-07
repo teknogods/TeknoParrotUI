@@ -39,6 +39,7 @@ namespace InputMethodAudit
                 user.LinuxOk = false;
                 user.GamePath = "user-game-path";
                 user.WineRunnerPath = "user-wine";
+                user.ProtonVersion = "user-proton";
                 user.ConfigValues[0].FieldValue = "1";
                 JoystickHelper.SerializeGameProfile(stock,
                     Path.Combine("GameProfiles", "migration.xml"));
@@ -51,6 +52,7 @@ namespace InputMethodAudit
                 Require(migrated.GameProfileRevision == 2, "stock revision retained");
                 Require(migrated.GamePath == "user-game-path", "game path migrated");
                 Require(migrated.WineRunnerPath == "user-wine", "2.0 runner preference migrated");
+                Require(migrated.ProtonVersion == "user-proton", "2.0 Proton version preference migrated");
                 Require(migrated.ConfigValues.Single().FieldValue == "1", "setting migrated");
                 Require(migrated.LinuxOk, "stock Linux compatibility retained");
                 Require(migrated.GamescopeGameWindowCompatibility ==

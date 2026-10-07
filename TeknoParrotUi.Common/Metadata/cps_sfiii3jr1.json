@@ -1,0 +1,7 @@
+{
+  "game_name": "Street Fighter III 3rd Strike: Fight for the Future (Japan 990512)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS3",
+  "general_issues": "Select sfiii3jr1.zip. If ROM files are missing, also add sfiii3.zip to the same folder. CD image: cap-33s-1.chd. Set CD Image Folder if stored elsewhere."
+}

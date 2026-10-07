@@ -1,0 +1,7 @@
+{
+  "game_name": "Ghouls'n Ghosts (USA)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select ghoulsu.zip. If ROM files are missing, also add ghouls.zip to the same folder."
+}

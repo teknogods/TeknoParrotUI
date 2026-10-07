@@ -1,0 +1,7 @@
+{
+  "game_name": "Daimakaimura (Japan Resale Ver.)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select daimakair.zip. If ROM files are missing, also add ghouls.zip to the same folder."
+}

@@ -190,7 +190,7 @@ public partial class JoystickSetupView : UserControl
         // Lightgun / trackball rows are a device dropdown, not a key capture (classic UI)
         if (binding.InputMapping is InputMapping.P1LightGun or InputMapping.P2LightGun
             or InputMapping.P3LightGun or InputMapping.P4LightGun
-            or InputMapping.P1Trackball or InputMapping.P2Trackball)
+            or InputMapping.P1Trackball or InputMapping.P2Trackball or InputMapping.P3Trackball)
         {
             if (_api is InputApi.RawInput or InputApi.RawInputTrackball ||
                 (_api == InputApi.MergedInput && (_mergedIncludesRawInput || _mergedIncludesRawInputTrackball)))

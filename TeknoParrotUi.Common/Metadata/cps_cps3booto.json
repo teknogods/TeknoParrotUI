@@ -1,0 +1,7 @@
+{
+  "game_name": "CPS3 Multi-game bootleg for HD6417095 type SH2 (older)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS3",
+  "general_issues": "Select cps3booto.zip. If ROM files are missing, also add cps3boot.zip to the same folder. CD image: no-battery_multi-game_bootleg_cd_for_hd6417095_sh2.chd. Set CD Image Folder if stored elsewhere."
+}

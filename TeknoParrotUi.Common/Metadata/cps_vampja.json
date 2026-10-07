@@ -1,0 +1,7 @@
+{
+  "game_name": "Vampire: The Night Warriors (Japan 940705 alt)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select vampja.zip. If ROM files are missing, also add dstlk.zip to the same folder. Keep qsound.zip in the same folder."
+}

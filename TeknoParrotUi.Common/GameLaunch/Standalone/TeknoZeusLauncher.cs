@@ -92,6 +92,7 @@ namespace TeknoParrotUi.Common.GameLaunch
                 if (Enabled("Use Bezel") && Setting("DisplayMode", "Fullscreen") == "Fullscreen")
                     parameters.Add("--bezels");
             }
+            if (Enabled("Enable Keyboard Numpad")) parameters.Add("--keyboard-keypad");
             if (Enabled("Mute Audio")) parameters.Add("--no-audio");
             if (Enabled("Prefer High Performance", true)) parameters.Add("--gpu-high-performance");
             if (Enabled("Load Texture Packs"))

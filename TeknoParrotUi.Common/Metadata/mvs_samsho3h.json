@@ -1,0 +1,7 @@
+{
+  "game_name": "Samurai Shodown III / Samurai Spirits - Zankurou Musouken (NGH-087)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select samsho3h.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add samsho3.zip to the same folder."
+}

@@ -1,0 +1,7 @@
+{
+  "game_name": "Burning Fight (prototype, near final, ver 23.3, 910326)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select burningfpa.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add burningf.zip to the same folder."
+}

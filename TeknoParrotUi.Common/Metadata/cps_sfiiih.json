@@ -1,0 +1,7 @@
+{
+  "game_name": "Street Fighter III: New Generation (Hispanic 970204)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS3",
+  "general_issues": "Select sfiiih.zip. If ROM files are missing, also add sfiii.zip to the same folder. CD image: cap-sf3-3.chd. Set CD Image Folder if stored elsewhere."
+}

@@ -3,7 +3,7 @@
 	<GamePath />
 	<GamePath2 />
 	<EmulationProfile>TeknoZeus</EmulationProfile>
-	<GameProfileRevision>9</GameProfileRevision>
+	<GameProfileRevision>11</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoZeus</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -17,6 +17,7 @@
 	<ExecutableName>crusnexo.zip</ExecutableName>
 	<Patreon>true</Patreon>
 	<DevOnly>false</DevOnly>
+	<HasTpoSupport>true</HasTpoSupport>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -275,6 +276,13 @@
 			<FieldMin>1</FieldMin>
 			<FieldMax>255</FieldMax>
 		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Input</CategoryName>
+			<FieldName>Enable Keyboard Numpad</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Use the PC numpad as the cabinet keypad alongside your bindings: 0-9, * for star and / for hash. Useful with XInput, which cannot bind keyboard keys. Disabled in VR, where the numpad adjusts the screen.</Hint>
+		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>
@@ -336,6 +344,54 @@
 		<JoystickButtons>
 			<ButtonName>Gear 4</ButtonName>
 			<InputMapping>P2Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Keypad 0</ButtonName>
+			<InputMapping>ExtensionOne11</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Keypad 1</ButtonName>
+			<InputMapping>ExtensionOne12</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Keypad 2</ButtonName>
+			<InputMapping>ExtensionOne13</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Keypad 3</ButtonName>
+			<InputMapping>ExtensionOne14</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Keypad 4</ButtonName>
+			<InputMapping>ExtensionOne15</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Keypad 5</ButtonName>
+			<InputMapping>ExtensionOne16</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Keypad 6</ButtonName>
+			<InputMapping>ExtensionOne17</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Keypad 7</ButtonName>
+			<InputMapping>ExtensionOne18</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Keypad 8</ButtonName>
+			<InputMapping>ExtensionOne21</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Keypad 9</ButtonName>
+			<InputMapping>ExtensionOne22</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Keypad Star</ButtonName>
+			<InputMapping>ExtensionOne23</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Keypad Hash</ButtonName>
+			<InputMapping>ExtensionOne24</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>Wheel Axis</ButtonName>

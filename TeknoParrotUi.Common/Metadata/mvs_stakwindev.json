@@ -1,0 +1,7 @@
+{
+  "game_name": "Stakes Winner / Stakes Winner - GI Kinzen Seiha e no Michi (early development board)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select stakwindev.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add stakwin.zip to the same folder. This game is not supported yet."
+}

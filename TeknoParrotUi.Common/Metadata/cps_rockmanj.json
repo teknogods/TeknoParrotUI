@@ -1,0 +1,7 @@
+{
+  "game_name": "Rockman: The Power Battle (CPS1, Japan 950922)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select rockmanj.zip. If ROM files are missing, also add megaman.zip to the same folder."
+}

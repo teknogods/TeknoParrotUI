@@ -1,0 +1,7 @@
+{
+  "game_name": "Warriors of Fate (USA 921031)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select wofu.zip. If ROM files are missing, also add wof.zip to the same folder. Keep qsound.zip in the same folder."
+}

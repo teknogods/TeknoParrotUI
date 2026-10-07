@@ -7,6 +7,15 @@ internal static class GameErrorFormatter
 {
     public static string Format(EmulatorType emulator, int exitCode, string? diagnostics)
     {
+        if (emulator is EmulatorType.TeknoModel2 or EmulatorType.TeknoModel3 &&
+            exitCode is 3820 or 3821 or 3822 or 3823 or 7688)
+            return WithDiagnostics(Loc.T("GameError" + exitCode), exitCode, diagnostics);
+        if (exitCode == 0x05650009 && emulator is EmulatorType.TeknoViper or EmulatorType.TeknoVegas or EmulatorType.TeknoModel3)
+            return Loc.T("GameErrorViperVegasPlayerDisconnected");
+        if (emulator == EmulatorType.TeknoModel3 && exitCode == 0x05650006)
+            return WithDiagnostics("TeknoModel3 could not start or keep its LAN/TPOnline cabinet link.", exitCode, diagnostics);
+        if (emulator == EmulatorType.TeknoModel3 && exitCode == 5)
+            return WithDiagnostics("TeknoModel3 could not authorize the stored TeknoParrot serial.", exitCode, diagnostics);
         if (emulator is EmulatorType.TeknoViper or EmulatorType.TeknoVegas)
         {
             var key = exitCode switch
@@ -38,7 +47,10 @@ internal static class GameErrorFormatter
 
         var message = emulator switch
         {
-            EmulatorType.TeknoTPJC or EmulatorType.TeknoS11 => $"{emulator} exited with an error.",
+            EmulatorType.TeknoTPJC or EmulatorType.TeknoS11 or EmulatorType.TeknoHDrive or EmulatorType.TeknoMagic => $"{emulator} exited with an error.",
+            EmulatorType.TeknoMVS => "TeknoMVS could not launch or continue. Check the selected ROM ZIP, parent archives and BIOS.",
+            EmulatorType.TeknoCPS => "TeknoCPS could not launch or continue. Check the ROM ZIP, parent archives, keys, required CD images and sound firmware.",
+            EmulatorType.TeknoSS32 => "TeknoSS32 could not launch or continue. Check the ROM ZIP, parent archives and required CHDs.",
             EmulatorType.TeknoGClub => exitCode == 5
                 ? "TeknoGClub could not authorize the stored TeknoParrot serial."
                 : "TeknoGClub could not launch or continue. Check the selected ROM ZIP and emulator settings.",
@@ -65,7 +77,7 @@ internal static class GameErrorFormatter
                 _ => "TeknoM2 could not launch or continue. Check the selected ROM ZIP, CHD and emulator settings."
             },
             EmulatorType.TeknoVUnit or EmulatorType.TeknoHornet or EmulatorType.TeknoModel1 or
-                EmulatorType.TeknoModel2 or EmulatorType.TeknoZeus or EmulatorType.TeknoHNG64 or
+                EmulatorType.TeknoModel2 or EmulatorType.TeknoModel3 or EmulatorType.TeknoZeus or EmulatorType.TeknoHNG64 or
                 EmulatorType.TeknoCobra => exitCode == 2
                     ? $"{emulator} received an invalid launch configuration."
                     : $"{emulator} could not start or exited unexpectedly.",

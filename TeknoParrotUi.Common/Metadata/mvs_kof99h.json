@@ -1,0 +1,7 @@
+{
+  "game_name": "The King of Fighters '99 - Millennium Battle (NGH-2510)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select kof99h.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add kof99.zip to the same folder."
+}

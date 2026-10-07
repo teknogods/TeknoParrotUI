@@ -20,6 +20,10 @@
                        Opacity="0.7" />
         </Grid>
         <ProgressBar Name="Progress" DockPanel.Dock="Top" Height="6" Margin="0,0,0,8" IsVisible="False" Maximum="100" />
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="12" Margin="0,0,0,8">
+            <CheckBox Name="SelectAll" Content="Select all" IsThreeState="True" Click="SelectAll_Click" />
+            <TextBlock Name="SelectedCount" VerticalAlignment="Center" />
+        </StackPanel>
         <ScrollViewer>
             <StackPanel Name="RowsPanel" Spacing="2" />
         </ScrollViewer>

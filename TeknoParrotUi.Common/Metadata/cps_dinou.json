@@ -1,0 +1,7 @@
+{
+  "game_name": "Cadillacs and Dinosaurs (USA 930201)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select dinou.zip. If ROM files are missing, also add dino.zip to the same folder. Keep qsound.zip in the same folder."
+}

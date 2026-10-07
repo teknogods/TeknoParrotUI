@@ -1,0 +1,7 @@
+{
+  "game_name": "Crouching Tiger Hidden Dragon 2003 Super Plus (hack of The King of Fighters 2001, alternate)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select ct2k3sa.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add kof2001.zip to the same folder."
+}

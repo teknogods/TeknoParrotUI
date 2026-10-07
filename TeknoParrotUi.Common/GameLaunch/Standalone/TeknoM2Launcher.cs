@@ -48,7 +48,7 @@ namespace TeknoParrotUi.Common.GameLaunch
             var executable = Path.Combine(workDir, "TeknoM2.exe");
             var args = new List<string> {
                 "--game", game, "--rom-root", Quote(rom), "--chd-root", Quote(disc),
-                "--state-dir", Quote(Path.Combine(workDir, "state")),
+                "--state-dir", Quote(Path.Combine(workDir, "state")), "--outputs",
                 "--internal-scale", Choice("Internal Resolution", "4", "1", "2", "4", "8"),
                 "--presentation-filter", Choice("Presentation Resampling", "area", "point", "linear", "bicubic", "area"),
                 "--texture-filter", Choice("Texture Filtering", "original", "original", "trilinear", "max"),

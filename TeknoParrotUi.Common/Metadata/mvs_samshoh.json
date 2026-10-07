@@ -1,0 +1,7 @@
+{
+  "game_name": "Samurai Shodown / Samurai Spirits (NGH-045)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select samshoh.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add samsho.zip to the same folder."
+}

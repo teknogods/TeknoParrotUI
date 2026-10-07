@@ -7,7 +7,7 @@
 	<ExtraParameters />
 	<TestMenuExtraParameters />
 	<EmulationProfile>TeknoVUnit</EmulationProfile>
-	<GameProfileRevision>11</GameProfileRevision>
+	<GameProfileRevision>12</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoVUnit</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -361,5 +361,5 @@
 			<InputMapping>JvsTwoP1Button6</InputMapping>
 		</JoystickButtons>
 	</JoystickButtons>
-	<HasTpoSupport>true</HasTpoSupport>
+	<HasTpoSupport>false</HasTpoSupport>
 </GameProfile>

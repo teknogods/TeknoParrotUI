@@ -37,6 +37,12 @@ namespace TeknoParrotUi.Common.GameLaunch
                 case EmulatorType.TeknoS21:
                 case EmulatorType.TeknoS11:
                 case EmulatorType.TeknoTPJC:
+                case EmulatorType.TeknoHDrive:
+                case EmulatorType.TeknoMagic:
+                case EmulatorType.TeknoModel3:
+                case EmulatorType.TeknoMVS:
+                case EmulatorType.TeknoCPS:
+                case EmulatorType.TeknoSS32:
                 case EmulatorType.TeknoZeus:
                     return true;
                 default:
@@ -65,14 +71,15 @@ namespace TeknoParrotUi.Common.GameLaunch
 
         public static bool IsWindowed(GameProfile profile)
         {
-            return profile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1") ||
+            return profile.ConfigValues.Any(x => x.FieldName == "Window Mode" && x.FieldValue == "Windowed") ||
+                   profile.ConfigValues.Any(x => x.FieldName == "Windowed" && x.FieldValue == "1") ||
                    profile.ConfigValues.Any(x => x.FieldName == "DisplayMode" && x.FieldValue == "Windowed");
         }
 
-        public static ProcessStartInfo Build(GameProfile profile, string gameLocation, Action<string> log)
+        public static ProcessStartInfo Build(GameProfile profile, string gameLocation, Action<string> log, bool isTest = false)
         {
             if (IsStandaloneEmulator(profile))
-                return TeknoViperVegasLauncher.Build(profile, gameLocation, log);
+                return TeknoViperVegasLauncher.Build(profile, gameLocation, log, isTest);
             bool windowed = IsWindowed(profile);
 
             switch (profile.EmulatorType)

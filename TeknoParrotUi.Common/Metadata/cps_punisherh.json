@@ -1,0 +1,7 @@
+{
+  "game_name": "The Punisher (Hispanic 930422)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select punisherh.zip. If ROM files are missing, also add punisher.zip to the same folder. Keep qsound.zip in the same folder."
+}

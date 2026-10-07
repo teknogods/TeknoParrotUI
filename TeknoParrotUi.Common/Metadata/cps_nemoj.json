@@ -1,0 +1,7 @@
+{
+  "game_name": "Nemo (Japan 901120, 88622B-3 ROM board)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select nemoj.zip. If ROM files are missing, also add nemo.zip to the same folder."
+}

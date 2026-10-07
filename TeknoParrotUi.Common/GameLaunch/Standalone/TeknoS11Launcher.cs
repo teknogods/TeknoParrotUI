@@ -43,7 +43,7 @@ namespace TeknoParrotUi.Common.GameLaunch
             if (crt != "none" && crt != "lottes") throw new ArgumentException("Invalid CRT shader");
             var args = new List<string> { "--set", Quote(set), "--rom-root", Quote(Path.GetDirectoryName(game)),
                 "--state-root", Quote(Path.Combine(root, "state")), "--internal-resolution", scale, "--filter", filter,
-                "--crt-shader", crt, "--rotation", rotation, "--renderer", Enabled("Enable VR") ? "openxr" : "vulkan" };
+                "--crt-shader", crt, "--rotation", rotation, "--renderer", Enabled("Enable VR") ? "openxr" : "vulkan", "--outputs" };
             if (profile.HasTwoExecutables)
             {
                 if (string.IsNullOrWhiteSpace(profile.GamePath2)) throw new ArgumentException("Select the game's CHD file.");

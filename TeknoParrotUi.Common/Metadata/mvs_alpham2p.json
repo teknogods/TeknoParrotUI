@@ -1,0 +1,7 @@
+{
+  "game_name": "Alpha Mission II / ASO II - Last Guardian (prototype)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select alpham2p.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add alpham2.zip to the same folder."
+}

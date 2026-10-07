@@ -1,0 +1,7 @@
+{
+  "game_name": "Mercs (USA 900608)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select mercsu.zip. If ROM files are missing, also add mercs.zip to the same folder."
+}

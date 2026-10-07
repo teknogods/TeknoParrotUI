@@ -1,0 +1,7 @@
+{
+  "game_name": "Battle Circuit (Japan 970319)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select batcirj.zip. If ROM files are missing, also add batcir.zip to the same folder. Keep qsound.zip in the same folder."
+}

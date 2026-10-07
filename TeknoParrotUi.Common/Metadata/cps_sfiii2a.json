@@ -1,0 +1,7 @@
+{
+  "game_name": "Street Fighter III 2nd Impact: Giant Attack (Asia 970930)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS3",
+  "general_issues": "Select sfiii2a.zip. If ROM files are missing, also add sfiii2.zip to the same folder. CD image: cap-3ga000.chd. Set CD Image Folder if stored elsewhere."
+}

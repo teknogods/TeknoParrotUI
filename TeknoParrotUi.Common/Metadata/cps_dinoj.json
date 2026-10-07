@@ -1,0 +1,7 @@
+{
+  "game_name": "Cadillacs: Kyouryuu Shin Seiki (Japan 930201)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select dinoj.zip. If ROM files are missing, also add dino.zip to the same folder. Keep qsound.zip in the same folder."
+}

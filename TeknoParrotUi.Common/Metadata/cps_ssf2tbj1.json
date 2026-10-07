@@ -1,0 +1,7 @@
+{
+  "game_name": "Super Street Fighter II: The Tournament Battle (Japan 930911)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select ssf2tbj1.zip. If ROM files are missing, also add ssf2.zip to the same folder. Keep qsound.zip in the same folder."
+}

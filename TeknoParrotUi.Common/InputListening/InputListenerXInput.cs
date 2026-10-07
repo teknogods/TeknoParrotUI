@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -24,6 +24,8 @@ namespace TeknoParrotUi.Common.InputListening
         private static double _DivideX;
         private static double _DivideY;
         private static bool GunGame = false;
+        private static readonly ushort[] HighResolutionRelativeAxisValues = new ushort[8];
+        private static bool UsesHighResolutionGunAxes => _gameProfile?.GunGame == true && _gameProfile.HighResolutionAxis;
         private static bool _invertedMouseAxis = false;
         private static bool mkdxTest = false;
         private static bool changeWmmt5GearUp = false;
@@ -314,6 +316,9 @@ namespace TeknoParrotUi.Common.InputListening
                         }
                     }
 
+                    if (UsesHighResolutionGunAxes)
+                        InitializeHighResolutionGunAxes();
+
                     if (RelativeInput)
                     {
                         RelativeAnalogXValue1p = (byte)((_maxX + _minX) / 2.0);
@@ -477,7 +482,146 @@ namespace TeknoParrotUi.Common.InputListening
             _gameProfile = null;
         }
 
+        private void InitializeHighResolutionGunAxes()
+        {
+            bool swapped = RelativeInput &&
+                (_gameProfile.EmulationProfile == EmulationProfile.LuigisMansion || !_invertedMouseAxis);
+            ushort centerX = LightGunAxisHelper.CalculatePosition(0.5, _minX, _maxX);
+            ushort centerY = LightGunAxisHelper.CalculatePosition(0.5, _minY, _maxY);
+            for (int player = 0; player < 4; player++)
+            {
+                HighResolutionRelativeAxisValues[player * 2] = centerX;
+                HighResolutionRelativeAxisValues[player * 2 + 1] = centerY;
+                LightGunAxisHelper.WriteAxis(InputCode.AnalogBytes, player * 4 + (swapped ? 2 : 0),
+                    _invertedMouseAxis ? centerX : (ushort)(ushort.MaxValue - centerX));
+                LightGunAxisHelper.WriteAxis(InputCode.AnalogBytes, player * 4 + (swapped ? 0 : 2),
+                    _invertedMouseAxis ? centerY : (ushort)(ushort.MaxValue - centerY));
+            }
+        }
+
+        private void UpdateHighResolutionRelativeAxis(int player, int index, bool isYAxis, int sensitivity)
+        {
+            if (index < 0)
+                return;
+
+            double minimum = isYAxis ? _minY : _minX;
+            double maximum = isYAxis ? _maxY : _maxX;
+            int startValue = LightGunAxisHelper.CalculatePosition(0, minimum, maximum);
+            int endValue = LightGunAxisHelper.CalculatePosition(1, minimum, maximum);
+            int minimumValue = Math.Min(startValue, endValue);
+            int maximumValue = Math.Max(startValue, endValue);
+            // Preserve the existing sensitivity's screen distance in the wider range.
+            double step = sensitivity * (endValue - startValue) / Math.Max(1.0, Math.Abs(maximum - minimum));
+            int slot = player * 2 + (isYAxis ? 1 : 0);
+            var buttons = InputCode.PlayerDigitalButtons[player];
+            bool negative = isYAxis ? buttons.RelativeUpPressed() : buttons.RelativeLeftPressed();
+            bool positive = isYAxis ? buttons.RelativeDownPressed() : buttons.RelativeRightPressed();
+            double value = HighResolutionRelativeAxisValues[slot];
+            if (negative)
+                value -= step;
+            else if (positive)
+                value += step;
+
+            ushort position = (ushort)Math.Round(Math.Max(minimumValue, Math.Min(maximumValue, value)));
+            HighResolutionRelativeAxisValues[slot] = position;
+            LightGunAxisHelper.WriteAxis(InputCode.AnalogBytes, index,
+                _invertedMouseAxis ? position : (ushort)(ushort.MaxValue - position));
+        }
+
+        private bool TryHandleHighResolutionGunAxis(JoystickButtons joystickButtons, State state, int index)
+        {
+            if (!UsesHighResolutionGunAxes)
+                return false;
+
+            int axis = (int)joystickButtons.InputMapping - (int)InputMapping.Analog0;
+            if (axis < 0 || axis > 14 || (axis & 1) != 0)
+                return false;
+            bool isXAxis = joystickButtons.AnalogType == AnalogType.AnalogJoystick;
+            if (!isXAxis && joystickButtons.AnalogType != AnalogType.AnalogJoystickY &&
+                joystickButtons.AnalogType != AnalogType.AnalogJoystickReverse)
+                return false;
+
+            var button = joystickButtons.XInputButton;
+            if (RelativeInput || button == null || button.XInputIndex != index)
+                return true;
+
+            int rawValue;
+            if (button.IsLeftThumbX)
+                rawValue = state.Gamepad.LeftThumbX;
+            else if (button.IsLeftThumbY)
+                rawValue = state.Gamepad.LeftThumbY;
+            else if (button.IsRightThumbX)
+                rawValue = state.Gamepad.RightThumbX;
+            else if (button.IsRightThumbY)
+                rawValue = state.Gamepad.RightThumbY;
+            else
+                return true;
+
+            double factor = (rawValue - (double)short.MinValue) / ushort.MaxValue;
+            bool reverse = joystickButtons.AnalogType == AnalogType.AnalogJoystickReverse;
+            if (!isXAxis && ReverseYAxis)
+            {
+                ushort reversedPosition = LightGunAxisHelper.CalculatePosition(reverse ? factor : 1 - factor, 0, 255);
+                LightGunAxisHelper.WriteAxis(InputCode.AnalogBytes, axis, reversedPosition);
+                return true;
+            }
+
+            if (reverse)
+                factor = 1 - factor;
+            ushort position = LightGunAxisHelper.CalculatePosition(factor,
+                isXAxis ? _minX : _minY, isXAxis ? _maxX : _maxY);
+            if (!_invertedMouseAxis)
+                position = (ushort)(ushort.MaxValue - position);
+            LightGunAxisHelper.WriteAxis(InputCode.AnalogBytes, axis, position);
+            return true;
+        }
+
         private void ListenRelativeAnalog(object sender, ElapsedEventArgs e)
+        {
+            if (UsesHighResolutionGunAxes)
+            {
+                UpdateHighResolutionRelativeAxis(0, AnalogXByteValue1p, false, RelativeP1Sensitivity);
+                UpdateHighResolutionRelativeAxis(0, AnalogYByteValue1p, true, RelativeP1Sensitivity);
+                UpdateHighResolutionRelativeAxis(1, AnalogXByteValue2p, false, RelativeP2Sensitivity);
+                UpdateHighResolutionRelativeAxis(1, AnalogYByteValue2p, true, RelativeP2Sensitivity);
+                UpdateHighResolutionRelativeAxis(2, AnalogXByteValue3p, false, RelativeP3Sensitivity);
+                UpdateHighResolutionRelativeAxis(2, AnalogYByteValue3p, true, RelativeP3Sensitivity);
+                UpdateHighResolutionRelativeAxis(3, AnalogXByteValue4p, false, RelativeP4Sensitivity);
+                UpdateHighResolutionRelativeAxis(3, AnalogYByteValue4p, true, RelativeP4Sensitivity);
+            }
+            else
+                ListenLegacyRelativeAnalog();
+
+            if (KillMe)
+            {
+                RelativeTimer = false;
+                Relativetimer.Stop();
+                Relativetimer.Enabled = false;
+                Relativetimer.Elapsed -= ListenRelativeAnalog;
+                AnalogXByteValue1p = -1;
+                AnalogYByteValue1p = -1;
+                AnalogXByteValue2p = -1;
+                AnalogYByteValue2p = -1;
+                AnalogXByteValue3p = -1;
+                AnalogYByteValue3p = -1;
+                AnalogXByteValue4p = -1;
+                AnalogYByteValue4p = -1;
+                RelativeAnalogXValue1p = 0;
+                RelativeAnalogYValue1p = 0;
+                RelativeAnalogXValue2p = 0;
+                RelativeAnalogYValue2p = 0;
+                RelativeAnalogXValue3p = 0;
+                RelativeAnalogYValue3p = 0;
+                RelativeAnalogXValue4p = 0;
+                RelativeAnalogYValue4p = 0;
+                RelativeP1Sensitivity = 0;
+                RelativeP2Sensitivity = 0;
+                RelativeP3Sensitivity = 0;
+                RelativeP4Sensitivity = 0;
+            }
+        }
+
+        private void ListenLegacyRelativeAnalog()
         {
             // P1
             if (AnalogXByteValue1p >= 0)
@@ -651,33 +795,6 @@ namespace TeknoParrotUi.Common.InputListening
                 }
             }
 
-            if (KillMe)
-            {
-                RelativeTimer = false;
-                Relativetimer.Stop();
-                Relativetimer.Enabled = false;
-                Relativetimer.Elapsed -= ListenRelativeAnalog;
-                AnalogXByteValue1p = -1;
-                AnalogYByteValue1p = -1;
-                AnalogXByteValue2p = -1;
-                AnalogYByteValue2p = -1;
-                AnalogXByteValue3p = -1;
-                AnalogYByteValue3p = -1;
-                AnalogXByteValue4p = -1;
-                AnalogYByteValue4p = -1;
-                RelativeAnalogXValue1p = 0;
-                RelativeAnalogYValue1p = 0;
-                RelativeAnalogXValue2p = 0;
-                RelativeAnalogYValue2p = 0;
-                RelativeAnalogXValue3p = 0;
-                RelativeAnalogYValue3p = 0;
-                RelativeAnalogXValue4p = 0;
-                RelativeAnalogYValue4p = 0;
-                RelativeP1Sensitivity = 0;
-                RelativeP2Sensitivity = 0;
-                RelativeP3Sensitivity = 0;
-                RelativeP4Sensitivity = 0;
-            }
         }
 
         private void HandleXinput(JoystickButtons joystickButtons, State state, State previousState, int index)
@@ -685,6 +802,9 @@ namespace TeknoParrotUi.Common.InputListening
             if ((KeyboardOrButtonAxis && joystickButtons.HideWithKeyboardForAxis) ||
                 (!KeyboardOrButtonAxis && joystickButtons.HideWithoutKeyboardForAxis))
                 return;
+            if (TryHandleHighResolutionGunAxis(joystickButtons, state, index))
+                return;
+
             var button = joystickButtons.XInputButton;
             switch (joystickButtons.InputMapping)
             {
@@ -1979,6 +2099,29 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.TPSystem3:
                     InputCode.TPSystem3 = DigitalHelper.GetButtonPressXinput(button, state, index);
                     break;
+                case InputMapping.TPSystem4:
+                    InputCode.TPSystem4 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.TPSystem5:
+                    InputCode.TPSystem5 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.TPSystem6:
+                    InputCode.TPSystem6 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.TPSystem7:
+                    InputCode.TPSystem7 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.TPSystem8:
+                    InputCode.TPSystem8 = DigitalHelper.GetButtonPressXinput(button, state, index);
+                    break;
+                case InputMapping.ChatQuick1:
+                case InputMapping.ChatQuick2:
+                case InputMapping.ChatQuick3:
+                case InputMapping.ChatQuick4:
+                case InputMapping.ChatPushToTalk:
+                case InputMapping.ChatVoiceMode:
+                    ChatButtonBlock.Set(joystickButtons.InputMapping, DigitalHelper.GetButtonPressXinput(button, state, index));
+                    break;
                 default:
                     break;
                     //throw new ArgumentOutOfRangeException();
@@ -2007,6 +2150,12 @@ namespace TeknoParrotUi.Common.InputListening
         {
             if (joystickButtons.XInputButton?.XInputIndex != index)
                 return null;
+            if (NamcoGameRevisions.UsesIndependentCabinetAxes(_gameProfile) &&
+                (joystickButtons.AnalogType == AnalogType.AnalogJoystickY || joystickButtons.AnalogType == AnalogType.AnalogJoystickReverse))
+            {
+                var value = AnalogHelper.CalculateWheelPosXinput(joystickButtons.XInputButton, state, false, 0, _gameProfile);
+                return value >= 254 ? (byte)0 : value <= 1 ? (byte)255 : (byte)(255 - value);
+            }
             switch (joystickButtons.AnalogType)
             {
                 case AnalogType.None:
@@ -2065,6 +2214,13 @@ namespace TeknoParrotUi.Common.InputListening
                                 if (analogPos == 1) //Due to nature of Xinput (-32768 to 32767), Value can't reach 0 otherwise here.
                                 {
                                     analogPos = 0;
+                                }
+
+                                // SS32 accepts screen coordinates: XInput thumb Y is positive upwards.
+                                if (_gameProfile.EmulationProfile == EmulationProfile.TeknoSS32)
+                                {
+                                    if (analogPos == 254) analogPos = 255;
+                                    analogPos = (byte)~analogPos;
                                 }
 
                                 analogPos = (byte)(_minY + analogPos / _DivideY);

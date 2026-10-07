@@ -44,13 +44,28 @@
                                     Cursor="Hand" Click="EmulatorLink_Click" HorizontalAlignment="Left">
                                 <TextBlock Name="EmulatorText" FontSize="12" Foreground="{DynamicResource SystemAccentColor}" />
                             </Button>
+                            <Grid Name="GameInfoGrid" ColumnDefinitions="Auto,*" RowSpacing="4" ColumnSpacing="8" />
                             <TextBlock Name="GameInfoText" Opacity="0.85" FontSize="11" TextWrapping="Wrap" />
                             <TextBlock Name="GpuStatusText" FontSize="11" TextWrapping="Wrap" />
+                            <StackPanel Name="GpuVendors" Orientation="Horizontal" Spacing="8">
+                                <TextBlock Name="GpuNvidia" FontSize="11" />
+                                <TextBlock Name="GpuAmd" FontSize="11" />
+                                <TextBlock Name="GpuIntel" FontSize="11" />
+                            </StackPanel>
                             <TextBlock Name="GamePathText" Opacity="0.6" FontSize="10" TextWrapping="Wrap" />
                         </StackPanel>
                     </Border>
                     <Button Name="BtnHighScores" Content="High Scores" HorizontalAlignment="Stretch"
                             IsVisible="False" Click="BtnHighScores_Click" />
+                    <Button Name="BtnGtOnTp" Content="GT on TP" HorizontalAlignment="Stretch"
+                            IsVisible="False" Click="BtnGtOnTp_Click" />
+                    <Button Name="BtnOnlineProfile" Content="Online profile" HorizontalAlignment="Stretch"
+                            IsVisible="False" Click="BtnOnlineProfile_Click" />
+                    <StackPanel Name="LanPanel" IsVisible="False" Spacing="6">
+                        <TextBlock Name="LanText" TextWrapping="Wrap" />
+                        <Button Name="BtnLanTogether" Content="Start together" Click="BtnLanTogether_Click" />
+                        <Button Content="Start alone" Click="BtnLaunch_Click" />
+                    </StackPanel>
                     <Button Name="BtnVerify" Content="Verify Files" HorizontalAlignment="Stretch" Click="BtnVerify_Click" />
                     <Button Name="BtnRemoveGame" Content="Remove Game" HorizontalAlignment="Stretch" Click="BtnRemoveGame_Click" />
                     <TextBlock Name="StatusText" Opacity="0.7" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0" />
@@ -58,6 +73,8 @@
             </ScrollViewer>
             <StackPanel Name="PrimaryActions" Grid.Row="1" Spacing="6" Margin="0,8,0,0">
                 <Button Name="BtnLaunch" Classes="primary" Content="▶  Launch Game" HorizontalAlignment="Stretch" Click="BtnLaunch_Click" />
+                <Button Name="BtnFriends" Content="Play with friends" IsVisible="False" HorizontalAlignment="Stretch" Click="BtnFriends_Click" />
+                <Button Name="BtnPlayOnline" Content="Play Online" IsVisible="False" HorizontalAlignment="Stretch" Click="BtnPlayOnline_Click" />
                 <Button Name="BtnTestMode" Content="Test Menu" HorizontalAlignment="Stretch" Click="BtnTestMode_Click" />
                 <Button Name="BtnGameSettings" Content="Game Settings" HorizontalAlignment="Stretch" Click="BtnGameSettings_Click" />
                 <Button Name="BtnControls" Content="Set Up Controls" HorizontalAlignment="Stretch" Click="BtnControls_Click" />

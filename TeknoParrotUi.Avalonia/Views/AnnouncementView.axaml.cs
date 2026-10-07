@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Avalonia.Automation.Peers;
 using Avalonia.Controls;
 using Avalonia.VisualTree;
@@ -11,6 +12,7 @@ namespace TeknoParrotUi.Avalonia.Views;
 public partial class AnnouncementView : UserControl
 {
     private Uri _pageUrl = null!;
+    private IReadOnlyList<NewsArticle> _articles = Array.Empty<NewsArticle>();
     private bool _loaded;
     private bool _browserAvailable = true;
 
@@ -34,6 +36,12 @@ public partial class AnnouncementView : UserControl
             // leaving the browser subtree to Android's native accessibility.
             var children = new List<AutomationPeer>();
             children.Add(CreatePeerForElement(_view.Heading));
+            if (_view.HistoryPanel.IsVisible)
+            {
+                children.Add(CreatePeerForElement(_view.NewerArticle));
+                children.Add(CreatePeerForElement(_view.ArticlePicker));
+                children.Add(CreatePeerForElement(_view.OlderArticle));
+            }
             if (_view.SupportPanel.IsVisible)
             {
                 children.Add(CreatePeerForElement(_view.SupportTitle));
@@ -73,13 +81,25 @@ public partial class AnnouncementView : UserControl
     }
 
     public AnnouncementView(Uri pageUrl, bool isSubscribed) : this() => Configure(pageUrl, isSubscribed);
+    public AnnouncementView(IReadOnlyList<NewsArticle> articles, bool isSubscribed) : this() => Configure(articles, isSubscribed);
 
     public void Configure(Uri pageUrl, bool isSubscribed)
-    {
-        if (pageUrl == null || !AnnouncementService.TryGetNewsPostUrl(pageUrl.AbsoluteUri, out _))
-            throw new ArgumentException("Only HTTPS TeknoParrotTeam Patreon post URLs are allowed.", nameof(pageUrl));
+        => Configure(new[] { new NewsArticle(pageUrl, null) }, isSubscribed);
 
-        _pageUrl = pageUrl;
+    public void Configure(IReadOnlyList<NewsArticle> articles, bool isSubscribed)
+    {
+        if (articles == null || articles.Count == 0 || articles.Any(article => article?.PageUrl == null ||
+            !AnnouncementService.TryGetNewsPostUrl(article.PageUrl.AbsoluteUri, out _)))
+            throw new ArgumentException("Only HTTPS TeknoParrotTeam Patreon post URLs are allowed.", nameof(articles));
+
+        _articles = articles;
+        _pageUrl = articles[0].PageUrl;
+        ArticlePicker.ItemsSource = articles.Select((article, index) =>
+            article.PublishedAt?.ToLocalTime().ToString("d") ?? $"Article {index + 1}").ToList();
+        HistoryPanel.IsVisible = articles.Count > 1;
+        NewerArticle.Content = Loc.T("AnnouncementNext", "Newer");
+        OlderArticle.Content = Loc.T("AnnouncementPrevious", "Older");
+        ArticlePicker.SelectedIndex = 0;
         Heading.Text = Loc.T("AnnouncementNetwork", "New TeknoParrot announcement");
         MessageText.Text = Loc.T("AnnouncementLoading", "Loading announcement...");
         RetryButton.Content = Loc.T("AnnouncementRetry", "Retry");
@@ -171,6 +191,18 @@ public partial class AnnouncementView : UserControl
     }
 
     private void Browser_NewWindowRequested(object? sender, WebViewNewWindowRequestedEventArgs e) => e.Handled = true;
+    private void ArticlePicker_SelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (ArticlePicker.SelectedIndex < 0 || ArticlePicker.SelectedIndex >= _articles.Count) return;
+        _pageUrl = _articles[ArticlePicker.SelectedIndex].PageUrl;
+        NewerArticle.IsEnabled = ArticlePicker.SelectedIndex > 0;
+        OlderArticle.IsEnabled = ArticlePicker.SelectedIndex < _articles.Count - 1;
+        if (_loaded) LoadPage();
+    }
+    private void NewerArticle_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    { if (ArticlePicker.SelectedIndex > 0) ArticlePicker.SelectedIndex--; }
+    private void OlderArticle_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    { if (ArticlePicker.SelectedIndex < _articles.Count - 1) ArticlePicker.SelectedIndex++; }
     private void Retry_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) => LoadPage();
     private void Close_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
         => CloseRequested?.Invoke(this, EventArgs.Empty);

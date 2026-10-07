@@ -8,6 +8,7 @@
     <!-- RootScale: accessibility text-size zoom set from UI Options — a layout
          transform scales fonts, icons and spacing together (CPU-cheap). -->
     <LayoutTransformControl Name="RootScale">
+    <Grid Name="ShellRoot">
     <DockPanel Background="{DynamicResource TpSurface0}">
         <!-- Header bar: flat surface + hairline divider (no more solid purple band) -->
         <Border DockPanel.Dock="Top" Background="{DynamicResource TpSurface1}"
@@ -35,7 +36,10 @@
         <!-- Status bar -->
         <Border DockPanel.Dock="Bottom" Padding="12,5" Background="{DynamicResource TpSurface1}"
                 BorderBrush="{DynamicResource TpDivider}" BorderThickness="0,1,0,0">
-            <TextBlock Name="StatusBar" FontSize="11" Foreground="{DynamicResource TpTextSecondary}" />
+            <DockPanel>
+                <Button Name="BtnOnlineAccount" DockPanel.Dock="Right" IsVisible="False" Click="NavAccount_Click" />
+                <TextBlock Name="StatusBar" FontSize="11" TextWrapping="Wrap" Foreground="{DynamicResource TpTextSecondary}" />
+            </DockPanel>
         </Border>
 
         <!-- Collapsible navigation sidebar (auto-sizes to the localized labels) -->
@@ -127,5 +131,6 @@
 
         <ContentControl Name="ContentHost" />
     </DockPanel>
+    </Grid>
     </LayoutTransformControl>
 </UserControl>

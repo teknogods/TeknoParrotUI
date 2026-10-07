@@ -25,7 +25,10 @@ namespace TeknoParrotUi.Common
         NamcoId,
         HighscoreSerial,
         MarioKartId,
-        NesysId
+        NesysId,
+        InitialD,
+        GoldenTee,
+        Kizuna,
     }
 
     [Serializable]
@@ -77,6 +80,13 @@ namespace TeknoParrotUi.Common
         public int msysType { get; set; }
         public bool InvertedMouseAxis { get; set; }
         public bool GunGame { get; set; }
+        [XmlIgnore]
+        public bool HighResolutionAxis =>
+            string.Equals(ExecutableName, "arkndd.dll", StringComparison.OrdinalIgnoreCase) ||
+            ((EmulationProfile == EmulationProfile.TeknoViper || EmulationProfile == EmulationProfile.TeknoHornet) &&
+             ExecutableName?.StartsWith("sscope", StringComparison.OrdinalIgnoreCase) == true) ||
+            (EmulationProfile == EmulationProfile.TeknoViper &&
+             string.Equals(ExecutableName, "sogeki.zip", StringComparison.OrdinalIgnoreCase));
         public bool DevOnly { get; set; }
         /// <summary>
         /// Optional Proton/Wine version pin for Linux: a packaged Proton
@@ -173,6 +183,7 @@ namespace TeknoParrotUi.Common
         public string OnlineProfileURL { get; set; } = "";
         public bool IsLegacy { get; set; } = false;
         public bool HasTpoSupport { get; set; } = false;
+        public bool HasGtOnTp { get; set; } = false;
         public bool IsTpoExclusive { get; set; } = false;
         public bool RequiresBepInEx { get; set; } = false;
         public bool LaunchMinimized { get; set; } = false;

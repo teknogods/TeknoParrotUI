@@ -21,6 +21,7 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
         private readonly ManualResetEventSlim _stopSignal = new ManualResetEventSlim(false);
         private Thread _respawner;
         private volatile bool _stopped = true;
+        private Jvs.ChatButtonBlock _chat;
 
         public void Start(GameProfile gameProfile, List<JoystickButtons> joystickButtons)
         {
@@ -30,6 +31,7 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
             _stopSignal.Reset();
             InputListenerXInput.KillMe = false;
             SDL3GamepadBackend.Acquire();
+            if (OperatingSystem.IsLinux()) _chat = Jvs.ChatButtonBlock.TryCreate(joystickButtons);
 
             // There is no game-specific mapping work to run for an empty
             // profile. The backend remains available to UI capture listeners.
@@ -93,6 +95,8 @@ namespace TeknoParrotUi.Common.InputListening.Gamepad
                     SDL3GamepadBackend.Trace($"slot worker {thread.Name} did not stop within 1 s");
             }
             _threads.Clear();
+            _chat?.Dispose();
+            _chat = null;
             // Stop shared mapper timers after requesting every slot worker to
             // exit; any worker still alive is recorded in the SDL3 trace.
             InputListenerXInput.StopTimers();

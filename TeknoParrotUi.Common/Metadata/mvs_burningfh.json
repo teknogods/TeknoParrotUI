@@ -1,0 +1,7 @@
+{
+  "game_name": "Burning Fight (NGH-018, US)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select burningfh.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add burningf.zip to the same folder."
+}

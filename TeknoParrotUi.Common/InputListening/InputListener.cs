@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using TeknoParrotUi.Common.InputListening;
 using TeknoParrotUi.Common.InputProfiles.Helpers;
+using TeknoParrotUi.Common.Jvs;
 
 namespace TeknoParrotUi.Common
 {
@@ -78,7 +79,11 @@ namespace TeknoParrotUi.Common
             {
                 // ignored
             }
-            _stopSignal.Wait();
+            using (var chat = ChatButtonBlock.TryCreate(joystickButtons))
+            {
+                while (!_stopSignal.Wait(chat != null ? 50 : 1000))
+                    chat?.Refresh();
+            }
         }
 
         private void StartWorker(ThreadStart action, string name)

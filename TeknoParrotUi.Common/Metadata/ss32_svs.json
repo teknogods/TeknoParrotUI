@@ -1,0 +1,7 @@
+{
+  "game_name": "Super Visual Soccer: Sega Cup (US, Rev A)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Sega System 32 / Multi 32",
+  "general_issues": "Select svs.zip. If ROM files are missing, also add svf.zip to the same folder."
+}

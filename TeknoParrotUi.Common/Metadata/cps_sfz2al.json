@@ -1,0 +1,7 @@
+{
+  "game_name": "Street Fighter Zero 2 Alpha",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select sfz2al.zip. Keep qsound.zip in the same folder."
+}

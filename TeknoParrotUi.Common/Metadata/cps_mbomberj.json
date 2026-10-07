@@ -1,0 +1,7 @@
+{
+  "game_name": "Muscle Bomber: The Body Explosion (Japan 930713)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select mbomberj.zip. If ROM files are missing, also add slammast.zip to the same folder. Keep qsound.zip in the same folder."
+}

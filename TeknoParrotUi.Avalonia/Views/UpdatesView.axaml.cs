@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Layout;
+using Avalonia.Input;
 using Avalonia.Threading;
+using Avalonia.VisualTree;
 using TeknoParrotUi.Avalonia.Services;
 using TeknoParrotUi.Common;
 using TeknoParrotUi.Common.Updater;
@@ -17,6 +19,7 @@ public partial class UpdatesView : UserControl
     private readonly Dictionary<string, (TextBlock local, TextBlock online, Button update)> _rows = new();
     private List<UpdateCheckResult> _pendingUpdates = new();
     private bool _busy;
+    private readonly Dictionary<string, CheckBox> _selections = new();
 
     public UpdatesView()
     {
@@ -70,7 +73,7 @@ public partial class UpdatesView : UserControl
             ? Services.Loc.T(
                 "UpdaterInstallRuntimeUpdates",
                 "Install Runtime Updates")
-            : Services.Loc.T("MainInstallUpdates", "Update All");
+            : Services.Loc.T("UpdaterInstallSelected", "Install selected updates");
         foreach (var component in _components ?? new List<UpdaterComponent>())
         {
             if (_rows.TryGetValue(component.name, out var row))
@@ -87,13 +90,26 @@ public partial class UpdatesView : UserControl
     {
         var grid = new Grid
         {
-            ColumnDefinitions = new ColumnDefinitions("*,Auto"),
+            ColumnDefinitions = new ColumnDefinitions("Auto,*,Auto"),
             RowDefinitions = new RowDefinitions("Auto,Auto,Auto"),
             ColumnSpacing = 8,
             RowSpacing = 2,
             Margin = new global::Avalonia.Thickness(0, 5, 0, 5)
         };
 
+        var selected = new CheckBox { IsEnabled = false, VerticalAlignment = VerticalAlignment.Center,
+            Margin = new global::Avalonia.Thickness(0, 0, 8, 0) };
+        _selections[component.name] = selected;
+        selected.IsCheckedChanged += (_, _) => RefreshSelection();
+        Grid.SetRowSpan(selected, 3);
+        grid.Children.Add(selected);
+        grid.PointerReleased += (_, e) =>
+        {
+            if (_busy || !selected.IsEnabled || e.InitialPressMouseButton != MouseButton.Left) return;
+            if (e.Source is Control source && (source is Button or CheckBox ||
+                source.GetVisualAncestors().Any(ancestor => ancestor is Button or CheckBox))) return;
+            selected.IsChecked = selected.IsChecked != true;
+        };
         var name = new TextBlock
         {
             Text = component.name,
@@ -130,13 +146,13 @@ public partial class UpdatesView : UserControl
             Services.Loc.T("UpdaterAvailableVersion", "Available:"),
             online);
 
-        Grid.SetColumn(name, 0);
+        Grid.SetColumn(name, 1);
         Grid.SetRow(name, 0);
-        Grid.SetColumn(localLine, 0);
+        Grid.SetColumn(localLine, 1);
         Grid.SetRow(localLine, 1);
-        Grid.SetColumn(onlineLine, 0);
+        Grid.SetColumn(onlineLine, 1);
         Grid.SetRow(onlineLine, 2);
-        Grid.SetColumn(update, 1);
+        Grid.SetColumn(update, 2);
         Grid.SetRow(update, 0);
         Grid.SetRowSpan(update, 3);
         update.VerticalAlignment = VerticalAlignment.Center;
@@ -174,6 +190,26 @@ public partial class UpdatesView : UserControl
     private async void BtnCheck_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
         await CheckForUpdatesAsync();
 
+    private void RefreshSelection()
+    {
+        var eligible = _pendingUpdates.Where(update => !OperatingSystem.IsAndroid() ||
+            update.Component.deliveryKind == UpdaterDeliveryKind.AndroidRuntimeArchive).ToList();
+        var count = eligible.Count(update => _selections[update.Component.name].IsChecked == true);
+        SelectAll.IsChecked = count == 0 ? false : count == eligible.Count ? true : null;
+        SelectedCount.Text = count + " / " + eligible.Count;
+        SelectAll.IsEnabled = !_busy && eligible.Count > 0;
+        if (!_busy) BtnUpdateAll.IsEnabled = count > 0 && HasBatchInstallUpdates();
+    }
+
+    private void SelectAll_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        var eligible = _pendingUpdates.Where(update => !OperatingSystem.IsAndroid() ||
+            update.Component.deliveryKind == UpdaterDeliveryKind.AndroidRuntimeArchive).ToList();
+        var select = eligible.Any(update => _selections[update.Component.name].IsChecked != true);
+        foreach (var update in eligible) _selections[update.Component.name].IsChecked = select;
+        RefreshSelection();
+    }
+
     /// <summary>
     /// Refreshes Android package/runtime state and release metadata. Keeping the
     /// startup check and the visible Updates page on this single path prevents
@@ -199,6 +235,9 @@ public partial class UpdatesView : UserControl
                 if (!OperatingSystem.IsAndroid())
                     component._localVersion = null;
                 var row = _rows[component.name];
+                _selections[component.name].IsEnabled = false;
+                _selections[component.name].IsChecked = false;
+                row.update.IsVisible = false;
                 row.local.Text = LocalVersionText(component);
                 row.online.Text = "checking...";
 
@@ -212,7 +251,11 @@ public partial class UpdatesView : UserControl
                     row.online.Text = result.OnlineVersion;
                     row.update.IsVisible = result.NeedsUpdate;
                     if (result.NeedsUpdate)
+                    {
                         _pendingUpdates.Add(result);
+                        _selections[component.name].IsEnabled = true;
+                        _selections[component.name].IsChecked = true;
+                    }
                 }
             }
 
@@ -220,6 +263,7 @@ public partial class UpdatesView : UserControl
                 ? "Everything is up to date."
                 : $"{_pendingUpdates.Count} update(s) available.";
             UpdateRuntimeAvailability();
+            RefreshSelection();
             return _pendingUpdates.Count;
         }
         finally
@@ -227,6 +271,7 @@ public partial class UpdatesView : UserControl
             BtnUpdateAll.IsEnabled = HasBatchInstallUpdates();
             BtnCheck.IsEnabled = true;
             _busy = false;
+            RefreshSelection();
         }
     }
 
@@ -289,10 +334,10 @@ public partial class UpdatesView : UserControl
     private async void BtnUpdateAll_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
         var updates = OperatingSystem.IsAndroid()
-            ? _pendingUpdates.Where(update =>
+            ? _pendingUpdates.Where(update => _selections[update.Component.name].IsChecked == true &&
                 update.Component.deliveryKind ==
                 UpdaterDeliveryKind.AndroidRuntimeArchive).ToList()
-            : _pendingUpdates.ToList();
+            : _pendingUpdates.Where(update => _selections[update.Component.name].IsChecked == true).ToList();
         foreach (var update in updates)
             await InstallOne(update);
     }
@@ -404,6 +449,8 @@ public partial class UpdatesView : UserControl
             row.local.Text = update.Component.localVersion;
             row.update.IsVisible = false;
             _pendingUpdates.Remove(update);
+            _selections[update.Component.name].IsChecked = false;
+            _selections[update.Component.name].IsEnabled = false;
             StatusText.Text = $"{update.Component.name} updated to {update.OnlineVersion}.";
         }
         catch (Exception ex)
@@ -417,6 +464,7 @@ public partial class UpdatesView : UserControl
             UpdateRuntimeAvailability();
             BtnUpdateAll.IsEnabled = HasBatchInstallUpdates();
             _busy = false;
+            RefreshSelection();
         }
     }
 }

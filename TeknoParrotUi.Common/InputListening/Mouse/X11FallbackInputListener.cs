@@ -43,6 +43,7 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
         private bool _isGunGame;
         private float _minX, _maxX, _minY, _maxY;
         private bool _is16Bit, _invertedMouseAxis, _isLuigisMansion, _isGunslinger;
+        private bool _isTrackballGame;
 
         private Thread _thread;
         private Thread _axisTickThread;
@@ -70,12 +71,13 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
             _maxX = gameProfile.xAxisMax;
             _minY = gameProfile.yAxisMin;
             _maxY = gameProfile.yAxisMax;
-            _is16Bit = gameProfile.Use16BitAnalog;
+            _is16Bit = gameProfile.Use16BitAnalog || gameProfile.HighResolutionAxis;
             _invertedMouseAxis = gameProfile.InvertedMouseAxis;
             _isLuigisMansion = gameProfile.EmulationProfile == EmulationProfile.LuigisMansion;
             _isGunslinger = gameProfile.EmulationProfile == EmulationProfile.GunslingerStratos3;
 
             var buttons = joystickButtons ?? new List<JoystickButtons>();
+            _isTrackballGame = buttons.Any(button => TrackballMotion.IsMapping(button.InputMapping));
             var gunMappings = buttons.Where(b => b != null &&
                 (b.InputMapping == InputMapping.P1LightGun || b.InputMapping == InputMapping.P2LightGun ||
                  b.InputMapping == InputMapping.P3LightGun || b.InputMapping == InputMapping.P4LightGun)).ToList();
@@ -204,7 +206,13 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
 
                     switch (ev.EvType)
                     {
-                        case X11Interop.XI_RawMotion when _handleMouse && _isGunGame:
+                        case X11Interop.XI_RawMotion when _handleMouse && (_isGunGame || _isTrackballGame):
+                            if (_isTrackballGame)
+                            {
+                                X11Interop.GetMotionDeltas(in raw, out double trackX, out double trackY, unaccelerated: true);
+                                TrackballMotion.Add(player, (int)Math.Round(trackX), (int)Math.Round(trackY));
+                            }
+                            if (!_isGunGame) break;
                             if (multiPointer)
                             {
                                 X11Interop.GetMotionDeltas(in raw, out double dx, out double dy);
@@ -307,6 +315,7 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
             float height = Math.Max(1, X11Interop.XDisplayHeight(display, screen));
 
             uint prevMask = 0;
+            int? previousX = null, previousY = null;
             var keymap = new byte[32];
 
             while (!_killMe)
@@ -316,6 +325,9 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
                     if (X11Interop.XQueryPointer(display, root, out _, out _,
                             out int rootX, out int rootY, out _, out _, out uint mask))
                     {
+                        if (_isTrackballGame && previousX.HasValue && previousY.HasValue)
+                            TrackballMotion.Add(0, rootX - previousX.Value, rootY - previousY.Value);
+                        previousX = rootX; previousY = rootY;
                         if (_isGunGame)
                         {
                             UpdateGunPosition(0,

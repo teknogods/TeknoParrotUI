@@ -7,7 +7,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TeknoViper</EmulationProfile>
-	<GameProfileRevision>18</GameProfileRevision>
+	<GameProfileRevision>19</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoViper</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -18,12 +18,23 @@
 	<xAxisMax>255</xAxisMax>
 	<yAxisMin>0</yAxisMin>
 	<yAxisMax>255</yAxisMax>
-	<ExecutableName>jpark3u.zip</ExecutableName>
+	<ExecutableName>jpark3.zip</ExecutableName>
 	<ExecutableName2>*.chd</ExecutableName2>
 	<HasTwoExecutables>true</HasTwoExecutables>
 	<Patreon>true</Patreon>
 	<DevOnly>false</DevOnly>
 	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ROM Set Name</FieldName>
+			<FieldValue>jpark3u</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>jpark3u</string>
+				<string>jpark3</string>
+			</FieldOptions>
+			<Hint>jpark3u = UBC; jpark3 = EBC. Both use the merged jpark3.zip ROM set and b41c02.chd in Game Path 2.</Hint>
+		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Input API</FieldName>
@@ -214,7 +225,7 @@
 			<FieldName>Use Bezel</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
-			<Hint>Put either jpark3u.png or default.png into the bezels folder in the TeknoViper folder. Only enabled in fullscreen mode.</Hint>
+			<Hint>Put jpark3u.png (UBC), jpark3.png (EBC), or default.png into the bezels folder in the TeknoViper folder. Only enabled in fullscreen mode.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Audio</CategoryName>

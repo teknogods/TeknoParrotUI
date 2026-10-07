@@ -29,14 +29,16 @@ namespace TeknoParrotUi.Common.GameLaunch
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         private static extern bool DeleteFile(string fileName);
 
-        public static ProcessStartInfo Build(GameProfile profile, string gameLocation, Action<string> log)
+        // isTest is TPUI's Test Menu launch; emulators that boot into their
+        // operator menu on request (TeknoMagic) act on it, others ignore it.
+        public static ProcessStartInfo Build(GameProfile profile, string gameLocation, Action<string> log, bool isTest = false)
         {
-            var info = BuildEmulator(profile, gameLocation, log);
+            var info = BuildEmulator(profile, gameLocation, log, isTest);
             CabinetOutputSettings.Apply(profile, info);
             return info;
         }
 
-        private static ProcessStartInfo BuildEmulator(GameProfile profile, string gameLocation, Action<string> log)
+        private static ProcessStartInfo BuildEmulator(GameProfile profile, string gameLocation, Action<string> log, bool isTest)
         {
             switch (profile.EmulatorType)
             {
@@ -46,8 +48,14 @@ namespace TeknoParrotUi.Common.GameLaunch
                     return BuildTeknoVegas(profile, gameLocation, log);
                 case EmulatorType.TeknoGClub:
                     return TeknoGClubLauncher.Build(profile, gameLocation, log);
+                case EmulatorType.TeknoSS32:
+                    return TeknoSS32Launcher.Build(profile, gameLocation, log, isTest);
+                case EmulatorType.TeknoCPS:
+                    return TeknoCPSLauncher.Build(profile, gameLocation, log, isTest);
+                case EmulatorType.TeknoMVS:
+                    return TeknoMVSLauncher.Build(profile, gameLocation, log, isTest);
                 case EmulatorType.TeknoS23:
-                    return TeknoS23Launcher.Build(profile, gameLocation, log);
+                    return TeknoS23Launcher.Build(profile, gameLocation, log, isTest);
                 case EmulatorType.TeknoS21:
                     return TeknoS21Launcher.Build(profile, gameLocation, log);
                 case EmulatorType.TeknoS22:
@@ -66,6 +74,10 @@ namespace TeknoParrotUi.Common.GameLaunch
                     return TeknoVUnitLauncher.Build(profile, gameLocation, log);
                 case EmulatorType.TeknoM2:
                     return TeknoM2Launcher.Build(profile, gameLocation, log);
+                case EmulatorType.TeknoHDrive:
+                    return TeknoHDriveLauncher.Build(profile, gameLocation, log);
+                case EmulatorType.TeknoMagic:
+                    return TeknoMagicLauncher.Build(profile, gameLocation, log, isTest);
                 case EmulatorType.TeknoTPJC:
                     return TeknoTPJCLauncher.Build(profile, gameLocation, log);
                 case EmulatorType.TeknoS11:
@@ -74,6 +86,8 @@ namespace TeknoParrotUi.Common.GameLaunch
                     return BuildTeknoViper(profile, gameLocation, log);
                 case EmulatorType.TeknoModel2:
                     return BuildTeknoModel2(profile, gameLocation, log);
+                case EmulatorType.TeknoModel3:
+                    return TeknoModel3Launcher.Build(profile, gameLocation, log);
                 case EmulatorType.TeknoModel1:
                     return BuildTeknoModel1(profile, gameLocation, log);
                 default:
@@ -117,7 +131,7 @@ namespace TeknoParrotUi.Common.GameLaunch
             var filter = Setting("Presentation Resampling", "bicubic");
             if (filter != "nearest" && filter != "linear" && filter != "bicubic" && filter != "lanczos") filter = "bicubic";
             var args = new List<string> { "--set", "a51site4", "--rom-root", Quote(Path.GetDirectoryName(rom)),
-                "--disk", Quote(disk), "--state-root", Quote(state), "--vulkan", "--filter", filter };
+                "--disk", Quote(disk), "--state-root", Quote(state), "--vulkan", "--filter", filter, "--outputs" };
             if (Setting("DisplayMode", "Fullscreen") == "Fullscreen") args.Add("--fullscreen");
             if (Enabled("Stretch to Fullscreen")) args.Add("--stretch-to-fullscreen");
             if (!Enabled("Crosshairs", true)) args.Add("--no-crosshairs");
@@ -197,18 +211,21 @@ namespace TeknoParrotUi.Common.GameLaunch
             if (Setting("DisplayMode", "Fullscreen").Equals("Fullscreen", StringComparison.OrdinalIgnoreCase))
                 parameters.Add("--fullscreen");
             if (Enabled("Stretch to Fullscreen")) parameters.Add("--stretch");
-            if (Enabled("Widescreen") && !Enabled("Enable VR") &&
-                new[] { "srallyc", "schamp", "vf2", "vf2a", "vf2b", "vf2o",
-                        "stcc", "stcca", "stccb", "stcco", "doa", "doab", "doaa", "doaab", "doaae",
-                        "daytona", "daytonase", "daytona93", "daytonas", "sgt24h",
-                        "overrevb", "overrevba", "overrev",
-                        "vcop", "vcopa", "vcop2", "hotd", "hotdo", "hotdp" }
-                    .Contains(gameId, StringComparer.OrdinalIgnoreCase))
+            if (Enabled("Widescreen") && !Enabled("Enable VR"))
                 parameters.Add("--widescreen");
             if (Enabled("Extended Draw Distance") &&
-                new[] { "daytona", "daytona93", "daytonas", "daytonase" }
+                new[] { "daytona", "daytona93", "daytonas", "daytonase",
+                        "daytonat", "daytonata", "daytonam", "daytonagtx" }
                     .Contains(gameId, StringComparer.OrdinalIgnoreCase))
                 parameters.Add("--daytona-extended-draw-distance");
+            if (Enabled("Enhance Draw Distance") &&
+                gameId.Equals("waverunr", StringComparison.OrdinalIgnoreCase))
+                parameters.Add("--enhance-draw-distance");
+            if (gameId.Equals("skytargt", StringComparison.OrdinalIgnoreCase))
+            {
+                if (Enabled("Enhanced Draw Distance")) parameters.Add("--enhance-draw-distance");
+                if (Enabled("Invert Y", true)) parameters.Add("--invert-y");
+            }
             if (Enabled("Use Bezel")) parameters.Add("--bezels");
             if (profile.GunGame)
             {
@@ -251,6 +268,9 @@ namespace TeknoParrotUi.Common.GameLaunch
             }
             if ((tpOnline || Enabled("Enable LAN")) && Enabled("Network Diagnostics", true))
                 parameters.Add("--network-diagnostics");
+            // allow people to set stuff manually in the test menu
+            if (!Enabled("Set Game Link Settings", true))
+                parameters.Add("--no-link-settings");
             var volumeSetting = Setting("Volume (%)");
             if (!string.IsNullOrWhiteSpace(volumeSetting))
             {
@@ -275,7 +295,6 @@ namespace TeknoParrotUi.Common.GameLaunch
                 ffbGain = 100;
             parameters.Add("--ffb-gain");
             parameters.Add(ffbGain.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            if (Enabled("Invert Force Feedback")) parameters.Add("--ffb-invert-x");
             parameters.Add("--ffb-spring-mode");
             var springMode = Setting("Force Feedback Spring Effect", "Spring");
             parameters.Add(springMode == "Spring using Constant Force" || springMode == "Constant Spring"
@@ -294,16 +313,42 @@ namespace TeknoParrotUi.Common.GameLaunch
                 sinePeriod = 40;
             parameters.Add("--ffb-sine-period");
             parameters.Add(sinePeriod.ToString(CultureInfo.InvariantCulture));
+            // TeknoModel2 loads Score Submission itself (there is no loader DLL).
+            var scoreSubmission = Enabled("Enable Submission");
+            if (scoreSubmission) parameters.Add("--score-submission");
             var executable = Path.Combine(workDir, "TeknoModel2.exe");
             log?.Invoke($"TeknoModel2: {gameId}, renderer=vulkan, widescreen={(parameters.Contains("--widescreen") ? "on" : "off")}");
             if (!File.Exists(executable)) log?.Invoke($"TeknoModel2 executable was not found at {executable}");
             if (!Directory.Exists(romRoot)) log?.Invoke($"TeknoModel2 ROM root was not found at {romRoot}");
-            return new ProcessStartInfo(executable, string.Join(" ", parameters))
+            var info = new ProcessStartInfo(executable, string.Join(" ", parameters))
             {
                 UseShellExecute = false,
                 WorkingDirectory = workDir,
                 RedirectStandardError = true
             };
+            if (scoreSubmission) AddScoreSubmissionEnvironment(profile, info);
+            return info;
+        }
+
+        // TeknoModel2 and TeknoModel3 have no teknoparrot.ini, so the [GlobalScore] values and the
+        // Score category ConfigurationWriter writes for the loader games reach Score Submission
+        // (loaded inside the emulator) as environment variables instead: TP_SCORE_SUBMISSION_ID,
+        // TP_SCORE_COLLAPSE_GUI_KEY and TP_SCORE_<FIELD NAME>, e.g. TP_SCORE_ENABLE_CAPTURE.
+        internal static void AddScoreSubmissionEnvironment(GameProfile profile, ProcessStartInfo info)
+        {
+            var data = Lazydata.ParrotData ?? new ParrotData();
+            info.EnvironmentVariables["TP_SCORE_SUBMISSION_ID"] = data.ScoreSubmissionID ?? "";
+            info.EnvironmentVariables["TP_SCORE_COLLAPSE_GUI_KEY"] = data.ScoreCollapseGUIKey ?? "";
+            foreach (var field in profile.ConfigValues.Where(x => x.CategoryName == "Score"))
+            {
+                var value = field.FieldType == FieldType.DropdownIndex
+                    ? field.FieldOptions.IndexOf(field.FieldValue).ToString(CultureInfo.InvariantCulture)
+                    : field.FieldValue;
+                var name = new System.Text.StringBuilder("TP_SCORE_");
+                foreach (var c in field.FieldName.ToUpperInvariant())
+                    name.Append(char.IsLetterOrDigit(c) ? c : '_');
+                info.EnvironmentVariables[name.ToString()] = value ?? "";
+            }
         }
 
         private static ProcessStartInfo BuildTeknoModel1(
@@ -407,6 +452,8 @@ namespace TeknoParrotUi.Common.GameLaunch
                 parameters.Add("--fullscreen");
             if (Enabled("Stretch to Fullscreen"))
                 parameters.Add("--stretch-to-fullscreen");
+            if (Enabled("Integer Scaling"))
+                parameters.Add("--integer-scaling");
             if (vrEnabled)
             {
                 parameters.Add("--vr");
@@ -473,15 +520,27 @@ namespace TeknoParrotUi.Common.GameLaunch
                 parameters.Add(donor);
             }
 
-            var linkRole = Setting("Link Role", "Off").ToLowerInvariant();
-            var linkServer = Setting("Link Server").Trim();
-            if ((linkRole == "master" || linkRole == "slave") &&
-                !string.IsNullOrWhiteSpace(linkServer))
+            var linkRole = Setting("Link Role", "Off").Trim().ToLowerInvariant();
+            var tpOnline = !string.IsNullOrWhiteSpace(
+                Environment.GetEnvironmentVariable("TP_TPONLINE2"));
+            if (!tpOnline && (linkRole == "master" || linkRole == "slave"))
             {
-                parameters.Add("--link-server");
-                parameters.Add(Quote(linkServer));
-                parameters.Add("--link-role");
-                parameters.Add(linkRole);
+                if (!int.TryParse(Setting("Network Port", "17602"), out var networkPort) ||
+                    networkPort < 1 || networkPort > 65535)
+                    throw new ArgumentException("Network Port must be between 1 and 65535.");
+                var networkInterface = Setting("Network Interface", "auto").Trim();
+                if (networkInterface.Length == 0 ||
+                    networkInterface.Equals("auto", StringComparison.OrdinalIgnoreCase))
+                    networkInterface = "auto";
+                else if (!System.Net.IPAddress.TryParse(networkInterface, out var address) ||
+                         address.AddressFamily != System.Net.Sockets.AddressFamily.InterNetwork)
+                    throw new ArgumentException("Network Interface must be auto or a local IPv4 address.");
+                parameters.Add("--network-port");
+                parameters.Add(networkPort.ToString(CultureInfo.InvariantCulture));
+                parameters.Add("--network-node");
+                parameters.Add(linkRole == "master" ? "1" : "2");
+                parameters.Add("--network-interface");
+                parameters.Add(Quote(networkInterface));
             }
 
             if (!File.Exists(executable))
@@ -618,6 +677,15 @@ namespace TeknoParrotUi.Common.GameLaunch
             parameters.Add("--ffb-gain");
             parameters.Add((ffbStrength / 100.0).ToString("0.00", CultureInfo.InvariantCulture));
             ForceFeedbackArguments.Add(profile, parameters, "Constant");
+
+            if (gameId == "sfrush" || gameId == "sfrushrk")
+            {
+                parameters.Add("--ffb-rush-mode");
+                parameters.Add(Enabled("Enhanced Force Feedback", true) ? "enhanced" : "original");
+                ForceFeedbackArguments.Add(profile, parameters, "Friction", "Damping");
+                parameters.Add("--ffb-damping-smoothing");
+                parameters.Add(Enabled("Smooth Damping", true) ? "on" : "off");
+            }
 
             var widescreen = Setting("True Widescreen", "off");
             if (widescreen != "16:9")

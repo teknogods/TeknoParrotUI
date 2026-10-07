@@ -1,0 +1,7 @@
+{
+  "game_name": "The Punisher (bootleg with PIC16C57, set 2)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select punipic2.zip. If ROM files are missing, also add punisher.zip to the same folder."
+}

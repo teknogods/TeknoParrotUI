@@ -1,0 +1,17 @@
+{
+  "game_name": "Golden Tee Live 2020",
+  "game_genre": "Sports",
+  "icon_name": "GoldenTeeLive2020.png",
+  "platform": "IT Nighthawk",
+  "release_year": "2020",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "WITH_FIX",
+  "amd_issues": "Select AMD Fix in settings to be able to play. ",
+  "intel": "NO",
+  "intel_issues": null,
+  "general_issues": "Using ITNet will disable outfit overwrites, use the GTonTP app instead.",
+  "supported_versions": [
+    "15.04.08"
+  ]
+}

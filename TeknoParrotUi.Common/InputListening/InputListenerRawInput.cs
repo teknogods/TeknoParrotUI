@@ -34,6 +34,9 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _isTeknoS22;
         private bool _isTeknoGClub;
         private bool _isTeknoS23;
+        private bool _isTeknoCPS;
+        private bool _isTeknoSS32;
+        private bool _isTeknoMVS;
         private bool _isTeknoVUnit;
         private bool _isTeknoViper;
         private bool _isTeknoS11;
@@ -45,17 +48,19 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _isTeknoZeus;
         private bool _isTeknoModel1;
         private bool _isTeknoModel2;
+        private bool _isTeknoModel3;
         private bool _isNetMerc;
         private bool _isPCSX2;
         private bool _swapdisplay;
         private bool _onedisplay;
         private bool _bg4Key;
         private bool _16bit;
+        private bool _highResolutionAxis;
         private bool _boneEaterLandscape;
         private bool _isBoneEater;
         private bool _boneEaterSingleScreen;
         private DateTime _nextBoneEaterCanvasAttempt;
-        private bool UsesPublishedCanvas => _isBoneEater || _isPlay || _isTeknoVegas || _isTeknoHNG64 || _isTeknoViper || _isTeknoTPJC || _isTeknoS11 || _isTeknoM2 || _isTeknoAGX || _isTeknoS22 || _isTeknoGClub || _isTeknoS23 || _isTeknoHornet || _isTeknoModel1 || _isTeknoModel2 || _isTeknoZeus;
+        private bool UsesPublishedCanvas => _isBoneEater || _isPlay || _isTeknoVegas || _isTeknoHNG64 || _isTeknoViper || _isTeknoTPJC || _isTeknoS11 || _isTeknoM2 || _isTeknoAGX || _isTeknoS22 || _isTeknoGClub || _isTeknoS23 || _isTeknoSS32 || _isTeknoHornet || _isTeknoModel1 || _isTeknoModel2 || _isTeknoModel3 || _isTeknoZeus;
         // Rotary encoder button states
         private static bool Rotary1LeftPressed = false;
         private static bool Rotary1RightPressed = false;
@@ -196,6 +201,8 @@ namespace TeknoParrotUi.Common.InputListening
 
         private const int SM_CXSCREEN = 0;
         private const int SM_CYSCREEN = 1;
+        private const int SM_XVIRTUALSCREEN = 76;
+        private const int SM_YVIRTUALSCREEN = 77;
         private const int SM_CXVIRTUALSCREEN = 78;
         private const int SM_CYVIRTUALSCREEN = 79;
         private const int LOGPIXELSX = 88;
@@ -210,6 +217,8 @@ namespace TeknoParrotUi.Common.InputListening
         {
             if (_isTeknoVUnit && windowTitle.StartsWith("TeknoVUnit - ", StringComparison.Ordinal)) return true;
             if (_isTeknoModel2 && windowTitle.StartsWith("TeknoModel2 - ", StringComparison.Ordinal))
+                return true;
+            if (_isTeknoModel3 && windowTitle.StartsWith("TeknoModel3 - ", StringComparison.Ordinal))
                 return true;
 
             if (_isTeknoZeus && windowTitle.StartsWith("TeknoZeus - ", StringComparison.Ordinal))
@@ -230,6 +239,9 @@ namespace TeknoParrotUi.Common.InputListening
                     return true;
 
                 if (_isTeknoGClub && windowTitle.StartsWith("TeknoGClub", StringComparison.Ordinal)) return true;
+                if (_isTeknoCPS && windowTitle.StartsWith("TeknoCPS", StringComparison.Ordinal)) return true;
+                if (_isTeknoSS32 && windowTitle.StartsWith("TeknoSS32", StringComparison.Ordinal)) return true;
+                if (_isTeknoMVS && windowTitle.StartsWith("TeknoMVS", StringComparison.Ordinal)) return true;
                 if (_isTeknoS23 && windowTitle.StartsWith("TeknoS23 - ", StringComparison.Ordinal)) return true;
                 if (_isTeknoS22 && windowTitle.StartsWith("TeknoS22 - ", StringComparison.Ordinal)) return true;
 
@@ -307,6 +319,9 @@ namespace TeknoParrotUi.Common.InputListening
             _isTeknoHornet = gameProfile.EmulationProfile == EmulationProfile.TeknoHornet;
             _isTeknoGClub = gameProfile.EmulationProfile == EmulationProfile.TeknoGClub;
             _isTeknoS23 = gameProfile.EmulationProfile == EmulationProfile.TeknoS23;
+            _isTeknoCPS = gameProfile.EmulationProfile == EmulationProfile.TeknoCPS;
+            _isTeknoSS32 = gameProfile.EmulationProfile == EmulationProfile.TeknoSS32;
+            _isTeknoMVS = gameProfile.EmulationProfile == EmulationProfile.TeknoMVS;
             _isTeknoS22 = gameProfile.EmulationProfile == EmulationProfile.TeknoS22;
             _isTeknoVUnit = gameProfile.EmulationProfile == EmulationProfile.TeknoVUnit;
             _isTeknoM2 = gameProfile.EmulationProfile == EmulationProfile.TeknoM2;
@@ -315,10 +330,12 @@ namespace TeknoParrotUi.Common.InputListening
             _isTeknoViper = gameProfile.EmulationProfile == EmulationProfile.TeknoViper;
             _isTeknoAGX = gameProfile.EmulationProfile == EmulationProfile.TeknoAGX;
             _isTeknoModel2 = gameProfile.EmulationProfile == EmulationProfile.TeknoModel2;
+            _isTeknoModel3 = gameProfile.EmulationProfile == EmulationProfile.TeknoModel3;
             _isTeknoModel1 = gameProfile.EmulationProfile == EmulationProfile.TeknoModel1;
             _isNetMerc = _isTeknoModel1 && string.Equals(gameProfile.ExecutableName, "netmerc.zip", StringComparison.OrdinalIgnoreCase);
             _isPCSX2 = gameProfile.EmulationProfile == EmulationProfile.pcsx2x6;
-            _16bit = gameProfile.Use16BitAnalog;
+            _highResolutionAxis = gameProfile.HighResolutionAxis;
+            _16bit = gameProfile.Use16BitAnalog || _highResolutionAxis;
             _gameProfile = gameProfile;
 
 
@@ -449,6 +466,10 @@ namespace TeknoParrotUi.Common.InputListening
                 {
                     canvasName = "TeknoS23CanvasInfo";
                 }
+                else if (_isTeknoSS32)
+                {
+                    canvasName = "TeknoSS32CanvasInfo";
+                }
                 else if (_isTeknoS22)
                 {
                     canvasName = "TeknoS22CanvasInfo";
@@ -476,6 +497,10 @@ namespace TeknoParrotUi.Common.InputListening
                 else if (_isTeknoModel2)
                 {
                     canvasName = "TeknoModel2CanvasInfo";
+                }
+                else if (_isTeknoModel3)
+                {
+                    canvasName = "TeknoModel3CanvasInfo";
                 }
                 else if (_isTeknoModel1)
                 {
@@ -616,8 +641,8 @@ namespace TeknoParrotUi.Common.InputListening
                                     _lastPosX[0] = _lastPosX[1] = _lastPosX[2] = _lastPosX[3] = centerX;
                                     _lastPosY[0] = _lastPosY[1] = _lastPosY[2] = _lastPosY[3] = centerY;
 
-                                    ushort centerValue = (ushort)((_minX + _maxX) / 2.0);
-                                    ushort centerValueY = (ushort)((_minY + _maxY) / 2.0);
+                                    ushort centerValue = _highResolutionAxis ? LightGunAxisHelper.CalculatePosition(0.5, _minX, _maxX) : (ushort)((_minX + _maxX) / 2.0);
+                                    ushort centerValueY = _highResolutionAxis ? LightGunAxisHelper.CalculatePosition(0.5, _minY, _maxY) : (ushort)((_minY + _maxY) / 2.0);
 
                                     if (_invertedMouseAxis)
                                     {
@@ -766,8 +791,8 @@ namespace TeknoParrotUi.Common.InputListening
                                 _lastPosX[0] = _lastPosX[1] = _lastPosX[2] = _lastPosX[3] = _windowWidth / 2 + _windowLocationX;
                                 _lastPosY[0] = _lastPosY[1] = _lastPosY[2] = _lastPosY[3] = _windowHeight / 2 + _windowLocationY;
 
-                                ushort centerValue = (ushort)((_minX + _maxX) / 2.0);
-                                ushort centerValueY = (ushort)((_minY + _maxY) / 2.0);
+                                ushort centerValue = _highResolutionAxis ? LightGunAxisHelper.CalculatePosition(0.5, _minX, _maxX) : (ushort)((_minX + _maxX) / 2.0);
+                                ushort centerValueY = _highResolutionAxis ? LightGunAxisHelper.CalculatePosition(0.5, _minY, _maxY) : (ushort)((_minY + _maxY) / 2.0);
                                 if (_16bit)
                                 {
                                     if (_invertedMouseAxis)
@@ -962,7 +987,8 @@ namespace TeknoParrotUi.Common.InputListening
                         {
                             // Lightgun
                             foreach (var gun in _joystickButtons.Where(btn => btn.RawInputButton.DevicePath == path && btn.RawInputButton.DeviceType == RawDeviceType.Mouse && (btn.InputMapping == InputMapping.P1LightGun || btn.InputMapping == InputMapping.P2LightGun || btn.InputMapping == InputMapping.P3LightGun || btn.InputMapping == InputMapping.P4LightGun)))
-                                HandleRawInputGun(gun, mouse.Mouse.LastX, mouse.Mouse.LastY, true);
+                                HandleRawInputGun(gun, mouse.Mouse.LastX, mouse.Mouse.LastY, true,
+                                    mouse.Mouse.Flags.HasFlag(RawMouseFlags.VirtualDesktop));
                         }
                         else if (!mouse.Mouse.Flags.HasFlag(RawMouseFlags.MoveAbsolute))
                         {
@@ -1051,7 +1077,8 @@ namespace TeknoParrotUi.Common.InputListening
             _minY = gameProfile.yAxisMin;
             _maxY = gameProfile.yAxisMax;
             _invertedMouseAxis = gameProfile.InvertedMouseAxis;
-            _16bit = gameProfile.Use16BitAnalog;
+            _highResolutionAxis = gameProfile.HighResolutionAxis;
+            _16bit = gameProfile.Use16BitAnalog || _highResolutionAxis;
             KeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
             KeyboardAxis.Initialize(gameProfile);
             _windowFocus = true;
@@ -1652,6 +1679,29 @@ namespace TeknoParrotUi.Common.InputListening
                 case InputMapping.TPSystem3:
                     InputCode.TPSystem3 = pressed;
                     break;
+                case InputMapping.TPSystem4:
+                    InputCode.TPSystem4 = pressed;
+                    break;
+                case InputMapping.TPSystem5:
+                    InputCode.TPSystem5 = pressed;
+                    break;
+                case InputMapping.TPSystem6:
+                    InputCode.TPSystem6 = pressed;
+                    break;
+                case InputMapping.TPSystem7:
+                    InputCode.TPSystem7 = pressed;
+                    break;
+                case InputMapping.TPSystem8:
+                    InputCode.TPSystem8 = pressed;
+                    break;
+                case InputMapping.ChatQuick1:
+                case InputMapping.ChatQuick2:
+                case InputMapping.ChatQuick3:
+                case InputMapping.ChatQuick4:
+                case InputMapping.ChatPushToTalk:
+                case InputMapping.ChatVoiceMode:
+                    ChatButtonBlock.Set(joystickButton.InputMapping, pressed);
+                    break;
                 default:
                     break;
             }
@@ -1682,7 +1732,12 @@ namespace TeknoParrotUi.Common.InputListening
             InputCode.AnalogBytes[analogIndex] = value;
         }
 
-        private void HandleRawInputGun(JoystickButtons joystickButton, int inputX, int inputY, bool moveAbsolute)
+        private static int AbsoluteDesktopPosition(int normalized, int origin, int extent)
+        {
+            return origin + (int)((long)Math.Max(0, Math.Min(65535, normalized)) * extent / 65535);
+        }
+
+        private void HandleRawInputGun(JoystickButtons joystickButton, int inputX, int inputY, bool moveAbsolute, bool virtualDesktop = false)
         {
             // Ignore when alt+tabbed
             if (!_windowFocus)
@@ -1700,7 +1755,16 @@ namespace TeknoParrotUi.Common.InputListening
                 // Translate absolute units to pixels
                 if (moveAbsolute)
                 {
-                    if ((UsesPublishedCanvas) &&
+                    if (_isTeknoSS32)
+                    {
+                        inputX = AbsoluteDesktopPosition(inputX,
+                            virtualDesktop ? GetSystemMetrics(SM_XVIRTUALSCREEN) : 0,
+                            GetSystemMetrics(virtualDesktop ? SM_CXVIRTUALSCREEN : SM_CXSCREEN));
+                        inputY = AbsoluteDesktopPosition(inputY,
+                            virtualDesktop ? GetSystemMetrics(SM_YVIRTUALSCREEN) : 0,
+                            GetSystemMetrics(virtualDesktop ? SM_CYVIRTUALSCREEN : SM_CYSCREEN));
+                    }
+                    else if ((UsesPublishedCanvas) &&
                         canvasInfo.windowWidth > 0 && canvasInfo.windowHeight > 0)
                     {
                         // Canvas publishers use physical pixels. Map normalized RawInput
@@ -1784,6 +1848,12 @@ namespace TeknoParrotUi.Common.InputListening
                 x = (ushort)Math.Round(minX + factorX * (maxX - minX));
 
             ushort y = (ushort)Math.Round(minY + factorY * (maxY - minY));
+
+            if (_highResolutionAxis)
+            {
+                x = LightGunAxisHelper.CalculatePosition(factorX, _minX, _maxX);
+                y = LightGunAxisHelper.CalculatePosition(factorY, _minY, _maxY);
+            }
 
             /*
              * 16-bit lightgun values stored in big-endian format (MSB first) for backwards compatibility

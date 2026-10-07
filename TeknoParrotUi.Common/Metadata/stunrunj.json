@@ -1,0 +1,10 @@
+{
+  "game_name": "S.T.U.N. Runner (rev 7, Japan)",
+  "game_genre": "Simulation",
+  "platform": "Atari Hard Drivin'",
+  "release_year": "1989",
+  "nvidia": "NO_INFO",
+  "amd": "NO_INFO",
+  "intel": "NO_INFO",
+  "general_issues": "Development only. Select stunrun.zip. Latest revision for this cabinet; older revisions are intentionally omitted. Cabinet networking is not implemented."
+}

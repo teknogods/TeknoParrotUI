@@ -1,0 +1,7 @@
+{
+  "game_name": "Adventure Quiz Capcom World 2 (Japan 920611, B-Board 91634B-2)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select cworld2jb.zip. If ROM files are missing, also add cworld2j.zip to the same folder."
+}

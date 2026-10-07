@@ -19,6 +19,8 @@ namespace TeknoParrotUi.Common.Proton
 
         private Process _helperProcess;
         private volatile bool _stopped;
+        private readonly ProtonSharedMemoryBridge _memory;
+        public ProtonSharedMemoryMirror(ProtonSharedMemoryBridge memory = null) => _memory = memory;
 
         /// <summary>
         /// Waits for the Proton game process, then starts the mirror helper.
@@ -26,13 +28,15 @@ namespace TeknoParrotUi.Common.Proton
         /// </summary>
         public void Start(ProtonGameInfo gameInfo = null)
         {
-            if (JvsHelper.StateSharedMemory is not ProtonSharedMemoryBridge shm)
+            if ((_memory ?? JvsHelper.StateSharedMemory) is not ProtonSharedMemoryBridge shm)
                 return; // Windows (or no /dev/shm region) - nothing to mirror.
 
             gameInfo ??= WaitForProtonGame();
+            if (_stopped) return;
 
             _helperProcess = ProtonHelper.RunHelper(gameInfo,
                 "shm", shm.Name, shm.Size.ToString(), ProtonHelper.ToWinePath(shm.FilePath));
+            if (_stopped) Stop();
         }
 
         public void Stop()

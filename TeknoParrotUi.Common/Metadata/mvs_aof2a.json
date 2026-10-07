@@ -1,0 +1,7 @@
+{
+  "game_name": "Art of Fighting 2 / Ryuuko no Ken 2 (NGH-056)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select aof2a.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add aof2.zip to the same folder."
+}

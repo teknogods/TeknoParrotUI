@@ -76,8 +76,18 @@ public partial class GameSettingsView : UserControl
         BtnSave.Content = Services.Loc.T("SettingsSaveSettings", "Save Settings");
     }
 
+    private bool _revisionDirty;
+
     public void LoadProfile(GameProfile profile)
     {
+        _revisionDirty = false;
+        RenderProfile(profile.Clone());
+    }
+
+    private void RenderProfile(GameProfile profile)
+    {
+        ArcadeGameRevisions.Populate(profile);
+        NamcoGameRevisions.Populate(profile);
         _profile = profile;
         Header.Text = $"{profile.GameNameInternal ?? profile.ProfileName} — Settings";
         _valueReaders.Clear();
@@ -823,8 +833,14 @@ public partial class GameSettingsView : UserControl
                 break;
 
             case FieldType.DynamicDropdown:
-                var dynamicOptions = ForceFeedbackDeviceCatalog.GetOptions(
-                    _profile ?? throw new InvalidOperationException("No profile loaded"), field.FieldValue);
+                var dynamicOptions = field.FieldName == ArcadeGameRevisions.SettingName &&
+                    ArcadeGameRevisions.Handles(_profile)
+                    ? ArcadeGameRevisions.GetOptions(_profile)
+                    : field.FieldName == NamcoGameRevisions.SettingName &&
+                      _profile?.EmulatorType is EmulatorType.TeknoS22 or EmulatorType.TeknoS23
+                    ? NamcoGameRevisions.GetOptions(_profile)
+                    : ForceFeedbackDeviceCatalog.GetOptions(
+                        _profile ?? throw new InvalidOperationException("No profile loaded"), field.FieldValue);
                 var deviceCombo = new ComboBox
                 {
                     ItemsSource = dynamicOptions,
@@ -834,6 +850,29 @@ public partial class GameSettingsView : UserControl
                 };
                 _valueReaders[field] = () =>
                     (deviceCombo.SelectedItem as DynamicDropdownOption)?.Value ?? field.FieldValue;
+                if (field.FieldName == ArcadeGameRevisions.SettingName && ArcadeGameRevisions.Handles(_profile))
+                    deviceCombo.SelectionChanged += async (_, _) =>
+                    {
+                        if (_profile == null || deviceCombo.SelectedItem is not DynamicDropdownOption selected ||
+                            selected.Value == field.FieldValue) return;
+                        var previous = field.FieldValue;
+                        foreach (var (otherField, read) in _valueReaders)
+                            otherField.FieldValue = read();
+                        _profile.GamePath = _gamePathBox?.Text ?? _profile.GamePath;
+                        if (_gamePath2Box != null) _profile.GamePath2 = _gamePath2Box.Text ?? _profile.GamePath2;
+                        try
+                        {
+                            ArcadeGameRevisions.ApplyRevision(_profile, selected.Value);
+                            RenderProfile(_profile);
+                            _revisionDirty = true;
+                        }
+                        catch (Exception error) when (error is ArgumentException or IOException or InvalidOperationException)
+                        {
+                            field.FieldValue = previous;
+                            deviceCombo.SelectedItem = dynamicOptions.FirstOrDefault(option => option.Value == previous);
+                            await Services.Dialogs.ChooseAsync(this, "Game Revision", error.Message, new[] { Services.Loc.T("OK", "OK") });
+                        }
+                    };
                 editor = deviceCombo;
                 break;
 
@@ -910,8 +949,12 @@ public partial class GameSettingsView : UserControl
             ToolTip.SetTip(editor, field.Hint);
 
         var row = Row(field.FieldName, editor);
-        _fieldRows[field] = row;
-        FieldsPanel.Children.Add(row);
+        var block = new StackPanel { Spacing = 4, Children = { row } };
+        if (!string.IsNullOrWhiteSpace(field.Hint))
+            block.Children.Add(new TextBlock { Text = field.Hint, Opacity = 0.65, FontSize = 11,
+                TextWrapping = global::Avalonia.Media.TextWrapping.Wrap, Margin = new global::Avalonia.Thickness(0, 0, 0, 6) });
+        _fieldRows[field] = block;
+        FieldsPanel.Children.Add(block);
     }
 
     private void UpdateConditionalRows()
@@ -987,6 +1030,7 @@ public partial class GameSettingsView : UserControl
     {
         if (_profile == null)
             return false;
+        if (_revisionDirty) return true;
         if (_gamePathBox != null && (_gamePathBox.Text ?? "") != _baselinePath)
             return true;
         if (_gamePath2Box != null && (_gamePath2Box.Text ?? "") != _baselinePath2)

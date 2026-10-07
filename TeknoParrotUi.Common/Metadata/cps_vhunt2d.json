@@ -1,0 +1,7 @@
+{
+  "game_name": "Vampire Hunter 2: Darkstalkers Revenge (Japan 970913 Phoenix Edition) (bootleg)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select vhunt2d.zip. If ROM files are missing, also add vhunt2.zip to the same folder. Keep qsound.zip in the same folder."
+}

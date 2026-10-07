@@ -23,7 +23,8 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
     ///
     /// Not yet supported (Windows-only for now): windowed-mode cursor clipping,
     /// per-game special cases (Primeval Hunt split screen, Play canvas metrics),
-    /// trackball games (blocked on the named-MMF game-side bridge).
+    /// Legacy trackball titles that read a Windows mapping directly need the
+    /// mapping bridge; native MVS/CPS/System 32/S22 trackballs use host counters.
     /// </summary>
     public class EvdevMouseListener : IInputListener
     {
@@ -46,6 +47,7 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
         private bool _isLuigisMansion;
         private bool _isGunslinger;
         private bool _isGunGame;
+        private bool _isTrackballGame;
 
         private readonly List<Thread> _threads = new List<Thread>();
         private volatile bool _killMe;
@@ -82,14 +84,15 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
             _minY = gameProfile.yAxisMin;
             _maxY = gameProfile.yAxisMax;
             _invertedMouseAxis = gameProfile.InvertedMouseAxis;
-            _is16Bit = gameProfile.Use16BitAnalog;
+            _is16Bit = gameProfile.Use16BitAnalog || gameProfile.HighResolutionAxis;
             _isLuigisMansion = gameProfile.EmulationProfile == EmulationProfile.LuigisMansion;
             _isGunslinger = gameProfile.EmulationProfile == EmulationProfile.GunslingerStratos3;
 
             var buttons = joystickButtons ?? new List<JoystickButtons>();
             _gunMappings = buttons.Where(b => b != null &&
                 (b.InputMapping == InputMapping.P1LightGun || b.InputMapping == InputMapping.P2LightGun ||
-                 b.InputMapping == InputMapping.P3LightGun || b.InputMapping == InputMapping.P4LightGun)).ToList();
+                 b.InputMapping == InputMapping.P3LightGun || b.InputMapping == InputMapping.P4LightGun ||
+                 TrackballMotion.IsMapping(b.InputMapping))).ToList();
             _boundButtons = buttons.Where(b => b?.RawInputButton != null &&
                 b.RawInputButton.DeviceType == RawDeviceType.Mouse).ToList();
             _keyboardBindings = buttons.Where(b => b?.RawInputButton != null &&
@@ -100,7 +103,8 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
             // writes (centering + aim) must only happen for games that actually
             // have light-gun mappings — otherwise mouse movement would fight the
             // SDL3 gamepad listener over the same analog bytes (wheel games etc).
-            _isGunGame = _gunMappings.Count > 0 || gameProfile.GunGame;
+            _isTrackballGame = _gunMappings.Any(button => TrackballMotion.IsMapping(button.InputMapping));
+            _isGunGame = _gunMappings.Any(button => !TrackballMotion.IsMapping(button.InputMapping)) || gameProfile.GunGame;
 
             if (_isGunGame)
                 CenterCrosshairs();
@@ -110,7 +114,7 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
             {
                 Debug.WriteLine("EvdevMouseListener: no mouse devices found");
             }
-            else if (!_isGunGame && _boundButtons.Count == 0)
+            else if (!_isGunGame && !_isTrackballGame && _boundButtons.Count == 0)
             {
                 // Non-gun game without explicit mouse bindings: nothing for mice
                 // to do — don't hold the devices open. Keyboards still run below.
@@ -253,8 +257,8 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
                 return -1;
             return gun.InputMapping switch
             {
-                InputMapping.P2LightGun => 1,
-                InputMapping.P3LightGun => 2,
+                InputMapping.P2LightGun or InputMapping.P2Trackball => 1,
+                InputMapping.P3LightGun or InputMapping.P3Trackball => 2,
                 InputMapping.P4LightGun => 3,
                 _ => 0
             };
@@ -290,10 +294,12 @@ namespace TeknoParrotUi.Common.InputListening.Mouse
                         switch (ev.Type)
                         {
                             case EvdevInterop.EV_REL when ev.Code == EvdevInterop.REL_X:
+                                if (_isTrackballGame) TrackballMotion.Add(player, ev.Value, 0);
                                 posX = Math.Clamp(posX + ev.Value, 0, CanvasWidth);
                                 moved = true;
                                 break;
                             case EvdevInterop.EV_REL when ev.Code == EvdevInterop.REL_Y:
+                                if (_isTrackballGame) TrackballMotion.Add(player, 0, ev.Value);
                                 posY = Math.Clamp(posY + ev.Value, 0, CanvasHeight);
                                 moved = true;
                                 break;

@@ -1,0 +1,7 @@
+{
+  "game_name": "Warzard (Japan 961121)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS3",
+  "general_issues": "Select warzard.zip. If ROM files are missing, also add redearth.zip to the same folder. CD image: cap-wzd-5.chd. Set CD Image Folder if stored elsewhere."
+}

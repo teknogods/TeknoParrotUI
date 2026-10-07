@@ -1,0 +1,7 @@
+{
+  "game_name": "Mega Man 2: The Power Fighters (USA 960708 Phoenix Edition) (bootleg)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select megamn2d.zip. If ROM files are missing, also add megaman2.zip to the same folder. Keep qsound.zip in the same folder."
+}

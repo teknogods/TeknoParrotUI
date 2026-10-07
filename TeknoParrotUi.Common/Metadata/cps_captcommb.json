@@ -1,0 +1,7 @@
+{
+  "game_name": "Captain Commando (bootleg)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select captcommb.zip. If ROM files are missing, also add captcomm.zip to the same folder."
+}

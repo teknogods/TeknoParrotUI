@@ -1,0 +1,7 @@
+{
+  "game_name": "The King of Fighters 2002 Magic Plus (bootleg)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select kf2k2mp.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add kof2002.zip to the same folder."
+}

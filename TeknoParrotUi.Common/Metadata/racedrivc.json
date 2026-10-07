@@ -1,0 +1,10 @@
+{
+  "game_name": "Race Drivin' (compact, rev 5)",
+  "game_genre": "Racing",
+  "platform": "Atari Hard Drivin'",
+  "release_year": "1990",
+  "nvidia": "NO_INFO",
+  "amd": "NO_INFO",
+  "intel": "NO_INFO",
+  "general_issues": "Development only. Select racedriv.zip. Latest revision for this cabinet; older revisions are intentionally omitted. Cabinet networking is not implemented."
+}

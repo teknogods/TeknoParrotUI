@@ -1,0 +1,7 @@
+{
+  "game_name": "Warriors of Fate (bootleg with PIC16C57)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select wofpic.zip. If ROM files are missing, also add wof.zip to the same folder. This game is not supported yet."
+}

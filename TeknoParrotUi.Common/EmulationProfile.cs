@@ -167,6 +167,12 @@ namespace TeknoParrotUi.Common
         TeknoAir,
         TeknoS21,
         TeknoS11,
-        TeknoTPJC
+        TeknoTPJC,
+        TeknoHDrive,
+        TeknoMagic,
+        TeknoModel3,
+        TeknoMVS,
+        TeknoCPS,
+        TeknoSS32
     }
 }

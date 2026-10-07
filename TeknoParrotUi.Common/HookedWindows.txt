@@ -137,3 +137,7 @@ Cobra The Arcade (CBR2 Ver. B)
 TeknoParrot (ElfLoader64) - Centipede Chaos
 TeknoParrot - Hog Wild - Chase Up
 TeknoParrot - Sea Wolf - The Next Mission
+TeknoBudgie - Rockin Bowl-O-Rama
+TeknoParrot - Fantasy Soccer
+TeknoParrot - Mighty Moto
+TeknoParrot - Tux Racer Arcade v4.1

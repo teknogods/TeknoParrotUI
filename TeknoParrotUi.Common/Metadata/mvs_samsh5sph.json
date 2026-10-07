@@ -1,0 +1,7 @@
+{
+  "game_name": "Samurai Shodown V Special / Samurai Spirits Zero Special (NGH-2720, 2nd release, less censored)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select samsh5sph.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add samsh5sp.zip to the same folder."
+}

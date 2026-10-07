@@ -1,0 +1,7 @@
+{
+  "game_name": "The Last Soldier (Korean release of The Last Blade)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select lastsold.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add lastblad.zip to the same folder."
+}

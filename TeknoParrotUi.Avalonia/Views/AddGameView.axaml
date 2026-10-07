@@ -3,9 +3,10 @@
              x:Class="TeknoParrotUi.Avalonia.Views.AddGameView">
     <DockPanel Margin="12">
         <TextBlock Name="HeaderText" DockPanel.Dock="Top" FontSize="18" FontWeight="Bold" Margin="0,0,0,8" Text="Add Game" />
-        <Grid Name="FilterGrid" DockPanel.Dock="Top" RowDefinitions="Auto,Auto">
+        <Grid Name="FilterGrid" DockPanel.Dock="Top" RowDefinitions="Auto,Auto,Auto">
             <TextBox Name="SearchBox" Grid.Row="0" PlaceholderText="Search games..." TextChanged="SearchBox_TextChanged" />
             <ComboBox Name="GenreBox" Grid.Row="1" Margin="0,6,0,0" HorizontalAlignment="Stretch" SelectionChanged="GenreBox_SelectionChanged" />
+            <ComboBox Name="PlatformBox" Grid.Row="2" Margin="0,6,0,0" HorizontalAlignment="Stretch" SelectionChanged="GenreBox_SelectionChanged" />
         </Grid>
         <StackPanel Name="ActionsPanel" DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,12,0,0" HorizontalAlignment="Center">
             <Button Name="BtnBack" Content="Back" Width="180" Click="BtnBack_Click" />

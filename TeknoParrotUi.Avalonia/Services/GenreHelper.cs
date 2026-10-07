@@ -64,8 +64,6 @@ public static class GenreHelper
     {
         var genres = new List<string> { "All" };
         genres.AddRange(GetStatusFilters(includeNotInstalled));
-        if (profiles.Any(p => p.EmulatorType == EmulatorType.TeknoViper))
-            genres.Add("Konami Viper");
         genres.AddRange(GetGenreNames(profiles));
         return genres;
     }
@@ -82,9 +80,9 @@ public static class GenreHelper
             case "Konami Viper":
                 return gameProfile.EmulatorType == EmulatorType.TeknoViper;
             case "Installed":
-                return GameProfileLoader.UserProfiles.Any(p => p.ProfileName == gameProfile.ProfileName);
+                return GameProfileLoader.UserProfiles.Any(p => ArcadeGameRevisions.FamilyId(p) == ArcadeGameRevisions.FamilyId(gameProfile));
             case "Not Installed":
-                return !GameProfileLoader.UserProfiles.Any(p => p.ProfileName == gameProfile.ProfileName);
+                return !GameProfileLoader.UserProfiles.Any(p => ArcadeGameRevisions.FamilyId(p) == ArcadeGameRevisions.FamilyId(gameProfile));
             default:
                 return genre.Equals(GenreName(gameProfile), System.StringComparison.OrdinalIgnoreCase);
         }

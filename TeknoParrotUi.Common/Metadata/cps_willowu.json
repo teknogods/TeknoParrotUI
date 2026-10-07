@@ -1,0 +1,7 @@
+{
+  "game_name": "Willow (USA)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select willowu.zip. If ROM files are missing, also add willow.zip to the same folder."
+}

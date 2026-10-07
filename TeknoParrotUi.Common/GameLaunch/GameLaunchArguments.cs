@@ -338,15 +338,6 @@ namespace TeknoParrotUi.Common.GameLaunch
             WriteTaitoGunIni(InputCode.ButtonMode == EmulationProfile.HauntedMuseum, gameLocation, "MUSEUM.INI", "HM", width, height, region);
             WriteTaitoGunIni(InputCode.ButtonMode == EmulationProfile.HauntedMuseum2, gameLocation, "HAUNTED2.INI", "HM2", width, height, region);
 
-            if (InputCode.ButtonMode == EmulationProfile.SegaInitialD)
-            {
-                var newCard = profile.ConfigValues.FirstOrDefault(x => x.FieldName == "EnableNewCardCode");
-                if (newCard == null || newCard.FieldValue == "0")
-                {
-                    runAndWait(loaderExe, $"{loaderDll} \"{Path.Combine(Path.GetDirectoryName(gameLocation), "picodaemon.exe")}");
-                }
-            }
-
             if (InputCode.ButtonMode == EmulationProfile.ALLSSWDC)
             {
                 var isMainCab = profile.ConfigValues.FirstOrDefault(x => x.FieldName == "Main Cabinet");

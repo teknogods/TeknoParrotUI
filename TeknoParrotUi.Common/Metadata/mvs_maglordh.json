@@ -1,0 +1,7 @@
+{
+  "game_name": "Magician Lord (NGH-005)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select maglordh.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add maglord.zip to the same folder."
+}

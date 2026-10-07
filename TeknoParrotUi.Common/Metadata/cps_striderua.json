@@ -1,0 +1,7 @@
+{
+  "game_name": "Strider (USA, B-Board 89624B-3)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select striderua.zip. If ROM files are missing, also add strider.zip to the same folder."
+}

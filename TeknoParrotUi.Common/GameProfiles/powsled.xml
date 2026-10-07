@@ -6,7 +6,7 @@
   <TestMenuIsExecutable>false</TestMenuIsExecutable>
   <ExtraParameters />
   <EmulationProfile>TeknoModel2</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>10</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoModel2</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -129,7 +129,14 @@
       <FieldName>Enable LAN</FieldName>
       <FieldValue>0</FieldValue>
       <FieldType>Bool</FieldType>
-      <Hint>Viper-style local multicast; no relay process or host address. Enable linked play in the game service menu.</Hint>
+      <Hint>Viper-style local multicast; no relay process or host address. The RIDE ID (color) of each sled follows Cabinet Number. A race also needs the Power Sled main and relay units.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Network</CategoryName>
+      <FieldName>Set Game Link Settings</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Sets RIDE ID (color) in the test menu from Cabinet Number: 1 silver, 2 red, 3 black, 4 yellow. Turn off to keep the RIDE ID chosen in the test menu.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
@@ -148,12 +155,8 @@
         <string>2</string>
         <string>3</string>
         <string>4</string>
-        <string>5</string>
-        <string>6</string>
-        <string>7</string>
-        <string>8</string>
       </FieldOptions>
-      <Hint>Unique number from 1 to Cabinet Count. Cabinet 1 is master; the others are slaves.</Hint>
+      <Hint>Unique sled number from 1 to Cabinet Count: 1 silver, 2 red, 3 black, 4 yellow ride.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
@@ -164,12 +167,8 @@
         <string>2</string>
         <string>3</string>
         <string>4</string>
-        <string>5</string>
-        <string>6</string>
-        <string>7</string>
-        <string>8</string>
       </FieldOptions>
-      <Hint>Same count on every cabinet. All cabinets must be present before the ring starts; game limits still apply.</Hint>
+      <Hint>Same count on every cabinet, up to 4 for this game. All cabinets must be present before the ring starts.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Network</CategoryName>
@@ -199,6 +198,13 @@
       <FieldType>Slider</FieldType>
       <FieldMin>1</FieldMin>
       <FieldMax>255</FieldMax>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Widescreen</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Experimental 16:9 view with a wider 3D render target and centered 4:3 HUD. Desktop only; ignored when VR is enabled. Some scenes may have missing side geometry or menu layout issues.</Hint>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>

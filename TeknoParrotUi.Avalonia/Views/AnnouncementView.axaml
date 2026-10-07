@@ -2,9 +2,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:views="clr-namespace:TeknoParrotUi.Avalonia.Views"
              x:Class="TeknoParrotUi.Avalonia.Views.AnnouncementView">
-    <Grid RowDefinitions="Auto,*,Auto">
+    <Grid RowDefinitions="Auto,Auto,*,Auto">
         <TextBlock Name="Heading" Margin="20,14" FontSize="18" FontWeight="SemiBold" />
-        <Grid Grid.Row="1" Margin="20,0,20,0">
+        <Grid Name="HistoryPanel" Grid.Row="1" Margin="20,0,20,10" ColumnDefinitions="Auto,*,Auto" IsVisible="False">
+            <Button Name="NewerArticle" Content="Newer" Click="NewerArticle_Click" Margin="0,0,8,0" />
+            <ComboBox Name="ArticlePicker" Grid.Column="1" HorizontalAlignment="Stretch" SelectionChanged="ArticlePicker_SelectionChanged" />
+            <Button Name="OlderArticle" Content="Older" Grid.Column="2" Click="OlderArticle_Click" Margin="8,0,0,0" />
+        </Grid>
+        <Grid Grid.Row="2" Margin="20,0,20,0">
             <views:NewsWebView Name="Browser"
                            NavigationStarted="Browser_NavigationStarted"
                            NavigationCompleted="Browser_NavigationCompleted"
@@ -20,7 +25,7 @@
                 </StackPanel>
             </Border>
         </Grid>
-        <StackPanel Grid.Row="2" Margin="20,12,20,20" Spacing="8">
+        <StackPanel Grid.Row="3" Margin="20,12,20,20" Spacing="8">
             <StackPanel Name="SupportPanel" Spacing="4">
                 <TextBlock Name="SupportTitle" FontWeight="Bold" />
                 <TextBlock Name="SupportDescription" TextWrapping="Wrap" />

@@ -1,0 +1,7 @@
+{
+  "game_name": "Quiz Salibtamjeong - The Last Count Down (Korean localized Quiz Daisousa Sen)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select quizdaisk.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add quizdais.zip to the same folder."
+}

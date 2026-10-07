@@ -1,0 +1,7 @@
+{
+  "game_name": "Marvel Vs. Capcom: Clash of Super Heroes (Japan 980123) (Single PCB)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select mvscjsing.zip. If ROM files are missing, also add mvsc.zip to the same folder. Keep qsound.zip in the same folder."
+}

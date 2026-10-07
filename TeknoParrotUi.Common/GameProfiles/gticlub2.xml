@@ -7,7 +7,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>TeknoViper</EmulationProfile>
-	<GameProfileRevision>16</GameProfileRevision>
+	<GameProfileRevision>17</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoViper</EmulatorType>
 	<Is64Bit>true</Is64Bit>
@@ -37,6 +37,41 @@
 				<string>DirectInput</string>
 				<string>XInput</string>
 			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Force Feedback Device</FieldName>
+			<FieldValue>off</FieldValue>
+			<FieldType>DynamicDropdown</FieldType>
+			<Hint>Select direct SDL3 wheel force feedback or controller vibration. Requires TeknoViper\viperhaptic.exe.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Force Feedback Strength</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<SettingsPage>ForceFeedback</SettingsPage>
+			<FieldMin>0</FieldMin>
+			<FieldMax>100</FieldMax>
+			<Hint>Overall effect strength. 100% keeps the normal full strength.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Enable Constant Effect</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<SettingsPage>ForceFeedback</SettingsPage>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Constant Effect Strength</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<SettingsPage>ForceFeedback</SettingsPage>
+			<EnabledBy>Enable Constant Effect</EnabledBy>
+			<FieldMin>0</FieldMin>
+			<FieldMax>100</FieldMax>
+			<Hint>Strength of torque and impacts sent by the game.</Hint>
 		</FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

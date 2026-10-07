@@ -1,0 +1,7 @@
+{
+  "game_name": "Armored Warriors (Asia 941024)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select armwara.zip. If ROM files are missing, also add armwar.zip to the same folder. Keep qsound.zip in the same folder."
+}

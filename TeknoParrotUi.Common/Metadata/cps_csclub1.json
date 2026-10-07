@@ -1,0 +1,7 @@
+{
+  "game_name": "Capcom Sports Club (Europe 970722)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select csclub1.zip. If ROM files are missing, also add csclub.zip to the same folder. Keep qsound.zip in the same folder."
+}

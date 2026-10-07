@@ -1,0 +1,7 @@
+{
+  "game_name": "Warriors of Fate",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select wof.zip. Keep qsound.zip in the same folder."
+}

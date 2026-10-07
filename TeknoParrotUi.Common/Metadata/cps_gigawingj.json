@@ -1,0 +1,7 @@
+{
+  "game_name": "Giga Wing (Japan 990223)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select gigawingj.zip. If ROM files are missing, also add gigawing.zip to the same folder. Keep qsound.zip in the same folder."
+}

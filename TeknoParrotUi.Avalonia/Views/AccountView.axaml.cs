@@ -12,6 +12,7 @@ public partial class AccountView : UserControl
     public AccountView()
     {
         InitializeComponent();
+        AttachedToVisualTree += async (_, _) => await RefreshCardsAsync();
         if (OperatingSystem.IsAndroid())
         {
             AccountActions.Orientation = Orientation.Vertical;
@@ -91,6 +92,7 @@ public partial class AccountView : UserControl
         {
             BtnLogin.IsEnabled = true;
             UpdateState();
+            await RefreshCardsAsync();
         }
     }
 
@@ -98,5 +100,6 @@ public partial class AccountView : UserControl
     {
         _oauth.Logout();
         UpdateState();
+        _ = RefreshCardsAsync();
     }
 }

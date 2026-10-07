@@ -1,0 +1,7 @@
+{
+  "game_name": "Puzz Loop 2",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select pzloop2.zip. Keep qsound.zip in the same folder."
+}

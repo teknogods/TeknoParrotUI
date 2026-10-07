@@ -55,7 +55,9 @@ namespace TeknoParrotUi.Common.GameLaunch
 
         public GameSession(GameProfile profile, bool isTest = false, bool emuOnly = false)
         {
-            _profile = profile;
+            _profile = ArcadeGameRevisions.CreateLaunchProfile(profile);
+            profile = _profile;
+            JoystickHelper.AutoFillOnlineId(profile);
             _isTest = isTest;
             _emuOnly = emuOnly;
             _gameLocation = SafeFullPath(profile.GamePath);
@@ -155,6 +157,7 @@ namespace TeknoParrotUi.Common.GameLaunch
             // serial port handler, input listeners, actual process launch).
             GameLaunchPlatformGuard.ThrowIfUnsupported(
                 OperatingSystem.IsLinux(), RuntimeInformation.OSArchitecture, OperatingSystem.IsAndroid());
+            InputListening.Mouse.TrackballMotion.Reset();
 
             // Unique per-launch session token (TP_LAUNCH_SESSION_ID) - created
             // BEFORE any pipe, pipehelper, shared-memory or prefix preparation
@@ -504,7 +507,7 @@ namespace TeknoParrotUi.Common.GameLaunch
                 ProcessStartInfo info;
                 if (ExternalEmulatorLauncher.IsExternalEmulator(_profile))
                 {
-                    info = ExternalEmulatorLauncher.Build(_profile, _gameLocation, line => OutputReceived?.Invoke(line));
+                    info = ExternalEmulatorLauncher.Build(_profile, _gameLocation, line => OutputReceived?.Invoke(line), _isTest);
                 }
                 else if (_profile.EmulationProfile == EmulationProfile.SegaToolsIDZ)
                 {
@@ -517,6 +520,24 @@ namespace TeknoParrotUi.Common.GameLaunch
                 else
                 {
                     info = GameLaunchArguments.BuildProcessStartInfo(_profile, _gameLocation, _isTest, loaderExe, loaderDll);
+                }
+
+                if (Online.InitialDUnifiedMode.IsMatchmakingProfile(_profile))
+                {
+                    void Set(string key, string value)
+                    {
+                        if (value == null) info.Environment.Remove(key);
+                        else info.Environment[key] = value;
+                    }
+                    Set(Online.InitialDUnifiedMode.PartyEnvironmentVariable,
+                        _isTest ? null : Online.InitialDUnifiedMode.TakePartyCodeForProcess(_profile));
+                    Set(Online.InitialDLanPresence.InstallEnvironmentVariable, Online.InitialDLanPresence.InstallId);
+                    Set(Online.InitialDLanPresence.ConsentEnvironmentVariable,
+                        _isTest ? null : Online.InitialDLanPresence.ConsentRowsForProcess());
+                    Set(Online.InitialDLanPresence.UiEnvironmentVariable, _isTest ? null : "1");
+                    if (_profile.EmulatorType == EmulatorType.TeknoParrot &&
+                        !string.IsNullOrEmpty(Lazydata.ParrotData.Elfldr2NetworkAdapterName))
+                        Set("TP_ETH", Lazydata.ParrotData.Elfldr2NetworkAdapterName);
                 }
 
                 // Linux: run the game (and its loader) under Wine/Proton. The
@@ -626,7 +647,7 @@ namespace TeknoParrotUi.Common.GameLaunch
                 }
 
                 GameWindowTracker.GameProcessId = _process.Id;
-                if (redirectOutput)
+                if (_process.StartInfo.RedirectStandardOutput)
                     _process.BeginOutputReadLine();
 
                 StateChanged?.Invoke("Game running");

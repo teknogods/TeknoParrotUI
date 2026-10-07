@@ -35,6 +35,25 @@ namespace InputMethodAudit
 
         private static int Main(string[] args)
         {
+            if (args.Length > 0 && args[0] == "catalog-load-test")
+            {
+                var profiles = Directory.GetFiles("GameProfiles", "*.xml");
+                var failed = profiles.Where(file =>
+                {
+                    var document = new System.Xml.XmlDocument();
+                    document.Load(file);
+                    if (document.SelectSingleNode("/GameProfile/DevOnly")?.InnerText == "true") return false;
+                    return JoystickHelper.DeSerializeGameProfile(file, false) == null;
+                }).ToList();
+                if (failed.Count > 0)
+                {
+                    foreach (var file in failed) Console.Error.WriteLine("Cannot load " + file);
+                    return 1;
+                }
+                GameProfileLoader.LoadProfiles(false);
+                Console.WriteLine($"Loaded {profiles.Length} stock profiles; {GameProfileLoader.GameProfiles.Count} visible.");
+                return 0;
+            }
             if (args.Length > 0 && args[0] == "raw-joystick-test")
                 return RawJoystickBindingTest.Run();
             if (args.Length > 0 && args[0] == "legacy-bindings-import-test")

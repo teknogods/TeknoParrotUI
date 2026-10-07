@@ -1,7 +1,7 @@
 {
   "game_name": "Usagi (V2.02J 2001/10/02 12:41:19)",
   "game_genre": "Action",
-  "platform": "TaitoGNet",
+  "platform": "Taito G-NET",
   "icon_name": "",
   "general_issues": " Select coh3002t.zip as the first game path and the game CHD as the second. No separate game ROM ZIP is required."
 }

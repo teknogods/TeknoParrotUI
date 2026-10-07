@@ -1,0 +1,7 @@
+{
+  "game_name": "Janpai Puzzle Choukou (Japan 010820 Publicity)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select chokop.zip. If ROM files are missing, also add choko.zip to the same folder. Keep qsound.zip in the same folder."
+}

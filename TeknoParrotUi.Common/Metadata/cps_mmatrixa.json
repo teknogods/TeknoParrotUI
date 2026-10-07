@@ -1,0 +1,7 @@
+{
+  "game_name": "Mars Matrix: Hyper Solid Shooting (Asia 000412)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select mmatrixa.zip. If ROM files are missing, also add mmatrix.zip to the same folder. Keep qsound.zip in the same folder."
+}

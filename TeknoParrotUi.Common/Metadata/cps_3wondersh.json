@@ -1,0 +1,7 @@
+{
+  "game_name": "Three Wonders (hack)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select 3wondersh.zip. If ROM files are missing, also add 3wonders.zip to the same folder."
+}

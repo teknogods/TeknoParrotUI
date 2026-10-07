@@ -50,6 +50,7 @@ namespace TeknoParrotUi.Common.GameLaunch
                         var fieldValue = fieldInformation.FieldType == FieldType.DropdownIndex
                             ? fieldInformation.FieldOptions.IndexOf(fieldInformation.FieldValue).ToString()
                             : fieldInformation.FieldValue;
+                        fieldValue = Online.InitialDUnifiedMode.IniValue(gameProfile, fieldInformation, fieldValue);
                         return current + $"{fieldInformation.FieldName}={fieldValue}{Environment.NewLine}";
                     });
             }

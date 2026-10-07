@@ -1,0 +1,7 @@
+{
+  "game_name": "Rage of the Dragons (NGH-2640?)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "SNK Neo Geo MVS",
+  "general_issues": "Select rotdh.zip. Keep neogeo.zip in the same folder. If ROM files are missing, also add rotd.zip to the same folder."
+}

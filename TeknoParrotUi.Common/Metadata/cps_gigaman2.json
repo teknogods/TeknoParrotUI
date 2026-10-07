@@ -1,0 +1,7 @@
+{
+  "game_name": "Giga Man 2: The Power Fighters (bootleg of Mega Man 2: The Power Fighters)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select gigaman2.zip. If ROM files are missing, also add megaman2.zip to the same folder. Keep qsound.zip in the same folder. This game is not supported yet."
+}

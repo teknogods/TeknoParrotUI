@@ -1,6 +1,8 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Text.Json;
+using System.Threading;
 using Avalonia.Controls;
 using Avalonia.Threading;
 using TeknoParrotUi.Common;
@@ -31,17 +33,25 @@ public partial class TpoView : UserControl
         "    invokeCSharpAction(JSON.stringify({method:'startGame',args:[" +
         "      String(uniqueRoomName), String(realRoomName), String(gameId)," +
         "      String(playerId), String(playerName), String(playerCount)]}));" +
-        "  }" +
-        "};";
+        "  }," +
+        "  cancelMediaPreparation: function(){invokeCSharpAction(JSON.stringify({method:'cancelMediaPreparation',args:[]}));}" +
+        "};" +
+        "window.__tpMediaRequests = window.__tpMediaRequests || {}; window.__tpMediaId = window.__tpMediaId || 0;" +
+        "window.mediaPreparationObj = {prepareGame:function(gameId){return new Promise(function(resolve){" +
+        "var id=String(++window.__tpMediaId);window.__tpMediaRequests[id]=resolve;" +
+        "invokeCSharpAction(JSON.stringify({method:'prepareGame',args:[String(gameId),id]}));});}};";
 
     private static Process? _launcherProcess;
     private bool _autoSession;
     private bool _loginNoticeShown;
     private bool _bridgeOriginTrusted;
+    private CancellationTokenSource? _mediaPreparation;
+    private int _navigationSerial;
 
     public TpoView()
     {
         InitializeComponent();
+        DetachedFromVisualTree += (_, _) => _mediaPreparation?.Cancel();
 
         if (OperatingSystem.IsLinux() && !Common.Proton.LinuxEnvironmentCheck.CheckWebView().Found)
         {
@@ -131,6 +141,8 @@ public partial class TpoView : UserControl
         // the WebView. Disable the game-launch bridge before a new document
         // starts loading; NavigationCompleted enables it only for TPO itself.
         _bridgeOriginTrusted = false;
+        _navigationSerial++;
+        _mediaPreparation?.Cancel();
     }
 
     private async void Browser_NavigationCompleted(object? sender, WebViewNavigationCompletedEventArgs e)
@@ -173,7 +185,7 @@ public partial class TpoView : UserControl
             await Services.ExternalUrlLauncher.OpenAsync(this, e.Request.ToString());
     }
 
-    private void Browser_WebMessageReceived(object? sender, WebMessageReceivedEventArgs e)
+    private async void Browser_WebMessageReceived(object? sender, WebMessageReceivedEventArgs e)
     {
         try
         {
@@ -204,6 +216,13 @@ public partial class TpoView : UserControl
             var method = methodElement.GetString();
             switch (method)
             {
+                case "cancelMediaPreparation":
+                    _mediaPreparation?.Cancel();
+                    break;
+                case "prepareGame":
+                    if (args.GetArrayLength() >= 2)
+                        await PrepareMediaAsync(args[0].GetString() ?? "", args[1].GetString() ?? "");
+                    break;
                 case "showMessage":
                     if (args.GetArrayLength() >= 1)
                         StatusText.Text = args[0].GetString() ?? "";
@@ -247,7 +266,16 @@ public partial class TpoView : UserControl
             return;
 
         var profileFileName = gameId + ".xml";
-        if (!GameProfilePathResolver.TryResolveExisting(
+        if (Common.Online.InitialDUnifiedMode.IsTpoRetired(gameId))
+        {
+            StatusText.Text = string.Format(Services.Loc.T("InitialDTpoRetired"), gameId);
+            _ = Browser.InvokeScript("if(window.onGameProcessExited)onGameProcessExited();");
+            return;
+        }
+        GameProfile? exactProfile;
+        try { exactProfile = OnlineGameRevisionProfiles.Load(gameId); }
+        catch (Exception error) { StatusText.Text = error.Message; return; }
+        if (exactProfile == null && !GameProfilePathResolver.TryResolveExisting(
                 "GameProfiles",
                 profileFileName,
                 out _))
@@ -292,6 +320,40 @@ public partial class TpoView : UserControl
 
     private void BtnReload_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) =>
         NavigateToStart();
+
+    private async System.Threading.Tasks.Task PrepareMediaAsync(string gameId, string requestId)
+    {
+        if (requestId.Length > 32 || requestId.Length == 0 || requestId.Any(c => !char.IsDigit(c))) return;
+        var navigation = _navigationSerial;
+        var ok = false;
+        if (_mediaPreparation == null)
+        {
+            using var cancellation = new CancellationTokenSource();
+            _mediaPreparation = cancellation;
+            try
+            {
+                await Common.GameLaunch.GameMediaPreparation.PrepareOnlineAsync(gameId, message =>
+                    Dispatcher.UIThread.Post(async () =>
+                    {
+                        if (!_bridgeOriginTrusted || navigation != _navigationSerial) return;
+                        StatusText.Text = message;
+                        try { await Browser.InvokeScript("if(window.onGameMediaPreparationProgress)onGameMediaPreparationProgress(" +
+                            JsonSerializer.Serialize(message) + ");"); } catch { }
+                    }), cancellation.Token);
+                ok = true;
+            }
+            catch (OperationCanceledException) { StatusText.Text = "Game media preparation cancelled."; }
+            catch (Exception error) { StatusText.Text = error.Message; }
+            finally { _mediaPreparation = null; }
+        }
+        try
+        {
+            if (_bridgeOriginTrusted && navigation == _navigationSerial) await Browser.InvokeScript("if(window.__tpMediaRequests && window.__tpMediaRequests[" +
+                JsonSerializer.Serialize(requestId) + "]){window.__tpMediaRequests[" + JsonSerializer.Serialize(requestId) +
+                "](" + (ok ? "true" : "false") + ");delete window.__tpMediaRequests[" + JsonSerializer.Serialize(requestId) + "];}");
+        }
+        catch { }
+    }
 
     private async void BtnOpenWeb_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {

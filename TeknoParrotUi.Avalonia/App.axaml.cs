@@ -32,6 +32,7 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        Common.Online.OnlineText.Translate = Services.Loc.T;
         // A single dispatcher-thread failure used to take the whole app down
         // — e.g. Avalonia.Controls.WebView's Linux GTK/WebKitGTK backend
         // throwing "Unable to initialize GTK" when it attaches (missing/broken
@@ -83,7 +84,8 @@ public partial class App : Application
             TPOConfig.RegisterProtocol();
 
             var profileArg = args.FirstOrDefault(x => x.StartsWith("--profile="));
-            var profile = profileArg != null ? FetchProfile(profileArg) : null;
+            var profile = profileArg != null ? FetchProfile(profileArg, args.Contains("--tponline") ||
+                !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("TP_TPONLINE2"))) : null;
 
             if (profile != null)
             {
@@ -165,13 +167,23 @@ public partial class App : Application
     /// Loads a game profile from a --profile=Name.xml argument — ported from the
     /// classic App.FetchProfile.
     /// </summary>
-    private static GameProfile? FetchProfile(string profileArg)
+    private static GameProfile? FetchProfile(string profileArg, bool online = false)
     {
         try
         {
             var a = profileArg.Substring("--profile=".Length);
             if (string.IsNullOrWhiteSpace(a))
                 return null;
+            if (online)
+            {
+                var selected = OnlineGameRevisionProfiles.Load(Path.GetFileNameWithoutExtension(a));
+                if (selected != null)
+                {
+                    Common.InputListening.ProfileStorage.BindingsStore.Apply(selected);
+                    JoystickHelper.AutoFillOnlineId(selected);
+                    return selected;
+                }
+            }
             if (!GameProfilePathResolver.TryResolveExisting("GameProfiles", a, out var b))
                 return null;
 

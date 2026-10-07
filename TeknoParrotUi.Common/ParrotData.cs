@@ -50,6 +50,18 @@ namespace TeknoParrotUi.Common
         public string SegaId {get; set; } = "";
         public string NamcoId { get; set; } = "";
         public string MarioKartId { get; set; } = "";
+        public string GoldenTeePcbId { get; set; } = "";
+        public string GoldenTeeCardId { get; set; } = "";
+        public string InitialDOnlineId { get; set; } = "";
+        public string InitialDOnlineSecret { get; set; } = "";
+        public string KizunaOnlineId { get; set; } = "";
+        public string KizunaOnlineSecret { get; set; } = "";
+        public bool InitialDUnifiedNoticeShown { get; set; }
+        public bool InitialDRegisterPromptOff { get; set; }
+        public string InitialDOldLoaderMigrated { get; set; } = "";
+        public string InitialDLanInstallId { get; set; } = "";
+        public string InitialDLanConsent { get; set; } = "";
+        public bool InitialDLanFirewallAsked { get; set; }
         public string Language { get; set; } = "en";
         public bool HideDolphinGUI { get; set; } = false;
         // Disable the "Are you sure you want to delete this game?" prompt

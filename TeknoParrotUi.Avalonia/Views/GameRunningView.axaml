@@ -3,7 +3,19 @@
              x:Class="TeknoParrotUi.Avalonia.Views.GameRunningView">
     <Grid Margin="12" RowDefinitions="Auto,Auto,*,Auto">
         <TextBlock Name="Header" Grid.Row="0" FontSize="18" FontWeight="Bold" Margin="0,0,0,4" TextWrapping="Wrap" />
-        <SelectableTextBlock Name="StatusText" Grid.Row="1" Opacity="0.7" Margin="0,0,0,8" TextWrapping="Wrap" />
+        <StackPanel Grid.Row="1" Spacing="6">
+            <SelectableTextBlock Name="StatusText" Opacity="0.7" Margin="0,0,0,8" TextWrapping="Wrap" />
+            <StackPanel Name="MediaPanel" IsVisible="False" Spacing="6">
+                <TextBlock Name="MediaText" TextWrapping="Wrap" />
+                <ProgressBar Name="MediaProgress" Maximum="100" IsIndeterminate="True" Height="8" />
+            </StackPanel>
+            <StackPanel Name="OnlinePanel" IsVisible="False" Spacing="6">
+                <TextBlock Name="OnlineHeadline" FontWeight="Bold" TextWrapping="Wrap" />
+                <TextBlock Name="OnlineDetails" TextWrapping="Wrap" />
+                <SelectableTextBlock Name="PartyCodeText" />
+                <Button Name="BtnCopyInvite" Content="Copy invite" Click="BtnCopyInvite_Click" IsVisible="False" />
+            </StackPanel>
+        </StackPanel>
         <ScrollViewer Name="ConsoleScroll" Grid.Row="2" MinHeight="0">
             <SelectableTextBlock Name="ConsoleText" FontFamily="Consolas,monospace" FontSize="11" TextWrapping="Wrap" />
         </ScrollViewer>

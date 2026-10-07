@@ -102,6 +102,16 @@ namespace ParrotPatcher
                     manualVersion = true,
                     folderOverride = "ElfLdr2"
                 },
+                // GT on TP, the Golden Tee golfer and equipment editor. Same entry in TeknoParrotUi\MainWindow.xaml.cs.
+                new UpdaterComponent
+                {
+                    name = "GTonTP",
+                    location = Path.Combine("Tools", "GTonTP", "GTTPEditor.exe"),
+                    reponame = "GTonTP",
+                    opensource = false,
+                    manualVersion = true,
+                    folderOverride = Path.Combine("Tools", "GTonTP")
+                },
                 new UpdaterComponent
                 {
                     name = "FFBBlaster",
@@ -181,6 +191,24 @@ namespace ParrotPatcher
                 },
                 new UpdaterComponent
                 {
+                    name = "TeknoHDrive",
+                    location = Path.Combine("TeknoHDrive", "TeknoHDrive.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "TeknoHDrive"
+                },
+                new UpdaterComponent
+                {
+                    name = "TeknoMagic",
+                    location = Path.Combine("TeknoMagic", "teknomagic.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "TeknoMagic"
+                },
+                new UpdaterComponent
+                {
                     name = "TeknoVegas",
                     location = Path.Combine("TeknoVegas", "TeknoVegas.exe"),
                     reponame = "TeknoParrot",
@@ -214,6 +242,15 @@ namespace ParrotPatcher
                     opensource = false,
                     manualVersion = false,
                     folderOverride = "TeknoModel2"
+                },
+                new UpdaterComponent
+                {
+                    name = "TeknoModel3",
+                    location = Path.Combine("TeknoModel3", "TeknoModel3.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "TeknoModel3"
                 },
                 new UpdaterComponent
                 {
@@ -268,6 +305,33 @@ namespace ParrotPatcher
                     opensource = false,
                     manualVersion = false,
                     folderOverride = "TeknoM2"
+                },
+                new UpdaterComponent
+                {
+                    name = "TeknoMVS",
+                    location = Path.Combine("TeknoMVS", "TeknoMVS.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "TeknoMVS"
+                },
+                new UpdaterComponent
+                {
+                    name = "TeknoSS32",
+                    location = Path.Combine("TeknoSS32", "TeknoSS32.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "TeknoSS32"
+                },
+                new UpdaterComponent
+                {
+                    name = "TeknoCPS",
+                    location = Path.Combine("TeknoCPS", "TeknoCPS.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "TeknoCPS"
                 },
                 new UpdaterComponent
                 {

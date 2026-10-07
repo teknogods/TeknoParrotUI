@@ -1,0 +1,7 @@
+{
+  "game_name": "Red Earth (Europe 961023)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS3",
+  "general_issues": "Select redearthr1.zip. If ROM files are missing, also add redearth.zip to the same folder. CD image: cap-wzd-3.chd. Set CD Image Folder if stored elsewhere."
+}

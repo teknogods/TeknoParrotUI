@@ -1,7 +1,7 @@
 {
   "game_name": "Sekai Kaseki Hakken (Japan, SKH1 Ver.B)",
   "game_genre": "Action",
-  "platform": "NamcoSystem10",
+  "platform": "Namco System 10",
   "icon_name": "",
   "general_issues": " Select a merged ROM ZIP and, where requested, a CHD from the game disc directory. Controls: Operator controls only. Medal/pusher mechanisms and cabinet sensors are not routed by the TPUI input pipe."
 }

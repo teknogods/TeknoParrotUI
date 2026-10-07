@@ -171,6 +171,13 @@ namespace TeknoParrotUi.Common.Updater
 
             components.AddRange(new List<UpdaterComponent>
             {
+            new UpdaterComponent { name = "GTonTP", location = Path.Combine("Tools", "GTonTP", "GTTPEditor.exe"), reponame = "GTonTP", opensource = false, manualVersion = true, folderOverride = Path.Combine("Tools", "GTonTP") },
+            new UpdaterComponent { name = "TeknoHDrive", location = Path.Combine("TeknoHDrive", "TeknoHDrive.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoHDrive" },
+            new UpdaterComponent { name = "TeknoMagic", location = Path.Combine("TeknoMagic", "teknomagic.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoMagic" },
+            new UpdaterComponent { name = "TeknoModel3", location = Path.Combine("TeknoModel3", "TeknoModel3.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoModel3" },
+            new UpdaterComponent { name = "TeknoMVS", location = Path.Combine("TeknoMVS", "TeknoMVS.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoMVS" },
+            new UpdaterComponent { name = "TeknoCPS", location = Path.Combine("TeknoCPS", "TeknoCPS.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoCPS" },
+            new UpdaterComponent { name = "TeknoSS32", location = Path.Combine("TeknoSS32", "TeknoSS32.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoSS32" },
             // OpenParrot publishes one shared archive per architecture. Windows,
             // Linux/Wine, and Android all consume these exact same release assets.
             new UpdaterComponent { name = "OpenParrotWin32", location = Path.Combine("OpenParrotWin32", "OpenParrot.dll"), reponame = "OpenParrot", assetNameExact = "OpenParrotWin32.zip" },
@@ -247,7 +254,7 @@ namespace TeknoParrotUi.Common.Updater
 
         private static async Task<Dictionary<string, GithubRelease>> GetServerUpdates()
         {
-            if (_serverUpdateCache != null && DateTime.UtcNow - _serverUpdateCacheTime < TimeSpan.FromMinutes(5))
+            if (_serverUpdateCache != null && DateTime.UtcNow - _serverUpdateCacheTime < TimeSpan.FromSeconds(30))
                 return _serverUpdateCache;
 
             using var client = CreateClient();
@@ -645,9 +652,6 @@ namespace TeknoParrotUi.Common.Updater
                 }
             }
 
-            var changelogB64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(update.Release?.body ?? ""));
-            File.WriteAllText(Path.Combine(AppContext.BaseDirectory, ".lastupdate"),
-                $"{component.name}|{update.OnlineVersion}|{changelogB64}{Environment.NewLine}");
             progress?.Report(95);
 
             Process.Start(new ProcessStartInfo(patcherPath) { WorkingDirectory = AppContext.BaseDirectory, UseShellExecute = true });

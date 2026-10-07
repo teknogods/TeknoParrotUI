@@ -1,0 +1,7 @@
+{
+  "game_name": "Strider (USA, B-Board 90629B-3, buggy Street Fighter II conversion)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS1",
+  "general_issues": "Select strideruc.zip. If ROM files are missing, also add strider.zip to the same folder. This game is not supported yet."
+}

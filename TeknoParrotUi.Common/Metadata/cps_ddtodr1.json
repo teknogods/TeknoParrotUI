@@ -1,0 +1,7 @@
+{
+  "game_name": "Dungeons & Dragons: Tower of Doom (Europe 940113)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS2",
+  "general_issues": "Select ddtodr1.zip. If ROM files are missing, also add ddtod.zip to the same folder. Keep qsound.zip in the same folder."
+}

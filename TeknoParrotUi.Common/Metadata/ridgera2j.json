@@ -1,7 +1,13 @@
 {
-  "game_name": "Ridge Racer 2 (Japan, RRS1 Ver.B)",
+  "game_name": "Ridge Racer 2",
   "game_genre": "Racing",
   "icon_name": "",
   "platform": "Namco System 22",
-  "general_issues": "User-supplied merged ROM ZIP required. "
+  "general_issues": "User-supplied merged ROM ZIP required. Select Game Revision in Game Settings; the merged ridgera2.zip must contain that revision.",
+  "supported_versions": [
+    "World, RRS2",
+    "Japan, RRS1 Ver.B",
+    "Japan, RRS1",
+    "World, RRS8 prototype"
+  ]
 }

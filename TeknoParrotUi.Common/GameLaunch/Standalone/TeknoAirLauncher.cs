@@ -18,7 +18,7 @@ namespace TeknoParrotUi.Common.GameLaunch
             var workDir = Path.Combine(Directory.GetCurrentDirectory(), "TeknoAir");
             var args = new List<string> {
                 "--game", Quote(profile.ProfileName), "--rom-root", Quote(Path.GetDirectoryName(selectedRom)),
-                "--state-dir", Quote(Path.Combine(workDir, "state")), "--tpui",
+                "--state-dir", Quote(Path.Combine(workDir, "state")), "--tpui", "--outputs",
                 "--backend", Enabled("Enable VR") ? "vr" : "vulkan",
                 "--scale", Setting("Internal Resolution", "4"),
                 "--scale-filter", Setting("Scale Filter", "off"),

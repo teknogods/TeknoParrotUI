@@ -1,0 +1,7 @@
+{
+  "game_name": "JoJo's Venture (USA 990108)",
+  "game_genre": "Arcade",
+  "icon_name": "",
+  "platform": "Capcom CPS3",
+  "general_issues": "Select jojour1.zip. If ROM files are missing, also add jojo.zip to the same folder. CD image: cap-jjk-2.chd. Set CD Image Folder if stored elsewhere."
+}
