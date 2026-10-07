@@ -1122,7 +1122,7 @@ namespace TeknoParrotUi
                     return;
 
                 InitCEF();
-                var dialog = new AnnouncementWindow(announcement.PageUrl, App.IsPatreon()) { Owner = this };
+                var dialog = new AnnouncementWindow(announcement.Articles, App.IsPatreon()) { Owner = this };
                 dialog.ContentRendered += (sender, args) =>
                 {
                     // Mark it seen only once the dialog is actually visible.

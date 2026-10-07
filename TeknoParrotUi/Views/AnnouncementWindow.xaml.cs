@@ -1,6 +1,8 @@
 using CefSharp;
 using CefSharp.Handler;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
@@ -11,16 +13,21 @@ namespace TeknoParrotUi.Views
 {
     public partial class AnnouncementWindow : Window
     {
-        private readonly Uri _pageUrl;
+        private Uri _pageUrl;
+        private readonly IReadOnlyList<NewsArticle> _articles;
+        private int _articleIndex;
         private bool _closed;
         private bool _pageLoadFailed;
 
         public AnnouncementWindow(Uri pageUrl, bool isSubscribed)
-        {
-            if (pageUrl == null || !pageUrl.IsAbsoluteUri ||
-                !AnnouncementService.TryGetNewsPostUrl(pageUrl.OriginalString, out _))
-                throw new ArgumentException("Only HTTPS TeknoParrotTeam Patreon post URLs are allowed.", nameof(pageUrl));
+            : this(new[] { new NewsArticle(pageUrl, null) }, isSubscribed) { }
 
+        public AnnouncementWindow(IReadOnlyList<NewsArticle> articles, bool isSubscribed)
+        {
+            if (articles == null || articles.Count == 0 || articles.Any(article => article == null ||
+                article.PageUrl == null || !AnnouncementService.TryGetNewsPostUrl(article.PageUrl.OriginalString, out _)))
+                throw new ArgumentException("Only HTTPS TeknoParrotTeam Patreon post URLs are allowed.", nameof(articles));
+            _articles = articles.ToArray();
             InitializeComponent();
             if (isSubscribed)
             {
@@ -32,7 +39,7 @@ namespace TeknoParrotUi.Views
                 announcementFooter.BorderThickness = new Thickness(0);
                 announcementFooter.Padding = new Thickness(0);
             }
-            _pageUrl = pageUrl;
+            _pageUrl = _articles[0].PageUrl;
             Width = Math.Min(Width, SystemParameters.WorkArea.Width - 32);
             Height = Math.Min(Height, SystemParameters.WorkArea.Height - 32);
             Browser.RequestHandler = new NewsPostRequestHandler(() => UpdatePageState(ShowLoadError));
@@ -41,8 +48,32 @@ namespace TeknoParrotUi.Views
             Browser.LoadError += Browser_LoadError;
             Browser.FrameLoadStart += Browser_FrameLoadStart;
             Browser.FrameLoadEnd += Browser_FrameLoadEnd;
-            Browser.Address = pageUrl.AbsoluteUri;
+            ShowArticle(0);
         }
+
+        private static string ArticleDate(NewsArticle article)
+        {
+            return article.PublishedAt?.ToUniversalTime().ToString("yyyy-MM-dd") ?? "Date unavailable";
+        }
+
+        private void ShowArticle(int index)
+        {
+            if (index < 0 || index >= _articles.Count) return;
+            _articleIndex = index;
+            _pageUrl = _articles[index].PageUrl;
+            previousNewsButton.IsEnabled = index + 1 < _articles.Count;
+            nextNewsButton.IsEnabled = index > 0;
+            previousNewsButton.Content = previousNewsButton.IsEnabled
+                ? "Previous — " + ArticleDate(_articles[index + 1]) : "Previous";
+            nextNewsButton.Content = nextNewsButton.IsEnabled
+                ? "Next — " + ArticleDate(_articles[index - 1]) : "Next";
+            newsPosition.Text = $"News {index + 1} of {_articles.Count} · {ArticleDate(_articles[index])}";
+            ShowLoading();
+            Browser.Address = _pageUrl.AbsoluteUri;
+        }
+
+        private void PreviousNews_Click(object sender, RoutedEventArgs e) => ShowArticle(_articleIndex + 1);
+        private void NextNews_Click(object sender, RoutedEventArgs e) => ShowArticle(_articleIndex - 1);
 
         private void Browser_FrameLoadStart(object sender, FrameLoadStartEventArgs e)
         {

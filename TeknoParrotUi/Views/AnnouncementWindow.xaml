@@ -84,6 +84,7 @@
                 <RowDefinition Height="38" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <!-- A draggable broadcast-style title bar; WindowChrome retains native resizing. -->
@@ -150,8 +151,22 @@
                 </Grid>
             </Border>
 
+            <Grid Grid.Row="2" Margin="24,14,24,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="previousNewsButton" Grid.Column="0" Style="{StaticResource NewsButton}"
+                        Click="PreviousNews_Click" ToolTip="Read the older news article" />
+                <TextBlock x:Name="newsPosition" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"
+                           Margin="10,0" Foreground="#A7B6CE" TextWrapping="Wrap" TextAlignment="Center" />
+                <Button x:Name="nextNewsButton" Grid.Column="2" Style="{StaticResource NewsButton}"
+                        Click="NextNews_Click" ToolTip="Read the newer news article" />
+            </Grid>
+
             <!-- The lower-third promotion remains outside the webpage and always dismissible. -->
-            <Border x:Name="announcementFooter" Grid.Row="2" Margin="24,18,24,22" Padding="18,16" CornerRadius="7"
+            <Border x:Name="announcementFooter" Grid.Row="3" Margin="24,18,24,22" Padding="18,16" CornerRadius="7"
                     Background="#142036" BorderBrush="#30405B" BorderThickness="1">
                 <Grid>
                     <Grid.ColumnDefinitions>
