@@ -46,6 +46,7 @@ namespace TeknoParrotUi.UserControls
 
             PopulateModelFfbDevices(gameProfile);
             PopulateNamcoFfbDevices(gameProfile);
+            PopulateNamcoCameraDevices(gameProfile);
             PopulateHng64FfbDevices(gameProfile);
             PopulateViperFfbDevices(gameProfile);
             PopulateZeusFfbDevices(gameProfile);
@@ -55,6 +56,7 @@ namespace TeknoParrotUi.UserControls
             PopulateVegasFfbDevices(gameProfile);
             PopulateGClubFfbDevices(gameProfile);
             NamcoGameRevisions.Populate(gameProfile);
+            NamcoGameRevisions.PopulateLanguage(gameProfile);
             GameSettingsList.ItemsSource = gameProfile.ConfigValues.Where(f =>
                 f.SettingsPage != ForceFeedbackSettingsControl.PageName).ToList();
             var settingsView = System.Windows.Data.CollectionViewSource.GetDefaultView(GameSettingsList.ItemsSource);
@@ -128,6 +130,16 @@ namespace TeknoParrotUi.UserControls
             if (!(e.OriginalSource is ComboBox combo) || !(combo.DataContext is FieldInformation field) ||
                 combo.SelectedValue == null || _gameProfile == null)
                 return;
+            if (!_loadingRevision && field.FieldName == "Game Revision" &&
+                _gameProfile.EmulatorType == EmulatorType.TeknoS23 &&
+                Convert.ToString(combo.SelectedValue) != _displayedRevision)
+            {
+                combo.GetBindingExpression(ComboBox.SelectedValueProperty)?.UpdateSource();
+                _gameProfile.GamePath = GamePathBox.Text;
+                _gameProfile.GamePath2 = GamePathBox2.Text;
+                LoadNewSettings(_gameProfile, _comboItem, _contentControl, _library);
+                return;
+            }
             if (!_loadingRevision && field.FieldName == "Game Revision" &&
                 ArcadeGameRevisions.Handles(_gameProfile) &&
                 Convert.ToString(combo.SelectedValue) != _displayedRevision)
@@ -212,6 +224,22 @@ namespace TeknoParrotUi.UserControls
                     });
                 }
             }
+        }
+
+        private static void PopulateNamcoCameraDevices(GameProfile gameProfile)
+        {
+            if (gameProfile.EmulatorType != EmulatorType.TeknoS23) return;
+            var field = gameProfile.ConfigValues?.Find(value =>
+                value.FieldName == "Webcam" && value.FieldType == FieldType.DynamicDropdown);
+            if (field == null) return;
+            field.DynamicOptions = NamcoCameraDeviceProbe.GetDevices();
+            if (!string.IsNullOrWhiteSpace(field.FieldValue) &&
+                !field.DynamicOptions.Any(value => value.Value == field.FieldValue))
+                field.DynamicOptions.Add(new DynamicDropdownOption
+                {
+                    DisplayName = "Selected webcam (unavailable)",
+                    Value = field.FieldValue
+                });
         }
 
         private static void PopulateNamcoFfbDevices(GameProfile gameProfile)

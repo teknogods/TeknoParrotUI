@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Rapid River</GameNameInternal>
   <EmulationProfile>TeknoS23</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <EmulatorType>TeknoS23</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>rapidrvr.zip</ExecutableName>
@@ -19,6 +19,13 @@
   <yAxisMin>0</yAxisMin>
   <yAxisMax>255</yAxisMax>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Language</FieldName>
+      <FieldValue>default</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Choose a language supported by the selected game revision.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Game Revision</FieldName>

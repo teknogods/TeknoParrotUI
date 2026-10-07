@@ -319,6 +319,7 @@
     <Compile Include="Helpers\Model2FfbDeviceProbe.cs" />
     <Compile Include="Helpers\Model3FfbDeviceProbe.cs" />
     <Compile Include="Helpers\NamcoFfbDeviceProbe.cs" />
+    <Compile Include="Helpers\NamcoCameraDeviceProbe.cs" />
     <Compile Include="Helpers\Hng64FfbDeviceProbe.cs" />
     <Compile Include="Helpers\GClubFfbDeviceProbe.cs" />
     <Compile Include="Helpers\ViperFfbDeviceProbe.cs" />

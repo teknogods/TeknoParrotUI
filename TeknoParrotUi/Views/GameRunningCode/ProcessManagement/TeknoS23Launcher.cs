@@ -31,6 +31,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var romRoot = Path.GetDirectoryName(game);
             var set = NamcoGameRevisions.ResolveSet(profile);
             if (string.IsNullOrWhiteSpace(set) || set.Any(c => !char.IsLetterOrDigit(c))) throw new ArgumentException("Invalid System 23 game profile");
+            var language = NamcoGameRevisions.ResolveLanguage(profile);
             var scale = Setting("Internal Resolution", "2");
             if (!int.TryParse(scale, out var resolution) || resolution < 1 || resolution > 8) throw new ArgumentException("Internal Resolution must be 1 to 8");
             var filter = Setting("Presentation Resampling", "bicubic").ToLowerInvariant();
@@ -39,6 +40,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             Directory.CreateDirectory(Path.Combine(root, "state"));
             Directory.CreateDirectory(Path.Combine(root, "bezels"));
             var args = new List<string> { "--rom-root", Quote(romRoot), "--state-root", Quote(Path.Combine(root, "state")), "--scale", scale, "--present-filter", filter, "--outputs" };
+            if (language != "default") { args.Add("--language"); args.Add(language); }
             var fullscreen = Setting("DisplayMode", "Fullscreen").Equals("Fullscreen", StringComparison.OrdinalIgnoreCase);
             if (fullscreen) args.Add("--fullscreen");
             if (fullscreen && Enabled("Stretch to Fullscreen")) args.Add("--stretch");
@@ -58,6 +60,15 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             else if (Enabled("Widescreen")) args.Add("--experimental-widescreen");
             // Same --ffb-* options and device tokens as TeknoS22 (S23haptic.exe).
             TeknoS22Launcher.AddForceFeedback(profile, args);
+            if (profile.ConfigValues?.Any(value => value.FieldName == "Webcam") == true)
+            {
+                var webcam = Helpers.NamcoCameraDeviceProbe.GetLaunchSelection(Setting("Webcam", "off"));
+                var rotation = Setting("Webcam Rotation", "0");
+                if (!new[] { "0", "90", "180", "270" }.Contains(rotation))
+                    throw new ArgumentException("Webcam Rotation must be 0, 90, 180 or 270 degrees");
+                args.Add("--webcam"); args.Add(Quote(webcam));
+                args.Add("--webcam-rotation"); args.Add(rotation);
+            }
             // TPOnline supplies TP_TPONLINE2 in the inherited environment, as for Viper.
             // Manual LAN peers use the native C422/GMEN transport in the same executable.
             var tpOnline = !string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("TP_TPONLINE2"));
