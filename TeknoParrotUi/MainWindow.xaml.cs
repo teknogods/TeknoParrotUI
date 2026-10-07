@@ -1117,7 +1117,8 @@ namespace TeknoParrotUi
             {
                 var announcement = await AnnouncementService.CheckAsync(
                     Lazydata.ParrotData.AnnouncementSourceUrl,
-                    Lazydata.ParrotData.LastAnnouncementContent, _announcementCancellation.Token);
+                    Environment.GetCommandLineArgs().Contains("--news-test") ? null : Lazydata.ParrotData.LastAnnouncementContent,
+                    _announcementCancellation.Token);
                 if (announcement == null || _allowClose || !IsLoaded || Dispatcher.HasShutdownStarted)
                     return;
 

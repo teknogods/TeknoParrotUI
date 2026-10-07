@@ -42,6 +42,8 @@ namespace TeknoParrotUi.Helpers
 
         internal static bool ShouldCheckAtStartup(string[] arguments, bool debuggerAttached)
         {
+            if (arguments != null && arguments.Contains("--news-test"))
+                return true;
 #if DEBUG
             return false;
 #else
