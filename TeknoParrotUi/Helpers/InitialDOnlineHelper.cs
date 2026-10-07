@@ -109,6 +109,23 @@ namespace TeknoParrotUi.Helpers
             return (B64Url.IndexOf(t[42]) & 3) == 0;
         }
 
+        /// <summary>
+        /// The Online ID and the secret in pasted text, as teknoparrot.com shows them: one value, or both from its
+        /// OnlineID= / OnlineSecret= lines. Null for a value the text does not hold.
+        /// </summary>
+        public static (string PcbId, string Secret) ReadPasted(string text)
+        {
+            string id = null, secret = null;
+            foreach (var word in System.Text.RegularExpressions.Regex.Split(text ?? "", "[^A-Za-z0-9_-]+"))
+            {
+                if (id == null && NormalizePcbId(word) is string pcbId)
+                    id = pcbId;
+                else if (secret == null && IsValidSecret(word))
+                    secret = word;
+            }
+            return (id, secret);
+        }
+
         public static bool SamePcbId(string a, string b)
         {
             var na = NormalizePcbId(a);

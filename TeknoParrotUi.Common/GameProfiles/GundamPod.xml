@@ -6,11 +6,13 @@
 	<ExtraParameters>fullhd</ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoGundamPod</EmulationProfile>
-	<GameProfileRevision>7</GameProfileRevision>
+	<GameProfileRevision>9</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>n_gun_station_rel_opt_es1</ExecutableName>
-	<Patreon>true</Patreon>
+	<OnlineIdFieldName>OnlineID</OnlineIdFieldName>
+	<OnlineIdType>Kizuna</OnlineIdType>
+	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/Kizuna</OnlineProfileURL>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -39,6 +41,104 @@
 			<FieldName>Reverse Y Axis</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>Show settings</FieldName>
+			<FieldValue>Basic</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Basic</string>
+				<string>Advanced</string>
+			</FieldOptions>
+			<Hint>Senjou no Kizuna plays online only, on TeknoParrot's server. This PC needs its Senjou no Kizuna Online ID for it: register this PC on the Account page (Senjou no Kizuna Online) and TeknoParrotUI fills it in. Friends who enter the same arcade name meet in in-store battles. Basic: the arcade name. Advanced: online server, cabinet id, station id, the card and its key.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>Arcade</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The arcade this cabinet plays at. Friends who enter the same name share one arcade: in-store battles and burst rooms. Empty = an arcade of its own. Up to 20 characters: letters, digits, spaces and . - _ (case does not matter).</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>CabinetId</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Advanced</VisibleWhenValue>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Advanced. This cabinet's serial, up to 6 digits. Empty = derived from this PC. Every pod needs its own (two pods with one id are one cabinet): set it only for cloned or imaged installs, or for several pods on one PC.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>StationId</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Advanced</VisibleWhenValue>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Advanced. This pod's station in its arcade, 1..8. Empty = the server's choice. Pods of one arcade need different stations.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>OnlineID</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Debug</VisibleWhenValue>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Hidden: managed on the Account page (Senjou no Kizuna Online). Your Senjou no Kizuna Online PCB ID (AAKZ-...), filled in by TeknoParrotUI from your teknoparrot.com account; not the Initial D one. TeknoParrot's server takes only cabinets signed in with one. One PC per account.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>OnlineSecret</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Debug</VisibleWhenValue>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Hidden: managed on the Account page (Senjou no Kizuna Online). The secret that belongs to OnlineID (43 characters). It never leaves this PC: the server only gets a proof made with it. Keep it private: it lets anyone play as you.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Card</CategoryName>
+			<FieldName>CardId</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Advanced</VisibleWhenValue>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Advanced. The player's card: the emulated Banapassport's chip serial, 1..16777215. Empty = derived from this PC. The same id is the same player on any PC.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Card</CategoryName>
+			<FieldName>Key</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Advanced</VisibleWhenValue>
+			<FieldValue>0x71</FieldValue>
+			<FieldType>KeyCapture</FieldType>
+			<Hint>Advanced. The key that touches the card (default F2): a press holds the card on the reader for 3 seconds. Change it only to run several pods on one PC.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Voice</CategoryName>
+			<FieldName>VoiceChat</FieldName>
+			<FieldValue>talk</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>off</string>
+				<string>listen</string>
+				<string>talk</string>
+			</FieldOptions>
+			<Hint>Voice chat with your team: it goes through TeknoParrot's server, and nothing is recorded. talk = microphone and speakers (a headset is advised), listen = speakers only, off = none. The mode key (VoiceModeKey) cycles talk -> listen -> off during the game. The microphone pauses while the game window is not in front.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Voice</CategoryName>
+			<FieldName>VoicePttKey</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>KeyCapture</FieldType>
+			<Hint>Optional push-to-talk key; empty = voice activation.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Voice</CategoryName>
+			<FieldName>VoiceModeKey</FieldName>
+			<FieldValue>0x73</FieldValue>
+			<FieldType>KeyCapture</FieldType>
+			<Hint>The key that cycles voice chat talk -> listen -> off during the game (default F4).</Hint>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>

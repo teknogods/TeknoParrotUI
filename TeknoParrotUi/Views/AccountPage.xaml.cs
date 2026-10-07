@@ -67,6 +67,7 @@ namespace TeknoParrotUi.Views
                     }
 
                     await RefreshInitialDOnlineAsync();
+                    await RefreshKizunaOnlineAsync();
                 }
                 else
                 {
@@ -75,6 +76,8 @@ namespace TeknoParrotUi.Views
                     LoginLogoutButton.Content = TeknoParrotUi.Properties.Resources.AccountPageLoginButton;
                     UserInfoCard.Visibility = Visibility.Collapsed;
                     UserTierText.Visibility = Visibility.Collapsed;
+                    await RefreshInitialDOnlineAsync();
+                    await RefreshKizunaOnlineAsync();
                 }
             }
             catch (Exception ex)
@@ -195,10 +198,13 @@ namespace TeknoParrotUi.Views
                     GoldenTeeCardIdTextBox.Text = string.Empty;
                     UserTierText.Text = TeknoParrotUi.Properties.Resources.AccountPageTierNone;
                     UserTierText.Visibility = Visibility.Collapsed;
-                    InitialDOnlineCard.Visibility = Visibility.Collapsed;
                     _initialDRank = null;
                     _initialDMachine = null;
                     _initialDMachineKnown = false;
+                    ShowInitialDWebsite(false, R.InitialDManualNotLoggedIn);
+                    ShowKizunaWebsite(false, R.KizunaManualNotLoggedIn);
+                    _kizunaMachine = null;
+                    _kizunaMachineKnown = false;
 
                     _cachedUserData = null;
                     _lastDataFetchTime = DateTime.MinValue;
@@ -220,6 +226,7 @@ namespace TeknoParrotUi.Views
                         UserTierText.Visibility = Visibility.Visible;
                         await LoadUserData();
                         await RefreshInitialDOnlineAsync();
+                        await RefreshKizunaOnlineAsync();
                     }
                     else
                     {
@@ -507,21 +514,24 @@ namespace TeknoParrotUi.Views
 
         private async Task RefreshInitialDOnlineAsync()
         {
+            // The card is always there: an Online ID can be entered by hand. Its website part needs the login and
+            // teknoparrot.com's Initial D Online.
             if (!_isLoggedIn)
             {
-                InitialDOnlineCard.Visibility = Visibility.Collapsed;
+                ShowInitialDWebsite(false, R.InitialDManualNotLoggedIn);
+                UpdateInitialDView();
                 return;
             }
 
             var result = await InitialDApi.GetMachineAsync();
             if (result.Error == InitialDOnlineHelper.ApiError.FeatureOff || result.Error == InitialDOnlineHelper.ApiError.NotLoggedIn)
             {
-                // The website has not switched Initial D Online on (or the login is gone): show nothing.
-                InitialDOnlineCard.Visibility = Visibility.Collapsed;
+                ShowInitialDWebsite(false, result.Error == InitialDOnlineHelper.ApiError.FeatureOff ? R.InitialDManualWebsiteOff : R.InitialDManualNotLoggedIn);
+                UpdateInitialDView();
                 return;
             }
 
-            InitialDOnlineCard.Visibility = Visibility.Visible;
+            ShowInitialDWebsite(true, null);
             if (result.Ok)
             {
                 _initialDMachine = result.Value;
@@ -823,6 +833,386 @@ namespace TeknoParrotUi.Views
                 Debug.WriteLine($"InitialDOnline: cannot open {e.Uri}: {ex.Message}");
             }
             e.Handled = true;
+        }
+
+        /// <summary>
+        /// The card's website part (rank, the account's Online ID, register ...), or the note why it is not there; the
+        /// by-hand part is always shown, with this PC's Online ID when it has one.
+        /// </summary>
+        private void ShowInitialDWebsite(bool visible, string note)
+        {
+            InitialDWebsitePanel.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+            InitialDWebsiteNote.Text = note ?? "";
+            InitialDWebsiteNote.Visibility = string.IsNullOrEmpty(note) ? Visibility.Collapsed : Visibility.Visible;
+            // this PC's Online ID, also right after register / regenerate / remove; the secret is never shown
+            var local = InitialDOnlineHelper.LocalCredential();
+            InitialDManualIdTextBox.Text = local.HasValue ? local.Value.PcbId : "";
+            InitialDManualSecretBox.Clear();
+        }
+
+        /// <summary>By hand, logged in or not: the Online ID and its secret go into ParrotData and every Initial D profile.</summary>
+        private void InitialDManualSave_Click(object sender, RoutedEventArgs e)
+        {
+            var id = InitialDOnlineHelper.NormalizePcbId(InitialDManualIdTextBox.Text);
+            if (id == null)
+            {
+                ShowInitialDMessage(R.InitialDManualBadId, true);
+                return;
+            }
+            if (id.StartsWith(KizunaOnlineHelper.PcbIdPrefix + "-", StringComparison.Ordinal))
+            {
+                ShowInitialDMessage(R.InitialDManualKizunaId, true);
+                return;
+            }
+            var secret = (InitialDManualSecretBox.Password ?? "").Trim();
+            if (!InitialDOnlineHelper.IsValidSecret(secret))
+            {
+                ShowInitialDMessage(R.InitialDManualBadSecret, true);
+                return;
+            }
+            var updated = InitialDOnlineHelper.StoreCredential(id, secret);
+            InitialDManualIdTextBox.Text = id;
+            InitialDManualSecretBox.Clear();
+            ShowInitialDMessage(string.Format(R.InitialDOnlineSaved, updated), false);
+            UpdateInitialDView();
+        }
+
+        /// <summary>By hand: this PC forgets its Online ID (ParrotData and the Initial D profiles that hold it).</summary>
+        private void InitialDManualClear_Click(object sender, RoutedEventArgs e)
+        {
+            var local = InitialDOnlineHelper.LocalCredential();
+            var id = local.HasValue ? local.Value.PcbId : InitialDManualIdTextBox.Text;
+            InitialDOnlineHelper.ClearCredential(id ?? "");
+            InitialDManualIdTextBox.Text = "";
+            InitialDManualSecretBox.Clear();
+            ShowInitialDMessage(R.InitialDOnlineRemoved, false);
+            UpdateInitialDView();
+        }
+
+        /// <summary>A paste into the by-hand boxes (see <see cref="PasteOnlineId"/>).</summary>
+        private void InitialDManual_Pasting(object sender, DataObjectPastingEventArgs e) =>
+            PasteOnlineId(e, InitialDOnlineHelper.ReadPasted(PastedText(e)), InitialDManualIdTextBox, InitialDManualSecretBox);
+
+        // =============================================================================================================
+        // Senjou no Kizuna Online (KizunaOnlineHelper): this PC's own Kizuna Online ID (a PCB ID + secret apart from
+        // Initial D's) from the website's api/Kizuna/, written into the Kizuna profiles. The game plays online only, so it
+        // needs it. The rank is the account's TeknoParrot.com rank (api/User/Profile, the value the Initial D card shows),
+        // display only, and Kizuna always shows it: no visibility choice, no preview. Everything here is started by the
+        // user on this page.
+        // =============================================================================================================
+
+        private KizunaOnlineHelper.MachineInfo _kizunaMachine;
+        private bool _kizunaMachineKnown;
+        private KizunaOnlineHelper.ApiClient _kizunaApi;
+        private bool _kizunaBusy;
+
+        private KizunaOnlineHelper.ApiClient KizunaApi =>
+            _kizunaApi ??= new KizunaOnlineHelper.ApiClient(KizunaTokenAsync, KizunaFreshLoginAsync);
+
+        private async Task<string> KizunaTokenAsync()
+        {
+            var oAuthHelper = _app.OAuthHelper;
+            return await oAuthHelper.EnsureAuthenticatedAsync(false) ? oAuthHelper.GetAccessToken() : null;
+        }
+
+        /// <summary>The step-up the secret reads need, announced on the Kizuna card.</summary>
+        private async Task<bool> KizunaFreshLoginAsync()
+        {
+            ShowKizunaMessage(R.InitialDOnlineFreshLoginPrompt, false);
+            var login = _app.OAuthHelper.AuthenticateAsync(true);
+            var finished = await Task.WhenAny(login, Task.Delay(TimeSpan.FromMinutes(5)));
+            return finished == login && login.Result;
+        }
+
+        private async Task RefreshKizunaOnlineAsync()
+        {
+            // The card is always there: an Online ID can be entered by hand. Its website part needs the login and
+            // teknoparrot.com's Senjou no Kizuna section.
+            if (!_isLoggedIn)
+            {
+                ShowKizunaWebsite(false, R.KizunaManualNotLoggedIn);
+                return;
+            }
+
+            var result = await KizunaApi.GetMachineAsync();
+            if (result.Error == KizunaOnlineHelper.ApiError.FeatureOff || result.Error == KizunaOnlineHelper.ApiError.NotLoggedIn)
+            {
+                ShowKizunaWebsite(false, result.Error == KizunaOnlineHelper.ApiError.FeatureOff ? R.KizunaManualWebsiteOff : R.KizunaManualNotLoggedIn);
+                return;
+            }
+
+            ShowKizunaWebsite(true, null);
+            if (result.Ok)
+            {
+                _kizunaMachine = result.Value;
+                _kizunaMachineKnown = true;
+            }
+            else if (result.Error == KizunaOnlineHelper.ApiError.NoMachine)
+            {
+                _kizunaMachine = null;
+                _kizunaMachineKnown = true;
+            }
+            else
+            {
+                ShowKizunaMessage(KizunaOnlineHelper.DescribeError(result), true);
+            }
+            UpdateKizunaView();
+        }
+
+        /// <summary>
+        /// The card's website part (rank, the account's Online ID, register ...), or the note why it is not there; the
+        /// by-hand part is always shown, with this PC's Online ID when it has one.
+        /// </summary>
+        private void ShowKizunaWebsite(bool visible, string note)
+        {
+            KizunaWebsitePanel.Visibility = visible ? Visibility.Visible : Visibility.Collapsed;
+            KizunaWebsiteNote.Text = note ?? "";
+            KizunaWebsiteNote.Visibility = string.IsNullOrEmpty(note) ? Visibility.Collapsed : Visibility.Visible;
+            // this PC's Online ID, also right after register / regenerate / remove; the secret is never shown
+            var local = KizunaOnlineHelper.LocalCredential();
+            KizunaManualIdTextBox.Text = local.HasValue ? local.Value.PcbId : "";
+            KizunaManualSecretBox.Clear();
+        }
+
+        /// <summary>By hand: the Online ID and its secret go into ParrotData and every Senjou no Kizuna profile.</summary>
+        private void KizunaManualSave_Click(object sender, RoutedEventArgs e)
+        {
+            var id = KizunaOnlineHelper.NormalizePcbId(KizunaManualIdTextBox.Text);
+            if (id == null)
+            {
+                ShowKizunaMessage(R.KizunaManualBadId, true);
+                return;
+            }
+            if (id.StartsWith(KizunaOnlineHelper.InitialDPcbIdPrefix + "-", StringComparison.Ordinal))
+            {
+                ShowKizunaMessage(R.KizunaManualInitialDId, true);
+                return;
+            }
+            var secret = (KizunaManualSecretBox.Password ?? "").Trim();
+            if (!KizunaOnlineHelper.IsValidSecret(secret))
+            {
+                ShowKizunaMessage(R.KizunaManualBadSecret, true);
+                return;
+            }
+            var updated = KizunaOnlineHelper.StoreCredential(id, secret);
+            KizunaManualIdTextBox.Text = id;
+            KizunaManualSecretBox.Clear();
+            ShowKizunaMessage(string.Format(R.KizunaOnlineSaved, updated), false);
+            UpdateKizunaView();
+        }
+
+        /// <summary>By hand: this PC forgets its Online ID (ParrotData and the Senjou no Kizuna profiles that hold it).</summary>
+        private void KizunaManualClear_Click(object sender, RoutedEventArgs e)
+        {
+            var local = KizunaOnlineHelper.LocalCredential();
+            var id = local.HasValue ? local.Value.PcbId : KizunaManualIdTextBox.Text;
+            KizunaOnlineHelper.ClearCredential(id ?? "");
+            KizunaManualIdTextBox.Text = "";
+            KizunaManualSecretBox.Clear();
+            ShowKizunaMessage(R.KizunaOnlineRemoved, false);
+            UpdateKizunaView();
+        }
+
+        /// <summary>A paste into the by-hand boxes (see <see cref="PasteOnlineId"/>).</summary>
+        private void KizunaManual_Pasting(object sender, DataObjectPastingEventArgs e) =>
+            PasteOnlineId(e, KizunaOnlineHelper.ReadPasted(PastedText(e)), KizunaManualIdTextBox, KizunaManualSecretBox);
+
+        /// <summary>
+        /// A paste into a card's by-hand boxes: an Online ID or a secret as teknoparrot.com shows them goes into its own
+        /// box, both at once from the website's OnlineID / OnlineSecret lines. Any other text pastes as usual.
+        /// </summary>
+        private static void PasteOnlineId(DataObjectPastingEventArgs e, (string PcbId, string Secret) found, TextBox idBox, PasswordBox secretBox)
+        {
+            if (found.PcbId == null && found.Secret == null)
+                return;
+            e.CancelCommand();
+            if (found.PcbId != null)
+                idBox.Text = found.PcbId;
+            if (found.Secret != null)
+                secretBox.Password = found.Secret;
+        }
+
+        private static string PastedText(DataObjectPastingEventArgs e) =>
+            e.DataObject.GetDataPresent(DataFormats.UnicodeText, true)
+                ? e.DataObject.GetData(DataFormats.UnicodeText, true) as string
+                : null;
+
+        private void UpdateKizunaView()
+        {
+            // the account's rank, always shown in Kizuna: the badge and the ladder, nothing to choose
+            var rank = KizunaOnlineHelper.Rank(_initialDRank);
+            KizunaRankPanel.Visibility = rank != null ? Visibility.Visible : Visibility.Collapsed;
+            if (rank != null)
+                StyleKizunaRankBadge(KizunaRankBadge, KizunaRankText, rank, true);
+            BuildKizunaLadder(rank);
+
+            var local = KizunaOnlineHelper.LocalCredential();
+            var machine = _kizunaMachine;
+            bool known = _kizunaMachineKnown;
+            bool here = machine != null && local.HasValue && KizunaOnlineHelper.SamePcbId(local.Value.PcbId, machine.PcbId);
+
+            KizunaPcbIdTextBox.Text = machine == null ? "" : KizunaOnlineHelper.NormalizePcbId(machine.PcbId) ?? machine.PcbId;
+            var text = "";
+            if (known)
+            {
+                if (machine == null)
+                {
+                    text = R.KizunaOnlineNotRegistered;
+                }
+                else
+                {
+                    text = here ? R.KizunaOnlineRegisteredHere : R.KizunaOnlineRegisteredElsewhere;
+                    if (machine.Status == "banned")
+                        text += " " + R.KizunaOnlineErrorBanned;
+                    else if (machine.Status == "suspended")
+                        text += " " + R.InitialDOnlineMachineSuspended;
+                    if (!string.IsNullOrEmpty(machine.LastSeenUtc))
+                        text += " " + string.Format(R.InitialDOnlineLastSeen, FormatUtc(machine.LastSeenUtc));
+                    if (!string.IsNullOrEmpty(machine.MachineChangedUtc))
+                        text += " " + string.Format(R.InitialDOnlineMachineChanged, FormatUtc(machine.MachineChangedUtc));
+                }
+            }
+            KizunaMachineText.Text = text;
+
+            KizunaRegisterButton.Visibility = known && machine == null ? Visibility.Visible : Visibility.Collapsed;
+            KizunaUseHereButton.Visibility = machine != null && !here ? Visibility.Visible : Visibility.Collapsed;
+            KizunaRegenerateButton.Visibility = machine != null ? Visibility.Visible : Visibility.Collapsed;
+            KizunaRemoveButton.Visibility = machine != null ? Visibility.Visible : Visibility.Collapsed;
+            KizunaRegisterButton.IsEnabled = !_kizunaBusy;
+            KizunaUseHereButton.IsEnabled = !_kizunaBusy;
+            KizunaRegenerateButton.IsEnabled = !_kizunaBusy;
+            KizunaRemoveButton.IsEnabled = !_kizunaBusy;
+        }
+
+        /// <summary>The Initial D card's badge materials (bronze, silver, gold, fire, platinum) with Kizuna's in-game mark.</summary>
+        private static void StyleKizunaRankBadge(Border badge, TextBlock text, KizunaOnlineHelper.RankStyle rank, bool animate)
+        {
+            StyleRankBadge(badge, text, new InitialDOnlineHelper.RankStyle
+            {
+                Tier = rank.Tier,
+                Name = rank.Name,
+                Insignia = rank.Mark,
+                Color = rank.Color,
+                Color2 = rank.Color2,
+            }, animate);
+            text.Text = rank.Display;
+        }
+
+        /// <summary>Kizuna's ladder, the own rank lit and the others dimmed ("locked").</summary>
+        private void BuildKizunaLadder(KizunaOnlineHelper.RankStyle current)
+        {
+            KizunaLadderPanel.Children.Clear();
+            if (current == null)
+            {
+                KizunaLadderPanel.Visibility = Visibility.Collapsed;
+                return;
+            }
+            KizunaLadderPanel.Visibility = Visibility.Visible;
+            foreach (var rank in KizunaOnlineHelper.Ladder)
+            {
+                var text = new TextBlock { FontWeight = FontWeights.Bold, FontSize = 12 };
+                var badge = new Border { CornerRadius = new CornerRadius(3), Padding = new Thickness(8, 2, 8, 2), Margin = new Thickness(0, 0, 6, 6), Child = text };
+                StyleKizunaRankBadge(badge, text, rank, false);
+                badge.Opacity = rank.Tier == current.Tier ? 1.0 : 0.45;
+                KizunaLadderPanel.Children.Add(badge);
+            }
+        }
+
+        private void ShowKizunaMessage(string message, bool error)
+        {
+            KizunaMessageText.Text = message ?? "";
+            KizunaMessageText.Visibility = string.IsNullOrEmpty(message) ? Visibility.Collapsed : Visibility.Visible;
+            if (error)
+                KizunaMessageText.Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(0xE0, 0x40, 0x30));
+            else
+                KizunaMessageText.ClearValue(TextBlock.ForegroundProperty);
+        }
+
+        /// <summary>Runs one user action on the Kizuna card (its buttons disabled meanwhile), then reloads it.</summary>
+        private async Task RunKizunaAsync(Func<Task<(bool Ok, string Message)>> work)
+        {
+            if (_kizunaBusy)
+                return;
+            _kizunaBusy = true;
+            UpdateKizunaView();
+            ShowKizunaMessage(R.InitialDOnlineWorking, false);
+            (bool Ok, string Message) outcome;
+            try
+            {
+                outcome = await work();
+            }
+            catch (Exception ex)
+            {
+                outcome = (false, string.Format(R.InitialDOnlineErrorGeneric, ex.Message));
+            }
+            try
+            {
+                await RefreshKizunaOnlineAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"KizunaOnline: refresh failed: {ex.Message}");
+            }
+            finally
+            {
+                _kizunaBusy = false;
+                UpdateKizunaView();
+            }
+            ShowKizunaMessage(outcome.Message, !outcome.Ok);
+        }
+
+        private static (bool Ok, string Message) StoreKizunaPair(KizunaOnlineHelper.CredentialInfo pair)
+        {
+            var profiles = KizunaOnlineHelper.StoreCredential(pair.PcbId, pair.Secret);
+            return (true, string.Format(R.KizunaOnlineSaved, profiles));
+        }
+
+        private async void KizunaRegister_Click(object sender, RoutedEventArgs e)
+        {
+            // no consent step: Kizuna always shows the rank
+            await RunKizunaAsync(async () =>
+            {
+                var result = await KizunaApi.ProvisionAsync(Environment.MachineName);
+                return result.Ok ? StoreKizunaPair(result.Value) : (false, KizunaOnlineHelper.DescribeError(result));
+            });
+        }
+
+        private async void KizunaUseHere_Click(object sender, RoutedEventArgs e)
+        {
+            if (!MessageBoxHelper.WarningYesNo(R.KizunaOnlineConfirmUseHere))
+                return;
+            await RunKizunaAsync(async () =>
+            {
+                var result = await KizunaApi.GetCredentialAsync();
+                return result.Ok ? StoreKizunaPair(result.Value) : (false, KizunaOnlineHelper.DescribeError(result));
+            });
+        }
+
+        private async void KizunaRegenerate_Click(object sender, RoutedEventArgs e)
+        {
+            var machine = _kizunaMachine;
+            if (machine == null || !MessageBoxHelper.WarningYesNo(R.KizunaOnlineConfirmRegenerate))
+                return;
+            await RunKizunaAsync(async () =>
+            {
+                var result = await KizunaApi.RegenerateAsync(machine.PcbId);
+                return result.Ok ? StoreKizunaPair(result.Value) : (false, KizunaOnlineHelper.DescribeError(result));
+            });
+        }
+
+        private async void KizunaRemove_Click(object sender, RoutedEventArgs e)
+        {
+            var machine = _kizunaMachine;
+            if (machine == null || !MessageBoxHelper.WarningYesNo(R.KizunaOnlineConfirmRemove))
+                return;
+            await RunKizunaAsync(async () =>
+            {
+                var result = await KizunaApi.RevokeAsync(machine.PcbId);
+                if (!result.Ok)
+                    return (false, KizunaOnlineHelper.DescribeError(result));
+                KizunaOnlineHelper.ClearCredential(machine.PcbId);
+                return (true, R.KizunaOnlineRemoved);
+            });
         }
 
         private class UserProfile

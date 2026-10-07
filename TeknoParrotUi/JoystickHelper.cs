@@ -220,6 +220,10 @@ namespace TeknoParrotUi.Common
             if (profile.OnlineIdType == OnlineIdType.GoldenTee)
                 return GoldenTeeOnlineHelper.AutoFill(profile);
 
+            // Senjou no Kizuna Online: its own PCB ID + secret pair (both fields), plain text from ParrotData.
+            if (profile.OnlineIdType == OnlineIdType.Kizuna)
+                return KizunaOnlineHelper.AutoFill(profile);
+
             var configField = profile.ConfigValues?.FirstOrDefault(x => x.FieldName == profile.OnlineIdFieldName);
             if (configField == null || (!string.IsNullOrEmpty(configField.FieldValue) && configField.FieldValue != "1234567890"))
                 return false;

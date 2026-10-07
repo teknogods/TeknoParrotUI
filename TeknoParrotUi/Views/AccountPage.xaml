@@ -36,6 +36,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"
@@ -243,8 +244,7 @@
             <materialDesign:Card Grid.Row="4"
                                  x:Name="InitialDOnlineCard"
                                  Margin="0,0,0,20"
-                                 Padding="16"
-                                 Visibility="Collapsed">
+                                 Padding="16">
                 <StackPanel>
                     <TextBlock FontWeight="Medium"
                                FontSize="16"
@@ -253,6 +253,14 @@
                     <TextBlock TextWrapping="Wrap"
                                Margin="0,0,0,12"
                                Text="{x:Static p:Resources.InitialDOnlineIntro}" />
+                    <!-- Why the website part is not there: not logged in, or teknoparrot.com has Initial D Online off -->
+                    <TextBlock x:Name="InitialDWebsiteNote"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,12"
+                               Visibility="Collapsed" />
+                    <!-- The website part: rank, the account's Online ID, register / use here / regenerate / remove -->
+                    <StackPanel x:Name="InitialDWebsitePanel"
+                                Visibility="Collapsed">
                     <StackPanel x:Name="InitialDRankPanel"
                                 Orientation="Horizontal"
                                 Margin="0,0,0,8"
@@ -380,6 +388,65 @@
                                TextWrapping="Wrap"
                                Style="{StaticResource MaterialDesignCaptionTextBlock}"
                                Text="{x:Static p:Resources.InitialDOnlineOnePcPerAccount}" />
+                    </StackPanel>
+                    <!-- By hand, logged in or not: an Online ID and its secret from the account's Initial D page -->
+                    <Grid Margin="0,16,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   Text="{x:Static p:Resources.InitialDOnlinePcbId}" />
+                        <TextBox Grid.Row="0"
+                                 Grid.Column="1"
+                                 x:Name="InitialDManualIdTextBox"
+                                 FontFamily="Consolas"
+                                 materialDesign:HintAssist.Hint="AALG-ABC12345678"
+                                 DataObject.Pasting="InitialDManual_Pasting" />
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="0"
+                                   Margin="0,8,0,0"
+                                   VerticalAlignment="Center"
+                                   Text="{x:Static p:Resources.InitialDManualSecret}" />
+                        <PasswordBox Grid.Row="1"
+                                     Grid.Column="1"
+                                     Margin="0,8,0,0"
+                                     x:Name="InitialDManualSecretBox"
+                                     FontFamily="Consolas"
+                                     DataObject.Pasting="InitialDManual_Pasting" />
+                    </Grid>
+                    <TextBlock Margin="0,8,0,0"
+                               TextWrapping="Wrap"
+                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                               Text="{x:Static p:Resources.InitialDManualHint}" />
+                    <TextBlock Margin="0,4,0,0"
+                               TextWrapping="Wrap"
+                               Style="{StaticResource MaterialDesignCaptionTextBlock}">
+                        <Hyperlink NavigateUri="https://teknoparrot.com/OnlineProfile/InitialD"
+                                   RequestNavigate="InitialDLearnMore_RequestNavigate"
+                                   Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                                   TextDecorations="Underline">
+                            <Run Text="{x:Static p:Resources.InitialDManualOpenWebsite}" />
+                        </Hyperlink>
+                    </TextBlock>
+                    <WrapPanel HorizontalAlignment="Right"
+                               Margin="0,4,0,0">
+                        <Button x:Name="InitialDManualSaveButton"
+                                Margin="8,4,0,0"
+                                Content="{x:Static p:Resources.InitialDManualSave}"
+                                Click="InitialDManualSave_Click" />
+                        <Button x:Name="InitialDManualClearButton"
+                                Margin="8,4,0,0"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Content="{x:Static p:Resources.InitialDManualClear}"
+                                Click="InitialDManualClear_Click" />
+                    </WrapPanel>
                     <TextBlock x:Name="InitialDLastStatusText"
                                Margin="0,8,0,0"
                                TextWrapping="Wrap" />
@@ -390,7 +457,155 @@
                                Visibility="Collapsed" />
                 </StackPanel>
             </materialDesign:Card>
+            <!-- Senjou no Kizuna Online: this PC's own Kizuna online ID (the game plays online only) and the rank, which
+                 Kizuna always shows (display only, no visibility choice). -->
             <materialDesign:Card Grid.Row="5"
+                                 x:Name="KizunaOnlineCard"
+                                 Margin="0,0,0,20"
+                                 Padding="16">
+                <StackPanel>
+                    <TextBlock FontWeight="Medium"
+                               FontSize="16"
+                               Margin="0,0,0,8"
+                               Text="{x:Static p:Resources.KizunaOnlineTitle}" />
+                    <TextBlock TextWrapping="Wrap"
+                               Margin="0,0,0,12"
+                               Text="{x:Static p:Resources.KizunaOnlineIntro}" />
+                    <!-- Why the website part is not there: not logged in, or teknoparrot.com does not offer Kizuna IDs yet -->
+                    <TextBlock x:Name="KizunaWebsiteNote"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,12"
+                               Visibility="Collapsed" />
+                    <!-- The website part: the account's rank and Online ID, register / use here / regenerate / remove -->
+                    <StackPanel x:Name="KizunaWebsitePanel"
+                                Visibility="Collapsed">
+                    <StackPanel x:Name="KizunaRankPanel"
+                                Orientation="Horizontal"
+                                Margin="0,0,0,8"
+                                Visibility="Collapsed">
+                        <TextBlock VerticalAlignment="Center"
+                                   Margin="0,0,10,0"
+                                   Text="{x:Static p:Resources.InitialDOnlineYourRank}" />
+                        <Border x:Name="KizunaRankBadge"
+                                CornerRadius="4"
+                                Padding="12,4"
+                                Background="#FF141418">
+                            <TextBlock x:Name="KizunaRankText"
+                                       FontSize="18"
+                                       FontWeight="Bold" />
+                        </Border>
+                    </StackPanel>
+                    <WrapPanel x:Name="KizunaLadderPanel"
+                               Margin="0,0,0,12"
+                               Visibility="Collapsed" />
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   Text="{x:Static p:Resources.InitialDOnlinePcbId}" />
+                        <TextBox Grid.Column="1"
+                                 x:Name="KizunaPcbIdTextBox"
+                                 IsReadOnly="True"
+                                 FontFamily="Consolas" />
+                    </Grid>
+                    <TextBlock x:Name="KizunaMachineText"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,8" />
+                    <WrapPanel HorizontalAlignment="Right"
+                               Margin="0,4,0,0">
+                        <Button x:Name="KizunaRegisterButton"
+                                Margin="8,4,0,0"
+                                Content="{x:Static p:Resources.InitialDOnlineRegisterButton}"
+                                Click="KizunaRegister_Click" />
+                        <Button x:Name="KizunaUseHereButton"
+                                Margin="8,4,0,0"
+                                Content="{x:Static p:Resources.InitialDOnlineUseHereButton}"
+                                Click="KizunaUseHere_Click" />
+                        <Button x:Name="KizunaRegenerateButton"
+                                Margin="8,4,0,0"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Content="{x:Static p:Resources.InitialDOnlineRegenerateButton}"
+                                Click="KizunaRegenerate_Click" />
+                        <Button x:Name="KizunaRemoveButton"
+                                Margin="8,4,0,0"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Content="{x:Static p:Resources.InitialDOnlineRemoveButton}"
+                                Click="KizunaRemove_Click" />
+                    </WrapPanel>
+                    <TextBlock Margin="0,12,0,0"
+                               TextWrapping="Wrap"
+                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                               Text="{x:Static p:Resources.InitialDOnlineOnePcPerAccount}" />
+                    </StackPanel>
+                    <!-- By hand: an Online ID and its secret for this PC, whatever the website offers -->
+                    <Grid Margin="0,16,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   Text="{x:Static p:Resources.InitialDOnlinePcbId}" />
+                        <TextBox Grid.Row="0"
+                                 Grid.Column="1"
+                                 x:Name="KizunaManualIdTextBox"
+                                 FontFamily="Consolas"
+                                 materialDesign:HintAssist.Hint="AAKZ-ABC12345678"
+                                 DataObject.Pasting="KizunaManual_Pasting" />
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="0"
+                                   Margin="0,8,0,0"
+                                   VerticalAlignment="Center"
+                                   Text="{x:Static p:Resources.KizunaManualSecret}" />
+                        <PasswordBox Grid.Row="1"
+                                     Grid.Column="1"
+                                     Margin="0,8,0,0"
+                                     x:Name="KizunaManualSecretBox"
+                                     FontFamily="Consolas"
+                                     DataObject.Pasting="KizunaManual_Pasting" />
+                    </Grid>
+                    <TextBlock Margin="0,8,0,0"
+                               TextWrapping="Wrap"
+                               Style="{StaticResource MaterialDesignCaptionTextBlock}"
+                               Text="{x:Static p:Resources.KizunaManualHint}" />
+                    <TextBlock Margin="0,4,0,0"
+                               TextWrapping="Wrap"
+                               Style="{StaticResource MaterialDesignCaptionTextBlock}">
+                        <Hyperlink NavigateUri="https://teknoparrot.com/OnlineProfile/Kizuna"
+                                   RequestNavigate="InitialDLearnMore_RequestNavigate"
+                                   Foreground="{DynamicResource MaterialDesign.Brush.Primary}"
+                                   TextDecorations="Underline">
+                            <Run Text="{x:Static p:Resources.KizunaManualOpenWebsite}" />
+                        </Hyperlink>
+                    </TextBlock>
+                    <WrapPanel HorizontalAlignment="Right"
+                               Margin="0,4,0,0">
+                        <Button x:Name="KizunaManualSaveButton"
+                                Margin="8,4,0,0"
+                                Content="{x:Static p:Resources.KizunaManualSave}"
+                                Click="KizunaManualSave_Click" />
+                        <Button x:Name="KizunaManualClearButton"
+                                Margin="8,4,0,0"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Content="{x:Static p:Resources.KizunaManualClear}"
+                                Click="KizunaManualClear_Click" />
+                    </WrapPanel>
+                    <TextBlock x:Name="KizunaMessageText"
+                               Margin="0,8,0,0"
+                               TextWrapping="Wrap"
+                               FontWeight="Medium"
+                               Visibility="Collapsed" />
+                </StackPanel>
+            </materialDesign:Card>
+            <materialDesign:Card Grid.Row="6"
                                  Margin="0,0,0,20"
                                  Padding="16"
                                  Background="{DynamicResource MaterialDesignDivider}">

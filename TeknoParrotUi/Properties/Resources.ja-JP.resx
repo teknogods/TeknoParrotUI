@@ -2854,4 +2854,556 @@ TeknoParrotを再展開してください。</value>
   <data name="DeactivationRejected" xml:space="preserve">
     <value>認証サーバーがコード {0} で認証解除を拒否しました。ローカルの認証情報は保持されています。</value>
   </data>
+  <data name="KizunaOnlineTitle" xml:space="preserve">
+    <value>Senjou no Kizuna Online</value>
+  </data>
+  <data name="KizunaOnlineIntro" xml:space="preserve">
+    <value>Senjou no Kizuna は TeknoParrot のサーバーでのオンライン専用で、この PC 用のオンラインIDが必要です。Initial D のものではなく、Senjou no Kizuna 専用のオンラインIDです。TeknoParrotUI が teknoparrot.com アカウントから取得し、Senjou no Kizuna のゲームプロファイル（OnlineID と OnlineSecret）に書き込みます。あなたの階級は常に他のプレイヤーに表示されます。</value>
+  </data>
+  <data name="KizunaOnlineNotRegistered" xml:space="preserve">
+    <value>この PC はまだ Senjou no Kizuna Online に登録されていません。</value>
+  </data>
+  <data name="KizunaOnlineRegisteredHere" xml:space="preserve">
+    <value>この PC に登録され、Senjou no Kizuna のゲームプロファイルに書き込まれています。</value>
+  </data>
+  <data name="KizunaOnlineRegisteredElsewhere" xml:space="preserve">
+    <value>アカウントには Senjou no Kizuna のオンラインIDがありますが、まだこの PC にはありません。</value>
+  </data>
+  <data name="KizunaOnlineConfirmUseHere" xml:space="preserve">
+    <value>アカウントの Senjou no Kizuna オンラインIDをこの PC で使用します。1アカウントにつき PC は1台です。同時にプレイできるのは1台の PC だけです。続行しますか？</value>
+  </data>
+  <data name="KizunaOnlineConfirmRegenerate" xml:space="preserve">
+    <value>再発行すると、アカウントに新しい Senjou no Kizuna オンラインIDとシークレットが発行されます。古いIDはすべての PC ですぐに使えなくなります。続行しますか？</value>
+  </data>
+  <data name="KizunaOnlineConfirmRemove" xml:space="preserve">
+    <value>この Senjou no Kizuna オンラインIDを削除しますか？ すぐに使えなくなり、この PC を再登録するまで TeknoParrot のサーバーで Senjou no Kizuna をプレイできなくなります。続行しますか？</value>
+  </data>
+  <data name="KizunaOnlineSaved" xml:space="preserve">
+    <value>Senjou no Kizuna オンラインIDを保存しました。更新した Senjou no Kizuna のゲームプロファイル: {0}。</value>
+  </data>
+  <data name="KizunaOnlineRemoved" xml:space="preserve">
+    <value>Senjou no Kizuna オンラインIDを削除しました。</value>
+  </data>
+  <data name="KizunaOnlineErrorFeatureOff" xml:space="preserve">
+    <value>Senjou no Kizuna Online はまだ利用できません。</value>
+  </data>
+  <data name="KizunaOnlineErrorBanned" xml:space="preserve">
+    <value>このアカウントは Senjou no Kizuna Online で BAN されています。理由と異議申し立てフォームは teknoparrot.com のオンラインプロフィールページをご覧ください。</value>
+  </data>
+  <data name="KizunaRegisterTitle" xml:space="preserve">
+    <value>Senjou no Kizuna にはオンラインIDが必要です</value>
+  </data>
+  <data name="KizunaRegisterText" xml:space="preserve">
+    <value>Senjou no Kizuna はオンライン専用で、TeknoParrot のサーバーは Senjou no Kizuna オンラインIDでサインインした PC だけを受け付けます。この PC にはまだIDがないため、{0} は起動しません。
+
+アカウントページの Senjou no Kizuna Online で、この PC を登録する（teknoparrot.com アカウントでログインした状態で）か、アカウントの Senjou no Kizuna ページにあるオンラインIDとシークレットを入力してください。TeknoParrotUI がIDをゲームプロファイルに書き込みます。その後、ゲームをもう一度起動してください。</value>
+  </data>
+  <data name="KizunaRegisterOpenAccount" xml:space="preserve">
+    <value>アカウントページを開く</value>
+  </data>
+  <data name="KizunaManualSecret" xml:space="preserve">
+    <value>シークレット</value>
+  </data>
+  <data name="KizunaManualSave" xml:space="preserve">
+    <value>この PC に保存</value>
+  </data>
+  <data name="KizunaManualClear" xml:space="preserve">
+    <value>クリア</value>
+  </data>
+  <data name="KizunaManualHint" xml:space="preserve">
+    <value>teknoparrot.com のアカウントの Senjou no Kizuna ページに表示される、Senjou no Kizuna オンラインIDとそのシークレットです。1つずつ貼り付けるか、OnlineID と OnlineSecret の行から両方まとめて貼り付けてください。この PC に保存され、Senjou no Kizuna のゲームプロファイルに書き込まれます。シークレットは他人に教えないでください。知られると誰でもあなたとしてプレイできます。</value>
+  </data>
+  <data name="KizunaManualBadId" xml:space="preserve">
+    <value>これはオンラインIDではありません。オンラインIDは AAKZ-ABC12345678 のような形式です。</value>
+  </data>
+  <data name="KizunaManualBadSecret" xml:space="preserve">
+    <value>これはシークレットではありません。シークレットはオンラインIDと一緒に表示される43文字です。</value>
+  </data>
+  <data name="KizunaManualNotLoggedIn" xml:space="preserve">
+    <value>ログインして teknoparrot.com から Senjou no Kizuna オンラインIDを取得するか、下に入力してください。</value>
+  </data>
+  <data name="KizunaManualWebsiteOff" xml:space="preserve">
+    <value>teknoparrot.com はまだ Senjou no Kizuna オンラインIDを発行していません。下に入力してください。</value>
+  </data>
+  <data name="KizunaManualOpenWebsite" xml:space="preserve">
+    <value>teknoparrot.com の Senjou no Kizuna ページを開く</value>
+  </data>
+  <data name="KizunaManualInitialDId" xml:space="preserve">
+    <value>これは Initial D のオンラインIDです。Senjou no Kizuna には専用のID（AAKZ-...）があり、アカウントの Senjou no Kizuna ページにあります。</value>
+  </data>
+  <data name="InitialDOnlineTitle" xml:space="preserve">
+    <value>Initial D Online</value>
+  </data>
+  <data name="InitialDOnlineIntro" xml:space="preserve">
+    <value>Initial D 4（日本版）、5、6、7、8 の公式 TeknoParrot サーバーでの全国オンライン対戦には、この PC 用のオンラインIDが必要です。TeknoParrotUI が teknoparrot.com アカウントから取得し、Initial D のゲームプロファイル（OnlineID と OnlineSecret）に書き込みます。オフラインと LAN でのプレイには不要です。</value>
+  </data>
+  <data name="InitialDOnlineYourRank" xml:space="preserve">
+    <value>あなたの階級:</value>
+  </data>
+  <data name="InitialDOnlineKingAura" xml:space="preserve">
+    <value>ID7: あなたの車に覇王オーラ</value>
+  </data>
+  <data name="InitialDOnlinePeasantNotice" xml:space="preserve">
+    <value>無料アカウントは PEASANT（平民）として走ります。サポーターは代わりに自分の階級を表示できます。</value>
+  </data>
+  <data name="InitialDOnlineWearYourStars" xml:space="preserve">
+    <value>星を掲げよう</value>
+  </data>
+  <data name="InitialDOnlinePcbId" xml:space="preserve">
+    <value>オンラインID</value>
+  </data>
+  <data name="InitialDOnlineNotRegistered" xml:space="preserve">
+    <value>この PC はまだ Initial D Online に登録されていません。</value>
+  </data>
+  <data name="InitialDOnlineRegisteredHere" xml:space="preserve">
+    <value>この PC に登録され、Initial D のゲームプロファイルに書き込まれています。</value>
+  </data>
+  <data name="InitialDOnlineRegisteredElsewhere" xml:space="preserve">
+    <value>アカウントにはオンラインIDがありますが、まだこの PC にはありません。</value>
+  </data>
+  <data name="InitialDOnlineMachineSuspended" xml:space="preserve">
+    <value>このオンラインIDは一時停止されています。</value>
+  </data>
+  <data name="InitialDOnlineLastSeen" xml:space="preserve">
+    <value>最終オンライン: {0}。</value>
+  </data>
+  <data name="InitialDOnlineMachineChanged" xml:space="preserve">
+    <value>別の PC または別の Windows 環境から使用されました: {0}。</value>
+  </data>
+  <data name="InitialDOnlineVisibilityTitle" xml:space="preserve">
+    <value>階級を誰に見せますか？ ひとつ選んでください:</value>
+  </data>
+  <data name="InitialDOnlineVisibilityPublic" xml:space="preserve">
+    <value>ライバルに階級を見せる</value>
+  </data>
+  <data name="InitialDOnlineVisibilityOwn" xml:space="preserve">
+    <value>自分の筐体だけ（ライバルには PEASANT と表示）</value>
+  </data>
+  <data name="InitialDOnlineVisibilityOff" xml:space="preserve">
+    <value>隠す（ライバルには PEASANT と表示、自分の画面もシンプルなまま）</value>
+  </data>
+  <data name="InitialDOnlinePreviewCaption" xml:space="preserve">
+    <value>ライバルに見える表示:</value>
+  </data>
+  <data name="InitialDOnlineVisibilityNote" xml:space="preserve">
+    <value>これはいつでも変更できます。他のプレイヤーの PC にすでに記録されたリプレイやランキングは、表示されていた内容のまま残ります。</value>
+  </data>
+  <data name="InitialDOnlineSaveVisibility" xml:space="preserve">
+    <value>選択を保存</value>
+  </data>
+  <data name="InitialDOnlineChooseVisibilityFirst" xml:space="preserve">
+    <value>先に階級を誰に見せるか選んでください。</value>
+  </data>
+  <data name="InitialDOnlineRegisterButton" xml:space="preserve">
+    <value>この PC を登録</value>
+  </data>
+  <data name="InitialDOnlineUseHereButton" xml:space="preserve">
+    <value>この PC で使用</value>
+  </data>
+  <data name="InitialDOnlineRegenerateButton" xml:space="preserve">
+    <value>再発行</value>
+  </data>
+  <data name="InitialDOnlineRemoveButton" xml:space="preserve">
+    <value>削除</value>
+  </data>
+  <data name="InitialDOnlineOnePcPerAccount" xml:space="preserve">
+    <value>無料・有料を問わず、1アカウントにつき PC は1台です。別の PC には別のアカウントを作成してください（キーをプレゼントできます）。オンラインIDとそのシークレットは他人に教えないでください。知られると誰でもあなたとしてプレイできます。</value>
+  </data>
+  <data name="InitialDOnlineLastStatus" xml:space="preserve">
+    <value>前回のオンライン状態（{0}、{1}）: {2}</value>
+  </data>
+  <data name="InitialDOnlineNoStatus" xml:space="preserve">
+    <value>この PC にはまだオンラインセッションの記録がありません。</value>
+  </data>
+  <data name="InitialDOnlineConfirmUseHere" xml:space="preserve">
+    <value>アカウントのオンラインIDをこの PC で使用します。1アカウントにつき PC は1台です。別の PC が同じIDでプレイすると、最新のセッションが優先され、もう一方の PC は切断されます。続行しますか？</value>
+  </data>
+  <data name="InitialDOnlineConfirmRegenerate" xml:space="preserve">
+    <value>再発行すると、アカウントに新しいオンラインIDとシークレットが発行されます。古いIDはすべての PC ですぐに使えなくなります。続行しますか？</value>
+  </data>
+  <data name="InitialDOnlineConfirmRemove" xml:space="preserve">
+    <value>このオンラインIDを削除しますか？ すぐに使えなくなり、オンラインでプレイするには再登録が必要になります。続行しますか？</value>
+  </data>
+  <data name="InitialDOnlineFreshLoginPrompt" xml:space="preserve">
+    <value>安全のため、これから開くブラウザーウィンドウで teknoparrot.com のパスワードを確認してください。</value>
+  </data>
+  <data name="InitialDOnlineWorking" xml:space="preserve">
+    <value>お待ちください...</value>
+  </data>
+  <data name="InitialDOnlineSaved" xml:space="preserve">
+    <value>オンラインIDを保存しました。更新した Initial D のゲームプロファイル: {0}。</value>
+  </data>
+  <data name="InitialDOnlineRemoved" xml:space="preserve">
+    <value>オンラインIDを削除しました。</value>
+  </data>
+  <data name="InitialDOnlineVisibilitySaved" xml:space="preserve">
+    <value>選択を保存しました。</value>
+  </data>
+  <data name="InitialDOnlineErrorNotLoggedIn" xml:space="preserve">
+    <value>先にログインしてください。</value>
+  </data>
+  <data name="InitialDOnlineErrorFreshLogin" xml:space="preserve">
+    <value>パスワードの確認が完了しませんでした。もう一度お試しください。</value>
+  </data>
+  <data name="InitialDOnlineErrorFeatureOff" xml:space="preserve">
+    <value>Initial D Online はまだ利用できません。</value>
+  </data>
+  <data name="InitialDOnlineErrorBanned" xml:space="preserve">
+    <value>このアカウントは Initial D Online で BAN されています。理由と異議申し立てフォームは teknoparrot.com のオンラインプロフィールページをご覧ください。</value>
+  </data>
+  <data name="InitialDOnlineErrorRateLimited" xml:space="preserve">
+    <value>リクエストが多すぎます。しばらくしてからもう一度お試しください。</value>
+  </data>
+  <data name="InitialDOnlineErrorUnavailable" xml:space="preserve">
+    <value>現在 teknoparrot.com に接続できません。しばらくしてからもう一度お試しください。</value>
+  </data>
+  <data name="InitialDOnlineErrorGeneric" xml:space="preserve">
+    <value>リクエストに失敗しました（{0}）。</value>
+  </data>
+  <data name="InitialDOnlineStateOnline" xml:space="preserve">
+    <value>オンライン。</value>
+  </data>
+  <data name="InitialDOnlineStateConnecting" xml:space="preserve">
+    <value>接続中。</value>
+  </data>
+  <data name="InitialDOnlineStateEnded" xml:space="preserve">
+    <value>セッション終了。</value>
+  </data>
+  <data name="InitialDOnlineStateNoCredential" xml:space="preserve">
+    <value>この PC にはオンラインIDがありません。アカウントページで登録してください。</value>
+  </data>
+  <data name="InitialDOnlineStateBadCredential" xml:space="preserve">
+    <value>ゲームプロファイルの OnlineID または OnlineSecret が無効です。アカウントページでこの PC をもう一度登録してください。</value>
+  </data>
+  <data name="InitialDOnlineStateRealmMismatch" xml:space="preserve">
+    <value>公式サーバーではないため、オンラインIDは使用されませんでした。</value>
+  </data>
+  <data name="InitialDOnlineStateServerLegacy" xml:space="preserve">
+    <value>このサーバーはオンラインIDを使用しません。ゲームは従来どおり動作しました。</value>
+  </data>
+  <data name="InitialDOnlineStateUnreachable" xml:space="preserve">
+    <value>サーバーに接続できませんでした。</value>
+  </data>
+  <data name="InitialDOnlineStateBadReply" xml:space="preserve">
+    <value>サーバーの応答を検証できませんでした。</value>
+  </data>
+  <data name="InitialDOnlineStateDenied" xml:space="preserve">
+    <value>サーバーがこのオンラインIDを受け付けませんでした。アカウントページでこの PC をもう一度登録してください。</value>
+  </data>
+  <data name="InitialDOnlineStateBanned" xml:space="preserve">
+    <value>このアカウントは BAN されています。</value>
+  </data>
+  <data name="InitialDOnlineStateRevoked" xml:space="preserve">
+    <value>このオンラインIDは削除されたか置き換えられました。アカウントページでこの PC をもう一度登録してください。</value>
+  </data>
+  <data name="InitialDOnlineStateSuspended" xml:space="preserve">
+    <value>このオンラインIDは一時停止されています。</value>
+  </data>
+  <data name="InitialDOnlineStateSuperseded" xml:space="preserve">
+    <value>別の PC がこのアカウントのオンラインIDでサインインしました（1アカウントにつき PC は1台）。</value>
+  </data>
+  <data name="InitialDOnlineStateVersion" xml:space="preserve">
+    <value>TeknoParrot を更新してください。</value>
+  </data>
+  <data name="InitialDOnlineStateBusy" xml:space="preserve">
+    <value>サーバーが混み合っています。少し待ってからもう一度お試しください。</value>
+  </data>
+  <data name="InitialDOnlineStateUnavailable" xml:space="preserve">
+    <value>オンラインサービスは一時的に利用できません。</value>
+  </data>
+  <data name="InitialDOnlineStateOther" xml:space="preserve">
+    <value>オンラインのサインインに失敗しました（{0}）。</value>
+  </data>
+  <data name="InitialDOnlineServerSays" xml:space="preserve">
+    <value>サーバー:「{0}」</value>
+  </data>
+  <data name="InitialDOnlineToast" xml:space="preserve">
+    <value>Initial D Online（{0}）: {1}</value>
+  </data>
+  <data name="InitialDOnlineToastAction" xml:space="preserve">
+    <value>アカウント</value>
+  </data>
+  <data name="InitialDUnifiedPanelTitle" xml:space="preserve">
+    <value>Initial D Online</value>
+  </data>
+  <data name="InitialDUnifiedOnline" xml:space="preserve">
+    <value>オンライン。</value>
+  </data>
+  <data name="InitialDUnifiedNoAdapter" xml:space="preserve">
+    <value>オフライン: ネットワークアダプターがありません。</value>
+  </data>
+  <data name="InitialDUnifiedNoGateway" xml:space="preserve">
+    <value>オフライン（LAN のみ）: このネットワークにはインターネットゲートウェイがありません。</value>
+  </data>
+  <data name="InitialDUnifiedUnreachable" xml:space="preserve">
+    <value>オフライン: オンラインサーバーに接続できませんでした。次回の起動時にオンラインに戻ります。</value>
+  </data>
+  <data name="InitialDUnifiedMaintenance" xml:space="preserve">
+    <value>オフライン: オンラインサーバーはメンテナンス中です。</value>
+  </data>
+  <data name="InitialDUnifiedRollout" xml:space="preserve">
+    <value>オフライン: オンラインプレイは段階的に有効化されています。</value>
+  </data>
+  <data name="InitialDUnifiedVersion" xml:space="preserve">
+    <value>オフライン: オンラインでプレイするには TeknoParrot を更新してください。</value>
+  </data>
+  <data name="InitialDUnifiedNoCredential" xml:space="preserve">
+    <value>オフライン: この PC はオンラインプレイに登録されていません。アカウントページで登録してください。</value>
+  </data>
+  <data name="InitialDUnifiedUnavailable" xml:space="preserve">
+    <value>オフライン: オンラインサーバーがこの PC を確認できませんでした。後でもう一度お試しください。</value>
+  </data>
+  <data name="InitialDUnifiedVpnAdapter" xml:space="preserve">
+    <value>オフライン: オンラインプレイには通常のネットワークアダプターが必要です。VPN 経由の LAN プレイは可能です。</value>
+  </data>
+  <data name="InitialDUnifiedForcedNoServer" xml:space="preserve">
+    <value>オフライン: 設定でオンライン接続がオフになっています。</value>
+  </data>
+  <data name="InitialDUnifiedLegacyForced" xml:space="preserve">
+    <value>オフライン: このゲームには旧ネットワークモードが設定されています（NetworkMode=Legacy）。</value>
+  </data>
+  <data name="InitialDUnifiedLegacyPair" xml:space="preserve">
+    <value>オフライン（LAN ペア）: 自動 LAN リンクに置き換わるまで、このゲームは従来の LAN ペア設定を使用します。</value>
+  </data>
+  <data name="InitialDUnifiedOfflineBecause" xml:space="preserve">
+    <value>オフライン: {0}</value>
+  </data>
+  <data name="InitialDUnifiedOfflineOther" xml:space="preserve">
+    <value>オフライン（{0}）。</value>
+  </data>
+  <data name="InitialDUnifiedChecking" xml:space="preserve">
+    <value>オンラインサーバーを確認しています...</value>
+  </data>
+  <data name="InitialDUnifiedNoStatus" xml:space="preserve">
+    <value>ゲームからのオンライン状態がありません（オフライン起動）。</value>
+  </data>
+  <data name="InitialDUnifiedLinked" xml:space="preserve">
+    <value>{0} と {1} としてリンクしました。</value>
+  </data>
+  <data name="InitialDUnifiedLanWarning" xml:space="preserve">
+    <value>LAN: {0}</value>
+  </data>
+  <data name="InitialDUnifiedPartyActive" xml:space="preserve">
+    <value>フレンドコード有効。</value>
+  </data>
+  <data name="InitialDUnifiedOnlineBack" xml:space="preserve">
+    <value>オンラインが復旧しました。オンラインでプレイするにはゲームを再起動してください。</value>
+  </data>
+  <data name="InitialDUnifiedFrameLockOn" xml:space="preserve">
+    <value>60 fps ロック: オン。</value>
+  </data>
+  <data name="InitialDUnifiedFrameLockOther" xml:space="preserve">
+    <value>フレームロック: {0}。</value>
+  </data>
+  <data name="InitialDFirstRunTitle" xml:space="preserve">
+    <value>Initial D: 標準でオンライン</value>
+  </data>
+  <data name="InitialDFirstRunText" xml:space="preserve">
+    <value>Initial D 4（日本版）、5、6、7、8 は標準でオンラインで起動するようになりました。起動のたびに TeknoParrot が Initial D のオンラインサーバーを短時間確認します。この PC が登録済みなら全国マッチング、イベント、ランキングが利用できます。未登録の場合やサーバーに接続できない場合は、これまでどおり数秒でオフラインで起動します。
+
+オンラインでプレイしたカードはオンラインカードになります。オフラインで進めた内容は、次にオンラインでプレイしたときに統合されます。</value>
+  </data>
+  <data name="InitialDAutomaticOnlineNote" xml:space="preserve">
+    <value>Initial D 4（日本版）、5、6 Double Ace、7、8 は起動のたびにオンラインサーバーを自動で確認します。登録済みの PC はオンラインでプレイし、サーバーが利用できない場合や PC が未登録の場合はオフラインまたは LAN で起動します。</value>
+  </data>
+  <data name="InitialDChatNote" xml:space="preserve">
+    <value>オンライン対戦ではテキストチャットがオンになります（F2 で入力、/mute でプレイヤーをミュート。各ゲームの Chat 設定でオフにできます）。ボイスチャットは、ゲームの設定で「聞く」または「話す」を選ぶまでオフのままです。チャットとボイスはプレイ中のサーバーを経由し、何も保存・録音されません。</value>
+  </data>
+  <data name="InitialDRegisterTitle" xml:space="preserve">
+    <value>Initial D をオンラインでプレイしますか？</value>
+  </data>
+  <data name="InitialDRegisterText" xml:space="preserve">
+    <value>この PC は Initial D のオンラインプレイに登録されていないため、{0} はオフラインで起動します（ストーリー、タイムアタック、LAN プレイは従来どおり動作します）。
+
+オンラインプレイは無料です。アカウントページで、この PC を登録する（teknoparrot.com アカウントでログインした状態で）か、アカウントの Initial D ページにあるオンラインIDとシークレットを入力してください。1アカウントにつき PC は1台です。以降は全国マッチング、イベント、ランキングが自動で始まります。</value>
+  </data>
+  <data name="InitialDRegisterPlayOnline" xml:space="preserve">
+    <value>オンラインでプレイ（この PC を登録）</value>
+  </data>
+  <data name="InitialDRegisterPlayOffline" xml:space="preserve">
+    <value>今はオフラインでプレイ</value>
+  </data>
+  <data name="InitialDRegisterDontAsk" xml:space="preserve">
+    <value>今後確認しない</value>
+  </data>
+  <data name="InitialDMaintenanceText" xml:space="preserve">
+    <value>Initial D のオンラインサーバーはメンテナンス中です。今回は {0} をオフラインで起動します。</value>
+  </data>
+  <data name="InitialDStartOffline" xml:space="preserve">
+    <value>オフラインで起動</value>
+  </data>
+  <data name="InitialDOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="InitialDCancel" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="InitialDFriendsTitle" xml:space="preserve">
+    <value>フレンドと遊ぶ</value>
+  </data>
+  <data name="InitialDFriendsIntro" xml:space="preserve">
+    <value>フレンドと全国対戦しましょう。同じフレンドコードで {0} を起動した人どうしだけでマッチングされます。コードは今回の起動でのみ有効で、保存されることはありません。</value>
+  </data>
+  <data name="InitialDFriendsNew" xml:space="preserve">
+    <value>このコードで新しいグループを作る:</value>
+  </data>
+  <data name="InitialDFriendsJoin" xml:space="preserve">
+    <value>フレンドのコードでグループに参加する:</value>
+  </data>
+  <data name="InitialDFriendsNote" xml:space="preserve">
+    <value>プレイヤー全員に登録済みの PC とゲームカードが必要です。コードの大文字・小文字、スペース、ハイフンは区別されません。</value>
+  </data>
+  <data name="InitialDFriendsStart" xml:space="preserve">
+    <value>スタート</value>
+  </data>
+  <data name="InitialDFriendsBadCode" xml:space="preserve">
+    <value>フレンドコードは英数字6～16文字です。</value>
+  </data>
+  <data name="InitialDFriendsWeakCode" xml:space="preserve">
+    <value>「{0}」は推測されやすいコードです。入力した見知らぬ人もあなたのグループに参加します。それでもこのコードで始めますか？</value>
+  </data>
+  <data name="InitialDFriendsInvite" xml:space="preserve">
+    <value>TeknoParrot の {0} で対戦しよう！「フレンドと遊ぶ」を選んで、フレンドコード {1} を入力してね</value>
+  </data>
+  <data name="InitialDFriendsCopyInvite" xml:space="preserve">
+    <value>招待をコピー</value>
+  </data>
+  <data name="InitialDFriendsCopied" xml:space="preserve">
+    <value>コピーしました</value>
+  </data>
+  <data name="InitialDFriendsCodeLine" xml:space="preserve">
+    <value>今回の起動のフレンドコード: {0}</value>
+  </data>
+  <data name="InitialDFriendsNeedsRegistration" xml:space="preserve">
+    <value>「フレンドと遊ぶ」には、この PC が Initial D のオンラインプレイに登録されている必要があります（無料の teknoparrot.com アカウント、1アカウントにつき PC は1台）。</value>
+  </data>
+  <data name="InitialDFriendsLegacy" xml:space="preserve">
+    <value>「フレンドと遊ぶ」は利用できません。このゲームには旧ネットワークモードが設定されています（NetworkMode=Legacy）。</value>
+  </data>
+  <data name="InitialDFriendsOff" xml:space="preserve">
+    <value>現在オンラインサーバーでフレンドコードがオフになっています。後でもう一度お試しいただくか、「プレイ」を使ってください。</value>
+  </data>
+  <data name="InitialDTpoRetired" xml:space="preserve">
+    <value>{0}: この Initial D のゲームにはオンラインマッチングが内蔵されたため、TeknoParrot Online 経由ではプレイしなくなりました。ライブラリから起動してください。全国対戦は「プレイ」、フレンドコードで遊ぶなら「フレンドと遊ぶ」です（コードはこのルームのチャットで共有してください）。</value>
+  </data>
+  <data name="InitialDMovedTo" xml:space="preserve">
+    <value>移動しました: このゲームはライブラリ内で「{0}」として動作するようになりました（標準でオンライン、最新の修正入り）。設定はそちらにコピーされています。この項目はあと1リリースの間残ります。</value>
+  </data>
+  <data name="InitialDLanReadyOne" xml:space="preserve">
+    <value>{0} は {1} の準備ができています。</value>
+  </data>
+  <data name="InitialDLanReadyMany" xml:space="preserve">
+    <value>{0} とほか {1} 台の PC が {2} の準備ができています。</value>
+  </data>
+  <data name="InitialDLanStartTogether" xml:space="preserve">
+    <value>一緒に起動</value>
+  </data>
+  <data name="InitialDLanStartAlone" xml:space="preserve">
+    <value>1人で起動</value>
+  </data>
+  <data name="InitialDLanPublicNetwork" xml:space="preserve">
+    <value>このネットワークは Windows でパブリックに設定されているため、LAN リンクはオフです。プライベートに設定するか、ゲームの詳細ネットワーク設定で LAN グループを設定してください。</value>
+  </data>
+  <data name="InitialDLanPortBusy" xml:space="preserve">
+    <value>LAN リンクはオフです。この PC の別のプログラムが Initial D の LAN ポートを使用しています。</value>
+  </data>
+  <data name="InitialDLanLinkTitle" xml:space="preserve">
+    <value>別の PC とリンクしますか？</value>
+  </data>
+  <data name="InitialDLanLinkText" xml:space="preserve">
+    <value>{1} のために {0} とリンクしますか？
+
+リンクした PC は同じ店舗の2台の筐体としてプレイします。店内対戦、コンピューターとの TAG、共通の店舗ランキングが使えます。やり取りするのは、そのゲームの表示名、座席、レースデータだけです。</value>
+  </data>
+  <data name="InitialDLanLinkAlways" xml:space="preserve">
+    <value>常にリンク</value>
+  </data>
+  <data name="InitialDLanLinkOnce" xml:space="preserve">
+    <value>今回のみ</value>
+  </data>
+  <data name="InitialDLanLinkNever" xml:space="preserve">
+    <value>リンクしない</value>
+  </data>
+  <data name="InitialDFirewallTitle" xml:space="preserve">
+    <value>Initial D の LAN プレイをファイアウォールで許可しますか？</value>
+  </data>
+  <data name="InitialDFirewallText" xml:space="preserve">
+    <value>2台の TeknoParrot PC が LAN でリンクできるのは、Windows がゲームの受信を許可している場合だけです。TeknoParrot は今すぐプライベートネットワーク用の受信規則を追加できます。Windows が一度だけ管理者権限を求めます。
+
+{0}
+
+規則がなくてもゲームは起動しますが、お互いを見つけられません。</value>
+  </data>
+  <data name="InitialDFirewallAdd" xml:space="preserve">
+    <value>規則を追加</value>
+  </data>
+  <data name="InitialDFirewallSkip" xml:space="preserve">
+    <value>今はしない</value>
+  </data>
+  <data name="InitialDFirewallFailed" xml:space="preserve">
+    <value>ファイアウォール規則は追加されませんでした。追加するには TeknoParrotUI を管理者として起動するか、Windows に確認されたときにゲームを許可してください。</value>
+  </data>
+  <data name="InitialDUnifiedLanPeerOne" xml:space="preserve">
+    <value>LAN: このネットワークに TeknoParrot PC がもう1台あります（未リンク）。</value>
+  </data>
+  <data name="InitialDUnifiedLanPeerMany" xml:space="preserve">
+    <value>LAN: このネットワークに TeknoParrot PC がほかに {0} 台あります（未リンク）。</value>
+  </data>
+  <data name="InitialDUnifiedLanGroup" xml:space="preserve">
+    <value>LAN グループ: {0}。</value>
+  </data>
+  <data name="InitialDManualSecret" xml:space="preserve">
+    <value>シークレット</value>
+  </data>
+  <data name="InitialDManualSave" xml:space="preserve">
+    <value>この PC に保存</value>
+  </data>
+  <data name="InitialDManualClear" xml:space="preserve">
+    <value>クリア</value>
+  </data>
+  <data name="InitialDManualHint" xml:space="preserve">
+    <value>teknoparrot.com のアカウントの Initial D ページに表示される、Initial D オンラインIDとそのシークレットです。1つずつ貼り付けるか、OnlineID と OnlineSecret の行から両方まとめて貼り付けてください。この PC に保存され、Initial D のゲームプロファイルに書き込まれます。シークレットは他人に教えないでください。知られると誰でもあなたとしてプレイできます。</value>
+  </data>
+  <data name="InitialDManualOpenWebsite" xml:space="preserve">
+    <value>teknoparrot.com の Initial D ページを開く</value>
+  </data>
+  <data name="InitialDManualBadId" xml:space="preserve">
+    <value>これはオンラインIDではありません。オンラインIDは AALG-ABC12345678 のような形式です。</value>
+  </data>
+  <data name="InitialDManualBadSecret" xml:space="preserve">
+    <value>これはシークレットではありません。シークレットはオンラインIDと一緒に表示される43文字です。</value>
+  </data>
+  <data name="InitialDManualKizunaId" xml:space="preserve">
+    <value>これは Senjou no Kizuna のオンラインIDです。Initial D には専用のID（AALG-...）があり、アカウントの Initial D ページにあります。</value>
+  </data>
+  <data name="InitialDManualNotLoggedIn" xml:space="preserve">
+    <value>ログインして teknoparrot.com から Initial D オンラインIDを取得するか、下に入力してください。</value>
+  </data>
+  <data name="InitialDManualWebsiteOff" xml:space="preserve">
+    <value>teknoparrot.com は現在 Initial D オンラインIDを発行していません。下に入力してください。</value>
+  </data>
+  <data name="LibraryPlayWithFriends" xml:space="preserve">
+    <value>フレンドと遊ぶ</value>
+  </data>
+  <data name="LibraryGtOnTp" xml:space="preserve">
+    <value>GT ON TP</value>
+  </data>
+  <data name="LibraryGtOnTpTooltip" xml:space="preserve">
+    <value>このゲームの PCB ID と Card ID でサインインして、GT on TP でゴルファーと用具をカスタマイズできます</value>
+  </data>
+  <data name="LibraryGtOnTpNotInstalled" xml:space="preserve">
+    <value>GT on TP はまだインストールされていません。アップデートを確認してインストールしてください。</value>
+  </data>
+  <data name="LibraryGtOnTpFailed" xml:space="preserve">
+    <value>GT on TP を起動できませんでした: {0}</value>
+  </data>
+  <data name="AccountPageGoldenTeePcbId" xml:space="preserve">
+    <value>Golden Tee PCB ID:</value>
+  </data>
+  <data name="AccountPageGoldenTeeCardId" xml:space="preserve">
+    <value>Golden Tee Card ID:</value>
+  </data>
+  <data name="AccountPageGoldenTeeHint" xml:space="preserve">
+    <value>Golden Tee に自動で入力されます</value>
+  </data>
 </root>

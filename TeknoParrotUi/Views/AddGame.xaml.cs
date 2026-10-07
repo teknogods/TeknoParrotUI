@@ -325,6 +325,13 @@ namespace TeknoParrotUi.Views
                 return;
             }
 
+            // Senjou no Kizuna Online: its own PCB ID + secret pair (both fields), plain text from ParrotData.
+            if (profile.OnlineIdType == OnlineIdType.Kizuna)
+            {
+                KizunaOnlineHelper.AutoFill(profile);
+                return;
+            }
+
             var configField = profile.ConfigValues.FirstOrDefault(x => x.FieldName == profile.OnlineIdFieldName);
             if (configField == null || !string.IsNullOrEmpty(configField.FieldValue))
                 return;

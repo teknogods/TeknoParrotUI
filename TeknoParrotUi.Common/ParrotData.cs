@@ -59,6 +59,11 @@ namespace TeknoParrotUi.Common
         // registered until the user removes or regenerates it.
         public string InitialDOnlineId { get; set; } = "";
         public string InitialDOnlineSecret { get; set; } = "";
+        // Senjou no Kizuna Online: this PC's own Kizuna PCB ID (AAKZ-...) + secret from the same account (Account page,
+        // Senjou no Kizuna Online), a pair apart from Initial D's. Kept the same way and copied into the [Network]
+        // OnlineID / OnlineSecret fields of the Kizuna profiles (OnlineIdType.Kizuna).
+        public string KizunaOnlineId { get; set; } = "";
+        public string KizunaOnlineSecret { get; set; } = "";
         // Initial D matchmaking always uses automatic server selection. Keep the one-time notice,
         // registration prompt preference and migrated old-loader profile names. Old serialized
         // InitialDConnectToServer values are ignored when existing settings are loaded.

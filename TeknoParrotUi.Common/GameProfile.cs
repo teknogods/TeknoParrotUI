@@ -27,7 +27,11 @@ namespace TeknoParrotUi.Common
         InitialD,
         // Golden Tee online: the Card ID in OnlineIdFieldName plus the "PCB ID" field, both from the teknoparrot.com
         // account (GoldenTeeOnlineHelper).
-        GoldenTee
+        GoldenTee,
+        // Senjou no Kizuna Online (GundamPod, online only): the account's own Kizuna PCB ID (AAKZ-...) plus its secret
+        // in the same two fields, from the teknoparrot.com account like InitialD's but a pair of its own
+        // (KizunaOnlineHelper).
+        Kizuna
     }
 
     [Serializable]

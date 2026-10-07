@@ -2098,6 +2098,10 @@ namespace TeknoParrotUi.Views
             else
             {
                 InitialDUnifiedMode.PrepareLaunch(gameProfile, null);
+                // Senjou no Kizuna plays online only: without this PC's Kizuna Online ID it does not start (the dialog
+                // leads to the Account page). Every other game starts as before.
+                if (!KizunaLaunchFlow.BeforeLaunch(gameProfile, Window.GetWindow(this)))
+                    return;
             }
 
             Lazydata.ParrotData.LastPlayed = gameProfile.GameNameInternal;

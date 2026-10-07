@@ -8583,11 +8583,101 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This PC is not registered for Initial D online play, so {0} starts offline (story, time attack and LAN play work as before).    Online play is free: sign in with a teknoparrot.com account on the Accou[rest of string was truncated].
+        ///   Looks up a localized string similar to This PC is not registered for Initial D online play, so {0} starts offline (story, time attack and LAN play work as before).    Online play is free: on the Account page, register this PC (logged in wi[rest of string was truncated].
         /// </summary>
         public static string InitialDRegisterText {
             get {
                 return ResourceManager.GetString("InitialDRegisterText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secret.
+        /// </summary>
+        public static string InitialDManualSecret {
+            get {
+                return ResourceManager.GetString("InitialDManualSecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save on this PC.
+        /// </summary>
+        public static string InitialDManualSave {
+            get {
+                return ResourceManager.GetString("InitialDManualSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string InitialDManualClear {
+            get {
+                return ResourceManager.GetString("InitialDManualClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Initial D Online ID and its secret, as teknoparrot.com shows them on your account's Initial D page. Paste them here one at a time, or both at once from the OnlineID and OnlineSecret lines. They s[rest of string was truncated].
+        /// </summary>
+        public static string InitialDManualHint {
+            get {
+                return ResourceManager.GetString("InitialDManualHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open your Initial D page on teknoparrot.com.
+        /// </summary>
+        public static string InitialDManualOpenWebsite {
+            get {
+                return ResourceManager.GetString("InitialDManualOpenWebsite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to That is not an Online ID. It looks like AALG-ABC12345678..
+        /// </summary>
+        public static string InitialDManualBadId {
+            get {
+                return ResourceManager.GetString("InitialDManualBadId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to That is not the secret: it is the 43 characters shown with the Online ID..
+        /// </summary>
+        public static string InitialDManualBadSecret {
+            get {
+                return ResourceManager.GetString("InitialDManualBadSecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to That is your Senjou no Kizuna Online ID. Initial D has its own (AALG-...), on your account's Initial D page..
+        /// </summary>
+        public static string InitialDManualKizunaId {
+            get {
+                return ResourceManager.GetString("InitialDManualKizunaId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in to get your Initial D Online ID from teknoparrot.com, or enter it below..
+        /// </summary>
+        public static string InitialDManualNotLoggedIn {
+            get {
+                return ResourceManager.GetString("InitialDManualNotLoggedIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to teknoparrot.com does not hand out Initial D Online IDs right now. Enter one below..
+        /// </summary>
+        public static string InitialDManualWebsiteOff {
+            get {
+                return ResourceManager.GetString("InitialDManualWebsiteOff", resourceCulture);
             }
         }
         
@@ -9048,6 +9138,231 @@ namespace TeknoParrotUi.Properties {
         public static string AccountPageGoldenTeeHint {
             get {
                 return ResourceManager.GetString("AccountPageGoldenTeeHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Senjou no Kizuna Online.
+        /// </summary>
+        public static string KizunaOnlineTitle {
+            get {
+                return ResourceManager.GetString("KizunaOnlineTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Senjou no Kizuna plays online only, on TeknoParrot's server, and needs an Online ID for this PC: a Senjou no Kizuna Online ID of its own, not the Initial D one. TeknoParrotUI gets it from your teknopa[rest of string was truncated].
+        /// </summary>
+        public static string KizunaOnlineIntro {
+            get {
+                return ResourceManager.GetString("KizunaOnlineIntro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This PC is not registered for Senjou no Kizuna Online yet..
+        /// </summary>
+        public static string KizunaOnlineNotRegistered {
+            get {
+                return ResourceManager.GetString("KizunaOnlineNotRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registered on this PC and written to your Senjou no Kizuna game profile..
+        /// </summary>
+        public static string KizunaOnlineRegisteredHere {
+            get {
+                return ResourceManager.GetString("KizunaOnlineRegisteredHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your account has a Senjou no Kizuna Online ID, but it is not on this PC yet..
+        /// </summary>
+        public static string KizunaOnlineRegisteredElsewhere {
+            get {
+                return ResourceManager.GetString("KizunaOnlineRegisteredElsewhere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your account's Senjou no Kizuna Online ID will be used on this PC. One PC per account: play with it on one PC at a time. Continue?.
+        /// </summary>
+        public static string KizunaOnlineConfirmUseHere {
+            get {
+                return ResourceManager.GetString("KizunaOnlineConfirmUseHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regenerate gives your account a new Senjou no Kizuna Online ID and secret. The old ID stops working at once on every PC. Continue?.
+        /// </summary>
+        public static string KizunaOnlineConfirmRegenerate {
+            get {
+                return ResourceManager.GetString("KizunaOnlineConfirmRegenerate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove this Senjou no Kizuna Online ID? It stops working at once, and Senjou no Kizuna cannot be played on TeknoParrot's server until this PC is registered again. Continue?.
+        /// </summary>
+        public static string KizunaOnlineConfirmRemove {
+            get {
+                return ResourceManager.GetString("KizunaOnlineConfirmRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Senjou no Kizuna Online ID saved. Senjou no Kizuna game profiles updated: {0}..
+        /// </summary>
+        public static string KizunaOnlineSaved {
+            get {
+                return ResourceManager.GetString("KizunaOnlineSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Senjou no Kizuna Online ID removed..
+        /// </summary>
+        public static string KizunaOnlineRemoved {
+            get {
+                return ResourceManager.GetString("KizunaOnlineRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Senjou no Kizuna Online is not available yet..
+        /// </summary>
+        public static string KizunaOnlineErrorFeatureOff {
+            get {
+                return ResourceManager.GetString("KizunaOnlineErrorFeatureOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This account is banned from Senjou no Kizuna Online. See the Online Profile page on teknoparrot.com for the reason and the appeal form..
+        /// </summary>
+        public static string KizunaOnlineErrorBanned {
+            get {
+                return ResourceManager.GetString("KizunaOnlineErrorBanned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Senjou no Kizuna needs its Online ID.
+        /// </summary>
+        public static string KizunaRegisterTitle {
+            get {
+                return ResourceManager.GetString("KizunaRegisterTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Senjou no Kizuna plays online only, and TeknoParrot's server takes only PCs signed in with their Senjou no Kizuna Online ID. This PC has none yet, so {0} does not start.    On the Account page, under [rest of string was truncated].
+        /// </summary>
+        public static string KizunaRegisterText {
+            get {
+                return ResourceManager.GetString("KizunaRegisterText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open the Account page.
+        /// </summary>
+        public static string KizunaRegisterOpenAccount {
+            get {
+                return ResourceManager.GetString("KizunaRegisterOpenAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secret.
+        /// </summary>
+        public static string KizunaManualSecret {
+            get {
+                return ResourceManager.GetString("KizunaManualSecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save on this PC.
+        /// </summary>
+        public static string KizunaManualSave {
+            get {
+                return ResourceManager.GetString("KizunaManualSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string KizunaManualClear {
+            get {
+                return ResourceManager.GetString("KizunaManualClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Senjou no Kizuna Online ID and its secret, as teknoparrot.com shows them on your account's Senjou no Kizuna page. Paste them here one at a time, or both at once from the OnlineID and OnlineSecret[rest of string was truncated].
+        /// </summary>
+        public static string KizunaManualHint {
+            get {
+                return ResourceManager.GetString("KizunaManualHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to That is not an Online ID. It looks like AAKZ-ABC12345678..
+        /// </summary>
+        public static string KizunaManualBadId {
+            get {
+                return ResourceManager.GetString("KizunaManualBadId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to That is not the secret: it is the 43 characters shown with the Online ID..
+        /// </summary>
+        public static string KizunaManualBadSecret {
+            get {
+                return ResourceManager.GetString("KizunaManualBadSecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in to get your Senjou no Kizuna Online ID from teknoparrot.com, or enter it below..
+        /// </summary>
+        public static string KizunaManualNotLoggedIn {
+            get {
+                return ResourceManager.GetString("KizunaManualNotLoggedIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to teknoparrot.com does not hand out Senjou no Kizuna Online IDs yet. Enter one below..
+        /// </summary>
+        public static string KizunaManualWebsiteOff {
+            get {
+                return ResourceManager.GetString("KizunaManualWebsiteOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open your Senjou no Kizuna page on teknoparrot.com.
+        /// </summary>
+        public static string KizunaManualOpenWebsite {
+            get {
+                return ResourceManager.GetString("KizunaManualOpenWebsite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to That is your Initial D Online ID. Senjou no Kizuna has its own (AAKZ-...), on your account's Senjou no Kizuna page..
+        /// </summary>
+        public static string KizunaManualInitialDId {
+            get {
+                return ResourceManager.GetString("KizunaManualInitialDId", resourceCulture);
             }
         }
     }

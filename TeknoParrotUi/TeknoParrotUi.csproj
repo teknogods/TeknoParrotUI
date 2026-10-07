@@ -333,6 +333,7 @@
     <Compile Include="Helpers\InitialDLanPresence.cs" />
     <Compile Include="Helpers\InitialDOnlineHelper.cs" />
     <Compile Include="Helpers\InitialDUnifiedMode.cs" />
+    <Compile Include="Helpers\KizunaOnlineHelper.cs" />
     <Compile Include="Helpers\NativeMethods.cs" />
     <Compile Include="Helpers\OAuthHelper.cs" />
     <Compile Include="Helpers\PEPatcher.cs" />
@@ -521,6 +522,7 @@
       <DependentUpon>GameRunning.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\InitialDLaunchFlow.cs" />
+    <Compile Include="Views\KizunaLaunchFlow.cs" />
     <Compile Include="Views\Library.InitialDLan.cs">
       <DependentUpon>Library.xaml</DependentUpon>
     </Compile>

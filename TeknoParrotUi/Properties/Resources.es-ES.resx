@@ -2854,4 +2854,556 @@ Solo se eliminará la clave guardada en este PC. Esto no liberará ninguna activ
   <data name="DeactivationRejected" xml:space="preserve">
     <value>El servidor de activación ha rechazado la desactivación con el código {0}. Se ha conservado la activación local.</value>
   </data>
+  <data name="KizunaOnlineTitle" xml:space="preserve">
+    <value>Senjou no Kizuna Online</value>
+  </data>
+  <data name="KizunaOnlineIntro" xml:space="preserve">
+    <value>Senjou no Kizuna solo se juega en línea, en el servidor de TeknoParrot, y necesita un ID en línea para este PC: un ID en línea propio de Senjou no Kizuna, no el de Initial D. TeknoParrotUI lo obtiene de tu cuenta de teknoparrot.com y lo escribe en tu perfil de juego de Senjou no Kizuna (OnlineID y OnlineSecret). Tu rango siempre se muestra a los demás jugadores.</value>
+  </data>
+  <data name="KizunaOnlineNotRegistered" xml:space="preserve">
+    <value>Este PC todavía no está registrado en Senjou no Kizuna Online.</value>
+  </data>
+  <data name="KizunaOnlineRegisteredHere" xml:space="preserve">
+    <value>Registrado en este PC y escrito en tu perfil de juego de Senjou no Kizuna.</value>
+  </data>
+  <data name="KizunaOnlineRegisteredElsewhere" xml:space="preserve">
+    <value>Tu cuenta tiene un ID en línea de Senjou no Kizuna, pero todavía no está en este PC.</value>
+  </data>
+  <data name="KizunaOnlineConfirmUseHere" xml:space="preserve">
+    <value>El ID en línea de Senjou no Kizuna de tu cuenta se usará en este PC. Un PC por cuenta: juega con él en un solo PC a la vez. ¿Continuar?</value>
+  </data>
+  <data name="KizunaOnlineConfirmRegenerate" xml:space="preserve">
+    <value>Regenerar da a tu cuenta un nuevo ID en línea de Senjou no Kizuna y un nuevo secreto. El ID anterior deja de funcionar al instante en todos los PC. ¿Continuar?</value>
+  </data>
+  <data name="KizunaOnlineConfirmRemove" xml:space="preserve">
+    <value>¿Eliminar este ID en línea de Senjou no Kizuna? Deja de funcionar al instante y no podrás jugar a Senjou no Kizuna en el servidor de TeknoParrot hasta que vuelvas a registrar este PC. ¿Continuar?</value>
+  </data>
+  <data name="KizunaOnlineSaved" xml:space="preserve">
+    <value>ID en línea de Senjou no Kizuna guardado. Perfiles de juego de Senjou no Kizuna actualizados: {0}.</value>
+  </data>
+  <data name="KizunaOnlineRemoved" xml:space="preserve">
+    <value>ID en línea de Senjou no Kizuna eliminado.</value>
+  </data>
+  <data name="KizunaOnlineErrorFeatureOff" xml:space="preserve">
+    <value>Senjou no Kizuna Online todavía no está disponible.</value>
+  </data>
+  <data name="KizunaOnlineErrorBanned" xml:space="preserve">
+    <value>Esta cuenta está baneada de Senjou no Kizuna Online. Consulta la página Perfil en línea de teknoparrot.com para ver el motivo y el formulario de apelación.</value>
+  </data>
+  <data name="KizunaRegisterTitle" xml:space="preserve">
+    <value>Senjou no Kizuna necesita su ID en línea</value>
+  </data>
+  <data name="KizunaRegisterText" xml:space="preserve">
+    <value>Senjou no Kizuna solo se juega en línea, y el servidor de TeknoParrot solo acepta PC que inicien sesión con su ID en línea de Senjou no Kizuna. Este PC todavía no tiene ninguno, así que {0} no se inicia.
+
+En la página de Cuenta, en Senjou no Kizuna Online, registra este PC (con la sesión iniciada en tu cuenta de teknoparrot.com) o introduce el ID en línea y el secreto de la página de Senjou no Kizuna de tu cuenta. TeknoParrotUI escribe el ID en el perfil de juego; después vuelve a iniciar el juego.</value>
+  </data>
+  <data name="KizunaRegisterOpenAccount" xml:space="preserve">
+    <value>Abrir la página de Cuenta</value>
+  </data>
+  <data name="KizunaManualSecret" xml:space="preserve">
+    <value>Secreto</value>
+  </data>
+  <data name="KizunaManualSave" xml:space="preserve">
+    <value>Guardar en este PC</value>
+  </data>
+  <data name="KizunaManualClear" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="KizunaManualHint" xml:space="preserve">
+    <value>Tu ID en línea de Senjou no Kizuna y su secreto, tal como los muestra teknoparrot.com en la página de Senjou no Kizuna de tu cuenta. Pégalos aquí de uno en uno, o los dos a la vez desde las líneas OnlineID y OnlineSecret. Se quedan en este PC y se escriben en tus perfiles de juego de Senjou no Kizuna. Mantén el secreto en privado: permite a cualquiera jugar como tú.</value>
+  </data>
+  <data name="KizunaManualBadId" xml:space="preserve">
+    <value>Eso no es un ID en línea. Tiene este aspecto: AAKZ-ABC12345678.</value>
+  </data>
+  <data name="KizunaManualBadSecret" xml:space="preserve">
+    <value>Eso no es el secreto: son los 43 caracteres que se muestran con el ID en línea.</value>
+  </data>
+  <data name="KizunaManualNotLoggedIn" xml:space="preserve">
+    <value>Inicia sesión para obtener tu ID en línea de Senjou no Kizuna desde teknoparrot.com, o introdúcelo abajo.</value>
+  </data>
+  <data name="KizunaManualWebsiteOff" xml:space="preserve">
+    <value>teknoparrot.com todavía no ofrece ID en línea de Senjou no Kizuna. Introduce uno abajo.</value>
+  </data>
+  <data name="KizunaManualOpenWebsite" xml:space="preserve">
+    <value>Abrir tu página de Senjou no Kizuna en teknoparrot.com</value>
+  </data>
+  <data name="KizunaManualInitialDId" xml:space="preserve">
+    <value>Ese es tu ID en línea de Initial D. Senjou no Kizuna tiene el suyo (AAKZ-...), en la página de Senjou no Kizuna de tu cuenta.</value>
+  </data>
+  <data name="InitialDOnlineTitle" xml:space="preserve">
+    <value>Initial D Online</value>
+  </data>
+  <data name="InitialDOnlineIntro" xml:space="preserve">
+    <value>El juego en línea a nivel nacional de Initial D 4 (Japón), 5, 6, 7 y 8 en el servidor oficial de TeknoParrot necesita un ID en línea para este PC. TeknoParrotUI lo obtiene de tu cuenta de teknoparrot.com y lo escribe en tus perfiles de juego de Initial D (OnlineID y OnlineSecret). El juego sin conexión y en LAN no lo necesita.</value>
+  </data>
+  <data name="InitialDOnlineYourRank" xml:space="preserve">
+    <value>Tu rango:</value>
+  </data>
+  <data name="InitialDOnlineKingAura" xml:space="preserve">
+    <value>ID7: aura King 覇王 en tu coche</value>
+  </data>
+  <data name="InitialDOnlinePeasantNotice" xml:space="preserve">
+    <value>Las cuentas gratuitas corren como PEASANT. Los suscriptores pueden mostrar su rango en su lugar.</value>
+  </data>
+  <data name="InitialDOnlineWearYourStars" xml:space="preserve">
+    <value>Luce tus estrellas</value>
+  </data>
+  <data name="InitialDOnlinePcbId" xml:space="preserve">
+    <value>ID en línea</value>
+  </data>
+  <data name="InitialDOnlineNotRegistered" xml:space="preserve">
+    <value>Este PC todavía no está registrado en Initial D Online.</value>
+  </data>
+  <data name="InitialDOnlineRegisteredHere" xml:space="preserve">
+    <value>Registrado en este PC y escrito en tus perfiles de juego de Initial D.</value>
+  </data>
+  <data name="InitialDOnlineRegisteredElsewhere" xml:space="preserve">
+    <value>Tu cuenta tiene un ID en línea, pero todavía no está en este PC.</value>
+  </data>
+  <data name="InitialDOnlineMachineSuspended" xml:space="preserve">
+    <value>Este ID en línea está suspendido.</value>
+  </data>
+  <data name="InitialDOnlineLastSeen" xml:space="preserve">
+    <value>Última vez en línea: {0}.</value>
+  </data>
+  <data name="InitialDOnlineMachineChanged" xml:space="preserve">
+    <value>Usado desde otro PC o instalación de Windows: {0}.</value>
+  </data>
+  <data name="InitialDOnlineVisibilityTitle" xml:space="preserve">
+    <value>¿Quién ve tu rango? Elige una opción:</value>
+  </data>
+  <data name="InitialDOnlineVisibilityPublic" xml:space="preserve">
+    <value>Mostrar mi rango a los rivales</value>
+  </data>
+  <data name="InitialDOnlineVisibilityOwn" xml:space="preserve">
+    <value>Solo en mi propia máquina (los rivales me ven como PEASANT)</value>
+  </data>
+  <data name="InitialDOnlineVisibilityOff" xml:space="preserve">
+    <value>Ocultarlo (los rivales me ven como PEASANT y mis propias pantallas quedan sencillas)</value>
+  </data>
+  <data name="InitialDOnlinePreviewCaption" xml:space="preserve">
+    <value>Los rivales ven:</value>
+  </data>
+  <data name="InitialDOnlineVisibilityNote" xml:space="preserve">
+    <value>Puedes cambiarlo en cualquier momento. Las repeticiones y clasificaciones ya grabadas en los PC de otros jugadores conservan lo que mostraban.</value>
+  </data>
+  <data name="InitialDOnlineSaveVisibility" xml:space="preserve">
+    <value>Guardar elección</value>
+  </data>
+  <data name="InitialDOnlineChooseVisibilityFirst" xml:space="preserve">
+    <value>Elige primero quién ve tu rango.</value>
+  </data>
+  <data name="InitialDOnlineRegisterButton" xml:space="preserve">
+    <value>Registrar este PC</value>
+  </data>
+  <data name="InitialDOnlineUseHereButton" xml:space="preserve">
+    <value>Usar en este PC</value>
+  </data>
+  <data name="InitialDOnlineRegenerateButton" xml:space="preserve">
+    <value>Regenerar</value>
+  </data>
+  <data name="InitialDOnlineRemoveButton" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="InitialDOnlineOnePcPerAccount" xml:space="preserve">
+    <value>Un PC por cuenta, gratuita o de pago. Para otro PC, crea otra cuenta (puedes regalarle una clave). Mantén en privado el ID en línea y su secreto: quien los tenga puede jugar como tú.</value>
+  </data>
+  <data name="InitialDOnlineLastStatus" xml:space="preserve">
+    <value>Último estado en línea ({0}, {1}): {2}</value>
+  </data>
+  <data name="InitialDOnlineNoStatus" xml:space="preserve">
+    <value>Todavía no hay ninguna sesión en línea registrada en este PC.</value>
+  </data>
+  <data name="InitialDOnlineConfirmUseHere" xml:space="preserve">
+    <value>El ID en línea de tu cuenta se usará en este PC. Un PC por cuenta: si otro PC juega con el mismo ID, gana la sesión más reciente y el otro PC se desconecta. ¿Continuar?</value>
+  </data>
+  <data name="InitialDOnlineConfirmRegenerate" xml:space="preserve">
+    <value>Regenerar da a tu cuenta un nuevo ID en línea y un nuevo secreto. El ID anterior deja de funcionar al instante en todos los PC. ¿Continuar?</value>
+  </data>
+  <data name="InitialDOnlineConfirmRemove" xml:space="preserve">
+    <value>¿Eliminar este ID en línea? Deja de funcionar al instante y para jugar en línea hará falta un nuevo registro. ¿Continuar?</value>
+  </data>
+  <data name="InitialDOnlineFreshLoginPrompt" xml:space="preserve">
+    <value>Por tu seguridad, confirma tu contraseña de teknoparrot.com en la ventana del navegador que se abre ahora.</value>
+  </data>
+  <data name="InitialDOnlineWorking" xml:space="preserve">
+    <value>Espera, por favor...</value>
+  </data>
+  <data name="InitialDOnlineSaved" xml:space="preserve">
+    <value>ID en línea guardado. Perfiles de juego de Initial D actualizados: {0}.</value>
+  </data>
+  <data name="InitialDOnlineRemoved" xml:space="preserve">
+    <value>ID en línea eliminado.</value>
+  </data>
+  <data name="InitialDOnlineVisibilitySaved" xml:space="preserve">
+    <value>Elección guardada.</value>
+  </data>
+  <data name="InitialDOnlineErrorNotLoggedIn" xml:space="preserve">
+    <value>Inicia sesión primero.</value>
+  </data>
+  <data name="InitialDOnlineErrorFreshLogin" xml:space="preserve">
+    <value>La confirmación de la contraseña no se completó. Inténtalo de nuevo.</value>
+  </data>
+  <data name="InitialDOnlineErrorFeatureOff" xml:space="preserve">
+    <value>Initial D Online todavía no está disponible.</value>
+  </data>
+  <data name="InitialDOnlineErrorBanned" xml:space="preserve">
+    <value>Esta cuenta está baneada de Initial D Online. Consulta la página Perfil en línea de teknoparrot.com para ver el motivo y el formulario de apelación.</value>
+  </data>
+  <data name="InitialDOnlineErrorRateLimited" xml:space="preserve">
+    <value>Demasiadas solicitudes. Inténtalo de nuevo más tarde.</value>
+  </data>
+  <data name="InitialDOnlineErrorUnavailable" xml:space="preserve">
+    <value>No se puede acceder a teknoparrot.com en este momento. Inténtalo de nuevo más tarde.</value>
+  </data>
+  <data name="InitialDOnlineErrorGeneric" xml:space="preserve">
+    <value>La solicitud ha fallado ({0}).</value>
+  </data>
+  <data name="InitialDOnlineStateOnline" xml:space="preserve">
+    <value>en línea.</value>
+  </data>
+  <data name="InitialDOnlineStateConnecting" xml:space="preserve">
+    <value>conectando.</value>
+  </data>
+  <data name="InitialDOnlineStateEnded" xml:space="preserve">
+    <value>sesión terminada.</value>
+  </data>
+  <data name="InitialDOnlineStateNoCredential" xml:space="preserve">
+    <value>este PC no tiene ID en línea. Regístralo en la página de Cuenta.</value>
+  </data>
+  <data name="InitialDOnlineStateBadCredential" xml:space="preserve">
+    <value>el OnlineID o el OnlineSecret del perfil de juego no es válido. Vuelve a registrar este PC en la página de Cuenta.</value>
+  </data>
+  <data name="InitialDOnlineStateRealmMismatch" xml:space="preserve">
+    <value>el servidor no es el oficial, así que no se usó el ID en línea.</value>
+  </data>
+  <data name="InitialDOnlineStateServerLegacy" xml:space="preserve">
+    <value>este servidor no usa ID en línea; el juego funcionó como antes.</value>
+  </data>
+  <data name="InitialDOnlineStateUnreachable" xml:space="preserve">
+    <value>no se pudo acceder al servidor.</value>
+  </data>
+  <data name="InitialDOnlineStateBadReply" xml:space="preserve">
+    <value>no se pudieron verificar las respuestas del servidor.</value>
+  </data>
+  <data name="InitialDOnlineStateDenied" xml:space="preserve">
+    <value>el servidor no aceptó este ID en línea. Vuelve a registrar este PC en la página de Cuenta.</value>
+  </data>
+  <data name="InitialDOnlineStateBanned" xml:space="preserve">
+    <value>esta cuenta está baneada.</value>
+  </data>
+  <data name="InitialDOnlineStateRevoked" xml:space="preserve">
+    <value>este ID en línea se eliminó o se sustituyó. Vuelve a registrar este PC en la página de Cuenta.</value>
+  </data>
+  <data name="InitialDOnlineStateSuspended" xml:space="preserve">
+    <value>este ID en línea está suspendido.</value>
+  </data>
+  <data name="InitialDOnlineStateSuperseded" xml:space="preserve">
+    <value>otro PC ha iniciado sesión con el ID en línea de esta cuenta (un PC por cuenta).</value>
+  </data>
+  <data name="InitialDOnlineStateVersion" xml:space="preserve">
+    <value>actualiza TeknoParrot.</value>
+  </data>
+  <data name="InitialDOnlineStateBusy" xml:space="preserve">
+    <value>el servidor está ocupado. Inténtalo de nuevo en un momento.</value>
+  </data>
+  <data name="InitialDOnlineStateUnavailable" xml:space="preserve">
+    <value>el servicio en línea no está disponible temporalmente.</value>
+  </data>
+  <data name="InitialDOnlineStateOther" xml:space="preserve">
+    <value>el inicio de sesión en línea ha fallado ({0}).</value>
+  </data>
+  <data name="InitialDOnlineServerSays" xml:space="preserve">
+    <value>Servidor: «{0}»</value>
+  </data>
+  <data name="InitialDOnlineToast" xml:space="preserve">
+    <value>Initial D Online ({0}): {1}</value>
+  </data>
+  <data name="InitialDOnlineToastAction" xml:space="preserve">
+    <value>CUENTA</value>
+  </data>
+  <data name="InitialDUnifiedPanelTitle" xml:space="preserve">
+    <value>Initial D Online</value>
+  </data>
+  <data name="InitialDUnifiedOnline" xml:space="preserve">
+    <value>En línea.</value>
+  </data>
+  <data name="InitialDUnifiedNoAdapter" xml:space="preserve">
+    <value>Sin conexión: no hay adaptador de red.</value>
+  </data>
+  <data name="InitialDUnifiedNoGateway" xml:space="preserve">
+    <value>Sin conexión (solo LAN): esta red no tiene puerta de enlace a Internet.</value>
+  </data>
+  <data name="InitialDUnifiedUnreachable" xml:space="preserve">
+    <value>Sin conexión: no se pudo acceder al servidor en línea. El juego en línea vuelve en el próximo inicio.</value>
+  </data>
+  <data name="InitialDUnifiedMaintenance" xml:space="preserve">
+    <value>Sin conexión: el servidor en línea está en mantenimiento.</value>
+  </data>
+  <data name="InitialDUnifiedRollout" xml:space="preserve">
+    <value>Sin conexión: el juego en línea se está activando poco a poco.</value>
+  </data>
+  <data name="InitialDUnifiedVersion" xml:space="preserve">
+    <value>Sin conexión: actualiza TeknoParrot para jugar en línea.</value>
+  </data>
+  <data name="InitialDUnifiedNoCredential" xml:space="preserve">
+    <value>Sin conexión: este PC no está registrado para jugar en línea. Regístralo en la página de Cuenta.</value>
+  </data>
+  <data name="InitialDUnifiedUnavailable" xml:space="preserve">
+    <value>Sin conexión: el servidor en línea no pudo confirmar este PC. Inténtalo más tarde.</value>
+  </data>
+  <data name="InitialDUnifiedVpnAdapter" xml:space="preserve">
+    <value>Sin conexión: el juego en línea necesita tu adaptador de red normal. El juego en LAN por la VPN funciona.</value>
+  </data>
+  <data name="InitialDUnifiedForcedNoServer" xml:space="preserve">
+    <value>Sin conexión: la conexión en línea está desactivada en la configuración.</value>
+  </data>
+  <data name="InitialDUnifiedLegacyForced" xml:space="preserve">
+    <value>Sin conexión: este juego tiene configurado el modo de red antiguo (NetworkMode=Legacy).</value>
+  </data>
+  <data name="InitialDUnifiedLegacyPair" xml:space="preserve">
+    <value>Sin conexión (pareja LAN): este juego usa tu configuración clásica de pareja LAN hasta que el enlace LAN automático la sustituya.</value>
+  </data>
+  <data name="InitialDUnifiedOfflineBecause" xml:space="preserve">
+    <value>Sin conexión: {0}</value>
+  </data>
+  <data name="InitialDUnifiedOfflineOther" xml:space="preserve">
+    <value>Sin conexión ({0}).</value>
+  </data>
+  <data name="InitialDUnifiedChecking" xml:space="preserve">
+    <value>Comprobando el servidor en línea...</value>
+  </data>
+  <data name="InitialDUnifiedNoStatus" xml:space="preserve">
+    <value>No hay estado en línea del juego (un inicio sin conexión).</value>
+  </data>
+  <data name="InitialDUnifiedLinked" xml:space="preserve">
+    <value>Enlazado con {0} como {1}.</value>
+  </data>
+  <data name="InitialDUnifiedLanWarning" xml:space="preserve">
+    <value>LAN: {0}</value>
+  </data>
+  <data name="InitialDUnifiedPartyActive" xml:space="preserve">
+    <value>Código de amigos activo.</value>
+  </data>
+  <data name="InitialDUnifiedOnlineBack" xml:space="preserve">
+    <value>La conexión ha vuelto: reinicia el juego para jugar en línea.</value>
+  </data>
+  <data name="InitialDUnifiedFrameLockOn" xml:space="preserve">
+    <value>Bloqueo a 60 fps: activado.</value>
+  </data>
+  <data name="InitialDUnifiedFrameLockOther" xml:space="preserve">
+    <value>Bloqueo de fotogramas: {0}.</value>
+  </data>
+  <data name="InitialDFirstRunTitle" xml:space="preserve">
+    <value>Initial D: en línea por defecto</value>
+  </data>
+  <data name="InitialDFirstRunText" xml:space="preserve">
+    <value>Initial D 4 (Japón), 5, 6, 7 y 8 ahora se inician en línea por defecto. En cada inicio, TeknoParrot hace una breve comprobación con el servidor en línea de Initial D. Con este PC registrado tienes emparejamiento a nivel nacional, eventos y clasificaciones; sin registro, o si no se puede acceder al servidor, el juego se inicia sin conexión como antes, en pocos segundos.
+
+Las tarjetas con las que juegas en línea se convierten en tarjetas en línea. El progreso que hagas sin conexión se combina la próxima vez que juegues en línea.</value>
+  </data>
+  <data name="InitialDAutomaticOnlineNote" xml:space="preserve">
+    <value>Initial D 4 (Japón), 5, 6 Double Ace, 7 y 8 comprueban automáticamente el servidor en línea en cada inicio. Un PC registrado juega en línea; si el servidor no está disponible o el PC no está registrado, el juego se inicia sin conexión o en LAN.</value>
+  </data>
+  <data name="InitialDChatNote" xml:space="preserve">
+    <value>En las partidas en línea el chat de texto está activado (F2 para escribir, /mute silencia a un jugador; la opción Chat de cada juego lo desactiva). El chat de voz sigue desactivado hasta que elijas escuchar o hablar en la configuración del juego. El chat y la voz pasan por el servidor en el que juegas; no se guarda ni se graba nada.</value>
+  </data>
+  <data name="InitialDRegisterTitle" xml:space="preserve">
+    <value>¿Jugar a Initial D en línea?</value>
+  </data>
+  <data name="InitialDRegisterText" xml:space="preserve">
+    <value>Este PC no está registrado para jugar a Initial D en línea, así que {0} se inicia sin conexión (la historia, el contrarreloj y el juego en LAN funcionan como antes).
+
+El juego en línea es gratis: en la página de Cuenta, registra este PC (con la sesión iniciada en una cuenta de teknoparrot.com) o introduce el ID en línea y el secreto de la página de Initial D de tu cuenta. Un PC por cuenta. A partir de entonces, el emparejamiento a nivel nacional, los eventos y las clasificaciones empiezan solos.</value>
+  </data>
+  <data name="InitialDRegisterPlayOnline" xml:space="preserve">
+    <value>Jugar en línea (registrar este PC)</value>
+  </data>
+  <data name="InitialDRegisterPlayOffline" xml:space="preserve">
+    <value>Jugar sin conexión por ahora</value>
+  </data>
+  <data name="InitialDRegisterDontAsk" xml:space="preserve">
+    <value>No volver a preguntar</value>
+  </data>
+  <data name="InitialDMaintenanceText" xml:space="preserve">
+    <value>El servidor en línea de Initial D está en mantenimiento. {0} se inicia sin conexión esta vez.</value>
+  </data>
+  <data name="InitialDStartOffline" xml:space="preserve">
+    <value>Iniciar sin conexión</value>
+  </data>
+  <data name="InitialDOk" xml:space="preserve">
+    <value>Aceptar</value>
+  </data>
+  <data name="InitialDCancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="InitialDFriendsTitle" xml:space="preserve">
+    <value>Jugar con amigos</value>
+  </data>
+  <data name="InitialDFriendsIntro" xml:space="preserve">
+    <value>Compite con tus amigos a nivel nacional: todos los que inicien {0} con el mismo código de amigos se emparejan solo entre sí. El código vale solo para este inicio y nunca se guarda.</value>
+  </data>
+  <data name="InitialDFriendsNew" xml:space="preserve">
+    <value>Crear un grupo nuevo con este código:</value>
+  </data>
+  <data name="InitialDFriendsJoin" xml:space="preserve">
+    <value>Unirse al grupo de un amigo con su código:</value>
+  </data>
+  <data name="InitialDFriendsNote" xml:space="preserve">
+    <value>Cada jugador necesita un PC registrado y una tarjeta de juego. Los códigos no distinguen mayúsculas, espacios ni guiones.</value>
+  </data>
+  <data name="InitialDFriendsStart" xml:space="preserve">
+    <value>Iniciar</value>
+  </data>
+  <data name="InitialDFriendsBadCode" xml:space="preserve">
+    <value>Un código de amigos tiene de 6 a 16 letras o dígitos.</value>
+  </data>
+  <data name="InitialDFriendsWeakCode" xml:space="preserve">
+    <value>«{0}» es fácil de adivinar: los desconocidos que lo escriban se unirán a tu grupo. ¿Iniciar con él de todos modos?</value>
+  </data>
+  <data name="InitialDFriendsInvite" xml:space="preserve">
+    <value>Corre contra mí en {0} en TeknoParrot: elige «Jugar con amigos» e introduce el código de amigos {1}</value>
+  </data>
+  <data name="InitialDFriendsCopyInvite" xml:space="preserve">
+    <value>Copiar invitación</value>
+  </data>
+  <data name="InitialDFriendsCopied" xml:space="preserve">
+    <value>Copiado</value>
+  </data>
+  <data name="InitialDFriendsCodeLine" xml:space="preserve">
+    <value>Código de amigos para este inicio: {0}</value>
+  </data>
+  <data name="InitialDFriendsNeedsRegistration" xml:space="preserve">
+    <value>Jugar con amigos requiere que este PC esté registrado para jugar a Initial D en línea (una cuenta gratuita de teknoparrot.com, un PC por cuenta).</value>
+  </data>
+  <data name="InitialDFriendsLegacy" xml:space="preserve">
+    <value>Jugar con amigos no está disponible: este juego tiene configurado el modo de red antiguo (NetworkMode=Legacy).</value>
+  </data>
+  <data name="InitialDFriendsOff" xml:space="preserve">
+    <value>Los códigos de amigos están desactivados en el servidor en línea en este momento. Inténtalo más tarde o usa Jugar.</value>
+  </data>
+  <data name="InitialDTpoRetired" xml:space="preserve">
+    <value>{0}: este juego de Initial D ya tiene emparejamiento en línea integrado y ya no se juega a través de TeknoParrot Online. Inícialo desde la biblioteca: Jugar para partidas a nivel nacional, o Jugar con amigos con un código de amigos (comparte el código en el chat de esta sala).</value>
+  </data>
+  <data name="InitialDMovedTo" xml:space="preserve">
+    <value>Movido: este juego ahora se ejecuta como «{0}» en tu biblioteca (en línea por defecto, con las últimas correcciones). Tu configuración se ha copiado allí. Esta entrada se mantiene una versión más.</value>
+  </data>
+  <data name="InitialDLanReadyOne" xml:space="preserve">
+    <value>{0} está listo para {1}.</value>
+  </data>
+  <data name="InitialDLanReadyMany" xml:space="preserve">
+    <value>{0} y {1} PC más están listos para {2}.</value>
+  </data>
+  <data name="InitialDLanStartTogether" xml:space="preserve">
+    <value>Iniciar juntos</value>
+  </data>
+  <data name="InitialDLanStartAlone" xml:space="preserve">
+    <value>Iniciar solo</value>
+  </data>
+  <data name="InitialDLanPublicNetwork" xml:space="preserve">
+    <value>Esta red está marcada como Pública en Windows: el enlace LAN está desactivado. Márcala como Privada o define un grupo LAN en la configuración de red avanzada del juego.</value>
+  </data>
+  <data name="InitialDLanPortBusy" xml:space="preserve">
+    <value>El enlace LAN está desactivado: otro programa de este PC está usando el puerto LAN de Initial D.</value>
+  </data>
+  <data name="InitialDLanLinkTitle" xml:space="preserve">
+    <value>¿Enlazar con otro PC?</value>
+  </data>
+  <data name="InitialDLanLinkText" xml:space="preserve">
+    <value>¿Enlazar con {0} para {1}?
+
+Los PC enlazados juegan como dos máquinas en un mismo salón: VS en el local, TAG contra la máquina y una clasificación compartida del local. Intercambian el nombre visible, el asiento y los datos de carrera de ese juego, nada más.</value>
+  </data>
+  <data name="InitialDLanLinkAlways" xml:space="preserve">
+    <value>Siempre</value>
+  </data>
+  <data name="InitialDLanLinkOnce" xml:space="preserve">
+    <value>Esta vez</value>
+  </data>
+  <data name="InitialDLanLinkNever" xml:space="preserve">
+    <value>Nunca</value>
+  </data>
+  <data name="InitialDFirewallTitle" xml:space="preserve">
+    <value>¿Permitir el juego en LAN de Initial D a través del firewall?</value>
+  </data>
+  <data name="InitialDFirewallText" xml:space="preserve">
+    <value>Dos PC con TeknoParrot solo se enlazan por LAN cuando Windows deja que el juego reciba datos. TeknoParrot puede añadir ahora las reglas de entrada para tu red privada; Windows pedirá permisos de administrador una vez.
+
+{0}
+
+Sin las reglas los juegos se inician igualmente, solo que no se encuentran entre sí.</value>
+  </data>
+  <data name="InitialDFirewallAdd" xml:space="preserve">
+    <value>Añadir las reglas</value>
+  </data>
+  <data name="InitialDFirewallSkip" xml:space="preserve">
+    <value>Ahora no</value>
+  </data>
+  <data name="InitialDFirewallFailed" xml:space="preserve">
+    <value>No se añadieron las reglas del firewall. Inicia TeknoParrotUI como administrador para añadirlas, o permite el juego cuando Windows lo pregunte.</value>
+  </data>
+  <data name="InitialDUnifiedLanPeerOne" xml:space="preserve">
+    <value>LAN: otro PC con TeknoParrot en esta red, sin enlazar.</value>
+  </data>
+  <data name="InitialDUnifiedLanPeerMany" xml:space="preserve">
+    <value>LAN: {0} PC más con TeknoParrot en esta red, sin enlazar.</value>
+  </data>
+  <data name="InitialDUnifiedLanGroup" xml:space="preserve">
+    <value>Grupo LAN: {0}.</value>
+  </data>
+  <data name="InitialDManualSecret" xml:space="preserve">
+    <value>Secreto</value>
+  </data>
+  <data name="InitialDManualSave" xml:space="preserve">
+    <value>Guardar en este PC</value>
+  </data>
+  <data name="InitialDManualClear" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="InitialDManualHint" xml:space="preserve">
+    <value>Tu ID en línea de Initial D y su secreto, tal como los muestra teknoparrot.com en la página de Initial D de tu cuenta. Pégalos aquí de uno en uno, o los dos a la vez desde las líneas OnlineID y OnlineSecret. Se quedan en este PC y se escriben en tus perfiles de juego de Initial D. Mantén el secreto en privado: permite a cualquiera jugar como tú.</value>
+  </data>
+  <data name="InitialDManualOpenWebsite" xml:space="preserve">
+    <value>Abrir tu página de Initial D en teknoparrot.com</value>
+  </data>
+  <data name="InitialDManualBadId" xml:space="preserve">
+    <value>Eso no es un ID en línea. Tiene este aspecto: AALG-ABC12345678.</value>
+  </data>
+  <data name="InitialDManualBadSecret" xml:space="preserve">
+    <value>Eso no es el secreto: son los 43 caracteres que se muestran con el ID en línea.</value>
+  </data>
+  <data name="InitialDManualKizunaId" xml:space="preserve">
+    <value>Ese es tu ID en línea de Senjou no Kizuna. Initial D tiene el suyo (AALG-...), en la página de Initial D de tu cuenta.</value>
+  </data>
+  <data name="InitialDManualNotLoggedIn" xml:space="preserve">
+    <value>Inicia sesión para obtener tu ID en línea de Initial D desde teknoparrot.com, o introdúcelo abajo.</value>
+  </data>
+  <data name="InitialDManualWebsiteOff" xml:space="preserve">
+    <value>teknoparrot.com no ofrece ID en línea de Initial D en este momento. Introduce uno abajo.</value>
+  </data>
+  <data name="LibraryPlayWithFriends" xml:space="preserve">
+    <value>Jugar con amigos</value>
+  </data>
+  <data name="LibraryGtOnTp" xml:space="preserve">
+    <value>GT ON TP</value>
+  </data>
+  <data name="LibraryGtOnTpTooltip" xml:space="preserve">
+    <value>Personaliza tu golfista y tu equipo en GT on TP, con la sesión iniciada con el PCB ID y el Card ID de este juego</value>
+  </data>
+  <data name="LibraryGtOnTpNotInstalled" xml:space="preserve">
+    <value>GT on TP todavía no está instalado. Busca actualizaciones para instalarlo.</value>
+  </data>
+  <data name="LibraryGtOnTpFailed" xml:space="preserve">
+    <value>No se pudo iniciar GT on TP: {0}</value>
+  </data>
+  <data name="AccountPageGoldenTeePcbId" xml:space="preserve">
+    <value>PCB ID de Golden Tee:</value>
+  </data>
+  <data name="AccountPageGoldenTeeCardId" xml:space="preserve">
+    <value>Card ID de Golden Tee:</value>
+  </data>
+  <data name="AccountPageGoldenTeeHint" xml:space="preserve">
+    <value>Se rellena automáticamente en Golden Tee</value>
+  </data>
 </root>
