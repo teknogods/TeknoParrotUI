@@ -374,6 +374,27 @@
                 </StackPanel>
             </Button>
         </UniformGrid>
+        <!-- GT on TP (the Golden Tee golfer editor, Tools\GTonTP): under Play for profiles with HasGtOnTp; LayoutActionRows places it -->
+        <Button x:Name="gtOnTpButton"
+                Grid.Row="8"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Margin="10,4,10,2"
+                Style="{StaticResource LibraryActionButton}"
+                Visibility="Collapsed"
+                ToolTip="{x:Static p:Resources.LibraryGtOnTpTooltip}"
+                Click="BtnGtOnTp">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Margin="0,0,8,0"
+                                         VerticalAlignment="Center"
+                                         Kind="Golf"
+                                         Height="24"
+                                         Width="24" />
+                <TextBlock FontSize="14"
+                           VerticalAlignment="Center"
+                           Text="{x:Static p:Resources.LibraryGtOnTp}" />
+            </StackPanel>
+        </Button>
         <Button x:Name="gameSettingsButton"
                 Grid.Row="8"
                 Grid.Column="1"

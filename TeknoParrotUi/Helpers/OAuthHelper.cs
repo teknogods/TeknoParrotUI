@@ -388,6 +388,8 @@ namespace TeknoParrotUi.Helpers
                 Lazydata.ParrotData.SegaId = "";
                 Lazydata.ParrotData.NamcoId = "";
                 Lazydata.ParrotData.MarioKartId = "";
+                Lazydata.ParrotData.GoldenTeePcbId = "";
+                Lazydata.ParrotData.GoldenTeeCardId = "";
                 Lazydata.ParrotData.IsLoggedIn = false;
 
                 string tokenFolder = Path.Combine(

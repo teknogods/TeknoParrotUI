@@ -89,6 +89,8 @@ namespace TeknoParrotUi.Views
             HighscoreSerialTextBox.Text = userData.HighscoreSerial;
             NamcoIdTextBox.Text = userData.NamcoId;
             MarioKartIDTextBox.Text = userData.MarioKartId;
+            GoldenTeePcbIdTextBox.Text = userData.GoldenTeePcbId?.ToString() ?? string.Empty;
+            GoldenTeeCardIdTextBox.Text = userData.GoldenTeeCardId ?? string.Empty;
             UserTierText.Text = string.Format(TeknoParrotUi.Properties.Resources.AccountPageTierPrefix, userData.Tier);
             UserTierText.Visibility = Visibility.Visible;
             _initialDRank = userData.InitialDRank;
@@ -143,6 +145,12 @@ namespace TeknoParrotUi.Views
                     Lazydata.ParrotData.ScoreSubmissionID = userData.HighscoreSerial;
                     Lazydata.ParrotData.NamcoId = userData.NamcoId;
                     Lazydata.ParrotData.MarioKartId = userData.MarioKartId;
+                    // Null while Golden Tee online is off on the website: keep what was there
+                    if (userData.GoldenTeePcbId.HasValue && !string.IsNullOrEmpty(userData.GoldenTeeCardId))
+                    {
+                        Lazydata.ParrotData.GoldenTeePcbId = userData.GoldenTeePcbId.Value.ToString();
+                        Lazydata.ParrotData.GoldenTeeCardId = userData.GoldenTeeCardId;
+                    }
 
                     JoystickHelper.Serialize();
                     Debug.WriteLine($"Saved user data - SegaId: {userData.SegaId}");
@@ -183,6 +191,8 @@ namespace TeknoParrotUi.Views
                     HighscoreSerialTextBox.Text = string.Empty;
                     NamcoIdTextBox.Text = string.Empty;
                     MarioKartIDTextBox.Text = string.Empty;
+                    GoldenTeePcbIdTextBox.Text = string.Empty;
+                    GoldenTeeCardIdTextBox.Text = string.Empty;
                     UserTierText.Text = TeknoParrotUi.Properties.Resources.AccountPageTierNone;
                     UserTierText.Visibility = Visibility.Collapsed;
                     InitialDOnlineCard.Visibility = Visibility.Collapsed;
@@ -824,6 +834,9 @@ namespace TeknoParrotUi.Views
             public string HighscoreSerial { get; set; }
             public string NamcoId { get; set; }
             public string MarioKartId { get; set; }
+            // Golden Tee online; null while the website has it switched off.
+            public int? GoldenTeePcbId { get; set; }
+            public string GoldenTeeCardId { get; set; }
             public bool IsSubscribed { get; set; }
             public List<SerialStatus> Serials { get; set; }
             public DateTime? ExpirationDate { get; set; }

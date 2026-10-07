@@ -517,6 +517,16 @@ namespace TeknoParrotUi
                 manualVersion = true,
                 folderOverride = "ElfLdr2"
             },
+            // GT on TP, the Golden Tee golfer and equipment editor (Library: GT ON TP). Same entry in ParrotPatcher\Components.cs.
+            new UpdaterComponent
+            {
+                name = "GTonTP",
+                location = Path.Combine("Tools", "GTonTP", "GTTPEditor.exe"),
+                reponame = "GTonTP",
+                opensource = false,
+                manualVersion = true,
+                folderOverride = Path.Combine("Tools", "GTonTP")
+            },
             new UpdaterComponent
             {
                 name = "FFBBlaster",

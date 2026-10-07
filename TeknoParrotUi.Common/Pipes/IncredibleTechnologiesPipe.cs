@@ -40,6 +40,9 @@ namespace TeknoParrotUi.Common.Pipes
                 Control |= 0x8000;
             if (InputCode.PlayerDigitalButtons[1].Button3.HasValue && InputCode.PlayerDigitalButtons[1].Button3.Value)
                 Control |= 0x10000;
+            // Insert/Swipe Card (ITUsbIoEmulator: swipes the profile's Card ID)
+            if (InputCode.PlayerDigitalButtons[1].Button4.HasValue && InputCode.PlayerDigitalButtons[1].Button4.Value)
+                Control |= 0x20000;
 
             JvsHelper.StateView.Write(8, Control);
 			JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);

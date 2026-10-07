@@ -216,6 +216,10 @@ namespace TeknoParrotUi.Common
             if (profile.OnlineIdType == OnlineIdType.InitialD)
                 return InitialDOnlineHelper.AutoFill(profile);
 
+            // Golden Tee online: the PCB ID + Card ID pair, from ParrotData.
+            if (profile.OnlineIdType == OnlineIdType.GoldenTee)
+                return GoldenTeeOnlineHelper.AutoFill(profile);
+
             var configField = profile.ConfigValues?.FirstOrDefault(x => x.FieldName == profile.OnlineIdFieldName);
             if (configField == null || (!string.IsNullOrEmpty(configField.FieldValue) && configField.FieldValue != "1234567890"))
                 return false;

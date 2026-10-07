@@ -158,6 +158,8 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="140" />
@@ -212,6 +214,28 @@
                              x:Name="MarioKartIDTextBox"
                              IsReadOnly="True"
                              materialDesign:HintAssist.Hint="{x:Static p:Resources.AccountPageMarioKartIDHint}"
+                             Margin="0,0,0,12" />
+                    <TextBlock Grid.Row="5"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="0,0,0,12"
+                               Text="{x:Static p:Resources.AccountPageGoldenTeePcbId}" />
+                    <TextBox Grid.Row="5"
+                             Grid.Column="1"
+                             x:Name="GoldenTeePcbIdTextBox"
+                             IsReadOnly="True"
+                             materialDesign:HintAssist.Hint="{x:Static p:Resources.AccountPageGoldenTeeHint}"
+                             Margin="0,0,0,12" />
+                    <TextBlock Grid.Row="6"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="0,0,0,12"
+                               Text="{x:Static p:Resources.AccountPageGoldenTeeCardId}" />
+                    <TextBox Grid.Row="6"
+                             Grid.Column="1"
+                             x:Name="GoldenTeeCardIdTextBox"
+                             IsReadOnly="True"
+                             materialDesign:HintAssist.Hint="{x:Static p:Resources.AccountPageGoldenTeeHint}"
                              Margin="0,0,0,12" />
                 </Grid>
             </materialDesign:Card>

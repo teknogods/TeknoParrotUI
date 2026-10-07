@@ -3280,4 +3280,25 @@ Without the rules the games still start, they just do not find each other.</valu
   <data name="InitialDUnifiedLanGroup" xml:space="preserve">
     <value>LAN group: {0}.</value>
   </data>
+  <data name="LibraryGtOnTp" xml:space="preserve">
+    <value>GT ON TP</value>
+  </data>
+  <data name="LibraryGtOnTpTooltip" xml:space="preserve">
+    <value>Customize your golfer and equipment in GT on TP, signed in with this game's PCB ID and Card ID</value>
+  </data>
+  <data name="LibraryGtOnTpNotInstalled" xml:space="preserve">
+    <value>GT on TP isn't installed yet. Check for updates to install it.</value>
+  </data>
+  <data name="LibraryGtOnTpFailed" xml:space="preserve">
+    <value>Could not start GT on TP: {0}</value>
+  </data>
+  <data name="AccountPageGoldenTeePcbId" xml:space="preserve">
+    <value>Golden Tee PCB ID:</value>
+  </data>
+  <data name="AccountPageGoldenTeeCardId" xml:space="preserve">
+    <value>Golden Tee Card ID:</value>
+  </data>
+  <data name="AccountPageGoldenTeeHint" xml:space="preserve">
+    <value>Filled into Golden Tee automatically</value>
+  </data>
 </root>

@@ -50,6 +50,9 @@ namespace TeknoParrotUi.Common
         public string SegaId {get; set; } = "";
         public string NamcoId { get; set; } = "";
         public string MarioKartId { get; set; } = "";
+        // Golden Tee online: the PCB ID and Card ID the teknoparrot.com account issues (api/User/Profile)
+        public string GoldenTeePcbId { get; set; } = "";
+        public string GoldenTeeCardId { get; set; } = "";
         // Initial D Online machine credential (PCB ID + secret) of this PC, from the teknoparrot.com account
         // (Account page, Initial D Online). Plain text by design, like the other online ids; it is copied into the
         // [Network] OnlineID / OnlineSecret fields of the Initial D profiles. Not cleared on logout: the PC stays

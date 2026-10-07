@@ -24,7 +24,10 @@ namespace TeknoParrotUi.Common
         NesysId,
         // Initial D Online (ID4 JP / ID5 / ID6 / ID7 / ID8): the PCB ID in OnlineIdFieldName plus its secret in the
         // "OnlineSecret" field, both from the teknoparrot.com account (InitialDOnlineHelper).
-        InitialD
+        InitialD,
+        // Golden Tee online: the Card ID in OnlineIdFieldName plus the "PCB ID" field, both from the teknoparrot.com
+        // account (GoldenTeeOnlineHelper).
+        GoldenTee
     }
 
     [Serializable]
@@ -102,6 +105,8 @@ namespace TeknoParrotUi.Common
         public string OnlineProfileURL { get; set; } = "";
         public bool IsLegacy { get; set; } = false;
         public bool HasTpoSupport { get; set; } = false;
+        // Shows the "GT on TP" button (the Golden Tee golfer and equipment editor, Tools\GTonTP) under Play.
+        public bool HasGtOnTp { get; set; } = false;
         public bool IsTpoExclusive { get; set; } = false;
         public bool RequiresBepInEx { get; set; } = false;
         public bool LaunchMinimized { get; set; } = false;

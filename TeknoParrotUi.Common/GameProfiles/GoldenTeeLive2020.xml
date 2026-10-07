@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>IncredibleTechnologies</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>2</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<DevOnly>true</DevOnly>
@@ -22,6 +22,10 @@
 	<yAxisMin>0</yAxisMin>
 	<yAxisMax>255</yAxisMax>
 	<AllowSettingSync>true</AllowSettingSync>
+	<OnlineIdFieldName>Card ID</OnlineIdFieldName>
+	<OnlineIdType>GoldenTee</OnlineIdType>
+	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/GoldenTee</OnlineProfileURL>
+	<HasGtOnTp>true</HasGtOnTp>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -948,6 +952,13 @@
 				<string>Private</string>
 			</FieldOptions>
 		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>ITNet</CategoryName>
+			<FieldName>Enable</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Play online on the TeknoParrot ITNet server with the PCB ID and Card ID above (filled in from your TeknoParrot account): live contests, daily contests, events, invitationals and your profile.</Hint>
+		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
 		<JoystickButtons>
@@ -1017,6 +1028,10 @@
 		<JoystickButtons>
 			<ButtonName>Save Current Outfit to TPUI</ButtonName>
 			<InputMapping>P2Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Insert/Swipe Card</ButtonName>
+			<InputMapping>P2Button4</InputMapping>
 		</JoystickButtons>
 		<JoystickButtons>
 			<ButtonName>TrackBall</ButtonName>

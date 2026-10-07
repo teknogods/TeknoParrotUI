@@ -318,6 +318,13 @@ namespace TeknoParrotUi.Views
                 return;
             }
 
+            // Golden Tee online: the PCB ID + Card ID pair, from ParrotData.
+            if (profile.OnlineIdType == OnlineIdType.GoldenTee)
+            {
+                GoldenTeeOnlineHelper.AutoFill(profile);
+                return;
+            }
+
             var configField = profile.ConfigValues.FirstOrDefault(x => x.FieldName == profile.OnlineIdFieldName);
             if (configField == null || !string.IsNullOrEmpty(configField.FieldValue))
                 return;

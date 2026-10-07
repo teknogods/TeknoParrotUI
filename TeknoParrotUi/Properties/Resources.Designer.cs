@@ -8988,5 +8988,67 @@ namespace TeknoParrotUi.Properties {
                 return ResourceManager.GetString("InitialDUnifiedLanGroup", resourceCulture);
             }
         }
+            /// <summary>
+        ///   Looks up a localized string similar to GT ON TP.
+        /// </summary>
+        public static string LibraryGtOnTp {
+            get {
+                return ResourceManager.GetString("LibraryGtOnTp", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Customize your golfer and equipment in GT on TP, signed in with this game's PCB ID and Card ID.
+        /// </summary>
+        public static string LibraryGtOnTpTooltip {
+            get {
+                return ResourceManager.GetString("LibraryGtOnTpTooltip", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to GT on TP isn't installed yet. Check for updates to install it..
+        /// </summary>
+        public static string LibraryGtOnTpNotInstalled {
+            get {
+                return ResourceManager.GetString("LibraryGtOnTpNotInstalled", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Could not start GT on TP: {0}.
+        /// </summary>
+        public static string LibraryGtOnTpFailed {
+            get {
+                return ResourceManager.GetString("LibraryGtOnTpFailed", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Golden Tee PCB ID:.
+        /// </summary>
+        public static string AccountPageGoldenTeePcbId {
+            get {
+                return ResourceManager.GetString("AccountPageGoldenTeePcbId", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Golden Tee Card ID:.
+        /// </summary>
+        public static string AccountPageGoldenTeeCardId {
+            get {
+                return ResourceManager.GetString("AccountPageGoldenTeeCardId", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Filled into Golden Tee automatically.
+        /// </summary>
+        public static string AccountPageGoldenTeeHint {
+            get {
+                return ResourceManager.GetString("AccountPageGoldenTeeHint", resourceCulture);
+            }
+        }
     }
 }

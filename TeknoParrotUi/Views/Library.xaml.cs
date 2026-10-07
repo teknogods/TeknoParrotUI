@@ -294,6 +294,7 @@ namespace TeknoParrotUi.Views
             }
             var selectedGame = _gameNames[gameList.SelectedIndex];
             gameOnlineProfileButton.Visibility = selectedGame.OnlineProfileURL != "" ? Visibility.Visible : Visibility.Collapsed;
+            gtOnTpButton.Visibility = selectedGame.HasGtOnTp ? Visibility.Visible : Visibility.Collapsed;
 
             // Check online titles and show button if required. Initial D titles with matchmaking do not use TPO any more
             // (they get "Play with friends" in its place); TPO stays for the titles without (ID4 EXP, ID6 1.2).
@@ -433,7 +434,10 @@ namespace TeknoParrotUi.Views
             double panelWidth = MainLibraryGrid.ColumnDefinitions[1].ActualWidth + MainLibraryGrid.ColumnDefinitions[2].ActualWidth;
             bool narrow = panelWidth < 400;
 
-            var rows = new List<FrameworkElement> { playRow, gameSettingsButton, controllerSetupButton, wikiButton };
+            var rows = new List<FrameworkElement> { playRow };
+            if (gtOnTpButton.Visibility == Visibility.Visible)
+                rows.Add(gtOnTpButton);
+            rows.AddRange(new FrameworkElement[] { gameSettingsButton, controllerSetupButton, wikiButton });
             if (hasExtras)
                 rows.Add(extrasRow);
             rows.Add(secondaryActionsRow);
@@ -2169,6 +2173,18 @@ namespace TeknoParrotUi.Views
             var url = "https://teknoparrot.com/Compatibility/GameDetail/" + path;
             Debug.WriteLine($"opening {url}");
             Process.Start(url);
+        }
+
+        /// <summary>Opens GT on TP for the selected game, signed in with its PCB ID and Card ID (GoldenTeeOnlineHelper).</summary>
+        private void BtnGtOnTp(object sender, RoutedEventArgs e)
+        {
+            CloseHighScoreWindow();
+            if (gameList.Items.Count == 0 || gameList.SelectedIndex < 0)
+                return;
+
+            var error = GoldenTeeOnlineHelper.LaunchTool(_gameNames[gameList.SelectedIndex]);
+            if (error != null)
+                MessageBoxHelper.ErrorOK(error);
         }
 
         private void BtnOnlineProfile(object sender, RoutedEventArgs e)
