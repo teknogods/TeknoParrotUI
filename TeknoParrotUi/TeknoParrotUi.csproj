@@ -334,6 +334,8 @@
     <Compile Include="Helpers\InitialDLanPresence.cs" />
     <Compile Include="Helpers\InitialDOnlineHelper.cs" />
     <Compile Include="Helpers\InitialDUnifiedMode.cs" />
+    <Compile Include="Helpers\KizunaAvatarApi.cs" />
+    <Compile Include="Helpers\KizunaAvatarGameData.cs" />
     <Compile Include="Helpers\KizunaOnlineHelper.cs" />
     <Compile Include="Helpers\NativeMethods.cs" />
     <Compile Include="Helpers\OAuthHelper.cs" />
@@ -523,6 +525,9 @@
       <DependentUpon>GameRunning.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\InitialDLaunchFlow.cs" />
+    <Compile Include="Views\KizunaAvatarEditor.xaml.cs">
+      <DependentUpon>KizunaAvatarEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\KizunaLaunchFlow.cs" />
     <Compile Include="Views\Library.InitialDLan.cs">
       <DependentUpon>Library.xaml</DependentUpon>
@@ -666,6 +671,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AnnouncementWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\KizunaAvatarEditor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

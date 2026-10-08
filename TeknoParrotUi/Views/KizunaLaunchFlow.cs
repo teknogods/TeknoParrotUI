@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using TeknoParrotUi.Common;
@@ -9,18 +10,18 @@ using R = TeknoParrotUi.Properties.Resources;
 namespace TeknoParrotUi.Views
 {
     /// <summary>
-    /// Senjou no Kizuna: what the library does before it starts the game (Kizuna's twin of the registration prompt of
-    /// InitialDLaunchFlow). Kizuna plays online only, on TeknoParrot's server (a fixed address in the DLL), which takes
-    /// only cabinets signed in with this PC's own Senjou no Kizuna Online ID. Without one in the profile (or in ParrotData,
-    /// which the auto-fill puts into the profile for this start) a start does not begin: a dialog says why and opens the
-    /// Account page, where the ID is registered or taken over (Senjou no Kizuna Online). There is no "play offline". A
-    /// start with a credential file named by TP_ONLINE_CRED (tests) goes ahead as before.
-    /// Library launches only: command-line and frontend launches never see a dialog. Nothing here calls the website.
+    /// Senjou no Kizuna: what the library does before it starts the game or its terminal. Kizuna plays online only, on
+    /// TeknoParrot's server (a fixed address in the DLL), which takes only cabinets signed in with the account's Senjou no
+    /// Kizuna Online ID. The ID comes with the TeknoParrot account, like the other games' IDs: the account's pair (from
+    /// ParrotData, else fetched from api/User/Profile when this PC is logged in) goes into the profile for this start. Only
+    /// when there is none (not logged in) does a dialog say why and open the Account page. There is no "play offline". A
+    /// start with a credential file named by TP_ONLINE_CRED (tests) goes ahead as before. Library launches only:
+    /// command-line and frontend launches never see a dialog.
     /// </summary>
     internal static class KizunaLaunchFlow
     {
         /// <summary>True = start the game. Every profile whose OnlineIdType is not Kizuna starts as before.</summary>
-        public static bool BeforeLaunch(GameProfile profile, Window owner)
+        public static async Task<bool> BeforeLaunchAsync(GameProfile profile, Window owner)
         {
             if (profile == null || profile.OnlineIdType != OnlineIdType.Kizuna)
                 return true;
@@ -28,6 +29,8 @@ namespace TeknoParrotUi.Views
             if (!string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("TP_ONLINE_CRED")))
                 return true;
             if (HasCredential(profile))
+                return true;
+            if (await KizunaOnlineHelper.FetchFromAccountAsync(TokenAsync) && HasCredential(profile))
                 return true;
             var name = string.IsNullOrEmpty(profile.GameNameInternal) ? profile.ProfileName : profile.GameNameInternal;
             if (Ask(owner, R.KizunaRegisterTitle, string.Format(R.KizunaRegisterText, name),
@@ -37,15 +40,31 @@ namespace TeknoParrotUi.Views
         }
 
         /// <summary>
-        /// This PC's Kizuna pair is in the profile (the ini the DLL reads), or in ParrotData and the auto-fill rule puts it
-        /// into the profile for this start (an empty OnlineID, or this PC's ID without its secret).
+        /// The account's pair goes into the profile (the ini the DLL reads) from ParrotData; a profile keeps the pair it has
+        /// while ParrotData holds none (logged out).
         /// </summary>
         internal static bool HasCredential(GameProfile profile)
         {
-            if (KizunaOnlineHelper.ProfileHasCredential(profile))
-                return true;
-            return KizunaOnlineHelper.LocalCredential() != null && KizunaOnlineHelper.AutoFill(profile) &&
-                   KizunaOnlineHelper.ProfileHasCredential(profile);
+            KizunaOnlineHelper.AutoFill(profile);
+            return KizunaOnlineHelper.ProfileHasCredential(profile);
+        }
+
+        /// <summary>The current access token, without opening a login: null when this PC is not logged in (the avatar editor too).</summary>
+        internal static Task<string> AccountTokenAsync() => TokenAsync();
+
+        /// <summary>Says why a Kizuna feature needs the account and offers the Account page.</summary>
+        internal static void OfferAccountPage(Window owner, string title, string message)
+        {
+            if (Ask(owner, title, message, R.KizunaRegisterOpenAccount, R.InitialDCancel) == 0)
+                OpenAccountPage();
+        }
+
+        private static async Task<string> TokenAsync()
+        {
+            if (Seams.Token != null)
+                return await Seams.Token();
+            var oAuth = (Application.Current as App)?.OAuthHelper;
+            return oAuth != null && await oAuth.EnsureAuthenticatedAsync(false) ? oAuth.GetAccessToken() : null;
         }
 
         /// <summary>Test seams, never set by TPUI itself: the dialog and the Account page.</summary>
@@ -53,6 +72,7 @@ namespace TeknoParrotUi.Views
         {
             internal static Func<Window, string, string, string[], int> Choose { get; set; }
             internal static Action OpenAccount { get; set; }
+            internal static Func<Task<string>> Token { get; set; }
         }
 
         private static int Ask(Window owner, string title, string message, params string[] buttons) =>

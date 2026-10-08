@@ -274,7 +274,8 @@ namespace TeknoParrotUi.Views
 
             var profile = _gameNames[gameList.SelectedIndex];
             _ = UpdateIconAsync(Path.GetFileName(profile.IconName), profile.EmulatorType, gameIcon);
-            bool hasTerminalMode = GetTerminalModeField(profile) != null;
+            // A terminal: a profile's Terminal Mode setting (WMMT), or its test executable is the terminal (Kizuna).
+            bool hasTerminalMode = GetTerminalModeField(profile) != null || (profile.TestMenuIsTerminal && profile.HasSeparateTestMode);
             testMenuText.Text = hasTerminalMode ? Properties.Resources.LibraryTerminalMode : Properties.Resources.LibraryTestMode;
             testMenuIcon.Kind = hasTerminalMode ? MaterialDesignThemes.Wpf.PackIconKind.Monitor : MaterialDesignThemes.Wpf.PackIconKind.TestTube;
             if (hasTerminalMode)
@@ -295,6 +296,7 @@ namespace TeknoParrotUi.Views
             var selectedGame = _gameNames[gameList.SelectedIndex];
             gameOnlineProfileButton.Visibility = selectedGame.OnlineProfileURL != "" ? Visibility.Visible : Visibility.Collapsed;
             gtOnTpButton.Visibility = selectedGame.HasGtOnTp ? Visibility.Visible : Visibility.Collapsed;
+            kizunaAvatarButton.Visibility = selectedGame.OnlineIdType == OnlineIdType.Kizuna ? Visibility.Visible : Visibility.Collapsed;
 
             // Check online titles and show button if required. Initial D titles with matchmaking do not use TPO any more
             // (they get "Play with friends" in its place); TPO stays for the titles without (ID4 EXP, ID6 1.2).
@@ -437,6 +439,8 @@ namespace TeknoParrotUi.Views
             var rows = new List<FrameworkElement> { playRow };
             if (gtOnTpButton.Visibility == Visibility.Visible)
                 rows.Add(gtOnTpButton);
+            if (kizunaAvatarButton.Visibility == Visibility.Visible)
+                rows.Add(kizunaAvatarButton);
             rows.AddRange(new FrameworkElement[] { gameSettingsButton, controllerSetupButton, wikiButton });
             if (hasExtras)
                 rows.Add(extrasRow);
@@ -2003,9 +2007,10 @@ namespace TeknoParrotUi.Views
         }
 
         /// <summary>
-        /// Launches the selected game in terminal mode or its separate test mode, if available.
+        /// Launches the selected game in terminal mode or its separate test mode, if available. A terminal that is the
+        /// test executable (TestMenuIsTerminal) launches as the test mode does.
         /// </summary>
-        private void BtnLaunchTestMenu(object sender, RoutedEventArgs e)
+        private async void BtnLaunchTestMenu(object sender, RoutedEventArgs e)
         {
             if (gameList.Items.Count == 0 || gameList.SelectedItem == null)
                 return;
@@ -2018,6 +2023,11 @@ namespace TeknoParrotUi.Views
 
             bool isTerminal = GetTerminalModeField(gameProfile) != null;
             if (!isTerminal && !gameProfile.HasSeparateTestMode)
+                return;
+
+            // Senjou no Kizuna's terminal signs in like the game: the account's Kizuna Online ID goes into the profile; without
+            // one (not logged in) it does not start. Every other test menu starts as before.
+            if (!await KizunaLaunchFlow.BeforeLaunchAsync(gameProfile, Window.GetWindow(this)))
                 return;
 
             Lazydata.ParrotData.LastPlayed = gameProfile.GameNameInternal;
@@ -2098,9 +2108,9 @@ namespace TeknoParrotUi.Views
             else
             {
                 InitialDUnifiedMode.PrepareLaunch(gameProfile, null);
-                // Senjou no Kizuna plays online only: without this PC's Kizuna Online ID it does not start (the dialog
-                // leads to the Account page). Every other game starts as before.
-                if (!KizunaLaunchFlow.BeforeLaunch(gameProfile, Window.GetWindow(this)))
+                // Senjou no Kizuna plays online only: the account's Kizuna Online ID goes into the profile; without one (not
+                // logged in) it does not start, and the dialog leads to the Account page. Every other game starts as before.
+                if (!await KizunaLaunchFlow.BeforeLaunchAsync(gameProfile, Window.GetWindow(this)))
                     return;
             }
 
@@ -2189,6 +2199,27 @@ namespace TeknoParrotUi.Views
             var error = GoldenTeeOnlineHelper.LaunchTool(_gameNames[gameList.SelectedIndex]);
             if (error != null)
                 MessageBoxHelper.ErrorOK(error);
+        }
+
+        /// <summary>
+        /// Senjou no Kizuna's pilot avatar editor for the selected game: the account's avatar per side, drawn from this game's
+        /// files. It needs the TeknoParrot account; without a login it offers the Account page.
+        /// </summary>
+        private async void BtnKizunaAvatar(object sender, RoutedEventArgs e)
+        {
+            CloseHighScoreWindow();
+            if (gameList.Items.Count == 0 || gameList.SelectedIndex < 0)
+                return;
+
+            var profile = _gameNames[gameList.SelectedIndex];
+            if (await KizunaLaunchFlow.AccountTokenAsync() == null)
+            {
+                KizunaLaunchFlow.OfferAccountPage(Window.GetWindow(this), TeknoParrotUi.Properties.Resources.KizunaAvatarEditorTitle,
+                    TeknoParrotUi.Properties.Resources.KizunaAvatarLoginNeeded);
+                return;
+            }
+
+            new KizunaAvatarEditor(profile, KizunaLaunchFlow.AccountTokenAsync) { Owner = Window.GetWindow(this) }.ShowDialog();
         }
 
         private void BtnOnlineProfile(object sender, RoutedEventArgs e)

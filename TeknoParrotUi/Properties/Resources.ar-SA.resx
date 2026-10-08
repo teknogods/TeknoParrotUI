@@ -2862,78 +2862,21 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
     <value>Senjou no Kizuna Online</value>
   </data>
   <data name="KizunaOnlineIntro" xml:space="preserve">
-    <value>تُلعب Senjou no Kizuna عبر الإنترنت فقط، على خادم TeknoParrot، وتحتاج إلى معرف إلكتروني لهذا الجهاز: معرف إلكتروني خاص بـ Senjou no Kizuna، وليس معرف Initial D. يحصل عليه TeknoParrotUI من حسابك على teknoparrot.com ويكتبه في ملف تعريف لعبة Senjou no Kizuna لديك (OnlineID وOnlineSecret). تظهر رتبتك دائمًا للاعبين الآخرين.</value>
-  </data>
-  <data name="KizunaOnlineNotRegistered" xml:space="preserve">
-    <value>هذا الجهاز غير مسجل في Senjou no Kizuna Online بعد.</value>
-  </data>
-  <data name="KizunaOnlineRegisteredHere" xml:space="preserve">
-    <value>مسجل على هذا الجهاز ومكتوب في ملف تعريف لعبة Senjou no Kizuna لديك.</value>
-  </data>
-  <data name="KizunaOnlineRegisteredElsewhere" xml:space="preserve">
-    <value>لدى حسابك معرف إلكتروني لـ Senjou no Kizuna، لكنه ليس على هذا الجهاز بعد.</value>
-  </data>
-  <data name="KizunaOnlineConfirmUseHere" xml:space="preserve">
-    <value>سيُستخدم معرف Senjou no Kizuna الإلكتروني لحسابك على هذا الجهاز. جهاز واحد لكل حساب: العب به على جهاز واحد في كل مرة. هل تريد المتابعة؟</value>
-  </data>
-  <data name="KizunaOnlineConfirmRegenerate" xml:space="preserve">
-    <value>تمنح إعادة الإنشاء حسابك معرفًا إلكترونيًا جديدًا لـ Senjou no Kizuna وسرًا جديدًا. يتوقف المعرف القديم عن العمل فورًا على كل الأجهزة. هل تريد المتابعة؟</value>
-  </data>
-  <data name="KizunaOnlineConfirmRemove" xml:space="preserve">
-    <value>هل تريد إزالة معرف Senjou no Kizuna الإلكتروني هذا؟ سيتوقف عن العمل فورًا، ولن يمكن لعب Senjou no Kizuna على خادم TeknoParrot حتى يُسجَّل هذا الجهاز مرة أخرى. هل تريد المتابعة؟</value>
-  </data>
-  <data name="KizunaOnlineSaved" xml:space="preserve">
-    <value>تم حفظ معرف Senjou no Kizuna الإلكتروني. ملفات تعريف ألعاب Senjou no Kizuna المحدّثة: {0}.</value>
-  </data>
-  <data name="KizunaOnlineRemoved" xml:space="preserve">
-    <value>تمت إزالة معرف Senjou no Kizuna الإلكتروني.</value>
-  </data>
-  <data name="KizunaOnlineErrorFeatureOff" xml:space="preserve">
-    <value>Senjou no Kizuna Online غير متاح بعد.</value>
-  </data>
-  <data name="KizunaOnlineErrorBanned" xml:space="preserve">
-    <value>هذا الحساب محظور من Senjou no Kizuna Online. راجع صفحة الملف الشخصي عبر الإنترنت على teknoparrot.com لمعرفة السبب ونموذج الاستئناف.</value>
+    <value>تُلعب Senjou no Kizuna عبر الإنترنت فقط، على خادم TeknoParrot، بمعرف إلكتروني خاص بـ Senjou no Kizuna، وليس معرف Initial D. يأتي مع حسابك على teknoparrot.com مثل معرفاتك الأخرى: يعرضه TeknoParrotUI أعلاه ويملؤه في ملف تعريف لعبة Senjou no Kizuna تلقائيًا. استخدمه على أي من أجهزتك، جهازًا واحدًا في كل مرة. تظهر رتبتك دائمًا للاعبين الآخرين.</value>
   </data>
   <data name="KizunaRegisterTitle" xml:space="preserve">
-    <value>تحتاج Senjou no Kizuna إلى معرفها الإلكتروني</value>
+    <value>سجّل الدخول للعب Senjou no Kizuna</value>
   </data>
   <data name="KizunaRegisterText" xml:space="preserve">
-    <value>تُلعب Senjou no Kizuna عبر الإنترنت فقط، ولا يقبل خادم TeknoParrot إلا الأجهزة التي سجّلت الدخول بمعرف Senjou no Kizuna الإلكتروني الخاص بها. لا يملك هذا الجهاز معرفًا بعد، لذلك لا تبدأ {0}.
+    <value>تُلعب Senjou no Kizuna عبر الإنترنت فقط، ولا يقبل خادم TeknoParrot إلا اللاعبين الذين سجّلوا الدخول بمعرف Senjou no Kizuna الإلكتروني، وهو يأتي مع حسابك على teknoparrot.com. لم يتمكن TeknoParrotUI من الحصول عليه، لذلك لا تبدأ {0}.
 
-في صفحة الحساب، ضمن Senjou no Kizuna Online، سجّل هذا الجهاز (بعد تسجيل الدخول بحسابك على teknoparrot.com) أو أدخل المعرف الإلكتروني والسر من صفحة Senjou no Kizuna في حسابك. يكتب TeknoParrotUI المعرف في ملف تعريف اللعبة؛ ثم شغّل اللعبة مرة أخرى.</value>
+سجّل الدخول في صفحة الحساب: سيملأ TeknoParrotUI المعرف تلقائيًا. ثم شغّل اللعبة مرة أخرى.</value>
   </data>
   <data name="KizunaRegisterOpenAccount" xml:space="preserve">
     <value>فتح صفحة الحساب</value>
   </data>
-  <data name="KizunaManualSecret" xml:space="preserve">
-    <value>السر</value>
-  </data>
-  <data name="KizunaManualSave" xml:space="preserve">
-    <value>حفظ على هذا الجهاز</value>
-  </data>
-  <data name="KizunaManualClear" xml:space="preserve">
-    <value>مسح</value>
-  </data>
-  <data name="KizunaManualHint" xml:space="preserve">
-    <value>معرف Senjou no Kizuna الإلكتروني وسره، كما يعرضهما teknoparrot.com في صفحة Senjou no Kizuna في حسابك. الصقهما هنا واحدًا تلو الآخر، أو كليهما معًا من سطري OnlineID وOnlineSecret. يبقيان على هذا الجهاز ويُكتبان في ملفات تعريف ألعاب Senjou no Kizuna لديك. احتفظ بالسر بشكل خاص: فهو يتيح لأي شخص اللعب باسمك.</value>
-  </data>
-  <data name="KizunaManualBadId" xml:space="preserve">
-    <value>هذا ليس معرفًا إلكترونيًا. يبدو المعرف هكذا: AAKZ-ABC12345678.</value>
-  </data>
-  <data name="KizunaManualBadSecret" xml:space="preserve">
-    <value>هذا ليس السر: السر هو الأحرف الـ 43 المعروضة مع المعرف الإلكتروني.</value>
-  </data>
-  <data name="KizunaManualNotLoggedIn" xml:space="preserve">
-    <value>سجّل الدخول للحصول على معرف Senjou no Kizuna الإلكتروني من teknoparrot.com، أو أدخله أدناه.</value>
-  </data>
-  <data name="KizunaManualWebsiteOff" xml:space="preserve">
-    <value>لا يوزع teknoparrot.com معرفات Senjou no Kizuna الإلكترونية بعد. أدخل معرفًا أدناه.</value>
-  </data>
   <data name="KizunaManualOpenWebsite" xml:space="preserve">
     <value>فتح صفحة Senjou no Kizuna الخاصة بك على teknoparrot.com</value>
-  </data>
-  <data name="KizunaManualInitialDId" xml:space="preserve">
-    <value>هذا معرف Initial D الإلكتروني الخاص بك. لـ Senjou no Kizuna معرف خاص بها (AAKZ-...)، في صفحة Senjou no Kizuna في حسابك.</value>
   </data>
   <data name="InitialDOnlineTitle" xml:space="preserve">
     <value>Initial D Online</value>
@@ -3409,5 +3352,158 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
   </data>
   <data name="AccountPageGoldenTeeHint" xml:space="preserve">
     <value>يُملأ تلقائيًا في Golden Tee</value>
+  </data>
+  <data name="AccountPageKizunaOnlineId" xml:space="preserve">
+    <value>المعرف الإلكتروني لـ Kizuna:</value>
+  </data>
+  <data name="AccountPageKizunaSecret" xml:space="preserve">
+    <value>سر Kizuna:</value>
+  </data>
+  <data name="AccountPageKizunaHint" xml:space="preserve">
+    <value>يُملأ تلقائيًا في Senjou no Kizuna</value>
+  </data>
+  <data name="AccountPageShowSecret" xml:space="preserve">
+    <value>إظهار</value>
+  </data>
+  <data name="AccountPageHideSecret" xml:space="preserve">
+    <value>إخفاء</value>
+  </data>
+  <data name="KizunaAvatarSideEfsf" xml:space="preserve">
+    <value>طيار E.F.S.F.</value>
+  </data>
+  <data name="KizunaAvatarSideZeon" xml:space="preserve">
+    <value>طيار Zeon</value>
+  </data>
+  <data name="KizunaAvatarBody" xml:space="preserve">
+    <value>الجسم</value>
+  </data>
+  <data name="KizunaAvatarAllBodies" xml:space="preserve">
+    <value>عرض الأجزاء المصممة للجسم الآخر أيضًا</value>
+  </data>
+  <data name="KizunaAvatarMale" xml:space="preserve">
+    <value>ذكر</value>
+  </data>
+  <data name="KizunaAvatarFemale" xml:space="preserve">
+    <value>أنثى</value>
+  </data>
+  <data name="KizunaAvatarVoice" xml:space="preserve">
+    <value>الصوت</value>
+  </data>
+  <data name="KizunaAvatarGreeting" xml:space="preserve">
+    <value>التحية</value>
+  </data>
+  <data name="KizunaAvatarGreetingNumber" xml:space="preserve">
+    <value>التحية {0}</value>
+  </data>
+  <data name="KizunaAvatarNone" xml:space="preserve">
+    <value>لا شيء</value>
+  </data>
+  <data name="KizunaAvatarPartCockpit" xml:space="preserve">
+    <value>قمرة القيادة</value>
+  </data>
+  <data name="KizunaAvatarPartOutline" xml:space="preserve">
+    <value>شكل الوجه</value>
+  </data>
+  <data name="KizunaAvatarPartEye" xml:space="preserve">
+    <value>العينان</value>
+  </data>
+  <data name="KizunaAvatarPartNoseMouth" xml:space="preserve">
+    <value>الأنف والفم</value>
+  </data>
+  <data name="KizunaAvatarPartHead" xml:space="preserve">
+    <value>الشعر والقبعة</value>
+  </data>
+  <data name="KizunaAvatarPartFaceWear" xml:space="preserve">
+    <value>إكسسوار الوجه</value>
+  </data>
+  <data name="KizunaAvatarPartInner" xml:space="preserve">
+    <value>القطعة العلوية</value>
+  </data>
+  <data name="KizunaAvatarPartOuter" xml:space="preserve">
+    <value>الملابس الخارجية</value>
+  </data>
+  <data name="KizunaAvatarPartTapestry" xml:space="preserve">
+    <value>معلقة جدارية</value>
+  </data>
+  <data name="KizunaAvatarPartFigurine" xml:space="preserve">
+    <value>تمثال صغير</value>
+  </data>
+  <data name="KizunaAvatarPartHang" xml:space="preserve">
+    <value>تعليقة</value>
+  </data>
+  <data name="KizunaAvatarPartLandscape" xml:space="preserve">
+    <value>الخلفية</value>
+  </data>
+  <data name="KizunaAvatarPartFrame" xml:space="preserve">
+    <value>الإطار</value>
+  </data>
+  <data name="KizunaAvatarSave" xml:space="preserve">
+    <value>حفظ الصورة الرمزية</value>
+  </data>
+  <data name="KizunaAvatarLoadDefault" xml:space="preserve">
+    <value>البدء من الافتراضي في اللعبة</value>
+  </data>
+  <data name="KizunaAvatarRemove" xml:space="preserve">
+    <value>استخدام الافتراضي في اللعبة</value>
+  </data>
+  <data name="KizunaAvatarSaved" xml:space="preserve">
+    <value>تم حفظ الصورة الرمزية. تعرضها اللعبة بدءًا من تسجيل الدخول التالي بالبطاقة.</value>
+  </data>
+  <data name="KizunaAvatarRemoved" xml:space="preserve">
+    <value>تمت إزالة الصورة الرمزية: يعرض الطيار الافتراضي في اللعبة بدءًا من تسجيل الدخول التالي بالبطاقة.</value>
+  </data>
+  <data name="KizunaAvatarNextLogin" xml:space="preserve">
+    <value>تصل الصورة الرمزية إلى اللعبة عند تسجيل الدخول التالي بالبطاقة على جهاز أو طرفية مسجّل دخولهما بهذا الحساب.</value>
+  </data>
+  <data name="KizunaAvatarUsingDefault" xml:space="preserve">
+    <value>غير مضبوطة: يعرض هذا الطيار الصورة الرمزية الافتراضية للعبة.</value>
+  </data>
+  <data name="KizunaAvatarUsingCustom" xml:space="preserve">
+    <value>مضبوطة: يعرض هذا الطيار الصورة الرمزية أدناه.</value>
+  </data>
+  <data name="KizunaAvatarEditorTitle" xml:space="preserve">
+    <value>الصورة الرمزية لطيار Senjou no Kizuna</value>
+  </data>
+  <data name="LibraryKizunaAvatar" xml:space="preserve">
+    <value>الصورة الرمزية للطيار</value>
+  </data>
+  <data name="LibraryKizunaAvatarTooltip" xml:space="preserve">
+    <value>ألبس طياري Senjou no Kizuna واختر صوتهم وتحيتهم، وتُحفظ في حساب TeknoParrot الخاص بك.</value>
+  </data>
+  <data name="KizunaAvatarVoiceMale" xml:space="preserve">
+    <value>الصوت {0} (ذكر)</value>
+  </data>
+  <data name="KizunaAvatarVoiceFemale" xml:space="preserve">
+    <value>الصوت {0} (أنثى)</value>
+  </data>
+  <data name="KizunaAvatarPlay" xml:space="preserve">
+    <value>تشغيل التحية</value>
+  </data>
+  <data name="KizunaAvatarUnsaved" xml:space="preserve">
+    <value>(تغييرات غير محفوظة)</value>
+  </data>
+  <data name="KizunaAvatarLoading" xml:space="preserve">
+    <value>جارٍ التحميل…</value>
+  </data>
+  <data name="KizunaAvatarSaving" xml:space="preserve">
+    <value>جارٍ الحفظ…</value>
+  </data>
+  <data name="KizunaAvatarInvalid" xml:space="preserve">
+    <value>تعذر حفظ هذه الصورة الرمزية. أغلق المحرر وافتحه مرة أخرى.</value>
+  </data>
+  <data name="KizunaAvatarLoginNeeded" xml:space="preserve">
+    <value>سجّل الدخول إلى حساب TeknoParrot في صفحة الحساب لتعديل صورتك الرمزية.</value>
+  </data>
+  <data name="KizunaAvatarUnavailable" xml:space="preserve">
+    <value>تعذر الوصول إلى خدمة الصور الرمزية الآن. حاول لاحقًا.</value>
+  </data>
+  <data name="KizunaAvatarNoGameFiles" xml:space="preserve">
+    <value>لم يتم العثور على صور الصورة الرمزية بجانب اللعبة ({0})، لذا لا توجد معاينة. لا يزال بإمكانك اختيار الأجزاء والحفظ.</value>
+  </data>
+  <data name="KizunaAvatarNoSound" xml:space="preserve">
+    <value>لم يتم العثور على أصوات التحية بجانب اللعبة.</value>
+  </data>
+  <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
+    <value>تجاهل تغييرات الصورة الرمزية غير المحفوظة؟</value>
   </data>
 </root>

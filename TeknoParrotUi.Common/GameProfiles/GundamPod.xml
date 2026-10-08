@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<GamePath></GamePath>
-	<TestMenuParameter></TestMenuParameter>
-	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<TestMenuParameter>n_gun_terminal_rel_opt_es1</TestMenuParameter>
+	<TestMenuIsExecutable>true</TestMenuIsExecutable>
+	<TestMenuIsTerminal>true</TestMenuIsTerminal>
 	<ExtraParameters>fullhd</ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoGundamPod</EmulationProfile>
-	<GameProfileRevision>9</GameProfileRevision>
-	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<GameProfileRevision>10</GameProfileRevision>
+	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>n_gun_station_rel_opt_es1</ExecutableName>
 	<OnlineIdFieldName>OnlineID</OnlineIdFieldName>
@@ -51,7 +52,7 @@
 				<string>Basic</string>
 				<string>Advanced</string>
 			</FieldOptions>
-			<Hint>Senjou no Kizuna plays online only, on TeknoParrot's server. This PC needs its Senjou no Kizuna Online ID for it: register this PC on the Account page (Senjou no Kizuna Online) and TeknoParrotUI fills it in. Friends who enter the same arcade name meet in in-store battles. Basic: the arcade name. Advanced: online server, cabinet id, station id, the card and its key.</Hint>
+			<Hint>Senjou no Kizuna plays online only, on TeknoParrot's server. It needs your Senjou no Kizuna Online ID, which comes with your teknoparrot.com account: log in on the Account page and TeknoParrotUI fills it in. Friends who enter the same arcade name meet in in-store battles. Basic: the arcade name. Advanced: online server, cabinet id, station id, the card and its key. The TERMINAL button starts the store's terminal (n_gun_terminal_rel_opt_es1, next to the game): register your card and customize your pilot there, then quit it and play.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
@@ -85,7 +86,7 @@
 			<VisibleWhenValue>Debug</VisibleWhenValue>
 			<FieldValue></FieldValue>
 			<FieldType>Text</FieldType>
-			<Hint>Hidden: managed on the Account page (Senjou no Kizuna Online). Your Senjou no Kizuna Online PCB ID (AAKZ-...), filled in by TeknoParrotUI from your teknoparrot.com account; not the Initial D one. TeknoParrot's server takes only cabinets signed in with one. One PC per account.</Hint>
+			<Hint>Hidden: filled in by TeknoParrotUI from your teknoparrot.com account (shown on the Account page). Your Senjou no Kizuna Online PCB ID (AAKZ-...); not the Initial D one. TeknoParrot's server takes only cabinets signed in with one. Any of your PCs, one at a time.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Network</CategoryName>
@@ -94,7 +95,7 @@
 			<VisibleWhenValue>Debug</VisibleWhenValue>
 			<FieldValue></FieldValue>
 			<FieldType>Text</FieldType>
-			<Hint>Hidden: managed on the Account page (Senjou no Kizuna Online). The secret that belongs to OnlineID (43 characters). It never leaves this PC: the server only gets a proof made with it. Keep it private: it lets anyone play as you.</Hint>
+			<Hint>Hidden: filled in by TeknoParrotUI from your teknoparrot.com account (shown on the Account page). The secret that belongs to OnlineID (43 characters). It never leaves this PC: the server only gets a proof made with it. Keep it private: it lets anyone play as you.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Card</CategoryName>

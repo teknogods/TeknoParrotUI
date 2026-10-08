@@ -2860,78 +2860,21 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
     <value>Senjou no Kizuna Online</value>
   </data>
   <data name="KizunaOnlineIntro" xml:space="preserve">
-    <value>Senjou no Kizuna 只能在 TeknoParrot 的服务器上在线游玩，并且需要为这台电脑准备一个在线ID：一个独立的 Senjou no Kizuna 在线ID，而不是 Initial D 的。TeknoParrotUI 会从您的 teknoparrot.com 账户获取它，并写入您的 Senjou no Kizuna 游戏配置文件（OnlineID 和 OnlineSecret）。您的军衔总是会显示给其他玩家。</value>
-  </data>
-  <data name="KizunaOnlineNotRegistered" xml:space="preserve">
-    <value>这台电脑尚未注册 Senjou no Kizuna Online。</value>
-  </data>
-  <data name="KizunaOnlineRegisteredHere" xml:space="preserve">
-    <value>已在这台电脑上注册，并已写入您的 Senjou no Kizuna 游戏配置文件。</value>
-  </data>
-  <data name="KizunaOnlineRegisteredElsewhere" xml:space="preserve">
-    <value>您的账户有 Senjou no Kizuna 在线ID，但它还不在这台电脑上。</value>
-  </data>
-  <data name="KizunaOnlineConfirmUseHere" xml:space="preserve">
-    <value>您账户的 Senjou no Kizuna 在线ID将在这台电脑上使用。每个账户限一台电脑：同一时间只能在一台电脑上用它游戏。要继续吗？</value>
-  </data>
-  <data name="KizunaOnlineConfirmRegenerate" xml:space="preserve">
-    <value>重新生成会为您的账户发放新的 Senjou no Kizuna 在线ID和密钥。旧ID会立即在所有电脑上失效。要继续吗？</value>
-  </data>
-  <data name="KizunaOnlineConfirmRemove" xml:space="preserve">
-    <value>要移除此 Senjou no Kizuna 在线ID吗？它会立即失效，在这台电脑重新注册之前，将无法在 TeknoParrot 的服务器上游玩 Senjou no Kizuna。要继续吗？</value>
-  </data>
-  <data name="KizunaOnlineSaved" xml:space="preserve">
-    <value>Senjou no Kizuna 在线ID已保存。已更新的 Senjou no Kizuna 游戏配置文件：{0}。</value>
-  </data>
-  <data name="KizunaOnlineRemoved" xml:space="preserve">
-    <value>Senjou no Kizuna 在线ID已移除。</value>
-  </data>
-  <data name="KizunaOnlineErrorFeatureOff" xml:space="preserve">
-    <value>Senjou no Kizuna Online 尚未开放。</value>
-  </data>
-  <data name="KizunaOnlineErrorBanned" xml:space="preserve">
-    <value>此账户已被 Senjou no Kizuna Online 封禁。请在 teknoparrot.com 的在线资料页面查看原因和申诉表单。</value>
+    <value>Senjou no Kizuna 只能在 TeknoParrot 的服务器上在线游玩，使用独立的 Senjou no Kizuna 在线ID，而不是 Initial D 的。它和您的其他ID一样随您的 teknoparrot.com 账户提供：TeknoParrotUI 会在上方显示它，并自动填入您的 Senjou no Kizuna 游戏配置文件。可在您的任意电脑上使用（同一时间限一台）。您的军衔总是会显示给其他玩家。</value>
   </data>
   <data name="KizunaRegisterTitle" xml:space="preserve">
-    <value>Senjou no Kizuna 需要它的在线ID</value>
+    <value>请登录以游玩 Senjou no Kizuna</value>
   </data>
   <data name="KizunaRegisterText" xml:space="preserve">
-    <value>Senjou no Kizuna 只能在线游玩，TeknoParrot 的服务器只接受使用 Senjou no Kizuna 在线ID登录的电脑。这台电脑还没有在线ID，因此 {0} 无法启动。
+    <value>Senjou no Kizuna 只能在线游玩，TeknoParrot 的服务器只接受使用 Senjou no Kizuna 在线ID登录的玩家，该ID随您的 teknoparrot.com 账户提供。TeknoParrotUI 未能获取它，因此 {0} 无法启动。
 
-请在账户页面的 Senjou no Kizuna Online 中注册这台电脑（使用您的 teknoparrot.com 账户登录），或输入您账户 Senjou no Kizuna 页面上的在线ID和密钥。TeknoParrotUI 会把ID写入游戏配置文件；然后请重新启动游戏。</value>
+请在账户页面登录：TeknoParrotUI 会自动填入ID。然后请重新启动游戏。</value>
   </data>
   <data name="KizunaRegisterOpenAccount" xml:space="preserve">
     <value>打开账户页面</value>
   </data>
-  <data name="KizunaManualSecret" xml:space="preserve">
-    <value>密钥</value>
-  </data>
-  <data name="KizunaManualSave" xml:space="preserve">
-    <value>保存到此电脑</value>
-  </data>
-  <data name="KizunaManualClear" xml:space="preserve">
-    <value>清除</value>
-  </data>
-  <data name="KizunaManualHint" xml:space="preserve">
-    <value>您的 Senjou no Kizuna 在线ID及其密钥，与 teknoparrot.com 在您账户的 Senjou no Kizuna 页面上显示的一致。可以逐个粘贴到这里，也可以从 OnlineID 和 OnlineSecret 两行一次性粘贴。它们保存在这台电脑上，并写入您的 Senjou no Kizuna 游戏配置文件。请妥善保管密钥：任何人拿到它都可以冒充您游戏。</value>
-  </data>
-  <data name="KizunaManualBadId" xml:space="preserve">
-    <value>这不是在线ID。在线ID的格式类似 AAKZ-ABC12345678。</value>
-  </data>
-  <data name="KizunaManualBadSecret" xml:space="preserve">
-    <value>这不是密钥：密钥是与在线ID一起显示的 43 个字符。</value>
-  </data>
-  <data name="KizunaManualNotLoggedIn" xml:space="preserve">
-    <value>登录以从 teknoparrot.com 获取您的 Senjou no Kizuna 在线ID，或在下方输入。</value>
-  </data>
-  <data name="KizunaManualWebsiteOff" xml:space="preserve">
-    <value>teknoparrot.com 尚未发放 Senjou no Kizuna 在线ID。请在下方输入一个。</value>
-  </data>
   <data name="KizunaManualOpenWebsite" xml:space="preserve">
     <value>在 teknoparrot.com 打开您的 Senjou no Kizuna 页面</value>
-  </data>
-  <data name="KizunaManualInitialDId" xml:space="preserve">
-    <value>这是您的 Initial D 在线ID。Senjou no Kizuna 有自己的ID（AAKZ-...），在您账户的 Senjou no Kizuna 页面上。</value>
   </data>
   <data name="InitialDOnlineTitle" xml:space="preserve">
     <value>Initial D Online</value>
@@ -3407,5 +3350,158 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
   </data>
   <data name="AccountPageGoldenTeeHint" xml:space="preserve">
     <value>自动填入 Golden Tee</value>
+  </data>
+  <data name="AccountPageKizunaOnlineId" xml:space="preserve">
+    <value>Kizuna 在线ID：</value>
+  </data>
+  <data name="AccountPageKizunaSecret" xml:space="preserve">
+    <value>Kizuna 密钥：</value>
+  </data>
+  <data name="AccountPageKizunaHint" xml:space="preserve">
+    <value>自动填入 Senjou no Kizuna</value>
+  </data>
+  <data name="AccountPageShowSecret" xml:space="preserve">
+    <value>显示</value>
+  </data>
+  <data name="AccountPageHideSecret" xml:space="preserve">
+    <value>隐藏</value>
+  </data>
+  <data name="KizunaAvatarSideEfsf" xml:space="preserve">
+    <value>E.F.S.F. 驾驶员</value>
+  </data>
+  <data name="KizunaAvatarSideZeon" xml:space="preserve">
+    <value>Zeon 驾驶员</value>
+  </data>
+  <data name="KizunaAvatarBody" xml:space="preserve">
+    <value>体型</value>
+  </data>
+  <data name="KizunaAvatarAllBodies" xml:space="preserve">
+    <value>同时显示另一体型的部件</value>
+  </data>
+  <data name="KizunaAvatarMale" xml:space="preserve">
+    <value>男性</value>
+  </data>
+  <data name="KizunaAvatarFemale" xml:space="preserve">
+    <value>女性</value>
+  </data>
+  <data name="KizunaAvatarVoice" xml:space="preserve">
+    <value>语音</value>
+  </data>
+  <data name="KizunaAvatarGreeting" xml:space="preserve">
+    <value>问候</value>
+  </data>
+  <data name="KizunaAvatarGreetingNumber" xml:space="preserve">
+    <value>问候 {0}</value>
+  </data>
+  <data name="KizunaAvatarNone" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="KizunaAvatarPartCockpit" xml:space="preserve">
+    <value>驾驶舱</value>
+  </data>
+  <data name="KizunaAvatarPartOutline" xml:space="preserve">
+    <value>脸型</value>
+  </data>
+  <data name="KizunaAvatarPartEye" xml:space="preserve">
+    <value>眼睛</value>
+  </data>
+  <data name="KizunaAvatarPartNoseMouth" xml:space="preserve">
+    <value>鼻子和嘴</value>
+  </data>
+  <data name="KizunaAvatarPartHead" xml:space="preserve">
+    <value>发型和帽子</value>
+  </data>
+  <data name="KizunaAvatarPartFaceWear" xml:space="preserve">
+    <value>面部饰品</value>
+  </data>
+  <data name="KizunaAvatarPartInner" xml:space="preserve">
+    <value>内搭</value>
+  </data>
+  <data name="KizunaAvatarPartOuter" xml:space="preserve">
+    <value>外套</value>
+  </data>
+  <data name="KizunaAvatarPartTapestry" xml:space="preserve">
+    <value>挂毯</value>
+  </data>
+  <data name="KizunaAvatarPartFigurine" xml:space="preserve">
+    <value>手办</value>
+  </data>
+  <data name="KizunaAvatarPartHang" xml:space="preserve">
+    <value>挂饰</value>
+  </data>
+  <data name="KizunaAvatarPartLandscape" xml:space="preserve">
+    <value>背景</value>
+  </data>
+  <data name="KizunaAvatarPartFrame" xml:space="preserve">
+    <value>边框</value>
+  </data>
+  <data name="KizunaAvatarSave" xml:space="preserve">
+    <value>保存头像</value>
+  </data>
+  <data name="KizunaAvatarLoadDefault" xml:space="preserve">
+    <value>从游戏默认开始</value>
+  </data>
+  <data name="KizunaAvatarRemove" xml:space="preserve">
+    <value>使用游戏默认</value>
+  </data>
+  <data name="KizunaAvatarSaved" xml:space="preserve">
+    <value>头像已保存。游戏将从下次刷卡登录起显示它。</value>
+  </data>
+  <data name="KizunaAvatarRemoved" xml:space="preserve">
+    <value>头像已移除：从下次刷卡登录起，驾驶员显示游戏默认头像。</value>
+  </data>
+  <data name="KizunaAvatarNextLogin" xml:space="preserve">
+    <value>头像会在使用此账户登录的机台或终端上下次刷卡登录时进入游戏。</value>
+  </data>
+  <data name="KizunaAvatarUsingDefault" xml:space="preserve">
+    <value>未设置：此驾驶员显示游戏的默认头像。</value>
+  </data>
+  <data name="KizunaAvatarUsingCustom" xml:space="preserve">
+    <value>已设置：此驾驶员显示下方的头像。</value>
+  </data>
+  <data name="KizunaAvatarEditorTitle" xml:space="preserve">
+    <value>Senjou no Kizuna 驾驶员头像</value>
+  </data>
+  <data name="LibraryKizunaAvatar" xml:space="preserve">
+    <value>驾驶员头像</value>
+  </data>
+  <data name="LibraryKizunaAvatarTooltip" xml:space="preserve">
+    <value>为你的 Senjou no Kizuna 驾驶员换装并选择语音和问候，保存到你的 TeknoParrot 账户。</value>
+  </data>
+  <data name="KizunaAvatarVoiceMale" xml:space="preserve">
+    <value>语音 {0}（男性）</value>
+  </data>
+  <data name="KizunaAvatarVoiceFemale" xml:space="preserve">
+    <value>语音 {0}（女性）</value>
+  </data>
+  <data name="KizunaAvatarPlay" xml:space="preserve">
+    <value>播放问候</value>
+  </data>
+  <data name="KizunaAvatarUnsaved" xml:space="preserve">
+    <value>（未保存的更改）</value>
+  </data>
+  <data name="KizunaAvatarLoading" xml:space="preserve">
+    <value>正在加载…</value>
+  </data>
+  <data name="KizunaAvatarSaving" xml:space="preserve">
+    <value>正在保存…</value>
+  </data>
+  <data name="KizunaAvatarInvalid" xml:space="preserve">
+    <value>无法保存该头像。请关闭编辑器后重新打开。</value>
+  </data>
+  <data name="KizunaAvatarLoginNeeded" xml:space="preserve">
+    <value>请在账户页面登录你的 TeknoParrot 账户以编辑头像。</value>
+  </data>
+  <data name="KizunaAvatarUnavailable" xml:space="preserve">
+    <value>暂时无法连接头像服务。请稍后再试。</value>
+  </data>
+  <data name="KizunaAvatarNoGameFiles" xml:space="preserve">
+    <value>在游戏旁未找到游戏的头像图片（{0}），因此没有预览。你仍然可以选择部件并保存。</value>
+  </data>
+  <data name="KizunaAvatarNoSound" xml:space="preserve">
+    <value>在游戏旁未找到游戏的问候语音。</value>
+  </data>
+  <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
+    <value>放弃未保存的头像更改？</value>
   </data>
 </root>

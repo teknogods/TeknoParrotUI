@@ -2858,78 +2858,21 @@ TeknoParrot 로딩을 계속하려면 "확인"을 클릭하세요.</value>
     <value>Senjou no Kizuna Online</value>
   </data>
   <data name="KizunaOnlineIntro" xml:space="preserve">
-    <value>Senjou no Kizuna는 TeknoParrot 서버에서 온라인으로만 플레이하며 이 PC용 온라인 ID가 필요합니다. Initial D용이 아닌 Senjou no Kizuna 전용 온라인 ID입니다. TeknoParrotUI가 teknoparrot.com 계정에서 가져와 Senjou no Kizuna 게임 프로필(OnlineID 및 OnlineSecret)에 기록합니다. 내 계급은 항상 다른 플레이어에게 표시됩니다.</value>
-  </data>
-  <data name="KizunaOnlineNotRegistered" xml:space="preserve">
-    <value>이 PC는 아직 Senjou no Kizuna Online에 등록되지 않았습니다.</value>
-  </data>
-  <data name="KizunaOnlineRegisteredHere" xml:space="preserve">
-    <value>이 PC에 등록되었으며 Senjou no Kizuna 게임 프로필에 기록되었습니다.</value>
-  </data>
-  <data name="KizunaOnlineRegisteredElsewhere" xml:space="preserve">
-    <value>계정에 Senjou no Kizuna 온라인 ID가 있지만 아직 이 PC에는 없습니다.</value>
-  </data>
-  <data name="KizunaOnlineConfirmUseHere" xml:space="preserve">
-    <value>계정의 Senjou no Kizuna 온라인 ID를 이 PC에서 사용합니다. 계정당 PC 1대: 한 번에 한 대의 PC에서만 플레이하세요. 계속하시겠습니까?</value>
-  </data>
-  <data name="KizunaOnlineConfirmRegenerate" xml:space="preserve">
-    <value>재발급하면 계정에 새 Senjou no Kizuna 온라인 ID와 새 시크릿이 발급됩니다. 이전 ID는 모든 PC에서 즉시 작동하지 않습니다. 계속하시겠습니까?</value>
-  </data>
-  <data name="KizunaOnlineConfirmRemove" xml:space="preserve">
-    <value>이 Senjou no Kizuna 온라인 ID를 삭제하시겠습니까? 즉시 작동하지 않게 되며, 이 PC를 다시 등록할 때까지 TeknoParrot 서버에서 Senjou no Kizuna를 플레이할 수 없습니다. 계속하시겠습니까?</value>
-  </data>
-  <data name="KizunaOnlineSaved" xml:space="preserve">
-    <value>Senjou no Kizuna 온라인 ID를 저장했습니다. 업데이트된 Senjou no Kizuna 게임 프로필: {0}.</value>
-  </data>
-  <data name="KizunaOnlineRemoved" xml:space="preserve">
-    <value>Senjou no Kizuna 온라인 ID를 삭제했습니다.</value>
-  </data>
-  <data name="KizunaOnlineErrorFeatureOff" xml:space="preserve">
-    <value>Senjou no Kizuna Online은 아직 사용할 수 없습니다.</value>
-  </data>
-  <data name="KizunaOnlineErrorBanned" xml:space="preserve">
-    <value>이 계정은 Senjou no Kizuna Online에서 차단되었습니다. 사유와 이의 신청 양식은 teknoparrot.com의 온라인 프로필 페이지를 확인하세요.</value>
+    <value>Senjou no Kizuna는 TeknoParrot 서버에서 온라인으로만 플레이하며, Initial D용이 아닌 Senjou no Kizuna 전용 온라인 ID를 사용합니다. 다른 ID처럼 teknoparrot.com 계정에 함께 제공되며, TeknoParrotUI가 위에 표시하고 Senjou no Kizuna 게임 프로필에 자동으로 입력합니다. 가지고 있는 어느 PC에서나 사용할 수 있습니다(한 번에 1대). 내 계급은 항상 다른 플레이어에게 표시됩니다.</value>
   </data>
   <data name="KizunaRegisterTitle" xml:space="preserve">
-    <value>Senjou no Kizuna에는 온라인 ID가 필요합니다</value>
+    <value>Senjou no Kizuna를 플레이하려면 로그인하세요</value>
   </data>
   <data name="KizunaRegisterText" xml:space="preserve">
-    <value>Senjou no Kizuna는 온라인 전용이며, TeknoParrot 서버는 Senjou no Kizuna 온라인 ID로 로그인한 PC만 받아들입니다. 이 PC에는 아직 ID가 없으므로 {0}이(가) 시작되지 않습니다.
+    <value>Senjou no Kizuna는 온라인 전용이며, TeknoParrot 서버는 Senjou no Kizuna 온라인 ID로 로그인한 플레이어만 받아들입니다. 이 ID는 teknoparrot.com 계정에 함께 제공됩니다. TeknoParrotUI가 ID를 가져오지 못했으므로 {0}이(가) 시작되지 않습니다.
 
-계정 페이지의 Senjou no Kizuna Online에서 이 PC를 등록하거나(teknoparrot.com 계정으로 로그인한 상태에서) 계정의 Senjou no Kizuna 페이지에 있는 온라인 ID와 시크릿을 입력하세요. TeknoParrotUI가 ID를 게임 프로필에 기록합니다. 그런 다음 게임을 다시 시작하세요.</value>
+계정 페이지에서 로그인하세요. 그러면 TeknoParrotUI가 ID를 자동으로 입력합니다. 그런 다음 게임을 다시 시작하세요.</value>
   </data>
   <data name="KizunaRegisterOpenAccount" xml:space="preserve">
     <value>계정 페이지 열기</value>
   </data>
-  <data name="KizunaManualSecret" xml:space="preserve">
-    <value>시크릿</value>
-  </data>
-  <data name="KizunaManualSave" xml:space="preserve">
-    <value>이 PC에 저장</value>
-  </data>
-  <data name="KizunaManualClear" xml:space="preserve">
-    <value>지우기</value>
-  </data>
-  <data name="KizunaManualHint" xml:space="preserve">
-    <value>teknoparrot.com이 계정의 Senjou no Kizuna 페이지에 표시하는 Senjou no Kizuna 온라인 ID와 시크릿입니다. 하나씩 붙여 넣거나 OnlineID와 OnlineSecret 줄에서 둘 다 한 번에 붙여 넣으세요. 이 PC에 저장되고 Senjou no Kizuna 게임 프로필에 기록됩니다. 시크릿은 비공개로 유지하세요. 이를 알면 누구나 당신으로 플레이할 수 있습니다.</value>
-  </data>
-  <data name="KizunaManualBadId" xml:space="preserve">
-    <value>온라인 ID가 아닙니다. 온라인 ID는 AAKZ-ABC12345678과 같은 형식입니다.</value>
-  </data>
-  <data name="KizunaManualBadSecret" xml:space="preserve">
-    <value>시크릿이 아닙니다. 시크릿은 온라인 ID와 함께 표시되는 43자입니다.</value>
-  </data>
-  <data name="KizunaManualNotLoggedIn" xml:space="preserve">
-    <value>로그인하여 teknoparrot.com에서 Senjou no Kizuna 온라인 ID를 받거나 아래에 입력하세요.</value>
-  </data>
-  <data name="KizunaManualWebsiteOff" xml:space="preserve">
-    <value>teknoparrot.com은 아직 Senjou no Kizuna 온라인 ID를 발급하지 않습니다. 아래에 입력하세요.</value>
-  </data>
   <data name="KizunaManualOpenWebsite" xml:space="preserve">
     <value>teknoparrot.com에서 내 Senjou no Kizuna 페이지 열기</value>
-  </data>
-  <data name="KizunaManualInitialDId" xml:space="preserve">
-    <value>이것은 Initial D 온라인 ID입니다. Senjou no Kizuna에는 별도의 ID(AAKZ-...)가 있으며 계정의 Senjou no Kizuna 페이지에서 확인할 수 있습니다.</value>
   </data>
   <data name="InitialDOnlineTitle" xml:space="preserve">
     <value>Initial D Online</value>
@@ -3405,5 +3348,158 @@ TeknoParrot 로딩을 계속하려면 "확인"을 클릭하세요.</value>
   </data>
   <data name="AccountPageGoldenTeeHint" xml:space="preserve">
     <value>Golden Tee에 자동으로 입력됩니다</value>
+  </data>
+  <data name="AccountPageKizunaOnlineId" xml:space="preserve">
+    <value>Kizuna 온라인 ID:</value>
+  </data>
+  <data name="AccountPageKizunaSecret" xml:space="preserve">
+    <value>Kizuna 시크릿:</value>
+  </data>
+  <data name="AccountPageKizunaHint" xml:space="preserve">
+    <value>Senjou no Kizuna에 자동으로 입력됩니다</value>
+  </data>
+  <data name="AccountPageShowSecret" xml:space="preserve">
+    <value>표시</value>
+  </data>
+  <data name="AccountPageHideSecret" xml:space="preserve">
+    <value>숨기기</value>
+  </data>
+  <data name="KizunaAvatarSideEfsf" xml:space="preserve">
+    <value>E.F.S.F. 파일럿</value>
+  </data>
+  <data name="KizunaAvatarSideZeon" xml:space="preserve">
+    <value>Zeon 파일럿</value>
+  </data>
+  <data name="KizunaAvatarBody" xml:space="preserve">
+    <value>체형</value>
+  </data>
+  <data name="KizunaAvatarAllBodies" xml:space="preserve">
+    <value>다른 체형용 파트도 표시</value>
+  </data>
+  <data name="KizunaAvatarMale" xml:space="preserve">
+    <value>남성</value>
+  </data>
+  <data name="KizunaAvatarFemale" xml:space="preserve">
+    <value>여성</value>
+  </data>
+  <data name="KizunaAvatarVoice" xml:space="preserve">
+    <value>보이스</value>
+  </data>
+  <data name="KizunaAvatarGreeting" xml:space="preserve">
+    <value>인사</value>
+  </data>
+  <data name="KizunaAvatarGreetingNumber" xml:space="preserve">
+    <value>인사 {0}</value>
+  </data>
+  <data name="KizunaAvatarNone" xml:space="preserve">
+    <value>없음</value>
+  </data>
+  <data name="KizunaAvatarPartCockpit" xml:space="preserve">
+    <value>콕핏</value>
+  </data>
+  <data name="KizunaAvatarPartOutline" xml:space="preserve">
+    <value>얼굴형</value>
+  </data>
+  <data name="KizunaAvatarPartEye" xml:space="preserve">
+    <value>눈</value>
+  </data>
+  <data name="KizunaAvatarPartNoseMouth" xml:space="preserve">
+    <value>코와 입</value>
+  </data>
+  <data name="KizunaAvatarPartHead" xml:space="preserve">
+    <value>머리와 모자</value>
+  </data>
+  <data name="KizunaAvatarPartFaceWear" xml:space="preserve">
+    <value>얼굴 액세서리</value>
+  </data>
+  <data name="KizunaAvatarPartInner" xml:space="preserve">
+    <value>상의</value>
+  </data>
+  <data name="KizunaAvatarPartOuter" xml:space="preserve">
+    <value>아우터</value>
+  </data>
+  <data name="KizunaAvatarPartTapestry" xml:space="preserve">
+    <value>태피스트리</value>
+  </data>
+  <data name="KizunaAvatarPartFigurine" xml:space="preserve">
+    <value>피규어</value>
+  </data>
+  <data name="KizunaAvatarPartHang" xml:space="preserve">
+    <value>걸이 장식</value>
+  </data>
+  <data name="KizunaAvatarPartLandscape" xml:space="preserve">
+    <value>배경</value>
+  </data>
+  <data name="KizunaAvatarPartFrame" xml:space="preserve">
+    <value>프레임</value>
+  </data>
+  <data name="KizunaAvatarSave" xml:space="preserve">
+    <value>아바타 저장</value>
+  </data>
+  <data name="KizunaAvatarLoadDefault" xml:space="preserve">
+    <value>게임 기본값에서 시작</value>
+  </data>
+  <data name="KizunaAvatarRemove" xml:space="preserve">
+    <value>게임 기본값 사용</value>
+  </data>
+  <data name="KizunaAvatarSaved" xml:space="preserve">
+    <value>아바타를 저장했습니다. 다음 카드 로그인부터 게임에 표시됩니다.</value>
+  </data>
+  <data name="KizunaAvatarRemoved" xml:space="preserve">
+    <value>아바타를 삭제했습니다. 다음 카드 로그인부터 게임 기본값이 표시됩니다.</value>
+  </data>
+  <data name="KizunaAvatarNextLogin" xml:space="preserve">
+    <value>아바타는 이 계정으로 로그인한 포드나 터미널에서 다음 카드 로그인 시 게임에 반영됩니다.</value>
+  </data>
+  <data name="KizunaAvatarUsingDefault" xml:space="preserve">
+    <value>설정 안 됨: 이 파일럿은 게임의 기본 아바타를 표시합니다.</value>
+  </data>
+  <data name="KizunaAvatarUsingCustom" xml:space="preserve">
+    <value>설정됨: 이 파일럿은 아래 아바타를 표시합니다.</value>
+  </data>
+  <data name="KizunaAvatarEditorTitle" xml:space="preserve">
+    <value>전장의 인연 파일럿 아바타</value>
+  </data>
+  <data name="LibraryKizunaAvatar" xml:space="preserve">
+    <value>파일럿 아바타</value>
+  </data>
+  <data name="LibraryKizunaAvatarTooltip" xml:space="preserve">
+    <value>전장의 인연 파일럿을 꾸미고 보이스와 인사를 골라 TeknoParrot 계정에 저장합니다.</value>
+  </data>
+  <data name="KizunaAvatarVoiceMale" xml:space="preserve">
+    <value>보이스 {0} (남성)</value>
+  </data>
+  <data name="KizunaAvatarVoiceFemale" xml:space="preserve">
+    <value>보이스 {0} (여성)</value>
+  </data>
+  <data name="KizunaAvatarPlay" xml:space="preserve">
+    <value>인사 재생</value>
+  </data>
+  <data name="KizunaAvatarUnsaved" xml:space="preserve">
+    <value>(저장하지 않은 변경)</value>
+  </data>
+  <data name="KizunaAvatarLoading" xml:space="preserve">
+    <value>불러오는 중…</value>
+  </data>
+  <data name="KizunaAvatarSaving" xml:space="preserve">
+    <value>저장하는 중…</value>
+  </data>
+  <data name="KizunaAvatarInvalid" xml:space="preserve">
+    <value>이 아바타를 저장할 수 없습니다. 편집기를 닫았다가 다시 여세요.</value>
+  </data>
+  <data name="KizunaAvatarLoginNeeded" xml:space="preserve">
+    <value>아바타를 편집하려면 계정 페이지에서 TeknoParrot 계정에 로그인하세요.</value>
+  </data>
+  <data name="KizunaAvatarUnavailable" xml:space="preserve">
+    <value>지금은 아바타 서비스에 연결할 수 없습니다. 나중에 다시 시도하세요.</value>
+  </data>
+  <data name="KizunaAvatarNoGameFiles" xml:space="preserve">
+    <value>게임 옆에서 게임의 아바타 이미지를 찾지 못해({0}) 미리 보기가 없습니다. 파트 선택과 저장은 할 수 있습니다.</value>
+  </data>
+  <data name="KizunaAvatarNoSound" xml:space="preserve">
+    <value>게임 옆에서 게임의 인사 보이스를 찾지 못했습니다.</value>
+  </data>
+  <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
+    <value>저장하지 않은 아바타 변경을 버리시겠습니까?</value>
   </data>
 </root>

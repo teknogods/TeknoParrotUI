@@ -395,6 +395,27 @@
                            Text="{x:Static p:Resources.LibraryGtOnTp}" />
             </StackPanel>
         </Button>
+        <!-- Senjou no Kizuna's pilot avatar editor (KizunaAvatarEditor): under Play for Kizuna profiles; LayoutActionRows places it -->
+        <Button x:Name="kizunaAvatarButton"
+                Grid.Row="8"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Margin="10,4,10,2"
+                Style="{StaticResource LibraryActionButton}"
+                Visibility="Collapsed"
+                ToolTip="{x:Static p:Resources.LibraryKizunaAvatarTooltip}"
+                Click="BtnKizunaAvatar">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon Margin="0,0,8,0"
+                                         VerticalAlignment="Center"
+                                         Kind="AccountTie"
+                                         Height="24"
+                                         Width="24" />
+                <TextBlock FontSize="14"
+                           VerticalAlignment="Center"
+                           Text="{x:Static p:Resources.LibraryKizunaAvatar}" />
+            </StackPanel>
+        </Button>
         <Button x:Name="gameSettingsButton"
                 Grid.Row="8"
                 Grid.Column="1"

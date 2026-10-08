@@ -390,6 +390,7 @@ namespace TeknoParrotUi.Helpers
                 Lazydata.ParrotData.MarioKartId = "";
                 Lazydata.ParrotData.GoldenTeePcbId = "";
                 Lazydata.ParrotData.GoldenTeeCardId = "";
+                KizunaOnlineHelper.ForgetAccount();
                 Lazydata.ParrotData.IsLoggedIn = false;
 
                 string tokenFolder = Path.Combine(

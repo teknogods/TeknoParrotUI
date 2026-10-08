@@ -520,6 +520,8 @@ namespace TeknoParrotUi.Views
                         Lazydata.ParrotData.ScoreSubmissionID = _userData.HighscoreSerial;
                         Lazydata.ParrotData.NamcoId = _userData.NamcoId;
                         Lazydata.ParrotData.MarioKartId = _userData.MarioKartId;
+                        // Senjou no Kizuna Online: the account's pair into ParrotData and every Kizuna profile
+                        KizunaOnlineHelper.StoreFromAccount(_userData.KizunaPcbId, _userData.KizunaSecret);
 
                         JoystickHelper.Serialize();
 
@@ -801,6 +803,9 @@ namespace TeknoParrotUi.Views
             public string SegaId { get; set; }
             public string HighscoreSerial { get; set; }
             public string NamcoId { get; set; }
+            // Senjou no Kizuna Online: the account's PCB ID and secret; null while the website has it switched off.
+            public string KizunaPcbId { get; set; }
+            public string KizunaSecret { get; set; }
             public string MarioKartId { get; set; }
             public bool IsSubscribed { get; set; }
             public List<SerialStatus> Serials { get; set; }

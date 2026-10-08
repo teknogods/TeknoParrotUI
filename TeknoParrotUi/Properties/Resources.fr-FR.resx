@@ -2858,78 +2858,21 @@ Seule la clé enregistrée sur ce PC sera supprimée. Cela ne libérera aucune a
     <value>Senjou no Kizuna Online</value>
   </data>
   <data name="KizunaOnlineIntro" xml:space="preserve">
-    <value>Senjou no Kizuna se joue uniquement en ligne, sur le serveur de TeknoParrot, et nécessite un ID en ligne pour ce PC : un ID en ligne Senjou no Kizuna à part, pas celui d'Initial D. TeknoParrotUI l'obtient de votre compte teknoparrot.com et l'écrit dans votre profil de jeu Senjou no Kizuna (OnlineID et OnlineSecret). Votre rang est toujours montré aux autres joueurs.</value>
-  </data>
-  <data name="KizunaOnlineNotRegistered" xml:space="preserve">
-    <value>Ce PC n'est pas encore enregistré pour Senjou no Kizuna Online.</value>
-  </data>
-  <data name="KizunaOnlineRegisteredHere" xml:space="preserve">
-    <value>Enregistré sur ce PC et écrit dans votre profil de jeu Senjou no Kizuna.</value>
-  </data>
-  <data name="KizunaOnlineRegisteredElsewhere" xml:space="preserve">
-    <value>Votre compte a un ID en ligne Senjou no Kizuna, mais il n'est pas encore sur ce PC.</value>
-  </data>
-  <data name="KizunaOnlineConfirmUseHere" xml:space="preserve">
-    <value>L'ID en ligne Senjou no Kizuna de votre compte sera utilisé sur ce PC. Un PC par compte : jouez avec sur un seul PC à la fois. Continuer ?</value>
-  </data>
-  <data name="KizunaOnlineConfirmRegenerate" xml:space="preserve">
-    <value>Régénérer donne à votre compte un nouvel ID en ligne Senjou no Kizuna et un nouveau secret. L'ancien ID cesse immédiatement de fonctionner sur tous les PC. Continuer ?</value>
-  </data>
-  <data name="KizunaOnlineConfirmRemove" xml:space="preserve">
-    <value>Supprimer cet ID en ligne Senjou no Kizuna ? Il cesse immédiatement de fonctionner, et Senjou no Kizuna ne peut plus être joué sur le serveur de TeknoParrot tant que ce PC n'est pas enregistré à nouveau. Continuer ?</value>
-  </data>
-  <data name="KizunaOnlineSaved" xml:space="preserve">
-    <value>ID en ligne Senjou no Kizuna enregistré. Profils de jeu Senjou no Kizuna mis à jour : {0}.</value>
-  </data>
-  <data name="KizunaOnlineRemoved" xml:space="preserve">
-    <value>ID en ligne Senjou no Kizuna supprimé.</value>
-  </data>
-  <data name="KizunaOnlineErrorFeatureOff" xml:space="preserve">
-    <value>Senjou no Kizuna Online n'est pas encore disponible.</value>
-  </data>
-  <data name="KizunaOnlineErrorBanned" xml:space="preserve">
-    <value>Ce compte est banni de Senjou no Kizuna Online. Consultez la page Profil en ligne sur teknoparrot.com pour connaître la raison et trouver le formulaire de contestation.</value>
+    <value>Senjou no Kizuna se joue uniquement en ligne, sur le serveur de TeknoParrot, avec un ID en ligne Senjou no Kizuna à part, pas celui d'Initial D. Il vient avec votre compte teknoparrot.com comme vos autres ID : TeknoParrotUI l'affiche ci-dessus et le remplit tout seul dans votre profil de jeu Senjou no Kizuna. Utilisable sur n'importe lequel de vos PC, un à la fois. Votre rang est toujours montré aux autres joueurs.</value>
   </data>
   <data name="KizunaRegisterTitle" xml:space="preserve">
-    <value>Senjou no Kizuna a besoin de son ID en ligne</value>
+    <value>Connectez-vous pour jouer à Senjou no Kizuna</value>
   </data>
   <data name="KizunaRegisterText" xml:space="preserve">
-    <value>Senjou no Kizuna se joue uniquement en ligne, et le serveur de TeknoParrot n'accepte que les PC connectés avec leur ID en ligne Senjou no Kizuna. Ce PC n'en a pas encore, {0} ne démarre donc pas.
+    <value>Senjou no Kizuna se joue uniquement en ligne, et le serveur de TeknoParrot n'accepte que les joueurs connectés avec leur ID en ligne Senjou no Kizuna, qui vient avec votre compte teknoparrot.com. TeknoParrotUI n'a pas pu l'obtenir, {0} ne démarre donc pas.
 
-Sur la page Compte, dans Senjou no Kizuna Online, enregistrez ce PC (connecté avec votre compte teknoparrot.com) ou saisissez l'ID en ligne et le secret indiqués sur la page Senjou no Kizuna de votre compte. TeknoParrotUI écrit l'ID dans le profil de jeu ; relancez ensuite le jeu.</value>
+Connectez-vous sur la page Compte : TeknoParrotUI remplira alors l'ID tout seul. Relancez ensuite le jeu.</value>
   </data>
   <data name="KizunaRegisterOpenAccount" xml:space="preserve">
     <value>Ouvrir la page Compte</value>
   </data>
-  <data name="KizunaManualSecret" xml:space="preserve">
-    <value>Secret</value>
-  </data>
-  <data name="KizunaManualSave" xml:space="preserve">
-    <value>Enregistrer sur ce PC</value>
-  </data>
-  <data name="KizunaManualClear" xml:space="preserve">
-    <value>Effacer</value>
-  </data>
-  <data name="KizunaManualHint" xml:space="preserve">
-    <value>Votre ID en ligne Senjou no Kizuna et son secret, tels que teknoparrot.com les affiche sur la page Senjou no Kizuna de votre compte. Collez-les ici un par un, ou les deux à la fois depuis les lignes OnlineID et OnlineSecret. Ils restent sur ce PC et sont écrits dans vos profils de jeu Senjou no Kizuna. Gardez le secret privé : il permet à n'importe qui de jouer à votre place.</value>
-  </data>
-  <data name="KizunaManualBadId" xml:space="preserve">
-    <value>Ce n'est pas un ID en ligne. Il ressemble à ceci : AAKZ-ABC12345678.</value>
-  </data>
-  <data name="KizunaManualBadSecret" xml:space="preserve">
-    <value>Ce n'est pas le secret : ce sont les 43 caractères affichés avec l'ID en ligne.</value>
-  </data>
-  <data name="KizunaManualNotLoggedIn" xml:space="preserve">
-    <value>Connectez-vous pour obtenir votre ID en ligne Senjou no Kizuna depuis teknoparrot.com, ou saisissez-le ci-dessous.</value>
-  </data>
-  <data name="KizunaManualWebsiteOff" xml:space="preserve">
-    <value>teknoparrot.com ne distribue pas encore d'ID en ligne Senjou no Kizuna. Saisissez-en un ci-dessous.</value>
-  </data>
   <data name="KizunaManualOpenWebsite" xml:space="preserve">
     <value>Ouvrir votre page Senjou no Kizuna sur teknoparrot.com</value>
-  </data>
-  <data name="KizunaManualInitialDId" xml:space="preserve">
-    <value>C'est votre ID en ligne Initial D. Senjou no Kizuna a le sien (AAKZ-...), sur la page Senjou no Kizuna de votre compte.</value>
   </data>
   <data name="InitialDOnlineTitle" xml:space="preserve">
     <value>Initial D Online</value>
@@ -3405,5 +3348,158 @@ Sans les règles, les jeux démarrent quand même, ils ne se trouvent simplement
   </data>
   <data name="AccountPageGoldenTeeHint" xml:space="preserve">
     <value>Rempli automatiquement dans Golden Tee</value>
+  </data>
+  <data name="AccountPageKizunaOnlineId" xml:space="preserve">
+    <value>ID en ligne Kizuna :</value>
+  </data>
+  <data name="AccountPageKizunaSecret" xml:space="preserve">
+    <value>Secret Kizuna :</value>
+  </data>
+  <data name="AccountPageKizunaHint" xml:space="preserve">
+    <value>Rempli automatiquement dans Senjou no Kizuna</value>
+  </data>
+  <data name="AccountPageShowSecret" xml:space="preserve">
+    <value>Afficher</value>
+  </data>
+  <data name="AccountPageHideSecret" xml:space="preserve">
+    <value>Masquer</value>
+  </data>
+  <data name="KizunaAvatarSideEfsf" xml:space="preserve">
+    <value>Pilote de l'E.F.S.F.</value>
+  </data>
+  <data name="KizunaAvatarSideZeon" xml:space="preserve">
+    <value>Pilote de Zeon</value>
+  </data>
+  <data name="KizunaAvatarBody" xml:space="preserve">
+    <value>Corps</value>
+  </data>
+  <data name="KizunaAvatarAllBodies" xml:space="preserve">
+    <value>Afficher aussi les objets faits pour l'autre corps</value>
+  </data>
+  <data name="KizunaAvatarMale" xml:space="preserve">
+    <value>Homme</value>
+  </data>
+  <data name="KizunaAvatarFemale" xml:space="preserve">
+    <value>Femme</value>
+  </data>
+  <data name="KizunaAvatarVoice" xml:space="preserve">
+    <value>Voix</value>
+  </data>
+  <data name="KizunaAvatarGreeting" xml:space="preserve">
+    <value>Salut</value>
+  </data>
+  <data name="KizunaAvatarGreetingNumber" xml:space="preserve">
+    <value>Salut {0}</value>
+  </data>
+  <data name="KizunaAvatarNone" xml:space="preserve">
+    <value>Aucun</value>
+  </data>
+  <data name="KizunaAvatarPartCockpit" xml:space="preserve">
+    <value>Cockpit</value>
+  </data>
+  <data name="KizunaAvatarPartOutline" xml:space="preserve">
+    <value>Forme du visage</value>
+  </data>
+  <data name="KizunaAvatarPartEye" xml:space="preserve">
+    <value>Yeux</value>
+  </data>
+  <data name="KizunaAvatarPartNoseMouth" xml:space="preserve">
+    <value>Nez et bouche</value>
+  </data>
+  <data name="KizunaAvatarPartHead" xml:space="preserve">
+    <value>Cheveux et chapeau</value>
+  </data>
+  <data name="KizunaAvatarPartFaceWear" xml:space="preserve">
+    <value>Accessoire de visage</value>
+  </data>
+  <data name="KizunaAvatarPartInner" xml:space="preserve">
+    <value>Haut</value>
+  </data>
+  <data name="KizunaAvatarPartOuter" xml:space="preserve">
+    <value>Vêtement de dessus</value>
+  </data>
+  <data name="KizunaAvatarPartTapestry" xml:space="preserve">
+    <value>Tapisserie</value>
+  </data>
+  <data name="KizunaAvatarPartFigurine" xml:space="preserve">
+    <value>Figurine</value>
+  </data>
+  <data name="KizunaAvatarPartHang" xml:space="preserve">
+    <value>Breloque</value>
+  </data>
+  <data name="KizunaAvatarPartLandscape" xml:space="preserve">
+    <value>Arrière-plan</value>
+  </data>
+  <data name="KizunaAvatarPartFrame" xml:space="preserve">
+    <value>Cadre</value>
+  </data>
+  <data name="KizunaAvatarSave" xml:space="preserve">
+    <value>Enregistrer l'avatar</value>
+  </data>
+  <data name="KizunaAvatarLoadDefault" xml:space="preserve">
+    <value>Partir de l'avatar par défaut du jeu</value>
+  </data>
+  <data name="KizunaAvatarRemove" xml:space="preserve">
+    <value>Utiliser l'avatar par défaut du jeu</value>
+  </data>
+  <data name="KizunaAvatarSaved" xml:space="preserve">
+    <value>Avatar enregistré. Le jeu l'affiche dès la prochaine connexion avec la carte.</value>
+  </data>
+  <data name="KizunaAvatarRemoved" xml:space="preserve">
+    <value>Avatar retiré : le pilote affiche l'avatar par défaut du jeu dès la prochaine connexion avec la carte.</value>
+  </data>
+  <data name="KizunaAvatarNextLogin" xml:space="preserve">
+    <value>L'avatar arrive dans le jeu à la prochaine connexion avec la carte sur un pod ou un terminal connecté avec ce compte.</value>
+  </data>
+  <data name="KizunaAvatarUsingDefault" xml:space="preserve">
+    <value>Non défini : ce pilote affiche l'avatar par défaut du jeu.</value>
+  </data>
+  <data name="KizunaAvatarUsingCustom" xml:space="preserve">
+    <value>Défini : ce pilote affiche l'avatar ci-dessous.</value>
+  </data>
+  <data name="KizunaAvatarEditorTitle" xml:space="preserve">
+    <value>Avatar de pilote Senjou no Kizuna</value>
+  </data>
+  <data name="LibraryKizunaAvatar" xml:space="preserve">
+    <value>AVATAR DU PILOTE</value>
+  </data>
+  <data name="LibraryKizunaAvatarTooltip" xml:space="preserve">
+    <value>Habillez vos pilotes de Senjou no Kizuna et choisissez leur voix et leur salut, enregistrés dans votre compte TeknoParrot.</value>
+  </data>
+  <data name="KizunaAvatarVoiceMale" xml:space="preserve">
+    <value>Voix {0} (homme)</value>
+  </data>
+  <data name="KizunaAvatarVoiceFemale" xml:space="preserve">
+    <value>Voix {0} (femme)</value>
+  </data>
+  <data name="KizunaAvatarPlay" xml:space="preserve">
+    <value>Écouter le salut</value>
+  </data>
+  <data name="KizunaAvatarUnsaved" xml:space="preserve">
+    <value>(modifications non enregistrées)</value>
+  </data>
+  <data name="KizunaAvatarLoading" xml:space="preserve">
+    <value>Chargement…</value>
+  </data>
+  <data name="KizunaAvatarSaving" xml:space="preserve">
+    <value>Enregistrement…</value>
+  </data>
+  <data name="KizunaAvatarInvalid" xml:space="preserve">
+    <value>Cet avatar n'a pas pu être enregistré. Fermez l'éditeur et rouvrez-le.</value>
+  </data>
+  <data name="KizunaAvatarLoginNeeded" xml:space="preserve">
+    <value>Connectez-vous à votre compte TeknoParrot sur la page Compte pour modifier votre avatar.</value>
+  </data>
+  <data name="KizunaAvatarUnavailable" xml:space="preserve">
+    <value>Le service d'avatars est injoignable pour le moment. Réessayez plus tard.</value>
+  </data>
+  <data name="KizunaAvatarNoGameFiles" xml:space="preserve">
+    <value>Les images d'avatar du jeu sont introuvables à côté du jeu ({0}) : pas d'aperçu. Vous pouvez quand même choisir des pièces et enregistrer.</value>
+  </data>
+  <data name="KizunaAvatarNoSound" xml:space="preserve">
+    <value>Les voix de salut du jeu sont introuvables à côté du jeu.</value>
+  </data>
+  <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
+    <value>Abandonner les modifications non enregistrées de l'avatar ?</value>
   </data>
 </root>

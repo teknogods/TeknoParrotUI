@@ -277,6 +277,42 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Golden Tee Card ID:.
+        /// </summary>
+        public static string AccountPageGoldenTeeCardId {
+            get {
+                return ResourceManager.GetString("AccountPageGoldenTeeCardId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filled into Golden Tee automatically.
+        /// </summary>
+        public static string AccountPageGoldenTeeHint {
+            get {
+                return ResourceManager.GetString("AccountPageGoldenTeeHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Golden Tee PCB ID:.
+        /// </summary>
+        public static string AccountPageGoldenTeePcbId {
+            get {
+                return ResourceManager.GetString("AccountPageGoldenTeePcbId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide.
+        /// </summary>
+        public static string AccountPageHideSecret {
+            get {
+                return ResourceManager.GetString("AccountPageHideSecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Highscore Serial:.
         /// </summary>
         public static string AccountPageHighscoreSerial {
@@ -309,6 +345,33 @@ namespace TeknoParrotUi.Properties {
         public static string AccountPageInitializing {
             get {
                 return ResourceManager.GetString("AccountPageInitializing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filled into Senjou no Kizuna automatically.
+        /// </summary>
+        public static string AccountPageKizunaHint {
+            get {
+                return ResourceManager.GetString("AccountPageKizunaHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kizuna Online ID:.
+        /// </summary>
+        public static string AccountPageKizunaOnlineId {
+            get {
+                return ResourceManager.GetString("AccountPageKizunaOnlineId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kizuna secret:.
+        /// </summary>
+        public static string AccountPageKizunaSecret {
+            get {
+                return ResourceManager.GetString("AccountPageKizunaSecret", resourceCulture);
             }
         }
         
@@ -570,6 +633,15 @@ namespace TeknoParrotUi.Properties {
         public static string AccountPageSerialInUseThisDevice {
             get {
                 return ResourceManager.GetString("AccountPageSerialInUseThisDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show.
+        /// </summary>
+        public static string AccountPageShowSecret {
+            get {
+                return ResourceManager.GetString("AccountPageShowSecret", resourceCulture);
             }
         }
         
@@ -3390,6 +3462,1339 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Initial D 4 (Japan), 5, 6 Double Ace, 7 and 8 check the online server automatically at every start. A registered PC plays online; when the server is unavailable or the PC is not registered, the game starts offline or on LAN..
+        /// </summary>
+        public static string InitialDAutomaticOnlineNote {
+            get {
+                return ResourceManager.GetString("InitialDAutomaticOnlineNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string InitialDCancel {
+            get {
+                return ResourceManager.GetString("InitialDCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to In online matches text chat is on (F2 to type, /mute silences a player; the Chat setting of each game turns it off). Voice chat stays off until you choose listen or talk in the game&apos;s settings. Chat and voice go through the server you play on; nothing is stored or recorded..
+        /// </summary>
+        public static string InitialDChatNote {
+            get {
+                return ResourceManager.GetString("InitialDChatNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add the rules.
+        /// </summary>
+        public static string InitialDFirewallAdd {
+            get {
+                return ResourceManager.GetString("InitialDFirewallAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The firewall rules were not added. Start TeknoParrotUI as administrator to add them, or allow the game when Windows asks..
+        /// </summary>
+        public static string InitialDFirewallFailed {
+            get {
+                return ResourceManager.GetString("InitialDFirewallFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not now.
+        /// </summary>
+        public static string InitialDFirewallSkip {
+            get {
+                return ResourceManager.GetString("InitialDFirewallSkip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Two TeknoParrot PCs link over the LAN only when Windows lets the game receive. TeknoParrot can add the inbound rules now, for your private network; Windows asks for administrator rights once.
+        ///
+        ///{0}
+        ///
+        ///Without the rules the games still start, they just do not find each other..
+        /// </summary>
+        public static string InitialDFirewallText {
+            get {
+                return ResourceManager.GetString("InitialDFirewallText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow Initial D LAN play through the firewall?.
+        /// </summary>
+        public static string InitialDFirewallTitle {
+            get {
+                return ResourceManager.GetString("InitialDFirewallTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initial D 4 (Japan), 5, 6, 7 and 8 now start online by default. At every start TeknoParrot makes a short check with the Initial D online server. With this PC registered you get nationwide matchmaking, events and rankings; without registration, or when the server cannot be reached, the game starts offline as before, within seconds.
+        ///
+        ///Cards you play online become online cards. Progress you make offline is merged the next time you play online..
+        /// </summary>
+        public static string InitialDFirstRunText {
+            get {
+                return ResourceManager.GetString("InitialDFirstRunText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initial D: online by default.
+        /// </summary>
+        public static string InitialDFirstRunTitle {
+            get {
+                return ResourceManager.GetString("InitialDFirstRunTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A friends code has 6 to 16 letters or digits..
+        /// </summary>
+        public static string InitialDFriendsBadCode {
+            get {
+                return ResourceManager.GetString("InitialDFriendsBadCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Friends code for this start: {0}.
+        /// </summary>
+        public static string InitialDFriendsCodeLine {
+            get {
+                return ResourceManager.GetString("InitialDFriendsCodeLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copied.
+        /// </summary>
+        public static string InitialDFriendsCopied {
+            get {
+                return ResourceManager.GetString("InitialDFriendsCopied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy invite.
+        /// </summary>
+        public static string InitialDFriendsCopyInvite {
+            get {
+                return ResourceManager.GetString("InitialDFriendsCopyInvite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Race your friends nationwide: everyone who starts {0} with the same friends code is matched only with each other. The code is valid for this start only and is never saved..
+        /// </summary>
+        public static string InitialDFriendsIntro {
+            get {
+                return ResourceManager.GetString("InitialDFriendsIntro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Race me in {0} on TeknoParrot: choose &quot;Play with friends&quot; and enter the friends code {1}.
+        /// </summary>
+        public static string InitialDFriendsInvite {
+            get {
+                return ResourceManager.GetString("InitialDFriendsInvite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Join a friend&apos;s group with their code:.
+        /// </summary>
+        public static string InitialDFriendsJoin {
+            get {
+                return ResourceManager.GetString("InitialDFriendsJoin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play with friends is not available: the old network mode is set for this game (NetworkMode=Legacy)..
+        /// </summary>
+        public static string InitialDFriendsLegacy {
+            get {
+                return ResourceManager.GetString("InitialDFriendsLegacy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play with friends needs this PC to be registered for Initial D online play (a free teknoparrot.com account, one PC per account)..
+        /// </summary>
+        public static string InitialDFriendsNeedsRegistration {
+            get {
+                return ResourceManager.GetString("InitialDFriendsNeedsRegistration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start a new group with this code:.
+        /// </summary>
+        public static string InitialDFriendsNew {
+            get {
+                return ResourceManager.GetString("InitialDFriendsNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Every player needs a registered PC and a game card. Codes ignore case, spaces and dashes..
+        /// </summary>
+        public static string InitialDFriendsNote {
+            get {
+                return ResourceManager.GetString("InitialDFriendsNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Friends codes are switched off on the online server right now. Please try again later, or use Play..
+        /// </summary>
+        public static string InitialDFriendsOff {
+            get {
+                return ResourceManager.GetString("InitialDFriendsOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        public static string InitialDFriendsStart {
+            get {
+                return ResourceManager.GetString("InitialDFriendsStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play with friends.
+        /// </summary>
+        public static string InitialDFriendsTitle {
+            get {
+                return ResourceManager.GetString("InitialDFriendsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &quot;{0}&quot; is easy to guess: strangers who type it join your group. Start with it anyway?.
+        /// </summary>
+        public static string InitialDFriendsWeakCode {
+            get {
+                return ResourceManager.GetString("InitialDFriendsWeakCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Always.
+        /// </summary>
+        public static string InitialDLanLinkAlways {
+            get {
+                return ResourceManager.GetString("InitialDLanLinkAlways", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Never.
+        /// </summary>
+        public static string InitialDLanLinkNever {
+            get {
+                return ResourceManager.GetString("InitialDLanLinkNever", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This time.
+        /// </summary>
+        public static string InitialDLanLinkOnce {
+            get {
+                return ResourceManager.GetString("InitialDLanLinkOnce", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link with {0} for {1}?
+        ///
+        ///Linked PCs play as two cabinets in one arcade: in-store VS, TAG against the computer and a shared store ranking. They exchange the display name, the seat and the race data of that game, nothing else..
+        /// </summary>
+        public static string InitialDLanLinkText {
+            get {
+                return ResourceManager.GetString("InitialDLanLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link with another PC?.
+        /// </summary>
+        public static string InitialDLanLinkTitle {
+            get {
+                return ResourceManager.GetString("InitialDLanLinkTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LAN linking is off: another program on this PC is using the Initial D LAN port..
+        /// </summary>
+        public static string InitialDLanPortBusy {
+            get {
+                return ResourceManager.GetString("InitialDLanPortBusy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This network is marked Public in Windows: LAN linking is off. Mark it Private, or set a LAN group in the game&apos;s Advanced network settings..
+        /// </summary>
+        public static string InitialDLanPublicNetwork {
+            get {
+                return ResourceManager.GetString("InitialDLanPublicNetwork", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} and {1} more PCs are ready for {2}..
+        /// </summary>
+        public static string InitialDLanReadyMany {
+            get {
+                return ResourceManager.GetString("InitialDLanReadyMany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} is ready for {1}..
+        /// </summary>
+        public static string InitialDLanReadyOne {
+            get {
+                return ResourceManager.GetString("InitialDLanReadyOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start alone.
+        /// </summary>
+        public static string InitialDLanStartAlone {
+            get {
+                return ResourceManager.GetString("InitialDLanStartAlone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start together.
+        /// </summary>
+        public static string InitialDLanStartTogether {
+            get {
+                return ResourceManager.GetString("InitialDLanStartTogether", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Initial D online server is under maintenance. {0} starts offline this time..
+        /// </summary>
+        public static string InitialDMaintenanceText {
+            get {
+                return ResourceManager.GetString("InitialDMaintenanceText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to That is not an Online ID. It looks like AALG-ABC12345678..
+        /// </summary>
+        public static string InitialDManualBadId {
+            get {
+                return ResourceManager.GetString("InitialDManualBadId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to That is not the secret: it is the 43 characters shown with the Online ID..
+        /// </summary>
+        public static string InitialDManualBadSecret {
+            get {
+                return ResourceManager.GetString("InitialDManualBadSecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clear.
+        /// </summary>
+        public static string InitialDManualClear {
+            get {
+                return ResourceManager.GetString("InitialDManualClear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Initial D Online ID and its secret, as teknoparrot.com shows them on your account&apos;s Initial D page. Paste them here one at a time, or both at once from the OnlineID and OnlineSecret lines. They stay on this PC and go into your Initial D game profiles. Keep the secret private: it lets anyone play as you..
+        /// </summary>
+        public static string InitialDManualHint {
+            get {
+                return ResourceManager.GetString("InitialDManualHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to That is your Senjou no Kizuna Online ID. Initial D has its own (AALG-...), on your account&apos;s Initial D page..
+        /// </summary>
+        public static string InitialDManualKizunaId {
+            get {
+                return ResourceManager.GetString("InitialDManualKizunaId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in to get your Initial D Online ID from teknoparrot.com, or enter it below..
+        /// </summary>
+        public static string InitialDManualNotLoggedIn {
+            get {
+                return ResourceManager.GetString("InitialDManualNotLoggedIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open your Initial D page on teknoparrot.com.
+        /// </summary>
+        public static string InitialDManualOpenWebsite {
+            get {
+                return ResourceManager.GetString("InitialDManualOpenWebsite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save on this PC.
+        /// </summary>
+        public static string InitialDManualSave {
+            get {
+                return ResourceManager.GetString("InitialDManualSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secret.
+        /// </summary>
+        public static string InitialDManualSecret {
+            get {
+                return ResourceManager.GetString("InitialDManualSecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to teknoparrot.com does not hand out Initial D Online IDs right now. Enter one below..
+        /// </summary>
+        public static string InitialDManualWebsiteOff {
+            get {
+                return ResourceManager.GetString("InitialDManualWebsiteOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moved: this game now runs as &quot;{0}&quot; in your library (online play by default, the newest fixes). Your settings were copied there. This entry stays for one more release..
+        /// </summary>
+        public static string InitialDMovedTo {
+            get {
+                return ResourceManager.GetString("InitialDMovedTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string InitialDOk {
+            get {
+                return ResourceManager.GetString("InitialDOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose who sees your rank first..
+        /// </summary>
+        public static string InitialDOnlineChooseVisibilityFirst {
+            get {
+                return ResourceManager.GetString("InitialDOnlineChooseVisibilityFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regenerate gives your account a new Online ID and secret. The old ID stops working at once on every PC. Continue?.
+        /// </summary>
+        public static string InitialDOnlineConfirmRegenerate {
+            get {
+                return ResourceManager.GetString("InitialDOnlineConfirmRegenerate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove this Online ID? It stops working at once, and online play needs a new registration. Continue?.
+        /// </summary>
+        public static string InitialDOnlineConfirmRemove {
+            get {
+                return ResourceManager.GetString("InitialDOnlineConfirmRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your account&apos;s Online ID will be used on this PC. One PC per account: if another PC plays with the same ID, the newest session wins and the other PC is disconnected. Continue?.
+        /// </summary>
+        public static string InitialDOnlineConfirmUseHere {
+            get {
+                return ResourceManager.GetString("InitialDOnlineConfirmUseHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This account is banned from Initial D Online. See the Online Profile page on teknoparrot.com for the reason and the appeal form..
+        /// </summary>
+        public static string InitialDOnlineErrorBanned {
+            get {
+                return ResourceManager.GetString("InitialDOnlineErrorBanned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initial D Online is not available yet..
+        /// </summary>
+        public static string InitialDOnlineErrorFeatureOff {
+            get {
+                return ResourceManager.GetString("InitialDOnlineErrorFeatureOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password confirmation was not completed. Please try again..
+        /// </summary>
+        public static string InitialDOnlineErrorFreshLogin {
+            get {
+                return ResourceManager.GetString("InitialDOnlineErrorFreshLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The request failed ({0})..
+        /// </summary>
+        public static string InitialDOnlineErrorGeneric {
+            get {
+                return ResourceManager.GetString("InitialDOnlineErrorGeneric", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please log in first..
+        /// </summary>
+        public static string InitialDOnlineErrorNotLoggedIn {
+            get {
+                return ResourceManager.GetString("InitialDOnlineErrorNotLoggedIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Too many requests. Please try again later..
+        /// </summary>
+        public static string InitialDOnlineErrorRateLimited {
+            get {
+                return ResourceManager.GetString("InitialDOnlineErrorRateLimited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to teknoparrot.com cannot be reached right now. Please try again later..
+        /// </summary>
+        public static string InitialDOnlineErrorUnavailable {
+            get {
+                return ResourceManager.GetString("InitialDOnlineErrorUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For your security, confirm your teknoparrot.com password in the browser window that opens now..
+        /// </summary>
+        public static string InitialDOnlineFreshLoginPrompt {
+            get {
+                return ResourceManager.GetString("InitialDOnlineFreshLoginPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nationwide online play of Initial D 4 (Japan), 5, 6, 7 and 8 on the official TeknoParrot server needs an Online ID for this PC. TeknoParrotUI gets it from your teknoparrot.com account and writes it into your Initial D game profiles (OnlineID and OnlineSecret). Offline and LAN play do not need it..
+        /// </summary>
+        public static string InitialDOnlineIntro {
+            get {
+                return ResourceManager.GetString("InitialDOnlineIntro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID7: King aura 覇王 on your car.
+        /// </summary>
+        public static string InitialDOnlineKingAura {
+            get {
+                return ResourceManager.GetString("InitialDOnlineKingAura", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last seen online: {0}..
+        /// </summary>
+        public static string InitialDOnlineLastSeen {
+            get {
+                return ResourceManager.GetString("InitialDOnlineLastSeen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last online status ({0}, {1}): {2}.
+        /// </summary>
+        public static string InitialDOnlineLastStatus {
+            get {
+                return ResourceManager.GetString("InitialDOnlineLastStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Used from another PC or Windows installation: {0}..
+        /// </summary>
+        public static string InitialDOnlineMachineChanged {
+            get {
+                return ResourceManager.GetString("InitialDOnlineMachineChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Online ID is suspended..
+        /// </summary>
+        public static string InitialDOnlineMachineSuspended {
+            get {
+                return ResourceManager.GetString("InitialDOnlineMachineSuspended", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No online session recorded on this PC yet..
+        /// </summary>
+        public static string InitialDOnlineNoStatus {
+            get {
+                return ResourceManager.GetString("InitialDOnlineNoStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This PC is not registered for Initial D Online yet..
+        /// </summary>
+        public static string InitialDOnlineNotRegistered {
+            get {
+                return ResourceManager.GetString("InitialDOnlineNotRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One PC per account, free or paid. For another PC, create another account (you can gift it a key). Keep the Online ID and its secret private: whoever has them can play as you..
+        /// </summary>
+        public static string InitialDOnlineOnePcPerAccount {
+            get {
+                return ResourceManager.GetString("InitialDOnlineOnePcPerAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Online ID.
+        /// </summary>
+        public static string InitialDOnlinePcbId {
+            get {
+                return ResourceManager.GetString("InitialDOnlinePcbId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Free accounts race as PEASANT. Supporters can show their rank instead..
+        /// </summary>
+        public static string InitialDOnlinePeasantNotice {
+            get {
+                return ResourceManager.GetString("InitialDOnlinePeasantNotice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rivals see:.
+        /// </summary>
+        public static string InitialDOnlinePreviewCaption {
+            get {
+                return ResourceManager.GetString("InitialDOnlinePreviewCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regenerate.
+        /// </summary>
+        public static string InitialDOnlineRegenerateButton {
+            get {
+                return ResourceManager.GetString("InitialDOnlineRegenerateButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register this PC.
+        /// </summary>
+        public static string InitialDOnlineRegisterButton {
+            get {
+                return ResourceManager.GetString("InitialDOnlineRegisterButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your account has an Online ID, but it is not on this PC yet..
+        /// </summary>
+        public static string InitialDOnlineRegisteredElsewhere {
+            get {
+                return ResourceManager.GetString("InitialDOnlineRegisteredElsewhere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Registered on this PC and written to your Initial D game profiles..
+        /// </summary>
+        public static string InitialDOnlineRegisteredHere {
+            get {
+                return ResourceManager.GetString("InitialDOnlineRegisteredHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        public static string InitialDOnlineRemoveButton {
+            get {
+                return ResourceManager.GetString("InitialDOnlineRemoveButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Online ID removed..
+        /// </summary>
+        public static string InitialDOnlineRemoved {
+            get {
+                return ResourceManager.GetString("InitialDOnlineRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Online ID saved. Initial D game profiles updated: {0}..
+        /// </summary>
+        public static string InitialDOnlineSaved {
+            get {
+                return ResourceManager.GetString("InitialDOnlineSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save choice.
+        /// </summary>
+        public static string InitialDOnlineSaveVisibility {
+            get {
+                return ResourceManager.GetString("InitialDOnlineSaveVisibility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server: &quot;{0}&quot;.
+        /// </summary>
+        public static string InitialDOnlineServerSays {
+            get {
+                return ResourceManager.GetString("InitialDOnlineServerSays", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to the OnlineID or OnlineSecret in the game profile is not valid. Register this PC again on the Account page..
+        /// </summary>
+        public static string InitialDOnlineStateBadCredential {
+            get {
+                return ResourceManager.GetString("InitialDOnlineStateBadCredential", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to the server&apos;s answers could not be verified..
+        /// </summary>
+        public static string InitialDOnlineStateBadReply {
+            get {
+                return ResourceManager.GetString("InitialDOnlineStateBadReply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to this account is banned..
+        /// </summary>
+        public static string InitialDOnlineStateBanned {
+            get {
+                return ResourceManager.GetString("InitialDOnlineStateBanned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to the server is busy. Please try again in a moment..
+        /// </summary>
+        public static string InitialDOnlineStateBusy {
+            get {
+                return ResourceManager.GetString("InitialDOnlineStateBusy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to connecting..
+        /// </summary>
+        public static string InitialDOnlineStateConnecting {
+            get {
+                return ResourceManager.GetString("InitialDOnlineStateConnecting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to the server did not accept this Online ID. Register this PC again on the Account page..
+        /// </summary>
+        public static string InitialDOnlineStateDenied {
+            get {
+                return ResourceManager.GetString("InitialDOnlineStateDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to session ended..
+        /// </summary>
+        public static string InitialDOnlineStateEnded {
+            get {
+                return ResourceManager.GetString("InitialDOnlineStateEnded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to this PC has no Online ID. Register it on the Account page..
+        /// </summary>
+        public static string InitialDOnlineStateNoCredential {
+            get {
+                return ResourceManager.GetString("InitialDOnlineStateNoCredential", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to online..
+        /// </summary>
+        public static string InitialDOnlineStateOnline {
+            get {
+                return ResourceManager.GetString("InitialDOnlineStateOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to online sign-in failed ({0})..
+        /// </summary>
+        public static string InitialDOnlineStateOther {
+            get {
+                return ResourceManager.GetString("InitialDOnlineStateOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to the server is not the official server, so the Online ID was not used..
+        /// </summary>
+        public static string InitialDOnlineStateRealmMismatch {
+            get {
+                return ResourceManager.GetString("InitialDOnlineStateRealmMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to this Online ID was removed or replaced. Register this PC again on the Account page..
+        /// </summary>
+        public static string InitialDOnlineStateRevoked {
+            get {
+                return ResourceManager.GetString("InitialDOnlineStateRevoked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to this server does not use Online IDs; the game ran as before..
+        /// </summary>
+        public static string InitialDOnlineStateServerLegacy {
+            get {
+                return ResourceManager.GetString("InitialDOnlineStateServerLegacy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to another PC signed in with this account&apos;s Online ID (one PC per account)..
+        /// </summary>
+        public static string InitialDOnlineStateSuperseded {
+            get {
+                return ResourceManager.GetString("InitialDOnlineStateSuperseded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to this Online ID is suspended..
+        /// </summary>
+        public static string InitialDOnlineStateSuspended {
+            get {
+                return ResourceManager.GetString("InitialDOnlineStateSuspended", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to the online service is temporarily unavailable..
+        /// </summary>
+        public static string InitialDOnlineStateUnavailable {
+            get {
+                return ResourceManager.GetString("InitialDOnlineStateUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to the server could not be reached..
+        /// </summary>
+        public static string InitialDOnlineStateUnreachable {
+            get {
+                return ResourceManager.GetString("InitialDOnlineStateUnreachable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to please update TeknoParrot..
+        /// </summary>
+        public static string InitialDOnlineStateVersion {
+            get {
+                return ResourceManager.GetString("InitialDOnlineStateVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initial D Online.
+        /// </summary>
+        public static string InitialDOnlineTitle {
+            get {
+                return ResourceManager.GetString("InitialDOnlineTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initial D Online ({0}): {1}.
+        /// </summary>
+        public static string InitialDOnlineToast {
+            get {
+                return ResourceManager.GetString("InitialDOnlineToast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ACCOUNT.
+        /// </summary>
+        public static string InitialDOnlineToastAction {
+            get {
+                return ResourceManager.GetString("InitialDOnlineToastAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use on this PC.
+        /// </summary>
+        public static string InitialDOnlineUseHereButton {
+            get {
+                return ResourceManager.GetString("InitialDOnlineUseHereButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can change this at any time. Replays and rankings already recorded on other players&apos; PCs keep what they showed..
+        /// </summary>
+        public static string InitialDOnlineVisibilityNote {
+            get {
+                return ResourceManager.GetString("InitialDOnlineVisibilityNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide it (rivals see me as PEASANT, my own screens stay plain).
+        /// </summary>
+        public static string InitialDOnlineVisibilityOff {
+            get {
+                return ResourceManager.GetString("InitialDOnlineVisibilityOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only on my own cabinet (rivals see me as PEASANT).
+        /// </summary>
+        public static string InitialDOnlineVisibilityOwn {
+            get {
+                return ResourceManager.GetString("InitialDOnlineVisibilityOwn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show my rank to rivals.
+        /// </summary>
+        public static string InitialDOnlineVisibilityPublic {
+            get {
+                return ResourceManager.GetString("InitialDOnlineVisibilityPublic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choice saved..
+        /// </summary>
+        public static string InitialDOnlineVisibilitySaved {
+            get {
+                return ResourceManager.GetString("InitialDOnlineVisibilitySaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Who sees your rank? Choose one:.
+        /// </summary>
+        public static string InitialDOnlineVisibilityTitle {
+            get {
+                return ResourceManager.GetString("InitialDOnlineVisibilityTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wear your stars.
+        /// </summary>
+        public static string InitialDOnlineWearYourStars {
+            get {
+                return ResourceManager.GetString("InitialDOnlineWearYourStars", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please wait....
+        /// </summary>
+        public static string InitialDOnlineWorking {
+            get {
+                return ResourceManager.GetString("InitialDOnlineWorking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your rank:.
+        /// </summary>
+        public static string InitialDOnlineYourRank {
+            get {
+                return ResourceManager.GetString("InitialDOnlineYourRank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Don&apos;t ask again.
+        /// </summary>
+        public static string InitialDRegisterDontAsk {
+            get {
+                return ResourceManager.GetString("InitialDRegisterDontAsk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play offline for now.
+        /// </summary>
+        public static string InitialDRegisterPlayOffline {
+            get {
+                return ResourceManager.GetString("InitialDRegisterPlayOffline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play online (register this PC).
+        /// </summary>
+        public static string InitialDRegisterPlayOnline {
+            get {
+                return ResourceManager.GetString("InitialDRegisterPlayOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This PC is not registered for Initial D online play, so {0} starts offline (story, time attack and LAN play work as before).
+        ///
+        ///Online play is free: on the Account page, register this PC (logged in with a teknoparrot.com account) or enter the Online ID and secret from your account&apos;s Initial D page. One PC per account. From then on nationwide matchmaking, events and rankings start by themselves..
+        /// </summary>
+        public static string InitialDRegisterText {
+            get {
+                return ResourceManager.GetString("InitialDRegisterText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play Initial D online?.
+        /// </summary>
+        public static string InitialDRegisterTitle {
+            get {
+                return ResourceManager.GetString("InitialDRegisterTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start offline.
+        /// </summary>
+        public static string InitialDStartOffline {
+            get {
+                return ResourceManager.GetString("InitialDStartOffline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: this Initial D game has built-in online matchmaking now and is not played through TeknoParrot Online any more. Start it from the library: Play for nationwide matches, or Play with friends with a friends code (share the code in this room&apos;s chat)..
+        /// </summary>
+        public static string InitialDTpoRetired {
+            get {
+                return ResourceManager.GetString("InitialDTpoRetired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking the online server....
+        /// </summary>
+        public static string InitialDUnifiedChecking {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedChecking", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline: online connection switched off in settings..
+        /// </summary>
+        public static string InitialDUnifiedForcedNoServer {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedForcedNoServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 60 fps lock: on..
+        /// </summary>
+        public static string InitialDUnifiedFrameLockOn {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedFrameLockOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frame lock: {0}..
+        /// </summary>
+        public static string InitialDUnifiedFrameLockOther {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedFrameLockOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LAN group: {0}..
+        /// </summary>
+        public static string InitialDUnifiedLanGroup {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedLanGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LAN: {0} other TeknoParrot PCs on this network, not linked..
+        /// </summary>
+        public static string InitialDUnifiedLanPeerMany {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedLanPeerMany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LAN: one other TeknoParrot PC on this network, not linked..
+        /// </summary>
+        public static string InitialDUnifiedLanPeerOne {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedLanPeerOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LAN: {0}.
+        /// </summary>
+        public static string InitialDUnifiedLanWarning {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedLanWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline: the old network mode is set for this game (NetworkMode=Legacy)..
+        /// </summary>
+        public static string InitialDUnifiedLegacyForced {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedLegacyForced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline (LAN pair): this game uses your classic LAN pair settings until automatic LAN linking replaces them..
+        /// </summary>
+        public static string InitialDUnifiedLegacyPair {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedLegacyPair", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Linked with {0} as {1}..
+        /// </summary>
+        public static string InitialDUnifiedLinked {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedLinked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline: the online server is under maintenance..
+        /// </summary>
+        public static string InitialDUnifiedMaintenance {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedMaintenance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline: no network adapter..
+        /// </summary>
+        public static string InitialDUnifiedNoAdapter {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedNoAdapter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline: this PC is not registered for online play. Register it on the Account page..
+        /// </summary>
+        public static string InitialDUnifiedNoCredential {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedNoCredential", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline (LAN only): this network has no Internet gateway..
+        /// </summary>
+        public static string InitialDUnifiedNoGateway {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedNoGateway", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No online status from the game (an offline start)..
+        /// </summary>
+        public static string InitialDUnifiedNoStatus {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedNoStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline: {0}.
+        /// </summary>
+        public static string InitialDUnifiedOfflineBecause {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedOfflineBecause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline ({0})..
+        /// </summary>
+        public static string InitialDUnifiedOfflineOther {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedOfflineOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Online..
+        /// </summary>
+        public static string InitialDUnifiedOnline {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Online is back: restart the game to play online..
+        /// </summary>
+        public static string InitialDUnifiedOnlineBack {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedOnlineBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Initial D Online.
+        /// </summary>
+        public static string InitialDUnifiedPanelTitle {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedPanelTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Friends code active..
+        /// </summary>
+        public static string InitialDUnifiedPartyActive {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedPartyActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline: online play is being switched on gradually..
+        /// </summary>
+        public static string InitialDUnifiedRollout {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedRollout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline: the online server could not confirm this PC. Try again later..
+        /// </summary>
+        public static string InitialDUnifiedUnavailable {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline: the online server could not be reached. Online play returns at the next start..
+        /// </summary>
+        public static string InitialDUnifiedUnreachable {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedUnreachable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline: please update TeknoParrot to play online..
+        /// </summary>
+        public static string InitialDUnifiedVersion {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Offline: online play needs your normal network adapter. LAN play over the VPN works..
+        /// </summary>
+        public static string InitialDUnifiedVpnAdapter {
+            get {
+                return ResourceManager.GetString("InitialDUnifiedVpnAdapter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Axis.
         /// </summary>
         public static string InputAxis {
@@ -3539,6 +4944,460 @@ namespace TeknoParrotUi.Properties {
         public static string KeyCapturePressAnyKey {
             get {
                 return ResourceManager.GetString("KeyCapturePressAnyKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Body.
+        /// </summary>
+        public static string KizunaAvatarBody {
+            get {
+                return ResourceManager.GetString("KizunaAvatarBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show parts made for the other body too.
+        /// </summary>
+        public static string KizunaAvatarAllBodies {
+            get {
+                return ResourceManager.GetString("KizunaAvatarAllBodies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discard your unsaved avatar changes?.
+        /// </summary>
+        public static string KizunaAvatarDiscardChanges {
+            get {
+                return ResourceManager.GetString("KizunaAvatarDiscardChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Senjou no Kizuna pilot avatar.
+        /// </summary>
+        public static string KizunaAvatarEditorTitle {
+            get {
+                return ResourceManager.GetString("KizunaAvatarEditorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Female.
+        /// </summary>
+        public static string KizunaAvatarFemale {
+            get {
+                return ResourceManager.GetString("KizunaAvatarFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Greeting.
+        /// </summary>
+        public static string KizunaAvatarGreeting {
+            get {
+                return ResourceManager.GetString("KizunaAvatarGreeting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Greeting {0}.
+        /// </summary>
+        public static string KizunaAvatarGreetingNumber {
+            get {
+                return ResourceManager.GetString("KizunaAvatarGreetingNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to That avatar could not be saved. Close the editor and open it again..
+        /// </summary>
+        public static string KizunaAvatarInvalid {
+            get {
+                return ResourceManager.GetString("KizunaAvatarInvalid", resourceCulture);
+            }
+        }
+        
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start from the game&apos;s default.
+        /// </summary>
+        public static string KizunaAvatarLoadDefault {
+            get {
+                return ResourceManager.GetString("KizunaAvatarLoadDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading….
+        /// </summary>
+        public static string KizunaAvatarLoading {
+            get {
+                return ResourceManager.GetString("KizunaAvatarLoading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in to your TeknoParrot account on the Account page to edit your avatar..
+        /// </summary>
+        public static string KizunaAvatarLoginNeeded {
+            get {
+                return ResourceManager.GetString("KizunaAvatarLoginNeeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Male.
+        /// </summary>
+        public static string KizunaAvatarMale {
+            get {
+                return ResourceManager.GetString("KizunaAvatarMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The avatar reaches the game at the next card login on a pod or terminal signed in with this account..
+        /// </summary>
+        public static string KizunaAvatarNextLogin {
+            get {
+                return ResourceManager.GetString("KizunaAvatarNextLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The game&apos;s avatar pictures were not found next to the game ({0}), so there is no preview. You can still pick parts and save..
+        /// </summary>
+        public static string KizunaAvatarNoGameFiles {
+            get {
+                return ResourceManager.GetString("KizunaAvatarNoGameFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string KizunaAvatarNone {
+            get {
+                return ResourceManager.GetString("KizunaAvatarNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The game&apos;s greeting voices were not found next to the game..
+        /// </summary>
+        public static string KizunaAvatarNoSound {
+            get {
+                return ResourceManager.GetString("KizunaAvatarNoSound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cockpit.
+        /// </summary>
+        public static string KizunaAvatarPartCockpit {
+            get {
+                return ResourceManager.GetString("KizunaAvatarPartCockpit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eyes.
+        /// </summary>
+        public static string KizunaAvatarPartEye {
+            get {
+                return ResourceManager.GetString("KizunaAvatarPartEye", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Face wear.
+        /// </summary>
+        public static string KizunaAvatarPartFaceWear {
+            get {
+                return ResourceManager.GetString("KizunaAvatarPartFaceWear", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Figurine.
+        /// </summary>
+        public static string KizunaAvatarPartFigurine {
+            get {
+                return ResourceManager.GetString("KizunaAvatarPartFigurine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frame.
+        /// </summary>
+        public static string KizunaAvatarPartFrame {
+            get {
+                return ResourceManager.GetString("KizunaAvatarPartFrame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hanging charm.
+        /// </summary>
+        public static string KizunaAvatarPartHang {
+            get {
+                return ResourceManager.GetString("KizunaAvatarPartHang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hair and hat.
+        /// </summary>
+        public static string KizunaAvatarPartHead {
+            get {
+                return ResourceManager.GetString("KizunaAvatarPartHead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Top.
+        /// </summary>
+        public static string KizunaAvatarPartInner {
+            get {
+                return ResourceManager.GetString("KizunaAvatarPartInner", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Background.
+        /// </summary>
+        public static string KizunaAvatarPartLandscape {
+            get {
+                return ResourceManager.GetString("KizunaAvatarPartLandscape", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nose and mouth.
+        /// </summary>
+        public static string KizunaAvatarPartNoseMouth {
+            get {
+                return ResourceManager.GetString("KizunaAvatarPartNoseMouth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Outerwear.
+        /// </summary>
+        public static string KizunaAvatarPartOuter {
+            get {
+                return ResourceManager.GetString("KizunaAvatarPartOuter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Face shape.
+        /// </summary>
+        public static string KizunaAvatarPartOutline {
+            get {
+                return ResourceManager.GetString("KizunaAvatarPartOutline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tapestry.
+        /// </summary>
+        public static string KizunaAvatarPartTapestry {
+            get {
+                return ResourceManager.GetString("KizunaAvatarPartTapestry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play the greeting.
+        /// </summary>
+        public static string KizunaAvatarPlay {
+            get {
+                return ResourceManager.GetString("KizunaAvatarPlay", resourceCulture);
+            }
+        }
+        
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use the game&apos;s default.
+        /// </summary>
+        public static string KizunaAvatarRemove {
+            get {
+                return ResourceManager.GetString("KizunaAvatarRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Avatar removed: the pilot shows the game&apos;s default from the next card login..
+        /// </summary>
+        public static string KizunaAvatarRemoved {
+            get {
+                return ResourceManager.GetString("KizunaAvatarRemoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save avatar.
+        /// </summary>
+        public static string KizunaAvatarSave {
+            get {
+                return ResourceManager.GetString("KizunaAvatarSave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Avatar saved. The game shows it from the next card login..
+        /// </summary>
+        public static string KizunaAvatarSaved {
+            get {
+                return ResourceManager.GetString("KizunaAvatarSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving….
+        /// </summary>
+        public static string KizunaAvatarSaving {
+            get {
+                return ResourceManager.GetString("KizunaAvatarSaving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E.F.S.F. pilot.
+        /// </summary>
+        public static string KizunaAvatarSideEfsf {
+            get {
+                return ResourceManager.GetString("KizunaAvatarSideEfsf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zeon pilot.
+        /// </summary>
+        public static string KizunaAvatarSideZeon {
+            get {
+                return ResourceManager.GetString("KizunaAvatarSideZeon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The avatar service can&apos;t be reached right now. Try again later..
+        /// </summary>
+        public static string KizunaAvatarUnavailable {
+            get {
+                return ResourceManager.GetString("KizunaAvatarUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (unsaved changes).
+        /// </summary>
+        public static string KizunaAvatarUnsaved {
+            get {
+                return ResourceManager.GetString("KizunaAvatarUnsaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set: this pilot shows the avatar below..
+        /// </summary>
+        public static string KizunaAvatarUsingCustom {
+            get {
+                return ResourceManager.GetString("KizunaAvatarUsingCustom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not set: this pilot shows the game&apos;s default avatar..
+        /// </summary>
+        public static string KizunaAvatarUsingDefault {
+            get {
+                return ResourceManager.GetString("KizunaAvatarUsingDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voice.
+        /// </summary>
+        public static string KizunaAvatarVoice {
+            get {
+                return ResourceManager.GetString("KizunaAvatarVoice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voice {0} (female).
+        /// </summary>
+        public static string KizunaAvatarVoiceFemale {
+            get {
+                return ResourceManager.GetString("KizunaAvatarVoiceFemale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voice {0} (male).
+        /// </summary>
+        public static string KizunaAvatarVoiceMale {
+            get {
+                return ResourceManager.GetString("KizunaAvatarVoiceMale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open your Senjou no Kizuna page on teknoparrot.com.
+        /// </summary>
+        public static string KizunaManualOpenWebsite {
+            get {
+                return ResourceManager.GetString("KizunaManualOpenWebsite", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Senjou no Kizuna plays online only, on TeknoParrot&apos;s server, with a Senjou no Kizuna Online ID of its own, not the Initial D one. It comes with your teknoparrot.com account like your other IDs: TeknoParrotUI shows it above and fills it into your Senjou no Kizuna game profile by itself. Use it on any of your PCs, one at a time. Your rank is always shown to the other players..
+        /// </summary>
+        public static string KizunaOnlineIntro {
+            get {
+                return ResourceManager.GetString("KizunaOnlineIntro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Senjou no Kizuna Online.
+        /// </summary>
+        public static string KizunaOnlineTitle {
+            get {
+                return ResourceManager.GetString("KizunaOnlineTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open the Account page.
+        /// </summary>
+        public static string KizunaRegisterOpenAccount {
+            get {
+                return ResourceManager.GetString("KizunaRegisterOpenAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Senjou no Kizuna plays online only, and TeknoParrot&apos;s server takes only players signed in with their Senjou no Kizuna Online ID, which comes with your teknoparrot.com account. TeknoParrotUI could not get it, so {0} does not start.
+        ///
+        ///Log in on the Account page: TeknoParrotUI then fills in the ID by itself. Then start the game again..
+        /// </summary>
+        public static string KizunaRegisterText {
+            get {
+                return ResourceManager.GetString("KizunaRegisterText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log in to play Senjou no Kizuna.
+        /// </summary>
+        public static string KizunaRegisterTitle {
+            get {
+                return ResourceManager.GetString("KizunaRegisterTitle", resourceCulture);
             }
         }
         
@@ -3889,6 +5748,42 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to GT ON TP.
+        /// </summary>
+        public static string LibraryGtOnTp {
+            get {
+                return ResourceManager.GetString("LibraryGtOnTp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not start GT on TP: {0}.
+        /// </summary>
+        public static string LibraryGtOnTpFailed {
+            get {
+                return ResourceManager.GetString("LibraryGtOnTpFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GT on TP isn&apos;t installed yet. Check for updates to install it..
+        /// </summary>
+        public static string LibraryGtOnTpNotInstalled {
+            get {
+                return ResourceManager.GetString("LibraryGtOnTpNotInstalled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customize your golfer and equipment in GT on TP, signed in with this game&apos;s PCB ID and Card ID.
+        /// </summary>
+        public static string LibraryGtOnTpTooltip {
+            get {
+                return ResourceManager.GetString("LibraryGtOnTpTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are possibly some invalid files in your game directory.
         ///The following files may need to be removed from the game directory, unless you know what they are:.
         /// </summary>
@@ -3904,6 +5799,24 @@ namespace TeknoParrotUi.Properties {
         public static string LibraryInvalidFilesContinue {
             get {
                 return ResourceManager.GetString("LibraryInvalidFilesContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PILOT AVATAR.
+        /// </summary>
+        public static string LibraryKizunaAvatar {
+            get {
+                return ResourceManager.GetString("LibraryKizunaAvatar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dress your Senjou no Kizuna pilots and pick their voice and greeting, saved to your TeknoParrot account..
+        /// </summary>
+        public static string LibraryKizunaAvatarTooltip {
+            get {
+                return ResourceManager.GetString("LibraryKizunaAvatarTooltip", resourceCulture);
             }
         }
         
@@ -4048,6 +5961,15 @@ namespace TeknoParrotUi.Properties {
         public static string LibraryPlayOnline {
             get {
                 return ResourceManager.GetString("LibraryPlayOnline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play with friends.
+        /// </summary>
+        public static string LibraryPlayWithFriends {
+            get {
+                return ResourceManager.GetString("LibraryPlayWithFriends", resourceCulture);
             }
         }
         
@@ -7740,1629 +9662,6 @@ namespace TeknoParrotUi.Properties {
         public static string Yes {
             get {
                 return ResourceManager.GetString("Yes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Initial D Online.
-        /// </summary>
-        public static string InitialDOnlineTitle {
-            get {
-                return ResourceManager.GetString("InitialDOnlineTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Nationwide online play of Initial D 4 (Japan), 5, 6, 7 and 8 on the official TeknoParrot server needs an Online ID for this PC. TeknoParrotUI gets it from your teknoparrot.com account and writes it in[rest of string was truncated].
-        /// </summary>
-        public static string InitialDOnlineIntro {
-            get {
-                return ResourceManager.GetString("InitialDOnlineIntro", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Your rank:.
-        /// </summary>
-        public static string InitialDOnlineYourRank {
-            get {
-                return ResourceManager.GetString("InitialDOnlineYourRank", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ID7: King aura 覇王 on your car.
-        /// </summary>
-        public static string InitialDOnlineKingAura {
-            get {
-                return ResourceManager.GetString("InitialDOnlineKingAura", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Free accounts race as PEASANT. Supporters can show their rank instead..
-        /// </summary>
-        public static string InitialDOnlinePeasantNotice {
-            get {
-                return ResourceManager.GetString("InitialDOnlinePeasantNotice", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wear your stars.
-        /// </summary>
-        public static string InitialDOnlineWearYourStars {
-            get {
-                return ResourceManager.GetString("InitialDOnlineWearYourStars", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Online ID.
-        /// </summary>
-        public static string InitialDOnlinePcbId {
-            get {
-                return ResourceManager.GetString("InitialDOnlinePcbId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This PC is not registered for Initial D Online yet..
-        /// </summary>
-        public static string InitialDOnlineNotRegistered {
-            get {
-                return ResourceManager.GetString("InitialDOnlineNotRegistered", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Registered on this PC and written to your Initial D game profiles..
-        /// </summary>
-        public static string InitialDOnlineRegisteredHere {
-            get {
-                return ResourceManager.GetString("InitialDOnlineRegisteredHere", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Your account has an Online ID, but it is not on this PC yet..
-        /// </summary>
-        public static string InitialDOnlineRegisteredElsewhere {
-            get {
-                return ResourceManager.GetString("InitialDOnlineRegisteredElsewhere", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This Online ID is suspended..
-        /// </summary>
-        public static string InitialDOnlineMachineSuspended {
-            get {
-                return ResourceManager.GetString("InitialDOnlineMachineSuspended", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Last seen online: {0}..
-        /// </summary>
-        public static string InitialDOnlineLastSeen {
-            get {
-                return ResourceManager.GetString("InitialDOnlineLastSeen", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Used from another PC or Windows installation: {0}..
-        /// </summary>
-        public static string InitialDOnlineMachineChanged {
-            get {
-                return ResourceManager.GetString("InitialDOnlineMachineChanged", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Who sees your rank? Choose one:.
-        /// </summary>
-        public static string InitialDOnlineVisibilityTitle {
-            get {
-                return ResourceManager.GetString("InitialDOnlineVisibilityTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Show my rank to rivals.
-        /// </summary>
-        public static string InitialDOnlineVisibilityPublic {
-            get {
-                return ResourceManager.GetString("InitialDOnlineVisibilityPublic", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Only on my own cabinet (rivals see me as PEASANT).
-        /// </summary>
-        public static string InitialDOnlineVisibilityOwn {
-            get {
-                return ResourceManager.GetString("InitialDOnlineVisibilityOwn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hide it (rivals see me as PEASANT, my own screens stay plain).
-        /// </summary>
-        public static string InitialDOnlineVisibilityOff {
-            get {
-                return ResourceManager.GetString("InitialDOnlineVisibilityOff", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rivals see:.
-        /// </summary>
-        public static string InitialDOnlinePreviewCaption {
-            get {
-                return ResourceManager.GetString("InitialDOnlinePreviewCaption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You can change this at any time. Replays and rankings already recorded on other players' PCs keep what they showed..
-        /// </summary>
-        public static string InitialDOnlineVisibilityNote {
-            get {
-                return ResourceManager.GetString("InitialDOnlineVisibilityNote", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save choice.
-        /// </summary>
-        public static string InitialDOnlineSaveVisibility {
-            get {
-                return ResourceManager.GetString("InitialDOnlineSaveVisibility", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Choose who sees your rank first..
-        /// </summary>
-        public static string InitialDOnlineChooseVisibilityFirst {
-            get {
-                return ResourceManager.GetString("InitialDOnlineChooseVisibilityFirst", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Register this PC.
-        /// </summary>
-        public static string InitialDOnlineRegisterButton {
-            get {
-                return ResourceManager.GetString("InitialDOnlineRegisterButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Use on this PC.
-        /// </summary>
-        public static string InitialDOnlineUseHereButton {
-            get {
-                return ResourceManager.GetString("InitialDOnlineUseHereButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Regenerate.
-        /// </summary>
-        public static string InitialDOnlineRegenerateButton {
-            get {
-                return ResourceManager.GetString("InitialDOnlineRegenerateButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove.
-        /// </summary>
-        public static string InitialDOnlineRemoveButton {
-            get {
-                return ResourceManager.GetString("InitialDOnlineRemoveButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to One PC per account, free or paid. For another PC, create another account (you can gift it a key). Keep the Online ID and its secret private: whoever has them can play as you..
-        /// </summary>
-        public static string InitialDOnlineOnePcPerAccount {
-            get {
-                return ResourceManager.GetString("InitialDOnlineOnePcPerAccount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Last online status ({0}, {1}): {2}.
-        /// </summary>
-        public static string InitialDOnlineLastStatus {
-            get {
-                return ResourceManager.GetString("InitialDOnlineLastStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No online session recorded on this PC yet..
-        /// </summary>
-        public static string InitialDOnlineNoStatus {
-            get {
-                return ResourceManager.GetString("InitialDOnlineNoStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Your account's Online ID will be used on this PC. One PC per account: if another PC plays with the same ID, the newest session wins and the other PC is disconnected. Continue?.
-        /// </summary>
-        public static string InitialDOnlineConfirmUseHere {
-            get {
-                return ResourceManager.GetString("InitialDOnlineConfirmUseHere", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Regenerate gives your account a new Online ID and secret. The old ID stops working at once on every PC. Continue?.
-        /// </summary>
-        public static string InitialDOnlineConfirmRegenerate {
-            get {
-                return ResourceManager.GetString("InitialDOnlineConfirmRegenerate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove this Online ID? It stops working at once, and online play needs a new registration. Continue?.
-        /// </summary>
-        public static string InitialDOnlineConfirmRemove {
-            get {
-                return ResourceManager.GetString("InitialDOnlineConfirmRemove", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to For your security, confirm your teknoparrot.com password in the browser window that opens now..
-        /// </summary>
-        public static string InitialDOnlineFreshLoginPrompt {
-            get {
-                return ResourceManager.GetString("InitialDOnlineFreshLoginPrompt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please wait....
-        /// </summary>
-        public static string InitialDOnlineWorking {
-            get {
-                return ResourceManager.GetString("InitialDOnlineWorking", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Online ID saved. Initial D game profiles updated: {0}..
-        /// </summary>
-        public static string InitialDOnlineSaved {
-            get {
-                return ResourceManager.GetString("InitialDOnlineSaved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Online ID removed..
-        /// </summary>
-        public static string InitialDOnlineRemoved {
-            get {
-                return ResourceManager.GetString("InitialDOnlineRemoved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Choice saved..
-        /// </summary>
-        public static string InitialDOnlineVisibilitySaved {
-            get {
-                return ResourceManager.GetString("InitialDOnlineVisibilitySaved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please log in first..
-        /// </summary>
-        public static string InitialDOnlineErrorNotLoggedIn {
-            get {
-                return ResourceManager.GetString("InitialDOnlineErrorNotLoggedIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The password confirmation was not completed. Please try again..
-        /// </summary>
-        public static string InitialDOnlineErrorFreshLogin {
-            get {
-                return ResourceManager.GetString("InitialDOnlineErrorFreshLogin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Initial D Online is not available yet..
-        /// </summary>
-        public static string InitialDOnlineErrorFeatureOff {
-            get {
-                return ResourceManager.GetString("InitialDOnlineErrorFeatureOff", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This account is banned from Initial D Online. See the Online Profile page on teknoparrot.com for the reason and the appeal form..
-        /// </summary>
-        public static string InitialDOnlineErrorBanned {
-            get {
-                return ResourceManager.GetString("InitialDOnlineErrorBanned", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Too many requests. Please try again later..
-        /// </summary>
-        public static string InitialDOnlineErrorRateLimited {
-            get {
-                return ResourceManager.GetString("InitialDOnlineErrorRateLimited", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to teknoparrot.com cannot be reached right now. Please try again later..
-        /// </summary>
-        public static string InitialDOnlineErrorUnavailable {
-            get {
-                return ResourceManager.GetString("InitialDOnlineErrorUnavailable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The request failed ({0})..
-        /// </summary>
-        public static string InitialDOnlineErrorGeneric {
-            get {
-                return ResourceManager.GetString("InitialDOnlineErrorGeneric", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to online..
-        /// </summary>
-        public static string InitialDOnlineStateOnline {
-            get {
-                return ResourceManager.GetString("InitialDOnlineStateOnline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to connecting..
-        /// </summary>
-        public static string InitialDOnlineStateConnecting {
-            get {
-                return ResourceManager.GetString("InitialDOnlineStateConnecting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to session ended..
-        /// </summary>
-        public static string InitialDOnlineStateEnded {
-            get {
-                return ResourceManager.GetString("InitialDOnlineStateEnded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to this PC has no Online ID. Register it on the Account page..
-        /// </summary>
-        public static string InitialDOnlineStateNoCredential {
-            get {
-                return ResourceManager.GetString("InitialDOnlineStateNoCredential", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to the OnlineID or OnlineSecret in the game profile is not valid. Register this PC again on the Account page..
-        /// </summary>
-        public static string InitialDOnlineStateBadCredential {
-            get {
-                return ResourceManager.GetString("InitialDOnlineStateBadCredential", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to the server is not the official server, so the Online ID was not used..
-        /// </summary>
-        public static string InitialDOnlineStateRealmMismatch {
-            get {
-                return ResourceManager.GetString("InitialDOnlineStateRealmMismatch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to this server does not use Online IDs; the game ran as before..
-        /// </summary>
-        public static string InitialDOnlineStateServerLegacy {
-            get {
-                return ResourceManager.GetString("InitialDOnlineStateServerLegacy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to the server could not be reached..
-        /// </summary>
-        public static string InitialDOnlineStateUnreachable {
-            get {
-                return ResourceManager.GetString("InitialDOnlineStateUnreachable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to the server's answers could not be verified..
-        /// </summary>
-        public static string InitialDOnlineStateBadReply {
-            get {
-                return ResourceManager.GetString("InitialDOnlineStateBadReply", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to the server did not accept this Online ID. Register this PC again on the Account page..
-        /// </summary>
-        public static string InitialDOnlineStateDenied {
-            get {
-                return ResourceManager.GetString("InitialDOnlineStateDenied", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to this account is banned..
-        /// </summary>
-        public static string InitialDOnlineStateBanned {
-            get {
-                return ResourceManager.GetString("InitialDOnlineStateBanned", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to this Online ID was removed or replaced. Register this PC again on the Account page..
-        /// </summary>
-        public static string InitialDOnlineStateRevoked {
-            get {
-                return ResourceManager.GetString("InitialDOnlineStateRevoked", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to this Online ID is suspended..
-        /// </summary>
-        public static string InitialDOnlineStateSuspended {
-            get {
-                return ResourceManager.GetString("InitialDOnlineStateSuspended", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to another PC signed in with this account's Online ID (one PC per account)..
-        /// </summary>
-        public static string InitialDOnlineStateSuperseded {
-            get {
-                return ResourceManager.GetString("InitialDOnlineStateSuperseded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to please update TeknoParrot..
-        /// </summary>
-        public static string InitialDOnlineStateVersion {
-            get {
-                return ResourceManager.GetString("InitialDOnlineStateVersion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to the server is busy. Please try again in a moment..
-        /// </summary>
-        public static string InitialDOnlineStateBusy {
-            get {
-                return ResourceManager.GetString("InitialDOnlineStateBusy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to the online service is temporarily unavailable..
-        /// </summary>
-        public static string InitialDOnlineStateUnavailable {
-            get {
-                return ResourceManager.GetString("InitialDOnlineStateUnavailable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to online sign-in failed ({0})..
-        /// </summary>
-        public static string InitialDOnlineStateOther {
-            get {
-                return ResourceManager.GetString("InitialDOnlineStateOther", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Server: "{0}".
-        /// </summary>
-        public static string InitialDOnlineServerSays {
-            get {
-                return ResourceManager.GetString("InitialDOnlineServerSays", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Initial D Online ({0}): {1}.
-        /// </summary>
-        public static string InitialDOnlineToast {
-            get {
-                return ResourceManager.GetString("InitialDOnlineToast", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ACCOUNT.
-        /// </summary>
-        public static string InitialDOnlineToastAction {
-            get {
-                return ResourceManager.GetString("InitialDOnlineToastAction", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Initial D Online.
-        /// </summary>
-        public static string InitialDUnifiedPanelTitle {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedPanelTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Online..
-        /// </summary>
-        public static string InitialDUnifiedOnline {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedOnline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Offline: no network adapter..
-        /// </summary>
-        public static string InitialDUnifiedNoAdapter {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedNoAdapter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Offline (LAN only): this network has no Internet gateway..
-        /// </summary>
-        public static string InitialDUnifiedNoGateway {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedNoGateway", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Offline: the online server could not be reached. Online play returns at the next start..
-        /// </summary>
-        public static string InitialDUnifiedUnreachable {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedUnreachable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Offline: the online server is under maintenance..
-        /// </summary>
-        public static string InitialDUnifiedMaintenance {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedMaintenance", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Offline: online play is being switched on gradually..
-        /// </summary>
-        public static string InitialDUnifiedRollout {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedRollout", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Offline: please update TeknoParrot to play online..
-        /// </summary>
-        public static string InitialDUnifiedVersion {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedVersion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Offline: this PC is not registered for online play. Register it on the Account page..
-        /// </summary>
-        public static string InitialDUnifiedNoCredential {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedNoCredential", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Offline: the online server could not confirm this PC. Try again later..
-        /// </summary>
-        public static string InitialDUnifiedUnavailable {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedUnavailable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Offline: online play needs your normal network adapter. LAN play over the VPN works..
-        /// </summary>
-        public static string InitialDUnifiedVpnAdapter {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedVpnAdapter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Offline: online connection switched off in settings..
-        /// </summary>
-        public static string InitialDUnifiedForcedNoServer {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedForcedNoServer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Offline: the old network mode is set for this game (NetworkMode=Legacy)..
-        /// </summary>
-        public static string InitialDUnifiedLegacyForced {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedLegacyForced", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Offline (LAN pair): this game uses your classic LAN pair settings until automatic LAN linking replaces them..
-        /// </summary>
-        public static string InitialDUnifiedLegacyPair {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedLegacyPair", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Offline: {0}.
-        /// </summary>
-        public static string InitialDUnifiedOfflineBecause {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedOfflineBecause", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Offline ({0})..
-        /// </summary>
-        public static string InitialDUnifiedOfflineOther {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedOfflineOther", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Checking the online server....
-        /// </summary>
-        public static string InitialDUnifiedChecking {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedChecking", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No online status from the game (an offline start)..
-        /// </summary>
-        public static string InitialDUnifiedNoStatus {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedNoStatus", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Linked with {0} as {1}..
-        /// </summary>
-        public static string InitialDUnifiedLinked {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedLinked", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to LAN: {0}.
-        /// </summary>
-        public static string InitialDUnifiedLanWarning {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedLanWarning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Friends code active..
-        /// </summary>
-        public static string InitialDUnifiedPartyActive {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedPartyActive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Online is back: restart the game to play online..
-        /// </summary>
-        public static string InitialDUnifiedOnlineBack {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedOnlineBack", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 60 fps lock: on..
-        /// </summary>
-        public static string InitialDUnifiedFrameLockOn {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedFrameLockOn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Frame lock: {0}..
-        /// </summary>
-        public static string InitialDUnifiedFrameLockOther {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedFrameLockOther", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Initial D: online by default.
-        /// </summary>
-        public static string InitialDFirstRunTitle {
-            get {
-                return ResourceManager.GetString("InitialDFirstRunTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Initial D 4 (Japan), 5, 6, 7 and 8 now start online by default. At every start TeknoParrot makes a short check with the Initial D online server. With this PC registered you get nationwide matchmaking,[rest of string was truncated].
-        /// </summary>
-        public static string InitialDFirstRunText {
-            get {
-                return ResourceManager.GetString("InitialDFirstRunText", resourceCulture);
-            }
-        }
-        
-        
-        /// <summary>
-        ///   Looks up a localized string describing automatic Initial D online server checks and offline or LAN fallback.
-        /// </summary>
-        public static string InitialDAutomaticOnlineNote {
-            get {
-                return ResourceManager.GetString("InitialDAutomaticOnlineNote", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to In online matches text chat is on (F2 to type, /mute silences a player; the Chat setting of each game turns it off). Voice chat stays off until you choose listen or talk in the game&apos;s settings. Chat and voice go through the server you play on; nothing is stored or recorded..
-        /// </summary>
-        public static string InitialDChatNote {
-            get {
-                return ResourceManager.GetString("InitialDChatNote", resourceCulture);
-            }
-        }
-        
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Play Initial D online?.
-        /// </summary>
-        public static string InitialDRegisterTitle {
-            get {
-                return ResourceManager.GetString("InitialDRegisterTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This PC is not registered for Initial D online play, so {0} starts offline (story, time attack and LAN play work as before).    Online play is free: on the Account page, register this PC (logged in wi[rest of string was truncated].
-        /// </summary>
-        public static string InitialDRegisterText {
-            get {
-                return ResourceManager.GetString("InitialDRegisterText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Secret.
-        /// </summary>
-        public static string InitialDManualSecret {
-            get {
-                return ResourceManager.GetString("InitialDManualSecret", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save on this PC.
-        /// </summary>
-        public static string InitialDManualSave {
-            get {
-                return ResourceManager.GetString("InitialDManualSave", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Clear.
-        /// </summary>
-        public static string InitialDManualClear {
-            get {
-                return ResourceManager.GetString("InitialDManualClear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Your Initial D Online ID and its secret, as teknoparrot.com shows them on your account's Initial D page. Paste them here one at a time, or both at once from the OnlineID and OnlineSecret lines. They s[rest of string was truncated].
-        /// </summary>
-        public static string InitialDManualHint {
-            get {
-                return ResourceManager.GetString("InitialDManualHint", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open your Initial D page on teknoparrot.com.
-        /// </summary>
-        public static string InitialDManualOpenWebsite {
-            get {
-                return ResourceManager.GetString("InitialDManualOpenWebsite", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to That is not an Online ID. It looks like AALG-ABC12345678..
-        /// </summary>
-        public static string InitialDManualBadId {
-            get {
-                return ResourceManager.GetString("InitialDManualBadId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to That is not the secret: it is the 43 characters shown with the Online ID..
-        /// </summary>
-        public static string InitialDManualBadSecret {
-            get {
-                return ResourceManager.GetString("InitialDManualBadSecret", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to That is your Senjou no Kizuna Online ID. Initial D has its own (AALG-...), on your account's Initial D page..
-        /// </summary>
-        public static string InitialDManualKizunaId {
-            get {
-                return ResourceManager.GetString("InitialDManualKizunaId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log in to get your Initial D Online ID from teknoparrot.com, or enter it below..
-        /// </summary>
-        public static string InitialDManualNotLoggedIn {
-            get {
-                return ResourceManager.GetString("InitialDManualNotLoggedIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to teknoparrot.com does not hand out Initial D Online IDs right now. Enter one below..
-        /// </summary>
-        public static string InitialDManualWebsiteOff {
-            get {
-                return ResourceManager.GetString("InitialDManualWebsiteOff", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Play online (register this PC).
-        /// </summary>
-        public static string InitialDRegisterPlayOnline {
-            get {
-                return ResourceManager.GetString("InitialDRegisterPlayOnline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Play offline for now.
-        /// </summary>
-        public static string InitialDRegisterPlayOffline {
-            get {
-                return ResourceManager.GetString("InitialDRegisterPlayOffline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Don't ask again.
-        /// </summary>
-        public static string InitialDRegisterDontAsk {
-            get {
-                return ResourceManager.GetString("InitialDRegisterDontAsk", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The Initial D online server is under maintenance. {0} starts offline this time..
-        /// </summary>
-        public static string InitialDMaintenanceText {
-            get {
-                return ResourceManager.GetString("InitialDMaintenanceText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start offline.
-        /// </summary>
-        public static string InitialDStartOffline {
-            get {
-                return ResourceManager.GetString("InitialDStartOffline", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to OK.
-        /// </summary>
-        public static string InitialDOk {
-            get {
-                return ResourceManager.GetString("InitialDOk", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        public static string InitialDCancel {
-            get {
-                return ResourceManager.GetString("InitialDCancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Play with friends.
-        /// </summary>
-        public static string LibraryPlayWithFriends {
-            get {
-                return ResourceManager.GetString("LibraryPlayWithFriends", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Play with friends.
-        /// </summary>
-        public static string InitialDFriendsTitle {
-            get {
-                return ResourceManager.GetString("InitialDFriendsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Race your friends nationwide: everyone who starts {0} with the same friends code is matched only with each other. The code is valid for this start only and is never saved..
-        /// </summary>
-        public static string InitialDFriendsIntro {
-            get {
-                return ResourceManager.GetString("InitialDFriendsIntro", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start a new group with this code:.
-        /// </summary>
-        public static string InitialDFriendsNew {
-            get {
-                return ResourceManager.GetString("InitialDFriendsNew", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Join a friend's group with their code:.
-        /// </summary>
-        public static string InitialDFriendsJoin {
-            get {
-                return ResourceManager.GetString("InitialDFriendsJoin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Every player needs a registered PC and a game card. Codes ignore case, spaces and dashes..
-        /// </summary>
-        public static string InitialDFriendsNote {
-            get {
-                return ResourceManager.GetString("InitialDFriendsNote", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start.
-        /// </summary>
-        public static string InitialDFriendsStart {
-            get {
-                return ResourceManager.GetString("InitialDFriendsStart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A friends code has 6 to 16 letters or digits..
-        /// </summary>
-        public static string InitialDFriendsBadCode {
-            get {
-                return ResourceManager.GetString("InitialDFriendsBadCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to "{0}" is easy to guess: strangers who type it join your group. Start with it anyway?.
-        /// </summary>
-        public static string InitialDFriendsWeakCode {
-            get {
-                return ResourceManager.GetString("InitialDFriendsWeakCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Race me in {0} on TeknoParrot: choose "Play with friends" and enter the friends code {1}.
-        /// </summary>
-        public static string InitialDFriendsInvite {
-            get {
-                return ResourceManager.GetString("InitialDFriendsInvite", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Copy invite.
-        /// </summary>
-        public static string InitialDFriendsCopyInvite {
-            get {
-                return ResourceManager.GetString("InitialDFriendsCopyInvite", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Copied.
-        /// </summary>
-        public static string InitialDFriendsCopied {
-            get {
-                return ResourceManager.GetString("InitialDFriendsCopied", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Friends code for this start: {0}.
-        /// </summary>
-        public static string InitialDFriendsCodeLine {
-            get {
-                return ResourceManager.GetString("InitialDFriendsCodeLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Play with friends needs this PC to be registered for Initial D online play (a free teknoparrot.com account, one PC per account)..
-        /// </summary>
-        public static string InitialDFriendsNeedsRegistration {
-            get {
-                return ResourceManager.GetString("InitialDFriendsNeedsRegistration", resourceCulture);
-            }
-        }
-        
-        
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Play with friends is not available: the old network mode is set for this game (NetworkMode=Legacy)..
-        /// </summary>
-        public static string InitialDFriendsLegacy {
-            get {
-                return ResourceManager.GetString("InitialDFriendsLegacy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Friends codes are switched off on the online server right now. Please try again later, or use Play..
-        /// </summary>
-        public static string InitialDFriendsOff {
-            get {
-                return ResourceManager.GetString("InitialDFriendsOff", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0}: this Initial D game has built-in online matchmaking now and is not played through TeknoParrot Online any more. Start it from the library: Play for nationwide matches, or Play with friends with a [rest of string was truncated].
-        /// </summary>
-        public static string InitialDTpoRetired {
-            get {
-                return ResourceManager.GetString("InitialDTpoRetired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Moved: this game now runs as "{0}" in your library (online play by default, the newest fixes). Your settings were copied there. This entry stays for one more release..
-        /// </summary>
-        public static string InitialDMovedTo {
-            get {
-                return ResourceManager.GetString("InitialDMovedTo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} is ready for {1}..
-        /// </summary>
-        public static string InitialDLanReadyOne {
-            get {
-                return ResourceManager.GetString("InitialDLanReadyOne", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} and {1} more PCs are ready for {2}..
-        /// </summary>
-        public static string InitialDLanReadyMany {
-            get {
-                return ResourceManager.GetString("InitialDLanReadyMany", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start together.
-        /// </summary>
-        public static string InitialDLanStartTogether {
-            get {
-                return ResourceManager.GetString("InitialDLanStartTogether", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start alone.
-        /// </summary>
-        public static string InitialDLanStartAlone {
-            get {
-                return ResourceManager.GetString("InitialDLanStartAlone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This network is marked Public in Windows: LAN linking is off. Mark it Private, or set a LAN group in the game's Advanced network settings..
-        /// </summary>
-        public static string InitialDLanPublicNetwork {
-            get {
-                return ResourceManager.GetString("InitialDLanPublicNetwork", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to LAN linking is off: another program on this PC is using the Initial D LAN port..
-        /// </summary>
-        public static string InitialDLanPortBusy {
-            get {
-                return ResourceManager.GetString("InitialDLanPortBusy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Link with another PC?.
-        /// </summary>
-        public static string InitialDLanLinkTitle {
-            get {
-                return ResourceManager.GetString("InitialDLanLinkTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Link with {0} for {1}?    Linked PCs play as two cabinets in one arcade: in-store VS, TAG against the computer and a shared store ranking. They exchange the display name, the seat and the race data of[rest of string was truncated].
-        /// </summary>
-        public static string InitialDLanLinkText {
-            get {
-                return ResourceManager.GetString("InitialDLanLinkText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Always.
-        /// </summary>
-        public static string InitialDLanLinkAlways {
-            get {
-                return ResourceManager.GetString("InitialDLanLinkAlways", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This time.
-        /// </summary>
-        public static string InitialDLanLinkOnce {
-            get {
-                return ResourceManager.GetString("InitialDLanLinkOnce", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Never.
-        /// </summary>
-        public static string InitialDLanLinkNever {
-            get {
-                return ResourceManager.GetString("InitialDLanLinkNever", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Allow Initial D LAN play through the firewall?.
-        /// </summary>
-        public static string InitialDFirewallTitle {
-            get {
-                return ResourceManager.GetString("InitialDFirewallTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Two TeknoParrot PCs link over the LAN only when Windows lets the game receive. TeknoParrot can add the inbound rules now, for your private network; Windows asks for administrator rights once.    {0}  [rest of string was truncated].
-        /// </summary>
-        public static string InitialDFirewallText {
-            get {
-                return ResourceManager.GetString("InitialDFirewallText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add the rules.
-        /// </summary>
-        public static string InitialDFirewallAdd {
-            get {
-                return ResourceManager.GetString("InitialDFirewallAdd", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Not now.
-        /// </summary>
-        public static string InitialDFirewallSkip {
-            get {
-                return ResourceManager.GetString("InitialDFirewallSkip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The firewall rules were not added. Start TeknoParrotUI as administrator to add them, or allow the game when Windows asks..
-        /// </summary>
-        public static string InitialDFirewallFailed {
-            get {
-                return ResourceManager.GetString("InitialDFirewallFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to LAN: one other TeknoParrot PC on this network, not linked..
-        /// </summary>
-        public static string InitialDUnifiedLanPeerOne {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedLanPeerOne", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to LAN: {0} other TeknoParrot PCs on this network, not linked..
-        /// </summary>
-        public static string InitialDUnifiedLanPeerMany {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedLanPeerMany", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to LAN group: {0}..
-        /// </summary>
-        public static string InitialDUnifiedLanGroup {
-            get {
-                return ResourceManager.GetString("InitialDUnifiedLanGroup", resourceCulture);
-            }
-        }
-            /// <summary>
-        ///   Looks up a localized string similar to GT ON TP.
-        /// </summary>
-        public static string LibraryGtOnTp {
-            get {
-                return ResourceManager.GetString("LibraryGtOnTp", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Customize your golfer and equipment in GT on TP, signed in with this game's PCB ID and Card ID.
-        /// </summary>
-        public static string LibraryGtOnTpTooltip {
-            get {
-                return ResourceManager.GetString("LibraryGtOnTpTooltip", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to GT on TP isn't installed yet. Check for updates to install it..
-        /// </summary>
-        public static string LibraryGtOnTpNotInstalled {
-            get {
-                return ResourceManager.GetString("LibraryGtOnTpNotInstalled", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Could not start GT on TP: {0}.
-        /// </summary>
-        public static string LibraryGtOnTpFailed {
-            get {
-                return ResourceManager.GetString("LibraryGtOnTpFailed", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Golden Tee PCB ID:.
-        /// </summary>
-        public static string AccountPageGoldenTeePcbId {
-            get {
-                return ResourceManager.GetString("AccountPageGoldenTeePcbId", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Golden Tee Card ID:.
-        /// </summary>
-        public static string AccountPageGoldenTeeCardId {
-            get {
-                return ResourceManager.GetString("AccountPageGoldenTeeCardId", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Filled into Golden Tee automatically.
-        /// </summary>
-        public static string AccountPageGoldenTeeHint {
-            get {
-                return ResourceManager.GetString("AccountPageGoldenTeeHint", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Senjou no Kizuna Online.
-        /// </summary>
-        public static string KizunaOnlineTitle {
-            get {
-                return ResourceManager.GetString("KizunaOnlineTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Senjou no Kizuna plays online only, on TeknoParrot's server, and needs an Online ID for this PC: a Senjou no Kizuna Online ID of its own, not the Initial D one. TeknoParrotUI gets it from your teknopa[rest of string was truncated].
-        /// </summary>
-        public static string KizunaOnlineIntro {
-            get {
-                return ResourceManager.GetString("KizunaOnlineIntro", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This PC is not registered for Senjou no Kizuna Online yet..
-        /// </summary>
-        public static string KizunaOnlineNotRegistered {
-            get {
-                return ResourceManager.GetString("KizunaOnlineNotRegistered", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Registered on this PC and written to your Senjou no Kizuna game profile..
-        /// </summary>
-        public static string KizunaOnlineRegisteredHere {
-            get {
-                return ResourceManager.GetString("KizunaOnlineRegisteredHere", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Your account has a Senjou no Kizuna Online ID, but it is not on this PC yet..
-        /// </summary>
-        public static string KizunaOnlineRegisteredElsewhere {
-            get {
-                return ResourceManager.GetString("KizunaOnlineRegisteredElsewhere", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Your account's Senjou no Kizuna Online ID will be used on this PC. One PC per account: play with it on one PC at a time. Continue?.
-        /// </summary>
-        public static string KizunaOnlineConfirmUseHere {
-            get {
-                return ResourceManager.GetString("KizunaOnlineConfirmUseHere", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Regenerate gives your account a new Senjou no Kizuna Online ID and secret. The old ID stops working at once on every PC. Continue?.
-        /// </summary>
-        public static string KizunaOnlineConfirmRegenerate {
-            get {
-                return ResourceManager.GetString("KizunaOnlineConfirmRegenerate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove this Senjou no Kizuna Online ID? It stops working at once, and Senjou no Kizuna cannot be played on TeknoParrot's server until this PC is registered again. Continue?.
-        /// </summary>
-        public static string KizunaOnlineConfirmRemove {
-            get {
-                return ResourceManager.GetString("KizunaOnlineConfirmRemove", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Senjou no Kizuna Online ID saved. Senjou no Kizuna game profiles updated: {0}..
-        /// </summary>
-        public static string KizunaOnlineSaved {
-            get {
-                return ResourceManager.GetString("KizunaOnlineSaved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Senjou no Kizuna Online ID removed..
-        /// </summary>
-        public static string KizunaOnlineRemoved {
-            get {
-                return ResourceManager.GetString("KizunaOnlineRemoved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Senjou no Kizuna Online is not available yet..
-        /// </summary>
-        public static string KizunaOnlineErrorFeatureOff {
-            get {
-                return ResourceManager.GetString("KizunaOnlineErrorFeatureOff", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This account is banned from Senjou no Kizuna Online. See the Online Profile page on teknoparrot.com for the reason and the appeal form..
-        /// </summary>
-        public static string KizunaOnlineErrorBanned {
-            get {
-                return ResourceManager.GetString("KizunaOnlineErrorBanned", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Senjou no Kizuna needs its Online ID.
-        /// </summary>
-        public static string KizunaRegisterTitle {
-            get {
-                return ResourceManager.GetString("KizunaRegisterTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Senjou no Kizuna plays online only, and TeknoParrot's server takes only PCs signed in with their Senjou no Kizuna Online ID. This PC has none yet, so {0} does not start.    On the Account page, under [rest of string was truncated].
-        /// </summary>
-        public static string KizunaRegisterText {
-            get {
-                return ResourceManager.GetString("KizunaRegisterText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open the Account page.
-        /// </summary>
-        public static string KizunaRegisterOpenAccount {
-            get {
-                return ResourceManager.GetString("KizunaRegisterOpenAccount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Secret.
-        /// </summary>
-        public static string KizunaManualSecret {
-            get {
-                return ResourceManager.GetString("KizunaManualSecret", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save on this PC.
-        /// </summary>
-        public static string KizunaManualSave {
-            get {
-                return ResourceManager.GetString("KizunaManualSave", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Clear.
-        /// </summary>
-        public static string KizunaManualClear {
-            get {
-                return ResourceManager.GetString("KizunaManualClear", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Your Senjou no Kizuna Online ID and its secret, as teknoparrot.com shows them on your account's Senjou no Kizuna page. Paste them here one at a time, or both at once from the OnlineID and OnlineSecret[rest of string was truncated].
-        /// </summary>
-        public static string KizunaManualHint {
-            get {
-                return ResourceManager.GetString("KizunaManualHint", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to That is not an Online ID. It looks like AAKZ-ABC12345678..
-        /// </summary>
-        public static string KizunaManualBadId {
-            get {
-                return ResourceManager.GetString("KizunaManualBadId", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to That is not the secret: it is the 43 characters shown with the Online ID..
-        /// </summary>
-        public static string KizunaManualBadSecret {
-            get {
-                return ResourceManager.GetString("KizunaManualBadSecret", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Log in to get your Senjou no Kizuna Online ID from teknoparrot.com, or enter it below..
-        /// </summary>
-        public static string KizunaManualNotLoggedIn {
-            get {
-                return ResourceManager.GetString("KizunaManualNotLoggedIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to teknoparrot.com does not hand out Senjou no Kizuna Online IDs yet. Enter one below..
-        /// </summary>
-        public static string KizunaManualWebsiteOff {
-            get {
-                return ResourceManager.GetString("KizunaManualWebsiteOff", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open your Senjou no Kizuna page on teknoparrot.com.
-        /// </summary>
-        public static string KizunaManualOpenWebsite {
-            get {
-                return ResourceManager.GetString("KizunaManualOpenWebsite", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to That is your Initial D Online ID. Senjou no Kizuna has its own (AAKZ-...), on your account's Senjou no Kizuna page..
-        /// </summary>
-        public static string KizunaManualInitialDId {
-            get {
-                return ResourceManager.GetString("KizunaManualInitialDId", resourceCulture);
             }
         }
     }

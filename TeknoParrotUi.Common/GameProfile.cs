@@ -58,6 +58,9 @@ namespace TeknoParrotUi.Common
         public string GamePath { get; set; }
         public string TestMenuParameter { get; set; }
         public bool TestMenuIsExecutable { get; set; }
+        /// <summary>The test menu executable is the game's terminal, another program of the cabinet set (Senjou no
+        /// Kizuna's n_gun_terminal_rel_opt_es1): the library's TEST button reads TERMINAL and launches it.</summary>
+        public bool TestMenuIsTerminal { get; set; }
         public string ExtraParameters { get; set; }
         public string TestMenuExtraParameters { get; set; }
         /// <summary>Four-character title ID for the native managed-APM test loader (x64).</summary>

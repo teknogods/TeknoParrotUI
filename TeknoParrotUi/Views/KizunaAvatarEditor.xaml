@@ -1,0 +1,139 @@
+﻿<Window
+    x:Class="TeknoParrotUi.Views.KizunaAvatarEditor"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:p="clr-namespace:TeknoParrotUi.Properties"
+    Title="{x:Static p:Resources.KizunaAvatarEditorTitle}"
+    Width="1180"
+    Height="720"
+    MinWidth="900"
+    MinHeight="560"
+    Background="{DynamicResource MaterialDesignPaper}"
+    FontFamily="pack://application:,,,/Resources/#Inter"
+    TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+    WindowStartupLocation="CenterOwner"
+    Loaded="Window_Loaded"
+    Closing="Window_Closing">
+    <!-- Senjou no Kizuna avatar editor: the account's avatar per side, drawn from the user's own game files (KizunaAvatarGameData), saved to the account (KizunaAvatarApi) -->
+    <Grid Margin="16">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="16" />
+            <ColumnDefinition Width="2*" MinWidth="380" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Side: each side is its own pilot with its own avatar -->
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="0,0,0,8">
+            <RadioButton x:Name="efsfTab"
+                         Style="{StaticResource MaterialDesignTabRadioButton}"
+                         Content="{x:Static p:Resources.KizunaAvatarSideEfsf}"
+                         IsChecked="True"
+                         Checked="Side_Checked" />
+            <RadioButton x:Name="zeonTab"
+                         Style="{StaticResource MaterialDesignTabRadioButton}"
+                         Content="{x:Static p:Resources.KizunaAvatarSideZeon}"
+                         Checked="Side_Checked" />
+        </StackPanel>
+
+        <!-- The preview, the way the game draws it (16:9) -->
+        <Border Grid.Row="1" Grid.Column="0"
+                Background="#11161F"
+                CornerRadius="6"
+                VerticalAlignment="Top">
+            <Grid>
+                <Image x:Name="preview"
+                       Stretch="Uniform"
+                       RenderOptions.BitmapScalingMode="HighQuality" />
+                <TextBlock x:Name="previewMessage"
+                           Margin="24"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           TextAlignment="Center"
+                           TextWrapping="Wrap"
+                           Foreground="#C8D0DC"
+                           Visibility="Collapsed" />
+            </Grid>
+        </Border>
+        <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,10,0,0">
+            <TextBlock x:Name="sideStatus" FontWeight="SemiBold" TextWrapping="Wrap" />
+            <TextBlock Margin="0,4,0,0" Opacity="0.75" TextWrapping="Wrap" Text="{x:Static p:Resources.KizunaAvatarNextLogin}" />
+        </StackPanel>
+
+        <!-- Body, voice, greeting and the 13 parts -->
+        <ScrollViewer Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" VerticalScrollBarVisibility="Auto">
+            <Grid x:Name="fields" IsEnabled="False">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="12" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" VerticalAlignment="Center" FontWeight="SemiBold" Text="{x:Static p:Resources.KizunaAvatarBody}" />
+                <ComboBox x:Name="bodyBox" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Margin="0,4" SelectionChanged="Field_Changed" />
+
+                <TextBlock Grid.Row="1" VerticalAlignment="Center" FontWeight="SemiBold" Text="{x:Static p:Resources.KizunaAvatarVoice}" />
+                <ComboBox x:Name="voiceBox" Grid.Row="1" Grid.Column="2" Margin="0,4" SelectionChanged="Field_Changed" />
+                <Button x:Name="playVoice" Grid.Row="1" Grid.Column="3" Margin="6,0,0,0"
+                        Style="{StaticResource MaterialDesignIconButton}"
+                        ToolTip="{x:Static p:Resources.KizunaAvatarPlay}"
+                        Click="PlayGreeting_Click">
+                    <materialDesign:PackIcon Kind="VolumeHigh" />
+                </Button>
+
+                <TextBlock Grid.Row="2" VerticalAlignment="Center" FontWeight="SemiBold" Text="{x:Static p:Resources.KizunaAvatarGreeting}" />
+                <ComboBox x:Name="greetingBox" Grid.Row="2" Grid.Column="2" Margin="0,4" SelectionChanged="Field_Changed" />
+                <Button Grid.Row="2" Grid.Column="3" Margin="6,0,0,0"
+                        Style="{StaticResource MaterialDesignIconButton}"
+                        ToolTip="{x:Static p:Resources.KizunaAvatarPlay}"
+                        Click="PlayGreeting_Click">
+                    <materialDesign:PackIcon Kind="VolumeHigh" />
+                </Button>
+
+                <!-- One list per part, in the game's slot order (added from the catalog) -->
+                <Grid x:Name="partsGrid" Grid.Row="3" Grid.ColumnSpan="4" Margin="0,8,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="Label" />
+                        <ColumnDefinition Width="12" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                </Grid>
+
+                <!-- Unticked, each part lists the items made for the chosen body and those for both -->
+                <CheckBox x:Name="allBodiesBox" Grid.Row="4" Grid.ColumnSpan="4" Margin="0,8,0,0"
+                          Content="{x:Static p:Resources.KizunaAvatarAllBodies}"
+                          Checked="AllBodies_Changed" Unchecked="AllBodies_Changed" />
+            </Grid>
+        </ScrollViewer>
+
+        <StackPanel Grid.Row="2" Grid.Column="2" Margin="0,10,0,0">
+            <TextBlock x:Name="statusText" Margin="0,0,0,8" TextWrapping="Wrap" />
+            <WrapPanel HorizontalAlignment="Right">
+                <Button x:Name="defaultButton" Margin="0,0,8,8" IsEnabled="False"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Content="{x:Static p:Resources.KizunaAvatarLoadDefault}"
+                        Click="LoadDefault_Click" />
+                <Button x:Name="removeButton" Margin="0,0,8,8" IsEnabled="False"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Content="{x:Static p:Resources.KizunaAvatarRemove}"
+                        Click="Remove_Click" />
+                <Button x:Name="saveButton" Margin="0,0,0,8" IsEnabled="False"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Content="{x:Static p:Resources.KizunaAvatarSave}"
+                        Click="Save_Click" />
+            </WrapPanel>
+        </StackPanel>
+    </Grid>
+</Window>

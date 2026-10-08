@@ -2858,78 +2858,21 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
     <value>Senjou no Kizuna Online</value>
   </data>
   <data name="KizunaOnlineIntro" xml:space="preserve">
-    <value>В Senjou no Kizuna играют только онлайн, на сервере TeknoParrot, и этому ПК нужен онлайн-ID: собственный онлайн-ID Senjou no Kizuna, а не от Initial D. TeknoParrotUI получает его из вашего аккаунта teknoparrot.com и записывает в ваш игровой профиль Senjou no Kizuna (OnlineID и OnlineSecret). Ваше звание всегда видно другим игрокам.</value>
-  </data>
-  <data name="KizunaOnlineNotRegistered" xml:space="preserve">
-    <value>Этот ПК ещё не зарегистрирован в Senjou no Kizuna Online.</value>
-  </data>
-  <data name="KizunaOnlineRegisteredHere" xml:space="preserve">
-    <value>Зарегистрировано на этом ПК и записано в ваш игровой профиль Senjou no Kizuna.</value>
-  </data>
-  <data name="KizunaOnlineRegisteredElsewhere" xml:space="preserve">
-    <value>У вашего аккаунта есть онлайн-ID Senjou no Kizuna, но его ещё нет на этом ПК.</value>
-  </data>
-  <data name="KizunaOnlineConfirmUseHere" xml:space="preserve">
-    <value>Онлайн-ID Senjou no Kizuna вашего аккаунта будет использоваться на этом ПК. Один ПК на аккаунт: играйте с ним только на одном ПК одновременно. Продолжить?</value>
-  </data>
-  <data name="KizunaOnlineConfirmRegenerate" xml:space="preserve">
-    <value>Перевыпуск даёт вашему аккаунту новый онлайн-ID Senjou no Kizuna и новый секрет. Старый ID сразу перестаёт работать на всех ПК. Продолжить?</value>
-  </data>
-  <data name="KizunaOnlineConfirmRemove" xml:space="preserve">
-    <value>Удалить этот онлайн-ID Senjou no Kizuna? Он сразу перестанет работать, и играть в Senjou no Kizuna на сервере TeknoParrot будет нельзя, пока этот ПК не будет зарегистрирован снова. Продолжить?</value>
-  </data>
-  <data name="KizunaOnlineSaved" xml:space="preserve">
-    <value>Онлайн-ID Senjou no Kizuna сохранён. Обновлено игровых профилей Senjou no Kizuna: {0}.</value>
-  </data>
-  <data name="KizunaOnlineRemoved" xml:space="preserve">
-    <value>Онлайн-ID Senjou no Kizuna удалён.</value>
-  </data>
-  <data name="KizunaOnlineErrorFeatureOff" xml:space="preserve">
-    <value>Senjou no Kizuna Online пока недоступен.</value>
-  </data>
-  <data name="KizunaOnlineErrorBanned" xml:space="preserve">
-    <value>Этот аккаунт заблокирован в Senjou no Kizuna Online. Причину и форму апелляции смотрите на странице «Онлайн-профиль» на teknoparrot.com.</value>
+    <value>В Senjou no Kizuna играют только онлайн, на сервере TeknoParrot, с собственным онлайн-ID Senjou no Kizuna, а не от Initial D. Он привязан к вашему аккаунту teknoparrot.com, как и другие ваши ID: TeknoParrotUI показывает его выше и сам вписывает в ваш игровой профиль Senjou no Kizuna. Его можно использовать на любом вашем ПК, по одному за раз. Ваше звание всегда видно другим игрокам.</value>
   </data>
   <data name="KizunaRegisterTitle" xml:space="preserve">
-    <value>Senjou no Kizuna нужен свой онлайн-ID</value>
+    <value>Войдите, чтобы играть в Senjou no Kizuna</value>
   </data>
   <data name="KizunaRegisterText" xml:space="preserve">
-    <value>В Senjou no Kizuna играют только онлайн, а сервер TeknoParrot принимает только ПК, вошедшие со своим онлайн-ID Senjou no Kizuna. У этого ПК его пока нет, поэтому {0} не запускается.
+    <value>В Senjou no Kizuna играют только онлайн, а сервер TeknoParrot принимает только игроков, вошедших со своим онлайн-ID Senjou no Kizuna; он привязан к вашему аккаунту teknoparrot.com. TeknoParrotUI не смог его получить, поэтому {0} не запускается.
 
-На странице аккаунта, в разделе Senjou no Kizuna Online, зарегистрируйте этот ПК (войдя в свой аккаунт teknoparrot.com) или введите онлайн-ID и секрет со страницы Senjou no Kizuna вашего аккаунта. TeknoParrotUI запишет ID в игровой профиль; затем запустите игру снова.</value>
+Войдите на странице аккаунта: TeknoParrotUI сам впишет ID. Затем запустите игру снова.</value>
   </data>
   <data name="KizunaRegisterOpenAccount" xml:space="preserve">
     <value>Открыть страницу аккаунта</value>
   </data>
-  <data name="KizunaManualSecret" xml:space="preserve">
-    <value>Секрет</value>
-  </data>
-  <data name="KizunaManualSave" xml:space="preserve">
-    <value>Сохранить на этом ПК</value>
-  </data>
-  <data name="KizunaManualClear" xml:space="preserve">
-    <value>Очистить</value>
-  </data>
-  <data name="KizunaManualHint" xml:space="preserve">
-    <value>Ваш онлайн-ID Senjou no Kizuna и его секрет — в том виде, в каком их показывает teknoparrot.com на странице Senjou no Kizuna вашего аккаунта. Вставьте их сюда по одному или оба сразу из строк OnlineID и OnlineSecret. Они остаются на этом ПК и записываются в ваши игровые профили Senjou no Kizuna. Держите секрет в тайне: с ним любой может играть под вашим именем.</value>
-  </data>
-  <data name="KizunaManualBadId" xml:space="preserve">
-    <value>Это не онлайн-ID. Он выглядит так: AAKZ-ABC12345678.</value>
-  </data>
-  <data name="KizunaManualBadSecret" xml:space="preserve">
-    <value>Это не секрет: секрет — это 43 символа, показанные вместе с онлайн-ID.</value>
-  </data>
-  <data name="KizunaManualNotLoggedIn" xml:space="preserve">
-    <value>Войдите, чтобы получить онлайн-ID Senjou no Kizuna с teknoparrot.com, или введите его ниже.</value>
-  </data>
-  <data name="KizunaManualWebsiteOff" xml:space="preserve">
-    <value>teknoparrot.com пока не выдаёт онлайн-ID Senjou no Kizuna. Введите его ниже.</value>
-  </data>
   <data name="KizunaManualOpenWebsite" xml:space="preserve">
     <value>Открыть вашу страницу Senjou no Kizuna на teknoparrot.com</value>
-  </data>
-  <data name="KizunaManualInitialDId" xml:space="preserve">
-    <value>Это ваш онлайн-ID Initial D. У Senjou no Kizuna свой ID (AAKZ-...), он на странице Senjou no Kizuna вашего аккаунта.</value>
   </data>
   <data name="InitialDOnlineTitle" xml:space="preserve">
     <value>Initial D Online</value>
@@ -3405,5 +3348,158 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
   </data>
   <data name="AccountPageGoldenTeeHint" xml:space="preserve">
     <value>Подставляется в Golden Tee автоматически</value>
+  </data>
+  <data name="AccountPageKizunaOnlineId" xml:space="preserve">
+    <value>Онлайн-ID Kizuna:</value>
+  </data>
+  <data name="AccountPageKizunaSecret" xml:space="preserve">
+    <value>Секрет Kizuna:</value>
+  </data>
+  <data name="AccountPageKizunaHint" xml:space="preserve">
+    <value>Подставляется в Senjou no Kizuna автоматически</value>
+  </data>
+  <data name="AccountPageShowSecret" xml:space="preserve">
+    <value>Показать</value>
+  </data>
+  <data name="AccountPageHideSecret" xml:space="preserve">
+    <value>Скрыть</value>
+  </data>
+  <data name="KizunaAvatarSideEfsf" xml:space="preserve">
+    <value>Пилот E.F.S.F.</value>
+  </data>
+  <data name="KizunaAvatarSideZeon" xml:space="preserve">
+    <value>Пилот Zeon</value>
+  </data>
+  <data name="KizunaAvatarBody" xml:space="preserve">
+    <value>Тело</value>
+  </data>
+  <data name="KizunaAvatarAllBodies" xml:space="preserve">
+    <value>Показывать и предметы для другого тела</value>
+  </data>
+  <data name="KizunaAvatarMale" xml:space="preserve">
+    <value>Мужское</value>
+  </data>
+  <data name="KizunaAvatarFemale" xml:space="preserve">
+    <value>Женское</value>
+  </data>
+  <data name="KizunaAvatarVoice" xml:space="preserve">
+    <value>Голос</value>
+  </data>
+  <data name="KizunaAvatarGreeting" xml:space="preserve">
+    <value>Приветствие</value>
+  </data>
+  <data name="KizunaAvatarGreetingNumber" xml:space="preserve">
+    <value>Приветствие {0}</value>
+  </data>
+  <data name="KizunaAvatarNone" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="KizunaAvatarPartCockpit" xml:space="preserve">
+    <value>Кабина</value>
+  </data>
+  <data name="KizunaAvatarPartOutline" xml:space="preserve">
+    <value>Форма лица</value>
+  </data>
+  <data name="KizunaAvatarPartEye" xml:space="preserve">
+    <value>Глаза</value>
+  </data>
+  <data name="KizunaAvatarPartNoseMouth" xml:space="preserve">
+    <value>Нос и рот</value>
+  </data>
+  <data name="KizunaAvatarPartHead" xml:space="preserve">
+    <value>Волосы и шляпа</value>
+  </data>
+  <data name="KizunaAvatarPartFaceWear" xml:space="preserve">
+    <value>Аксессуар для лица</value>
+  </data>
+  <data name="KizunaAvatarPartInner" xml:space="preserve">
+    <value>Верх</value>
+  </data>
+  <data name="KizunaAvatarPartOuter" xml:space="preserve">
+    <value>Верхняя одежда</value>
+  </data>
+  <data name="KizunaAvatarPartTapestry" xml:space="preserve">
+    <value>Гобелен</value>
+  </data>
+  <data name="KizunaAvatarPartFigurine" xml:space="preserve">
+    <value>Фигурка</value>
+  </data>
+  <data name="KizunaAvatarPartHang" xml:space="preserve">
+    <value>Подвеска</value>
+  </data>
+  <data name="KizunaAvatarPartLandscape" xml:space="preserve">
+    <value>Фон</value>
+  </data>
+  <data name="KizunaAvatarPartFrame" xml:space="preserve">
+    <value>Рамка</value>
+  </data>
+  <data name="KizunaAvatarSave" xml:space="preserve">
+    <value>Сохранить аватар</value>
+  </data>
+  <data name="KizunaAvatarLoadDefault" xml:space="preserve">
+    <value>Начать с аватара игры по умолчанию</value>
+  </data>
+  <data name="KizunaAvatarRemove" xml:space="preserve">
+    <value>Использовать аватар игры по умолчанию</value>
+  </data>
+  <data name="KizunaAvatarSaved" xml:space="preserve">
+    <value>Аватар сохранён. Игра показывает его со следующего входа по карте.</value>
+  </data>
+  <data name="KizunaAvatarRemoved" xml:space="preserve">
+    <value>Аватар удалён: со следующего входа по карте пилот показывает аватар игры по умолчанию.</value>
+  </data>
+  <data name="KizunaAvatarNextLogin" xml:space="preserve">
+    <value>Аватар попадает в игру при следующем входе по карте на поде или терминале, вошедшем под этим аккаунтом.</value>
+  </data>
+  <data name="KizunaAvatarUsingDefault" xml:space="preserve">
+    <value>Не задан: этот пилот показывает аватар игры по умолчанию.</value>
+  </data>
+  <data name="KizunaAvatarUsingCustom" xml:space="preserve">
+    <value>Задан: этот пилот показывает аватар ниже.</value>
+  </data>
+  <data name="KizunaAvatarEditorTitle" xml:space="preserve">
+    <value>Аватар пилота Senjou no Kizuna</value>
+  </data>
+  <data name="LibraryKizunaAvatar" xml:space="preserve">
+    <value>АВАТАР ПИЛОТА</value>
+  </data>
+  <data name="LibraryKizunaAvatarTooltip" xml:space="preserve">
+    <value>Оденьте своих пилотов Senjou no Kizuna и выберите их голос и приветствие; всё сохраняется в аккаунте TeknoParrot.</value>
+  </data>
+  <data name="KizunaAvatarVoiceMale" xml:space="preserve">
+    <value>Голос {0} (мужской)</value>
+  </data>
+  <data name="KizunaAvatarVoiceFemale" xml:space="preserve">
+    <value>Голос {0} (женский)</value>
+  </data>
+  <data name="KizunaAvatarPlay" xml:space="preserve">
+    <value>Воспроизвести приветствие</value>
+  </data>
+  <data name="KizunaAvatarUnsaved" xml:space="preserve">
+    <value>(несохранённые изменения)</value>
+  </data>
+  <data name="KizunaAvatarLoading" xml:space="preserve">
+    <value>Загрузка…</value>
+  </data>
+  <data name="KizunaAvatarSaving" xml:space="preserve">
+    <value>Сохранение…</value>
+  </data>
+  <data name="KizunaAvatarInvalid" xml:space="preserve">
+    <value>Не удалось сохранить этот аватар. Закройте редактор и откройте его снова.</value>
+  </data>
+  <data name="KizunaAvatarLoginNeeded" xml:space="preserve">
+    <value>Войдите в аккаунт TeknoParrot на странице «Аккаунт», чтобы редактировать аватар.</value>
+  </data>
+  <data name="KizunaAvatarUnavailable" xml:space="preserve">
+    <value>Сервис аватаров сейчас недоступен. Попробуйте позже.</value>
+  </data>
+  <data name="KizunaAvatarNoGameFiles" xml:space="preserve">
+    <value>Изображения аватаров игры не найдены рядом с игрой ({0}), поэтому предпросмотра нет. Вы всё равно можете выбирать детали и сохранять.</value>
+  </data>
+  <data name="KizunaAvatarNoSound" xml:space="preserve">
+    <value>Голоса приветствий игры не найдены рядом с игрой.</value>
+  </data>
+  <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
+    <value>Отменить несохранённые изменения аватара?</value>
   </data>
 </root>
