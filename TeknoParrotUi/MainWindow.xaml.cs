@@ -114,7 +114,8 @@ namespace TeknoParrotUi
                             accessor.ReadArray(4, bytes, 0, length);
                             string uri = System.Text.Encoding.Unicode.GetString(bytes);
 
-                            // Process the protocol activation
+                            // Process the protocol activation. teknoparrot:// was the old login redirect, the login
+                            // now comes back through OAuthHelper's loopback listener, so it is ignored here.
                             if (uri.StartsWith("tponline://", StringComparison.OrdinalIgnoreCase))
                             {
                                 // TPO deep link from Discord: open TPOnline tab with room context
@@ -125,11 +126,6 @@ namespace TeknoParrotUi
                                     Activate();
                                     BtnTPOnline2(null, null);
                                 }
-                            }
-                            else
-                            {
-                                var app = (App)Application.Current;
-                                app.OAuthHelper.HandleCallback(uri);
                             }
                         }
                     }

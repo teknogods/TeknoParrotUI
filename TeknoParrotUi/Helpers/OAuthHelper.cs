@@ -5,8 +5,10 @@ using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Net.Sockets;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -29,17 +31,24 @@ namespace TeknoParrotUi.Helpers
 #endif
 
         private const string ClientId = "teknoparrot_wpf_client";
-        private const string RedirectUri = "teknoparrot://oauth/callback";
+
+        // RFC 8252 loopback redirect: the browser sends the code back to a listener on 127.0.0.1 with a port picked per
+        // login. Unlike a custom URI scheme this needs no registry entry, so it also works when the browser runs outside
+        // of the app's environment (Wine/Proton hand URLs to the Linux browser, which knows nothing of teknoparrot://).
+        // Must stay "/callback": the website's IsAllowedRedirectUri accepts loopback redirects on that exact path only.
+        private const string CallbackPath = "/callback";
+        private static readonly TimeSpan LoginTimeout = TimeSpan.FromMinutes(10);
+        private static readonly TimeSpan CallbackReadTimeout = TimeSpan.FromSeconds(10);
 
         private readonly HttpClient _httpClient;
         private string _tokenCache;
         private string _refreshTokenCache;
         private DateTime _tokenExpiry = DateTime.MinValue;
+        private TcpListener _callbackListener;
 
         public OAuthHelper()
         {
             _httpClient = new HttpClient();
-            RegisterUriSchemeHandler();
 
             // Try and load the existing token if the user logged in before.
             LoadToken();
@@ -52,42 +61,6 @@ namespace TeknoParrotUi.Helpers
             public DateTime Expiry { get; set; }
         }
 
-        static private void RegisterUriSchemeHandler()
-        {
-            try
-            {
-                // Check if the protocol is already registered so we don't do it twice or more
-                var process = new Process();
-                process.StartInfo.FileName = "cmd.exe";
-                process.StartInfo.Arguments = $"/c ftype teknoparrot";
-                process.StartInfo.UseShellExecute = false;
-                process.StartInfo.CreateNoWindow = true;
-                process.StartInfo.RedirectStandardOutput = true;
-                process.Start();
-                process.WaitForExit();
-
-                string output = process.StandardOutput.ReadToEnd();
-                if (string.IsNullOrEmpty(output) || !output.Contains(RedirectUri.Split(':')[0]))
-                {
-                    string exePath = System.Reflection.Assembly.GetExecutingAssembly().Location;
-
-                    process = new Process();
-                    process.StartInfo.FileName = "cmd.exe";
-                    process.StartInfo.Arguments = $"/c reg add HKCU\\Software\\Classes\\teknoparrot /ve /t REG_SZ /d \"URL:TeknoParrot Protocol\" /f && " +
-                                                 "reg add HKCU\\Software\\Classes\\teknoparrot /v \"URL Protocol\" /t REG_SZ /d \"\" /f && " +
-                                                $"reg add HKCU\\Software\\Classes\\teknoparrot\\shell\\open\\command /ve /t REG_SZ /d \"\\\"{exePath}\\\" \\\"%1\\\"\" /f";
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.CreateNoWindow = true;
-                    process.Start();
-                    process.WaitForExit();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Failed to register URI handler: {ex.Message}");
-            }
-        }
-
         public Task<bool> AuthenticateAsync()
         {
             return AuthenticateAsync(false);
@@ -97,11 +70,20 @@ namespace TeknoParrotUi.Helpers
         /// The browser login. <paramref name="freshLogin"/> adds prompt=login: the website asks for the password again even
         /// with a live website session, and the token then carries auth_time (the "fresh login" that the Initial D Online
         /// secret reads need). Without it the flow is unchanged.
+        /// Returns false when the user cancels on the website, after <see cref="LoginTimeout"/>, or when a newer login
+        /// replaced this one.
         /// </summary>
         public async Task<bool> AuthenticateAsync(bool freshLogin)
         {
+            // A newer login replaces one still waiting (e.g. the user closed the browser tab and pressed login again).
+            _callbackListener?.Stop();
+
+            var listener = new TcpListener(IPAddress.Loopback, 0);
+            _callbackListener = listener;
             try
             {
+                listener.Start();
+                var redirectUri = $"http://127.0.0.1:{((IPEndPoint)listener.LocalEndpoint).Port}{CallbackPath}";
 
                 var codeVerifier = GenerateCodeVerifier();
                 var codeChallenge = GenerateCodeChallenge(codeVerifier);
@@ -110,31 +92,67 @@ namespace TeknoParrotUi.Helpers
                 var authorizationUrl = $"{AuthorizeEndpoint}?" +
                     $"response_type=code&" +
                     $"client_id={ClientId}&" +
-                    $"redirect_uri={Uri.EscapeDataString(RedirectUri)}&" +
+                    $"redirect_uri={Uri.EscapeDataString(redirectUri)}&" +
                     $"code_challenge={codeChallenge}&" +
                     $"code_challenge_method=S256&" +
                     $"state={state}" +
                     (freshLogin ? "&prompt=login" : "");
 
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = authorizationUrl,
-                    UseShellExecute = true
-                });
+                OpenBrowser(authorizationUrl);
 
-                var authorizationCode = await WaitForAuthorizationCodeAsync();
+                var authorizationCode = await WaitForAuthorizationCodeAsync(listener, state);
 
                 if (string.IsNullOrEmpty(authorizationCode))
                 {
                     return false;
                 }
 
-                return await ExchangeCodeForTokenAsync(authorizationCode, codeVerifier);
+                // The browser has the focus now, bring the UI back so the user sees the login finish.
+                Application.Current?.Dispatcher.Invoke(() => Application.Current.MainWindow?.Activate());
+
+                return await ExchangeCodeForTokenAsync(authorizationCode, codeVerifier, redirectUri);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Authentication failed: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
+            }
+            finally
+            {
+                listener.Stop();
+                if (_callbackListener == listener)
+                {
+                    _callbackListener = null;
+                }
+            }
+        }
+
+        private static void OpenBrowser(string url)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                // No browser registered (seen on some Wine prefixes). The listener is already running, so the login still
+                // completes if the user opens the link by hand.
+                Debug.WriteLine($"[Auth] Failed to open the browser: {ex.Message}");
+                try
+                {
+                    Clipboard.SetText(url);
+                }
+                catch (Exception clipboardEx)
+                {
+                    Debug.WriteLine($"[Auth] Failed to copy the login link: {clipboardEx.Message}");
+                }
+
+                MessageBox.Show("TeknoParrot could not open your web browser. The login link has been copied to your clipboard, paste it into your browser to continue.",
+                    "Login", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
 
@@ -164,49 +182,159 @@ namespace TeknoParrotUi.Helpers
             }
         }
 
-        private TaskCompletionSource<string> _authorizationCodeTcs;
-
-        public void HandleCallback(string uri)
+        /// <summary>
+        /// Serves the loopback listener until the browser comes back from the website. Returns the authorization code, or
+        /// null when the user cancelled, the wait timed out or the listener was stopped.
+        /// </summary>
+        private static async Task<string> WaitForAuthorizationCodeAsync(TcpListener listener, string expectedState)
         {
-            try
+            var result = new TaskCompletionSource<string>(TaskCreationOptions.RunContinuationsAsynchronously);
+            _ = AcceptCallbacksAsync(listener, expectedState, result);
+
+            var finished = await Task.WhenAny(result.Task, Task.Delay(LoginTimeout)).ConfigureAwait(false);
+            if (finished != result.Task)
             {
-                if (_authorizationCodeTcs != null && !_authorizationCodeTcs.Task.IsCompleted)
+                Debug.WriteLine("[Auth] Timed out waiting for the browser login");
+                return null;
+            }
+
+            return await result.Task.ConfigureAwait(false);
+        }
+
+        private static async Task AcceptCallbacksAsync(TcpListener listener, string expectedState, TaskCompletionSource<string> result)
+        {
+            // Browsers also open idle speculative connections and ask for favicon.ico, so each connection is served on its
+            // own until one of them carries the callback.
+            while (!result.Task.IsCompleted)
+            {
+                TcpClient client;
+                try
                 {
-                    var authorizationCode = ExtractAuthorizationCode(uri);
-                    _authorizationCodeTcs.SetResult(authorizationCode);
+                    client = await listener.AcceptTcpClientAsync().ConfigureAwait(false);
+                }
+                catch (Exception)
+                {
+                    // The listener was stopped: the login finished, timed out or was replaced by a newer one.
+                    result.TrySetResult(null);
+                    return;
+                }
+
+                _ = ServeCallbackAsync(client, expectedState, result);
+            }
+        }
+
+        private static async Task ServeCallbackAsync(TcpClient client, string expectedState, TaskCompletionSource<string> result)
+        {
+            using (client)
+            {
+                try
+                {
+                    var stream = client.GetStream();
+                    var readRequest = ReadRequestTargetAsync(stream);
+                    if (await Task.WhenAny(readRequest, Task.Delay(CallbackReadTimeout)).ConfigureAwait(false) != readRequest)
+                    {
+                        // A speculative connection that never sent a request, disposing the client ends the read.
+                        return;
+                    }
+
+                    var target = await readRequest.ConfigureAwait(false);
+                    if (target == null)
+                    {
+                        return;
+                    }
+
+                    var queryStart = target.IndexOf('?');
+                    var path = queryStart < 0 ? target : target.Substring(0, queryStart);
+                    if (path != CallbackPath)
+                    {
+                        await WriteResponseAsync(stream, "404 Not Found", null).ConfigureAwait(false);
+                        return;
+                    }
+
+                    var query = ParseQuery(queryStart < 0 ? "" : target.Substring(queryStart + 1));
+                    if (!query.TryGetValue("state", out var state) || state != expectedState)
+                    {
+                        await WriteResponseAsync(stream, "400 Bad Request", "This login link has expired. Please start the login again from TeknoParrot.").ConfigureAwait(false);
+                        return;
+                    }
+
+                    if (query.TryGetValue("code", out var code) && !string.IsNullOrEmpty(code))
+                    {
+                        // Hand the code over first: the login can finish even if the browser tab is already gone.
+                        result.TrySetResult(code);
+                        await WriteResponseAsync(stream, "200 OK", "You are now logged in. You can close this tab and return to TeknoParrot.").ConfigureAwait(false);
+                    }
+                    else
+                    {
+                        // error=access_denied and friends: the user cancelled on the website.
+                        query.TryGetValue("error", out var error);
+                        Debug.WriteLine($"[Auth] Login returned no code: {error}");
+                        result.TrySetResult(null);
+                        await WriteResponseAsync(stream, "200 OK", "The login was cancelled. You can close this tab.").ConfigureAwait(false);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"[Auth] Callback connection failed: {ex.Message}");
                 }
             }
-            catch (Exception ex)
+        }
+
+        /// <summary>Reads the request head and returns the target of a GET request line ("/callback?code=...").</summary>
+        private static async Task<string> ReadRequestTargetAsync(NetworkStream stream)
+        {
+            using (var reader = new StreamReader(stream, Encoding.ASCII, false, 1024, leaveOpen: true))
             {
-                if (_authorizationCodeTcs != null && !_authorizationCodeTcs.Task.IsCompleted)
+                var requestLine = await reader.ReadLineAsync().ConfigureAwait(false);
+
+                // Read the headers too: closing a socket with unread data resets the connection, and the browser would
+                // show a connection error instead of the page.
+                string header;
+                do
                 {
-                    _authorizationCodeTcs.SetException(ex);
-                }
+                    header = await reader.ReadLineAsync().ConfigureAwait(false);
+                } while (!string.IsNullOrEmpty(header));
+
+                var parts = requestLine?.Split(' ');
+                return parts != null && parts.Length >= 2 && parts[0] == "GET" ? parts[1] : null;
             }
         }
 
-        private string ExtractAuthorizationCode(string uri)
+        private static async Task WriteResponseAsync(NetworkStream stream, string status, string message)
         {
-            var queryParams = new Uri(uri).Query.TrimStart('?')
-                .Split('&')
-                .Select(param => param.Split('='))
-                .ToDictionary(p => p[0], p => Uri.UnescapeDataString(p[1]));
+            var body = message == null ? "" :
+                "<!doctype html><html><head><meta charset=\"utf-8\"><title>TeknoParrot</title></head>" +
+                "<body style=\"font-family:sans-serif;text-align:center;margin-top:4em\">" +
+                $"<h2>TeknoParrot</h2><p>{message}</p></body></html>";
+            var bodyBytes = Encoding.UTF8.GetBytes(body);
+            var headBytes = Encoding.ASCII.GetBytes(
+                $"HTTP/1.1 {status}\r\n" +
+                "Content-Type: text/html; charset=utf-8\r\n" +
+                $"Content-Length: {bodyBytes.Length}\r\n" +
+                "Cache-Control: no-store\r\n" +
+                "Connection: close\r\n\r\n");
 
-            if (queryParams.TryGetValue("code", out var code))
+            await stream.WriteAsync(headBytes, 0, headBytes.Length).ConfigureAwait(false);
+            await stream.WriteAsync(bodyBytes, 0, bodyBytes.Length).ConfigureAwait(false);
+        }
+
+        private static Dictionary<string, string> ParseQuery(string query)
+        {
+            var values = new Dictionary<string, string>();
+            foreach (var pair in query.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries))
             {
-                return code;
+                var separator = pair.IndexOf('=');
+                var key = separator < 0 ? pair : pair.Substring(0, separator);
+                var value = separator < 0 ? "" : pair.Substring(separator + 1);
+                values[Decode(key)] = Decode(value);
             }
 
-            throw new Exception("No authorization code found in the callback URI");
+            return values;
+
+            static string Decode(string s) => Uri.UnescapeDataString(s.Replace('+', ' '));
         }
 
-        private Task<string> WaitForAuthorizationCodeAsync()
-        {
-            _authorizationCodeTcs = new TaskCompletionSource<string>();
-            return _authorizationCodeTcs.Task;
-        }
-
-        private async Task<bool> ExchangeCodeForTokenAsync(string code, string codeVerifier)
+        private async Task<bool> ExchangeCodeForTokenAsync(string code, string codeVerifier, string redirectUri)
         {
             Debug.WriteLine($"Exchanging code: {code}");
             Debug.WriteLine($"Code verifier: {codeVerifier}");
@@ -215,7 +343,7 @@ namespace TeknoParrotUi.Helpers
     {
         { "grant_type", "authorization_code" },
         { "code", code },
-        { "redirect_uri", RedirectUri },
+        { "redirect_uri", redirectUri },
         { "client_id", ClientId },
         { "code_verifier", codeVerifier }
     };
