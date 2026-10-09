@@ -343,6 +343,15 @@ namespace ParrotPatcher
                 },
                 new UpdaterComponent
                 {
+                    name = "TeknoTZero",
+                    location = Path.Combine("TeknoTZero", "TeknoTZero.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "TeknoTZero"
+                },
+                new UpdaterComponent
+                {
                     name = "TeknoGClub",
                     location = Path.Combine("TeknoGClub", "TeknoGClub.exe"),
                     reponame = "TeknoParrot",

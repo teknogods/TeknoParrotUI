@@ -93,7 +93,7 @@ namespace TeknoParrotUi.Helpers
             // come from Score Submission and use its usual messages below.
             var scoreSubmissionExit = (emulatorType == EmulatorType.TeknoModel2 || emulatorType == EmulatorType.TeknoModel3) &&
                 (errorCode == 3820 || errorCode == 3821 || errorCode == 3822 || errorCode == 3823 || errorCode == 7688);
-            if (!scoreSubmissionExit && (emulatorType == EmulatorType.TeknoVUnit || emulatorType == EmulatorType.TeknoHornet || emulatorType == EmulatorType.TeknoModel1 || emulatorType == EmulatorType.TeknoModel2 || emulatorType == EmulatorType.TeknoModel3 || emulatorType == EmulatorType.TeknoZeus || emulatorType == EmulatorType.TeknoHNG64 || emulatorType == EmulatorType.TeknoCobra) && errorCode != 0)
+            if (!scoreSubmissionExit && (emulatorType == EmulatorType.TeknoTZero || emulatorType == EmulatorType.TeknoVUnit || emulatorType == EmulatorType.TeknoHornet || emulatorType == EmulatorType.TeknoModel1 || emulatorType == EmulatorType.TeknoModel2 || emulatorType == EmulatorType.TeknoModel3 || emulatorType == EmulatorType.TeknoZeus || emulatorType == EmulatorType.TeknoHNG64 || emulatorType == EmulatorType.TeknoCobra) && errorCode != 0)
             {
                 var summary = errorCode == 2
                     ? $"{emulatorType} received an invalid launch configuration."

@@ -22,7 +22,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.Utilities
         }
 
         readonly EmulatorType[] emuWithoutConfigList = { EmulatorType.TeknoAGX, EmulatorType.TeknoAir, EmulatorType.TeknoCobra, EmulatorType.TeknoGClub, EmulatorType.TeknoHNG64, EmulatorType.TeknoHornet,
-                                EmulatorType.TeknoMVS, EmulatorType.TeknoCPS, EmulatorType.TeknoSS32, EmulatorType.TeknoM2, EmulatorType.TeknoModel1, EmulatorType.TeknoModel2, EmulatorType.TeknoModel3, EmulatorType.TeknoS21, EmulatorType.TeknoS22, EmulatorType.TeknoS23, EmulatorType.TeknoVegas,
+                                EmulatorType.TeknoMVS, EmulatorType.TeknoCPS, EmulatorType.TeknoSS32, EmulatorType.TeknoM2, EmulatorType.TeknoModel1, EmulatorType.TeknoModel2, EmulatorType.TeknoModel3, EmulatorType.TeknoTZero, EmulatorType.TeknoS21, EmulatorType.TeknoS22, EmulatorType.TeknoS23, EmulatorType.TeknoVegas,
                                 EmulatorType.TeknoViper, EmulatorType.TeknoS11, EmulatorType.TeknoTPJC, EmulatorType.TeknoHDrive, EmulatorType.TeknoMagic, EmulatorType.TeknoVUnit, EmulatorType.TeknoZeus};
         public void WriteConfigIni()
         {

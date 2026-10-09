@@ -715,6 +715,7 @@ namespace TeknoParrotUi.Common.InputListening
                  _gameProfile.EmulationProfile == EmulationProfile.TeknoMVS ||
                  _gameProfile.EmulationProfile == EmulationProfile.TeknoCPS ||
                  _gameProfile.EmulationProfile == EmulationProfile.TeknoSS32 ||
+                 _gameProfile.EmulationProfile == EmulationProfile.TeknoTZero ||
                  _gameProfile.EmulationProfile == EmulationProfile.TeknoModel3 ||
                  _gameProfile.EmulationProfile == EmulationProfile.TeknoVegas ||
                  (_gameProfile.EmulationProfile == EmulationProfile.TeknoViper || (_gameProfile.EmulationProfile == EmulationProfile.TeknoS11 || (_gameProfile.EmulationProfile == EmulationProfile.TeknoTPJC || (_gameProfile.EmulationProfile == EmulationProfile.TeknoHDrive || _gameProfile.EmulationProfile == EmulationProfile.TeknoMagic)))) ||

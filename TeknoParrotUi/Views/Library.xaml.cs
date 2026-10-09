@@ -806,6 +806,9 @@ namespace TeknoParrotUi.Views
                 case EmulatorType.TeknoModel2:
                     loaderExe = ".\\TeknoModel2\\TeknoModel2.exe";
                     break;
+                case EmulatorType.TeknoTZero:
+                    loaderExe = ".\\TeknoTZero\\TeknoTZero.exe";
+                    break;
                 case EmulatorType.TeknoModel3:
                     loaderExe = ".\\TeknoModel3\\TeknoModel3.exe";
                     break;

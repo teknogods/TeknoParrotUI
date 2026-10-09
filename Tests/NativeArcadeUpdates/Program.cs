@@ -34,7 +34,7 @@ internal static class Program
                 IntPtr unused = form.Handle;
                 var install = typeof(Form1).GetMethod("ProcessSingleZip", BindingFlags.Instance | BindingFlags.NonPublic);
                 Require(install != null, "Production ZIP installer not found");
-                foreach (string component in new[] { "TeknoMVS", "TeknoCPS", "TeknoSS32" })
+                foreach (string component in new[] { "TeknoMVS", "TeknoCPS", "TeknoSS32", "TeknoTZero" })
                 {
                     string installedExe = Path.Combine(component, component + ".exe");
                     Require(!File.Exists(installedExe), "Fixture must start with no installed executable");
@@ -55,7 +55,7 @@ internal static class Program
                 }
             }
             Require(File.ReadAllText("user-profile.txt") == "preserve", "Unrelated TPUI root file changed");
-            Console.WriteLine("PASS: " + assertions + " assertions; all three real patcher fresh-install and update paths preserve executables, dependencies, subfolders and user files. No downloads or games started.");
+            Console.WriteLine("PASS: " + assertions + " assertions; all four real patcher fresh-install and update paths preserve executables, dependencies, subfolders and user files. No downloads or games started.");
             return 0;
         }
         catch (Exception error)

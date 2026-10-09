@@ -213,6 +213,7 @@
     <Compile Include="Pipes\TeknoModel1Pipe.cs" />
     <Compile Include="Pipes\TeknoModel2Pipe.cs" />
     <Compile Include="Pipes\TeknoModel3Pipe.cs" />
+    <Compile Include="Pipes\TeknoTZeroPipe.cs" />
     <Compile Include="Pipes\PlayPipe.cs" />
     <Compile Include="Pipes\LGSPipe.cs" />
     <Compile Include="Pipes\NesicaButton.cs" />

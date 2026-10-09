@@ -797,6 +797,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.TeknoModel2:
                     _controlSender = new TeknoModel2Pipe();
                     break;
+                case EmulationProfile.TeknoTZero:
+                    _controlSender = new TeknoTZeroPipe();
+                    break;
                 case EmulationProfile.TeknoModel3:
                     _controlSender = new TeknoModel3Pipe();
                     break;
@@ -864,6 +867,7 @@ namespace TeknoParrotUi.Views
                 _gameProfile.EmulatorType != EmulatorType.TeknoHNG64 && (_gameProfile.EmulatorType != EmulatorType.TeknoHornet && _gameProfile.EmulatorType != EmulatorType.TeknoVUnit) && _gameProfile.EmulatorType != EmulatorType.TeknoCobra &&
                 _gameProfile.EmulatorType != EmulatorType.TeknoModel1 &&
                 _gameProfile.EmulatorType != EmulatorType.TeknoModel2 &&
+                _gameProfile.EmulatorType != EmulatorType.TeknoTZero &&
                 _gameProfile.EmulatorType != EmulatorType.TeknoModel3 &&
                 (_gameProfile.EmulatorType != EmulatorType.TeknoZeus && ((_gameProfile.EmulatorType != EmulatorType.TeknoS22 && _gameProfile.EmulatorType != EmulatorType.TeknoS21) && (_gameProfile.EmulatorType != EmulatorType.TeknoS23 && _gameProfile.EmulatorType != EmulatorType.TeknoGClub))))
             {

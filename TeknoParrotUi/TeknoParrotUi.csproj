@@ -447,6 +447,7 @@
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoVUnitLauncher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoViperVegasLauncher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoModel3Launcher.cs" />
+    <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoTZeroLauncher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoAirLauncher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoM2Launcher.cs" />
     <Compile Include="Views\GameRunningCode\ProcessManagement\TeknoCobraLauncher.cs" />

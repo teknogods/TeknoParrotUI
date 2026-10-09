@@ -494,6 +494,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                          _gameProfile.EmulatorType == EmulatorType.TeknoMVS ||
                          _gameProfile.EmulatorType == EmulatorType.TeknoSS32 ||
                          _gameProfile.EmulatorType == EmulatorType.TeknoCPS ||
+                         _gameProfile.EmulatorType == EmulatorType.TeknoTZero ||
                          _gameProfile.EmulatorType == EmulatorType.TeknoModel3 ||
                          (_gameProfile.EmulatorType == EmulatorType.TeknoZeus || ((_gameProfile.EmulatorType == EmulatorType.TeknoS22 || _gameProfile.EmulatorType == EmulatorType.TeknoS21) || (_gameProfile.EmulatorType == EmulatorType.TeknoS23 || _gameProfile.EmulatorType == EmulatorType.TeknoGClub))))
                 {
@@ -1042,6 +1043,7 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                          _gameProfile.EmulatorType == EmulatorType.TeknoMVS ||
                          _gameProfile.EmulatorType == EmulatorType.TeknoSS32 ||
                          _gameProfile.EmulatorType == EmulatorType.TeknoCPS ||
+                         _gameProfile.EmulatorType == EmulatorType.TeknoTZero ||
                          _gameProfile.EmulatorType == EmulatorType.TeknoModel3 ||
                          (_gameProfile.EmulatorType == EmulatorType.TeknoZeus || ((_gameProfile.EmulatorType == EmulatorType.TeknoS22 || _gameProfile.EmulatorType == EmulatorType.TeknoS21) || (_gameProfile.EmulatorType == EmulatorType.TeknoS23 || _gameProfile.EmulatorType == EmulatorType.TeknoGClub))))
                     {

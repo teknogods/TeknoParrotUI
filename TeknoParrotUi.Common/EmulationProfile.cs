@@ -174,6 +174,8 @@
         TeknoModel3,
         TeknoMVS,
         TeknoCPS,
-        TeknoSS32
+        TeknoSS32,
+        // Taito Type Zero
+        TeknoTZero
     }
 }

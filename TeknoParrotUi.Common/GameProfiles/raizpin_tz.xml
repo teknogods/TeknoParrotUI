@@ -1,0 +1,389 @@
+<?xml version='1.0' encoding='utf-8'?>
+<GameProfile>
+  <GamePath />
+  <EmulationProfile>TeknoTZero</EmulationProfile>
+  <GameProfileRevision>6</GameProfileRevision>
+  <HasTpoSupport>true</HasTpoSupport>
+  <HasSeparateTestMode>false</HasSeparateTestMode>
+  <EmulatorType>TeknoTZero</EmulatorType>
+  <Is64Bit>true</Is64Bit>
+  <ExecutableName>raizpin.zip</ExecutableName>
+  <HasTwoExecutables>false</HasTwoExecutables>
+  <Patreon>false</Patreon>
+  <DevOnly>true</DevOnly>
+  <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Game Version</FieldName>
+      <FieldValue>raizpin</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>raizpin</string>
+      </FieldOptions>
+      <Hint>Select the merged parent ROM ZIP. For TPOnline, both players bind Player 1 controls; the game automatically locks to two-player mode.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>CHD Directory</FieldName>
+      <FieldValue />
+      <FieldType>Text</FieldType>
+      <Hint>CHD root containing game subdirectories. Empty uses the selected ROM directory.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>DisplayMode</FieldName>
+      <FieldValue>Fullscreen</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Fullscreen</string>
+        <string>Windowed</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Internal Resolution</FieldName>
+      <FieldValue>2</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>1</string>
+        <string>2</string>
+        <string>3</string>
+        <string>4</string>
+        <string>5</string>
+        <string>6</string>
+        <string>7</string>
+        <string>8</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Fill Scanout Margins</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Extends the main 3D camera into unused screen margins, including the bottom strip in 400-line modes. Preserves credit text.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Widescreen</FieldName>
+      <FieldValue>off</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>off</string>
+        <string>16:9</string>
+        <string>16:10</string>
+        <string>21:9</string>
+        <string>32:9</string>
+      </FieldOptions>
+      <Hint>Expands the 3D camera horizontally and centers native HUDs. Restart to apply.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Reuse Unchanged Scenes</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Reduces repeated GPU work. Compare frame delivery with VSync or Pace Completed Frames enabled.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Pace Completed Frames</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Spaces completed frames and preserves queued images. Can add latency. VR uses headset timing.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Geometry Threads</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>0 selects automatic. Values 1-64 override the decoder thread count; measure performance on your PC.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>VSync</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Antialiasing</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>CRT Mode</FieldName>
+      <FieldValue>custom</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>custom</string>
+        <string>lottes</string>
+        <string>lottes-downsample</string>
+      </FieldOptions>
+      <Hint>Enable CRT Shader to use this. Custom loads crt.shader; Lottes preserves enhanced detail; downsample uses the native pixel grid.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>CRT Shader</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Stretch to Fullscreen</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Show FPS</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Mute Audio</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable VR</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Use VR Controls</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Bezel Image</FieldName>
+      <FieldValue />
+      <FieldType>Text</FieldType>
+      <Hint>Optional image path. Empty disables the bezel.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Presentation Filter</FieldName>
+      <FieldValue>linear</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>nearest</string>
+        <string>linear</string>
+        <string>bicubic</string>
+        <string>lanczos</string>
+        <string>ssaa</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Cabinet Outputs</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Publishes raw I/O request bits and train meter values. Lamp names and force feedback are not yet decoded.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Outputs</FieldName>
+      <FieldValue>Windows Outputs</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Windows Outputs</string>
+        <string>Network Outputs</string>
+      </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Output Bind Address</FieldName>
+      <FieldValue>127.0.0.1</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Network output listener address. Use 0.0.0.0 to permit remote receivers.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Volume</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <FieldStep>1</FieldStep>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Side-by-Side 3D</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Two independent views for a side-by-side 3D display.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Auto 3D Depth</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>In VR or side-by-side 3D, smoothly follow the visible scene depth. Depth strength can use screen-relative percentages or the emulator INI eye separation.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>3D Depth Percent</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>VR or side-by-side 3D: total eye disparity as 0 to 10 percent of image width. Try 1.8. Zero uses the INI eye separation.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>3D Near Limit</FieldName>
+      <FieldValue>0.5</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>For screen-relative depth, cap foreground protrusion relative to background depth: 0 to 1. Zero keeps nearby objects at the screen plane.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Save Directory</FieldName>
+      <FieldValue></FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Optional save root. Empty uses TeknoTZero/nvram; UDP uses its link-0 or link-1 subfolder. Each revision keeps separate saves.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>State Slot</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Offline states: F5 saves and F8 loads slot 0-9. Loading requires the same emulator build, revision and settings. Unavailable during linked play or input recording.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>State Directory</FieldName>
+      <FieldValue></FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Optional state-file root. Empty uses TeknoTZero/state. Each revision has separate slots.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Local TPO</CategoryName>
+      <FieldName>Local TPO</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>Connect through a local TPOnline UDP broker. Both PCs use the same server and room, with different player IDs. Service-launched rooms override these settings. Rollback is automatic.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Local TPO</CategoryName>
+      <FieldName>Local TPO Server</FieldName>
+      <FieldValue>127.0.0.1</FieldValue>
+      <FieldType>Text</FieldType>
+      <Hint>Address of your running TPOnline broker. For two PCs, enter its LAN address on both.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Local TPO</CategoryName>
+      <FieldName>Local TPO Port</FieldName>
+      <FieldValue>7788</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Local TPO</CategoryName>
+      <FieldName>Local TPO Room</FieldName>
+      <FieldValue>TypeZero-local</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Local TPO</CategoryName>
+      <FieldName>Local TPO Player</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>0</string>
+        <string>1</string>
+      </FieldOptions>
+      <Hint>0 hosts Player 1; 1 joins as Player 2. Each PC binds its local Player 1 controls.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Local TPO</CategoryName>
+      <FieldName>Local TPO Player Name</FieldName>
+      <FieldValue>Player</FieldValue>
+      <FieldType>Text</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Local TPO</CategoryName>
+      <FieldName>Local TPO View</FieldName>
+      <FieldValue>Full Split Screen</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Full Split Screen</string>
+        <string>Own Widescreen View (16:9)</string>
+      </FieldOptions>
+      <Hint>Use the same view on both PCs. Own View shows your assigned camera at 16:9 during two-player gameplay; shared menus stay visible. Disable VR and Side-by-Side 3D for Own View.</Hint>
+    </FieldInformation>
+  </ConfigValues>
+  <JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Test Menu</ButtonName>
+      <InputMapping>Test</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Service</ButtonName>
+      <InputMapping>Service1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Coin</ButtonName>
+      <InputMapping>Coin1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P1 Start</ButtonName>
+      <InputMapping>P1ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P1 Select</ButtonName>
+      <InputMapping>P1Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P2 Start</ButtonName>
+      <InputMapping>P2ButtonStart</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P2 Select</ButtonName>
+      <InputMapping>P2Button1</InputMapping>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P1 Racket G</ButtonName>
+      <InputMapping>Analog0</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <Hint>Centered native racket sensor. Verify direction and range in the game switch test.</Hint>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P1 Racket X</ButtonName>
+      <InputMapping>Analog2</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <Hint>Centered native racket sensor. Verify direction and range in the game switch test.</Hint>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P1 Racket Y</ButtonName>
+      <InputMapping>Analog4</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <Hint>Centered native racket sensor. Verify direction and range in the game switch test.</Hint>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P2 Racket G</ButtonName>
+      <InputMapping>Analog8</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <Hint>Centered native racket sensor. Verify direction and range in the game switch test.</Hint>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P2 Racket X</ButtonName>
+      <InputMapping>Analog10</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <Hint>Centered native racket sensor. Verify direction and range in the game switch test.</Hint>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>P2 Racket Y</ButtonName>
+      <InputMapping>Analog12</InputMapping>
+      <AnalogType>AnalogJoystick</AnalogType>
+      <Hint>Centered native racket sensor. Verify direction and range in the game switch test.</Hint>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+    </JoystickButtons>
+  </JoystickButtons>
+</GameProfile>
