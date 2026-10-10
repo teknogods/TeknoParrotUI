@@ -2076,6 +2076,13 @@ namespace TeknoParrotUi.Views
             await LaunchSelectedGame(true);
         }
 
+        /// <summary>The current access token, without opening a login: null when this PC is not logged in.</summary>
+        private static async Task<string> MarioKartAccountTokenAsync()
+        {
+            var oAuth = (Application.Current as App)?.OAuthHelper;
+            return oAuth != null && await oAuth.EnsureAuthenticatedAsync(false) ? oAuth.GetAccessToken() : null;
+        }
+
         private async Task LaunchSelectedGame(bool withFriends)
         {
             if (gameList.Items.Count == 0 || gameList.SelectedItem == null)
@@ -2112,6 +2119,9 @@ namespace TeknoParrotUi.Views
                 // logged in) it does not start, and the dialog leads to the Account page. Every other game starts as before.
                 if (!await KizunaLaunchFlow.BeforeLaunchAsync(gameProfile, Window.GetWindow(this)))
                     return;
+                // Mario Kart Arcade GP DX: the account's Mario Kart Online ID goes into the profile (fetched once when this PC
+                // is logged in and the profile has none). Quiet: the game also plays online without it.
+                await MarioKartOnlineHelper.BeforeLaunchAsync(gameProfile, MarioKartAccountTokenAsync);
             }
 
             Lazydata.ParrotData.LastPlayed = gameProfile.GameNameInternal;

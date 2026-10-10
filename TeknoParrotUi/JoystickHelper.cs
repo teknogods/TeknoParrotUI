@@ -209,8 +209,15 @@ namespace TeknoParrotUi.Common
         /// </summary>
         public static bool AutoFillOnlineId(GameProfile profile)
         {
-            if (profile == null || string.IsNullOrEmpty(profile.OnlineIdFieldName) || profile.OnlineIdType == OnlineIdType.None)
+            if (profile == null || profile.OnlineIdType == OnlineIdType.None)
                 return false;
+
+            // Mario Kart Arcade GP DX Online: the account's PCB ID + secret pair into the fixed OnlineID / OnlineSecret fields
+            // (profiles that have them), before and in addition to the PlayerId fill below.
+            bool marioKartChanged = profile.OnlineIdType == OnlineIdType.MarioKartId && MarioKartOnlineHelper.AutoFill(profile);
+
+            if (string.IsNullOrEmpty(profile.OnlineIdFieldName))
+                return marioKartChanged;
 
             // Initial D Online: a PCB ID + secret pair (both fields), plain text from ParrotData.
             if (profile.OnlineIdType == OnlineIdType.InitialD)
@@ -226,9 +233,9 @@ namespace TeknoParrotUi.Common
 
             var configField = profile.ConfigValues?.FirstOrDefault(x => x.FieldName == profile.OnlineIdFieldName);
             if (configField == null || (!string.IsNullOrEmpty(configField.FieldValue) && configField.FieldValue != "1234567890"))
-                return false;
+                return marioKartChanged;
 
-            bool changed = false;
+            bool changed = marioKartChanged;
             switch (profile.OnlineIdType)
             {
                 case OnlineIdType.SegaId:

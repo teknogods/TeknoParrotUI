@@ -484,6 +484,33 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mario Kart Online ID:.
+        /// </summary>
+        public static string AccountPageMarioKartOnlineId {
+            get {
+                return ResourceManager.GetString("AccountPageMarioKartOnlineId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mario Kart secret:.
+        /// </summary>
+        public static string AccountPageMarioKartSecret {
+            get {
+                return ResourceManager.GetString("AccountPageMarioKartSecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filled into Mario Kart Arcade GP DX automatically.
+        /// </summary>
+        public static string AccountPageMarioKartHint {
+            get {
+                return ResourceManager.GetString("AccountPageMarioKartHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Namco ID:.
         /// </summary>
         public static string AccountPageNamcoID {

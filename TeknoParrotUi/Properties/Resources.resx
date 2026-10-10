@@ -238,6 +238,15 @@
   <data name="AccountPageMarioKartIDHint" xml:space="preserve">
     <value>Your Mario Kart player identifier</value>
   </data>
+  <data name="AccountPageMarioKartOnlineId" xml:space="preserve">
+    <value>Mario Kart Online ID:</value>
+  </data>
+  <data name="AccountPageMarioKartSecret" xml:space="preserve">
+    <value>Mario Kart secret:</value>
+  </data>
+  <data name="AccountPageMarioKartHint" xml:space="preserve">
+    <value>Filled into Mario Kart Arcade GP DX automatically</value>
+  </data>
   <data name="AccountPageNamcoID" xml:space="preserve">
     <value>Namco ID:</value>
   </data>

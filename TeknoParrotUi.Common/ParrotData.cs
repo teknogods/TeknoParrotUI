@@ -64,6 +64,12 @@ namespace TeknoParrotUi.Common
         // OnlineID / OnlineSecret fields of the Kizuna profiles (OnlineIdType.Kizuna).
         public string KizunaOnlineId { get; set; } = "";
         public string KizunaOnlineSecret { get; set; } = "";
+        // Mario Kart Arcade GP DX Online: this PC's own Mario Kart PCB ID (AAMK-...) + secret from the same account (Account
+        // page, Mario Kart Arcade GP DX Online), a pair apart from the others. Kept the same way and copied into the
+        // [Network] OnlineID / OnlineSecret fields of the Mario Kart profiles that have them (OnlineIdType.MarioKartId);
+        // MarioKartId above still fills their PlayerId.
+        public string MarioKartOnlineId { get; set; } = "";
+        public string MarioKartOnlineSecret { get; set; } = "";
         // Initial D matchmaking always uses automatic server selection. Keep the one-time notice,
         // registration prompt preference and migrated old-loader profile names. Old serialized
         // InitialDConnectToServer values are ignored when existing settings are loaded.

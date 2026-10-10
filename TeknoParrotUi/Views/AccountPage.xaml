@@ -163,6 +163,8 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="140" />
@@ -277,6 +279,45 @@
                                 Style="{StaticResource MaterialDesignFlatButton}"
                                 Content="{x:Static p:Resources.AccountPageShowSecret}"
                                 Click="KizunaSecretToggle_Click" />
+                    </Grid>
+                    <!-- Mario Kart Arcade GP DX Online: the account's pair (OnlineID / OnlineSecret of the MKDX profiles), filled
+                         into the game like the IDs above; any PC, the one that starts the game last plays with it -->
+                    <TextBlock Grid.Row="9"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="0,0,0,12"
+                               Text="{x:Static p:Resources.AccountPageMarioKartOnlineId}" />
+                    <TextBox Grid.Row="9"
+                             Grid.Column="1"
+                             x:Name="MarioKartPcbIdTextBox"
+                             IsReadOnly="True"
+                             FontFamily="Consolas"
+                             materialDesign:HintAssist.Hint="{x:Static p:Resources.AccountPageMarioKartHint}"
+                             Margin="0,0,0,12" />
+                    <TextBlock Grid.Row="10"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="0,0,0,12"
+                               Text="{x:Static p:Resources.AccountPageMarioKartSecret}" />
+                    <Grid Grid.Row="10"
+                          Grid.Column="1"
+                          Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <!-- masked until Show, for screen sharing -->
+                        <TextBox Grid.Column="0"
+                                 x:Name="MarioKartSecretTextBox"
+                                 IsReadOnly="True"
+                                 FontFamily="Consolas"
+                                 materialDesign:HintAssist.Hint="{x:Static p:Resources.AccountPageMarioKartHint}" />
+                        <Button Grid.Column="1"
+                                x:Name="MarioKartSecretToggle"
+                                Margin="8,0,0,0"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Content="{x:Static p:Resources.AccountPageShowSecret}"
+                                Click="MarioKartSecretToggle_Click" />
                     </Grid>
                 </Grid>
             </materialDesign:Card>

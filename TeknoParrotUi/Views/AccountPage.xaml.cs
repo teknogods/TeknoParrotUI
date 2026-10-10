@@ -95,6 +95,7 @@ namespace TeknoParrotUi.Views
             GoldenTeePcbIdTextBox.Text = userData.GoldenTeePcbId?.ToString() ?? string.Empty;
             GoldenTeeCardIdTextBox.Text = userData.GoldenTeeCardId ?? string.Empty;
             ShowKizunaPair(userData.KizunaPcbId, userData.KizunaSecret);
+            ShowMarioKartPair(userData.MarioKartPcbId, userData.MarioKartSecret);
             UserTierText.Text = string.Format(TeknoParrotUi.Properties.Resources.AccountPageTierPrefix, userData.Tier);
             UserTierText.Visibility = Visibility.Visible;
             _initialDRank = userData.InitialDRank;
@@ -158,6 +159,8 @@ namespace TeknoParrotUi.Views
                     // Senjou no Kizuna Online: the account's pair into ParrotData and every Kizuna profile (null while
                     // the website has it switched off or the account is banned: keep what was there)
                     KizunaOnlineHelper.StoreFromAccount(userData.KizunaPcbId, userData.KizunaSecret);
+                    // Mario Kart Arcade GP DX Online: the same, for the MKDX profiles that have OnlineID / OnlineSecret
+                    MarioKartOnlineHelper.StoreFromAccount(userData.MarioKartPcbId, userData.MarioKartSecret);
 
                     JoystickHelper.Serialize();
                     Debug.WriteLine($"Saved user data - SegaId: {userData.SegaId}");
@@ -210,6 +213,9 @@ namespace TeknoParrotUi.Views
                     _kizunaSecret = "";
                     UpdateKizunaSecretBox();
                     UpdateKizunaView();
+                    MarioKartPcbIdTextBox.Text = string.Empty;
+                    _marioKartSecret = "";
+                    UpdateMarioKartSecretBox();
 
                     _cachedUserData = null;
                     _lastDataFetchTime = DateTime.MinValue;
@@ -934,6 +940,41 @@ namespace TeknoParrotUi.Views
             UpdateKizunaSecretBox();
         }
 
+        // =============================================================================================================
+        // Mario Kart Arcade GP DX Online (MarioKartOnlineHelper): the account's own Mario Kart Online ID (a PCB ID + secret
+        // apart from Initial D's and Kizuna's) comes with api/User/Profile like Kizuna's: it is shown in the account card and
+        // filled into the MKDX profiles that have OnlineID / OnlineSecret, no button. Any PC: the one that starts the game
+        // last plays with it. No rank card: Mario Kart shows ranks only in the game's overlay.
+        // =============================================================================================================
+
+        private string _marioKartSecret = "";
+        private bool _marioKartSecretShown;
+
+        /// <summary>The account's Mario Kart pair in the account card (the website's answer, else the last one this PC got).</summary>
+        private void ShowMarioKartPair(string pcbId, string secret)
+        {
+            var local = MarioKartOnlineHelper.LocalCredential();
+            var id = MarioKartOnlineHelper.NormalizePcbId(pcbId);
+            var valid = id != null && MarioKartOnlineHelper.IsValidSecret(secret);
+            MarioKartPcbIdTextBox.Text = valid ? id : local?.PcbId ?? "";
+            _marioKartSecret = valid ? secret.Trim() : local?.Secret ?? "";
+            _marioKartSecretShown = false;
+            UpdateMarioKartSecretBox();
+        }
+
+        private void UpdateMarioKartSecretBox()
+        {
+            MarioKartSecretTextBox.Text = _marioKartSecret.Length == 0 ? "" : _marioKartSecretShown ? _marioKartSecret : KizunaSecretMask;
+            MarioKartSecretToggle.Content = _marioKartSecretShown ? R.AccountPageHideSecret : R.AccountPageShowSecret;
+            MarioKartSecretToggle.IsEnabled = _marioKartSecret.Length != 0;
+        }
+
+        private void MarioKartSecretToggle_Click(object sender, RoutedEventArgs e)
+        {
+            _marioKartSecretShown = !_marioKartSecretShown;
+            UpdateMarioKartSecretBox();
+        }
+
         /// <summary>
         /// A paste into a card's by-hand boxes: an Online ID or a secret as teknoparrot.com shows them goes into its own
         /// box, both at once from the website's OnlineID / OnlineSecret lines. Any other text pastes as usual.
@@ -1014,6 +1055,9 @@ namespace TeknoParrotUi.Views
             // Senjou no Kizuna Online: the account's PCB ID and secret; null while the website has it switched off.
             public string KizunaPcbId { get; set; }
             public string KizunaSecret { get; set; }
+            // Mario Kart Arcade GP DX Online: the account's PCB ID and secret; null while the website has it switched off.
+            public string MarioKartPcbId { get; set; }
+            public string MarioKartSecret { get; set; }
             public bool IsSubscribed { get; set; }
             public List<SerialStatus> Serials { get; set; }
             public DateTime? ExpirationDate { get; set; }

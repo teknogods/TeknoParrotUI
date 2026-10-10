@@ -337,6 +337,7 @@
     <Compile Include="Helpers\KizunaAvatarApi.cs" />
     <Compile Include="Helpers\KizunaAvatarGameData.cs" />
     <Compile Include="Helpers\KizunaOnlineHelper.cs" />
+    <Compile Include="Helpers\MarioKartOnlineHelper.cs" />
     <Compile Include="Helpers\NativeMethods.cs" />
     <Compile Include="Helpers\OAuthHelper.cs" />
     <Compile Include="Helpers\PEPatcher.cs" />

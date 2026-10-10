@@ -308,6 +308,11 @@ namespace TeknoParrotUi.Views
 
         private void AutoFillOnlineId(GameProfile profile)
         {
+            // Mario Kart Arcade GP DX Online: the account's PCB ID + secret pair into the fixed OnlineID / OnlineSecret fields
+            // (profiles that have them). No return: the PlayerId fill below still runs.
+            if (profile.OnlineIdType == OnlineIdType.MarioKartId)
+                MarioKartOnlineHelper.AutoFill(profile);
+
             if (string.IsNullOrEmpty(profile.OnlineIdFieldName))
                 return;
 
