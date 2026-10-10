@@ -8,8 +8,8 @@
   <Is64Bit>true</Is64Bit>
   <ExecutableName>dendego3.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
-  <Patreon>false</Patreon>
-  <DevOnly>true</DevOnly>
+  <Patreon>true</Patreon>
+  <DevOnly>false</DevOnly>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>

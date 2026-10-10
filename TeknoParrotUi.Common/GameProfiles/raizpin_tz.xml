@@ -9,8 +9,8 @@
   <Is64Bit>true</Is64Bit>
   <ExecutableName>raizpin.zip</ExecutableName>
   <HasTwoExecutables>false</HasTwoExecutables>
-  <Patreon>false</Patreon>
-  <DevOnly>true</DevOnly>
+  <Patreon>true</Patreon>
+  <DevOnly>false</DevOnly>
   <ConfigValues>
     <FieldInformation>
       <CategoryName>General</CategoryName>
