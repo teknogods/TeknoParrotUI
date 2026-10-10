@@ -2,7 +2,7 @@
 <GameProfile>
   <GamePath />
   <EmulationProfile>TeknoTZero</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <HasTpoSupport>true</HasTpoSupport>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoTZero</EmulatorType>
@@ -12,6 +12,17 @@
   <Patreon>true</Patreon>
   <DevOnly>false</DevOnly>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Input API</FieldName>
+      <FieldValue>DirectInput</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>DirectInput</string>
+        <string>XInput</string>
+        <string>MergedInput</string>
+      </FieldOptions>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Game Version</FieldName>
@@ -426,6 +437,31 @@
       <FieldValue>1</FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Milliseconds per native period unit, 1-20.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Input</CategoryName>
+      <FieldName>Use Keyboard/Button For Axis</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Bool</FieldType>
+      <Hint>DirectInput only. Bind the separate axis directions in Controller Setup to keyboard keys or controller buttons.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Input</CategoryName>
+      <FieldName>Keyboard/Button Axis Wheel Sensitivity</FieldName>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>127</FieldMax>
+      <FieldStep>1</FieldStep>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Input</CategoryName>
+      <FieldName>Keyboard/Button Axis Pedal Sensitivity</FieldName>
+      <FieldValue>10</FieldValue>
+      <FieldType>Slider</FieldType>
+      <FieldMin>1</FieldMin>
+      <FieldMax>255</FieldMax>
+      <FieldStep>1</FieldStep>
     </FieldInformation>
   </ConfigValues>
   <JoystickButtons>
