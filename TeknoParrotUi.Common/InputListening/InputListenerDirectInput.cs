@@ -130,6 +130,7 @@ namespace TeknoParrotUi.Common.InputListening
         private static int _keyboardAxisStep = 10;
         private static bool UsesIndependentKeyboardAxes =>
             NamcoGameRevisions.UsesIndependentCabinetAxes(_gameProfile) ||
+            TypeZeroControls.IsPowerShovel(_gameProfile) ||
             _gameProfile?.EmulationProfile == EmulationProfile.TeknoS21 ||
             _gameProfile?.EmulationProfile == EmulationProfile.TeknoHDrive;
         private static bool ReverseYAxis = false;
@@ -3452,6 +3453,12 @@ namespace TeknoParrotUi.Common.InputListening
                 }
                 if (direction) return null;
             }
+            // DirectInput's legacy AnalogJoystickReverse handling preserves Y polarity.
+            // Power Shovel's four horizontal lever channels need an explicit reversal.
+            if (TypeZeroControls.IsPowerShovel(_gameProfile) && joystickButtons.AnalogType == AnalogType.AnalogJoystickReverse &&
+                (joystickButtons.InputMapping == InputMapping.Analog0 || joystickButtons.InputMapping == InputMapping.Analog4 ||
+                 joystickButtons.InputMapping == InputMapping.Analog8 || joystickButtons.InputMapping == InputMapping.Analog12))
+                return (byte)~JvsHelper.CalculateWheelPos(state.Value);
             if (NamcoGameRevisions.UsesIndependentCabinetAxes(_gameProfile) && joystickButtons.AnalogType == AnalogType.AnalogJoystickY)
                 return JvsHelper.CalculateWheelPos(state.Value);
             if (NamcoGameRevisions.UsesIndependentCabinetAxes(_gameProfile) && joystickButtons.AnalogType == AnalogType.AnalogJoystickReverse)

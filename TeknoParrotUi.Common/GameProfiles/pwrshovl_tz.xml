@@ -2,7 +2,7 @@
 <GameProfile>
   <GamePath />
   <EmulationProfile>TeknoTZero</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasTpoSupport>true</HasTpoSupport>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoTZero</EmulatorType>
@@ -403,16 +403,16 @@
       <InputMapping>P2Button5</InputMapping>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Joystick X</ButtonName>
+      <ButtonName>Player 1 Left X</ButtonName>
       <InputMapping>Analog0</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <Hint>Player 1 left lever</Hint>
       <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Joystick Left</ButtonName>
+      <ButtonName>Player 1 Left X (Left)</ButtonName>
       <InputMapping>Analog0</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>Maximum</AnalogType>
       <Hint>Player 1 left lever</Hint>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>
@@ -420,9 +420,9 @@
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Joystick Right</ButtonName>
+      <ButtonName>Player 1 Left X (Right)</ButtonName>
       <InputMapping>Analog0</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>Minimum</AnalogType>
       <Hint>Player 1 left lever</Hint>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>
@@ -430,16 +430,16 @@
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Joystick Y</ButtonName>
+      <ButtonName>Player 1 Left Y</ButtonName>
       <InputMapping>Analog2</InputMapping>
       <AnalogType>AnalogJoystickReverse</AnalogType>
       <Hint>Player 1 left lever</Hint>
       <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Joystick Up</ButtonName>
+      <ButtonName>Player 1 Left Y (Up)</ButtonName>
       <InputMapping>Analog2</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <AnalogType>Minimum</AnalogType>
       <Hint>Player 1 left lever</Hint>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>
@@ -447,9 +447,9 @@
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 1 Joystick Down</ButtonName>
+      <ButtonName>Player 1 Left Y (Down)</ButtonName>
       <InputMapping>Analog2</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <AnalogType>Maximum</AnalogType>
       <Hint>Player 1 left lever</Hint>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>
@@ -457,16 +457,16 @@
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Joystick X</ButtonName>
+      <ButtonName>Player 1 Right X</ButtonName>
       <InputMapping>Analog4</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <Hint>Player 1 right lever</Hint>
       <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Joystick Left</ButtonName>
+      <ButtonName>Player 1 Right X (Left)</ButtonName>
       <InputMapping>Analog4</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>Maximum</AnalogType>
       <Hint>Player 1 right lever</Hint>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>
@@ -474,9 +474,9 @@
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Joystick Right</ButtonName>
+      <ButtonName>Player 1 Right X (Right)</ButtonName>
       <InputMapping>Analog4</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>Minimum</AnalogType>
       <Hint>Player 1 right lever</Hint>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>
@@ -484,16 +484,16 @@
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Joystick Y</ButtonName>
+      <ButtonName>Player 1 Right Y</ButtonName>
       <InputMapping>Analog6</InputMapping>
       <AnalogType>AnalogJoystickReverse</AnalogType>
       <Hint>Player 1 right lever</Hint>
       <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Joystick Up</ButtonName>
+      <ButtonName>Player 1 Right Y (Up)</ButtonName>
       <InputMapping>Analog6</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <AnalogType>Minimum</AnalogType>
       <Hint>Player 1 right lever</Hint>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>
@@ -501,9 +501,9 @@
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 2 Joystick Down</ButtonName>
+      <ButtonName>Player 1 Right Y (Down)</ButtonName>
       <InputMapping>Analog6</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <AnalogType>Maximum</AnalogType>
       <Hint>Player 1 right lever</Hint>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>
@@ -511,16 +511,16 @@
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 3 Joystick X</ButtonName>
+      <ButtonName>Player 2 Left X</ButtonName>
       <InputMapping>Analog8</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>AnalogJoystickReverse</AnalogType>
       <Hint>Player 2 left lever</Hint>
       <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 3 Joystick Left</ButtonName>
+      <ButtonName>Player 2 Left X (Left)</ButtonName>
       <InputMapping>Analog8</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>Maximum</AnalogType>
       <Hint>Player 2 left lever</Hint>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>
@@ -528,9 +528,9 @@
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 3 Joystick Right</ButtonName>
+      <ButtonName>Player 2 Left X (Right)</ButtonName>
       <InputMapping>Analog8</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
+      <AnalogType>Minimum</AnalogType>
       <Hint>Player 2 left lever</Hint>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>
@@ -538,16 +538,16 @@
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 3 Joystick Y</ButtonName>
+      <ButtonName>Player 2 Left Y</ButtonName>
       <InputMapping>Analog10</InputMapping>
       <AnalogType>AnalogJoystickReverse</AnalogType>
       <Hint>Player 2 left lever</Hint>
       <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 3 Joystick Up</ButtonName>
+      <ButtonName>Player 2 Left Y (Up)</ButtonName>
       <InputMapping>Analog10</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <AnalogType>Minimum</AnalogType>
       <Hint>Player 2 left lever</Hint>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>
@@ -555,9 +555,9 @@
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 3 Joystick Down</ButtonName>
+      <ButtonName>Player 2 Left Y (Down)</ButtonName>
       <InputMapping>Analog10</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <AnalogType>Maximum</AnalogType>
       <Hint>Player 2 left lever</Hint>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>
@@ -565,43 +565,16 @@
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 4 Joystick X</ButtonName>
+      <ButtonName>Player 2 Right X</ButtonName>
       <InputMapping>Analog12</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
-      <Hint>Player 2 right lever</Hint>
-      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 4 Joystick Left</ButtonName>
-      <InputMapping>Analog12</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
-      <Hint>Player 2 right lever</Hint>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithRawInput>true</HideWithRawInput>
-      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 4 Joystick Right</ButtonName>
-      <InputMapping>Analog12</InputMapping>
-      <AnalogType>AnalogJoystick</AnalogType>
-      <Hint>Player 2 right lever</Hint>
-      <HideWithXInput>true</HideWithXInput>
-      <HideWithRawInput>true</HideWithRawInput>
-      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
-      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
-    </JoystickButtons>
-    <JoystickButtons>
-      <ButtonName>Player 4 Joystick Y</ButtonName>
-      <InputMapping>Analog14</InputMapping>
       <AnalogType>AnalogJoystickReverse</AnalogType>
       <Hint>Player 2 right lever</Hint>
       <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 4 Joystick Up</ButtonName>
-      <InputMapping>Analog14</InputMapping>
-      <AnalogType>AnalogJoystickReverse</AnalogType>
+      <ButtonName>Player 2 Right X (Left)</ButtonName>
+      <InputMapping>Analog12</InputMapping>
+      <AnalogType>Maximum</AnalogType>
       <Hint>Player 2 right lever</Hint>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>
@@ -609,9 +582,36 @@
       <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
     </JoystickButtons>
     <JoystickButtons>
-      <ButtonName>Player 4 Joystick Down</ButtonName>
+      <ButtonName>Player 2 Right X (Right)</ButtonName>
+      <InputMapping>Analog12</InputMapping>
+      <AnalogType>Minimum</AnalogType>
+      <Hint>Player 2 right lever</Hint>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Right Y</ButtonName>
       <InputMapping>Analog14</InputMapping>
       <AnalogType>AnalogJoystickReverse</AnalogType>
+      <Hint>Player 2 right lever</Hint>
+      <HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Right Y (Up)</ButtonName>
+      <InputMapping>Analog14</InputMapping>
+      <AnalogType>Minimum</AnalogType>
+      <Hint>Player 2 right lever</Hint>
+      <HideWithXInput>true</HideWithXInput>
+      <HideWithRawInput>true</HideWithRawInput>
+      <HideWithRawInputTrackball>true</HideWithRawInputTrackball>
+      <HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+    </JoystickButtons>
+    <JoystickButtons>
+      <ButtonName>Player 2 Right Y (Down)</ButtonName>
+      <InputMapping>Analog14</InputMapping>
+      <AnalogType>Maximum</AnalogType>
       <Hint>Player 2 right lever</Hint>
       <HideWithXInput>true</HideWithXInput>
       <HideWithRawInput>true</HideWithRawInput>

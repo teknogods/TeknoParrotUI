@@ -115,6 +115,9 @@ namespace TeknoParrotUi.Common
                 {
                     var oldButton = other.JoystickButtons[i];
                     var button = gameProfile.JoystickButtons.FirstOrDefault(x => x.ButtonName == oldButton.ButtonName);
+                    if (button == null && TypeZeroControls.IsPowerShovel(gameProfile))
+                        button = gameProfile.JoystickButtons.FirstOrDefault(x =>
+                            TypeZeroControls.PreviousControlName(gameProfile, x.ButtonName) == oldButton.ButtonName);
                     if (button == null && gameProfile.EmulatorType == EmulatorType.TeknoS22)
                     {
                         button = gameProfile.JoystickButtons.FirstOrDefault(x =>

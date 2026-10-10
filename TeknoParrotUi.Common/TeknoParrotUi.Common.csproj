@@ -278,6 +278,7 @@
     <Compile Include="ArcadeGameRevisions.Cps.cs" />
     <Compile Include="ArcadeGameRevisions.Ss32.cs" />
     <Compile Include="OnlineGameRevisionProfiles.cs" />
+    <Compile Include="TypeZeroControls.cs" />
     <Compile Include="CabinetOutputSettings.cs" />
     <Compile Include="InputCode.cs" />
     <Compile Include="JoystickMapping.cs" />

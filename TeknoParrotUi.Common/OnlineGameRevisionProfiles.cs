@@ -90,6 +90,7 @@ namespace TeknoParrotUi.Common
             profile.EmulationProfile = stock.EmulationProfile;
             profile.HasTpoSupport = stock.HasTpoSupport;
             profile.ConfigValues = profile.ConfigValues ?? new List<FieldInformation>();
+            TypeZeroControls.UpgradeSavedPowerShovelControls(stock, profile);
             var selection = profile.ConfigValues.FirstOrDefault(field => field.FieldName == "Game Version");
             if (selection == null)
             {

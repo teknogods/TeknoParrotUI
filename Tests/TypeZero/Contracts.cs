@@ -120,6 +120,7 @@ internal static class Contracts
                 saved.ConfigValues.Single(x => x.FieldName == "Internal Resolution").FieldValue = "8";
                 saved.JoystickButtons[0].ButtonName = "Saved controller binding";
                 saved.HasTpoSupport = false; // Existing user profiles predate the online flag.
+                if (id == "pwrshovl_tz") PowerShovelControls.MakeLegacy(saved);
                 if (id == "batlgr2_tz") saved.ConfigValues.Single(x => x.FieldName == "XInput Rumble").FieldValue = "1";
                 else saved.ConfigValues.RemoveAll(x => x.FieldName == "Game Version");
                 using (var output = File.Create(Path.Combine("UserProfiles", id + ".xml")))
@@ -131,6 +132,7 @@ internal static class Contracts
                 var userPath = Path.Combine("UserProfiles", parent + ".xml");
                 var before = File.ReadAllBytes(userPath);
                 var loaded = OnlineGameRevisionProfiles.Load(id);
+                if (parent == "pwrshovl_tz") PowerShovelControls.CheckMigrated(loaded);
                 var set = id.Replace("_personal_tz", "_tz");
                 set = set.Substring(0, set.Length - 3);
                 Check(loaded.ProfileName == parent && loaded.HasTpoSupport && loaded.EmulatorType == EmulatorType.TeknoTZero,
@@ -211,10 +213,7 @@ internal static class Contracts
                 profile.GamePath = "C:\\ROM library\\" + profile.ExecutableName;
                 if (profile.ProfileName == "pwrshovl_tz")
                 {
-                    // These names select the existing four-stick keyboard dispatcher.
-                    for (var player = 1; player <= 4; ++player)
-                        foreach (var axis in new[] { "X", "Y" })
-                            Check(profile.JoystickButtons.Any(b => b.ButtonName == $"Player {player} Joystick {axis}"), "Shovel axis not recognized by input listener");
+                    PowerShovelControls.Check(profile);
                 }
                 var start = TeknoTZeroLauncher.Build(profile, null, null);
                 var args = Args(start.Arguments);
