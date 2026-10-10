@@ -39,6 +39,7 @@ namespace TeknoParrotUi.Common.InputListening
         private static bool bg4Key = false;
         private static bool ReverseYAxis = false;
         private static bool ReverseSWThrottleAxis = false;
+        private static bool SingleThrottleAxis = false;
         private static bool StartButtonInitialD = false;
         private static bool TestButtonInitialD = false;
         private static bool RelativeInput = false;
@@ -107,6 +108,7 @@ namespace TeknoParrotUi.Common.InputListening
 
                 ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");
                 ReverseSWThrottleAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Throttle Axis" && x.FieldValue == "1");
+                SingleThrottleAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Throttle Mode" && x.FieldValue == "Single Axis (Flight Throttle)");
                 RelativeInput = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Relative Input" && x.FieldValue == "1");
                 
                 // Initialize rotary encoder mode flag
@@ -2178,14 +2180,16 @@ namespace TeknoParrotUi.Common.InputListening
                 case AnalogType.Brake:
                     return AnalogHelper.CalculateAxisOrTriggerGasBrakeXinput(joystickButtons.XInputButton, state, (byte)_gameProfile.GasAxisMin, (byte)_gameProfile.GasAxisMax);
                 case AnalogType.SWThrottle:
+                    if (SingleThrottleAxis && joystickButtons.ButtonName == "Throttle Brake")
+                        return null;
                     byte SWThrottlePos = 0;
                     if (ReverseSWThrottleAxis)
                     {
-                        SWThrottlePos = (byte)~AnalogHelper.CalculateSWThrottleXinput(joystickButtons.XInputButton, state);
+                        SWThrottlePos = (byte)~AnalogHelper.CalculateSWThrottleXinput(joystickButtons.XInputButton, state, !SingleThrottleAxis);
                     }
                     else
                     {
-                        SWThrottlePos = AnalogHelper.CalculateSWThrottleXinput(joystickButtons.XInputButton, state);
+                        SWThrottlePos = AnalogHelper.CalculateSWThrottleXinput(joystickButtons.XInputButton, state, !SingleThrottleAxis);
                     }
                     return SWThrottlePos;
                 case AnalogType.Wheel:

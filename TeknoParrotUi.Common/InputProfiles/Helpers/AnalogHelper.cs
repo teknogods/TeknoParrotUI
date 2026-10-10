@@ -6,8 +6,12 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
 {
     public static class AnalogHelper
     {
-        public static byte CalculateSWThrottleXinput(XInputButton button, State state)
+        public static byte CalculateSWThrottleXinput(XInputButton button, State state, bool splitTriggers = true)
         {
+            // Single axis mode: a trigger drives the whole lever range on its own instead of being paired with the opposite trigger
+            if (!splitTriggers && (button.IsLeftTrigger || button.IsRightTrigger))
+                return button.IsLeftTrigger ? state.Gamepad.LeftTrigger : state.Gamepad.RightTrigger;
+
             if (button.IsButton)
             {
                 var btnPress = DigitalHelper.GetButtonPressXinput(button, state, 0);

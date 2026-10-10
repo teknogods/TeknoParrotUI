@@ -134,6 +134,7 @@ namespace TeknoParrotUi.Common.InputListening
             _gameProfile?.EmulationProfile == EmulationProfile.TeknoHDrive;
         private static bool ReverseYAxis = false;
         private static bool ReverseSWThrottleAxis = false;
+        private static bool SingleThrottleAxis = false;
         
         // Rotary encoder input mode flag
         private static bool UseButtonModeRotary = false;
@@ -290,6 +291,7 @@ namespace TeknoParrotUi.Common.InputListening
             KeyboardorButtonAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Keyboard/Button For Axis" && x.FieldValue == "1");
             ReverseYAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Y Axis" && x.FieldValue == "1");
             ReverseSWThrottleAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Reverse Throttle Axis" && x.FieldValue == "1");
+            SingleThrottleAxis = gameProfile.ConfigValues.Any(x => x.FieldName == "Throttle Mode" && x.FieldValue == "Single Axis (Flight Throttle)");
             RelativeInput = gameProfile.ConfigValues.Any(x => x.FieldName == "Use Relative Input" && x.FieldValue == "1");
             
             // Initialize rotary encoder mode flag
@@ -4135,6 +4137,9 @@ namespace TeknoParrotUi.Common.InputListening
                     }
                 case AnalogType.SWThrottle:
                     {
+                        if (SingleThrottleAxis && joystickButtons.ButtonName == "Throttle Brake")
+                            break;
+
                         byte gas;
 
                         if (ReverseSWThrottleAxis)
