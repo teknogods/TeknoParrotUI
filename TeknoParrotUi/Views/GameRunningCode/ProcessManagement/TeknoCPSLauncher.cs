@@ -115,6 +115,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             {
                 args.AddRange(new[] { "--renderer", "vulkan" });
                 NativeArcadeLaunch.AddPresentation(profile, root, args);
+                var aspect = profile.ConfigValues?.FirstOrDefault(x => x.FieldName == "Aspect Ratio")?.FieldValue ?? "Native";
+                if (!new[] { "Native", "4:3", "16:9", "Stretch" }.Contains(aspect)) throw new ArgumentException("Invalid Aspect Ratio");
+                args.AddRange(new[] { "--aspect", aspect.ToLowerInvariant() });
             }
             var cdRoot = profile.ConfigValues?.FirstOrDefault(x => x.FieldName == "CD Image Folder")?.FieldValue;
             if (!string.IsNullOrWhiteSpace(cdRoot))

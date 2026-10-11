@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Dungeons &amp; Dragons: Tower of Doom (Europe 940412 Phoenix Edition) (bootleg)</GameNameInternal>
   <EmulationProfile>TeknoCPS</EmulationProfile>
-  <GameProfileRevision>5</GameProfileRevision>
+  <GameProfileRevision>6</GameProfileRevision>
   <EmulatorType>TeknoCPS</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>ddtodd.zip</ExecutableName>
@@ -56,6 +56,19 @@
         <string>Windowed</string>
         <string>Fullscreen</string>
       </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Aspect Ratio</FieldName>
+      <FieldValue>Native</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Native</string>
+        <string>4:3</string>
+        <string>16:9</string>
+        <string>Stretch</string>
+      </FieldOptions>
+      <Hint>Native preserves the framebuffer ratio. Fixed ratios rotate with vertical games (3:4 or 9:16). Stretch fills the window.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Video</CategoryName>

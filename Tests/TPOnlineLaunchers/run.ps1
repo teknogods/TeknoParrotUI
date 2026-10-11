@@ -36,6 +36,7 @@ $exe = Join-Path $output 'TPOnlineLaunchers.exe'
     (Join-Path $PSScriptRoot 'AnalogInputChecks.cs') `
     (Join-Path $PSScriptRoot 'DigitalInputChecks.cs') `
     (Join-Path $root 'TeknoParrotUi\Helpers\NamcoFfbDeviceProbe.cs') `
+    (Join-Path $root 'TeknoParrotUi\Helpers\NamcoCameraDeviceProbe.cs') `
     (Join-Path $root 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\ForceFeedbackArguments.cs') `
     (Join-Path $root 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\NativeArcadeLaunch.cs') `
     (Join-Path $root 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\TeknoSS32Launcher.cs') `
