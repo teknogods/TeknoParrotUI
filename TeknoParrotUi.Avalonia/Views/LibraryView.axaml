@@ -61,6 +61,8 @@
                             IsVisible="False" Click="BtnGtOnTp_Click" />
                     <Button Name="BtnOnlineProfile" Content="Online profile" HorizontalAlignment="Stretch"
                             IsVisible="False" Click="BtnOnlineProfile_Click" />
+                    <Button Name="BtnKizunaAvatar" Content="Pilot Avatar" HorizontalAlignment="Stretch"
+                            IsVisible="False" Click="BtnKizunaAvatar_Click" />
                     <StackPanel Name="LanPanel" IsVisible="False" Spacing="6">
                         <TextBlock Name="LanText" TextWrapping="Wrap" />
                         <Button Name="BtnLanTogether" Content="Start together" Click="BtnLanTogether_Click" />

@@ -32,6 +32,7 @@ public partial class LibraryView : UserControl
     public event Action<GameProfile, bool>? NativeLaunchRequested;
     public event Action? AccountRequested;
     public event Action? OnlineRequested;
+    public event Action<GameProfile>? KizunaAvatarRequested;
 
     public LibraryView()
     {
@@ -357,6 +358,7 @@ public partial class LibraryView : UserControl
         BtnFriends.IsVisible = Common.Online.InitialDUnifiedMode.IsMatchmakingProfile(p);
         BtnGtOnTp.IsVisible = p?.HasGtOnTp == true;
         BtnOnlineProfile.IsVisible = !string.IsNullOrWhiteSpace(p?.OnlineProfileURL);
+        BtnKizunaAvatar.IsVisible = p?.OnlineIdType == OnlineIdType.Kizuna;
         BtnPlayOnline.IsVisible = p?.HasTpoSupport == true && !Common.Online.InitialDUnifiedMode.IsTpoRetired(p) &&
             !OperatingSystem.IsAndroid();
         BtnLaunch.IsEnabled = p != null && !p.IsTpoExclusive;
@@ -365,7 +367,7 @@ public partial class LibraryView : UserControl
         GameTitle.Text = p != null ? DisplayName(p) : "";
         GameGenre.Text = p?.GameGenreInternal ?? "";
         GamePathText.Text = p?.GamePath ?? "";
-        var terminal = p?.ConfigValues?.Any(field => field.CategoryName == "General" && field.FieldType == FieldType.Bool &&
+        var terminal = p?.TestMenuIsTerminal == true || p?.ConfigValues?.Any(field => field.CategoryName == "General" && field.FieldType == FieldType.Bool &&
             field.FieldName is "TerminalMode" or "Terminal Mode") == true;
         BtnTestMode.IsVisible = p != null && PlatformCapabilities.CanLaunchGames;
         BtnTestMode.IsEnabled = terminal || (p?.HasSeparateTestMode ?? false);
@@ -581,7 +583,7 @@ public partial class LibraryView : UserControl
         _launchPending = true;
         try
         {
-            if (!testMode && !await Services.OnlineLaunchFlow.BeforeLaunchAsync(this, p, friends,
+            if ((!testMode || p.TestMenuIsTerminal) && !await Services.OnlineLaunchFlow.BeforeLaunchAsync(this, p, friends,
                 () => AccountRequested?.Invoke())) return;
             if (_lanSession?.Peers().Count > 0) await Services.OnlineLaunchFlow.OfferFirewallAsync(this, p);
             StopLanPresence();

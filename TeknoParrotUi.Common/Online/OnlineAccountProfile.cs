@@ -15,6 +15,10 @@ namespace TeknoParrotUi.Common.Online
         public string HighscoreSerial { get; set; }
         public string NamcoId { get; set; }
         public string MarioKartId { get; set; }
+        public string KizunaPcbId { get; set; }
+        public string KizunaSecret { get; set; }
+        public string MarioKartPcbId { get; set; }
+        public string MarioKartSecret { get; set; }
         public int? GoldenTeePcbId { get; set; }
         public string GoldenTeeCardId { get; set; }
         public bool IsSubscribed { get; set; }
@@ -36,7 +40,7 @@ namespace TeknoParrotUi.Common.Online
         {
             if (string.IsNullOrWhiteSpace(token)) return null;
             using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };
-            using var request = new HttpRequestMessage(HttpMethod.Get, "https://teknoparrot.com/api/User/Profile");
+            using var request = new HttpRequestMessage(HttpMethod.Get, KizunaOnlineHelper.ProfileUrl);
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             using var response = await http.SendAsync(request).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
@@ -48,6 +52,8 @@ namespace TeknoParrotUi.Common.Online
             data.ScoreSubmissionID = profile.HighscoreSerial;
             data.NamcoId = profile.NamcoId;
             data.MarioKartId = profile.MarioKartId;
+            KizunaOnlineHelper.StoreFromAccount(profile.KizunaPcbId, profile.KizunaSecret);
+            MarioKartOnlineHelper.StoreFromAccount(profile.MarioKartPcbId, profile.MarioKartSecret);
             if (profile.GoldenTeePcbId.HasValue && !string.IsNullOrEmpty(profile.GoldenTeeCardId))
             {
                 data.GoldenTeePcbId = profile.GoldenTeePcbId.Value.ToString();

@@ -171,6 +171,7 @@ namespace TeknoParrotUi.Common.Updater
 
             components.AddRange(new List<UpdaterComponent>
             {
+            new UpdaterComponent { name = "TeknoTZero", location = Path.Combine("TeknoTZero", "TeknoTZero.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoTZero" },
             new UpdaterComponent { name = "GTonTP", location = Path.Combine("Tools", "GTonTP", "GTTPEditor.exe"), reponame = "GTonTP", opensource = false, manualVersion = true, folderOverride = Path.Combine("Tools", "GTonTP") },
             new UpdaterComponent { name = "TeknoHDrive", location = Path.Combine("TeknoHDrive", "TeknoHDrive.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoHDrive" },
             new UpdaterComponent { name = "TeknoMagic", location = Path.Combine("TeknoMagic", "teknomagic.exe"), reponame = "TeknoParrot", opensource = false, folderOverride = "TeknoMagic" },

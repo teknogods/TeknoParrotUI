@@ -56,6 +56,8 @@ namespace TeknoParrotUi.Common
         public string InitialDOnlineSecret { get; set; } = "";
         public string KizunaOnlineId { get; set; } = "";
         public string KizunaOnlineSecret { get; set; } = "";
+        public string MarioKartOnlineId { get; set; } = "";
+        public string MarioKartOnlineSecret { get; set; } = "";
         public bool InitialDUnifiedNoticeShown { get; set; }
         public bool InitialDRegisterPromptOff { get; set; }
         public string InitialDOldLoaderMigrated { get; set; } = "";

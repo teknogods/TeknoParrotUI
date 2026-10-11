@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Race On!</GameNameInternal>
   <EmulationProfile>TeknoS23</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <EmulatorType>TeknoS23</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>raceon.zip</ExecutableName>
@@ -19,6 +19,13 @@
   <yAxisMin>0</yAxisMin>
   <yAxisMax>255</yAxisMax>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Language</FieldName>
+      <FieldValue>default</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Choose a language supported by the selected game revision.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Game Revision</FieldName>
@@ -206,6 +213,26 @@
       <FieldName>VSync</FieldName>
       <FieldValue>1</FieldValue>
       <FieldType>Bool</FieldType>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>NAMCAM</CategoryName>
+      <FieldName>Webcam</FieldName>
+      <FieldValue>off</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select a Windows webcam for your player photo.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>NAMCAM</CategoryName>
+      <FieldName>Webcam Rotation</FieldName>
+      <FieldValue>0</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>0</string>
+        <string>90</string>
+        <string>180</string>
+        <string>270</string>
+      </FieldOptions>
+      <Hint>Rotate the camera image clockwise (degrees).</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Audio</CategoryName>

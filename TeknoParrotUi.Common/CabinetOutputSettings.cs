@@ -39,6 +39,7 @@ namespace TeknoParrotUi.Common
                 case EmulatorType.TeknoAGX:
                 case EmulatorType.TeknoS22:
                 case EmulatorType.TeknoS23:
+                case EmulatorType.TeknoTZero:
                 case EmulatorType.TeknoS21:
                 case EmulatorType.TeknoS11:
                 case EmulatorType.TeknoTPJC:

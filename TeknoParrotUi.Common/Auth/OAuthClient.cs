@@ -17,11 +17,8 @@ namespace TeknoParrotUi.Common.Auth
     /// <summary>
     /// Cross-platform OAuth2 + PKCE client for teknoparrot.com accounts.
     ///
-    /// On Windows it uses the classic teknoparrot://oauth/callback custom scheme
-    /// (the redirect URI the production server whitelists); the browser launches a
-    /// second app instance which relays the callback over a named pipe. On other
-    /// platforms it uses a loopback redirect (RFC 8252), which requires the
-    /// server-side loopback whitelist fix to be deployed.
+    /// Uses an RFC 8252 loopback TCP callback on every desktop platform, including
+    /// Windows. It does not need a registered browser URI handler or HTTP.sys.
     ///
     /// Token cache: %LocalAppData%/TeknoParrot/auth_token.dat, DPAPI-protected on
     /// Windows — the same file and format as the classic UI, so a login in either
@@ -34,11 +31,8 @@ namespace TeknoParrotUi.Common.Auth
         private const string TokenEndpoint = "https://teknoparrot.com/api/OAuth/token";
         private const string ClientId = "teknoparrot_wpf_client";
 
-        // Classic custom-scheme redirect — the only redirect URI the production
-        // server whitelists today. The browser bounces to teknoparrot://oauth/callback,
-        // Windows launches a second instance of this exe with the URI as argument,
-        // and that instance relays it to the waiting login over a named pipe.
-        private const string SchemeRedirectUri = "teknoparrot://oauth/callback";
+        // Retained only for relaying callbacks opened by older installed frontends.
+        // New logins use TcpOAuthCallback and never register a URI scheme.
         private const string CallbackPipeName = "TeknoParrotOAuthCallback";
 
         private readonly HttpClient _httpClient = new()
@@ -48,6 +42,8 @@ namespace TeknoParrotUi.Common.Auth
         private string _token;
         private string _refreshToken;
         private DateTime _tokenExpiry = DateTime.MinValue;
+        private readonly object _loginGate = new();
+        private CancellationTokenSource _activeLogin;
 
         public OAuthClient()
         {
@@ -111,20 +107,21 @@ namespace TeknoParrotUi.Common.Auth
         public async Task<bool> LoginAsync(bool freshLogin, CancellationToken ct = default)
         {
             using var timeout = CancellationTokenSource.CreateLinkedTokenSource(ct);
-            timeout.CancelAfter(TimeSpan.FromMinutes(5));
+            lock (_loginGate) { _activeLogin?.Cancel(); _activeLogin = timeout; }
+            timeout.CancelAfter(TimeSpan.FromMinutes(10));
 
             try
             {
-                // Windows: use the classic teknoparrot:// scheme redirect — the only one
-                // production currently allows. Loopback (RFC 8252) is used elsewhere and
-                // becomes the universal path once the server-side loopback fix is deployed.
-                if (OperatingSystem.IsWindows())
-                    return await LoginViaCustomSchemeAsync(timeout.Token, freshLogin);
                 return await LoginViaLoopbackAsync(timeout.Token, freshLogin);
             }
             catch (OperationCanceledException) when (timeout.IsCancellationRequested)
             {
                 return false;
+            }
+            finally
+            {
+                lock (_loginGate)
+                    if (ReferenceEquals(_activeLogin, timeout)) _activeLogin = null;
             }
         }
 
@@ -149,144 +146,20 @@ namespace TeknoParrotUi.Common.Auth
             }
         }
 
-        private async Task<bool> LoginViaCustomSchemeAsync(CancellationToken ct, bool freshLogin)
-        {
-            RegisterSchemeHandler();
-
-            var codeVerifier = GenerateCodeVerifier();
-            var codeChallenge = GenerateCodeChallenge(codeVerifier);
-            var state = Guid.NewGuid().ToString("N");
-
-            using var pipe = new NamedPipeServerStream(CallbackPipeName, PipeDirection.In, 1,
-                PipeTransmissionMode.Byte, PipeOptions.Asynchronous);
-
-            var authorizationUrl = $"{AuthorizeEndpoint}?" +
-                "response_type=code&" +
-                $"client_id={ClientId}&" +
-                $"redirect_uri={Uri.EscapeDataString(SchemeRedirectUri)}&" +
-                $"code_challenge={codeChallenge}&" +
-                "code_challenge_method=S256&" +
-                $"state={state}" + (freshLogin ? "&prompt=login" : "");
-
-            if (!OpenSystemBrowser(authorizationUrl))
-                return false;
-
-            string callbackUri;
-            try
-            {
-                await pipe.WaitForConnectionAsync(ct);
-                using var reader = new StreamReader(pipe, Encoding.UTF8);
-                callbackUri = await reader.ReadToEndAsync();
-            }
-            catch (OperationCanceledException)
-            {
-                return false;
-            }
-
-            // teknoparrot://oauth/callback?code=...&state=...
-            if (!Uri.TryCreate(callbackUri, UriKind.Absolute, out var parsed))
-                return false;
-            var query = System.Web.HttpUtility.ParseQueryString(parsed.Query);
-            var code = query["code"];
-            var returnedState = query["state"];
-            if (string.IsNullOrEmpty(code) || returnedState != state)
-                return false;
-
-            return await ExchangeCodeForTokenAsync(
-                code,
-                codeVerifier,
-                SchemeRedirectUri,
-                ct);
-        }
-
-        /// <summary>Registers teknoparrot:// in HKCU so the browser can bounce back to this exe.</summary>
-        private static void RegisterSchemeHandler()
-        {
-            try
-            {
-                var exePath = Environment.ProcessPath;
-                if (string.IsNullOrEmpty(exePath))
-                    return;
-
-                using var key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"Software\Classes\teknoparrot");
-                using (var existingCmd = key.OpenSubKey(@"shell\open\command"))
-                {
-                    var current = existingCmd?.GetValue("") as string;
-                    if (current != null && current.Contains(exePath))
-                        return;
-                }
-
-                key.SetValue("", "URL:TeknoParrot Protocol");
-                key.SetValue("URL Protocol", "");
-                using var cmdKey = key.CreateSubKey(@"shell\open\command");
-                cmdKey.SetValue("", $"\"{exePath}\" \"%1\"");
-            }
-            catch
-            {
-                // registry unavailable — login will fail visibly, nothing to do here
-            }
-        }
+        public event Action<string> BrowserLaunchFailed;
 
         private async Task<bool> LoginViaLoopbackAsync(CancellationToken ct, bool freshLogin)
         {
-            var codeVerifier = GenerateCodeVerifier();
-            var codeChallenge = GenerateCodeChallenge(codeVerifier);
+            using var callback = new TcpOAuthCallback();
+            var verifier = GenerateCodeVerifier();
             var state = Guid.NewGuid().ToString("N");
-
-            // Loopback listener on an ephemeral port
-            using var listener = new HttpListener();
-            var port = GetFreePort();
-            var redirectUri = $"http://127.0.0.1:{port}/callback/";
-            listener.Prefixes.Add(redirectUri);
-            listener.Start();
-
-            var authorizationUrl = $"{AuthorizeEndpoint}?" +
-                "response_type=code&" +
-                $"client_id={ClientId}&" +
-                $"redirect_uri={Uri.EscapeDataString(redirectUri.TrimEnd('/'))}&" +
-                $"code_challenge={codeChallenge}&" +
-                "code_challenge_method=S256&" +
-                $"state={state}" + (freshLogin ? "&prompt=login" : "");
-
-            if (!OpenSystemBrowser(authorizationUrl))
-                return false;
-
-            string code;
-            using (ct.Register(listener.Stop))
-            {
-                HttpListenerContext context;
-                try
-                {
-                    context = await listener.GetContextAsync();
-                }
-                catch (Exception) when (ct.IsCancellationRequested)
-                {
-                    return false;
-                }
-
-                var query = context.Request.QueryString;
-                code = query["code"];
-                var returnedState = query["state"];
-
-                var ok = !string.IsNullOrEmpty(code) && returnedState == state;
-                var html = ok
-                    ? "<html><body style='font-family:sans-serif'><h2>Login successful</h2>You can close this window and return to TeknoParrot.</body></html>"
-                    : "<html><body style='font-family:sans-serif'><h2>Login failed</h2>Please try again from TeknoParrot.</body></html>";
-                var buffer = Encoding.UTF8.GetBytes(html);
-                context.Response.ContentType = "text/html";
-                context.Response.ContentLength64 = buffer.Length;
-                await context.Response.OutputStream.WriteAsync(buffer, 0, buffer.Length, ct);
-                context.Response.Close();
-
-                if (!ok)
-                    return false;
-            }
-
-            return await ExchangeCodeForTokenAsync(
-                code,
-                codeVerifier,
-                redirectUri.TrimEnd('/'),
-                ct);
+            var redirect = callback.RedirectUri.AbsoluteUri;
+            var url = $"{AuthorizeEndpoint}?response_type=code&client_id={ClientId}&" +
+                $"redirect_uri={Uri.EscapeDataString(redirect)}&code_challenge={GenerateCodeChallenge(verifier)}&" +
+                $"code_challenge_method=S256&state={state}" + (freshLogin ? "&prompt=login" : "");
+            if (!OpenSystemBrowser(url)) BrowserLaunchFailed?.Invoke(url);
+            var code = await callback.WaitAsync(state, ct);
+            return !string.IsNullOrEmpty(code) && await ExchangeCodeForTokenAsync(code, verifier, redirect, ct);
         }
 
         public void Logout()
@@ -299,6 +172,8 @@ namespace TeknoParrotUi.Common.Auth
                 data.MarioKartId = "";
                 data.GoldenTeePcbId = "";
                 data.GoldenTeeCardId = "";
+                Online.KizunaOnlineHelper.ForgetAccount();
+                Online.MarioKartOnlineHelper.ForgetAccount();
                 data.IsLoggedIn = false;
                 try { JoystickHelper.Serialize(); } catch { }
             }
@@ -316,15 +191,6 @@ namespace TeknoParrotUi.Common.Auth
             if (DateTime.Now < _tokenExpiry.AddMinutes(-5))
                 return _token;
             return await RefreshAccessTokenAsync() ? _token : null;
-        }
-
-        private static int GetFreePort()
-        {
-            var l = new System.Net.Sockets.TcpListener(IPAddress.Loopback, 0);
-            l.Start();
-            var port = ((IPEndPoint)l.LocalEndpoint).Port;
-            l.Stop();
-            return port;
         }
 
         private static string GenerateCodeVerifier()

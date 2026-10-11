@@ -66,7 +66,7 @@ namespace TeknoParrotUi.Common.InputListening
             _gasDown = _p2GasDown = _brakeDown = _p2BrakeDown = _clutchDown = _handbrakeDown = false;
             _wheelActive = _p2WheelActive = _gasActive = _p2GasActive = _brakeActive = _p2BrakeActive = false;
             _clutchActive = _handbrakeActive = _handlebarActive = false;
-            _s21Profile = profile.EmulationProfile == EmulationProfile.TeknoS21;
+            _s21Profile = profile.EmulationProfile == EmulationProfile.TeknoS21 || TypeZeroControls.IsPowerShovel(profile);
             _teknoAxisProfile = IsTeknoAxisProfile(profile);
             Array.Clear(_s21Negative);
             Array.Clear(_s21Positive);
@@ -236,7 +236,8 @@ namespace TeknoParrotUi.Common.InputListening
             if (_s21Profile)
             {
                 _s21Step = SettingInt(profile, "Keyboard/Button Axis Sensitivity",
-                    SettingInt(profile, "Keyboard/Button Axis Wheel Sensitivity", 10));
+                    SettingInt(profile, TypeZeroControls.IsPowerShovel(profile)
+                        ? "Keyboard/Button Axis X/Y Sensitivity" : "Keyboard/Button Axis Wheel Sensitivity", 10));
                 _s21Step = Math.Clamp(_s21Step, 1, 255);
                 foreach (var binding in profile.JoystickButtons ?? new List<JoystickButtons>())
                 {
@@ -273,7 +274,9 @@ namespace TeknoParrotUi.Common.InputListening
                 EmulationProfile.TeknoTPJC or EmulationProfile.TeknoZeus or EmulationProfile.TeknoCobra or
                 EmulationProfile.TeknoHNG64 or EmulationProfile.TeknoHornet or EmulationProfile.TeknoAGX or
                 EmulationProfile.TeknoS22 or EmulationProfile.TeknoS21 or EmulationProfile.TeknoS23 or
-                EmulationProfile.TeknoGClub or EmulationProfile.TeknoAir;
+                EmulationProfile.TeknoGClub or EmulationProfile.TeknoAir or EmulationProfile.TeknoTZero or
+                EmulationProfile.TeknoModel3 or EmulationProfile.TeknoHDrive or EmulationProfile.TeknoMagic or
+                EmulationProfile.TeknoCPS or EmulationProfile.TeknoMVS or EmulationProfile.TeknoSS32;
 
         private void ConfigureTeknoAxes(GameProfile profile)
         {

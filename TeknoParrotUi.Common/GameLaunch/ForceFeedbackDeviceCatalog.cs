@@ -6,6 +6,13 @@ namespace TeknoParrotUi.Common.GameLaunch
 {
     public static class ForceFeedbackDeviceCatalog
     {
+        public static List<DynamicDropdownOption> GetCameraOptions(string selected)
+        {
+            var devices = NamcoCameraDeviceProbe.GetDevices();
+            if (!string.IsNullOrWhiteSpace(selected) && !devices.Any(device => device.Value == selected))
+                devices.Add(new DynamicDropdownOption { DisplayName = "Selected webcam (unavailable)", Value = selected });
+            return devices;
+        }
         public static List<DynamicDropdownOption> GetOptions(GameProfile profile, string selectedValue)
         {
             var devices = profile.EmulatorType switch

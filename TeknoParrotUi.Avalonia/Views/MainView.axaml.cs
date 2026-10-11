@@ -149,6 +149,39 @@ public partial class MainView : UserControl
         };
         _library.ScannerRequested += () => Show(_scanner, "Game Scanner");
         _library.AccountRequested += () => Show(_account, "AccountPageTitle");
+        _library.KizunaAvatarRequested += async profile =>
+        {
+            var oauth = new Common.Auth.OAuthClient();
+            if (string.IsNullOrEmpty(await oauth.GetValidTokenAsync()))
+            {
+                if (await Dialogs.ChooseAsync(this, Loc.T("KizunaAvatarEditorTitle"), Loc.T("KizunaAvatarLoginNeeded"),
+                    new[] { Loc.T("KizunaRegisterOpenAccount"), Loc.T("InitialDCancel") }) == 0)
+                    Show(_account, "AccountPageTitle");
+                return;
+            }
+            var editor = new KizunaAvatarView();
+            if (TopLevel.GetTopLevel(this) is Window owner)
+            {
+                var dialog = new Window { Title = Loc.T("KizunaAvatarEditorTitle"), Width = 1040, Height = 760,
+                    Content = editor, WindowStartupLocation = WindowStartupLocation.CenterOwner };
+                var allowClose = false;
+                editor.BackRequested += () => { allowClose = true; dialog.Close(); };
+                dialog.Closing += async (_, args) =>
+                {
+                    if (allowClose || !editor.HasUnsavedChanges) return;
+                    args.Cancel = true;
+                    if (await editor.ConfirmCloseAsync()) { allowClose = true; dialog.Close(); }
+                };
+                dialog.Opened += async (_, _) => await editor.LoadAsync(profile, oauth.GetValidTokenAsync);
+                await dialog.ShowDialog(owner);
+            }
+            else
+            {
+                editor.BackRequested += ShowLibrary;
+                Show(editor, "KizunaAvatarEditorTitle");
+                await editor.LoadAsync(profile, oauth.GetValidTokenAsync);
+            }
+        };
         _library.OnlineRequested += () => NavOnline_Click(null, new global::Avalonia.Interactivity.RoutedEventArgs());
         _library.NativeLaunchRequested += async (profile, testMode) =>
         {

@@ -7,6 +7,8 @@ internal static class GameErrorFormatter
 {
     public static string Format(EmulatorType emulator, int exitCode, string? diagnostics)
     {
+        if (emulator == EmulatorType.TeknoTZero)
+            return WithDiagnostics("TeknoTZero could not launch or continue. Check the ROM ZIP, CHD directory and emulator settings.", exitCode, diagnostics);
         if (emulator is EmulatorType.TeknoModel2 or EmulatorType.TeknoModel3 &&
             exitCode is 3820 or 3821 or 3822 or 3823 or 7688)
             return WithDiagnostics(Loc.T("GameError" + exitCode), exitCode, diagnostics);

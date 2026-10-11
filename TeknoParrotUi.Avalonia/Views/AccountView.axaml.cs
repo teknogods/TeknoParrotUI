@@ -1,6 +1,7 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Layout;
+using Avalonia.Input.Platform;
 using TeknoParrotUi.Common.Auth;
 
 namespace TeknoParrotUi.Avalonia.Views;
@@ -12,6 +13,11 @@ public partial class AccountView : UserControl
     public AccountView()
     {
         InitializeComponent();
+        _oauth.BrowserLaunchFailed += async url =>
+        {
+            StatusText.Text = "Open this login link in your browser: " + url;
+            if (TopLevel.GetTopLevel(this)?.Clipboard is { } clipboard) await clipboard.SetTextAsync(url);
+        };
         AttachedToVisualTree += async (_, _) => await RefreshCardsAsync();
         if (OperatingSystem.IsAndroid())
         {

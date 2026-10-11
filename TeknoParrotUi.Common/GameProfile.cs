@@ -55,6 +55,7 @@ namespace TeknoParrotUi.Common
         public string GamePath { get; set; }
         public string TestMenuParameter { get; set; }
         public bool TestMenuIsExecutable { get; set; }
+        public bool TestMenuIsTerminal { get; set; }
         public string ExtraParameters { get; set; }
         public string TestMenuExtraParameters { get; set; }
         /// <summary>Four-character title ID for the native managed-APM test loader (x64).</summary>

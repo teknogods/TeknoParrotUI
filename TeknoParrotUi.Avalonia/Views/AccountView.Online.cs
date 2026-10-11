@@ -18,11 +18,9 @@ public partial class AccountView
     private OnlineAccountProfile? _accountProfile;
     private bool _cardsBusy;
     private InitialDOnlineHelper.MachineInfo? _initialDMachine;
-    private KizunaOnlineHelper.MachineInfo? _kizunaMachine;
-    private bool _initialDKnown, _kizunaKnown;
+    private bool _initialDKnown;
     private readonly TextBlock _cardMessage = new() { TextWrapping = TextWrapping.Wrap };
     private InitialDOnlineHelper.ApiClient InitialDApi => new(_oauth.GetValidTokenAsync, FreshLoginAsync);
-    private KizunaOnlineHelper.ApiClient KizunaApi => new(_oauth.GetValidTokenAsync, FreshLoginAsync);
 
     private async Task<bool> FreshLoginAsync()
     {
@@ -42,17 +40,13 @@ public partial class AccountView
                 var initial = await InitialDApi.GetMachineAsync();
                 _initialDKnown = initial.Ok || initial.Error == InitialDOnlineHelper.ApiError.NoMachine;
                 _initialDMachine = initial.Ok ? initial.Value : null;
-                var kizuna = await KizunaApi.GetMachineAsync();
-                _kizunaKnown = kizuna.Ok || kizuna.Error == KizunaOnlineHelper.ApiError.NoMachine;
-                _kizunaMachine = kizuna.Ok ? kizuna.Value : null;
                 _cardMessage.Text = initial.Ok || initial.Error == InitialDOnlineHelper.ApiError.NoMachine
                     ? "" : InitialDOnlineHelper.DescribeError(initial);
             }
             else
             {
-                _initialDKnown = _kizunaKnown = false;
+                _initialDKnown = false;
                 _initialDMachine = null;
-                _kizunaMachine = null;
                 _accountProfile = null;
             }
         }
@@ -132,16 +126,125 @@ public partial class AccountView
             }
             OnlineCards.Children.Add(Card(details));
         }
-        BuildOnlineCard(false);
-        BuildOnlineCard(true);
+        BuildInitialDCard();
+        if (_accountProfile != null)
+        {
+            BuildAccountPairCard("Kizuna", KizunaOnlineHelper.LocalCredential());
+            BuildAccountPairCard("MarioKart", MarioKartOnlineHelper.LocalCredential());
+        }
     }
 
-    private void BuildOnlineCard(bool kizuna)
+    private void BuildInitialDCard()
     {
-        var prefix = kizuna ? "Kizuna" : "InitialD";
+        const string prefix = "InitialD";
         var panel = new StackPanel { Spacing = 8 };
         panel.Children.Add(Text(Loc.T(prefix + "OnlineTitle"), true));
         panel.Children.Add(Text(Loc.T(prefix + "OnlineIntro")));
+        AddRankPanel(panel, false);
+        var rank = InitialDOnlineHelper.Rank(_accountProfile?.InitialDRank);
+        var local = InitialDOnlineHelper.LocalCredential();
+        var pcb = _initialDMachine?.PcbId;
+        var status = _initialDMachine?.Status;
+        var last = _initialDMachine?.LastSeenUtc;
+        var known = _initialDKnown;
+        panel.Children.Add(Text(known
+            ? pcb == null ? Loc.T(prefix + "OnlineNotRegistered")
+                : Loc.T(prefix + (local.HasValue && InitialDOnlineHelper.SamePcbId(local.Value.PcbId, pcb)
+                    ? "OnlineRegisteredHere" : "OnlineRegisteredElsewhere")) + " " + pcb + " " + status + " " + last
+            : Loc.T(prefix + "ManualNotLoggedIn")));
+        var visibility = new ComboBox { ItemsSource = new[] { "public", "own", "off" }, PlaceholderText = Loc.T("InitialDOnlineChooseVisibilityFirst") };
+        var supporter = _accountProfile?.InitialDRank is >= 1 and <= 5;
+        if (supporter)
+        {
+            panel.Children.Add(visibility);
+            var preview = Text(rank?.Display ?? "");
+            visibility.SelectionChanged += (_, _) => preview.Text =
+                (visibility.SelectedItem as string) == "off" ? "" : rank?.Display ?? "";
+            panel.Children.Add(preview);
+        }
+        var actions = new WrapPanel { IsVisible = known };
+        actions.Children.Add(ActionButton("InitialDOnlineRegisterButton", async () =>
+        {
+            if (supporter && visibility.SelectedItem == null) { _cardMessage.Text = Loc.T("InitialDOnlineChooseVisibilityFirst"); return; }
+            {
+                var result = await InitialDApi.ProvisionAsync(Environment.MachineName, supporter
+                    ? new InitialDOnlineHelper.ConsentChoice { Visibility = visibility.SelectedItem as string } : null);
+                _cardMessage.Text = result.Ok ? Saved(InitialDOnlineHelper.StoreCredential(result.Value.PcbId, result.Value.Secret))
+                    : InitialDOnlineHelper.DescribeError(result);
+            }
+        }));
+        actions.Children[0].IsVisible = pcb == null;
+        foreach (var operation in new[] { "UseHere", "Regenerate", "Remove" })
+        {
+            var action = operation;
+            var button = ActionButton("InitialDOnline" + action + "Button", async () =>
+            {
+                if (await Dialogs.ChooseAsync(this, Loc.T(prefix + "OnlineTitle"), Loc.T(prefix + "OnlineConfirm" + action),
+                    new[] { Loc.T("Yes", "Yes"), Loc.T("Cancel", "Cancel") }) != 0) return;
+                if (action == "Remove")
+                {
+                    var result = await InitialDApi.RevokeAsync(pcb!);
+                    _cardMessage.Text = result.Ok ? Removed(InitialDOnlineHelper.ClearCredential(pcb!)) : InitialDOnlineHelper.DescribeError(result);
+                }
+                else
+                {
+                    var result = action == "UseHere" ? await InitialDApi.GetCredentialAsync() : await InitialDApi.RegenerateAsync(pcb!);
+                    _cardMessage.Text = result.Ok ? Saved(InitialDOnlineHelper.StoreCredential(result.Value.PcbId, result.Value.Secret)) : InitialDOnlineHelper.DescribeError(result);
+                }
+            });
+            button.IsVisible = pcb != null;
+            actions.Children.Add(button);
+        }
+        if (supporter && pcb != null)
+            actions.Children.Add(ActionButton("InitialDOnlineSaveVisibility", async () =>
+            {
+                if (visibility.SelectedItem is not string choice) return;
+                var result = await InitialDApi.SaveConsentAsync(new InitialDOnlineHelper.ConsentChoice { Visibility = choice });
+                _cardMessage.Text = result.Ok ? Loc.T("InitialDOnlineVisibilitySaved") : InitialDOnlineHelper.DescribeError(result);
+            }));
+        panel.Children.Add(actions);
+        var id = new TextBox { Text = local?.PcbId ?? "", PlaceholderText = Loc.T("InitialDOnlinePcbId") };
+        var secret = new TextBox { PasswordChar = '●', PlaceholderText = Loc.T(prefix + "ManualSecret") };
+        id.TextChanged += (_, _) =>
+        {
+            var parsed = InitialDOnlineHelper.ReadPasted(id.Text);
+            if (!string.IsNullOrEmpty(parsed.Secret) && parsed.PcbId != id.Text)
+            { id.Text = parsed.PcbId; secret.Text = parsed.Secret; }
+        };
+        panel.Children.Add(id); panel.Children.Add(secret);
+        panel.Children.Add(Text(Loc.T(prefix + "ManualHint")));
+        var manual = new WrapPanel();
+        manual.Children.Add(ActionButton(prefix + "ManualSave", () =>
+        {
+            var normalized = InitialDOnlineHelper.NormalizePcbId(id.Text);
+            if (normalized == null || normalized.StartsWith(KizunaOnlineHelper.PcbIdPrefix, StringComparison.Ordinal))
+            { _cardMessage.Text = Loc.T(prefix + "ManualBadId"); return Task.CompletedTask; }
+            if (!InitialDOnlineHelper.IsValidSecret(secret.Text))
+            { _cardMessage.Text = Loc.T(prefix + "ManualBadSecret"); return Task.CompletedTask; }
+            _cardMessage.Text = Saved(InitialDOnlineHelper.StoreCredential(normalized, secret.Text!));
+            id.Text = normalized; secret.Clear();
+            return Task.CompletedTask;
+        }));
+        manual.Children.Add(ActionButton(prefix + "ManualClear", () =>
+        {
+            var current = InitialDOnlineHelper.LocalCredential();
+            var key = current?.PcbId ?? id.Text ?? "";
+            _cardMessage.Text = Removed(InitialDOnlineHelper.ClearCredential(key));
+            id.Clear(); secret.Clear(); return Task.CompletedTask;
+        }));
+        manual.Children.Add(ActionButton(prefix + "ManualOpenWebsite", async () =>
+            await ExternalUrlLauncher.OpenAsync(this, InitialDOnlineHelper.ProfilePageUrl)));
+        panel.Children.Add(manual);
+        {
+            var latest = InitialDOnlineHelper.ReadNewestStatus();
+            panel.Children.Add(Text(latest == null ? Loc.T("InitialDOnlineNoStatus") :
+                string.Format(Loc.T("InitialDOnlineLastStatus"), latest.Title, latest.WrittenUtc.ToLocalTime().ToString("g"), InitialDOnlineHelper.Describe(latest))));
+        }
+        OnlineCards.Children.Add(Card(panel));
+    }
+
+    private void AddRankPanel(StackPanel panel, bool kizuna)
+    {
         var rank = InitialDOnlineHelper.Rank(_accountProfile?.InitialDRank);
         if (rank != null)
         {
@@ -184,127 +287,24 @@ public partial class AccountView
             panel.Children.Add(ladder);
             if (!kizuna && rank.Id7KingAura) panel.Children.Add(Text(Loc.T("InitialDOnlineKingAura")));
         }
-        var local = kizuna ? KizunaOnlineHelper.LocalCredential() : InitialDOnlineHelper.LocalCredential();
-        var pcb = kizuna ? _kizunaMachine?.PcbId : _initialDMachine?.PcbId;
-        var status = kizuna ? _kizunaMachine?.Status : _initialDMachine?.Status;
-        var last = kizuna ? _kizunaMachine?.LastSeenUtc : _initialDMachine?.LastSeenUtc;
-        var known = kizuna ? _kizunaKnown : _initialDKnown;
-        panel.Children.Add(Text(known
-            ? pcb == null ? Loc.T(prefix + "OnlineNotRegistered")
-                : Loc.T(prefix + (local.HasValue && InitialDOnlineHelper.SamePcbId(local.Value.PcbId, pcb)
-                    ? "OnlineRegisteredHere" : "OnlineRegisteredElsewhere")) + " " + pcb + " " + status + " " + last
-            : Loc.T(prefix + "ManualNotLoggedIn")));
-        var visibility = new ComboBox { ItemsSource = new[] { "public", "own", "off" }, PlaceholderText = Loc.T("InitialDOnlineChooseVisibilityFirst") };
-        var supporter = !kizuna && _accountProfile?.InitialDRank is >= 1 and <= 5;
-        if (supporter)
+    }
+
+    private void BuildAccountPairCard(string kind, (string PcbId, string Secret)? credential)
+    {
+        var panel = new StackPanel { Spacing = 8 };
+        panel.Children.Add(Text(Loc.T(kind + "OnlineTitle", kind + " Online"), true));
+        panel.Children.Add(Text(Loc.T(kind + "OnlineIntro", "The account's online ID is filled into this game's settings automatically.")));
+        if (kind == "Kizuna") AddRankPanel(panel, true);
+        panel.Children.Add(new TextBox { Text = credential?.PcbId ?? "", IsReadOnly = true });
+        var secret = new TextBox { Text = credential?.Secret ?? "", PasswordChar = '●', IsReadOnly = true };
+        panel.Children.Add(secret);
+        var reveal = new Button { Content = Loc.T("AccountPageShowSecret"), IsEnabled = credential.HasValue };
+        reveal.Click += (_, _) =>
         {
-            panel.Children.Add(visibility);
-            var preview = Text(rank?.Display ?? "");
-            visibility.SelectionChanged += (_, _) => preview.Text =
-                (visibility.SelectedItem as string) == "off" ? "" : rank?.Display ?? "";
-            panel.Children.Add(preview);
-        }
-        var actions = new WrapPanel { IsVisible = known };
-        actions.Children.Add(ActionButton("InitialDOnlineRegisterButton", async () =>
-        {
-            if (supporter && visibility.SelectedItem == null) { _cardMessage.Text = Loc.T("InitialDOnlineChooseVisibilityFirst"); return; }
-            if (kizuna)
-            {
-                var result = await KizunaApi.ProvisionAsync(Environment.MachineName);
-                _cardMessage.Text = result.Ok ? Saved(KizunaOnlineHelper.StoreCredential(result.Value.PcbId, result.Value.Secret), true)
-                    : KizunaOnlineHelper.DescribeError(result);
-            }
-            else
-            {
-                var result = await InitialDApi.ProvisionAsync(Environment.MachineName, supporter
-                    ? new InitialDOnlineHelper.ConsentChoice { Visibility = visibility.SelectedItem as string } : null);
-                _cardMessage.Text = result.Ok ? Saved(InitialDOnlineHelper.StoreCredential(result.Value.PcbId, result.Value.Secret))
-                    : InitialDOnlineHelper.DescribeError(result);
-            }
-        }));
-        actions.Children[0].IsVisible = pcb == null;
-        foreach (var operation in new[] { "UseHere", "Regenerate", "Remove" })
-        {
-            var action = operation;
-            var button = ActionButton("InitialDOnline" + action + "Button", async () =>
-            {
-                if (await Dialogs.ChooseAsync(this, Loc.T(prefix + "OnlineTitle"), Loc.T(prefix + "OnlineConfirm" + action),
-                    new[] { Loc.T("Yes", "Yes"), Loc.T("Cancel", "Cancel") }) != 0) return;
-                if (kizuna)
-                {
-                    if (action == "Remove")
-                    {
-                        var result = await KizunaApi.RevokeAsync(pcb!);
-                        _cardMessage.Text = result.Ok ? Removed(KizunaOnlineHelper.ClearCredential(pcb!), true) : KizunaOnlineHelper.DescribeError(result);
-                    }
-                    else
-                    {
-                        var result = action == "UseHere" ? await KizunaApi.GetCredentialAsync() : await KizunaApi.RegenerateAsync(pcb!);
-                        _cardMessage.Text = result.Ok ? Saved(KizunaOnlineHelper.StoreCredential(result.Value.PcbId, result.Value.Secret), true) : KizunaOnlineHelper.DescribeError(result);
-                    }
-                }
-                else if (action == "Remove")
-                {
-                    var result = await InitialDApi.RevokeAsync(pcb!);
-                    _cardMessage.Text = result.Ok ? Removed(InitialDOnlineHelper.ClearCredential(pcb!)) : InitialDOnlineHelper.DescribeError(result);
-                }
-                else
-                {
-                    var result = action == "UseHere" ? await InitialDApi.GetCredentialAsync() : await InitialDApi.RegenerateAsync(pcb!);
-                    _cardMessage.Text = result.Ok ? Saved(InitialDOnlineHelper.StoreCredential(result.Value.PcbId, result.Value.Secret)) : InitialDOnlineHelper.DescribeError(result);
-                }
-            });
-            button.IsVisible = pcb != null;
-            actions.Children.Add(button);
-        }
-        if (supporter && pcb != null)
-            actions.Children.Add(ActionButton("InitialDOnlineSaveVisibility", async () =>
-            {
-                if (visibility.SelectedItem is not string choice) return;
-                var result = await InitialDApi.SaveConsentAsync(new InitialDOnlineHelper.ConsentChoice { Visibility = choice });
-                _cardMessage.Text = result.Ok ? Loc.T("InitialDOnlineVisibilitySaved") : InitialDOnlineHelper.DescribeError(result);
-            }));
-        panel.Children.Add(actions);
-        var id = new TextBox { Text = local?.PcbId ?? "", PlaceholderText = Loc.T("InitialDOnlinePcbId") };
-        var secret = new TextBox { PasswordChar = '●', PlaceholderText = Loc.T(prefix + "ManualSecret") };
-        id.TextChanged += (_, _) =>
-        {
-            var parsed = kizuna ? KizunaOnlineHelper.ReadPasted(id.Text) : InitialDOnlineHelper.ReadPasted(id.Text);
-            if (!string.IsNullOrEmpty(parsed.Secret) && parsed.PcbId != id.Text)
-            { id.Text = parsed.PcbId; secret.Text = parsed.Secret; }
+            secret.RevealPassword = !secret.RevealPassword;
+            reveal.Content = Loc.T(secret.RevealPassword ? "AccountPageHideSecret" : "AccountPageShowSecret");
         };
-        panel.Children.Add(id); panel.Children.Add(secret);
-        panel.Children.Add(Text(Loc.T(prefix + "ManualHint")));
-        var manual = new WrapPanel();
-        manual.Children.Add(ActionButton(prefix + "ManualSave", () =>
-        {
-            var normalized = kizuna ? KizunaOnlineHelper.NormalizePcbId(id.Text) : InitialDOnlineHelper.NormalizePcbId(id.Text);
-            if (normalized == null || !kizuna && normalized.StartsWith(KizunaOnlineHelper.PcbIdPrefix, StringComparison.Ordinal) ||
-                kizuna && normalized.StartsWith(KizunaOnlineHelper.InitialDPcbIdPrefix, StringComparison.Ordinal))
-            { _cardMessage.Text = Loc.T(prefix + "ManualBadId"); return Task.CompletedTask; }
-            if (!(kizuna ? KizunaOnlineHelper.IsValidSecret(secret.Text) : InitialDOnlineHelper.IsValidSecret(secret.Text)))
-            { _cardMessage.Text = Loc.T(prefix + "ManualBadSecret"); return Task.CompletedTask; }
-            _cardMessage.Text = Saved(kizuna ? KizunaOnlineHelper.StoreCredential(normalized, secret.Text!)
-                : InitialDOnlineHelper.StoreCredential(normalized, secret.Text!), kizuna);
-            id.Text = normalized; secret.Clear();
-            return Task.CompletedTask;
-        }));
-        manual.Children.Add(ActionButton(prefix + "ManualClear", () =>
-        {
-            var current = kizuna ? KizunaOnlineHelper.LocalCredential() : InitialDOnlineHelper.LocalCredential();
-            var key = current?.PcbId ?? id.Text ?? "";
-            _cardMessage.Text = Removed(kizuna ? KizunaOnlineHelper.ClearCredential(key) : InitialDOnlineHelper.ClearCredential(key), kizuna);
-            id.Clear(); secret.Clear(); return Task.CompletedTask;
-        }));
-        manual.Children.Add(ActionButton(prefix + "ManualOpenWebsite", async () =>
-            await ExternalUrlLauncher.OpenAsync(this, kizuna ? KizunaOnlineHelper.ProfilePageUrl : InitialDOnlineHelper.ProfilePageUrl)));
-        panel.Children.Add(manual);
-        if (!kizuna)
-        {
-            var latest = InitialDOnlineHelper.ReadNewestStatus();
-            panel.Children.Add(Text(latest == null ? Loc.T("InitialDOnlineNoStatus") :
-                string.Format(Loc.T("InitialDOnlineLastStatus"), latest.Title, latest.WrittenUtc.ToLocalTime().ToString("g"), InitialDOnlineHelper.Describe(latest))));
-        }
+        panel.Children.Add(reveal);
         OnlineCards.Children.Add(Card(panel));
     }
 

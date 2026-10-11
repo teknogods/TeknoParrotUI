@@ -173,6 +173,7 @@ namespace TeknoParrotUi.Common
         TeknoModel3,
         TeknoMVS,
         TeknoCPS,
-        TeknoSS32
+        TeknoSS32,
+        TeknoTZero
     }
 }

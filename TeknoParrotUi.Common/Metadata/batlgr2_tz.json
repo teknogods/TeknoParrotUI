@@ -1,0 +1,14 @@
+{
+  "game_name": "Battle Gear 2",
+  "game_genre": "Racing",
+  "icon_name": "",
+  "platform": "Taito Type Zero",
+  "release_year": "",
+  "nvidia": "NO_INFO",
+  "nvidia_issues": "",
+  "amd": "NO_INFO",
+  "amd_issues": "",
+  "intel": "NO_INFO",
+  "intel_issues": "",
+  "general_issues": "Required ZIPs: batlgr2.zip and taitotz.zip. Required CHD: bg2_204j.chd for batlgr2 (v2.04J), or bg2_201j.chd for batlgr2a (v2.01J)."
+}

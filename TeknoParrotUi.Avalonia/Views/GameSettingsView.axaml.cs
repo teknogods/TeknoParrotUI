@@ -88,6 +88,7 @@ public partial class GameSettingsView : UserControl
     {
         ArcadeGameRevisions.Populate(profile);
         NamcoGameRevisions.Populate(profile);
+        NamcoGameRevisions.PopulateLanguage(profile);
         _profile = profile;
         Header.Text = $"{profile.GameNameInternal ?? profile.ProfileName} — Settings";
         _valueReaders.Clear();
@@ -839,6 +840,10 @@ public partial class GameSettingsView : UserControl
                     : field.FieldName == NamcoGameRevisions.SettingName &&
                       _profile?.EmulatorType is EmulatorType.TeknoS22 or EmulatorType.TeknoS23
                     ? NamcoGameRevisions.GetOptions(_profile)
+                    : field.FieldName == NamcoGameRevisions.LanguageSettingName && _profile?.EmulatorType == EmulatorType.TeknoS23
+                    ? NamcoGameRevisions.GetLanguageOptions(_profile)
+                    : field.FieldName == "Webcam" && _profile?.EmulatorType == EmulatorType.TeknoS23
+                    ? ForceFeedbackDeviceCatalog.GetCameraOptions(field.FieldValue)
                     : ForceFeedbackDeviceCatalog.GetOptions(
                         _profile ?? throw new InvalidOperationException("No profile loaded"), field.FieldValue);
                 var deviceCombo = new ComboBox
@@ -850,6 +855,15 @@ public partial class GameSettingsView : UserControl
                 };
                 _valueReaders[field] = () =>
                     (deviceCombo.SelectedItem as DynamicDropdownOption)?.Value ?? field.FieldValue;
+                if (field.FieldName == NamcoGameRevisions.SettingName && _profile?.EmulatorType == EmulatorType.TeknoS23)
+                    deviceCombo.SelectionChanged += (_, _) =>
+                    {
+                        if (_profile == null || deviceCombo.SelectedItem is not DynamicDropdownOption selection ||
+                            selection.Value == field.FieldValue) return;
+                        foreach (var (other, read) in _valueReaders) other.FieldValue = read();
+                        _profile.GamePath = _gamePathBox?.Text ?? _profile.GamePath;
+                        RenderProfile(_profile); _revisionDirty = true;
+                    };
                 if (field.FieldName == ArcadeGameRevisions.SettingName && ArcadeGameRevisions.Handles(_profile))
                     deviceCombo.SelectionChanged += async (_, _) =>
                     {

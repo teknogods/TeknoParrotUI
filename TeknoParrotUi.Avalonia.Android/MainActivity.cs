@@ -38,6 +38,8 @@ public class TeknoParrotApplication : AvaloniaAndroidApplication<App>
 
     public override void OnCreate()
     {
+        AvatarAudio.PlatformPlay = wav => AndroidAvatarAudio.PlayAsync(this, wav);
+        AvatarAudio.PlatformStop = AndroidAvatarAudio.Stop;
         SDL3GamepadBackend.PlatformDeviceRefresh = AndroidGamepads.Refresh;
         // The shared code reads/writes its data (ParrotData.xml, GameProfiles/,
         // UserProfiles/, Metadata/, Icons/) relative to the current directory —

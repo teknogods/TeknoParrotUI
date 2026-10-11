@@ -1,0 +1,14 @@
+{
+  "game_name": "Densha de Go! 3",
+  "game_genre": "Simulation",
+  "icon_name": "",
+  "platform": "Taito Type Zero",
+  "release_year": "",
+  "nvidia": "NO_INFO",
+  "nvidia_issues": "",
+  "amd": "NO_INFO",
+  "amd_issues": "",
+  "intel": "NO_INFO",
+  "intel_issues": "",
+  "general_issues": "Required ZIPs: dendego3.zip and taitotz.zip. Required CHD: ddg3.chd."
+}

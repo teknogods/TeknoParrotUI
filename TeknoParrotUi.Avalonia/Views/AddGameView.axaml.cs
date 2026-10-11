@@ -143,6 +143,7 @@ public partial class AddGameView : UserControl
         if (profile == null || _installed.Contains(ArcadeGameRevisions.FamilyId(profile))) return;
 
         Directory.CreateDirectory("UserProfiles");
+        JoystickHelper.AutoFillOnlineId(profile);
         JoystickHelper.SerializeGameProfile(profile);
 
         // Reload so the user profile instance (with FileName pointing at UserProfiles) is used

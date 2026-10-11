@@ -5,8 +5,10 @@ namespace TeknoParrotUi.Common.InputProfiles.Helpers
 {
     public static class AnalogHelper
     {
-        public static byte CalculateSWThrottleXinput(XInputButton button, State state)
+        public static byte CalculateSWThrottleXinput(XInputButton button, State state, bool splitTriggers = true)
         {
+            if (!splitTriggers && (button.IsLeftTrigger || button.IsRightTrigger))
+                return button.IsLeftTrigger ? state.Gamepad.LeftTrigger : state.Gamepad.RightTrigger;
             if (button.SdlControl != SdlControlKind.None)
             {
                 if (button.SdlControl == SdlControlKind.Axis)

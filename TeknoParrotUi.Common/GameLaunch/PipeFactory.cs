@@ -42,6 +42,7 @@ namespace TeknoParrotUi.Common.GameLaunch
 
             switch (profile)
             {
+                case EmulationProfile.TeknoTZero: return new TeknoTZeroPipe();
                 case EmulationProfile.DeadHeat:
                 case EmulationProfile.Nirin: return new DeadHeatPipe();
                 case EmulationProfile.LGS: return new LGSPipe();

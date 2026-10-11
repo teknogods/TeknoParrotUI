@@ -2870,7 +2870,7 @@ Lisätiedot:
     <value>Senjou no Kizuna Online</value>
   </data>
   <data name="KizunaOnlineIntro" xml:space="preserve">
-    <value>Senjou no Kizunaa pelataan vain verkossa, TeknoParrotin palvelimella, ja se tarvitsee tälle tietokoneelle online-ID:n: oman Senjou no Kizuna -online-ID:n, ei Initial D:n ID:tä. TeknoParrotUI hakee sen teknoparrot.com-tililtäsi ja kirjoittaa sen Senjou no Kizuna -peliprofiiliisi (OnlineID ja OnlineSecret). Arvosi näytetään aina muille pelaajille.</value>
+    <value>Senjou no Kizunaa pelataan vain verkossa, TeknoParrotin palvelimella, omalla Senjou no Kizuna -online-ID:llä, ei Initial D:n ID:llä. Se tulee teknoparrot.com-tilisi mukana kuten muutkin ID:si: TeknoParrotUI näyttää sen yllä ja täyttää sen itse Senjou no Kizuna -peliprofiiliisi. Käytä sitä millä tahansa tietokoneellasi, yhdellä kerrallaan. Arvosi näytetään aina muille pelaajille.</value>
   </data>
   <data name="KizunaOnlineNotRegistered" xml:space="preserve">
     <value>Tätä tietokonetta ei ole vielä rekisteröity Senjou no Kizuna Onlineen.</value>
@@ -2903,12 +2903,12 @@ Lisätiedot:
     <value>Tällä tilillä on porttikielto Senjou no Kizuna Onlineen. Syy ja valituslomake löytyvät teknoparrot.com-sivuston Online-profiili-sivulta.</value>
   </data>
   <data name="KizunaRegisterTitle" xml:space="preserve">
-    <value>Senjou no Kizuna tarvitsee online-ID:nsä</value>
+    <value>Kirjaudu sisään pelataksesi Senjou no Kizunaa</value>
   </data>
   <data name="KizunaRegisterText" xml:space="preserve">
-    <value>Senjou no Kizunaa pelataan vain verkossa, ja TeknoParrotin palvelin hyväksyy vain tietokoneet, jotka ovat kirjautuneet Senjou no Kizuna -online-ID:llään. Tällä tietokoneella ei ole vielä sellaista, joten {0} ei käynnisty.
+    <value>Senjou no Kizunaa pelataan vain verkossa, ja TeknoParrotin palvelin hyväksyy vain pelaajat, jotka ovat kirjautuneet Senjou no Kizuna -online-ID:llään; se tulee teknoparrot.com-tilisi mukana. TeknoParrotUI ei saanut sitä, joten {0} ei käynnisty.
 
-Rekisteröi Tili-sivulla kohdassa Senjou no Kizuna Online tämä tietokone (kirjautuneena teknoparrot.com-tilillesi) tai syötä online-ID ja salaisuus tilisi Senjou no Kizuna -sivulta. TeknoParrotUI kirjoittaa ID:n peliprofiiliin; käynnistä sitten peli uudelleen.</value>
+Kirjaudu sisään Tili-sivulla: TeknoParrotUI täyttää ID:n sitten itse. Käynnistä sitten peli uudelleen.</value>
   </data>
   <data name="KizunaRegisterOpenAccount" xml:space="preserve">
     <value>Avaa Tili-sivu</value>
@@ -3417,5 +3417,158 @@ Ilman sääntöjä pelit käynnistyvät silti, ne eivät vain löydä toisiaan.<
   </data>
   <data name="AccountPageGoldenTeeHint" xml:space="preserve">
     <value>Täytetään Golden Teehen automaattisesti</value>
+  </data>
+<data name="AccountPageKizunaOnlineId" xml:space="preserve">
+    <value>Kizuna-online-ID:</value>
+  </data>
+  <data name="AccountPageKizunaSecret" xml:space="preserve">
+    <value>Kizuna-salaisuus:</value>
+  </data>
+  <data name="AccountPageKizunaHint" xml:space="preserve">
+    <value>Täytetään Senjou no Kizunaan automaattisesti</value>
+  </data>
+  <data name="AccountPageShowSecret" xml:space="preserve">
+    <value>Näytä</value>
+  </data>
+  <data name="AccountPageHideSecret" xml:space="preserve">
+    <value>Piilota</value>
+  </data>
+  <data name="KizunaAvatarSideEfsf" xml:space="preserve">
+    <value>E.F.S.F.-pilotti</value>
+  </data>
+  <data name="KizunaAvatarSideZeon" xml:space="preserve">
+    <value>Zeon-pilotti</value>
+  </data>
+  <data name="KizunaAvatarBody" xml:space="preserve">
+    <value>Vartalo</value>
+  </data>
+  <data name="KizunaAvatarAllBodies" xml:space="preserve">
+    <value>Näytä myös toiselle vartalolle tehdyt osat</value>
+  </data>
+  <data name="KizunaAvatarMale" xml:space="preserve">
+    <value>Mies</value>
+  </data>
+  <data name="KizunaAvatarFemale" xml:space="preserve">
+    <value>Nainen</value>
+  </data>
+  <data name="KizunaAvatarVoice" xml:space="preserve">
+    <value>Ääni</value>
+  </data>
+  <data name="KizunaAvatarGreeting" xml:space="preserve">
+    <value>Tervehdys</value>
+  </data>
+  <data name="KizunaAvatarGreetingNumber" xml:space="preserve">
+    <value>Tervehdys {0}</value>
+  </data>
+  <data name="KizunaAvatarNone" xml:space="preserve">
+    <value>Ei mitään</value>
+  </data>
+  <data name="KizunaAvatarPartCockpit" xml:space="preserve">
+    <value>Ohjaamo</value>
+  </data>
+  <data name="KizunaAvatarPartOutline" xml:space="preserve">
+    <value>Kasvojen muoto</value>
+  </data>
+  <data name="KizunaAvatarPartEye" xml:space="preserve">
+    <value>Silmät</value>
+  </data>
+  <data name="KizunaAvatarPartNoseMouth" xml:space="preserve">
+    <value>Nenä ja suu</value>
+  </data>
+  <data name="KizunaAvatarPartHead" xml:space="preserve">
+    <value>Hiukset ja hattu</value>
+  </data>
+  <data name="KizunaAvatarPartFaceWear" xml:space="preserve">
+    <value>Kasvoasuste</value>
+  </data>
+  <data name="KizunaAvatarPartInner" xml:space="preserve">
+    <value>Yläosa</value>
+  </data>
+  <data name="KizunaAvatarPartOuter" xml:space="preserve">
+    <value>Päällysvaate</value>
+  </data>
+  <data name="KizunaAvatarPartTapestry" xml:space="preserve">
+    <value>Seinävaate</value>
+  </data>
+  <data name="KizunaAvatarPartFigurine" xml:space="preserve">
+    <value>Figuuri</value>
+  </data>
+  <data name="KizunaAvatarPartHang" xml:space="preserve">
+    <value>Riipus</value>
+  </data>
+  <data name="KizunaAvatarPartLandscape" xml:space="preserve">
+    <value>Tausta</value>
+  </data>
+  <data name="KizunaAvatarPartFrame" xml:space="preserve">
+    <value>Kehys</value>
+  </data>
+  <data name="KizunaAvatarSave" xml:space="preserve">
+    <value>Tallenna avatar</value>
+  </data>
+  <data name="KizunaAvatarLoadDefault" xml:space="preserve">
+    <value>Aloita pelin oletuksesta</value>
+  </data>
+  <data name="KizunaAvatarRemove" xml:space="preserve">
+    <value>Käytä pelin oletusta</value>
+  </data>
+  <data name="KizunaAvatarSaved" xml:space="preserve">
+    <value>Avatar tallennettu. Peli näyttää sen seuraavasta korttikirjautumisesta alkaen.</value>
+  </data>
+  <data name="KizunaAvatarRemoved" xml:space="preserve">
+    <value>Avatar poistettu: pilotti näyttää pelin oletuksen seuraavasta korttikirjautumisesta alkaen.</value>
+  </data>
+  <data name="KizunaAvatarNextLogin" xml:space="preserve">
+    <value>Avatar päätyy peliin seuraavassa korttikirjautumisessa podissa tai terminaalissa, joka on kirjautunut tällä tilillä.</value>
+  </data>
+  <data name="KizunaAvatarUsingDefault" xml:space="preserve">
+    <value>Ei asetettu: tämä pilotti näyttää pelin oletusavatarin.</value>
+  </data>
+  <data name="KizunaAvatarUsingCustom" xml:space="preserve">
+    <value>Asetettu: tämä pilotti näyttää alla olevan avatarin.</value>
+  </data>
+  <data name="KizunaAvatarEditorTitle" xml:space="preserve">
+    <value>Senjou no Kizuna -pilotin avatar</value>
+  </data>
+  <data name="LibraryKizunaAvatar" xml:space="preserve">
+    <value>PILOTIN AVATAR</value>
+  </data>
+  <data name="LibraryKizunaAvatarTooltip" xml:space="preserve">
+    <value>Pukeudu Senjou no Kizuna -pilottisi ja valitse heidän äänensä ja tervehdyksensä, tallennetaan TeknoParrot-tilillesi.</value>
+  </data>
+  <data name="KizunaAvatarVoiceMale" xml:space="preserve">
+    <value>Ääni {0} (mies)</value>
+  </data>
+  <data name="KizunaAvatarVoiceFemale" xml:space="preserve">
+    <value>Ääni {0} (nainen)</value>
+  </data>
+  <data name="KizunaAvatarPlay" xml:space="preserve">
+    <value>Toista tervehdys</value>
+  </data>
+  <data name="KizunaAvatarUnsaved" xml:space="preserve">
+    <value>(tallentamattomia muutoksia)</value>
+  </data>
+  <data name="KizunaAvatarLoading" xml:space="preserve">
+    <value>Ladataan…</value>
+  </data>
+  <data name="KizunaAvatarSaving" xml:space="preserve">
+    <value>Tallennetaan…</value>
+  </data>
+  <data name="KizunaAvatarInvalid" xml:space="preserve">
+    <value>Avataria ei voitu tallentaa. Sulje editori ja avaa se uudelleen.</value>
+  </data>
+  <data name="KizunaAvatarLoginNeeded" xml:space="preserve">
+    <value>Kirjaudu TeknoParrot-tilillesi Tili-sivulla muokataksesi avataria.</value>
+  </data>
+  <data name="KizunaAvatarUnavailable" xml:space="preserve">
+    <value>Avatar-palveluun ei saada yhteyttä juuri nyt. Yritä myöhemmin uudelleen.</value>
+  </data>
+  <data name="KizunaAvatarNoGameFiles" xml:space="preserve">
+    <value>Pelin avatar-kuvia ei löytynyt pelin vierestä ({0}), joten esikatselua ei ole. Voit silti valita osia ja tallentaa.</value>
+  </data>
+  <data name="KizunaAvatarNoSound" xml:space="preserve">
+    <value>Pelin tervehdysääniä ei löytynyt pelin vierestä.</value>
+  </data>
+  <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
+    <value>Hylätäänkö tallentamattomat avatar-muutokset?</value>
   </data>
 </root>

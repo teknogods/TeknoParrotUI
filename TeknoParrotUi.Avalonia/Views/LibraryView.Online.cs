@@ -98,6 +98,8 @@ public partial class LibraryView
 
     private void BtnFriends_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) => LaunchSelected(false, true);
     private void BtnPlayOnline_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e) => OnlineRequested?.Invoke();
+    private void BtnKizunaAvatar_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+    { if (Selected is { } profile) KizunaAvatarRequested?.Invoke(profile); }
     private async void BtnOnlineProfile_Click(object? sender, global::Avalonia.Interactivity.RoutedEventArgs e)
     {
         if (Selected?.OnlineProfileURL is { Length: > 0 } url) await ExternalUrlLauncher.OpenAsync(this, url);

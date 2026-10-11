@@ -37,7 +37,10 @@ internal static class Program
                     File.Copy(file, Path.Combine(temporary, folder, Path.GetFileName(file)));
             }
             Environment.CurrentDirectory = temporary;
+            LatestPortChecks.RunAsync(temporary).GetAwaiter().GetResult();
             AppBuilder.Configure<App>().UsePlatformDetect().SetupWithoutStarting();
+            var avatarView = new KizunaAvatarView();
+            Require(avatarView.FindControl<Button>("Save") != null, "Avatar editor view construction");
             NewsHistoryChecks.Run();
             var articles = new[]
             {
@@ -85,6 +88,13 @@ internal static class Program
             renamed.JoystickButtons[0].XInputButton = null;
             BindingsStore.Apply(renamed);
             Require(renamed.JoystickButtons[0].XInputButton?.IsLeftThumbX == true, "Namco control rename lost JSON binding");
+            renamed.ProfileName = "pwrshovl_tz"; renamed.EmulatorType = EmulatorType.TeknoTZero;
+            renamed.JoystickButtons[0].ButtonName = "Player 1 Joystick X";
+            BindingsStore.Save(renamed);
+            renamed.JoystickButtons[0].ButtonName = "Player 1 Left X";
+            renamed.JoystickButtons[0].XInputButton = null;
+            BindingsStore.Apply(renamed);
+            Require(renamed.JoystickButtons[0].XInputButton?.IsLeftThumbX == true, "Power Shovel rename lost JSON binding");
 
             Require(InitialDUnifiedMode.IsMatchmakingProfile(new GameProfile { ProfileName = "ID8", OnlineIdType = OnlineIdType.InitialD }),
                 "Initial D matchmaking policy");

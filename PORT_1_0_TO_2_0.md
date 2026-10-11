@@ -1,13 +1,46 @@
 # Committed 1.0 port into 2.0
 
+## October 11, 2026 update
+
+Source: pushed master `db90f8a7558008a1c3a6a5bad9b0a0b26f232192`.
+Previous source baseline: `bf5a7b67ef238677b0df3a0c5cafd08d37eac072`.
+The original 1.0 checkout has an unpublished Wonderland Wars commit and local
+edits. A clean source worktree was fast-forward pulled from master for this port;
+that unpublished work was not imported or altered.
+
+- Imported all 33 committed catalog changes, including seven Taito Type Zero games.
+- Added Type Zero launcher, TTZIN cabinet publisher, updater entry, output support,
+  online revision selection and Power Shovel control migration.
+- Ported Namco language/webcam options, which are now committed upstream.
+- Ported the After Burner Climax throttle and resolution improvements, and the
+  Sega Race TV / Let's Go Jungle rendering updates.
+- Replaced desktop OAuth redirects with the TCP loopback callback, including
+  state validation, idle browser connections, cancellation and browser fallback.
+- Updated Kizuna and Mario Kart to the account-issued online credential flow.
+  Initial D's separate registration/consent flow is retained.
+- Added the Kizuna pilot-avatar editor for both sides, account save/reset, body
+  filtering, layered previews and greeting playback from the user's game data.
+- Added Kizuna's executable terminal launch action and retained 2.0's SDL3,
+  platform settings and JSON controller bindings.
+
+Validation: Type Zero contract suite (including 50,000 concurrent publications,
+seven games / nine revisions and all 16 Power Shovel keyboard directions),
+25 new TCP/account/avatar/throttle/camera checks, 20 news and 27 Avalonia integration
+checks, desktop build, Android build and Linux publish. Android reports only the
+existing generated AIDL binding warnings (zero errors). Full regression results
+and build output are retained in the local build/test output.
+
+## Previous port (October 7, 2026)
+
 Source: sibling TeknoParrotUI_old, master revision
 `bf5a7b67ef238677b0df3a0c5cafd08d37eac072`.
 The live remote master reference was checked and matches this revision.
 Previous source baseline: `6657cff1`.
 
-Only committed source changes are included. The source working tree is untouched.
-Uncommitted webcam/language experiments, Steam presence, TpOnline credential
-experiments, and their profile changes are excluded. Historical profile-backups
+Only committed source changes were included in this earlier port. At that time,
+webcam/language experiments, Steam presence and TpOnline credential experiments
+were excluded. The webcam/language changes were subsequently committed and are
+included in the October 11 update above. Still-unpublished work remains excluded. Historical profile-backups
 are archived snapshots rather than runtime changes.
 
 | Source changes | 2.0 integration |

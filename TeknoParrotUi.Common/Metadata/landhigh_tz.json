@@ -1,0 +1,14 @@
+{
+  "game_name": "Landing High Japan",
+  "game_genre": "Simulation",
+  "icon_name": "",
+  "platform": "Taito Type Zero",
+  "release_year": "",
+  "nvidia": "NO_INFO",
+  "nvidia_issues": "",
+  "amd": "NO_INFO",
+  "amd_issues": "",
+  "intel": "NO_INFO",
+  "intel_issues": "",
+  "general_issues": "Required ZIPs: landhigh.zip and taitotz.zip. Required CHD: landhigh.chd for landhigh (v2.01OK), or landhigha.chd for landhigha (v2.02O)."
+}

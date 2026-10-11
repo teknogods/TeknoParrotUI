@@ -134,6 +134,9 @@ namespace TeknoParrotUi.Common
                 if (button == null && stock.EmulatorType == EmulatorType.TeknoS22)
                     button = stock.JoystickButtons?.FirstOrDefault(x =>
                         NamcoGameRevisions.PreviousControlName(stock, x.ButtonName) == oldButton.ButtonName);
+                if (button == null && TypeZeroControls.IsPowerShovel(stock))
+                    button = stock.JoystickButtons?.FirstOrDefault(x =>
+                        TypeZeroControls.PreviousControlName(stock, x.ButtonName) == oldButton.ButtonName);
                 if (button == null && stock.EmulatorType == EmulatorType.TeknoModel2 &&
                     stock.ExecutableName == "desert.zip" && oldButton.ButtonName == "Brake")
                     button = stock.JoystickButtons?.FirstOrDefault(x => x.ButtonName == "Turret");

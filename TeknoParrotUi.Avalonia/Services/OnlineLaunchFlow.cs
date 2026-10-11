@@ -13,10 +13,21 @@ internal static class OnlineLaunchFlow
     public static async Task<bool> BeforeLaunchAsync(Control host, GameProfile profile, bool friends, Action openAccount)
     {
         JoystickHelper.AutoFillOnlineId(profile);
+        var oauth = new Common.Auth.OAuthClient();
+        await MarioKartOnlineHelper.BeforeLaunchAsync(profile, oauth.GetValidTokenAsync);
         if (profile.OnlineIdType == OnlineIdType.Kizuna &&
             string.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable("TP_ONLINE_CRED")) &&
             !KizunaOnlineHelper.ProfileHasCredential(profile))
         {
+            if (await KizunaOnlineHelper.FetchFromAccountAsync(oauth.GetValidTokenAsync))
+            {
+                KizunaOnlineHelper.AutoFill(profile);
+                if (KizunaOnlineHelper.ProfileHasCredential(profile))
+                {
+                    InitialDUnifiedMode.PrepareLaunch(profile, null);
+                    return true;
+                }
+            }
             if (await Dialogs.ChooseAsync(host, Loc.T("KizunaRegisterTitle"),
                 string.Format(Loc.T("KizunaRegisterText"), profile.GameNameInternal),
                 new[] { Loc.T("KizunaRegisterOpenAccount"), Loc.T("InitialDCancel") }) == 0) openAccount();

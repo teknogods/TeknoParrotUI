@@ -263,8 +263,10 @@ namespace TeknoParrotUi.Common
         /// </summary>
         public static bool AutoFillOnlineId(GameProfile profile)
         {
-            if (profile == null || string.IsNullOrEmpty(profile.OnlineIdFieldName) || profile.OnlineIdType == OnlineIdType.None)
+            if (profile == null || profile.OnlineIdType == OnlineIdType.None)
                 return false;
+            var marioKartChanged = profile.OnlineIdType == OnlineIdType.MarioKartId && Online.MarioKartOnlineHelper.AutoFill(profile);
+            if (string.IsNullOrEmpty(profile.OnlineIdFieldName)) return marioKartChanged;
 
             if (profile.OnlineIdType == OnlineIdType.InitialD) return Online.InitialDOnlineHelper.AutoFill(profile);
             if (profile.OnlineIdType == OnlineIdType.Kizuna) return Online.KizunaOnlineHelper.AutoFill(profile);
@@ -272,9 +274,9 @@ namespace TeknoParrotUi.Common
 
             var configField = profile.ConfigValues?.FirstOrDefault(x => x.FieldName == profile.OnlineIdFieldName);
             if (configField == null || (!string.IsNullOrEmpty(configField.FieldValue) && configField.FieldValue != "1234567890"))
-                return false;
+                return marioKartChanged;
 
-            bool changed = false;
+            bool changed = marioKartChanged;
             switch (profile.OnlineIdType)
             {
                 case OnlineIdType.SegaId:

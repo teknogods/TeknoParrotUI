@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoMkdx</EmulationProfile>
-	<GameProfileRevision>12</GameProfileRevision>
+	<GameProfileRevision>18</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<RequiresAdmin>false</RequiresAdmin>
@@ -54,12 +54,6 @@
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>AutoAcclOff</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>Experimental Webcam Hack</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
@@ -128,6 +122,138 @@
 			<FieldName>PlayerId</FieldName>
 			<FieldValue></FieldValue>
 			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>OnlineID</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Debug</VisibleWhenValue>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Hidden: managed on the Account page (Mario Kart Arcade GP DX Online). This PC's Mario Kart Online PCB ID (AAMK-...), filled in by TeknoParrotUI from your teknoparrot.com account; not the Initial D or Senjou no Kizuna one. The game also plays without it.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>OnlineSecret</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Debug</VisibleWhenValue>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Hidden: managed on the Account page (Mario Kart Arcade GP DX Online). The secret that belongs to OnlineID (43 characters). Keep it private: it lets anyone play as you.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ForceHardwareRenderer</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>OnlineMatching</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>OnlineName</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>OnlineChat</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Text chat with the players of your online lobby: the chat key (default T) opens the line (Enter sends, Esc cancels), F5-F8 send the quick phrases. Players show by the name on their card profile.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>ChatKey</FieldName>
+			<FieldValue>0x54</FieldValue>
+			<FieldType>KeyCapture</FieldType>
+			<Hint>The key that opens the chat line (default T). Not F2: F2 touches the Banapassport card.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>QuickChat1</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>F5 quick phrase (empty = Good luck!)</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>QuickChat2</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>F6 quick phrase (empty = Good game!)</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>QuickChat3</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>F7 quick phrase (empty = Nice race!)</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>QuickChat4</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>F8 quick phrase (empty = One more?)</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Voice</CategoryName>
+			<FieldName>VoiceChat</FieldName>
+			<FieldValue>push-to-talk</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>push-to-talk</string>
+				<string>open mic</string>
+				<string>listen</string>
+				<string>off</string>
+			</FieldOptions>
+			<Hint>Voice chat with the players of your online lobby, directly between the cabinets (or through the matching server when they cannot reach each other); nothing is recorded. push-to-talk = talk while the key is held, open mic = talk whenever you speak, listen = speakers only. F3 turns it on/off in the game. The microphone is only open while it can be used, and never while the game is in the background.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Voice</CategoryName>
+			<FieldName>VoicePttKey</FieldName>
+			<FieldValue>0x56</FieldValue>
+			<FieldType>KeyCapture</FieldType>
+			<Hint>The push-to-talk key (default V).</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>SkipNoticeScreen</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Skips the notice screen shown at every boot ("for use exclusively in Japan").</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>NamCam</CategoryName>
+			<FieldName>Device</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Part of the webcam's name, if you have more than one camera (empty = the first one). The names are listed in mkdx_namcam.log next to the game.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>NamCam</CategoryName>
+			<FieldName>Rotation</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>0</string>
+				<string>90</string>
+				<string>180</string>
+				<string>270</string>
+			</FieldOptions>
+			<Hint>How far the webcam is turned clockwise, for a camera mounted on its side or upside down (0 for a normal webcam, 270 for the arcade cabinet's camera).</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>NamCam</CategoryName>
+			<FieldName>Mirror</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Shows the camera picture mirrored, like a mirror.</Hint>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>

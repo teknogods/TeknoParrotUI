@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaJvsLetsGoJungle</EmulationProfile>
-	<GameProfileRevision>21</GameProfileRevision>
+	<GameProfileRevision>23</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<GunGame>true</GunGame>
@@ -26,12 +26,6 @@
 				<string>XInput</string>
 				<string>RawInput</string>
 			</FieldOptions>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>EnableAmdFix</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -93,6 +87,67 @@
 			<FieldValue>768</FieldValue>
 			<FieldType>Text</FieldType>
 			<Hint>The games default height is 768.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>MSAA Level</FieldName>
+			<FieldValue>0x</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>0x</string>
+				<string>2x</string>
+				<string>4x</string>
+				<string>8x</string>
+			</FieldOptions>
+			<Hint>Enables MSAA (Multi Sample Anti Aliasing) at the specified level, if possible on your GPU. </Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Anisotropic Filtering</FieldName>
+			<FieldValue>16x</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Off</string>
+				<string>2x</string>
+				<string>4x</string>
+				<string>8x</string>
+				<string>16x</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Shadow Resolution</FieldName>
+			<FieldValue>2048</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>1024 (Original)</string>
+				<string>2048</string>
+				<string>4096</string>
+			</FieldOptions>
+			<Hint>Shadow map size. The game blurs its shadows, so on its own the difference is small; combine with Shadow Filter Sharp.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Shadow Filter</FieldName>
+			<FieldValue>Original</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>Original</string>
+				<string>Sharp</string>
+			</FieldOptions>
+			<Hint>Sharp scales the shadow blur down with a larger Shadow Resolution, for crisper shadows (e.g. sunlight through leaves).</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Glare Resolution</FieldName>
+			<FieldValue>256</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>128 (Original)</string>
+				<string>256</string>
+				<string>512</string>
+			</FieldOptions>
+			<Hint>Resolution of the glare / bloom buffers. Higher is smoother.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

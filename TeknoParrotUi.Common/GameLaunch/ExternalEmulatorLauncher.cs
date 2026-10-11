@@ -43,6 +43,7 @@ namespace TeknoParrotUi.Common.GameLaunch
                 case EmulatorType.TeknoMVS:
                 case EmulatorType.TeknoCPS:
                 case EmulatorType.TeknoSS32:
+                case EmulatorType.TeknoTZero:
                 case EmulatorType.TeknoZeus:
                     return true;
                 default:

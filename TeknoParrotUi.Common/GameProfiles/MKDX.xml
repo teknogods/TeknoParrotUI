@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>NamcoMkdx</EmulationProfile>
-	<GameProfileRevision>35</GameProfileRevision>
+	<GameProfileRevision>37</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<RequiresAdmin>false</RequiresAdmin>
@@ -120,6 +120,40 @@
 			<FieldName>PlayerId</FieldName>
 			<FieldValue></FieldValue>
 			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>SkipNoticeScreen</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Skips the notice screen shown at every boot ("for use exclusively in Japan").</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>NamCam</CategoryName>
+			<FieldName>Device</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Part of the webcam's name, if you have more than one camera (empty = the first one). The names are listed in mkdx_namcam.log next to the game.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>NamCam</CategoryName>
+			<FieldName>Rotation</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>0</string>
+				<string>90</string>
+				<string>180</string>
+				<string>270</string>
+			</FieldOptions>
+			<Hint>How far the webcam is turned clockwise, for a camera mounted on its side or upside down (0 for a normal webcam, 270 for the arcade cabinet's camera).</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>NamCam</CategoryName>
+			<FieldName>Mirror</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Shows the camera picture mirrored, like a mirror.</Hint>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>

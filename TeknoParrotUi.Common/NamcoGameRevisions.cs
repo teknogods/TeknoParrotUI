@@ -262,6 +262,76 @@ namespace TeknoParrotUi.Common
             if (string.IsNullOrWhiteSpace(field.FieldValue)) field.FieldValue = profile.ProfileName;
         }
 
+        public const string LanguageSettingName = "Language";
+
+        // Verified program choices; regional programs can omit choices even
+        // when their shared ROM assets contain translated text.
+        private static string[] LanguageCodes(string set)
+        {
+            switch (set)
+            {
+                case "rapidrvr": case "rapidrvrv2c": case "rapidrvrp":
+                case "downhill": case "downhillu":
+                case "motoxgo": case "motoxgov2a":
+                case "finfurl": case "500gp":
+                    return new[] { "en", "de", "fr", "es", "pt" };
+                case "raceon":
+                case "timecrs2": case "timecrs2v2b": case "timecrs2v4a": case "timecrs2v5a":
+                case "crszone": case "crszonev4a": case "crszonev3b": case "crszonev3b2":
+                case "crszonev3a": case "crszonev2a": case "crszonev2b":
+                    return new[] { "en", "de", "fr", "es", "pt", "it" };
+                case "panicprk": case "panicprkj":
+                    return new[] { "ja", "en", "de", "fr", "es", "pt", "it", "ko" };
+                default: return Array.Empty<string>();
+            }
+        }
+
+        private static string LanguageName(string code)
+        {
+            switch (code)
+            {
+                case "ja": return "Japanese";
+                case "en": return "English";
+                case "de": return "German";
+                case "fr": return "French";
+                case "es": return "Spanish";
+                case "pt": return "Portuguese";
+                case "it": return "Italian";
+                case "ko": return "Korean";
+                default: return "Use game setting";
+            }
+        }
+
+        public static List<DynamicDropdownOption> GetLanguageOptions(GameProfile profile)
+        {
+            var options = new List<DynamicDropdownOption>
+            {
+                new DynamicDropdownOption { DisplayName = "Use game setting", Value = "default" }
+            };
+            if (profile?.EmulatorType != EmulatorType.TeknoS23) return options;
+            var set = ResolveSet(profile);
+            foreach (var code in LanguageCodes(set))
+                options.Add(new DynamicDropdownOption { DisplayName = LanguageName(code), Value = code });
+            if (set == "timecrs2v1b" || set == "motoxgov1a" || set == "raceonj")
+                options[0].DisplayName = "Japanese";
+            return options;
+        }
+
+        public static void PopulateLanguage(GameProfile profile)
+        {
+            var field = profile?.ConfigValues?.FirstOrDefault(value => value.FieldName == LanguageSettingName);
+            if (field == null || profile.EmulatorType != EmulatorType.TeknoS23) return;
+            field.DynamicOptions = GetLanguageOptions(profile);
+            if (!field.DynamicOptions.Any(option => option.Value == field.FieldValue))
+                field.FieldValue = "default";
+        }
+
+        public static string ResolveLanguage(GameProfile profile)
+        {
+            var selected = profile?.ConfigValues?.FirstOrDefault(value => value.FieldName == LanguageSettingName)?.FieldValue;
+            return LanguageCodes(ResolveSet(profile)).Contains(selected) ? selected : "default";
+        }
+
         public static string ResolveSet(GameProfile profile)
         {
             var selected = profile.ConfigValues?.FirstOrDefault(value => value.FieldName == SettingName)?.FieldValue;

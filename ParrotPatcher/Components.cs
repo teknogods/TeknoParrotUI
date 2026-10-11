@@ -102,6 +102,15 @@ namespace ParrotPatcher
                     manualVersion = true,
                     folderOverride = "ElfLdr2"
                 },
+                new UpdaterComponent
+                {
+                    name = "TeknoTZero",
+                    location = Path.Combine("TeknoTZero", "TeknoTZero.exe"),
+                    reponame = "TeknoParrot",
+                    opensource = false,
+                    manualVersion = false,
+                    folderOverride = "TeknoTZero"
+                },
                 // GT on TP, the Golden Tee golfer and equipment editor. Same entry in TeknoParrotUi\MainWindow.xaml.cs.
                 new UpdaterComponent
                 {
