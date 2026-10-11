@@ -36,12 +36,11 @@ internal static class PresentationChecks
             var profile = Load(root, Path.GetFileNameWithoutExtension(file));
             foreach (var name in new[] { "Window Mode", "Use Bezel", "CRT Shader" })
                 Require(profile.ConfigValues.Count(field => field.FieldName == name && field.CategoryName == "Video") == 1, profile.ProfileName + " missing " + name);
-            Require(profile.GameProfileRevision >= (profile.EmulatorType == EmulatorType.TeknoCPS ? 6 : 4), "Missing profile migration revision");
-            if (profile.EmulatorType == EmulatorType.TeknoCPS)
+            Require(profile.GameProfileRevision >= (profile.EmulatorType == EmulatorType.TeknoCPS ? 6 : 5), "Missing profile migration revision");
             {
                 var aspect = profile.ConfigValues.Single(field => field.CategoryName == "Video" && field.FieldName == "Aspect Ratio");
                 Require(aspect.FieldType == FieldType.Dropdown && aspect.FieldValue == "Native" &&
-                    aspect.FieldOptions.SequenceEqual(new[] { "Native", "4:3", "16:9", "Stretch" }), "CPS aspect choices/default missing " + profile.ProfileName);
+                    aspect.FieldOptions.SequenceEqual(new[] { "Native", "4:3", "16:9", "Stretch" }), "Aspect choices/default missing " + profile.ProfileName);
             }
             Require(profile.ConfigValues.Single(field => field.FieldName == "Window Mode").FieldValue == "Windowed", "Window default changed");
         }
@@ -55,23 +54,23 @@ internal static class PresentationChecks
             foreach (var mode in new[] { "Windowed", "Fullscreen" })
             foreach (var bezel in new[] { "0", "1" })
             foreach (var crt in new[] { "off", "lottes", "lottes-downsample" })
-            foreach (var aspect in cps ? new[] { "Native", "4:3", "16:9", "Stretch" } : new[] { "Native" })
+            foreach (var aspect in new[] { "Native", "4:3", "16:9", "Stretch" })
             {
                 Environment.SetEnvironmentVariable("TP_TPONLINE2", online ? "presentation|1|Player|2" : null);
                 Set(profile, "Window Mode", mode); Set(profile, "Use Bezel", bezel); Set(profile, "CRT Shader", crt);
-                if (cps) Set(profile, "Aspect Ratio", aspect);
+                Set(profile, "Aspect Ratio", aspect);
                 var launch = Build(profile, zip); Program.NativeLaunch(launch);
                 var args = Program.Arguments(launch.Arguments);
                 Require(args.Count(value => value == "--fullscreen") == (mode == "Fullscreen" ? 1 : 0), "Fullscreen setting lost " + id);
                 Require(args.Count(value => value == "--use-bezel") == (bezel == "1" ? 1 : 0), "Bezel setting lost " + id);
                 Require(args.Count(value => value == "--crt") == 1 && args[Array.IndexOf(args, "--crt") + 1] == crt, "CRT setting lost " + id);
-                Require(args.Count(value => value == "--aspect") == (cps ? 1 : 0), "Wrong aspect option count " + id);
-                if (cps) Require(args[Array.IndexOf(args, "--aspect") + 1] == aspect.ToLowerInvariant(), "CPS aspect setting lost");
+                Require(args.Count(value => value == "--aspect") == 1, "Wrong aspect option count " + id);
+                Require(args[Array.IndexOf(args, "--aspect") + 1] == aspect.ToLowerInvariant(), "Aspect setting lost " + id);
                 if (bezel == "1") Require(Directory.Exists(Path.Combine(launch.WorkingDirectory, "bezels")), "Artwork folder missing");
                 ++cases;
             }
             Environment.SetEnvironmentVariable("TP_TPONLINE2", null);
-            foreach (var name in cps ? new[] { "Window Mode", "Use Bezel", "CRT Shader", "Aspect Ratio" } : new[] { "Window Mode", "Use Bezel", "CRT Shader" })
+            foreach (var name in new[] { "Window Mode", "Use Bezel", "CRT Shader", "Aspect Ratio" })
             {
                 var field = profile.ConfigValues.Single(value => value.FieldName == name); var saved = field.FieldValue;
                 field.FieldValue = "invalid";
@@ -84,10 +83,9 @@ internal static class PresentationChecks
             Require(selected.ConfigValues.Single(field => field.FieldName == "Use Bezel").FieldValue == "1" &&
                 selected.ConfigValues.Single(field => field.FieldName == "CRT Shader").FieldValue == "lottes-downsample" &&
                 selected.ConfigValues.Single(field => field.FieldName == "Window Mode").FieldValue == "Fullscreen", "Presentation preferences lost when selecting a revision");
-            if (cps)
             {
                 Require(selected.ConfigValues.Single(field => field.FieldName == "Aspect Ratio").FieldValue == "Stretch", "Aspect preference lost when selecting a revision");
-                profile.GameProfileRevision = 5;
+                profile.GameProfileRevision = cps ? 5 : 4;
                 profile.ConfigValues.RemoveAll(field => field.FieldName == "Aspect Ratio");
                 var migrated = Program.Arguments(Build(profile, zip).Arguments);
                 Require(migrated[Array.IndexOf(migrated, "--aspect") + 1] == "native" && migrated.Contains("--fullscreen") &&

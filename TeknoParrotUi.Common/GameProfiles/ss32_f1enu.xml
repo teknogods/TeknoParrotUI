@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>F1 Exhaust Note (US, Rev A)</GameNameInternal>
   <EmulationProfile>TeknoSS32</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <EmulatorType>TeknoSS32</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>f1enu.zip</ExecutableName>
@@ -69,6 +69,19 @@
         <string>Windowed</string>
         <string>Fullscreen</string>
       </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Aspect Ratio</FieldName>
+      <FieldValue>Native</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Native</string>
+        <string>4:3</string>
+        <string>16:9</string>
+        <string>Stretch</string>
+      </FieldOptions>
+      <Hint>Native preserves the framebuffer ratio. Fixed ratios follow vertical games and apply to each visible monitor. Stretch fills the window.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Video</CategoryName>

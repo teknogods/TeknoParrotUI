@@ -3,7 +3,7 @@
   <GamePath />
   <GameNameInternal>Kizuna Encounter - Super Tag Battle 4 Way Battle Version / Fu'un Super Tag Battle Special Version</GameNameInternal>
   <EmulationProfile>TeknoMVS</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <EmulatorType>TeknoMVS</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>kizuna4p.zip</ExecutableName>
@@ -80,6 +80,19 @@
         <string>Windowed</string>
         <string>Fullscreen</string>
       </FieldOptions>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>Video</CategoryName>
+      <FieldName>Aspect Ratio</FieldName>
+      <FieldValue>Native</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <FieldOptions>
+        <string>Native</string>
+        <string>4:3</string>
+        <string>16:9</string>
+        <string>Stretch</string>
+      </FieldOptions>
+      <Hint>Native keeps the rendering mode proportions. Fixed ratios apply to each stereo eye. Stretch fills the window.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Video</CategoryName>

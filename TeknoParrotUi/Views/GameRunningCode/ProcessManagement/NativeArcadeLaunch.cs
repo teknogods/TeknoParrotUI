@@ -16,6 +16,9 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             var mode = Setting("Window Mode", "Windowed");
             if (mode != "Windowed" && mode != "Fullscreen") throw new ArgumentException("Window Mode must be Windowed or Fullscreen");
             if (mode == "Fullscreen") arguments.Add("--fullscreen");
+            var aspect = Setting("Aspect Ratio", "Native");
+            if (!new[] { "Native", "4:3", "16:9", "Stretch" }.Contains(aspect)) throw new ArgumentException("Invalid Aspect Ratio");
+            arguments.AddRange(new[] { "--aspect", aspect.ToLowerInvariant() });
             var crt = Setting("CRT Shader", "off");
             if (!new[] { "off", "lottes", "lottes-downsample" }.Contains(crt)) throw new ArgumentException("Invalid CRT Shader");
             arguments.AddRange(new[] { "--crt", crt });
