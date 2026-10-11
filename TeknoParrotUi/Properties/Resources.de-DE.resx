@@ -3502,4 +3502,12 @@ Ohne die Regeln starten die Spiele trotzdem, sie finden sich nur nicht.</value>
   <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
     <value>Ungespeicherte Avatar-Änderungen verwerfen?</value>
   </data>
+  <data name="GameRunningUtilsNirinMesaDisabled" xml:space="preserve">
+    <value>TeknoParrot hat die Dateien des alten Nirin-Flacker-Fixes (Mesa 22.1.7 OpenGL-DLLs) in deinem ElfLdr2-Ordner gefunden.
+
+TeknoParrot behebt das Flackern inzwischen selbst, und diese Dateien zerstören die Grafik anderer Spiele (schwarzer Bildschirm, fehlerhaftes oder fehlendes 3D). Sie wurden deaktiviert und verschoben nach:
+{0}
+
+Du brauchst sie nicht mehr. Diese Meldung wird nicht erneut angezeigt.</value>
+  </data>
 </root>

@@ -3502,4 +3502,12 @@ TeknoParrot 로딩을 계속하려면 "확인"을 클릭하세요.</value>
   <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
     <value>저장하지 않은 아바타 변경을 버리시겠습니까?</value>
   </data>
+  <data name="GameRunningUtilsNirinMesaDisabled" xml:space="preserve">
+    <value>TeknoParrot이 ElfLdr2 폴더에서 예전 Nirin 깜빡임 수정 파일(Mesa 22.1.7 OpenGL DLL)을 발견했습니다.
+
+이제 TeknoParrot이 깜빡임을 자체적으로 수정하며, 이 파일들은 다른 게임의 그래픽을 망가뜨립니다(검은 화면, 깨지거나 누락된 3D). 파일을 비활성화하고 다음 위치로 이동했습니다:
+{0}
+
+더 이상 필요하지 않은 파일입니다. 이 메시지는 다시 표시되지 않습니다.</value>
+  </data>
 </root>

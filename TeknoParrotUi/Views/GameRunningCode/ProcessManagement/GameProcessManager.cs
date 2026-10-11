@@ -329,6 +329,19 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 }
                 GameRunningCode.Utilities.GameRunningUtils.SetDPIAwareRegistryValue(Path.GetFullPath(loaderExe));
 
+                // The old Nirin flicker fix (Mesa opengl32.dll in ElfLdr2) breaks other games, move it out of the way.
+                // Once moved there's nothing left to match, so the message only ever shows once.
+                if (_gameProfile.EmulatorType == EmulatorType.ElfLdr2)
+                {
+                    var disabledFolder = GameRunningCode.Utilities.GameRunningUtils.DisableObsoleteNirinMesaFiles(
+                        Path.GetDirectoryName(Path.GetFullPath(loaderExe)));
+                    if (disabledFolder != null)
+                    {
+                        Application.Current.Dispatcher.Invoke(() =>
+                            MessageBoxHelper.InfoOK(string.Format(Properties.Resources.GameRunningUtilsNirinMesaDisabled, disabledFolder)));
+                    }
+                }
+
                 bool isElfldr2x64 = _gameProfile.EmulatorType == EmulatorType.ElfLdr2 &&
                     (loaderExe.IndexOf("x64", StringComparison.OrdinalIgnoreCase) >= 0 ||
                      loaderExe.IndexOf("_64", StringComparison.OrdinalIgnoreCase) >= 0);

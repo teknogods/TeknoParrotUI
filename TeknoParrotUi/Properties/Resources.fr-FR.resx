@@ -3502,4 +3502,12 @@ Sans les règles, les jeux démarrent quand même, ils ne se trouvent simplement
   <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
     <value>Abandonner les modifications non enregistrées de l'avatar ?</value>
   </data>
+  <data name="GameRunningUtilsNirinMesaDisabled" xml:space="preserve">
+    <value>TeknoParrot a trouvé les fichiers de l'ancien correctif de scintillement de Nirin (DLL OpenGL Mesa 22.1.7) dans votre dossier ElfLdr2.
+
+TeknoParrot corrige désormais le scintillement lui-même, et ces fichiers cassent les graphismes d'autres jeux (écran noir, 3D cassée ou manquante). Ils ont été désactivés et déplacés vers :
+{0}
+
+Vous n'en avez plus besoin. Ce message ne s'affichera plus.</value>
+  </data>
 </root>

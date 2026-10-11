@@ -3502,4 +3502,12 @@ Sin las reglas los juegos se inician igualmente, solo que no se encuentran entre
   <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
     <value>¿Descartar los cambios del avatar sin guardar?</value>
   </data>
+  <data name="GameRunningUtilsNirinMesaDisabled" xml:space="preserve">
+    <value>TeknoParrot ha encontrado los archivos del antiguo arreglo de parpadeo de Nirin (DLL de OpenGL de Mesa 22.1.7) en tu carpeta ElfLdr2.
+
+Ahora TeknoParrot corrige el parpadeo por sí mismo, y estos archivos rompen los gráficos de otros juegos (pantalla negra, 3D roto o ausente). Se han desactivado y movido a:
+{0}
+
+Ya no los necesitas. Este mensaje no se volverá a mostrar.</value>
+  </data>
 </root>

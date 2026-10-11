@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
+using System.Security.Cryptography;
 using System.Windows;
 using Microsoft.Win32;
 using TeknoParrotUi.Properties;
@@ -60,6 +62,98 @@ namespace TeknoParrotUi.Views.GameRunningCode.Utilities
             catch
             {
                 // Ignore registry errors
+            }
+        }
+
+        // Nezarn's old "Nirin flicker fix" (Mesa 22.1.7) told people to copy these into ElfLdr2.
+        // Thanks to BudgieLoader.exe.local, every ElfLdr2 game then renders through Mesa instead of the GPU driver,
+        // which breaks a bunch of them (LGJ black screen, ABC 3D, Race TV...). The flicker is fixed in TeknoParrot.dll now.
+        private const string NirinMesaFolderName = "disabled_nirin_mesa";
+        private static readonly Dictionary<string, string> NirinMesaFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            { "opengl32.dll", "82bbb5b0b82122a3f765794e5a29c8d4" },
+            { "opengl32sw.dll", "82bbb5b0b82122a3f765794e5a29c8d4" },
+            { "libgallium_wgl.dll", "5f9c254d7ea028910d56abad0068f86d" },
+            { "libglapi.dll", "2de98d4694377e5c4f5613de2ddc8a66" },
+            { "dxil.dll", "160949bd77b331b4442126a7a22e662c" },
+            { "BudgieLoader.exe.local", "e35317955041885d80e3a7850e30874e" },
+        };
+
+        private static bool FileMd5Matches(string path, string md5)
+        {
+            using (var hasher = MD5.Create())
+            using (var stream = File.OpenRead(path))
+            {
+                var hash = BitConverter.ToString(hasher.ComputeHash(stream)).Replace("-", string.Empty);
+                return string.Equals(hash, md5, StringComparison.OrdinalIgnoreCase);
+            }
+        }
+
+        /// <summary>
+        /// Moves the obsolete Nirin Mesa files out of the loader folder so the real GPU driver gets used.
+        /// Only acts if opengl32.dll is the Mesa one, never throws.
+        /// </summary>
+        /// <returns>The folder the files were moved to if opengl32.dll was disabled, otherwise null.</returns>
+        public static string DisableObsoleteNirinMesaFiles(string loaderFolder)
+        {
+            try
+            {
+                var openGlPath = Path.Combine(loaderFolder, "opengl32.dll");
+                if (!File.Exists(openGlPath) || !FileMd5Matches(openGlPath, NirinMesaFiles["opengl32.dll"]))
+                {
+                    return null;
+                }
+
+                var disabledFolder = Path.Combine(loaderFolder, NirinMesaFolderName);
+                Directory.CreateDirectory(disabledFolder);
+
+                bool openGlMoved = false;
+                foreach (var file in NirinMesaFiles)
+                {
+                    var source = Path.Combine(loaderFolder, file.Key);
+                    try
+                    {
+                        if (!File.Exists(source) || !FileMd5Matches(source, file.Value))
+                        {
+                            continue;
+                        }
+
+                        var destination = Path.Combine(disabledFolder, file.Key);
+                        if (File.Exists(destination))
+                        {
+                            File.Delete(destination);
+                        }
+                        File.Move(source, destination);
+
+                        if (file.Key == "opengl32.dll")
+                        {
+                            openGlMoved = true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Could not disable old Nirin Mesa file {source}: {ex.Message}");
+                    }
+                }
+
+                try
+                {
+                    File.WriteAllText(Path.Combine(disabledFolder, "README.txt"),
+                        "These files were the old Nirin flicker fix (Mesa 22.1.7).\r\n" +
+                        "TeknoParrot fixes the flicker itself now, and these files broke the graphics of other games, so they were moved here.\r\n" +
+                        "They are not needed any more.\r\n");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Could not write Nirin Mesa README: {ex.Message}");
+                }
+
+                return openGlMoved ? disabledFolder : null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Old Nirin Mesa file check failed: {ex.Message}");
+                return null;
             }
         }
 

@@ -3502,4 +3502,12 @@ Senza le regole i giochi si avviano comunque, semplicemente non si trovano.</val
   <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
     <value>Scartare le modifiche all'avatar non salvate?</value>
   </data>
+  <data name="GameRunningUtilsNirinMesaDisabled" xml:space="preserve">
+    <value>TeknoParrot ha trovato i file della vecchia correzione dello sfarfallio di Nirin (DLL OpenGL di Mesa 22.1.7) nella tua cartella ElfLdr2.
+
+Ora TeknoParrot corregge lo sfarfallio da solo, e questi file rovinano la grafica di altri giochi (schermo nero, 3D danneggiato o mancante). Sono stati disattivati e spostati in:
+{0}
+
+Non ti servono più. Questo messaggio non verrà più mostrato.</value>
+  </data>
 </root>

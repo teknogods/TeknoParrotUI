@@ -3506,4 +3506,12 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
   <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
     <value>تجاهل تغييرات الصورة الرمزية غير المحفوظة؟</value>
   </data>
+  <data name="GameRunningUtilsNirinMesaDisabled" xml:space="preserve">
+    <value>عثر TeknoParrot على ملفات إصلاح الوميض القديم لـ Nirin ‏(ملفات Mesa 22.1.7 OpenGL DLL) في مجلد ElfLdr2.
+
+أصبح TeknoParrot يصلح الوميض بنفسه الآن، وهذه الملفات تفسد رسومات ألعاب أخرى (شاشة سوداء، رسومات ثلاثية الأبعاد معطوبة أو مفقودة). تم تعطيلها ونقلها إلى:
+{0}
+
+لم تعد بحاجة إليها. لن تظهر هذه الرسالة مرة أخرى.</value>
+  </data>
 </root>

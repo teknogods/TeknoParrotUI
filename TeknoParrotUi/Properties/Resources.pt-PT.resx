@@ -3502,4 +3502,12 @@ Sem as regras os jogos arrancam na mesma, só não se encontram um ao outro.</va
   <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
     <value>Descartar as alterações do avatar por guardar?</value>
   </data>
+  <data name="GameRunningUtilsNirinMesaDisabled" xml:space="preserve">
+    <value>O TeknoParrot encontrou os ficheiros da antiga correção de cintilação do Nirin (DLLs OpenGL do Mesa 22.1.7) na sua pasta ElfLdr2.
+
+O TeknoParrot corrige agora a cintilação sozinho, e estes ficheiros estragam os gráficos de outros jogos (ecrã preto, 3D danificado ou em falta). Foram desativados e movidos para:
+{0}
+
+Já não precisa deles. Esta mensagem não voltará a ser mostrada.</value>
+  </data>
 </root>

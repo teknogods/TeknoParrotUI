@@ -3502,4 +3502,12 @@ Zonder de regels starten de games nog steeds, ze vinden elkaar alleen niet.</val
   <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
     <value>Niet-opgeslagen avatarwijzigingen negeren?</value>
   </data>
+  <data name="GameRunningUtilsNirinMesaDisabled" xml:space="preserve">
+    <value>TeknoParrot heeft de bestanden van de oude Nirin-flikkerfix (Mesa 22.1.7 OpenGL-DLL's) in je ElfLdr2-map gevonden.
+
+TeknoParrot verhelpt het flikkeren nu zelf, en deze bestanden verpesten de graphics van andere games (zwart scherm, kapotte of ontbrekende 3D). Ze zijn uitgeschakeld en verplaatst naar:
+{0}
+
+Je hebt ze niet meer nodig. Dit bericht wordt niet opnieuw getoond.</value>
+  </data>
 </root>

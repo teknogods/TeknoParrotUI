@@ -3502,4 +3502,12 @@ Bez reguł gry nadal się uruchamiają, tylko nie znajdują się nawzajem.</valu
   <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
     <value>Odrzucić niezapisane zmiany awatara?</value>
   </data>
+  <data name="GameRunningUtilsNirinMesaDisabled" xml:space="preserve">
+    <value>TeknoParrot znalazł w folderze ElfLdr2 pliki starej poprawki migotania Nirin (biblioteki DLL OpenGL Mesa 22.1.7).
+
+TeknoParrot sam naprawia teraz migotanie, a te pliki psują grafikę w innych grach (czarny ekran, uszkodzona lub brakująca grafika 3D). Zostały wyłączone i przeniesione do:
+{0}
+
+Nie są już potrzebne. Ten komunikat nie zostanie wyświetlony ponownie.</value>
+  </data>
 </root>

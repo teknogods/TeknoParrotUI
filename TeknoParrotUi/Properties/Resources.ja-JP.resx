@@ -3502,4 +3502,12 @@ TeknoParrotを再展開してください。</value>
   <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
     <value>保存していないアバターの変更を破棄しますか？</value>
   </data>
+  <data name="GameRunningUtilsNirinMesaDisabled" xml:space="preserve">
+    <value>ElfLdr2 フォルダー内に、古い Nirin のちらつき修正ファイル (Mesa 22.1.7 OpenGL DLL) が見つかりました。
+
+ちらつきは現在 TeknoParrot 自体で修正されており、これらのファイルは他のゲームのグラフィックを壊します (黒い画面、3D の崩れや欠落)。ファイルは無効化され、次の場所に移動されました:
+{0}
+
+これらのファイルはもう必要ありません。このメッセージは今後表示されません。</value>
+  </data>
 </root>

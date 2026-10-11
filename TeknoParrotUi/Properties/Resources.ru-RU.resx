@@ -3502,4 +3502,12 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
   <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
     <value>Отменить несохранённые изменения аватара?</value>
   </data>
+  <data name="GameRunningUtilsNirinMesaDisabled" xml:space="preserve">
+    <value>TeknoParrot обнаружил в папке ElfLdr2 файлы старого исправления мерцания Nirin (OpenGL DLL из Mesa 22.1.7).
+
+Теперь TeknoParrot сам исправляет мерцание, а эти файлы портят графику в других играх (чёрный экран, сломанная или отсутствующая 3D-графика). Они были отключены и перемещены в:
+{0}
+
+Они вам больше не нужны. Это сообщение больше не появится.</value>
+  </data>
 </root>

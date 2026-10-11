@@ -3502,4 +3502,12 @@ Ilman sääntöjä pelit käynnistyvät silti, ne eivät vain löydä toisiaan.<
   <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
     <value>Hylätäänkö tallentamattomat avatar-muutokset?</value>
   </data>
+  <data name="GameRunningUtilsNirinMesaDisabled" xml:space="preserve">
+    <value>TeknoParrot löysi vanhan Nirin-välkyntäkorjauksen tiedostot (Mesa 22.1.7 OpenGL -DLL:t) ElfLdr2-kansiostasi.
+
+TeknoParrot korjaa välkynnän nyt itse, ja nämä tiedostot rikkovat muiden pelien grafiikat (musta ruutu, rikkinäinen tai puuttuva 3D). Ne on poistettu käytöstä ja siirretty kansioon:
+{0}
+
+Et tarvitse niitä enää. Tätä viestiä ei näytetä uudelleen.</value>
+  </data>
 </root>

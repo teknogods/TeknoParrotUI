@@ -2983,6 +2983,20 @@ namespace TeknoParrotUi.Properties {
                 return ResourceManager.GetString("GameRunningUtilsAMDDriverUnsupported", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to TeknoParrot found the files of the old Nirin flicker fix (Mesa 22.1.7 OpenGL DLLs) in your ElfLdr2 folder.
+        ///
+        ///TeknoParrot fixes the flicker by itself now, and these files break the graphics of other games (black screen, broken or missing 3D). They have been disabled and moved to:
+        ///{0}
+        ///
+        ///You don&apos;t need them any more. This message will not be shown again..
+        /// </summary>
+        public static string GameRunningUtilsNirinMesaDisabled {
+            get {
+                return ResourceManager.GetString("GameRunningUtilsNirinMesaDisabled", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to TeknoParrotUI.

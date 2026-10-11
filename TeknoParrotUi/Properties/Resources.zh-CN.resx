@@ -3504,4 +3504,12 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
   <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
     <value>放弃未保存的头像更改？</value>
   </data>
+  <data name="GameRunningUtilsNirinMesaDisabled" xml:space="preserve">
+    <value>TeknoParrot 在你的 ElfLdr2 文件夹中发现了旧的 Nirin 闪烁修复文件（Mesa 22.1.7 OpenGL DLL）。
+
+TeknoParrot 现在已能自行修复闪烁问题，而这些文件会破坏其他游戏的画面（黑屏、3D 损坏或缺失）。它们已被禁用并移动到：
+{0}
+
+你不再需要这些文件。此消息不会再次显示。</value>
+  </data>
 </root>

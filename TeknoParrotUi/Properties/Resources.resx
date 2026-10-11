@@ -3513,4 +3513,12 @@ Log in on the Account page: TeknoParrotUI then fills in the ID by itself. Then s
   <data name="KizunaAvatarDiscardChanges" xml:space="preserve">
     <value>Discard your unsaved avatar changes?</value>
   </data>
+  <data name="GameRunningUtilsNirinMesaDisabled" xml:space="preserve">
+    <value>TeknoParrot found the files of the old Nirin flicker fix (Mesa 22.1.7 OpenGL DLLs) in your ElfLdr2 folder.
+
+TeknoParrot fixes the flicker by itself now, and these files break the graphics of other games (black screen, broken or missing 3D). They have been disabled and moved to:
+{0}
+
+You don't need them any more. This message will not be shown again.</value>
+  </data>
 </root>
