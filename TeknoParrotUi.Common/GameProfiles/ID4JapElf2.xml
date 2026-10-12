@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaInitialDLindbergh</EmulationProfile>
-	<GameProfileRevision>13</GameProfileRevision>
+	<GameProfileRevision>14</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<Patreon>false</Patreon>
@@ -31,8 +31,6 @@
 			<FieldType>Dropdown</FieldType>
 			<FieldOptions>
 				<string>None</string>
-				<string>AMD</string>
-				<string>New AMD Driver</string>
 				<string>INTEL</string>
 			</FieldOptions>
 		</FieldInformation>
