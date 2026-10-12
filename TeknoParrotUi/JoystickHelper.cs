@@ -227,6 +227,10 @@ namespace TeknoParrotUi.Common
             if (profile.OnlineIdType == OnlineIdType.GoldenTee)
                 return GoldenTeeOnlineHelper.AutoFill(profile);
 
+            // Sword Art Online Arcade online: the access code, from ParrotData (an empty field only).
+            if (profile.OnlineIdType == OnlineIdType.SaoAccessCode)
+                return SaoOnlineHelper.AutoFill(profile);
+
             // Senjou no Kizuna Online: its own PCB ID + secret pair (both fields), plain text from ParrotData.
             if (profile.OnlineIdType == OnlineIdType.Kizuna)
                 return KizunaOnlineHelper.AutoFill(profile);

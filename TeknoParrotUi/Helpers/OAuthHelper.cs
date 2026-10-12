@@ -520,6 +520,7 @@ namespace TeknoParrotUi.Helpers
                 Lazydata.ParrotData.GoldenTeeCardId = "";
                 KizunaOnlineHelper.ForgetAccount();
                 MarioKartOnlineHelper.ForgetAccount();
+                SaoOnlineHelper.ForgetAccount();
                 Lazydata.ParrotData.IsLoggedIn = false;
 
                 string tokenFolder = Path.Combine(

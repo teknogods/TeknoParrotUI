@@ -3313,6 +3313,12 @@ Without the rules the games still start, they just do not find each other.</valu
   <data name="AccountPageGoldenTeeHint" xml:space="preserve">
     <value>Filled into Golden Tee automatically</value>
   </data>
+  <data name="AccountPageSaoAccessCode" xml:space="preserve">
+    <value>SAO Access Code:</value>
+  </data>
+  <data name="AccountPageSaoHint" xml:space="preserve">
+    <value>Filled into Sword Art Online Arcade automatically</value>
+  </data>
   <data name="AccountPageKizunaOnlineId" xml:space="preserve">
     <value>Kizuna Online ID:</value>
   </data>

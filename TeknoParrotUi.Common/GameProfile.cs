@@ -31,7 +31,10 @@ namespace TeknoParrotUi.Common
         // Senjou no Kizuna Online (GundamPod, online only): the account's own Kizuna PCB ID (AAKZ-...) plus its secret
         // in the same two fields, from the teknoparrot.com account like InitialD's but a pair of its own
         // (KizunaOnlineHelper).
-        Kizuna
+        Kizuna,
+        // Sword Art Online Arcade online: the account's access code in OnlineIdFieldName ([Card] AccessCode), the player's
+        // whole identity, from the teknoparrot.com account or typed by hand (SaoOnlineHelper).
+        SaoAccessCode
     }
 
     [Serializable]

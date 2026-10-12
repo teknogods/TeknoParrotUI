@@ -332,6 +332,13 @@ namespace TeknoParrotUi.Views
                 return;
             }
 
+            // Sword Art Online Arcade online: the access code, from ParrotData (an empty field only).
+            if (profile.OnlineIdType == OnlineIdType.SaoAccessCode)
+            {
+                SaoOnlineHelper.AutoFill(profile);
+                return;
+            }
+
             // Senjou no Kizuna Online: its own PCB ID + secret pair (both fields), plain text from ParrotData.
             if (profile.OnlineIdType == OnlineIdType.Kizuna)
             {

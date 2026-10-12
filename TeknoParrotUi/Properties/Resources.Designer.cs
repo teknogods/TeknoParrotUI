@@ -466,6 +466,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filled into Mario Kart Arcade GP DX automatically.
+        /// </summary>
+        public static string AccountPageMarioKartHint {
+            get {
+                return ResourceManager.GetString("AccountPageMarioKartHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mario Kart ID:.
         /// </summary>
         public static string AccountPageMarioKartID {
@@ -498,15 +507,6 @@ namespace TeknoParrotUi.Properties {
         public static string AccountPageMarioKartSecret {
             get {
                 return ResourceManager.GetString("AccountPageMarioKartSecret", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Filled into Mario Kart Arcade GP DX automatically.
-        /// </summary>
-        public static string AccountPageMarioKartHint {
-            get {
-                return ResourceManager.GetString("AccountPageMarioKartHint", resourceCulture);
             }
         }
         
@@ -606,6 +606,24 @@ namespace TeknoParrotUi.Properties {
         public static string AccountPageRegistrationProgress {
             get {
                 return ResourceManager.GetString("AccountPageRegistrationProgress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SAO Access Code:.
+        /// </summary>
+        public static string AccountPageSaoAccessCode {
+            get {
+                return ResourceManager.GetString("AccountPageSaoAccessCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filled into Sword Art Online Arcade automatically.
+        /// </summary>
+        public static string AccountPageSaoHint {
+            get {
+                return ResourceManager.GetString("AccountPageSaoHint", resourceCulture);
             }
         }
         
@@ -2983,7 +3001,7 @@ namespace TeknoParrotUi.Properties {
                 return ResourceManager.GetString("GameRunningUtilsAMDDriverUnsupported", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to TeknoParrot found the files of the old Nirin flicker fix (Mesa 22.1.7 OpenGL DLLs) in your ElfLdr2 folder.
         ///
@@ -4989,20 +5007,20 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Body.
-        /// </summary>
-        public static string KizunaAvatarBody {
-            get {
-                return ResourceManager.GetString("KizunaAvatarBody", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Show parts made for the other body too.
         /// </summary>
         public static string KizunaAvatarAllBodies {
             get {
                 return ResourceManager.GetString("KizunaAvatarAllBodies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Body.
+        /// </summary>
+        public static string KizunaAvatarBody {
+            get {
+                return ResourceManager.GetString("KizunaAvatarBody", resourceCulture);
             }
         }
         
@@ -5059,7 +5077,6 @@ namespace TeknoParrotUi.Properties {
                 return ResourceManager.GetString("KizunaAvatarInvalid", resourceCulture);
             }
         }
-        
         
         /// <summary>
         ///   Looks up a localized string similar to Start from the game&apos;s default.
@@ -5258,7 +5275,6 @@ namespace TeknoParrotUi.Properties {
                 return ResourceManager.GetString("KizunaAvatarPlay", resourceCulture);
             }
         }
-        
         
         /// <summary>
         ///   Looks up a localized string similar to Use the game&apos;s default.
@@ -5560,6 +5576,15 @@ namespace TeknoParrotUi.Properties {
         public static string LibraryDeleteGame {
             get {
                 return ResourceManager.GetString("LibraryDeleteGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  (Legacy – Use New Version).
+        /// </summary>
+        public static string LibraryDeprecatedSuffix {
+            get {
+                return ResourceManager.GetString("LibraryDeprecatedSuffix", resourceCulture);
             }
         }
         
@@ -6086,15 +6111,6 @@ namespace TeknoParrotUi.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to  (Legacy – Use New Version).
-        /// </summary>
-        public static string LibraryDeprecatedSuffix {
-            get {
-                return ResourceManager.GetString("LibraryDeprecatedSuffix", resourceCulture);
-            }
-        }
-
         /// <summary>
         ///   Looks up a localized string similar to  (Third Party).
         /// </summary>

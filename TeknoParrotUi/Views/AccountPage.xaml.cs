@@ -96,6 +96,7 @@ namespace TeknoParrotUi.Views
             GoldenTeeCardIdTextBox.Text = userData.GoldenTeeCardId ?? string.Empty;
             ShowKizunaPair(userData.KizunaPcbId, userData.KizunaSecret);
             ShowMarioKartPair(userData.MarioKartPcbId, userData.MarioKartSecret);
+            ShowSaoAccessCode(userData.SaoAccessCode);
             UserTierText.Text = string.Format(TeknoParrotUi.Properties.Resources.AccountPageTierPrefix, userData.Tier);
             UserTierText.Visibility = Visibility.Visible;
             _initialDRank = userData.InitialDRank;
@@ -161,6 +162,9 @@ namespace TeknoParrotUi.Views
                     KizunaOnlineHelper.StoreFromAccount(userData.KizunaPcbId, userData.KizunaSecret);
                     // Mario Kart Arcade GP DX Online: the same, for the MKDX profiles that have OnlineID / OnlineSecret
                     MarioKartOnlineHelper.StoreFromAccount(userData.MarioKartPcbId, userData.MarioKartSecret);
+                    // Sword Art Online Arcade online: the access code into ParrotData and the SAO profiles (null while the
+                    // website has it switched off: keep what was there)
+                    SaoOnlineHelper.StoreFromAccount(userData.SaoAccessCode);
 
                     JoystickHelper.Serialize();
                     Debug.WriteLine($"Saved user data - SegaId: {userData.SegaId}");
@@ -203,6 +207,8 @@ namespace TeknoParrotUi.Views
                     MarioKartIDTextBox.Text = string.Empty;
                     GoldenTeePcbIdTextBox.Text = string.Empty;
                     GoldenTeeCardIdTextBox.Text = string.Empty;
+                    _saoAccessCode = "";
+                    UpdateSaoAccessCodeBox();
                     UserTierText.Text = TeknoParrotUi.Properties.Resources.AccountPageTierNone;
                     UserTierText.Visibility = Visibility.Collapsed;
                     _initialDRank = null;
@@ -975,6 +981,35 @@ namespace TeknoParrotUi.Views
             UpdateMarioKartSecretBox();
         }
 
+        // =============================================================================================================
+        // Sword Art Online Arcade online (SaoOnlineHelper): the account's access code, the player's whole identity, comes
+        // with api/User/Profile and is filled into the SAO profiles' [Card] AccessCode; masked here like the secrets above.
+        // =============================================================================================================
+
+        private string _saoAccessCode = "";
+        private bool _saoAccessCodeShown;
+
+        /// <summary>The account's access code in the account card (the website's answer, else the last one this PC got).</summary>
+        private void ShowSaoAccessCode(string accessCode)
+        {
+            _saoAccessCode = SaoOnlineHelper.Normalize(accessCode) ?? SaoOnlineHelper.Normalize(Lazydata.ParrotData.SaoAccessCode) ?? "";
+            _saoAccessCodeShown = false;
+            UpdateSaoAccessCodeBox();
+        }
+
+        private void UpdateSaoAccessCodeBox()
+        {
+            SaoAccessCodeTextBox.Text = _saoAccessCode.Length == 0 ? "" : _saoAccessCodeShown ? _saoAccessCode : KizunaSecretMask;
+            SaoAccessCodeToggle.Content = _saoAccessCodeShown ? R.AccountPageHideSecret : R.AccountPageShowSecret;
+            SaoAccessCodeToggle.IsEnabled = _saoAccessCode.Length != 0;
+        }
+
+        private void SaoAccessCodeToggle_Click(object sender, RoutedEventArgs e)
+        {
+            _saoAccessCodeShown = !_saoAccessCodeShown;
+            UpdateSaoAccessCodeBox();
+        }
+
         /// <summary>
         /// A paste into a card's by-hand boxes: an Online ID or a secret as teknoparrot.com shows them goes into its own
         /// box, both at once from the website's OnlineID / OnlineSecret lines. Any other text pastes as usual.
@@ -1052,6 +1087,7 @@ namespace TeknoParrotUi.Views
             // Golden Tee online; null while the website has it switched off.
             public int? GoldenTeePcbId { get; set; }
             public string GoldenTeeCardId { get; set; }
+            public string SaoAccessCode { get; set; }
             // Senjou no Kizuna Online: the account's PCB ID and secret; null while the website has it switched off.
             public string KizunaPcbId { get; set; }
             public string KizunaSecret { get; set; }

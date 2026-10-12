@@ -165,6 +165,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="140" />
@@ -318,6 +319,32 @@
                                 Style="{StaticResource MaterialDesignFlatButton}"
                                 Content="{x:Static p:Resources.AccountPageShowSecret}"
                                 Click="MarioKartSecretToggle_Click" />
+                    </Grid>
+                    <!-- Sword Art Online Arcade online: the account's access code ([Card] AccessCode of the SAO profile) -->
+                    <TextBlock Grid.Row="11"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="0,0,0,12"
+                               Text="{x:Static p:Resources.AccountPageSaoAccessCode}" />
+                    <Grid Grid.Row="11"
+                          Grid.Column="1"
+                          Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <!-- masked until Show, for screen sharing -->
+                        <TextBox Grid.Column="0"
+                                 x:Name="SaoAccessCodeTextBox"
+                                 IsReadOnly="True"
+                                 FontFamily="Consolas"
+                                 materialDesign:HintAssist.Hint="{x:Static p:Resources.AccountPageSaoHint}" />
+                        <Button Grid.Column="1"
+                                x:Name="SaoAccessCodeToggle"
+                                Margin="8,0,0,0"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Content="{x:Static p:Resources.AccountPageShowSecret}"
+                                Click="SaoAccessCodeToggle_Click" />
                     </Grid>
                 </Grid>
             </materialDesign:Card>

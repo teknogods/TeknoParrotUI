@@ -5,12 +5,15 @@
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
-	<GameProfileRevision>8</GameProfileRevision>
+	<GameProfileRevision>10</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulationProfile>SAO</EmulationProfile>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>link.exe</ExecutableName>
+	<OnlineIdFieldName>AccessCode</OnlineIdFieldName>
+	<OnlineIdType>SaoAccessCode</OnlineIdType>
+	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/Sao</OnlineProfileURL>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -42,6 +45,43 @@
 			<FieldMin>1</FieldMin>
 			<FieldMax>127</FieldMax>
 			<FieldOptions></FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>TerminalMode</FieldName>
+			<VisibleWhen>Online</VisibleWhen>
+			<VisibleWhenValue>Debug</VisibleWhenValue>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Hidden: TeknoParrotUI's Terminal button starts the game as the terminal (gasha, card printing) for that launch; Play starts the satellite. On the terminal, F2 touches the card.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>Online</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Play online: cards, progress, rankings and co-op on TeknoParrot's SAO server. When the server does not answer at startup, the game plays offline. Off = always the game's offline mode.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>Arcade</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The arcade this cabinet plays at. Friends who enter the same name share one store: in-store co-op and the store ranking. Empty = an arcade of its own. Up to 20 characters: letters, digits, spaces and . - _ (case does not matter).</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Card</CategoryName>
+			<FieldName>AccessCode</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Your access code (20 digits): your player, on any PC. Filled in by TeknoParrotUI from your teknoparrot.com account (Online Profiles > Sword Art Online Arcade, also shown on the Account page); without a login, type it in. TeknoParrot's server takes only these codes. Keep it private: anyone who has it plays as you.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Card</CategoryName>
+			<FieldName>PlayerName</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Your name in the game, up to 16 characters (the game has no name entry). Empty = the server's default name.</Hint>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
