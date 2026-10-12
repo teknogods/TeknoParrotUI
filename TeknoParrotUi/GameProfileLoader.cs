@@ -46,6 +46,8 @@ namespace TeknoParrotUi.Common
 
                     if (other.GameProfileRevision == gameProfile.GameProfileRevision)
                     {
+                        // Deprecation is decided by the stock profile, not the user's saved copy.
+                        other.IsDeprecated = gameProfile.IsDeprecated;
                         gameProfile = other;
                     }
                     else if (!onlyUserProfiles)

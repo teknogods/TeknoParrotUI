@@ -6,10 +6,11 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Vt3Lindbergh</EmulationProfile>
-	<GameProfileRevision>16</GameProfileRevision>
+	<GameProfileRevision>17</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<msysType>2</msysType>
+	<IsDeprecated>true</IsDeprecated>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

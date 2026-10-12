@@ -1421,6 +1421,9 @@ TeknoParrotを再展開してください。</value>
   <data name="LibraryLaunchTerminalMode" xml:space="preserve">
     <value>保存済みのゲーム設定を変更せずに、ターミナルモードで起動します。</value>
   </data>
+  <data name="LibraryDeprecatedSuffix" xml:space="preserve">
+    <value> （旧版 – 新しいバージョンを使用してください）</value>
+  </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
     <value> （サードパーティ）</value>
   </data>

@@ -6087,6 +6087,15 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to  (Legacy – Use New Version).
+        /// </summary>
+        public static string LibraryDeprecatedSuffix {
+            get {
+                return ResourceManager.GetString("LibraryDeprecatedSuffix", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to  (Third Party).
         /// </summary>
         public static string LibraryThirdPartySuffix {

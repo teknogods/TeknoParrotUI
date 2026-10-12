@@ -1421,6 +1421,9 @@ Seuraavat tiedostot on ehkä poistettava pelin hakemistosta, ellet tiedä mitä 
   <data name="LibraryLaunchTerminalMode" xml:space="preserve">
     <value>Käynnistä päätetilassa muuttamatta tallennettuja peliasetuksia.</value>
   </data>
+  <data name="LibraryDeprecatedSuffix" xml:space="preserve">
+    <value> (Vanha – Käytä uutta versiota)</value>
+  </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
     <value> (Kolmannen osapuolen)</value>
   </data>

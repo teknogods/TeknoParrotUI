@@ -138,6 +138,7 @@ namespace TeknoParrotUi.Common
         public string GameVersion { get; set; } = "";
         public bool AllowSettingSync { get; set; } = false;
         public bool Use16BitAnalog { get; set; } = false;
+        public bool IsDeprecated { get; set; } = false;
         public CabinetOutputSettings CabinetOutputSettings { get; set; } = new CabinetOutputSettings();
 
         public bool ShouldSerializeCabinetOutputSettings() => TeknoParrotUi.Common.CabinetOutputSettings.Supports(this);

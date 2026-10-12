@@ -1421,6 +1421,9 @@ Następujące pliki mogą wymagać usunięcia z katalogu gry, chyba że wiesz, c
   <data name="LibraryLaunchTerminalMode" xml:space="preserve">
     <value>Uruchom w trybie terminala bez zmiany zapisanych ustawień gry.</value>
   </data>
+  <data name="LibraryDeprecatedSuffix" xml:space="preserve">
+    <value> (Starsza wersja – Użyj nowej wersji)</value>
+  </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
     <value> (Osoba trzecia)</value>
   </data>

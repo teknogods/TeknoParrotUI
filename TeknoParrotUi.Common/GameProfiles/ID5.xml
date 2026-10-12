@@ -6,10 +6,11 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaInitialDLindbergh</EmulationProfile>
-	<GameProfileRevision>30</GameProfileRevision>
+	<GameProfileRevision>31</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<HasTpoSupport>false</HasTpoSupport>
+	<IsDeprecated>true</IsDeprecated>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

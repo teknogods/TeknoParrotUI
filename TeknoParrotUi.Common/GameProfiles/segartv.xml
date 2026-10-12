@@ -6,11 +6,12 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaRtv</EmulationProfile>
-	<GameProfileRevision>28</GameProfileRevision>
+	<GameProfileRevision>29</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<ExecutableName>drive.elf</ExecutableName>
 	<msysType>3</msysType>
+	<IsDeprecated>true</IsDeprecated>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

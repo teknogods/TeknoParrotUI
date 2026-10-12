@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>Hotd4</EmulationProfile>
-	<GameProfileRevision>34</GameProfileRevision>
+	<GameProfileRevision>35</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<InvertedMouseAxis>true</InvertedMouseAxis>
@@ -15,6 +15,7 @@
 	<xAxisMax>250</xAxisMax>
 	<yAxisMin>1</yAxisMin>
 	<yAxisMax>254</yAxisMax>
+	<IsDeprecated>true</IsDeprecated>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

@@ -582,7 +582,8 @@ namespace TeknoParrotUi.Views
                     row.Children.Add(new TextBlock
                     {
                         Text = gameProfile.GameNameInternal +
-                               (thirdparty ? string.Format(TeknoParrotUi.Properties.Resources.LibraryThirdPartySuffix, gameProfile.EmulatorType) : ""),
+                               (thirdparty ? string.Format(TeknoParrotUi.Properties.Resources.LibraryThirdPartySuffix, gameProfile.EmulatorType) : "") +
+                               (gameProfile.IsDeprecated ? TeknoParrotUi.Properties.Resources.LibraryDeprecatedSuffix : ""),
                         TextTrimming = TextTrimming.CharacterEllipsis,
                         VerticalAlignment = VerticalAlignment.Center
                     });

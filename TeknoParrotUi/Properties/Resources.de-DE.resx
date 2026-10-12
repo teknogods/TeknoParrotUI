@@ -1421,6 +1421,9 @@ Die folgenden Dateien müssen möglicherweise aus dem Spielverzeichnis entfernt 
   <data name="LibraryLaunchTerminalMode" xml:space="preserve">
     <value>Im Terminalmodus starten, ohne die gespeicherten Spieleinstellungen zu ändern.</value>
   </data>
+  <data name="LibraryDeprecatedSuffix" xml:space="preserve">
+    <value> (Veraltet – Nutze die neue Version)</value>
+  </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
     <value> (Drittanbieter)</value>
   </data>

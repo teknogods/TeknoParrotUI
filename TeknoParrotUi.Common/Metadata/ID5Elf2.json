@@ -10,6 +10,6 @@
   "amd_issues": null,
   "intel": "WITH_FIX",
   "intel_issues": null,
-  "general_issues": null,
+  "general_issues": "AMD Fix is applied automatically.",
   "wheel_rotation": "540"
 }

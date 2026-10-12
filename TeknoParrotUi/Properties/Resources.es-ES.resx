@@ -1421,6 +1421,9 @@ Los siguientes archivos pueden necesitar ser eliminados del directorio del juego
   <data name="LibraryLaunchTerminalMode" xml:space="preserve">
     <value>Iniciar en modo terminal sin cambiar la configuración guardada del juego.</value>
   </data>
+  <data name="LibraryDeprecatedSuffix" xml:space="preserve">
+    <value> (Antiguo – Usa la nueva versión)</value>
+  </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
     <value> (Terceros)</value>
   </data>

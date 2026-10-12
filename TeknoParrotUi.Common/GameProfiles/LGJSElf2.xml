@@ -4,9 +4,10 @@
 	<TestMenuParameter>-t</TestMenuParameter>
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
+	<ExecutableName>lgjsp_app</ExecutableName>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>SegaJvsLetsGoJungle</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<Patreon>false</Patreon>

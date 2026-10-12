@@ -1421,6 +1421,9 @@ TeknoParrot을 다시 압축 해제해주세요.</value>
   <data name="LibraryLaunchTerminalMode" xml:space="preserve">
     <value>저장된 게임 설정을 변경하지 않고 터미널 모드로 실행합니다.</value>
   </data>
+  <data name="LibraryDeprecatedSuffix" xml:space="preserve">
+    <value> (구버전 – 새 버전을 사용하세요)</value>
+  </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
     <value> (서드파티)</value>
   </data>

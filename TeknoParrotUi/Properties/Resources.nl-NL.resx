@@ -1421,6 +1421,9 @@ De volgende bestanden moeten mogelijk worden verwijderd uit de game map, tenzij 
   <data name="LibraryLaunchTerminalMode" xml:space="preserve">
     <value>Start in terminalmodus zonder de opgeslagen spelinstellingen te wijzigen.</value>
   </data>
+  <data name="LibraryDeprecatedSuffix" xml:space="preserve">
+    <value> (Verouderd – Gebruik de nieuwe versie)</value>
+  </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
     <value> (Derde Partij)</value>
   </data>

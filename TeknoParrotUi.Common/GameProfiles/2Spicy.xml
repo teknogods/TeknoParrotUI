@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters>-t</TestMenuExtraParameters>
 	<EmulationProfile>TooSpicy</EmulationProfile>
-	<GameProfileRevision>29</GameProfileRevision>
+	<GameProfileRevision>30</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<ExecutableName>apacheM_HD.elf;apacheM.elf</ExecutableName>
@@ -17,6 +17,7 @@
 	<xAxisMax>246</xAxisMax>
 	<yAxisMin>5</yAxisMin>
 	<yAxisMax>251</yAxisMax>
+	<IsDeprecated>true</IsDeprecated>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

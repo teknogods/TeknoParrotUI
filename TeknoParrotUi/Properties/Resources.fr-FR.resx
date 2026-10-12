@@ -1421,6 +1421,9 @@ Les fichiers suivants peuvent nécessiter d'être supprimés du répertoire du j
   <data name="LibraryLaunchTerminalMode" xml:space="preserve">
     <value>Lancer en mode terminal sans modifier les paramètres de jeu enregistrés.</value>
   </data>
+  <data name="LibraryDeprecatedSuffix" xml:space="preserve">
+    <value> (Obsolète – Utilisez la nouvelle version)</value>
+  </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
     <value> (Tiers)</value>
   </data>

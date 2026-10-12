@@ -1421,6 +1421,9 @@ attract, attractreplays, configuration, enterinitials, lasvegas, newyorkshop, op
   <data name="LibraryLaunchTerminalMode" xml:space="preserve">
     <value>Запустить в режиме терминала без изменения сохранённых настроек игры.</value>
   </data>
+  <data name="LibraryDeprecatedSuffix" xml:space="preserve">
+    <value> (Устаревшая версия – используйте новую)</value>
+  </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
     <value> (Сторонние)</value>
   </data>

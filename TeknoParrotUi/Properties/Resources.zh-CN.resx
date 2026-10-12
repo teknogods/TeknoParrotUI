@@ -1421,6 +1421,9 @@ attract、attractreplays、configuration、enterinitials、lasvegas、newyorksho
   <data name="LibraryLaunchTerminalMode" xml:space="preserve">
     <value>以终端模式启动，不更改已保存的游戏设置。</value>
   </data>
+  <data name="LibraryDeprecatedSuffix" xml:space="preserve">
+    <value> （旧版 – 请使用新版本）</value>
+  </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
     <value> （第三方）</value>
   </data>

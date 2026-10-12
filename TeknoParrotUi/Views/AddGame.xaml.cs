@@ -59,6 +59,8 @@ namespace TeknoParrotUi.Views
                 // New library entries are added once per parent game.
                 if (ArcadeGameRevisions.Handles(gameProfile) && !ArcadeGameRevisions.IsPrimary(gameProfile))
                     continue;
+                if (gameProfile.IsDeprecated)
+                    continue;
                 // third-party emulators
                 var thirdparty = gameProfile.EmulatorType == EmulatorType.SegaTools;
 

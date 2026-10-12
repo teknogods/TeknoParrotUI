@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>StarTrekVoyager</EmulationProfile>
-	<GameProfileRevision>21</GameProfileRevision>
+	<GameProfileRevision>22</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>Lindbergh</EmulatorType>
 	<ExecutableName>trek.e4</ExecutableName>
@@ -17,6 +17,7 @@
 	<xAxisMax>255</xAxisMax>
 	<yAxisMin>0</yAxisMin>
 	<yAxisMax>192</yAxisMax>
+	<IsDeprecated>true</IsDeprecated>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>

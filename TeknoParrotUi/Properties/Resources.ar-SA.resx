@@ -1425,6 +1425,9 @@ attract، attractreplays، configuration، enterinitials، lasvegas، newyorksho
   <data name="LibraryLaunchTerminalMode" xml:space="preserve">
     <value>تشغيل اللعبة في وضع الطرفية دون تغيير إعدادات اللعبة المحفوظة.</value>
   </data>
+  <data name="LibraryDeprecatedSuffix" xml:space="preserve">
+    <value> (قديم – استخدم الإصدار الجديد)</value>
+  </data>
   <data name="LibraryThirdPartySuffix" xml:space="preserve">
     <value> (طرف ثالث)</value>
   </data>
