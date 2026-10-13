@@ -10,7 +10,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>ALLSSoulReverse</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -100,6 +100,27 @@
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 			<Hint>For a PC that is left running in attract mode: other players' battles are started here before anywhere else.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Online</CategoryName>
+			<FieldName>Record Battles</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Battles that run on this PC are sent to the server while they are played, so that others can watch them, live or later. Needs about 30 KB/s of upload during a battle.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Online</CategoryName>
+			<FieldName>Battles In Attract Mode</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>While nobody plays, show battles of other players between the movies: one that is going on, and a recorded one.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Online</CategoryName>
+			<FieldName>Rankings In Attract Mode</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>While nobody plays, show the rankings between the movies: the best players, and the battle points of the month.</Hint>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
