@@ -2087,6 +2087,20 @@ namespace TeknoParrotUi.Views
             return oAuth != null && await oAuth.EnsureAuthenticatedAsync(false) ? oAuth.GetAccessToken() : null;
         }
 
+        /// <summary>The same for JoJo Last Survivor: the current access token, null when this PC is not logged in.</summary>
+        private static async Task<string> JojoAccountTokenAsync()
+        {
+            var oAuth = (Application.Current as App)?.OAuthHelper;
+            return oAuth != null && await oAuth.EnsureAuthenticatedAsync(false) ? oAuth.GetAccessToken() : null;
+        }
+
+        /// <summary>The same for Counter-Strike NEO: the current access token, null when this PC is not logged in.</summary>
+        private static async Task<string> CsNeoAccountTokenAsync()
+        {
+            var oAuth = (Application.Current as App)?.OAuthHelper;
+            return oAuth != null && await oAuth.EnsureAuthenticatedAsync(false) ? oAuth.GetAccessToken() : null;
+        }
+
         private async Task LaunchSelectedGame(bool withFriends)
         {
             if (gameList.Items.Count == 0 || gameList.SelectedItem == null)
@@ -2126,6 +2140,12 @@ namespace TeknoParrotUi.Views
                 // Mario Kart Arcade GP DX: the account's Mario Kart Online ID goes into the profile (fetched once when this PC
                 // is logged in and the profile has none). Quiet: the game also plays online without it.
                 await MarioKartOnlineHelper.BeforeLaunchAsync(gameProfile, MarioKartAccountTokenAsync);
+                // JoJo Last Survivor: the account's JoJo Online ID goes into the profile (fetched once when this PC is
+                // logged in and the profile has none). Quiet: the game also starts without it.
+                await JojoOnlineHelper.BeforeLaunchAsync(gameProfile, JojoAccountTokenAsync);
+                // Counter-Strike NEO: this PC's card and the account's CS:NEO Online ID go into the profile (the ID is
+                // fetched once when this PC is logged in and the profile has none). Quiet: the game also starts without it.
+                await CsNeoOnlineHelper.BeforeLaunchAsync(gameProfile, CsNeoAccountTokenAsync);
             }
 
             Lazydata.ParrotData.LastPlayed = gameProfile.GameNameInternal;

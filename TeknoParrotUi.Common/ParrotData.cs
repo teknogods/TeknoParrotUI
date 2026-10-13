@@ -72,6 +72,20 @@ namespace TeknoParrotUi.Common
         // MarioKartId above still fills their PlayerId.
         public string MarioKartOnlineId { get; set; } = "";
         public string MarioKartOnlineSecret { get; set; } = "";
+        // JoJo Last Survivor Online: the account's own JoJo PCB ID + secret from the same account (Account page, JoJo
+        // Last Survivor Online), a pair apart from the others. Kept the same way and copied into the [Network] OnlineID /
+        // OnlineSecret fields of the JoJo profiles (OnlineIdType.Jojo).
+        public string JojoOnlineId { get; set; } = "";
+        public string JojoOnlineSecret { get; set; } = "";
+        // Counter-Strike NEO Online: the account's own CS:NEO PCB ID (AACN-...) + secret from the same account (Account
+        // page, Counter-Strike NEO Online), a pair apart from the others. Kept the same way and copied into the [Network]
+        // OnlineID / OnlineSecret fields of the CS:NEO profile (OnlineIdType.CsNeo).
+        public string CsNeoOnlineId { get; set; } = "";
+        public string CsNeoOnlineSecret { get; set; } = "";
+        // Counter-Strike NEO: this PC's player card, 26 hex digits made once by TeknoParrotUI (CsNeoOnlineHelper) and
+        // copied into the [Network] Card ID field of the CS:NEO profile while that holds none. Not an account value: it
+        // is not cleared on logout and survives removing and adding the game.
+        public string CsNeoCardId { get; set; } = "";
         // Initial D matchmaking always uses automatic server selection. Keep the one-time notice,
         // registration prompt preference and migrated old-loader profile names. Old serialized
         // InitialDConnectToServer values are ignored when existing settings are loaded.

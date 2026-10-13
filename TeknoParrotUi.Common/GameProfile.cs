@@ -34,7 +34,16 @@ namespace TeknoParrotUi.Common
         Kizuna,
         // Sword Art Online Arcade online: the account's access code in OnlineIdFieldName ([Card] AccessCode), the player's
         // whole identity, from the teknoparrot.com account or typed by hand (SaoOnlineHelper).
-        SaoAccessCode
+        SaoAccessCode,
+        // JoJo Last Survivor Online: the account's own JoJo PCB ID plus its secret in the "OnlineID" / "OnlineSecret"
+        // fields, from the teknoparrot.com account like Kizuna's and Mario Kart's but a pair of its own
+        // (JojoOnlineHelper). The game also runs without it (offline mode, community servers).
+        Jojo,
+        // Counter-Strike NEO Online: the account's own CS:NEO PCB ID (AACN-...) plus its secret in the "OnlineID" /
+        // "OnlineSecret" fields, from the teknoparrot.com account like JoJo's but a pair of its own, and this PC's player
+        // card in the "Card ID" field (CsNeoOnlineHelper). The game also runs without the pair (offline mode, community
+        // servers).
+        CsNeo
     }
 
     [Serializable]

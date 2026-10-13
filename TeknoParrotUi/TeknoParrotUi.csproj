@@ -334,6 +334,8 @@
     <Compile Include="Helpers\InitialDLanPresence.cs" />
     <Compile Include="Helpers\InitialDOnlineHelper.cs" />
     <Compile Include="Helpers\InitialDUnifiedMode.cs" />
+    <Compile Include="Helpers\JojoOnlineHelper.cs" />
+    <Compile Include="Helpers\CsNeoOnlineHelper.cs" />
     <Compile Include="Helpers\KizunaAvatarApi.cs" />
     <Compile Include="Helpers\KizunaAvatarGameData.cs" />
     <Compile Include="Helpers\KizunaOnlineHelper.cs" />

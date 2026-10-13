@@ -216,6 +216,16 @@ namespace TeknoParrotUi.Common
             // (profiles that have them), before and in addition to the PlayerId fill below.
             bool marioKartChanged = profile.OnlineIdType == OnlineIdType.MarioKartId && MarioKartOnlineHelper.AutoFill(profile);
 
+            // JoJo Last Survivor Online: the account's PCB ID + secret pair into the fixed OnlineID / OnlineSecret fields.
+            // The profile has no other ID to fill.
+            if (profile.OnlineIdType == OnlineIdType.Jojo)
+                return JojoOnlineHelper.AutoFill(profile);
+
+            // Counter-Strike NEO Online: the account's PCB ID + secret pair into the fixed OnlineID / OnlineSecret fields,
+            // and this PC's card into Card ID while the profile holds none. The profile has no other ID to fill.
+            if (profile.OnlineIdType == OnlineIdType.CsNeo)
+                return CsNeoOnlineHelper.AutoFill(profile);
+
             if (string.IsNullOrEmpty(profile.OnlineIdFieldName))
                 return marioKartChanged;
 

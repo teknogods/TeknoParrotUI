@@ -97,6 +97,8 @@ namespace TeknoParrotUi.Views
             ShowKizunaPair(userData.KizunaPcbId, userData.KizunaSecret);
             ShowMarioKartPair(userData.MarioKartPcbId, userData.MarioKartSecret);
             ShowSaoAccessCode(userData.SaoAccessCode);
+            ShowJojoPair(userData.JojoPcbId, userData.JojoSecret);
+            ShowCsNeoPair(userData.CsNeoPcbId, userData.CsNeoSecret);
             UserTierText.Text = string.Format(TeknoParrotUi.Properties.Resources.AccountPageTierPrefix, userData.Tier);
             UserTierText.Visibility = Visibility.Visible;
             _initialDRank = userData.InitialDRank;
@@ -165,6 +167,10 @@ namespace TeknoParrotUi.Views
                     // Sword Art Online Arcade online: the access code into ParrotData and the SAO profiles (null while the
                     // website has it switched off: keep what was there)
                     SaoOnlineHelper.StoreFromAccount(userData.SaoAccessCode);
+                    // JoJo Last Survivor Online: the same, for the JoJo profile's OnlineID / OnlineSecret
+                    JojoOnlineHelper.StoreFromAccount(userData.JojoPcbId, userData.JojoSecret);
+                    // Counter-Strike NEO Online: the same, for the CS:NEO profile's OnlineID / OnlineSecret
+                    CsNeoOnlineHelper.StoreFromAccount(userData.CsNeoPcbId, userData.CsNeoSecret);
 
                     JoystickHelper.Serialize();
                     Debug.WriteLine($"Saved user data - SegaId: {userData.SegaId}");
@@ -222,6 +228,12 @@ namespace TeknoParrotUi.Views
                     MarioKartPcbIdTextBox.Text = string.Empty;
                     _marioKartSecret = "";
                     UpdateMarioKartSecretBox();
+                    JojoPcbIdTextBox.Text = string.Empty;
+                    _jojoSecret = "";
+                    UpdateJojoSecretBox();
+                    CsNeoPcbIdTextBox.Text = string.Empty;
+                    _csNeoSecret = "";
+                    UpdateCsNeoSecretBox();
 
                     _cachedUserData = null;
                     _lastDataFetchTime = DateTime.MinValue;
@@ -1010,6 +1022,75 @@ namespace TeknoParrotUi.Views
             UpdateSaoAccessCodeBox();
         }
 
+        // =============================================================================================================
+        // JoJo Last Survivor Online (JojoOnlineHelper): the account's own JoJo Online ID (a PCB ID + secret apart from
+        // Initial D's, Kizuna's and Mario Kart's) comes with api/User/Profile like Mario Kart's: it is shown in the account
+        // card and filled into the JoJo profile's OnlineID / OnlineSecret, no button. No rank card.
+        // =============================================================================================================
+
+        private string _jojoSecret = "";
+        private bool _jojoSecretShown;
+
+        /// <summary>The account's JoJo pair in the account card (the website's answer, else the last one this PC got).</summary>
+        private void ShowJojoPair(string pcbId, string secret)
+        {
+            var local = JojoOnlineHelper.LocalCredential();
+            var id = JojoOnlineHelper.NormalizePcbId(pcbId);
+            var valid = id != null && JojoOnlineHelper.IsValidSecret(secret);
+            JojoPcbIdTextBox.Text = valid ? id : local?.PcbId ?? "";
+            _jojoSecret = valid ? secret.Trim() : local?.Secret ?? "";
+            _jojoSecretShown = false;
+            UpdateJojoSecretBox();
+        }
+
+        private void UpdateJojoSecretBox()
+        {
+            JojoSecretTextBox.Text = _jojoSecret.Length == 0 ? "" : _jojoSecretShown ? _jojoSecret : KizunaSecretMask;
+            JojoSecretToggle.Content = _jojoSecretShown ? R.AccountPageHideSecret : R.AccountPageShowSecret;
+            JojoSecretToggle.IsEnabled = _jojoSecret.Length != 0;
+        }
+
+        private void JojoSecretToggle_Click(object sender, RoutedEventArgs e)
+        {
+            _jojoSecretShown = !_jojoSecretShown;
+            UpdateJojoSecretBox();
+        }
+
+        // =============================================================================================================
+        // Counter-Strike NEO Online (CsNeoOnlineHelper): the account's own CS:NEO Online ID (a PCB ID + secret apart from
+        // Initial D's, Kizuna's, Mario Kart's and JoJo's) comes with api/User/Profile like JoJo's: it is shown in the
+        // account card and filled into the CS:NEO profile's OnlineID / OnlineSecret, no button. No rank card. The player
+        // card is this PC's, not the account's, and is not shown here (the profile's Card ID).
+        // =============================================================================================================
+
+        private string _csNeoSecret = "";
+        private bool _csNeoSecretShown;
+
+        /// <summary>The account's CS:NEO pair in the account card (the website's answer, else the last one this PC got).</summary>
+        private void ShowCsNeoPair(string pcbId, string secret)
+        {
+            var local = CsNeoOnlineHelper.LocalCredential();
+            var id = CsNeoOnlineHelper.NormalizePcbId(pcbId);
+            var valid = id != null && CsNeoOnlineHelper.IsValidSecret(secret);
+            CsNeoPcbIdTextBox.Text = valid ? id : local?.PcbId ?? "";
+            _csNeoSecret = valid ? secret.Trim() : local?.Secret ?? "";
+            _csNeoSecretShown = false;
+            UpdateCsNeoSecretBox();
+        }
+
+        private void UpdateCsNeoSecretBox()
+        {
+            CsNeoSecretTextBox.Text = _csNeoSecret.Length == 0 ? "" : _csNeoSecretShown ? _csNeoSecret : KizunaSecretMask;
+            CsNeoSecretToggle.Content = _csNeoSecretShown ? R.AccountPageHideSecret : R.AccountPageShowSecret;
+            CsNeoSecretToggle.IsEnabled = _csNeoSecret.Length != 0;
+        }
+
+        private void CsNeoSecretToggle_Click(object sender, RoutedEventArgs e)
+        {
+            _csNeoSecretShown = !_csNeoSecretShown;
+            UpdateCsNeoSecretBox();
+        }
+
         /// <summary>
         /// A paste into a card's by-hand boxes: an Online ID or a secret as teknoparrot.com shows them goes into its own
         /// box, both at once from the website's OnlineID / OnlineSecret lines. Any other text pastes as usual.
@@ -1094,6 +1175,13 @@ namespace TeknoParrotUi.Views
             // Mario Kart Arcade GP DX Online: the account's PCB ID and secret; null while the website has it switched off.
             public string MarioKartPcbId { get; set; }
             public string MarioKartSecret { get; set; }
+            // JoJo Last Survivor Online: the account's PCB ID and secret; null while the website has it switched off.
+            public string JojoPcbId { get; set; }
+            public string JojoSecret { get; set; }
+            // Counter-Strike NEO Online: the account's PCB ID and secret; null while the website has it switched off (or
+            // has no CS:NEO section yet).
+            public string CsNeoPcbId { get; set; }
+            public string CsNeoSecret { get; set; }
             public bool IsSubscribed { get; set; }
             public List<SerialStatus> Serials { get; set; }
             public DateTime? ExpirationDate { get; set; }

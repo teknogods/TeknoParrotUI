@@ -644,6 +644,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.RawThrillsGUN:
                     _controlSender = new RawThrillsGUN();
                     break;
+                case EmulationProfile.CSNEO:
+                    _controlSender = new CsNeoPipe();
+                    break;
                 case EmulationProfile.DealorNoDeal:
                     _controlSender = new DealOrNoDealPipe();
                     break;

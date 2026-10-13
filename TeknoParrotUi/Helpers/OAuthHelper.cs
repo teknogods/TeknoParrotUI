@@ -521,6 +521,8 @@ namespace TeknoParrotUi.Helpers
                 KizunaOnlineHelper.ForgetAccount();
                 MarioKartOnlineHelper.ForgetAccount();
                 SaoOnlineHelper.ForgetAccount();
+                JojoOnlineHelper.ForgetAccount();
+                CsNeoOnlineHelper.ForgetAccount();
                 Lazydata.ParrotData.IsLoggedIn = false;
 
                 string tokenFolder = Path.Combine(

@@ -166,6 +166,10 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="140" />
@@ -345,6 +349,84 @@
                                 Style="{StaticResource MaterialDesignFlatButton}"
                                 Content="{x:Static p:Resources.AccountPageShowSecret}"
                                 Click="SaoAccessCodeToggle_Click" />
+                    </Grid>
+                    <!-- JoJo Last Survivor Online: the account's pair (OnlineID / OnlineSecret of the JoJo profile), filled into
+                         the game like the IDs above -->
+                    <TextBlock Grid.Row="12"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="0,0,0,12"
+                               Text="{x:Static p:Resources.AccountPageJojoOnlineId}" />
+                    <TextBox Grid.Row="12"
+                             Grid.Column="1"
+                             x:Name="JojoPcbIdTextBox"
+                             IsReadOnly="True"
+                             FontFamily="Consolas"
+                             materialDesign:HintAssist.Hint="{x:Static p:Resources.AccountPageJojoHint}"
+                             Margin="0,0,0,12" />
+                    <TextBlock Grid.Row="13"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="0,0,0,12"
+                               Text="{x:Static p:Resources.AccountPageJojoSecret}" />
+                    <Grid Grid.Row="13"
+                          Grid.Column="1"
+                          Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <!-- masked until Show, for screen sharing -->
+                        <TextBox Grid.Column="0"
+                                 x:Name="JojoSecretTextBox"
+                                 IsReadOnly="True"
+                                 FontFamily="Consolas"
+                                 materialDesign:HintAssist.Hint="{x:Static p:Resources.AccountPageJojoHint}" />
+                        <Button Grid.Column="1"
+                                x:Name="JojoSecretToggle"
+                                Margin="8,0,0,0"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Content="{x:Static p:Resources.AccountPageShowSecret}"
+                                Click="JojoSecretToggle_Click" />
+                    </Grid>
+                    <!-- Counter-Strike NEO Online: the account's pair (OnlineID / OnlineSecret of the CS:NEO profile), filled
+                         into the game like the IDs above -->
+                    <TextBlock Grid.Row="14"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="0,0,0,12"
+                               Text="{x:Static p:Resources.AccountPageCsNeoOnlineId}" />
+                    <TextBox Grid.Row="14"
+                             Grid.Column="1"
+                             x:Name="CsNeoPcbIdTextBox"
+                             IsReadOnly="True"
+                             FontFamily="Consolas"
+                             materialDesign:HintAssist.Hint="{x:Static p:Resources.AccountPageCsNeoHint}"
+                             Margin="0,0,0,12" />
+                    <TextBlock Grid.Row="15"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="0,0,0,12"
+                               Text="{x:Static p:Resources.AccountPageCsNeoSecret}" />
+                    <Grid Grid.Row="15"
+                          Grid.Column="1"
+                          Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <!-- masked until Show, for screen sharing -->
+                        <TextBox Grid.Column="0"
+                                 x:Name="CsNeoSecretTextBox"
+                                 IsReadOnly="True"
+                                 FontFamily="Consolas"
+                                 materialDesign:HintAssist.Hint="{x:Static p:Resources.AccountPageCsNeoHint}" />
+                        <Button Grid.Column="1"
+                                x:Name="CsNeoSecretToggle"
+                                Margin="8,0,0,0"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                Content="{x:Static p:Resources.AccountPageShowSecret}"
+                                Click="CsNeoSecretToggle_Click" />
                     </Grid>
                 </Grid>
             </materialDesign:Card>

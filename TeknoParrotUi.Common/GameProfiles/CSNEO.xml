@@ -1,23 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<GamePath></GamePath>
-	<TestMenuParameter>-t</TestMenuParameter>
+	<TestMenuParameter></TestMenuParameter>
 	<TestMenuIsExecutable>false</TestMenuIsExecutable>
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>CSNEO</EmulationProfile>
-	<GameProfileRevision>8</GameProfileRevision>
+	<GameProfileRevision>13</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<Is64Bit>false</Is64Bit>
+	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>hlds_amd</ExecutableName>
-	<EmulatorType>N2</EmulatorType>
-	<msysType>3</msysType>
+	<OnlineIdFieldName>OnlineID</OnlineIdFieldName>
+	<OnlineIdType>CsNeo</OnlineIdType>
+	<OnlineProfileURL>https://teknoparrot.com/OnlineProfile/CsNeo</OnlineProfileURL>
 	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>DirectInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+			</FieldOptions>
+			<Hint>Only for the cabinet buttons below (Test, Service, Coin 1, Coin 2, Insert Card). Moving, aiming and firing are your keyboard and mouse, which the game reads itself.</Hint>
+		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
 			<FieldName>Windowed</FieldName>
 			<FieldValue>1</FieldValue>
 			<FieldType>Bool</FieldType>
 		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Language</FieldName>
+			<FieldValue>English</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>English</string>
+				<string>Japanese</string>
+			</FieldOptions>
+			<Hint>English: menus, dialogs and in-game texts are shown in TeknoParrot's English translation. Japanese: the game as it is, nothing is changed.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Developer Console</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Starts the game with -devel -console +set developer 1: the engine's developer mode and console. Off for normal play.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>Online</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Play on a Counter-Strike NEO server: card login with your saved player, matches with other players. Off = offline: the game is started in the cabinet's local mode (-nodb -noms), without the store's database and match server.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>OnlineServer</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Empty = TeknoParrot's official server: log in on the Account page and TeknoParrotUI fills in your Counter-Strike NEO Online ID. Otherwise the host[:port] of a community server (port 3980 if left out); 127.0.0.1 = a server on this PC.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>Arcade</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The arcade this cabinet plays at. Friends who enter the same name share one arcade. Empty = an arcade of its own. Up to 20 characters: letters, digits, spaces and . - _ (case does not matter).</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>Region</FieldName>
+			<FieldValue>auto</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>The region you play from, for the mercenary mode ("big battle"): the server list and "Start now" prefer game servers of that region. auto (or empty) = TeknoParrot measures which region's servers are nearest to you and chooses that one. To choose yourself, enter the region code your server operator uses (e.g. eu, asia), up to 16 of letters, digits and . - _ (case does not matter).</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>Card ID</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Your player card (your saved player on the server), 26 hex digits. TeknoParrotUI makes one for this PC and keeps it; empty = that card. To play as the same player on another PC, copy it into the Card ID there. Touch the card with the Insert Card button when the game asks for it.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>OnlineID</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Debug</VisibleWhenValue>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Hidden: managed on the Account page (Counter-Strike NEO Online). Your Counter-Strike NEO Online PCB ID (AACN-...), filled in by TeknoParrotUI from your teknoparrot.com account; not the Initial D, Senjou no Kizuna, Mario Kart or JoJo one. The game also runs without it (offline mode, community servers).</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>OnlineSecret</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Debug</VisibleWhenValue>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Hidden: managed on the Account page (Counter-Strike NEO Online). The secret that belongs to OnlineID (43 characters). Keep it private: it lets anyone play as you.</Hint>
+		</FieldInformation>
 	</ConfigValues>
-	<JoystickButtons></JoystickButtons>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin 1</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin 2</ButtonName>
+			<InputMapping>Coin2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Insert Card</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>YES (Right Alt)</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>NO (Right Ctrl)</ButtonName>
+			<InputMapping>P1Button3</InputMapping>
+		</JoystickButtons>
+	</JoystickButtons>
 </GameProfile>

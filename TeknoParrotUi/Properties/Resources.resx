@@ -247,6 +247,24 @@
   <data name="AccountPageMarioKartHint" xml:space="preserve">
     <value>Filled into Mario Kart Arcade GP DX automatically</value>
   </data>
+  <data name="AccountPageJojoOnlineId" xml:space="preserve">
+    <value>JoJo Online ID:</value>
+  </data>
+  <data name="AccountPageJojoSecret" xml:space="preserve">
+    <value>JoJo secret:</value>
+  </data>
+  <data name="AccountPageJojoHint" xml:space="preserve">
+    <value>Filled into JoJo Last Survivor automatically</value>
+  </data>
+  <data name="AccountPageCsNeoOnlineId" xml:space="preserve">
+    <value>CS:NEO Online ID:</value>
+  </data>
+  <data name="AccountPageCsNeoSecret" xml:space="preserve">
+    <value>CS:NEO secret:</value>
+  </data>
+  <data name="AccountPageCsNeoHint" xml:space="preserve">
+    <value>Filled into Counter-Strike NEO automatically</value>
+  </data>
   <data name="AccountPageNamcoID" xml:space="preserve">
     <value>Namco ID:</value>
   </data>

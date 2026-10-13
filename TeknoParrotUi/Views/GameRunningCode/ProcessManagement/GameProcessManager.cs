@@ -240,6 +240,11 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                             }
                         }
                         break;
+                    // Counter-Strike NEO (ElfLdr2, hlds_amd): GoldSrc engine options. Always -game czero; -nodb -noms while
+                    // [Network] Online is off; -devel -console +set developer 1 with [General] Developer Console.
+                    case EmulationProfile.CSNEO:
+                        extra = CsNeoOnlineHelper.GameArguments(_gameProfile);
+                        break;
                 }
 
                 string gameArguments;

@@ -214,6 +214,33 @@ namespace TeknoParrotUi.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filled into Counter-Strike NEO automatically.
+        /// </summary>
+        public static string AccountPageCsNeoHint {
+            get {
+                return ResourceManager.GetString("AccountPageCsNeoHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CS:NEO Online ID:.
+        /// </summary>
+        public static string AccountPageCsNeoOnlineId {
+            get {
+                return ResourceManager.GetString("AccountPageCsNeoOnlineId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CS:NEO secret:.
+        /// </summary>
+        public static string AccountPageCsNeoSecret {
+            get {
+                return ResourceManager.GetString("AccountPageCsNeoSecret", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data Error.
         /// </summary>
         public static string AccountPageDataError {
@@ -345,6 +372,33 @@ namespace TeknoParrotUi.Properties {
         public static string AccountPageInitializing {
             get {
                 return ResourceManager.GetString("AccountPageInitializing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filled into JoJo Last Survivor automatically.
+        /// </summary>
+        public static string AccountPageJojoHint {
+            get {
+                return ResourceManager.GetString("AccountPageJojoHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JoJo Online ID:.
+        /// </summary>
+        public static string AccountPageJojoOnlineId {
+            get {
+                return ResourceManager.GetString("AccountPageJojoOnlineId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JoJo secret:.
+        /// </summary>
+        public static string AccountPageJojoSecret {
+            get {
+                return ResourceManager.GetString("AccountPageJojoSecret", resourceCulture);
             }
         }
         
