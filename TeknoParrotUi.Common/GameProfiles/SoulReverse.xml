@@ -10,7 +10,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>ALLSSoulReverse</EmulationProfile>
-	<GameProfileRevision>3</GameProfileRevision>
+	<GameProfileRevision>4</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -68,6 +68,13 @@
 			<FieldType>Slider</FieldType>
 			<FieldMin>1</FieldMin>
 			<FieldMax>127</FieldMax>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Terminal Mode</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Start the game as the shop's terminal instead of a player's cabinet: a menu for watching recorded battles and battles that are going on, and for the rankings, with a card or as a guest. Nothing can be played there. Left stick (or the direction keys) to move, A to choose, B to go back.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Graphics</CategoryName>

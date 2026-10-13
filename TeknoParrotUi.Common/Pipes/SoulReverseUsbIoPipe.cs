@@ -1,5 +1,6 @@
 using System;
 using System.IO.Pipes;
+using System.Linq;
 using System.Threading;
 
 namespace TeknoParrotUi.Common.Pipes
@@ -7,6 +8,8 @@ namespace TeknoParrotUi.Common.Pipes
     /// <summary>
     /// IO4 report for Soul Reverse (SEGA ALLS UX, satellite cabinet): two analog sticks, three buttons
     /// under each hand and a push switch in each stick. The cabinet has no start button; menus are touch.
+    /// With "Terminal Mode" the game runs as the shop's terminal, whose panel has four directions,
+    /// a button to choose and one to go back; the left stick, A and B stand in for them.
     /// </summary>
     public class SoulReverseUsbIoPipe : ControlPipe
     {
@@ -18,8 +21,14 @@ namespace TeknoParrotUi.Common.Pipes
         private const int RightXCentre = 0x8000 + 1344;
         private const int RightYCentre = 0x8000 - 1208;
 
+        // How far the stick has to be pushed to count as a direction of the terminal's panel.
+        private const double DirectionThreshold = 0.5;
+
         public int CoinCount = 0;
         public bool CoinState = false;
+
+        private readonly bool _terminal = InputCode.GameProfile?.ConfigValues?
+            .FirstOrDefault(x => x.FieldName == "Terminal Mode")?.FieldValue == "1";
 
         public SoulReverseUsbIoPipe()
         {
@@ -85,8 +94,53 @@ namespace TeknoParrotUi.Common.Pipes
             return button != null && button.Value;
         }
 
+        // The terminal reads its panel from the player 2 word: bit 15 up, 14 down, 13 choose,
+        // 12 back, 0 left, 1 right. The player 1 word is its ten-key pad, which nothing needs.
+        private byte[] GenButtonsTerminal()
+        {
+            byte[] data = new byte[64];
+            var player = InputCode.PlayerDigitalButtons[0];
+            var x = StickPosition(InputCode.AnalogBytes[0]);
+            var y = StickPosition(InputCode.AnalogBytes[2]);
+
+            // The sticks are not read, but a report without them looks like a broken board.
+            WriteChannel(data, 0, LeftXCentre, 0.0);
+            WriteChannel(data, 4, LeftYCentre, 0.0);
+            WriteChannel(data, 1, RightXCentre, 0.0);
+            WriteChannel(data, 5, RightYCentre, 0.0);
+
+            if (y < -DirectionThreshold)
+                data[31] |= 0x80; // Up
+
+            if (y > DirectionThreshold)
+                data[31] |= 0x40; // Down
+
+            if (x < -DirectionThreshold)
+                data[30] |= 0x01; // Left
+
+            if (x > DirectionThreshold)
+                data[30] |= 0x02; // Right
+
+            if (Pressed(player.Button1))
+                data[31] |= 0x20; // Choose
+
+            if (Pressed(player.Button2))
+                data[31] |= 0x10; // Back
+
+            if (Pressed(player.Service))
+                data[28] |= 0x40;
+
+            if (Pressed(player.Test))
+                data[29] |= 0x02;
+
+            return data;
+        }
+
         private byte[] GenButtonsSoulReverse()
         {
+            if (_terminal)
+                return GenButtonsTerminal();
+
             byte[] data = new byte[64];
             var player = InputCode.PlayerDigitalButtons[0];
 
