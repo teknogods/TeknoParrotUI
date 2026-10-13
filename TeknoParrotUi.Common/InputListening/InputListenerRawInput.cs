@@ -63,7 +63,8 @@ namespace TeknoParrotUi.Common.InputListening
         private bool _isBoneEater;
         private bool _boneEaterSingleScreen;
         private DateTime _nextBoneEaterCanvasAttempt;
-        private bool UsesPublishedCanvas => _isBoneEater || _isPlay || _isTeknoVegas || _isTeknoHNG64 || _isTeknoViper || _isTeknoTPJC || _isTeknoS11 || _isTeknoM2 || _isTeknoAGX || _isTeknoS22 || _isTeknoGClub || _isTeknoS23 || _isTeknoSS32 || _isTeknoHornet || _isTeknoModel1 || _isTeknoModel2 || _isTeknoModel3 || _isTeknoZeus;
+        private bool _isTeknoParrotCanvas;
+        private bool UsesPublishedCanvas => _isTeknoParrotCanvas || _isBoneEater ||_isPlay || _isTeknoVegas || _isTeknoHNG64 || _isTeknoViper || _isTeknoTPJC || _isTeknoS11 || _isTeknoM2 || _isTeknoAGX || _isTeknoS22 || _isTeknoGClub || _isTeknoS23 || _isTeknoSS32 || _isTeknoHornet || _isTeknoModel1 || _isTeknoModel2 || _isTeknoModel3 || _isTeknoZeus;
         // Rotary encoder button states
         private static bool Rotary1LeftPressed = false;
         private static bool Rotary1RightPressed = false;
@@ -291,6 +292,7 @@ namespace TeknoParrotUi.Common.InputListening
             _isPlay = gameProfile.EmulationProfile == EmulationProfile.PlayInput;
             _isTeknoVegas = gameProfile.EmulationProfile == EmulationProfile.TeknoVegas;
             _isTeknoZeus = gameProfile.EmulationProfile == EmulationProfile.TeknoZeus;
+            _isTeknoParrotCanvas = gameProfile.PublishesTeknoParrotCanvas;
             _isTeknoHNG64 = gameProfile.EmulationProfile == EmulationProfile.TeknoHNG64;
             _isTeknoHornet = gameProfile.EmulationProfile == EmulationProfile.TeknoHornet;
             _isTeknoGClub = gameProfile.EmulationProfile == EmulationProfile.TeknoGClub;

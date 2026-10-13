@@ -97,6 +97,10 @@ namespace TeknoParrotUi.Common
              ExecutableName?.StartsWith("sscope", StringComparison.OrdinalIgnoreCase) == true) ||
             (EmulationProfile == EmulationProfile.TeknoViper &&
              string.Equals(ExecutableName, "sogeki.zip", StringComparison.OrdinalIgnoreCase));
+        // TeknoParrot.dll publishes the letterboxed game area ("TeknoparrotCanvas"), RawInput clips and maps the guns to it.
+        [XmlIgnore]
+        public bool PublishesTeknoParrotCanvas =>
+            EmulationProfile == EmulationProfile.RawThrillsGUN && ProfileName == "SpaceInvadersFrenzy";
         public bool DevOnly { get; set; }
         public string ExecutableName { get; set; }
         public string ExecutableName2 { get; set; }

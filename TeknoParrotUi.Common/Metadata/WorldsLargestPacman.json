@@ -1,0 +1,18 @@
+{
+  "game_name": "World's Largest Pac-Man",
+  "game_genre": "Maze",
+  "icon_name": "WorldsLargestPacman.png",
+  "platform": "Raw Thrills Linux PC Based",
+  "release_year": "2017",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": "",
+  "supported_versions": [
+    "1.45",
+    "1.71"
+  ]
+}

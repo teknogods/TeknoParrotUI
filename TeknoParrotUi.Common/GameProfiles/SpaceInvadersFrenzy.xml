@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<ResetHint>false</ResetHint>
+	<EmulationProfile>RawThrillsGUN</EmulationProfile>
+	<GameProfileRevision>2</GameProfileRevision>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<Is64Bit>false</Is64Bit>
+	<EmulatorType>ElfLdr2</EmulatorType>
+	<Patreon>false</Patreon>
+	<RequiresAdmin>false</RequiresAdmin>
+	<ExecutableName>game_dump.exec</ExecutableName>
+	<InvertedMouseAxis>true</InvertedMouseAxis>
+	<GunGame>true</GunGame>
+	<xAxisMin>0</xAxisMin>
+	<xAxisMax>255</xAxisMax>
+	<yAxisMin>0</yAxisMin>
+	<yAxisMax>255</yAxisMax>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>RawInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+				<string>RawInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>HideCursor</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>CustomResolution</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>The 224x288 LED screen is scaled to fit the window. Off: biggest integer scale that fits the desktop (windowed) or desktop resolution (fullscreen).</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ResolutionWidth</FieldName>
+			<FieldValue>672</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>ResolutionHeight</FieldName>
+			<FieldValue>864</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Bezel</CategoryName>
+			<FieldName>Enable</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Place file bezel.png in game folder.</Hint>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin 1</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin 2</ButtonName>
+			<InputMapping>Coin2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Volume Up</ButtonName>
+			<InputMapping>P1ButtonUp</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Volume Down</ButtonName>
+			<InputMapping>P1ButtonDown</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Start</ButtonName>
+			<InputMapping>P1ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Trigger</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Shoulder Button</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Gun X</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Gun Y</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P1 Light Gun</ButtonName>
+			<InputMapping>P1LightGun</InputMapping>
+			<HideWithDirectInput>true</HideWithDirectInput>
+			<HideWithXInput>true</HideWithXInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Start</ButtonName>
+			<InputMapping>P2ButtonStart</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Trigger</ButtonName>
+			<InputMapping>P2Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Shoulder Button</ButtonName>
+			<InputMapping>P2Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Gun X</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Gun Y</ButtonName>
+			<InputMapping>Analog6</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithRawInput>true</HideWithRawInput>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>P2 Light Gun</ButtonName>
+			<InputMapping>P2LightGun</InputMapping>
+			<HideWithDirectInput>true</HideWithDirectInput>
+			<HideWithXInput>true</HideWithXInput>
+		</JoystickButtons>
+	</JoystickButtons>
+</GameProfile>

@@ -63,6 +63,16 @@ namespace TeknoParrotUi.Common.Pipes
 			if (InputCode.PlayerDigitalButtons[0].Right.HasValue && InputCode.PlayerDigitalButtons[0].Right.Value)
 				Control |= 0x8000;
 
+			// P2 joystick (World's Largest Pac-Man)
+			if (InputCode.PlayerDigitalButtons[1].Up.HasValue && InputCode.PlayerDigitalButtons[1].Up.Value)
+				Control |= 0x10000;
+			if (InputCode.PlayerDigitalButtons[1].Down.HasValue && InputCode.PlayerDigitalButtons[1].Down.Value)
+				Control |= 0x20000;
+			if (InputCode.PlayerDigitalButtons[1].Left.HasValue && InputCode.PlayerDigitalButtons[1].Left.Value)
+				Control |= 0x40000;
+			if (InputCode.PlayerDigitalButtons[1].Right.HasValue && InputCode.PlayerDigitalButtons[1].Right.Value)
+				Control |= 0x80000;
+
 
 			JvsHelper.StateView.Write(8, Control);
 			JvsHelper.StateView.Write(12, InputCode.AnalogBytes[0]);
