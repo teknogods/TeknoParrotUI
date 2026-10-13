@@ -10,7 +10,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>ALLSSoulReverse</EmulationProfile>
-	<GameProfileRevision>1</GameProfileRevision>
+	<GameProfileRevision>2</GameProfileRevision>
 	<Is64Bit>true</Is64Bit>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
@@ -92,7 +92,7 @@
 			<FieldName>Game Server Port</FieldName>
 			<FieldValue>50100</FieldValue>
 			<FieldType>Text</FieldType>
-			<Hint>Other players join battles hosted on this PC on this port (TCP and UDP) and the next one (UDP). Forward both in your router and allow the game in the firewall; without that you can still join the battles of others.</Hint>
+			<Hint>Other players join battles hosted on this PC on this port (TCP and UDP) and the next one (UDP). Forward both in your router and allow the game in the firewall for the best connection; without that other players reach you through the server's relay.</Hint>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>Online</CategoryName>
