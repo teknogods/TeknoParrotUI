@@ -237,6 +237,7 @@
     <Compile Include="Pipes\IncredibleTechnologiesPipe.cs" />
     <Compile Include="Pipes\GenericTrackballPipe.cs" />
     <Compile Include="Pipes\SavageQuestPipe.cs" />
+    <Compile Include="Pipes\SoulReverseUsbIoPipe.cs" />
     <Compile Include="Pipes\SWDCALLSUsbIoPipe.cs" />
     <Compile Include="Pipes\SWDCPipe.cs" />
     <Compile Include="Pipes\HOTDSDPipe.cs" />
