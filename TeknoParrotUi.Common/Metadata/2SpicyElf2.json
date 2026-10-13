@@ -6,8 +6,8 @@
   "release_year": "2007",
   "nvidia": "OK",
   "nvidia_issues": null,
-  "amd": "HAS_ISSUES",
-  "amd_issues": "Broken characters",
+  "amd": "OK",
+  "amd_issues": "Automatic fix",
   "intel": "NO",
   "intel_issues": null,
   "general_issues": null

@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters>-t</TestMenuExtraParameters>
 	<EmulationProfile>TooSpicy</EmulationProfile>
-	<GameProfileRevision>4</GameProfileRevision>
+	<GameProfileRevision>6</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>apacheM_HD.elf;apacheM.elf</ExecutableName>
@@ -42,9 +42,22 @@
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
-			<FieldName>EnableAmdFix</FieldName>
+			<FieldName>Custom Resolution</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
+			<Hint>The game runs at 1280x768: 2D is stretched to the window, 3D is rendered at the resolution below (wider than 5:3: more view at the sides)</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Custom Resolution Width</FieldName>
+			<FieldValue>1920</FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Custom Resolution Height</FieldName>
+			<FieldValue>1080</FieldValue>
+			<FieldType>Text</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
