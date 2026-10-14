@@ -6,10 +6,12 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>ShiningForceCrossRaid</EmulationProfile>
-	<GameProfileRevision>10</GameProfileRevision>
+	<GameProfileRevision>13</GameProfileRevision>
 	<HasSeparateTestMode>true</HasSeparateTestMode>
 	<EmulatorType>TeknoParrot</EmulatorType>
 	<ExecutableName>project_f-ringedge-release.exe</ExecutableName>
+	<OnlineIdFieldName>OnlineID</OnlineIdFieldName>
+	<OnlineIdType>TpOnline</OnlineIdType>
 	<ConfigValues>
 		<FieldInformation>
 			<CategoryName>General</CategoryName>
@@ -64,6 +66,35 @@
 			<FieldName>AMDCrashFix</FieldName>
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>Online</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>On: play on TeknoParrot's online server (sign-in with your Initial D Online PCB ID from the Account page; without it the server refuses the cabinet). Off: offline, as before.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>OnlineID</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Your PCB ID (AALG-...) from your TeknoParrot account, filled in by TeknoParrotUI (Account page) together with OnlineSecret. TeknoParrot's own online server signs this cabinet in with it, and it becomes the cabinet serial, so your cards follow you to any PC. Another server never sees it; there the cabinet keeps its own serial (a community server can give you a credential file for TP_ONLINE_CRED instead).</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>OnlineSecret</FieldName>
+			<VisibleWhen>Show settings</VisibleWhen>
+			<VisibleWhenValue>Debug</VisibleWhenValue>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Hidden: managed on the Account page. The secret that belongs to OnlineID (43 characters). It never leaves this PC: the server only gets a proof made with it. Keep it private: it lets anyone play as you.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Network</CategoryName>
+			<FieldName>Arcade</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>

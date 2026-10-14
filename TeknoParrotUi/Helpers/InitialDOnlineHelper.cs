@@ -31,7 +31,9 @@ namespace TeknoParrotUi.Helpers
     /// Account page.</item>
     /// </list>
     /// Nothing here runs at game launch, nothing passes a rank to a game, and nothing here is used by any profile whose
-    /// OnlineIdType is not InitialD. The rank shown in TPUI comes from api/User/Profile and is display only.
+    /// OnlineIdType is not InitialD, except that the credential is also written into the TpOnline profiles (Border Break X
+    /// and Shining Force Cross, which sign in to their servers with the same pair). The rank shown in TPUI comes from
+    /// api/User/Profile and is display only.
     /// </summary>
     public static class InitialDOnlineHelper
     {
@@ -153,6 +155,10 @@ namespace TeknoParrotUi.Helpers
         private static string IdFieldOf(GameProfile profile) =>
             string.IsNullOrEmpty(profile.OnlineIdFieldName) ? IdFieldName : profile.OnlineIdFieldName;
 
+        /// <summary>The profiles that take this PC's machine credential: Initial D, and the TpOnline games.</summary>
+        public static bool UsesMachineCredential(GameProfile profile) =>
+            profile != null && (profile.OnlineIdType == OnlineIdType.InitialD || profile.OnlineIdType == OnlineIdType.TpOnline);
+
         /// <summary>
         /// The InitialD case of the auto-fill (JoystickHelper.AutoFillOnlineId, AddGame): the pair is filled only into an
         /// empty OnlineID (the existing "fill when empty" rule; the secret goes with it), or the secret alone when OnlineID
@@ -160,7 +166,7 @@ namespace TeknoParrotUi.Helpers
         /// </summary>
         public static bool AutoFill(GameProfile profile, string pcbId, string secret)
         {
-            if (profile == null || profile.OnlineIdType != OnlineIdType.InitialD)
+            if (!UsesMachineCredential(profile))
                 return false;
             var id = NormalizePcbId(pcbId);
             if (id == null || !IsValidSecret(secret))
@@ -193,7 +199,7 @@ namespace TeknoParrotUi.Helpers
         /// </summary>
         public static bool SetProfileCredential(GameProfile profile, string pcbId, string secret, string onlyIfPcbId = null)
         {
-            if (profile == null || profile.OnlineIdType != OnlineIdType.InitialD)
+            if (!UsesMachineCredential(profile))
                 return false;
             var idField = Field(profile, IdFieldOf(profile));
             var secretField = Field(profile, SecretFieldName);
@@ -233,14 +239,14 @@ namespace TeknoParrotUi.Helpers
         }
 
         /// <summary>
-        /// Writes the pair into every installed Initial D profile (UserProfiles, and the loaded copies the library launches
-        /// from). "" clears. With <paramref name="onlyIfPcbId"/> only profiles holding that PCB ID change. Returns the
-        /// number of profile files changed. Other games' profiles are never opened.
+        /// Writes the pair into every installed Initial D and TpOnline profile (UserProfiles, and the loaded copies the
+        /// library launches from). "" clears. With <paramref name="onlyIfPcbId"/> only profiles holding that PCB ID change.
+        /// Returns the number of profile files changed. Other games' profiles are never opened.
         /// </summary>
         public static int WriteToUserProfiles(string pcbId, string secret, string onlyIfPcbId = null)
         {
             int changed = 0;
-            var loaded = GameProfileLoader.UserProfiles?.Where(p => p != null && p.OnlineIdType == OnlineIdType.InitialD).ToList()
+            var loaded = GameProfileLoader.UserProfiles?.Where(UsesMachineCredential).ToList()
                          ?? new List<GameProfile>();
             foreach (var inMemory in loaded)
             {
@@ -265,7 +271,7 @@ namespace TeknoParrotUi.Helpers
             return changed;
         }
 
-        /// <summary>Stores a new pair for this PC (Register, Use on this PC, Regenerate): ParrotData and every Initial D profile.</summary>
+        /// <summary>Stores a new pair for this PC (Register, Use on this PC, Regenerate): ParrotData and every Initial D and TpOnline profile.</summary>
         public static int StoreCredential(string pcbId, string secret)
         {
             var id = NormalizePcbId(pcbId) ?? throw new ArgumentException("malformed PCB ID", nameof(pcbId));

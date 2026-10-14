@@ -334,8 +334,8 @@ namespace TeknoParrotUi.Views
             if (string.IsNullOrEmpty(profile.OnlineIdFieldName))
                 return;
 
-            // Initial D Online: a PCB ID + secret pair (both fields), plain text from ParrotData.
-            if (profile.OnlineIdType == OnlineIdType.InitialD)
+            // Initial D Online and the TpOnline games: a PCB ID + secret pair (both fields), plain text from ParrotData.
+            if (InitialDOnlineHelper.UsesMachineCredential(profile))
             {
                 InitialDOnlineHelper.AutoFill(profile);
                 return;

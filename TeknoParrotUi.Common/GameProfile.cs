@@ -43,7 +43,11 @@ namespace TeknoParrotUi.Common
         // "OnlineSecret" fields, from the teknoparrot.com account like JoJo's but a pair of its own, and this PC's player
         // card in the "Card ID" field (CsNeoOnlineHelper). The game also runs without the pair (offline mode, community
         // servers).
-        CsNeo
+        CsNeo,
+        // TeknoParrot's online servers of Border Break X and Shining Force Cross: the same PCB ID + secret pair as
+        // InitialD in the same two fields (the DLL's TpOnlineClient.h signs in with Initial D's TPAUTH). Nothing else
+        // of Initial D Online (status file, exit toast, unified mode) applies.
+        TpOnline
     }
 
     [Serializable]

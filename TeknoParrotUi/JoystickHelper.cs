@@ -229,8 +229,8 @@ namespace TeknoParrotUi.Common
             if (string.IsNullOrEmpty(profile.OnlineIdFieldName))
                 return marioKartChanged;
 
-            // Initial D Online: a PCB ID + secret pair (both fields), plain text from ParrotData.
-            if (profile.OnlineIdType == OnlineIdType.InitialD)
+            // Initial D Online and the TpOnline games: a PCB ID + secret pair (both fields), plain text from ParrotData.
+            if (InitialDOnlineHelper.UsesMachineCredential(profile))
                 return InitialDOnlineHelper.AutoFill(profile);
 
             // Golden Tee online: the PCB ID + Card ID pair, from ParrotData.

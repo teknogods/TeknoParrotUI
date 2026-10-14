@@ -1,0 +1,14 @@
+{
+  "game_name": "Border Break X",
+  "game_genre": "Action",
+  "icon_name": "BorderBreakX.png",
+  "platform": "SEGA RingEdge",
+  "release_year": "2016",
+  "nvidia": "OK",
+  "nvidia_issues": null,
+  "amd": "NO_INFO",
+  "amd_issues": null,
+  "intel": "NO_INFO",
+  "intel_issues": null,
+  "general_issues": "Version 5.07 only. F4 inserts / ejects the card, F2 switches the touch screen between menu pointer and aiming. Online needs your Initial D Online PCB ID (Account page)."
+}
