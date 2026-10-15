@@ -6,7 +6,7 @@
 	<ExtraParameters></ExtraParameters>
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<EmulationProfile>DeadHeat</EmulationProfile>
-	<GameProfileRevision>11</GameProfileRevision>
+	<GameProfileRevision>12</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<EmulatorType>ElfLdr2</EmulatorType>
 	<ExecutableName>n_tank_release</ExecutableName>
@@ -46,12 +46,6 @@
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 			<Hint>Mirror screen from default. Will only work if Landscape is unchecked</Hint>
-		</FieldInformation>
-		<FieldInformation>
-			<CategoryName>General</CategoryName>
-			<FieldName>AMDFix</FieldName>
-			<FieldValue>0</FieldValue>
-			<FieldType>Bool</FieldType>
 		</FieldInformation>
 		<FieldInformation>
 			<CategoryName>FFB Blaster</CategoryName>
