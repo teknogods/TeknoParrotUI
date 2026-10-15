@@ -7,7 +7,7 @@
 	<TestMenuExtraParameters></TestMenuExtraParameters>
 	<ResetHint>false</ResetHint>
 	<EmulationProfile>RawThrillsGUN</EmulationProfile>
-	<GameProfileRevision>2</GameProfileRevision>
+	<GameProfileRevision>3</GameProfileRevision>
 	<HasSeparateTestMode>false</HasSeparateTestMode>
 	<Is64Bit>false</Is64Bit>
 	<EmulatorType>ElfLdr2</EmulatorType>
@@ -69,6 +69,49 @@
 			<FieldValue>0</FieldValue>
 			<FieldType>Bool</FieldType>
 			<Hint>Place file bezel.png in game folder.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>LED Wall</CategoryName>
+			<FieldName>Enable</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Draws every game pixel as a single LED like the cabinet&apos;s LED wall. Looks best with 4 or more screen pixels per LED (896x1152 and up).</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>LED Wall</CategoryName>
+			<FieldName>Dot Size</FieldName>
+			<FieldValue>60</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>20</FieldMin>
+			<FieldMax>100</FieldMax>
+			<Hint>LED size in percent of the LED spacing.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>LED Wall</CategoryName>
+			<FieldName>Glow</FieldName>
+			<FieldValue>45</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>0</FieldMin>
+			<FieldMax>100</FieldMax>
+			<Hint>Glow around lit LEDs.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>LED Wall</CategoryName>
+			<FieldName>Brightness</FieldName>
+			<FieldValue>140</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>50</FieldMin>
+			<FieldMax>200</FieldMax>
+			<Hint>Brightness of lit LEDs in percent.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>LED Wall</CategoryName>
+			<FieldName>Unlit LEDs</FieldName>
+			<FieldValue>100</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>0</FieldMin>
+			<FieldMax>100</FieldMax>
+			<Hint>How visible unlit LEDs are.</Hint>
 		</FieldInformation>
 	</ConfigValues>
 	<JoystickButtons>
