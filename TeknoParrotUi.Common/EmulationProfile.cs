@@ -176,6 +176,7 @@
         TeknoCPS,
         TeknoSS32,
         // Taito Type Zero
-        TeknoTZero
+        TeknoTZero,
+        ALLSSoulReverse
     }
 }

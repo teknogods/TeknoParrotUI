@@ -132,7 +132,8 @@ namespace TeknoParrotUi.Common.InputListening
             NamcoGameRevisions.UsesIndependentCabinetAxes(_gameProfile) ||
             TypeZeroControls.IsPowerShovel(_gameProfile) ||
             _gameProfile?.EmulationProfile == EmulationProfile.TeknoS21 ||
-            _gameProfile?.EmulationProfile == EmulationProfile.TeknoHDrive;
+            _gameProfile?.EmulationProfile == EmulationProfile.TeknoHDrive ||
+            _gameProfile?.EmulationProfile == EmulationProfile.ALLSSoulReverse;
         private static bool ReverseYAxis = false;
         private static bool ReverseSWThrottleAxis = false;
         private static bool SingleThrottleAxis = false;

@@ -485,6 +485,9 @@ namespace TeknoParrotUi.Views
                 case EmulationProfile.ALLSSCHRONO:
                     _pipe ??= new ChronoRegaliaUsbIoPipe();
                     break;
+                case EmulationProfile.ALLSSoulReverse:
+                    _pipe ??= new SoulReverseUsbIoPipe();
+                    break;
                 case EmulationProfile.Theatrhythm:
                     _pipe ??= new FastIOPipe();
                     break;
@@ -706,6 +709,7 @@ namespace TeknoParrotUi.Views
                     _controlSender = new AimeButton();
                     break;
                 case EmulationProfile.DenshaDeGo:
+                case EmulationProfile.ALLSSoulReverse:
                     _controlSender = new NxL2Pipe();
                     break;
                 case EmulationProfile.TransformersShadowsRising:

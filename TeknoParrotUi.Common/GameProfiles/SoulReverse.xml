@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<GamePath></GamePath>
+	<ExecutableName>fbb.exe</ExecutableName>
+	<ExecutableName2>amdaemon.exe</ExecutableName2>
+	<HasTwoExecutables>true</HasTwoExecutables>
+	<LaunchSecondExecutableFirst>true</LaunchSecondExecutableFirst>
+	<TestMenuParameter></TestMenuParameter>
+	<TestMenuIsExecutable>false</TestMenuIsExecutable>
+	<ExtraParameters></ExtraParameters>
+	<TestMenuExtraParameters></TestMenuExtraParameters>
+	<EmulationProfile>ALLSSoulReverse</EmulationProfile>
+	<GameProfileRevision>4</GameProfileRevision>
+	<Is64Bit>true</Is64Bit>
+	<HasSeparateTestMode>false</HasSeparateTestMode>
+	<EmulatorType>TeknoParrot</EmulatorType>
+	<Patreon>false</Patreon>
+	<DevOnly>true</DevOnly>
+	<OnlineIdFieldName>OnlineId</OnlineIdFieldName>
+	<OnlineIdType>SegaId</OnlineIdType>
+	<ConfigValues>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Input API</FieldName>
+			<FieldValue>XInput</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>DirectInput</string>
+				<string>XInput</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>FreePlay</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Windowed</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>OnlineID</FieldName>
+			<FieldValue></FieldValue>
+			<FieldType>Text</FieldType>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Native XInput Controller</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Let the game read the first XInput controller itself, with the layout the developers gave it, instead of the bindings made here.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Use Keyboard/Button For Axis</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>DirectInput only. Bind the separate stick directions in Controller Setup to use keyboard keys or controller buttons.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Keyboard/Button Axis X/Y Sensitivity</FieldName>
+			<FieldValue>40</FieldValue>
+			<FieldType>Slider</FieldType>
+			<FieldMin>1</FieldMin>
+			<FieldMax>127</FieldMax>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>General</CategoryName>
+			<FieldName>Terminal Mode</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Start the game as the shop's terminal instead of a player's cabinet: a menu for watching recorded battles and battles that are going on, and for the rankings, with a card or as a guest. Nothing can be played there. Left stick (or the direction keys) to move, A to choose, B to go back.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Graphics</CategoryName>
+			<FieldName>Resolution</FieldName>
+			<FieldValue>1920x1080</FieldValue>
+			<FieldType>Dropdown</FieldType>
+			<FieldOptions>
+				<string>1280x720</string>
+				<string>1920x1080</string>
+				<string>3840x2160</string>
+			</FieldOptions>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Online</CategoryName>
+			<FieldName>Online Battles</FieldName>
+			<FieldValue>1</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Battles with other players. The battle runs on the PC of one of the players. Off: every battle is played alone with CPU controlled team mates and enemies.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Online</CategoryName>
+			<FieldName>Game Server Port</FieldName>
+			<FieldValue>50100</FieldValue>
+			<FieldType>Text</FieldType>
+			<Hint>Other players join battles hosted on this PC on this port (TCP and UDP) and the next one (UDP). Forward both in your router and allow the game in the firewall for the best connection; without that other players reach you through the server's relay.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Online</CategoryName>
+			<FieldName>Dedicated Host</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>For a PC that is left running in attract mode: other players' battles are started here before anywhere else.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Online</CategoryName>
+			<FieldName>Record Battles</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>Battles that run on this PC are sent to the server while they are played, so that others can watch them, live or later. Needs about 30 KB/s of upload during a battle.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Online</CategoryName>
+			<FieldName>Battles In Attract Mode</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>While nobody plays, show battles of other players between the movies: one that is going on, and a recorded one.</Hint>
+		</FieldInformation>
+		<FieldInformation>
+			<CategoryName>Online</CategoryName>
+			<FieldName>Rankings In Attract Mode</FieldName>
+			<FieldValue>0</FieldValue>
+			<FieldType>Bool</FieldType>
+			<Hint>While nobody plays, show the rankings between the movies: the best players, and the battle points of the month.</Hint>
+		</FieldInformation>
+	</ConfigValues>
+	<JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Test</ButtonName>
+			<InputMapping>Test</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Service</ButtonName>
+			<InputMapping>Service1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Coin</ButtonName>
+			<InputMapping>Coin1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Insert AIME Card</ButtonName>
+			<InputMapping>ExtensionOne13</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>A (Weak Attack)</ButtonName>
+			<InputMapping>P1Button1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>B (Strong Attack)</ButtonName>
+			<InputMapping>P1Button2</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>C (Sub Weapon)</ButtonName>
+			<InputMapping>P1Button3</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>L1 (Guard / Shift)</ButtonName>
+			<InputMapping>P1Button4</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>L2 (Dash / Step)</ButtonName>
+			<InputMapping>P1Button5</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Left Stick Push (Action / Ride)</ButtonName>
+			<InputMapping>P1Button6</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Right Stick Push (Camera Reset / Lock)</ButtonName>
+			<InputMapping>ExtensionOne1</InputMapping>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Left Stick X (Move)</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Left Stick Y (Move)</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Right Stick X (Camera)</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<AnalogType>AnalogJoystick</AnalogType>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Right Stick Y (Camera)</ButtonName>
+			<InputMapping>Analog6</InputMapping>
+			<AnalogType>AnalogJoystickReverse</AnalogType>
+			<HideWithKeyboardForAxis>true</HideWithKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Move Left</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<AnalogType>Minimum</AnalogType>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Move Right</ButtonName>
+			<InputMapping>Analog0</InputMapping>
+			<AnalogType>Maximum</AnalogType>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Move Forward</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<AnalogType>Minimum</AnalogType>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Move Back</ButtonName>
+			<InputMapping>Analog2</InputMapping>
+			<AnalogType>Maximum</AnalogType>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Camera Left</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<AnalogType>Minimum</AnalogType>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Camera Right</ButtonName>
+			<InputMapping>Analog4</InputMapping>
+			<AnalogType>Maximum</AnalogType>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Camera Up</ButtonName>
+			<InputMapping>Analog6</InputMapping>
+			<AnalogType>Minimum</AnalogType>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+		<JoystickButtons>
+			<ButtonName>Camera Down</ButtonName>
+			<InputMapping>Analog6</InputMapping>
+			<AnalogType>Maximum</AnalogType>
+			<HideWithXInput>true</HideWithXInput>
+			<HideWithoutKeyboardForAxis>true</HideWithoutKeyboardForAxis>
+		</JoystickButtons>
+	</JoystickButtons>
+</GameProfile>
