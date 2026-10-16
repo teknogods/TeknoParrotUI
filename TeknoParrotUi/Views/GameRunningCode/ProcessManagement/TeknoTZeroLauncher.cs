@@ -39,6 +39,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
 
         public static ProcessStartInfo Build(GameProfile profile, string gameLocation, Action<string> log)
         {
+            bool HasSetting(string name) =>
+                profile.ConfigValues?.Any(x => x.FieldName == name) == true;
             string Setting(string name, string fallback = "") =>
                 profile.ConfigValues?.FirstOrDefault(x => x.FieldName == name)?.FieldValue ?? fallback;
             bool Enabled(string name, bool fallback = false)
@@ -46,6 +48,15 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 var value = Setting(name, fallback ? "1" : "0");
                 return value == "1" || value.Equals("true", StringComparison.OrdinalIgnoreCase);
             }
+            int Percent(string name, int minimum = 0, int maximum = 100, int fallback = 100)
+            {
+                if (!int.TryParse(Setting(name, fallback.ToString(CultureInfo.InvariantCulture)),
+                        NumberStyles.Integer, CultureInfo.InvariantCulture, out var value) ||
+                    value < minimum || value > maximum)
+                    value = fallback;
+                return value;
+            }
+            string Number(int value) => value.ToString(CultureInfo.InvariantCulture);
             if (!Sets.TryGetValue(profile.ProfileName ?? "", out var revisions))
                 throw new ArgumentException("Unknown Type Zero game profile.");
             var set = Setting("Game Version", revisions[0]);
@@ -67,39 +78,44 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             void Flag(string key, bool value) => Add(key, value ? "true" : "false");
             Add("paths.rom", romRoot);
             Add("paths.chd", chd.Length == 0 ? romRoot : Resolve(chd));
-            if (profile.ConfigValues?.Any(x => x.FieldName == "XInput Rumble") == true)
+            // SDL3 force feedback through tzerohaptic device tokens, as TeknoModel3.
+            var ffbDevice = HasSetting("Force Feedback Device")
+                ? TeknoParrotUi.Helpers.TZeroFfbDeviceProbe.GetLaunchSelection(Setting("Force Feedback Device", "off"))
+                : "off";
+            // Power Shovel's second seat has its own device.
+            var ffbDevice2 = HasSetting("Player 2 Force Feedback Device")
+                ? TeknoParrotUi.Helpers.TZeroFfbDeviceProbe.GetLaunchSelection(Setting("Player 2 Force Feedback Device", "off"))
+                : "off";
+            if (!ffbDevice2.Equals("off", StringComparison.OrdinalIgnoreCase) && ffbDevice2 == ffbDevice)
+                throw new ArgumentException("Choose a different force feedback device for each player.");
+            Add("force_feedback.device", ffbDevice);
+            Add("force_feedback.device2", ffbDevice2);
+            if (!ffbDevice.Equals("off", StringComparison.OrdinalIgnoreCase) ||
+                !ffbDevice2.Equals("off", StringComparison.OrdinalIgnoreCase))
             {
-                var rumble = Enabled("XInput Rumble");
-                var wheel = Enabled("Wheel Force Feedback");
-                if (rumble && wheel) throw new ArgumentException("Choose wheel force feedback or XInput rumble.");
-                Add("force_feedback.backend", wheel ? "dinput" : rumble ? "xinput" : "none");
-                Flag("machine.force_feedback_enabled", rumble || wheel);
-                if (rumble || wheel)
+                Add("force_feedback.gain", Number(Percent("Force Feedback Strength")));
+                if (HasSetting("Enable Spring Effect"))
                 {
-                    if (set != "batlgr2")
-                        throw new ArgumentException("Force feedback requires Battle Gear 2 v2.04 and HANDLE TYPE AFSS in the game operator menu.");
-                    var device = wheel ? Setting("Wheel FFB Device", "auto").Trim() : Setting("Rumble Controller", "auto");
-                    if (wheel ? device != "auto" && !Guid.TryParse(device, out _) : !new[] { "auto", "0", "1", "2", "3" }.Contains(device))
-                        throw new ArgumentException("Choose a wheel GUID/auto, or an XInput slot 0 to 3/auto.");
-                    var gainName = wheel ? "Wheel FFB Gain" : "Rumble Gain";
-                    if (!int.TryParse(Setting(gainName, "25"), out var gain) || gain < 0 || gain > 100)
-                        throw new ArgumentException("Force feedback gain must be between 0 and 100 percent.");
-                    Add("force_feedback.device", device);
-                    Add("force_feedback.gain_percent", gain.ToString(CultureInfo.InvariantCulture));
-                    Flag("force_feedback.invert", wheel && Enabled("Invert Wheel Torque"));
-                    var spring = wheel ? Setting("Wheel Spring Mode", "spring") : "spring";
-                    if (spring != "spring" && spring != "constant") throw new ArgumentException("Unsupported spring mode.");
-                    Add("force_feedback.spring_mode", spring);
-                    foreach (var effect in new[] { "Constant", "Damper", "Spring", "Friction", "Vibration" })
-                    {
-                        if (!int.TryParse(Setting("FFB " + effect + " Gain", "100"), out var effectGain) || effectGain < 0 || effectGain > 100)
-                            throw new ArgumentException("Effect gains must be between 0 and 100 percent.");
-                        Add("force_feedback." + effect.ToLowerInvariant() + "_gain_percent", effectGain.ToString(CultureInfo.InvariantCulture));
-                    }
-                    if (!int.TryParse(Setting("FFB Vibration Unit", "1"), out var period) || period < 1 || period > 20)
-                        throw new ArgumentException("FFB Vibration Unit must be between 1 and 20 milliseconds.");
-                    Add("force_feedback.period_unit_ms", period.ToString(CultureInfo.InvariantCulture));
-                    Add("video.frame_limit_hz", "60"); Flag("sound.load_check_fast_forward", false);
+                    var springMode = Setting("Force Feedback Spring Effect", "Spring");
+                    Add("force_feedback.spring_mode",
+                        springMode == "Spring using Constant Force" || springMode == "Constant Spring" ? "constant" : "spring");
+                    Add("force_feedback.spring_gain", Number(
+                        Enabled("Enable Spring Effect", true) ? Percent("Spring Effect Strength") : 0));
+                }
+                if (HasSetting("Enable Constant Effect"))
+                    Add("force_feedback.constant_gain", Number(
+                        Enabled("Enable Constant Effect", true) ? Percent("Constant Effect Strength") : 0));
+                if (HasSetting("Enable Damper Effect"))
+                    Add("force_feedback.damper_gain", Number(
+                        Enabled("Enable Damper Effect", true) ? Percent("Damper Effect Strength") : 0));
+                if (HasSetting("Enable Friction Effect"))
+                    Add("force_feedback.friction_gain", Number(
+                        Enabled("Enable Friction Effect", true) ? Percent("Friction Effect Strength", 0, 100, 30) : 0));
+                if (HasSetting("Enable Sine Effect"))
+                {
+                    Add("force_feedback.vibration_gain", Number(
+                        Enabled("Enable Sine Effect", true) ? Percent("Sine Effect Strength") : 0));
+                    Add("force_feedback.sine_period_ms", Number(Percent("Sine Effect Period", 10, 200, 40)));
                 }
             }
             var handoff = Environment.GetEnvironmentVariable("TP_TPONLINE2");
@@ -289,11 +305,11 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             // Shared input owns all controls. Native bindings must not leak into a revoked lease.
             foreach (var device in new[] { "keyboard", "mouse", "lightgun", "joystick" })
                 Add("input." + device + ".provider", "none");
-            var outputs = Enabled("Enable Cabinet Outputs");
-            Flag("machine.outputs_enabled", outputs);
-            Add("services.output.backend", outputs ? "cabinet" : "none");
+            // Cabinet outputs are always published, as TeknoModel3. The route,
+            // port and discovery settings arrive through TP_OUTPUT_* variables.
+            Flag("machine.outputs_enabled", true);
+            Add("services.output.backend", "cabinet");
             Add("services.output.route", CabinetOutputSettings.GetRoute(profile) == "Network Outputs" ? "network" : "windows");
-            Add("services.output.bind_address", Setting("Output Bind Address", "127.0.0.1"));
             args.Add(Quote(set));
             log?.Invoke($"TeknoTZero: {set}, ROM root={romRoot}");
             return new ProcessStartInfo(Path.Combine(workDir, "TeknoTZero.exe"), string.Join(" ", args))

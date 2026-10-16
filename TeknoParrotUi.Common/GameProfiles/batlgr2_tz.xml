@@ -2,7 +2,7 @@
 <GameProfile>
   <GamePath />
   <EmulationProfile>TeknoTZero</EmulationProfile>
-  <GameProfileRevision>6</GameProfileRevision>
+  <GameProfileRevision>7</GameProfileRevision>
   <HasTpoSupport>true</HasTpoSupport>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoTZero</EmulatorType>
@@ -12,6 +12,137 @@
   <Patreon>true</Patreon>
   <DevOnly>false</DevOnly>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Force Feedback Device</FieldName>
+      <FieldValue>off</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select a force feedback wheel or controller vibration. Version 2.04 only: set HANDLE TYPE to AFSS in the game's operator Configuration menu. Reopen Game Settings to refresh connected devices.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Force Feedback Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Overall effect strength. 100% keeps the normal full strength.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Constant Effect</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Constant Effect Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Constant Effect</EnabledBy>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Strength of the steering torque sent by the game. Spring strength is adjusted separately.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Spring Effect</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Force Feedback Spring Effect</FieldName>
+      <FieldValue>Spring</FieldValue>
+      <FieldType>Dropdown</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Spring Effect</EnabledBy>
+      <FieldOptions>
+        <string>Spring</string>
+        <string>Spring using Constant Force</string>
+      </FieldOptions>
+      <Hint>Both modes follow spring commands sent by the game. Spring uses the wheel's spring effect. Spring using Constant Force recreates the same game-controlled spring through the wheel's constant-force effect. It does not add an always-on spring.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Spring Effect Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Spring Effect</EnabledBy>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Strength of spring forces requested by the game, in either spring mode.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Damper Effect</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Damper Effect Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Damper Effect</EnabledBy>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Resistance from the game's steering viscosity command.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Friction Effect</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Friction Effect Strength</FieldName>
+      <FieldValue>30</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Friction Effect</EnabledBy>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Resistance when the game requests friction. The cabinet level is heavy on a modern wheel, so this starts at 30%.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Sine Effect</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Sine Effect Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Sine Effect</EnabledBy>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Strength of the game's steering vibration.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Sine Effect Period</FieldName>
+      <FieldValue>40</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Sine Effect</EnabledBy>
+      <FieldMin>10</FieldMin>
+      <FieldMax>200</FieldMax>
+      <Hint>Period of the host vibration used for wheels without motor rumble. Controller rumble ignores it.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
@@ -191,13 +322,6 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Enable Cabinet Outputs</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <Hint>Publishes raw I/O request bits and train meter values. Lamp names and force feedback are not yet decoded.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
       <FieldName>Outputs</FieldName>
       <FieldValue>Windows Outputs</FieldValue>
       <FieldType>Dropdown</FieldType>
@@ -205,13 +329,7 @@
         <string>Windows Outputs</string>
         <string>Network Outputs</string>
       </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Output Bind Address</FieldName>
-      <FieldValue>127.0.0.1</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Network output listener address. Use 0.0.0.0 to permit remote receivers.</Hint>
+      <Hint>Choose how game outputs are sent. Select Network Outputs to configure its settings.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
@@ -313,37 +431,6 @@
       <Hint>Optional ordered list of 2-4 IPv4:port endpoints, including this cabinet. Example: 127.0.0.1:19792,127.0.0.1:19793,127.0.0.1:19794,127.0.0.1:19795. Use the same list on every cabinet, set distinct nodes and match each local port. Cabinet 0 routes group traffic. Empty uses the two-cabinet peer settings.</Hint>
     </FieldInformation>
     <FieldInformation>
-      <CategoryName>Rumble</CategoryName>
-      <FieldName>XInput Rumble</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <Hint>Battle Gear 2 v2.04 only. Select HANDLE TYPE AFSS in the game operator menu. Native vibration drives the selected gamepad's rumble motors.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Rumble</CategoryName>
-      <FieldName>Rumble Controller</FieldName>
-      <FieldValue>auto</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>auto</string>
-        <string>0</string>
-        <string>1</string>
-        <string>2</string>
-        <string>3</string>
-      </FieldOptions>
-      <Hint>Auto selects the first connected XInput controller. Slots 0-3 correspond to controllers 1-4. Choose the same controller used for driving.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Rumble</CategoryName>
-      <FieldName>Rumble Gain</FieldName>
-      <FieldValue>25</FieldValue>
-      <FieldType>Slider</FieldType>
-      <FieldMin>0</FieldMin>
-      <FieldMax>100</FieldMax>
-      <FieldStep>1</FieldStep>
-      <Hint>Rumble strength as a percentage.</Hint>
-    </FieldInformation>
-    <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>State Slot</FieldName>
       <FieldValue>0</FieldValue>
@@ -356,87 +443,6 @@
       <FieldValue></FieldValue>
       <FieldType>Text</FieldType>
       <Hint>Optional state-file root. Empty uses TeknoTZero/state. Each revision has separate slots.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Force Feedback</CategoryName>
-      <FieldName>Wheel Force Feedback</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <Hint>v2.04 AFSS only. Select either wheel feedback or XInput rumble.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Force Feedback</CategoryName>
-      <FieldName>Wheel FFB Device</FieldName>
-      <FieldValue>auto</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Use auto or the instance GUID reported by tzerofb.exe.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Force Feedback</CategoryName>
-      <FieldName>Wheel FFB Gain</FieldName>
-      <FieldValue>25</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Master force strength, 0-100 percent.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Force Feedback</CategoryName>
-      <FieldName>Invert Wheel Torque</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <Hint>Reverses native torque commands.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Force Feedback</CategoryName>
-      <FieldName>Wheel Spring Mode</FieldName>
-      <FieldValue>spring</FieldValue>
-      <FieldType>Dropdown</FieldType>
-      <FieldOptions>
-        <string>spring</string>
-        <string>constant</string>
-      </FieldOptions>
-      <Hint>Use the wheel spring effect, or recreate it with constant force from the wheel position.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Force Feedback</CategoryName>
-      <FieldName>FFB Constant Gain</FieldName>
-      <FieldValue>100</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Individual effect strength, 0-100 percent; 0 disables this effect.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Force Feedback</CategoryName>
-      <FieldName>FFB Damper Gain</FieldName>
-      <FieldValue>100</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Individual effect strength, 0-100 percent; 0 disables this effect.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Force Feedback</CategoryName>
-      <FieldName>FFB Spring Gain</FieldName>
-      <FieldValue>100</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Individual effect strength, 0-100 percent; 0 disables this effect.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Force Feedback</CategoryName>
-      <FieldName>FFB Friction Gain</FieldName>
-      <FieldValue>100</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Individual effect strength, 0-100 percent; 0 disables this effect.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Force Feedback</CategoryName>
-      <FieldName>FFB Vibration Gain</FieldName>
-      <FieldValue>100</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Individual effect strength, 0-100 percent; 0 disables this effect.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>Force Feedback</CategoryName>
-      <FieldName>FFB Vibration Unit</FieldName>
-      <FieldValue>1</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Milliseconds per native period unit, 1-20.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>Input</CategoryName>

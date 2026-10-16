@@ -121,7 +121,7 @@ internal static class Contracts
                 saved.JoystickButtons[0].ButtonName = "Saved controller binding";
                 saved.HasTpoSupport = false; // Existing user profiles predate the online flag.
                 if (id == "pwrshovl_tz") PowerShovelControls.MakeLegacy(saved);
-                if (id == "batlgr2_tz") saved.ConfigValues.Single(x => x.FieldName == "XInput Rumble").FieldValue = "1";
+                if (id == "batlgr2_tz") saved.ConfigValues.Single(x => x.FieldName == "Force Feedback Device").FieldValue = "wheel:0";
                 else saved.ConfigValues.RemoveAll(x => x.FieldName == "Game Version");
                 using (var output = File.Create(Path.Combine("UserProfiles", id + ".xml")))
                     new XmlSerializer(typeof(GameProfile)).Serialize(output, saved);
@@ -144,7 +144,8 @@ internal static class Contracts
                 var launch = Args(TeknoTZeroLauncher.Build(loaded, null, null).Arguments);
                 Check(launch.Last() == set && launch.Contains("--link.mode=tponline") &&
                     launch.Contains("--video.vulkan.internal_scale=8"), "Exact online revision/settings not passed to emulator");
-                if (id == "batlgr2a_tz") Check(launch.Contains("--force_feedback.backend=none"), "Unsupported conversion rumble retained");
+                // The emulator decides which revisions have a drive protocol; the saved device is passed unchanged.
+                if (parent == "batlgr2_tz") Check(launch.Contains("--force_feedback.device=wheel:0"), "Saved force-feedback device lost");
                 var personal = id.Contains("_personal_tz");
                 Check(launch.Contains("--video.player_view=" + (personal ? "personal" : "shared")), "Room view mode lost");
                 if (personal)
@@ -162,20 +163,18 @@ internal static class Contracts
                     OnlineGameRevisionProfiles.Load(id).ConfigValues.Single(x => x.FieldName == "Game Version").FieldValue == set,
                     "Online launch changed the saved offline profile or leaked between sessions");
             }
-            // A saved v2.04 wheel setup must also launch the older online revision,
-            // without disabling force feedback in the user's offline profile.
+            // A saved wheel setup launches both online revisions without changing the
+            // user's offline profile. The emulator ignores it where no protocol exists.
             var wheelProfile = OnlineGameRevisionProfiles.Load("batlgr2_tz");
-            wheelProfile.ConfigValues.Single(x => x.FieldName == "XInput Rumble").FieldValue = "0";
-            wheelProfile.ConfigValues.Single(x => x.FieldName == "Wheel Force Feedback").FieldValue = "1";
+            wheelProfile.ConfigValues.Single(x => x.FieldName == "Force Feedback Device").FieldValue = "gamepad:1";
             var wheelPath = Path.Combine("UserProfiles", "batlgr2_tz.xml");
             using (var output = File.Create(wheelPath)) new XmlSerializer(typeof(GameProfile)).Serialize(output, wheelProfile);
             var savedWheel = File.ReadAllBytes(wheelPath);
             foreach (var id in new[] { "batlgr2_tz", "batlgr2a_tz" })
             {
                 var wheelArgs = Args(TeknoTZeroLauncher.Build(OnlineGameRevisionProfiles.Load(id), null, null).Arguments);
-                Check(wheelArgs.Contains("--force_feedback.backend=" + (id == "batlgr2_tz" ? "dinput" : "none")),
-                    "Online revision did not preserve or suppress the saved wheel correctly");
-                Check(File.ReadAllBytes(wheelPath).SequenceEqual(savedWheel), "Online force-feedback override changed saved settings");
+                Check(wheelArgs.Contains("--force_feedback.device=gamepad:1"), "Online revision did not preserve the saved device");
+                Check(File.ReadAllBytes(wheelPath).SequenceEqual(savedWheel), "Online force-feedback launch changed saved settings");
             }
             foreach (var id in new[] { "landhigh_tz", "dendego3_tz", "styphp_tz", "raizpinj_tz", "unknown_tz", "../batlgr2_tz", "batlgear_personal_tz", "styphp_personal_tz" })
             {
@@ -242,32 +241,27 @@ internal static class Contracts
                 sceneReuse.FieldValue = completedPacing.FieldValue = "0"; geometry.FieldValue = "0";
                 if (profile.ProfileName == "batlgr2_tz")
                 {
-                    Check(args.Contains("--force_feedback.backend=none") && args.Contains("--machine.force_feedback_enabled=false"), "Rumble default must be off");
-                    var rumble = profile.ConfigValues.Single(x => x.FieldName == "XInput Rumble");
-                    var slot = profile.ConfigValues.Single(x => x.FieldName == "Rumble Controller");
-                    var gain = profile.ConfigValues.Single(x => x.FieldName == "Rumble Gain");
-                    Check(gain.FieldStep == 1, "Rumble slider generates unsupported fractional values");
-                    rumble.FieldValue = "1";
-                    foreach (var controller in new[] { "auto", "0", "1", "2", "3" })
+                    Check(args.Contains("--force_feedback.device=off") && !args.Any(x => x.StartsWith("--force_feedback.gain=")),
+                        "Force feedback default must be off");
+                    var device = profile.ConfigValues.Single(x => x.FieldName == "Force Feedback Device");
+                    Check(device.FieldType == FieldType.DynamicDropdown, "Force feedback device must use tzerohaptic discovery");
+                    foreach (var token in new[] { "wheel:0", "gamepad:3", "haptic-name:46616b65" })
                     {
-                        Check(slot.FieldOptions.Contains(controller), "Missing rumble controller option");
-                        slot.FieldValue = controller;
-                        var rumbleArgs = Args(TeknoTZeroLauncher.Build(profile, null, null).Arguments);
-                        Check(rumbleArgs.Contains("--force_feedback.backend=xinput") && rumbleArgs.Contains("--machine.force_feedback_enabled=true") &&
-                            rumbleArgs.Contains("--force_feedback.device=" + controller) && rumbleArgs.Contains("--force_feedback.gain_percent=25") &&
-                            rumbleArgs.Contains("--video.frame_limit_hz=60") && rumbleArgs.Contains("--sound.load_check_fast_forward=false"), "Rumble launch routing");
+                        device.FieldValue = token;
+                        var ffbArgs = Args(TeknoTZeroLauncher.Build(profile, null, null).Arguments);
+                        Check(ffbArgs.Contains("--force_feedback.device=" + token) && ffbArgs.Contains("--force_feedback.gain=100") &&
+                            ffbArgs.Contains("--force_feedback.friction_gain=30") && ffbArgs.Contains("--force_feedback.sine_period_ms=40"),
+                            "Force feedback launch routing");
                     }
-                    foreach (var invalid in new[] { new[] { "Rumble Controller", "4" }, new[] { "Rumble Controller", "-1" },
-                        new[] { "Rumble Gain", "101" }, new[] { "Rumble Gain", "-1" }, new[] { "Game Version", "batlgr2a" } })
+                    foreach (var invalid in new[] { "auto", "wheel:-1", "wheel:01", "haptic-name:XYZ", "{12345678-1234-5678-9012-123456789012}" })
                     {
-                        var setting = profile.ConfigValues.Single(x => x.FieldName == invalid[0]);
-                        var original = setting.FieldValue; setting.FieldValue = invalid[1];
-                        bool rejectedRumble = false;
-                        try { TeknoTZeroLauncher.Build(profile, null, null); } catch (ArgumentException) { rejectedRumble = true; }
-                        Check(rejectedRumble, "Invalid rumble setting accepted: " + invalid[0]);
-                        setting.FieldValue = original;
+                        device.FieldValue = invalid;
+                        Check(Args(TeknoTZeroLauncher.Build(profile, null, null).Arguments).Contains("--force_feedback.device=off"),
+                            "Invalid force feedback device passed to the emulator: " + invalid);
                     }
-                    rumble.FieldValue = "0"; slot.FieldValue = "auto";
+                    device.FieldValue = "off";
+                    foreach (var removed in new[] { "XInput Rumble", "Wheel Force Feedback", "Invert Wheel Torque", "Enable Cabinet Outputs", "Output Bind Address" })
+                        Check(!profile.ConfigValues.Any(x => x.FieldName == removed), "Obsolete Type Zero setting remains: " + removed);
                 }
                 Check(args.Contains("--video.expand_viewport=true"), "Default scanout-margin routing");
                 Check(args.Contains("--video.secondary_display=true"), "Default secondary display routing");
@@ -410,32 +404,19 @@ internal static class Contracts
                 Check(badWide, "Invalid widescreen accepted"); wide.FieldValue = "off";
                 if (profile.ProfileName == "batlgr2_tz")
                 {
-                    var wheel = profile.ConfigValues.Single(x => x.FieldName == "Wheel Force Feedback");
-                    var rumble = profile.ConfigValues.Single(x => x.FieldName == "XInput Rumble");
-                    var version = profile.ConfigValues.Single(x => x.FieldName == "Game Version");
-                    var savedVersion = version.FieldValue;
-                    version.FieldValue = "batlgr2"; rumble.FieldValue = "0"; wheel.FieldValue = "1";
-                    profile.ConfigValues.Single(x => x.FieldName == "Wheel Spring Mode").FieldValue = "constant";
-                    profile.ConfigValues.Single(x => x.FieldName == "FFB Spring Gain").FieldValue = "37";
+                    var device = profile.ConfigValues.Single(x => x.FieldName == "Force Feedback Device");
+                    string Value(string name, string value) => profile.ConfigValues.Single(x => x.FieldName == name).FieldValue = value;
+                    device.FieldValue = "wheel:0";
+                    Value("Force Feedback Spring Effect", "Spring using Constant Force");
+                    Value("Spring Effect Strength", "37"); Value("Damper Effect Strength", "64");
+                    Value("Enable Sine Effect", "0"); Value("Force Feedback Strength", "150");
                     var wheelArgs = Args(TeknoTZeroLauncher.Build(profile, null, null).Arguments);
-                    Check(wheelArgs.Contains("--force_feedback.backend=dinput") && wheelArgs.Contains("--force_feedback.spring_mode=constant") &&
-                        wheelArgs.Contains("--force_feedback.spring_gain_percent=37"), "Wheel settings routing");
-                    rumble.FieldValue = "1";
-                    bool conflict = false;
-                    try { TeknoTZeroLauncher.Build(profile, null, null); } catch (ArgumentException) { conflict = true; }
-                    Check(conflict, "Simultaneous wheel/rumble enabled");
-                    rumble.FieldValue = "0";
-                    foreach (var invalid in new[] { new[] { "Wheel FFB Device", "garbage" }, new[] { "Wheel FFB Gain", "101" },
-                        new[] { "FFB Spring Gain", "-1" }, new[] { "Wheel Spring Mode", "bad" }, new[] { "FFB Vibration Unit", "0" },
-                        new[] { "Game Version", "batlgr2a" } })
-                    {
-                        var field = profile.ConfigValues.Single(x => x.FieldName == invalid[0]);
-                        var previous = field.FieldValue; field.FieldValue = invalid[1];
-                        bool rejectedWheel = false;
-                        try { TeknoTZeroLauncher.Build(profile, null, null); } catch (ArgumentException) { rejectedWheel = true; }
-                        Check(rejectedWheel, "Invalid wheel settings accepted: " + invalid[0]); field.FieldValue = previous;
-                    }
-                    wheel.FieldValue = "0"; version.FieldValue = savedVersion;
+                    Check(wheelArgs.Contains("--force_feedback.spring_mode=constant") && wheelArgs.Contains("--force_feedback.spring_gain=37") &&
+                        wheelArgs.Contains("--force_feedback.damper_gain=64") && wheelArgs.Contains("--force_feedback.vibration_gain=0") &&
+                        wheelArgs.Contains("--force_feedback.gain=100"), "Wheel effect settings routing");
+                    Value("Force Feedback Spring Effect", "Spring"); Value("Spring Effect Strength", "100");
+                    Value("Damper Effect Strength", "100"); Value("Enable Sine Effect", "1"); Value("Force Feedback Strength", "100");
+                    device.FieldValue = "off";
                 }
                 Check(!profile.ConfigValues.Any(x => x.FieldName == "Renderer"), "Obsolete renderer selector");
                 Check(args.Contains("--video.backend=vulkan"), "Vulkan renderer required");
@@ -491,7 +472,8 @@ internal static class Contracts
                 try { TeknoTZeroLauncher.Build(profile, null, null); } catch (ArgumentException) { badVolume = true; }
                 Check(badVolume, "Out-of-range volume accepted");
                 volume.FieldValue = "100";
-                profile.ConfigValues.Single(x => x.FieldName == "Enable Cabinet Outputs").FieldValue = "1";
+                Check(args.Contains("--machine.outputs_enabled=true") && args.Contains("--services.output.backend=cabinet"),
+                    "Cabinet outputs must always be published");
                 profile.ConfigValues.Single(x => x.FieldName == "Outputs").FieldValue = "Network Outputs";
                 profile.CabinetOutputSettings = new CabinetOutputSettings { ListenerPort = 8123, LineEnding = "LF" };
                 var network = TeknoTZeroLauncher.Build(profile, null, null);

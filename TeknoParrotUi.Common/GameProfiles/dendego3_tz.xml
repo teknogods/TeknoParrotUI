@@ -2,7 +2,7 @@
 <GameProfile>
   <GamePath />
   <EmulationProfile>TeknoTZero</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoTZero</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -189,13 +189,6 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Enable Cabinet Outputs</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <Hint>Publishes raw I/O request bits and train meter values. Lamp names and force feedback are not yet decoded.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
       <FieldName>Outputs</FieldName>
       <FieldValue>Windows Outputs</FieldValue>
       <FieldType>Dropdown</FieldType>
@@ -203,13 +196,7 @@
         <string>Windows Outputs</string>
         <string>Network Outputs</string>
       </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Output Bind Address</FieldName>
-      <FieldValue>127.0.0.1</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Network output listener address. Use 0.0.0.0 to permit remote receivers.</Hint>
+      <Hint>Choose how game outputs are sent. Select Network Outputs to configure its settings.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

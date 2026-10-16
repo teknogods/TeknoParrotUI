@@ -2,7 +2,7 @@
 <GameProfile>
   <GamePath />
   <EmulationProfile>TeknoTZero</EmulationProfile>
-  <GameProfileRevision>4</GameProfileRevision>
+  <GameProfileRevision>5</GameProfileRevision>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoTZero</EmulatorType>
   <Is64Bit>true</Is64Bit>
@@ -11,6 +11,52 @@
   <Patreon>true</Patreon>
   <DevOnly>false</DevOnly>
   <ConfigValues>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Force Feedback Device</FieldName>
+      <FieldValue>off</FieldValue>
+      <FieldType>DynamicDropdown</FieldType>
+      <Hint>Select a force feedback wheel or controller vibration for the cabinet's vibration motor (LOW/MID/HIGH). Reopen Game Settings to refresh connected devices.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Force Feedback Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Overall effect strength. 100% keeps the normal full strength.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Enable Sine Effect</FieldName>
+      <FieldValue>1</FieldValue>
+      <FieldType>Bool</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Sine Effect Strength</FieldName>
+      <FieldValue>100</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Sine Effect</EnabledBy>
+      <FieldMin>0</FieldMin>
+      <FieldMax>100</FieldMax>
+      <Hint>Strength of the cabinet's vibration motors.</Hint>
+    </FieldInformation>
+    <FieldInformation>
+      <CategoryName>General</CategoryName>
+      <FieldName>Sine Effect Period</FieldName>
+      <FieldValue>40</FieldValue>
+      <FieldType>Slider</FieldType>
+      <SettingsPage>ForceFeedback</SettingsPage>
+      <EnabledBy>Enable Sine Effect</EnabledBy>
+      <FieldMin>10</FieldMin>
+      <FieldMax>200</FieldMax>
+      <Hint>Period of the host vibration used for wheels without motor rumble. Controller rumble ignores it.</Hint>
+    </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
       <FieldName>Input API</FieldName>
@@ -189,13 +235,6 @@
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>
-      <FieldName>Enable Cabinet Outputs</FieldName>
-      <FieldValue>0</FieldValue>
-      <FieldType>Bool</FieldType>
-      <Hint>Publishes raw I/O request bits and train meter values. Lamp names and force feedback are not yet decoded.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
       <FieldName>Outputs</FieldName>
       <FieldValue>Windows Outputs</FieldValue>
       <FieldType>Dropdown</FieldType>
@@ -203,13 +242,7 @@
         <string>Windows Outputs</string>
         <string>Network Outputs</string>
       </FieldOptions>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>Output Bind Address</FieldName>
-      <FieldValue>127.0.0.1</FieldValue>
-      <FieldType>Text</FieldType>
-      <Hint>Network output listener address. Use 0.0.0.0 to permit remote receivers.</Hint>
+      <Hint>Choose how game outputs are sent. Select Network Outputs to configure its settings.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

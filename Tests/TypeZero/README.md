@@ -6,8 +6,8 @@ restart, neutral controls, train notch selection, Stunt steering, revision routi
 argument quoting and seven XML profiles / nine game revisions. It also resolves the
 five Type Zero revisions and seven TPOnline room/view IDs using isolated stock/user profiles,
 checks saved controls and offline settings remain intact, and rejects offline-only
-games. The older Battle Gear 2 conversion disables the v2.04-only rumble and
-wheel force-feedback hooks for that launch, preserving the saved offline setup.
+games. Battle Gear 2's saved force-feedback device is passed to both revisions;
+the emulator only plays feedback for v2.04. The saved offline setup is unchanged.
 
 The TTZIN publisher uses the managed memory-mapped accessor with aligned UInt32
 sequence stores and explicit memory barriers. Common builds with unsafe blocks
@@ -27,8 +27,9 @@ UI profiles alone does not make older emulator builds compatible.
 
 All seven profiles launch Vulkan with 1-8x internal resolution, widescreen,
 stereo SBS/OpenXR and custom/Lottes CRT options. Contracts check renderer
-migration, invalid option rejection and Battle Gear 2 v2.04 wheel/rumble routing,
-including per-effect gains and spring mode.
+migration, invalid option rejection and Battle Gear 2 force-feedback routing
+(tzerohaptic tokens, per-effect strengths and spring mode), and that cabinet
+outputs are always published.
 
 For a live integration check, create a fresh directory with the built emulator
 package under `TeknoTZero/` and a copy of initialized Battle Gear saves under

@@ -18,7 +18,7 @@ foreach ($library in @('SharpDX', 'SharpDX.DirectInput', 'SharpDX.XInput')) {
     Copy-Item -LiteralPath $dll -Destination $output -Force
     $inputReferences += "/reference:$dll"
 }
-& $Csc /nologo /platform:x86 /langversion:9.0 "/out:$exe" "/reference:$common" @inputReferences (Join-Path $PSScriptRoot 'Contracts.cs') (Join-Path $PSScriptRoot 'PowerShovelControls.cs') (Join-Path $repo 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\TeknoTZeroLauncher.cs')
+& $Csc /nologo /platform:x86 /langversion:9.0 "/out:$exe" "/reference:$common" @inputReferences (Join-Path $PSScriptRoot 'Contracts.cs') (Join-Path $PSScriptRoot 'PowerShovelControls.cs') (Join-Path $repo 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\TeknoTZeroLauncher.cs') (Join-Path $repo 'TeknoParrotUi\Helpers\TZeroFfbDeviceProbe.cs')
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 if ($ExportArguments) { & $exe $repo $ExportArguments }
 else { & $exe $repo }

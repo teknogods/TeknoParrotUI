@@ -13,7 +13,7 @@ $common = Join-Path $repo 'TeknoParrotUi.Common\obj\x86\Debug\TeknoParrotUi.Comm
 if (!(Test-Path -LiteralPath $common)) { throw 'Build Debug|x86 first.' }
 Copy-Item -LiteralPath $common -Destination $output -Force
 $exe = Join-Path $output 'LiveLaunch.exe'
-& $Csc /nologo /platform:x86 /langversion:9.0 "/out:$exe" "/reference:$common" (Join-Path $PSScriptRoot 'LiveLaunch.cs') (Join-Path $repo 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\TeknoTZeroLauncher.cs')
+& $Csc /nologo /platform:x86 /langversion:9.0 "/out:$exe" "/reference:$common" (Join-Path $PSScriptRoot 'LiveLaunch.cs') (Join-Path $repo 'TeknoParrotUi\Views\GameRunningCode\ProcessManagement\TeknoTZeroLauncher.cs') (Join-Path $repo 'TeknoParrotUi\Helpers\TZeroFfbDeviceProbe.cs')
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 & $exe $repo $StagedUiRoot $RomRoot $ChdRoot $Game
 exit $LASTEXITCODE

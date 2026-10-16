@@ -191,19 +191,23 @@ namespace TeknoParrotUi.UserControls
         {
             if (gameProfile.EmulatorType != EmulatorType.TeknoModel1 &&
                 gameProfile.EmulatorType != EmulatorType.TeknoModel2 &&
-                gameProfile.EmulatorType != EmulatorType.TeknoModel3)
+                gameProfile.EmulatorType != EmulatorType.TeknoModel3 &&
+                gameProfile.EmulatorType != EmulatorType.TeknoTZero)
                 return;
 
-            // Model 3's Ocean Hunter has a second gun-reaction device.
+            // Model 3's Ocean Hunter and Type Zero's Power Shovel have a second device.
             var fields = gameProfile.ConfigValues?.Where(cv =>
                 (cv.FieldName == "Force Feedback Device" ||
                  (cv.FieldName == "Player 2 Force Feedback Device" &&
-                  gameProfile.EmulatorType == EmulatorType.TeknoModel3)) &&
+                  (gameProfile.EmulatorType == EmulatorType.TeknoModel3 ||
+                   gameProfile.EmulatorType == EmulatorType.TeknoTZero))) &&
                 cv.FieldType == FieldType.DynamicDropdown).ToList();
             if (fields == null || fields.Count == 0)
                 return;
 
-            var devices = gameProfile.EmulatorType == EmulatorType.TeknoModel3
+            var devices = gameProfile.EmulatorType == EmulatorType.TeknoTZero
+                ? TZeroFfbDeviceProbe.GetDevices()
+                : gameProfile.EmulatorType == EmulatorType.TeknoModel3
                 ? Model3FfbDeviceProbe.GetDevices()
                 : gameProfile.EmulatorType == EmulatorType.TeknoModel2
                     ? Model2FfbDeviceProbe.GetDevices() : Model1FfbDeviceProbe.GetDevices();
