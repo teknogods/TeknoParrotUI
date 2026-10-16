@@ -992,8 +992,8 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 _gameProfile.EmulationProfile == EmulationProfile.JojoLastSurvivor ||
                 _gameProfile.EmulationProfile == EmulationProfile.DenshaDeGo ||
                 _gameProfile.EmulationProfile == EmulationProfile.ALLSIDTA ||
-                _gameProfile.EmulationProfile == EmulationProfile.SegaOlympic2020
-                _gameProfile.EmulationProfile == EmulationProfile.ALLSSoulReverse ||
+                _gameProfile.EmulationProfile == EmulationProfile.SegaOlympic2020 ||
+                _gameProfile.EmulationProfile == EmulationProfile.ALLSSoulReverse
                 )
                 {
                     try
