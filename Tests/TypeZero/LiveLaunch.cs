@@ -53,7 +53,9 @@ internal static class LiveLaunch
             profile.ProfileName = profileSet + "_tz";
             profile.GamePath = Path.Combine(rom, profileSet + ".zip");
             void Setting(string name, string value) => profile.ConfigValues.Single(x => x.FieldName == name).FieldValue = value;
-            Setting("CHD Directory", chd);
+            var disk = TeknoTZeroLauncher.DiskFile(game);
+            profile.GamePath2 = new[] { Path.Combine(chd, profileSet, disk), Path.Combine(chd, disk) }
+                .FirstOrDefault(File.Exists) ?? Path.Combine(chd, profileSet, disk);
             Setting("Game Version", game);
             Setting("DisplayMode", "Windowed");
             Setting("VSync", "0");

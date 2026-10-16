@@ -861,6 +861,18 @@ namespace TeknoParrotUi.Views
                 }
             }
 
+            // Type Zero: fill Game CHD from the MAME layout next to the ROM.
+            if (gameProfile.EmulatorType == EmulatorType.TeknoTZero && gameProfile.HasTwoExecutables &&
+                string.IsNullOrEmpty(gameProfile.GamePath2))
+            {
+                var foundChd = TeknoParrotUi.Views.GameRunningCode.ProcessManagement.TeknoTZeroLauncher.FindChd(gameProfile);
+                if (foundChd != null)
+                {
+                    gameProfile.GamePath2 = foundChd;
+                    JoystickHelper.SerializeGameProfile(gameProfile);
+                }
+            }
+
             // Check second exe
             if (gameProfile.HasTwoExecutables)
             {

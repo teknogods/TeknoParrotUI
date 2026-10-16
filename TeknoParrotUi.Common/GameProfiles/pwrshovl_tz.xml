@@ -1,14 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
 <GameProfile>
   <GamePath />
+  <GamePath2 />
   <EmulationProfile>TeknoTZero</EmulationProfile>
-  <GameProfileRevision>8</GameProfileRevision>
+  <GameProfileRevision>9</GameProfileRevision>
   <HasTpoSupport>true</HasTpoSupport>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoTZero</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>pwrshovl.zip</ExecutableName>
-  <HasTwoExecutables>false</HasTwoExecutables>
+  <ExecutableName2>pwrshovl.chd</ExecutableName2>
+  <HasTwoExecutables>true</HasTwoExecutables>
   <Patreon>true</Patreon>
   <DevOnly>false</DevOnly>
   <ConfigValues>
@@ -85,13 +87,6 @@
         <string>pwrshovl</string>
       </FieldOptions>
       <Hint>Select the merged parent ROM ZIP. For TPOnline, both players bind Player 1 controls; the game automatically locks to two-player mode.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>CHD Directory</FieldName>
-      <FieldValue />
-      <FieldType>Text</FieldType>
-      <Hint>CHD root containing game subdirectories. Empty uses the selected ROM directory.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

@@ -24,6 +24,51 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             { "raizpin_tz", new[] { "raizpin" } }
         };
 
+        // MAME disk names per revision (Game CHD), with the MAME set folder.
+        private static readonly Dictionary<string, string[]> Disks = new Dictionary<string, string[]>
+        {
+            { "batlgear", new[] { "batlgear", "batlgear.chd" } },
+            { "batlgr2", new[] { "batlgr2", "bg2_204j.chd" } },
+            { "batlgr2a", new[] { "batlgr2", "bg2_201j.chd" } },
+            { "landhigh", new[] { "landhigh", "landhigh.chd" } },
+            { "landhigha", new[] { "landhigh", "landhigha.chd" } },
+            { "pwrshovl", new[] { "pwrshovl", "pwrshovl.chd" } },
+            { "dendego3", new[] { "dendego3", "ddg3.chd" } },
+            { "styphp", new[] { "styphp", "styphp.chd" } },
+            { "raizpin", new[] { "raizpin", "raizpin.chd" } }
+        };
+
+        internal static string DiskFile(string set) =>
+            Disks.TryGetValue(set ?? "", out var disk) ? disk[1] : null;
+
+        private static string SelectedRevision(GameProfile profile)
+        {
+            if (!Sets.TryGetValue(profile.ProfileName ?? "", out var revisions)) return null;
+            var set = profile.ConfigValues?.FirstOrDefault(x => x.FieldName == "Game Version")?.FieldValue ?? revisions[0];
+            return revisions.Contains(set) ? set : revisions[0];
+        }
+
+        // Finds the selected revision's CHD next to the ROM: MAME layout
+        // (<rom folder>/<set>/<disk>.chd) or the ROM folder itself.
+        internal static string FindChd(GameProfile profile, string romPath = null)
+        {
+            var set = SelectedRevision(profile);
+            if (set == null || !Disks.TryGetValue(set, out var disk)) return null;
+            romPath = string.IsNullOrWhiteSpace(romPath) ? profile.GamePath : romPath;
+            if (string.IsNullOrWhiteSpace(romPath)) return null;
+            try
+            {
+                var full = Path.GetFullPath(Path.IsPathRooted(romPath) ? romPath : Path.Combine(Directory.GetCurrentDirectory(), romPath));
+                var folder = Directory.Exists(full) ? full : Path.GetDirectoryName(full);
+                foreach (var candidate in new[] { Path.Combine(folder, disk[0], disk[1]), Path.Combine(folder, disk[1]) })
+                    if (File.Exists(candidate)) return candidate;
+            }
+            catch (Exception ex) when (ex is ArgumentException || ex is NotSupportedException || ex is PathTooLongException)
+            {
+            }
+            return null;
+        }
+
         internal static string Quote(string value)
         {
             var result = new StringBuilder("\"");
@@ -69,7 +114,10 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
                 throw new ArgumentException("Select the game's ROM ZIP in Game Settings.");
             var rom = Resolve(selected);
             var romRoot = Directory.Exists(rom) ? rom : Path.GetDirectoryName(rom);
-            var chd = Setting("CHD Directory").Trim();
+            // Game CHD (second game path), as Cart Fury. A CHD that belongs to
+            // the other revision still works: the emulator then looks for the
+            // selected revision's disk in the same folder.
+            var chd = string.IsNullOrWhiteSpace(profile.GamePath2) ? FindChd(profile, rom) : Resolve(profile.GamePath2);
             var scale = Setting("Internal Resolution", "2");
             if (!int.TryParse(scale, out var scaleValue) || scaleValue < 1 || scaleValue > 8)
                 throw new ArgumentException("Internal Resolution must be between 1 and 8.");
@@ -77,7 +125,15 @@ namespace TeknoParrotUi.Views.GameRunningCode.ProcessManagement
             void Add(string key, string value) => args.Add(Quote("--" + key + "=" + value));
             void Flag(string key, bool value) => Add(key, value ? "true" : "false");
             Add("paths.rom", romRoot);
-            Add("paths.chd", chd.Length == 0 ? romRoot : Resolve(chd));
+            if (string.IsNullOrWhiteSpace(chd))
+                Add("paths.chd", romRoot);
+            else
+            {
+                if (!chd.EndsWith(".chd", StringComparison.OrdinalIgnoreCase))
+                    throw new ArgumentException("Select the game's .chd file as Game CHD.");
+                Add("paths.disk", chd);
+                Add("paths.chd", "");
+            }
             // SDL3 force feedback through tzerohaptic device tokens, as TeknoModel3.
             var ffbDevice = HasSetting("Force Feedback Device")
                 ? TeknoParrotUi.Helpers.TZeroFfbDeviceProbe.GetLaunchSelection(Setting("Force Feedback Device", "off"))

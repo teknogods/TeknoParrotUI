@@ -90,7 +90,8 @@ namespace TeknoParrotUi.UserControls
                                       ((_gameProfile.EmulatorType == EmulatorType.TeknoViper || (_gameProfile.EmulatorType == EmulatorType.TeknoS11 || (_gameProfile.EmulatorType == EmulatorType.TeknoTPJC || _gameProfile.EmulatorType == EmulatorType.TeknoHDrive))) || _gameProfile.EmulatorType == EmulatorType.TeknoM2) ||
                                       _gameProfile.EmulatorType == EmulatorType.TeknoAGX ||
                                       (_gameProfile.EmulatorType == EmulatorType.TeknoHornet || _gameProfile.EmulatorType == EmulatorType.TeknoVUnit) || _gameProfile.EmulatorType == EmulatorType.TeknoCobra ||
-                                      _gameProfile.EmulatorType == EmulatorType.TeknoZeus
+                                      _gameProfile.EmulatorType == EmulatorType.TeknoZeus ||
+                                      _gameProfile.EmulatorType == EmulatorType.TeknoTZero
                     ? "Game CHD"
                     : Properties.Resources.GameSettingsSecondGameExecutableLabel;
                 GameExecutable2Text.Text = $"{secondPathLabel}{exeName}:";

@@ -1,14 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
 <GameProfile>
   <GamePath />
+  <GamePath2 />
   <EmulationProfile>TeknoTZero</EmulationProfile>
-  <GameProfileRevision>7</GameProfileRevision>
+  <GameProfileRevision>8</GameProfileRevision>
   <HasTpoSupport>true</HasTpoSupport>
   <HasSeparateTestMode>false</HasSeparateTestMode>
   <EmulatorType>TeknoTZero</EmulatorType>
   <Is64Bit>true</Is64Bit>
   <ExecutableName>batlgr2.zip</ExecutableName>
-  <HasTwoExecutables>false</HasTwoExecutables>
+  <ExecutableName2>bg2_204j.chd|bg2_201j.chd</ExecutableName2>
+  <HasTwoExecutables>true</HasTwoExecutables>
   <Patreon>true</Patreon>
   <DevOnly>false</DevOnly>
   <ConfigValues>
@@ -164,13 +166,6 @@
         <string>batlgr2a</string>
       </FieldOptions>
       <Hint>Each revision keeps separate saves. Select the merged parent ROM ZIP.</Hint>
-    </FieldInformation>
-    <FieldInformation>
-      <CategoryName>General</CategoryName>
-      <FieldName>CHD Directory</FieldName>
-      <FieldValue />
-      <FieldType>Text</FieldType>
-      <Hint>CHD root containing game subdirectories. Empty uses the selected ROM directory.</Hint>
     </FieldInformation>
     <FieldInformation>
       <CategoryName>General</CategoryName>

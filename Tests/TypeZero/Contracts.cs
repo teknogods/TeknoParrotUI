@@ -464,6 +464,23 @@ internal static class Contracts
                 }
                 depthPercent.FieldValue = "0"; nearLimit.FieldValue = "0.5";
                 Check(args.Contains("--paths.rom=C:\\ROM library"), "ROM directory quoting");
+                // Game CHD, as Cart Fury: no CHD Directory field; the selected disk is passed
+                // explicitly, and an unset/missing disk falls back to the ROM folder.
+                Check(profile.HasTwoExecutables && !string.IsNullOrEmpty(profile.ExecutableName2) &&
+                    profile.ExecutableName2.Split('|').All(x => x.EndsWith(".chd")) &&
+                    !profile.ConfigValues.Any(x => x.FieldName == "CHD Directory"), "Game CHD selection missing");
+                Check(string.IsNullOrEmpty(profile.GamePath2) && args.Contains("--paths.chd=C:\\ROM library") &&
+                    !args.Any(x => x.StartsWith("--paths.disk=")), "Unset Game CHD must fall back to the ROM folder");
+                profile.GamePath2 = "D:\\Disk library\\" + TeknoTZeroLauncher.DiskFile(
+                    profile.ConfigValues.Single(x => x.FieldName == "Game Version").FieldValue);
+                var diskArgs = Args(TeknoTZeroLauncher.Build(profile, null, null).Arguments);
+                Check(diskArgs.Contains("--paths.disk=" + profile.GamePath2) && diskArgs.Contains("--paths.chd="),
+                    "Selected Game CHD not passed to the emulator");
+                profile.GamePath2 = "D:\\Disk library\\notadisk.zip";
+                bool badDisk = false;
+                try { TeknoTZeroLauncher.Build(profile, null, null); } catch (ArgumentException) { badDisk = true; }
+                Check(badDisk, "Non-CHD Game CHD accepted");
+                profile.GamePath2 = null;
                 Check(args.Contains("--input.keyboard.provider=none"), "Native controls remain enabled");
                 Check(start.RedirectStandardError && !start.UseShellExecute, "Launcher diagnostics");
                 var volume = profile.ConfigValues.Single(x => x.FieldName == "Volume");
