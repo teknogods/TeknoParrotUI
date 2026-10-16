@@ -42,6 +42,39 @@ namespace TeknoParrotUi
         [DllImport("winmm.dll", EntryPoint = "timeEndPeriod", SetLastError = true)]
         public static extern uint TimeEndPeriod(uint uMilliseconds);
 
+        [StructLayout(LayoutKind.Sequential)]
+        private struct PowerThrottlingState
+        {
+            public uint Version, ControlMask, StateMask;
+        }
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool SetProcessInformation(IntPtr process, int informationClass, ref PowerThrottlingState information, int size);
+
+        // Windows 11 loves to throttle us in the background, which makes JVS run slow
+        // Could potentially be the cause of some of the recent "JVS does not work" bug reports?
+        private static void KeepTimerResolution()
+        {
+            const int processPowerThrottling = 4;
+            const uint executionSpeed = 0x1, ignoreTimerResolution = 0x4;
+            try
+            {
+                var state = new PowerThrottlingState { Version = 1, ControlMask = executionSpeed | ignoreTimerResolution, StateMask = 0 };
+                using (var process = Process.GetCurrentProcess())
+                {
+                    if (!SetProcessInformation(process.Handle, processPowerThrottling, ref state, Marshal.SizeOf(state)))
+                    {
+                        state.ControlMask = executionSpeed;
+                        SetProcessInformation(process.Handle, processPowerThrottling, ref state, Marshal.SizeOf(state));
+                    }
+                }
+            }
+            catch (EntryPointNotFoundException)
+            {
+                // Windows 7: no power throttling
+            }
+        }
+
         public static bool Is64Bit()
         {
             // for testing
@@ -399,6 +432,7 @@ namespace TeknoParrotUi
                 p.PriorityClass = ProcessPriorityClass.AboveNormal;
 
             TimeBeginPeriod(1);
+            KeepTimerResolution();
 
             if (e.Args.Length != 0)
             {

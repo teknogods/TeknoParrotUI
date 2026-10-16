@@ -20,30 +20,24 @@ namespace TeknoParrotUi.Common
         private const int _targetElapsedMilliseconds = 10;
         private Stopwatch _stopwatchDeque = new Stopwatch();
         private SpinWait _spinWaitDeque = new SpinWait();
+        // Set by ListenPipe / ListenSerial whenever bytes arrive
+        private readonly AutoResetEvent _dataArrived = new AutoResetEvent(false);
         //private readonly List<byte> _lastPackage = new List<byte>(); // This is for TESTING
         /// <summary>
-        /// Process the queue, very dirty and hacky. Please improve.
-        /// This is the stablest I got it, lot of research and development of different methods.
+        /// Process the queue by waiting for data instead of the timer we used to have
         /// </summary>
         public void ProcessQueue()
         {
             Thread.CurrentThread.Priority = ThreadPriority.Highest;
-            Stopwatch stopwatch = new Stopwatch();
-            SpinWait spinWait = new SpinWait();
-            // we use a spinlock here instead of Thread.Sleep because otherwise
-            // when startMinimzed is used windows will forcibly reduce our timer precision
-            // and JVS will run too slow for games like LGJ to run properly
             while (true)
             {
-                stopwatch.Restart();
                 try
                 {
                     if (QueueProcessor()) return;
 
-                    while (stopwatch.ElapsedMilliseconds < _targetElapsedMilliseconds)
-                    {
-                        spinWait.SpinOnce();
-                    }
+                    // the next request, or a look at KillMe every 10 ms
+                    if (_recievedData.IsEmpty)
+                        _dataArrived.WaitOne(_targetElapsedMilliseconds);
                 }
                 catch (Exception)
                 {
@@ -175,6 +169,7 @@ namespace TeknoParrotUi.Common
 
                                 _recievedData.Enqueue(data[i]);
                             }
+                            _dataArrived.Set();
                         }
                     }
                 }
@@ -232,6 +227,7 @@ namespace TeknoParrotUi.Common
 
                     _recievedData.Enqueue(data[i]);
                 }
+                _dataArrived.Set();
             };
 
             _port.Open();
